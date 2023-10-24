@@ -47,8 +47,14 @@ export class WorldMapComponent implements AfterViewInit {
       fillOpacity: 0.5,
       radius: 5000
     })
-      .bindTooltip("this is where i live now")
+      .bindTooltip("")
       .addTo(this.map);
+
+    // Try to get user's current location and based on the location centre div to provide better visualisation
+    navigator.geolocation.getCurrentPosition(
+      (location) => this.map?.setView([location.coords.latitude, location.coords.longitude], 5),
+      (err) => console.warn(err)
+    );
 
 
   }
