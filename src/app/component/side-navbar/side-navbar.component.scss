@@ -1,0 +1,14 @@
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+@import 'node_modules/bootstrap/scss/mixins';
+
+/* For medium and large screens */
+@include media-breakpoint-up(md) {
+  .main-nav-sidebar {
+    height: 100%;
+  }
+}
+
+.app-tagline {
+  font-size: small;
+}
