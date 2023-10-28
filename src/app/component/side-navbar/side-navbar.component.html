@@ -3,8 +3,9 @@
   data-bs-theme="dark">
 
   <div class="d-flex flex-column flex-shrink-0 p-3 w-100">
+    <!-- App Band logo section   -->
     <div class="d-flex flex-row justify-content-between">
-      <a href="/" class="navbar-brand d-flex flex-row">
+      <a routerLink="/home" class="navbar-brand d-flex flex-row">
         <div class="col">
           <img src="assets/journeys-logo.png" alt="Journeys" width="32" height="32">
         </div>
@@ -12,8 +13,6 @@
           <span class="fs-4 pe-none">Journeys</span>
           <p class="text-monospace app-tagline text-center">Time travel to the past</p>
         </div>
-
-
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,30 +24,30 @@
 
       <ul class="navbar-nav flex-column mb-auto">
         <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">
+          <a routerLink="/home" class="nav-link" routerLinkActive="active" aria-current="page">
             <i class="bi bi-house-door pe-none me-2"></i>Home
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a routerLink="/dashboard" class="nav-link" routerLinkActive="active">
             <i class="bi bi-speedometer2 pe-none me-2"></i>
             Dashboard
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a routerLink="/search" class="nav-link" routerLinkActive="active">
             <i class="bi bi-search pe-none me-2"></i>
-            Search Tours
+            Search
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a routerLink="/gallery" class="nav-link" routerLinkActive="active">
             <i class="bi bi-grid pe-none me-2"></i>
             Gallery
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a routerLink="/workspace" class="nav-link" routerLinkActive="active">
             <i class="bi bi-code-slash pe-none me-2"></i>
             Workspace
           </a>

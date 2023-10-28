@@ -9,12 +9,22 @@ import { SideNavbarComponent } from './component/side-navbar/side-navbar.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import { HomeComponent } from './page/home/home.component';
+import { DashboardComponent } from './page/dashboard/dashboard.component';
+import { SearchComponent } from './page/search/search.component';
+import { GalleryComponent } from './page/gallery/gallery.component';
+import { WorkspaceComponent } from './page/workspace/workspace.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WorldMapComponent,
-    SideNavbarComponent
+    SideNavbarComponent,
+    HomeComponent,
+    DashboardComponent,
+    SearchComponent,
+    GalleryComponent,
+    WorkspaceComponent
   ],
   imports: [
     BrowserModule,
