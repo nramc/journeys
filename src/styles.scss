@@ -54,3 +54,11 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.gradient-text {
+  background: $primary;
+  background: linear-gradient(to right, $indigo 1%, $primary 25%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
