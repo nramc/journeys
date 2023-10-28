@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { WorldMapComponent } from './component/world-map/world-map.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { SideNavbarComponent } from './component/side-navbar/side-navbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { SideNavbarComponent } from './component/side-navbar/side-navbar.compone
   imports: [
     BrowserModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
