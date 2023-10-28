@@ -11,8 +11,8 @@ assignees: ''
 Here..!
 
 **Acceptances Criteria**
-AC 1:
-AC 2:
-AC 3:
+AC 1: 
+AC 2: 
+AC 3: 
 
 **Additional Contexts **
