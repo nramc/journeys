@@ -1,0 +1,29 @@
+[
+  {
+    "name": "München House",
+    "type": "Residential",
+    "latitude": 48.1230,
+    "longitude": 11.6634,
+    "city": "Munich",
+    "country": "Germany",
+    "tags": [
+      "Ram",
+      "Sakunthala",
+      "Germany",
+      "Munich"
+    ]
+  },
+  {
+    "name": "München House[Bachelor Life]",
+    "type": "Residential",
+    "latitude": 48.1303613,
+    "longitude": 11.6170241,
+    "city": "Munich",
+    "country": "Germany",
+    "tags": [
+      "Ram",
+      "Germany",
+      "Munich"
+    ]
+  }
+]

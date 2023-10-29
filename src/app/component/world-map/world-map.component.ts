@@ -1,5 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 import * as L from 'leaflet';
+import {LocationService} from "../../service/location.service";
+import {Location} from "../../model/location.model";
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -22,13 +24,15 @@ L.Marker.prototype.options.icon = iconDefault;
   styleUrls: ['./world-map.component.scss']
 })
 export class WorldMapComponent implements AfterViewInit {
-  private map: L.Map | undefined;
+  private map!: L.Map;
+
+  constructor(private locationService: LocationService) {
+  }
 
 
   private initMap(): void {
-    this.map = L.map('map')
-      .fitWorld()
-      .setView([48.1230, 11.6634], 2);
+
+    this.map = L.map('map').fitWorld();
 
     L.control.scale().addTo(this.map);
 
@@ -37,18 +41,9 @@ export class WorldMapComponent implements AfterViewInit {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
 
-    L.marker([48.1230, 11.6634])
-      .bindTooltip("This is where i live")
-      .addTo(this.map);
+    this.locationService.getAllAvailableLocations()
+      .subscribe((locations: Location[]) => locations.map(location => this.renderLocation(location, this.map)));
 
-    L.circle([48.1230, 11.6634], {
-      color: 'blue',
-      fillColor: '#799ddb',
-      fillOpacity: 0.5,
-      radius: 5000
-    })
-      .bindTooltip("")
-      .addTo(this.map);
 
     // Try to get user's current location and based on the location centre div to provide better visualisation
     navigator.geolocation.getCurrentPosition(
@@ -57,6 +52,12 @@ export class WorldMapComponent implements AfterViewInit {
     );
 
 
+  }
+
+  private renderLocation(location: Location, map: L.Map) {
+    L.marker([location.latitude, location.longitude])
+      .bindTooltip(location.name)
+      .addTo(map);
   }
 
   ngAfterViewInit(): void {
