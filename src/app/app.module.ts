@@ -14,6 +14,7 @@ import { DashboardComponent } from './page/dashboard/dashboard.component';
 import { SearchComponent } from './page/search/search.component';
 import { GalleryComponent } from './page/gallery/gallery.component';
 import { WorkspaceComponent } from './page/workspace/workspace.component';
+import { PageHeaderComponent } from './component/page-header/page-header.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { WorkspaceComponent } from './page/workspace/workspace.component';
     DashboardComponent,
     SearchComponent,
     GalleryComponent,
-    WorkspaceComponent
+    WorkspaceComponent,
+    PageHeaderComponent
   ],
   imports: [
     BrowserModule,

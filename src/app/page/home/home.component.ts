@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {HOME_PAGE_INFO} from "../../model/page-info";
 
 @Component({
   selector: 'app-home',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+    protected readonly HOME_PAGE_INFO = HOME_PAGE_INFO;
 }

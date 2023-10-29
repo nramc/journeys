@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {SEARCH_PAGE_INFO} from "../../model/page-info";
 
 @Component({
   selector: 'app-search',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class SearchComponent {
 
+  protected readonly SEARCH_PAGE_INFO = SEARCH_PAGE_INFO;
 }
