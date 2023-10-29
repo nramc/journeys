@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {DASHBOARD_PAGE_INFO} from "../../model/page-info";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
 
+  protected readonly DASHBOARD_PAGE_INFO = DASHBOARD_PAGE_INFO;
 }
