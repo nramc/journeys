@@ -1,4 +1,12 @@
-<app-page-header [pageInfo]="DASHBOARD_PAGE_INFO"></app-page-header>
+<div class="row">
+  <div class="col">
+    <app-page-header [pageInfo]="DASHBOARD_PAGE_INFO"></app-page-header>
+  </div>
+</div>
 
+<div class="row">
+  <div class="col">
+    <app-world-map (mapInitializedEvent)="onMapInitializationComplete($event)"></app-world-map>
+  </div>
+</div>
 
-<p>dashboard works!</p>

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Output} from '@angular/core';
 import * as L from 'leaflet';
 import {LocationService} from "../../service/location.service";
 import {Location} from "../../model/location.model";
@@ -25,12 +25,14 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class WorldMapComponent implements AfterViewInit {
   private map!: L.Map;
+  @Output() mapInitializedEvent = new EventEmitter<L.Map>();
 
   constructor(private locationService: LocationService) {
   }
 
   ngAfterViewInit(): void {
     this.initializeMap();
+    this.mapInitializedEvent.emit(this.map);
   }
 
   private initializeMap(): void {
@@ -46,13 +48,6 @@ export class WorldMapComponent implements AfterViewInit {
 
     this.locationService.getAllAvailableLocations()
       .subscribe((locations: Location[]) => locations.map(location => this.renderLocation(location, this.map)));
-
-
-    // Try to get user's current location and based on the location centre div to provide better visualisation
-    navigator.geolocation.getCurrentPosition(
-      (location) => this.map?.setView([location.coords.latitude, location.coords.longitude], 5),
-      (err) => console.warn(err)
-    );
 
 
   }
