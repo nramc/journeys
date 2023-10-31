@@ -16,6 +16,7 @@ import {GalleryComponent} from './page/gallery/gallery.component';
 import {WorkspaceComponent} from './page/workspace/workspace.component';
 import {PageHeaderComponent} from './component/page-header/page-header.component';
 import {HttpClientModule} from "@angular/common/http";
+import { MarkerPopupComponent } from './component/marker-popup/marker-popup.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {HttpClientModule} from "@angular/common/http";
     SearchComponent,
     GalleryComponent,
     WorkspaceComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    MarkerPopupComponent
   ],
   imports: [
     BrowserModule,
