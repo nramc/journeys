@@ -76,6 +76,16 @@ body {
   top: 50%;
   margin: -15px 0 0 -15px;
 }
+
+.marker-icon-wrapper:hover .marker-pin {
+  transition: color 1s ease;
+  background: $pink;
+}
+.marker-icon-wrapper:hover i {
+  transition: color 1s ease;
+  color: $pink !important;
+}
+
 // to draw white circle
 .marker-pin::after {
   content: '';
