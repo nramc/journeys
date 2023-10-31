@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, EventEmitter, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Output, ViewChild, ViewContainerRef} from '@angular/core';
 import * as L from 'leaflet';
-import {LocationService} from "../../service/location.service";
 import {Location} from "../../model/location.model";
+import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -26,9 +26,8 @@ L.Marker.prototype.options.icon = iconDefault;
 export class WorldMapComponent implements AfterViewInit {
   private map!: L.Map;
   @Output() mapInitializedEvent = new EventEmitter<L.Map>();
+  @ViewChild("markerPopupViewContainer", {read: ViewContainerRef}) markerPopupViewContainerRef: ViewContainerRef | undefined;
 
-  constructor(private locationService: LocationService) {
-  }
 
   ngAfterViewInit(): void {
     this.initializeMap();
@@ -46,18 +45,18 @@ export class WorldMapComponent implements AfterViewInit {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
 
-    this.locationService.getAllAvailableLocations()
-      .subscribe((locations: Location[]) => locations.map(location => this.renderLocation(location, this.map)));
-
 
   }
 
-  private renderLocation(location: Location, map: L.Map) {
+  addMarkerWithPopup(location: Location, map: L.Map) {
+    let popupComponent = this.markerPopupViewContainerRef?.createComponent(MarkerPopupComponent);
+    popupComponent!.instance.location = location;
+
     L.marker([location.latitude, location.longitude])
       .bindTooltip(location.name)
+      .bindPopup(popupComponent?.instance.elementRef.nativeElement)
       .addTo(map);
   }
-
 
 
 }
