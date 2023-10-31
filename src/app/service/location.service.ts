@@ -1,18 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Location} from "../model/location.model";
 import {Observable} from "rxjs";
+import {FeatureCollection} from "geojson";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
-  #location_url = '/assets/data/data.json';
+  #data_url = '/assets/data/data.geojson.json';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllAvailableLocations(): Observable<Location[]> {
-    return this.httpClient.get<Location[]>(this.#location_url);
+  getAllAvailableLocations(): Observable<FeatureCollection> {
+    console.log("called")
+    return this.httpClient.get<FeatureCollection>(this.#data_url);
   }
 }

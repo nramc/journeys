@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col">
-    <app-world-map (mapInitializedEvent)="onMapInitializationComplete($event)"></app-world-map>
+    <app-world-map [geoJsonData]="featureCollection" (mapInitializedEvent)="onMapInitializationComplete($event)"></app-world-map>
   </div>
 </div>
 

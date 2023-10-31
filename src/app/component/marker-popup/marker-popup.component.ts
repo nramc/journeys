@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input} from '@angular/core';
-import {Location} from "../../model/location.model";
+import {Feature} from "geojson";
 
 @Component({
   selector: 'app-marker-popup',
@@ -8,7 +8,7 @@ import {Location} from "../../model/location.model";
 })
 export class MarkerPopupComponent {
 
-  @Input() location: Location | undefined;
+  @Input() feature: Feature | undefined;
 
   elementRef: ElementRef;
 

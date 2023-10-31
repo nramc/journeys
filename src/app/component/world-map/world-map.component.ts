@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, EventEmitter, Output, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef} from '@angular/core';
 import * as L from 'leaflet';
-import {Location} from "../../model/location.model";
+import {Layer} from 'leaflet';
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
+import {Feature, FeatureCollection} from "geojson";
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -24,9 +25,20 @@ L.Marker.prototype.options.icon = iconDefault;
   styleUrls: ['./world-map.component.scss']
 })
 export class WorldMapComponent implements AfterViewInit {
-  private map!: L.Map;
+
+  private map: L.Map | undefined;
+  private geoJsonLayer: L.GeoJSON | undefined;
+
   @Output() mapInitializedEvent = new EventEmitter<L.Map>();
   @ViewChild("markerPopupViewContainer", {read: ViewContainerRef}) markerPopupViewContainerRef: ViewContainerRef | undefined;
+
+  #featureCollection: FeatureCollection | undefined;
+
+  @Input("geoJsonData")
+  set geoJsonData(geoJsonData: FeatureCollection | undefined) {
+    this.#featureCollection = geoJsonData;
+    this.addGeoJsonData(geoJsonData);
+  }
 
 
   ngAfterViewInit(): void {
@@ -40,23 +52,47 @@ export class WorldMapComponent implements AfterViewInit {
 
     L.control.scale().addTo(this.map);
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(this.map);
-
-
+    this.addTileLayers();
+    this.addGeoJsonLayer();
   }
 
-  addMarkerWithPopup(location: Location, map: L.Map) {
-    let popupComponent = this.markerPopupViewContainerRef?.createComponent(MarkerPopupComponent);
-    popupComponent!.instance.location = location;
-
-    L.marker([location.latitude, location.longitude])
-      .bindTooltip(location.name)
-      .bindPopup(popupComponent?.instance.elementRef.nativeElement)
-      .addTo(map);
+  private addTileLayers() {
+    if (this.map) {
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(this.map);
+    }
   }
 
+  private addGeoJsonData(geoJsonData: FeatureCollection | undefined) {
+    if (geoJsonData) {
+      this.geoJsonLayer?.addData(geoJsonData);
+    } else {
+      this.geoJsonLayer?.clearLayers();
+    }
+  }
+
+  private addGeoJsonLayer() {
+
+    const getPopupComponentNativeElement = (feature: Feature) => {
+      let popupComponent = this.markerPopupViewContainerRef?.createComponent(MarkerPopupComponent);
+      popupComponent!.instance.feature = feature;
+      return popupComponent?.instance.elementRef.nativeElement;
+    }
+
+    if (this.map) {
+      this.geoJsonLayer = L.geoJSON(this.#featureCollection, {
+        onEachFeature: function (feature: Feature, layer: Layer) {
+          layer.bindTooltip(feature.properties?.['name']);
+          layer.bindPopup(getPopupComponentNativeElement(feature))
+        }
+      })
+        .addTo(this.map);
+
+    } else {
+      console.warn("Unable to create GeoJson Layer. Cause:Map is not yet initialised")
+    }
+  }
 
 }
