@@ -1,28 +1,38 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DASHBOARD_PAGE_INFO} from "../../model/page-info";
 import * as L from "leaflet";
 import {LocationService} from "../../service/location.service";
-import {Location} from "../../model/location.model";
 import {WorldMapComponent} from "../../component/world-map/world-map.component";
+import {FeatureCollection} from "geojson";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   private map!: L.Map;
   @ViewChild(WorldMapComponent) worldMapComponent!: WorldMapComponent;
   protected readonly DASHBOARD_PAGE_INFO = DASHBOARD_PAGE_INFO;
+  featureCollection: FeatureCollection | undefined;
 
   constructor(private locationService: LocationService) {
+  }
+
+  ngOnInit(): void {
+
+    // Fetch all available location and store it
+    this.locationService.getAllAvailableLocations()
+      .subscribe((featureCollections: FeatureCollection) => {
+        console.log("Received data:", featureCollections);
+        this.featureCollection = featureCollections;
+      });
+
   }
 
   onMapInitializationComplete(map: L.Map) {
     this.map = map;
     this.centerMapBasedOnUserCurrentLocation();
-    this.addAllLocationWithMarker();
-
 
   }
 
@@ -34,8 +44,5 @@ export class DashboardComponent {
     );
   }
 
-  private addAllLocationWithMarker() {
-    this.locationService.getAllAvailableLocations()
-      .subscribe((locations: Location[]) => locations.map(location => this.worldMapComponent.addMarkerWithPopup(location, this.map)));
-  }
+
 }

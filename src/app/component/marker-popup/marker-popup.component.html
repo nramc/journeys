@@ -1,13 +1,13 @@
 <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-  <div class="card-header bg-gradient fw-bolder">{{location?.name}}</div>
+  <div class="card-header bg-gradient fw-bolder">{{feature?.properties?.['name']}}</div>
   <div class="card-body bg-light">
-    <h4 class="card-title text-primary">{{location?.type}}</h4>
+    <h4 class="card-title text-primary">{{feature?.properties?.['category']}}</h4>
     <div class="card-text text-dark-emphasis">
       <p class="text-primary">
         Some description goes here later
       </p>
       <p>
-        <span *ngFor="let tag of location?.tags" class="badge  bg-primary me-1">{{tag}}</span>
+        <span *ngFor="let tag of feature?.properties?.['tags']" class="badge  bg-primary me-1">{{tag}}</span>
       </p>
       <a href="#" class="btn btn-primary text-light float-end">View</a>
     </div>
