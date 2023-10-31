@@ -3,14 +3,13 @@ import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
 import {Feature, FeatureCollection} from "geojson";
+import {iconHome} from "./custom-icons.type";
 
-const iconRetinaUrl = 'assets/marker-icon-2x.png';
-const iconUrl = 'assets/marker-icon.png';
-const shadowUrl = 'assets/marker-shadow.png';
+
 const iconDefault = L.icon({
-  iconRetinaUrl,
-  iconUrl,
-  shadowUrl,
+  iconRetinaUrl: 'assets/marker-icon-2x.png',
+  iconUrl: 'assets/marker-icon.png',
+  shadowUrl: 'assets/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
@@ -82,7 +81,13 @@ export class WorldMapComponent implements AfterViewInit {
     }
 
     if (this.map) {
+
       this.geoJsonLayer = L.geoJSON(this.#featureCollection, {
+        pointToLayer: (feature, latlng) => {
+          return L.marker(latlng, {
+            icon: iconHome,
+          })
+        },
         onEachFeature: function (feature: Feature, layer: Layer) {
           layer.bindTooltip(feature.properties?.['name']);
           layer.bindPopup(getPopupComponentNativeElement(feature))
