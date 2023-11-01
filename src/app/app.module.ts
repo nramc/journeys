@@ -17,6 +17,7 @@ import {WorkspaceComponent} from './page/workspace/workspace.component';
 import {PageHeaderComponent} from './component/page-header/page-header.component';
 import {HttpClientModule} from "@angular/common/http";
 import { MarkerPopupComponent } from './component/marker-popup/marker-popup.component';
+import { LocationComponent } from './page/location/location.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MarkerPopupComponent } from './component/marker-popup/marker-popup.comp
     GalleryComponent,
     WorkspaceComponent,
     PageHeaderComponent,
-    MarkerPopupComponent
+    MarkerPopupComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,
