@@ -5,12 +5,14 @@ import {DashboardComponent} from "./page/dashboard/dashboard.component";
 import {SearchComponent} from "./page/search/search.component";
 import {GalleryComponent} from "./page/gallery/gallery.component";
 import {WorkspaceComponent} from "./page/workspace/workspace.component";
+import {LocationComponent} from "./page/location/location.component";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'search', component: SearchComponent},
   {path: 'gallery', component: GalleryComponent},
+  {path: 'place/:id', component: LocationComponent},
   {path: 'workspace', component: WorkspaceComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: "/home"}

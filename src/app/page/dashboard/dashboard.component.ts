@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
     // Fetch all available location and store it
     this.locationService.getAllAvailableLocations()
       .subscribe((featureCollections: FeatureCollection) => {
-        console.log("Received data:", featureCollections);
         this.featureCollection = featureCollections;
       });
 

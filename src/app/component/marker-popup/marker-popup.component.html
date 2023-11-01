@@ -3,13 +3,13 @@
   <div class="card-body bg-light">
     <h4 class="card-title text-primary">{{feature?.properties?.['category']}}</h4>
     <div class="card-text text-dark-emphasis">
-      <p class="text-primary">
+      <p class="text-primary" [textContent]="feature?.properties?.['description']">
         Some description goes here later
       </p>
       <p>
         <span *ngFor="let tag of feature?.properties?.['tags']" class="badge  bg-primary me-1">{{tag}}</span>
       </p>
-      <a href="#" class="btn btn-primary text-light float-end">View</a>
+      <a [routerLink]="['/place/', feature?.id]" class="btn btn-primary text-light float-end">View</a>
     </div>
   </div>
 </div>
