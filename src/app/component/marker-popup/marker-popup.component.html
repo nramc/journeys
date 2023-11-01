@@ -9,7 +9,7 @@
       <p>
         <span *ngFor="let tag of feature?.properties?.['tags']" class="badge  bg-primary me-1">{{tag}}</span>
       </p>
-      <a href="#" class="btn btn-primary text-light float-end">View</a>
+      <a [routerLink]="['/place/', feature?.id]" class="btn btn-primary text-light float-end">View</a>
     </div>
   </div>
 </div>
