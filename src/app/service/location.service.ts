@@ -13,7 +13,6 @@ export class LocationService {
   }
 
   getAllAvailableLocations(): Observable<FeatureCollection> {
-    console.log("called")
     return this.httpClient.get<FeatureCollection>(this.#data_url);
   }
 }
