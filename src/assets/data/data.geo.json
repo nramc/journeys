@@ -4,10 +4,7 @@
     {
       "id": "id_1",
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [11.6634, 48.1230]
-      },
+      "geometry": {"type": "Point", "coordinates": [11.6634, 48.1230]},
       "properties": {
         "name": "München House",
         "category": "Residential",
@@ -20,10 +17,7 @@
     {
       "id": "id_2",
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [11.6170241, 48.1303613]
-      },
+      "geometry": {"type": "Point", "coordinates": [11.6170241, 48.1303613]},
       "properties": {
         "name": "München House [Bachelor Life]",
         "category": "Residential",
