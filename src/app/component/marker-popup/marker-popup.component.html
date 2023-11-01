@@ -3,7 +3,7 @@
   <div class="card-body bg-light">
     <h4 class="card-title text-primary">{{feature?.properties?.['category']}}</h4>
     <div class="card-text text-dark-emphasis">
-      <p class="text-primary">
+      <p class="text-primary" [textContent]="feature?.properties?.['description']">
         Some description goes here later
       </p>
       <p>
