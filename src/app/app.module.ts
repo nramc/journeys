@@ -18,6 +18,7 @@ import {PageHeaderComponent} from './component/page-header/page-header.component
 import {HttpClientModule} from "@angular/common/http";
 import { MarkerPopupComponent } from './component/marker-popup/marker-popup.component';
 import { LocationComponent } from './page/location/location.component';
+import { MediaViewerComponent } from './component/media-viewer/media-viewer.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { LocationComponent } from './page/location/location.component';
     WorkspaceComponent,
     PageHeaderComponent,
     MarkerPopupComponent,
-    LocationComponent
+    LocationComponent,
+    MediaViewerComponent
   ],
   imports: [
     BrowserModule,

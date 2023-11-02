@@ -63,8 +63,7 @@ body {
 
 }
 
-
-
+/* Map marker icons styles */
 .marker-pin {
   width: 30px;
   height: 30px;
@@ -81,6 +80,7 @@ body {
   transition: color 1s ease;
   background: $pink;
 }
+
 .marker-icon-wrapper:hover i {
   transition: color 1s ease;
   color: $pink !important;
@@ -97,7 +97,6 @@ body {
   border-radius: 50%;
 }
 
-// to align icon
 .custom-div-icon i {
   position: absolute;
   width: 22px;
@@ -108,3 +107,17 @@ body {
   text-align: center;
 }
 
+/* ng-bootstrap carousal styles customisation */
+.carousel-control-prev-icon{
+  filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+  background-image: url("/assets/svg/chevron-left.svg");
+}
+.carousel-control-next-icon{
+  filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+  background-image: url("/assets/svg/chevron-right.svg");
+
+}
+.slide-media-image {
+  object-fit: fill;
+  width: 100%;
+}
