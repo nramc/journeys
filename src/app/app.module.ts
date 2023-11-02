@@ -16,9 +16,11 @@ import {GalleryComponent} from './page/gallery/gallery.component';
 import {WorkspaceComponent} from './page/workspace/workspace.component';
 import {PageHeaderComponent} from './component/page-header/page-header.component';
 import {HttpClientModule} from "@angular/common/http";
-import { MarkerPopupComponent } from './component/marker-popup/marker-popup.component';
-import { LocationComponent } from './page/location/location.component';
-import { MediaViewerComponent } from './component/media-viewer/media-viewer.component';
+import {MarkerPopupComponent} from './component/marker-popup/marker-popup.component';
+import {LocationComponent} from './page/location/location.component';
+import {MediaViewerComponent} from './component/media-viewer/media-viewer.component';
+import {MediaGalleryComponent} from "./component/media-gallery/media-gallery.component";
+import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
 
 @NgModule({
   declarations: [
@@ -42,9 +44,12 @@ import { MediaViewerComponent } from './component/media-viewer/media-viewer.comp
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MediaGalleryComponent
   ],
-  providers: [],
+  providers: [
+    {provide: LIGHTBOX_CONFIG, useValue: {panelClass:  'fullscreen'} as LightboxConfig}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
