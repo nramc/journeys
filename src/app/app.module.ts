@@ -48,7 +48,10 @@ import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
     MediaGalleryComponent
   ],
   providers: [
-    {provide: LIGHTBOX_CONFIG, useValue: {panelClass:  'fullscreen'} as LightboxConfig}
+    {provide: LIGHTBOX_CONFIG, useValue: {
+        // panelClass:  'fullscreen',
+        keyboardShortcuts: true
+    } as LightboxConfig}
   ],
   bootstrap: [AppComponent]
 })
