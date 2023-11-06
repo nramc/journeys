@@ -14,10 +14,14 @@
         "description": "Remember that happiness is a way of travel, not a destination.",
         "events": [
           {
-            "name": "2019",
-            "images": [],
-            "videos": [],
-            "thumbnail": ""
+            "name": "2022",
+            "images": ["/assets/test-data/img/2022_1.png", "/assets/test-data/img/2022_2.png", "/assets/test-data/img/2022_3.png"],
+            "videos": []
+          },
+          {
+            "name": "2023",
+            "images": ["/assets/test-data/img/2023_1.png", "/assets/test-data/img/2023_2.png", "/assets/test-data/img/2023_3.png"],
+            "videos": []
           }
         ]
       }
@@ -36,9 +40,18 @@
         "events": [
           {
             "name": "2019",
-            "images": [],
-            "videos": [],
-            "thumbnail": ""
+            "images": ["/assets/test-data/img/2019_1.png", "/assets/test-data/img/2019_2.png", "/assets/test-data/img/2019_3.png"],
+            "videos": []
+          },
+          {
+            "name": "2020",
+            "images": ["/assets/test-data/img/2020_1.png", "/assets/test-data/img/2020_2.png", "/assets/test-data/img/2020_3.png"],
+            "videos": []
+          },
+          {
+            "name": "2021",
+            "images": ["/assets/test-data/img/2021_1.png", "/assets/test-data/img/2021_2.png", "/assets/test-data/img/2021_3.png"],
+            "videos": []
           }
         ]
       }

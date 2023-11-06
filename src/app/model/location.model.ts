@@ -1,10 +1,16 @@
-export interface Location {
-  "name": string,
-  "type": string,
-  "latitude": number,
-  "longitude": number,
-  "city": string,
-  "country": string,
-  "address"?: string,
-  "tags": string[]
+import {GeoJsonProperties, Geometry} from "geojson";
+
+export interface LocationEvent {
+  name: string,
+  images?: string[],
+  videos?: string[]
+}
+
+export interface Location<G extends Geometry, P = GeoJsonProperties> {
+  id: string,
+  name: string,
+  type: string,
+  geometry: G,
+  rawProperties: P,
+  events: LocationEvent[]
 }

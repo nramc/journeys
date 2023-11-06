@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {PageInfo} from "../../model/page-info";
 import {LocationService} from "../../service/location.service";
 import {ActivatedRoute} from "@angular/router";
-import {Feature} from "geojson";
+import {Feature, Geometry} from "geojson";
+import {Location} from "../../model/location.model";
+import {convertFeatureToLocation} from "../../utility/feature-to-location.converter";
 
 @Component({
   selector: 'app-location',
@@ -12,7 +14,7 @@ import {Feature} from "geojson";
 export class LocationComponent implements OnInit {
   defaultDescription: string = 'Remember that happiness is a way of travel, not a destination.';
   locationInfo: PageInfo | undefined;
-  location: Feature | undefined;
+  location: Location<Geometry> | undefined;
 
   constructor(private locationService: LocationService,
               private route: ActivatedRoute) {
@@ -22,17 +24,20 @@ export class LocationComponent implements OnInit {
     const locationId = this.route.snapshot.params['id'];
     console.log(locationId)
     this.locationService.getLocationById(locationId)
-      .subscribe(data => data ? this.dataReceivedCallback(data) : console.warn("Location not exists"));
+      .subscribe(data => data ? this.dataReceivedCallback(data)
+        : console.warn("Location not exists")
+      );
 
   }
 
   private dataReceivedCallback(data: Feature) {
-    this.location = data;
+    this.location = convertFeatureToLocation(data);
+
     this.locationInfo = {
-      title: data?.properties?.['name'],
-      name: data?.properties?.['name'],
-      description: data?.properties?.['description'] || this.defaultDescription,
-      path: "/place/" + data?.id
+      title: this.location.name,
+      name: this.location.name,
+      description: this.location?.rawProperties?.['description'] || this.defaultDescription,
+      path: "/place/" + this.location?.id
     };
   }
 }
