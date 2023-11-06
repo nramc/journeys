@@ -11,7 +11,15 @@
         "city": "Munich",
         "country": "Germany",
         "tags": ["Ram", "Sakunthala", "Germany", "Munich"],
-        "description": "Remember that happiness is a way of travel, not a destination."
+        "description": "Remember that happiness is a way of travel, not a destination.",
+        "events": [
+          {
+            "name": "2019",
+            "images": [],
+            "videos": [],
+            "thumbnail": ""
+          }
+        ]
       }
     },
     {
@@ -24,7 +32,15 @@
         "city": "Munich",
         "country": "Germany",
         "tags": ["Ram", "Germany", "Munich"],
-        "description": "Remember that happiness is a way of travel, not a destination."
+        "description": "Remember that happiness is a way of travel, not a destination.",
+        "events": [
+          {
+            "name": "2019",
+            "images": [],
+            "videos": [],
+            "thumbnail": ""
+          }
+        ]
       }
     }
   ]
