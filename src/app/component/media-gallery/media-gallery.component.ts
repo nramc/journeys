@@ -49,7 +49,7 @@ export class MediaGalleryComponent implements OnInit {
     return this.images?.map(imageUrl => {
       return {
         type: GalleryItemTypes.Image,
-        data: {src: imageUrl}
+        data: {src: imageUrl, thumb: imageUrl}
       };
     });
   }
