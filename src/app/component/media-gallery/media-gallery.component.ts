@@ -1,59 +1,89 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {LightboxDirective} from "ng-gallery/lightbox";
 import {Gallery, GalleryItem, GalleryItemTypes} from "ng-gallery";
 
 @Component({
-    selector: 'app-media-gallery',
-    standalone: true,
-    imports: [CommonModule, LightboxDirective, NgOptimizedImage],
-    template: `
-        <div class="row row-cols-auto">
-            <div class="col"
-                 *ngFor="let item of items; let i = index"
-                 [lightbox]="i"
-                 [gallery]="galleryId">
-                <img
-                        [src]="item.type == GalleryItemTypes.Image ? item.data?.src:
-                         item.data?.thumb ?? '/assets/image/default-video-thumbnail.png'"
-                        height="150" width="150" alt="media"/>
-            </div>
-        </div>
-    `,
-    styles: []
+  selector: 'app-media-gallery',
+  standalone: true,
+  imports: [CommonModule, LightboxDirective, NgOptimizedImage],
+  template: `
+    <div class="row row-cols-auto">
+      <div class="col"
+           *ngFor="let item of items; let i = index"
+           [lightbox]="i"
+           [gallery]="galleryId">
+        <img
+          [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? '/assets/image/default-video-thumbnail.png'"
+          height="150" width="150" alt="media"/>
+      </div>
+    </div>
+  `,
+  styles: []
 })
 export class MediaGalleryComponent implements OnInit {
-    galleryId = 'myLightbox';
-    items: GalleryItem[] = [];
+  protected readonly GalleryItemTypes = GalleryItemTypes;
+  galleryId = 'myLightbox';
+  @Input("images") images: string[] | undefined = [];
+  @Input("videos") videos: string[] | undefined = [];
 
-    constructor(public gallery: Gallery) {
-    }
+  items: GalleryItem[] = [];
 
-    ngOnInit() {
-        this.items = this.getGalleryItems();
-        const galleryRef = this.gallery.ref(this.galleryId);
-        galleryRef.load(this.items);
-    }
+  constructor(public gallery: Gallery) {
+  }
 
-    private getGalleryItems(): GalleryItem[] {
-        let collections = new Array<GalleryItem>();
+  ngOnInit() {
+    this.items = this.getGalleryItems();
+    const galleryRef = this.gallery.ref(this.galleryId);
+    galleryRef.load(this.items);
+  }
 
-        collections.push({
-            type: GalleryItemTypes.Image,
-            data: {src: 'https://picsum.photos/id/944/900/500'}
-        });
-        collections.push({
-            type: GalleryItemTypes.Image,
-            data: {src: 'https://picsum.photos/id/1011/900/500'}
-        });
-        collections.push({
-            type: GalleryItemTypes.Youtube,
-            data: {src: 'https://www.youtube.com/embed/OSuHTW9T57A'}
-        });
+  private getGalleryItems(): GalleryItem[] {
+    let collections = new Array<GalleryItem>();
+    this.getImageItems()?.map(item => collections.push(item));
+    this.getVideoItems()?.map(item => collections.push());
+    return collections;
+  }
 
+  private getImageItems(): GalleryItem[] | undefined {
+    return this.images?.map(imageUrl => {
+      return {
+        type: GalleryItemTypes.Image,
+        data: {src: imageUrl}
+      };
+    });
+  }
 
-        return collections;
-    }
+  private getVideoItems(): GalleryItem[] | undefined {
+    return this.videos?.map(videoUrl =>
+      this.isItYoutubeVideoId(videoUrl) ?
+        this.newYoutubeItem(videoUrl) :
+        this.newVideoItem(videoUrl));
+  }
 
-    protected readonly GalleryItemTypes = GalleryItemTypes;
+  isItYoutubeVideoId(videoUrl: string) {
+    // does not contain any file extension and does not contain any url path (/)
+    return videoUrl.indexOf('.') == -1 && videoUrl.indexOf("/") == -1;
+  }
+
+  private newYoutubeItem(videoId: string): GalleryItem {
+    return {
+      type: GalleryItemTypes.Youtube,
+      data: {
+        src: `https://www.youtube.com/embed/${videoId}`,
+        thumb: `https://img.youtube.com/vi/${videoId}/0.jpg`
+      }
+    };
+  }
+
+  private newVideoItem(videoUrl: string): GalleryItem {
+    return {
+      type: GalleryItemTypes.Iframe,
+      data: {
+        src: videoUrl,
+        thumb: '/assets/image/default-video-thumbnail.png'
+      }
+    };
+  }
 }
+

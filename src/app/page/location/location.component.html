@@ -1,12 +1,15 @@
-<div class="row">
-  <div class="col">
-    <app-page-header [pageInfo]="locationInfo"></app-page-header>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    <app-media-gallery></app-media-gallery>
+<ng-container *ngIf="location$ | async as location">
+  <div class="row">
+    <div class="col">
+      <app-page-header [pageInfo]="getPageInfo(location)"></app-page-header>
+    </div>
+    {{location | json}}
   </div>
 
-</div>
+  <div class="row">
+    <div class="col">
+      <app-media-gallery [images]="getImages(location)" [videos]="getVideos(location)"></app-media-gallery>
+    </div>
+
+  </div>
+</ng-container>
