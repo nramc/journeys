@@ -21,6 +21,7 @@ import {LocationComponent} from './page/location/location.component';
 import {MediaViewerComponent} from './component/media-viewer/media-viewer.component';
 import {MediaGalleryComponent} from "./component/media-gallery/media-gallery.component";
 import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -37,16 +38,17 @@ import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
     LocationComponent,
     MediaViewerComponent
   ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatIconModule,
-    HttpClientModule,
-    MediaGalleryComponent
-  ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatIconModule,
+        HttpClientModule,
+        MediaGalleryComponent,
+        MatTabsModule
+    ],
   providers: [
     {provide: LIGHTBOX_CONFIG, useValue: {
         // panelClass:  'fullscreen',
