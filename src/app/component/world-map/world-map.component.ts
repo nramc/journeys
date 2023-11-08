@@ -1,8 +1,18 @@
-import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef} from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    Output,
+    ViewChild,
+    ViewContainerRef
+} from '@angular/core';
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
-import {Feature, GeoJsonObject, GeoJsonProperties, Geometry} from "geojson";
+import {Feature, GeoJsonObject} from "geojson";
 import {iconHome} from "./custom-icons.type";
 
 
@@ -24,7 +34,7 @@ L.Marker.prototype.options.icon = iconDefault;
     styleUrls: ['./world-map.component.scss']
 })
 export class WorldMapComponent implements AfterViewInit {
-
+    private elementRef: ElementRef = inject(ElementRef);
     private map: L.Map | undefined;
     private geoJsonLayer: L.GeoJSON | undefined;
 
@@ -39,7 +49,7 @@ export class WorldMapComponent implements AfterViewInit {
         this.addGeoJsonData(geoJsonData);
     }
 
-    @Input() disablePopup : boolean = false;
+    @Input() disablePopup: boolean = false;
 
 
     ngAfterViewInit(): void {
@@ -49,7 +59,7 @@ export class WorldMapComponent implements AfterViewInit {
 
     private initializeMap(): void {
 
-        this.map = L.map('map').fitWorld();
+        this.map = L.map(this.elementRef.nativeElement.querySelector("div.map-renderer")).fitWorld();
 
         L.control.scale().addTo(this.map);
 
@@ -82,8 +92,8 @@ export class WorldMapComponent implements AfterViewInit {
             return popupComponent?.instance.elementRef.nativeElement;
         }
 
-        const bindPopupIfRequired = (layer: Layer, feature: Feature<Geometry, GeoJsonProperties>) => {
-            if(!this.disablePopup) {
+        const bindPopupIfRequired = (layer: Layer, feature: Feature) => {
+            if (!this.disablePopup) {
                 layer.bindTooltip(feature.properties?.['name']);
                 layer.bindPopup(getPopupComponentNativeElement(feature))
             }
