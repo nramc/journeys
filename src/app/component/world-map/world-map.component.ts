@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild, ViewCo
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
-import {Feature, GeoJsonObject} from "geojson";
+import {Feature, GeoJsonObject, GeoJsonProperties, Geometry} from "geojson";
 import {iconHome} from "./custom-icons.type";
 
 
@@ -38,6 +38,8 @@ export class WorldMapComponent implements AfterViewInit {
         this.#featureCollection = geoJsonData;
         this.addGeoJsonData(geoJsonData);
     }
+
+    @Input() disablePopup : boolean = false;
 
 
     ngAfterViewInit(): void {
@@ -80,6 +82,13 @@ export class WorldMapComponent implements AfterViewInit {
             return popupComponent?.instance.elementRef.nativeElement;
         }
 
+        const bindPopupIfRequired = (layer: Layer, feature: Feature<Geometry, GeoJsonProperties>) => {
+            if(!this.disablePopup) {
+                layer.bindTooltip(feature.properties?.['name']);
+                layer.bindPopup(getPopupComponentNativeElement(feature))
+            }
+        }
+
         if (this.map) {
 
             this.geoJsonLayer = L.geoJSON(this.#featureCollection, {
@@ -89,8 +98,7 @@ export class WorldMapComponent implements AfterViewInit {
                     })
                 },
                 onEachFeature: function (feature: Feature, layer: Layer) {
-                    layer.bindTooltip(feature.properties?.['name']);
-                    layer.bindPopup(getPopupComponentNativeElement(feature))
+                    bindPopupIfRequired(layer, feature);
                 }
             })
                 .addTo(this.map);
