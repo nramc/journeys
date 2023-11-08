@@ -1,12 +1,42 @@
-<div class="row">
-  <div class="col">
-    <app-page-header [pageInfo]="locationInfo"></app-page-header>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    <app-media-gallery></app-media-gallery>
+<ng-container *ngIf="location$ | async as location">
+  <div class="row">
+    <div class="col">
+      <app-page-header [pageInfo]="getPageInfo(location)"></app-page-header>
+    </div>
   </div>
 
-</div>
+  <div class="row">
+    <div class="col ms-1">
+      <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="me-1">map</mat-icon>
+            Map
+          </ng-template>
+          Content 3
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="me-1">photo_library</mat-icon>
+            Images
+          </ng-template>
+          <app-media-gallery galleryId="imageGallery" [images]="getImages(location)" [videos]=""></app-media-gallery>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="me-1">video_library</mat-icon>
+            Videos
+          </ng-template>
+          <app-media-gallery galleryId="videoGallery" [images]="" [videos]="getVideos(location)"></app-media-gallery>
+        </mat-tab>
+
+
+
+      </mat-tab-group>
+    </div>
+
+  </div>
+</ng-container>
