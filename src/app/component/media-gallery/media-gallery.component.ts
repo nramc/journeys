@@ -8,12 +8,12 @@ import {Gallery, GalleryItem, GalleryItemTypes} from "ng-gallery";
   standalone: true,
   imports: [CommonModule, LightboxDirective, NgOptimizedImage],
   template: `
-    <div class="row row-cols-auto">
-      <div class="col"
+    <div class="row row-cols-auto mt-2">
+      <div class="col mb-1"
            *ngFor="let item of items; let i = index"
            [lightbox]="i"
            [gallery]="galleryId">
-        <img
+        <img class="border border-primary border-2"
           [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? '/assets/image/default-video-thumbnail.png'"
           height="150" width="150" alt="media"/>
       </div>
