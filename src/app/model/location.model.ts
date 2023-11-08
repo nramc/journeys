@@ -1,4 +1,4 @@
-import {GeoJsonProperties, Geometry} from "geojson";
+import {Feature, GeoJsonProperties, Geometry} from "geojson";
 
 export interface LocationEvent {
   name: string,
@@ -12,5 +12,6 @@ export interface Location<G extends Geometry, P = GeoJsonProperties> {
   type: string,
   geometry: G,
   rawProperties: P,
-  events: LocationEvent[]
+  events: LocationEvent[],
+  feature: Feature
 }
