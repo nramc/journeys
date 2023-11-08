@@ -71,7 +71,13 @@ export class MediaGalleryComponent implements OnInit {
       type: GalleryItemTypes.Youtube,
       data: {
         src: `https://www.youtube.com/embed/${videoId}`,
-        thumb: `https://img.youtube.com/vi/${videoId}/0.jpg`
+        thumb: `https://img.youtube.com/vi/${videoId}/0.jpg`,
+        params: {
+          "loop" : 1,
+          "playlist": videoId,
+          "rel": 0,
+          "controls": 1
+        }
       }
     };
   }
