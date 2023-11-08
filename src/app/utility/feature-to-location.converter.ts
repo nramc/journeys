@@ -8,7 +8,8 @@ export function convertFeatureToLocation(feature: Feature): Location<Geometry> {
     name: feature.properties?.['name'],
     geometry: feature.geometry,
     rawProperties: feature.properties,
-    events: feature.properties?.['events']
+    events: feature.properties?.['events'],
+    feature: feature
   };
 
 }

@@ -6,6 +6,7 @@ import {Geometry} from "geojson";
 import {Location} from "../../model/location.model";
 import {convertFeatureToLocation} from "../../utility/feature-to-location.converter";
 import {map, Observable} from "rxjs";
+import * as L from "leaflet";
 
 @Component({
   selector: 'app-location',
@@ -54,5 +55,10 @@ export class LocationComponent implements OnInit {
       eventEntry.videos?.map(vid => videos.push(vid));
     }
     return videos;
+  }
+
+  onMapInitializationComplete(map: L.Map, location: Location<Geometry>) {
+    map.setZoom(5);
+
   }
 }
