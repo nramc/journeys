@@ -8,12 +8,12 @@ import {WorkspaceComponent} from "./page/workspace/workspace.component";
 import {LocationComponent} from "./page/location/location.component";
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'search', component: SearchComponent},
-  {path: 'gallery', component: GalleryComponent},
-  {path: 'place/:id', component: LocationComponent},
-  {path: 'workspace', component: WorkspaceComponent},
+  {path: 'home', component: HomeComponent, title: "Journeys"},
+  {path: 'dashboard', component: DashboardComponent, title: "Dashboard"},
+  {path: 'search', component: SearchComponent, title: "Search"},
+  {path: 'gallery', component: GalleryComponent, title: "Gallery"},
+  {path: 'place/:id', component: LocationComponent, title: "Location"},
+  {path: 'workspace', component: WorkspaceComponent, title: "Workspace"},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: "/home"}
 ];
