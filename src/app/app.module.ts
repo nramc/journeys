@@ -22,6 +22,7 @@ import {MediaViewerComponent} from './component/media-viewer/media-viewer.compon
 import {MediaGalleryComponent} from "./component/media-gallery/media-gallery.component";
 import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
 import {MatTabsModule} from "@angular/material/tabs";
+import {LocationCardComponent} from "./component/location-card/location-card.component";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {MatTabsModule} from "@angular/material/tabs";
         MatIconModule,
         HttpClientModule,
         MediaGalleryComponent,
-        MatTabsModule
+        MatTabsModule,
+        LocationCardComponent
     ],
   providers: [
     {provide: LIGHTBOX_CONFIG, useValue: {
