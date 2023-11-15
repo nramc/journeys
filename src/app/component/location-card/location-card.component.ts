@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, Input} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Location} from "../../model/location.model";
+import {Geometry} from "geojson";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-location-card',
@@ -9,5 +12,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './location-card.component.scss'
 })
 export class LocationCardComponent {
+
+  @Input("location") location: Location<Geometry> | undefined;
+
+  constructor(private router: Router) {
+  }
+
+  gotoLocation() {
+    this.router.navigate(['/place', this.location?.id, {}]);
+  }
 
 }
