@@ -13,5 +13,7 @@ export interface Location<G extends Geometry, P = GeoJsonProperties> {
   geometry: G,
   rawProperties: P,
   events: LocationEvent[],
-  feature: Feature
+  feature: Feature,
+  tags: string[],
+  thumbnail: string
 }
