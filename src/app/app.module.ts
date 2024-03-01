@@ -23,6 +23,7 @@ import {MediaGalleryComponent} from "./component/media-gallery/media-gallery.com
 import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
 import {MatTabsModule} from "@angular/material/tabs";
 import {LocationCardComponent} from "./component/location-card/location-card.component";
+import {CloudinaryModule} from "@cloudinary/ng";
 
 @NgModule({
   declarations: [
@@ -39,23 +40,26 @@ import {LocationCardComponent} from "./component/location-card/location-card.com
     LocationComponent,
     MediaViewerComponent
   ],
-    imports: [
-        BrowserModule,
-        NgbModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatIconModule,
-        HttpClientModule,
-        MediaGalleryComponent,
-        MatTabsModule,
-        LocationCardComponent
-    ],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule,
+    HttpClientModule,
+    MediaGalleryComponent,
+    MatTabsModule,
+    LocationCardComponent,
+    CloudinaryModule
+  ],
   providers: [
-    {provide: LIGHTBOX_CONFIG, useValue: {
+    {
+      provide: LIGHTBOX_CONFIG, useValue: {
         // panelClass:  'fullscreen',
         keyboardShortcuts: true
-    } as LightboxConfig}
+      } as LightboxConfig
+    }
   ],
   bootstrap: [AppComponent]
 })
