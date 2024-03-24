@@ -7,7 +7,7 @@ export interface PageInfo {
 
 export const HOME_PAGE_INFO: PageInfo = {
   name: "Home",
-  title: "Journeys",
+  title: "Journey",
   description: "The Time Machine take you to PAST !!!",
   path: "/home"
 };

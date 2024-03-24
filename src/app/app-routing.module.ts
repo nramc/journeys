@@ -8,7 +8,7 @@ import {WorkspaceComponent} from "./page/workspace/workspace.component";
 import {LocationComponent} from "./page/location/location.component";
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent, title: "Journeys"},
+  {path: 'home', component: HomeComponent, title: "Journey"},
   {path: 'dashboard', component: DashboardComponent, title: "Dashboard"},
   {path: 'search', component: SearchComponent, title: "Search"},
   {path: 'gallery', component: GalleryComponent, title: "Gallery"},

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "journeys": {
+    "journey": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/journeys",
+            "outputPath": "dist/journey",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -87,10 +87,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "journeys:build:production"
+              "buildTarget": "journey:build:production"
             },
             "development": {
-              "buildTarget": "journeys:build:development"
+              "buildTarget": "journey:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -98,7 +98,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "journeys:build"
+            "buildTarget": "journey:build"
           }
         },
         "test": {
