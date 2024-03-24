@@ -24,6 +24,7 @@ import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
 import {MatTabsModule} from "@angular/material/tabs";
 import {LocationCardComponent} from "./component/location-card/location-card.component";
 import {CloudinaryModule} from "@cloudinary/ng";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -40,19 +41,20 @@ import {CloudinaryModule} from "@cloudinary/ng";
     LocationComponent,
     MediaViewerComponent
   ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatIconModule,
-    HttpClientModule,
-    MediaGalleryComponent,
-    MatTabsModule,
-    LocationCardComponent,
-    CloudinaryModule
-  ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatIconModule,
+        HttpClientModule,
+        MediaGalleryComponent,
+        MatTabsModule,
+        LocationCardComponent,
+        CloudinaryModule,
+        FormsModule
+    ],
   providers: [
     {
       provide: LIGHTBOX_CONFIG, useValue: {

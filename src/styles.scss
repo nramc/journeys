@@ -124,3 +124,11 @@ body {
   object-fit: fill;
   width: 100%;
 }
+
+.ng-valid  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-touched.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
