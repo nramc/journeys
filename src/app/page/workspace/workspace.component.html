@@ -7,9 +7,30 @@
 <form (ngSubmit)="onSubmit(journeyForm)" #journeyForm="ngForm">
   <div class="container">
 
-    <div class="row">
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="bg-success text-light input-group p-2 border border-2" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+        <div class="bg-danger text-light input-group p-2 border border-2" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+      </div>
 
-      <!-- Name -->
+    </div>
+
+    <!-- Id -->
+    <div class="row" *ngIf="journey.id">
+      <div class="input-group mb-3 col-12">
+        <span class="input-group-text" id="idLabel">ID</span>
+        <input type="text" class="form-control" aria-describedby="idLabel" id="id" name="id" [(ngModel)]="journey.id"
+               readonly disabled>
+      </div>
+    </div>
+
+
+    <!-- Name -->
+    <div class="row">
       <div class="mb-3 col-md-8">
         <label for="name" class="form-label">Name</label>
         <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="journey.name" #name=ngModel
@@ -98,10 +119,16 @@
 
   </div>
 
-  <div class="row">
-    <div class="col-12">
-      <button type="submit" class="btn btn-success" [disabled]="!journeyForm.form.valid">Submit</button>
-    </div>
+  <div class="d-grid gap-2 d-md-flex justify-content-center">
+
+    <button type="submit" class="btn btn-outline-success " *ngIf="!journey.id" [disabled]="!journeyForm.form.valid">Add
+    </button>
+    <button type="button" class="btn btn-outline-success" *ngIf="journey.id" [disabled]="!journeyForm.form.valid">
+      Update
+    </button>
+    <button type="button" class="btn btn-outline-primary" *ngIf="journey.id" [disabled]="!journeyForm.form.valid">Next
+    </button>
+
   </div>
 
 </form>
