@@ -24,7 +24,10 @@ import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
 import {MatTabsModule} from "@angular/material/tabs";
 import {LocationCardComponent} from "./component/location-card/location-card.component";
 import {CloudinaryModule} from "@cloudinary/ng";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NewJourneyComponent} from "./page/workspace/new-journey/new-journey.component";
+import {UpdateJourneyDetailsComponent} from "./page/workspace/update-journey-details/update-journey-details.component";
+import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/material/stepper";
 
 @NgModule({
   declarations: [
@@ -53,7 +56,14 @@ import {FormsModule} from "@angular/forms";
         MatTabsModule,
         LocationCardComponent,
         CloudinaryModule,
-        FormsModule
+        FormsModule,
+        NewJourneyComponent,
+        UpdateJourneyDetailsComponent,
+        MatStepper,
+        MatStep,
+        MatStepLabel,
+        MatStepContent,
+        ReactiveFormsModule
     ],
   providers: [
     {
