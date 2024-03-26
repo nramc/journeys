@@ -11,6 +11,12 @@ export const HOME_PAGE_INFO: PageInfo = {
   description: "The Time Machine take you to PAST !!!",
   path: "/home"
 };
+export const JOURNEY_SEARCH_PAGE_INFO: PageInfo = {
+  name: "Journeys",
+  title: "Journeys",
+  description: "\"Life is a treasure hunt, always searching for those special moments.\" - Anonymous.",
+  path: "/journeys"
+};
 export const DASHBOARD_PAGE_INFO: PageInfo = {
   name: "Dashboard",
   title: "Dashboard",
