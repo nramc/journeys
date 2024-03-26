@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {
   DASHBOARD_PAGE_INFO,
   GALLERY_PAGE_INFO,
-  HOME_PAGE_INFO,
+  HOME_PAGE_INFO, JOURNEY_SEARCH_PAGE_INFO,
   SEARCH_PAGE_INFO,
   WORKSPACE_PAGE_INFO
 } from "../../model/page-info";
@@ -20,4 +20,5 @@ export class SideNavbarComponent {
   protected readonly GALLERY_PAGE_INFO = GALLERY_PAGE_INFO;
   protected readonly WORKSPACE_PAGE_INFO = WORKSPACE_PAGE_INFO;
 
+  protected readonly JOURNEY_SEARCH_PAGE_INFO = JOURNEY_SEARCH_PAGE_INFO;
 }

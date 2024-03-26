@@ -28,12 +28,21 @@
             <i class="bi bi-house-door pe-none me-2"></i>{{HOME_PAGE_INFO.name}}
           </a>
         </li>
+
+        <li class="nav-item">
+          <a [routerLink]="JOURNEY_SEARCH_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+            <i class="bi bi-boxes pe-none me-2"></i>
+            {{JOURNEY_SEARCH_PAGE_INFO.name}}
+          </a>
+        </li>
+
         <li class="nav-item">
           <a [routerLink]="DASHBOARD_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-speedometer2 pe-none me-2"></i>
             {{DASHBOARD_PAGE_INFO.name}}
           </a>
         </li>
+
         <li class="nav-item">
           <a [routerLink]="SEARCH_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-search pe-none me-2"></i>
