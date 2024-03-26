@@ -25,9 +25,13 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {LocationCardComponent} from "./component/location-card/location-card.component";
 import {CloudinaryModule} from "@cloudinary/ng";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NewJourneyComponent} from "./page/workspace/new-journey/new-journey.component";
+import {NewJourneyComponent} from "./page/journeys/new-journey/new-journey.component";
 import {UpdateJourneyDetailsComponent} from "./page/workspace/update-journey-details/update-journey-details.component";
 import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/material/stepper";
+import {SearchJourneyComponent} from "./page/journeys/search-journey/search-journey.component";
+import {EditJourneyComponent} from "./page/journeys/edit-journey/edit-journey.component";
+import {ViewJourneyComponent} from "./page/journeys/view-journey/view-journey.component";
+import {NewJourneyBackupComponent} from "./page/workspace/new-journey/new-journey-backup.component";
 
 @NgModule({
   declarations: [
@@ -35,6 +39,10 @@ import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/materi
     WorldMapComponent,
     SideNavbarComponent,
     HomeComponent,
+    SearchJourneyComponent,
+    NewJourneyComponent,
+    ViewJourneyComponent,
+    EditJourneyComponent,
     DashboardComponent,
     SearchComponent,
     GalleryComponent,
@@ -44,27 +52,27 @@ import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/materi
     LocationComponent,
     MediaViewerComponent
   ],
-    imports: [
-        BrowserModule,
-        NgbModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatIconModule,
-        HttpClientModule,
-        MediaGalleryComponent,
-        MatTabsModule,
-        LocationCardComponent,
-        CloudinaryModule,
-        FormsModule,
-        NewJourneyComponent,
-        UpdateJourneyDetailsComponent,
-        MatStepper,
-        MatStep,
-        MatStepLabel,
-        MatStepContent,
-        ReactiveFormsModule
-    ],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule,
+    HttpClientModule,
+    MediaGalleryComponent,
+    MatTabsModule,
+    LocationCardComponent,
+    CloudinaryModule,
+    FormsModule,
+    UpdateJourneyDetailsComponent,
+    MatStepper,
+    MatStep,
+    MatStepLabel,
+    MatStepContent,
+    ReactiveFormsModule,
+    NewJourneyBackupComponent
+  ],
   providers: [
     {
       provide: LIGHTBOX_CONFIG, useValue: {
@@ -72,6 +80,9 @@ import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/materi
         keyboardShortcuts: true
       } as LightboxConfig
     }
+  ],
+  exports: [
+    PageHeaderComponent
   ],
   bootstrap: [AppComponent]
 })

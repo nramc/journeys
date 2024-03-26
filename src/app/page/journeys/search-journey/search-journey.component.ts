@@ -1,14 +1,12 @@
-import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Component} from '@angular/core';
+import {HOME_PAGE_INFO, JOURNEY_SEARCH_PAGE_INFO} from "../../../model/page-info";
 
 @Component({
   selector: 'app-search-journey',
-  standalone: true,
-  imports: [
-    RouterLink
-  ],
   templateUrl: './search-journey.component.html'
 })
 export class SearchJourneyComponent {
 
+    protected readonly HOME_PAGE_INFO = HOME_PAGE_INFO;
+    protected readonly JOURNEY_SEARCH_PAGE_INFO = JOURNEY_SEARCH_PAGE_INFO;
 }
