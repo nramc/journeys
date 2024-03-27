@@ -11,13 +11,15 @@ export class JourneySearchCriteriaComponent {
 
   submitSearch(searchForm: NgForm) {
     let criteria = new Array<string>();
-    if (searchForm.value.name) {
+
+    if (searchForm.value['name']) {
       criteria.push('name:' + searchForm.value.name);
     }
-    if (searchForm.value.id) {
+    if (searchForm.value['id']) {
       criteria.push('id:' + searchForm.value.id);
     }
 
+    console.log("Search Event will be emitted with ", criteria)
     this.searchEvent.emit(criteria.join('&'));
   }
 

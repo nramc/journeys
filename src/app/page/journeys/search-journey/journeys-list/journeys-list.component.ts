@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, SortDirection} from "@angular/material/sort";
 import {HttpParams} from "@angular/common/http";
-import {catchError, map, merge, Observable, of, startWith, switchMap} from "rxjs";
+import {BehaviorSubject, catchError, map, merge, Observable, of, startWith, switchMap} from "rxjs";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {JourneyPage} from "../../../../service/journey/journey-page.type";
 import {Journey} from "../../../../model/core/journey.model";
@@ -18,18 +18,21 @@ export class JourneysListComponent implements AfterViewInit {
   resultsLength = 0;
   isLoadingResults = true;
 
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @Input("criteria") criteria: Map<string, string> = new Map();
+  searchQuerySubject = new BehaviorSubject<string>("");
+
+  @Input("criteria") set criteria(value: string) {
+    this.searchQuerySubject.next(value);
+  }
 
   constructor(private journeyService: JourneyService) {
   }
 
-  getRepoIssues(sort: string, order: SortDirection, page: number, pageSize: number): Observable<JourneyPage> {
+  getRepoIssues(queryString: string, sort: string, order: SortDirection, page: number, pageSize: number): Observable<JourneyPage> {
 
     let params = new HttpParams();
-    this.criteria.forEach((value, key) => params = params.set(key, value));
+    params = params.set("q", queryString);
     params = params.set("sort", sort);
     params = params.set("order", order.toUpperCase());
     params = params.set("page", page);
@@ -44,13 +47,14 @@ export class JourneysListComponent implements AfterViewInit {
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort.sortChange, this.paginator.page, this.searchQuerySubject)
       .pipe(
-        startWith({}),
+        startWith(),
         switchMap(() => {
           this.isLoadingResults = true;
 
           return this.getRepoIssues(
+            this.searchQuerySubject.getValue(),
             this.sort.active,
             this.sort.direction,
             this.paginator.pageIndex,
