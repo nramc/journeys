@@ -1,0 +1,50 @@
+<div class="container">
+  <form class="ignore-proactive-error" (submit)="submitSearch(searchForm)" #searchForm="ngForm">
+
+    <div class="row">
+      <div class="input-group mb-3 col-12">
+        <span class="input-group-text" id="journeyNameLabel">Journey Name</span>
+        <input type="text" class="form-control" aria-label="JourneyName" aria-describedby="journeyNameLabel"
+               placeholder="Use % for wildcard search" id="name" name="name">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="journeyIdLabel">#ID</span>
+          <input type="text" class="form-control" aria-label="JourneyID" aria-describedby="journeyIdLabel"
+                 placeholder="should match exactly" id="id" name="id">
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="input-group mb-3 ">
+          <span class="input-group-text" id="journeyCategoryLabel">Category</span>
+          <input type="text" class="form-control" aria-label="JourneyCategory" aria-describedby="journeyCategoryLabel"
+                 placeholder="Use % for wildcard search" id="category" name="category">
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="journeyCityLabel">City</span>
+          <input type="text" class="form-control" aria-label="JourneyCity" aria-describedby="journeyCityLabel"
+                 placeholder="Use % for wildcard search" id="city" name="city">
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="journeyCountryLabel">Country</span>
+          <input type="text" class="form-control" aria-label="JourneyCountry" aria-describedby="journeyCountryLabel"
+                 placeholder="Use % for wildcard search" id="country" name="country">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="d-grid gap-2 justify-content-center">
+      <button type="submit" class="btn btn-outline-primary" [disabled]="!searchForm.form.valid">Search</button>
+    </div>
+
+
+  </form>
+</div>

@@ -17,4 +17,7 @@ export class SearchJourneyComponent implements OnInit {
   }
 
 
+  handleSearchEvent(queryString: string) {
+    this.criteria = this.criteria.set("q", queryString);
+  }
 }
