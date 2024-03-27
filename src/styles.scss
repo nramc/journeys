@@ -125,7 +125,7 @@ body {
   width: 100%;
 }
 
-.ng-valid  {
+.ng-touched.ng-valid:not(.ignore-proactive-error)  {
   border-left: 5px solid #42A948; /* green */
 }
 

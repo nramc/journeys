@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {Journey} from "../../../model/core/journey.model";
-import {JourneyService} from "../../../service/journey.service";
+import {JourneyService} from "../../../service/journey/journey.service";
 
 @Component({
   selector: 'app-new-journey',
@@ -11,9 +11,9 @@ import {JourneyService} from "../../../service/journey.service";
     FormsModule,
     NgIf
   ],
-  templateUrl: './new-journey.component.html'
+  templateUrl: './new-journey-backup.component.html'
 })
-export class NewJourneyComponent {
+export class NewJourneyBackupComponent {
   @Input("journey") journey!: Journey;
 
   constructor(private journeyService: JourneyService) {

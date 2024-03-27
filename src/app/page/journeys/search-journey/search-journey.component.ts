@@ -1,14 +1,18 @@
-import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Component} from '@angular/core';
+import {JOURNEY_SEARCH_PAGE_INFO} from "../../../model/page-info";
 
 @Component({
   selector: 'app-search-journey',
-  standalone: true,
-  imports: [
-    RouterLink
-  ],
-  templateUrl: './search-journey.component.html'
+  templateUrl: './search-journey.component.html',
+  styleUrl: './search-journey.component.scss'
 })
 export class SearchJourneyComponent {
+  protected readonly JOURNEY_SEARCH_PAGE_INFO = JOURNEY_SEARCH_PAGE_INFO;
 
+  queryString: string = '';
+
+  handleSearchEvent(queryString: string) {
+    this.queryString = queryString;
+    console.log('Search Event Received with ', queryString);
+  }
 }

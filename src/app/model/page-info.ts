@@ -8,7 +8,7 @@ export interface PageInfo {
 export const HOME_PAGE_INFO: PageInfo = {
   name: "Home",
   title: "Journey",
-  description: "The Time Machine take you to PAST !!!",
+  description: "The Time Machine takes you to the past  !!!",
   path: "/home"
 };
 export const JOURNEY_SEARCH_PAGE_INFO: PageInfo = {
@@ -16,6 +16,12 @@ export const JOURNEY_SEARCH_PAGE_INFO: PageInfo = {
   title: "Journeys",
   description: "\"Life is a treasure hunt, always searching for those special moments.\" - Anonymous.",
   path: "/journeys"
+};
+export const NEW_JOURNEY_PAGE_INFO: PageInfo = {
+  name: "GeoPin",
+  title: "New Journey",
+  description: "\"Memories are the only real treasure. Save them here.\" - Anonymous.",
+  path: "/journey/new"
 };
 export const DASHBOARD_PAGE_INFO: PageInfo = {
   name: "Dashboard",

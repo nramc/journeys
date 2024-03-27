@@ -1,7 +1,8 @@
-<p>search-journey works!</p>
+<app-page-header [pageInfo]="JOURNEY_SEARCH_PAGE_INFO"></app-page-header>
 
-<button [routerLink]="['/journey','new']">New Journey</button>
 
-<button [routerLink]="['/journey','123456789','view']">View Journey</button>
+<app-journey-search-criteria (searchEvent)="handleSearchEvent($event)"></app-journey-search-criteria>
 
-<button [routerLink]="['/journey','123456789','edit']">Edit Journey</button>
+<app-journeys-list [criteria]="queryString"></app-journeys-list>
+
+
