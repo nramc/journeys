@@ -1,8 +1,11 @@
 import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, SortDirection} from "@angular/material/sort";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpParams} from "@angular/common/http";
 import {catchError, map, merge, Observable, of, startWith, switchMap} from "rxjs";
+import {JourneyService} from "../../../../service/journey/journey.service";
+import {JourneyPage} from "../../../../service/journey/journey-page.type";
+import {Journey} from "../../../../model/core/journey.model";
 
 @Component({
   selector: 'app-journeys-list',
@@ -10,8 +13,8 @@ import {catchError, map, merge, Observable, of, startWith, switchMap} from "rxjs
   styleUrl: './journeys-list.component.scss'
 })
 export class JourneysListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['created', 'state', 'number', 'title', 'action'];
-  data: GithubIssue[] = [];
+  displayedColumns: string[] = ['createdDate', 'id', 'name', 'category', 'journeyDate', 'action'];
+  data: Journey[] = [];
   resultsLength = 0;
   isLoadingResults = true;
 
@@ -20,21 +23,20 @@ export class JourneysListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @Input("criteria") criteria: Map<string, string> = new Map();
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(private journeyService: JourneyService) {
   }
 
-  getRepoIssues(sort: string, order: SortDirection, page: number, pageSize: number): Observable<GithubApi> {
-    const href = 'https://api.github.com/search/issues';
+  getRepoIssues(sort: string, order: SortDirection, page: number, pageSize: number): Observable<JourneyPage> {
 
     let params = new HttpParams();
     this.criteria.forEach((value, key) => params = params.set(key, value));
     params = params.set("sort", sort);
-    params = params.set("order", order);
-    params = params.set("page", page + 1);
+    params = params.set("order", order.toUpperCase());
+    params = params.set("page", page);
     params = params.set("per_page", pageSize);
     console.log(params)
 
-    return this._httpClient.get<GithubApi>(href, {params: params});
+    return this.journeyService.getAllJourneys(params);
   }
 
   ngAfterViewInit() {
@@ -62,32 +64,25 @@ export class JourneysListComponent implements AfterViewInit {
           if (data === null) {
             return [];
           }
-          this.resultsLength = data.total_count;
-          return data.items;
+          this.resultsLength = data.totalElements;
+          return data.content;
         }),
       )
       .subscribe(data => (this.data = data));
   }
 
-  viewJourney(row: any) {
+  viewJourney(row: Journey) {
     console.log(row);
-    alert(row.number);
+    alert(row.id);
   }
 
-  editJourney(row: any) {
+  editJourney(row: Journey) {
     console.log(row);
-    alert(row.number);
+    alert(row.id);
+  }
+
+  trackJourney(index: number, item: Journey): string {
+    return `${item.id}`;
   }
 }
 
-export interface GithubApi {
-  items: GithubIssue[];
-  total_count: number;
-}
-
-export interface GithubIssue {
-  created_at: string;
-  number: string;
-  state: string;
-  title: string;
-}

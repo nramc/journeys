@@ -22,6 +22,18 @@ table {
   justify-content: center;
 }
 
-/* Column customization */
+.journey-header-row {
+  font-weight: bolder;
+  font-size: medium;
+}
 
+.journey-data-row {
+  font-weight: bold;
+  font-size: small;
+}
+
+
+ .mat-column-action {
+  text-align: center;
+}
 

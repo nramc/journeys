@@ -7,39 +7,64 @@
 
   <div class="data-table-container">
 
-    <table mat-table [dataSource]="data" matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+    <table mat-table [dataSource]="data" matSort matSortActive="createdDate" matSortDisableClear
+           matSortDirection="desc" [fixedLayout]="true" [trackBy]="trackJourney">
       <caption>Available Journeys</caption>
 
-      <!-- Number Column -->
-      <ng-container matColumnDef="number">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
-        <td mat-cell *matCellDef="let row">{{ row.number }}</td>
+      <!-- Created Date -->
+      <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          <span class="text-capitalize">Created</span>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <span>{{ row.createdDate | date:"dd.MM.YYYY" }}</span>
+        </td>
       </ng-container>
 
-      <!-- Title Column -->
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
-        <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+      <!-- Number Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <span class="text-capitalize">#ID</span>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <span>{{ row.id }}</span>
+        </td>
       </ng-container>
 
       <!-- State Column -->
-      <ng-container matColumnDef="state">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
-        <td mat-cell *matCellDef="let row">{{ row.state }}</td>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <span class="text-capitalize">Name</span>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <span>{{ row.name }}</span>
+        </td>
       </ng-container>
 
-      <!-- Created Column -->
-      <ng-container matColumnDef="created">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
-          Created
+      <!-- Title Column -->
+      <ng-container matColumnDef="journeyDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <span class="text-capitalize">Journey Date</span>
         </th>
-        <td mat-cell *matCellDef="let row">{{ row.created_at | date }}</td>
+        <td mat-cell *matCellDef="let row">
+          <span>{{ row.journeyDate | date:"dd.MM.YYYY" }}</span>
+        </td>
+      </ng-container>
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <span class="text-capitalize">Category</span>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <span>{{ row.category }}</span>
+        </td>
       </ng-container>
 
       <!-- Action Column -->
       <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
-          Action
+        <th mat-header-cell *matHeaderCellDef>
+          <span class="text-capitalize">Action</span>
         </th>
         <td mat-cell *matCellDef="let row">
           <div class="d-inline-flex">
@@ -55,11 +80,11 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="text-primary journey-header-row" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr class="text-dark-emphasis text-center journey-data-row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
 
-  <mat-paginator showFirstLastButtons [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 30]"
-                 aria-label="Select page"></mat-paginator>
+  <mat-paginator class="text-primary fw-medium pt-3" showFirstLastButtons [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 30]"
+                 color="primary" aria-label="Select page"></mat-paginator>
 </div>
