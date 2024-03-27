@@ -1,7 +1,7 @@
 <app-page-header [pageInfo]="JOURNEY_SEARCH_PAGE_INFO"></app-page-header>
 
 
-<app-journeys-list></app-journeys-list>
+<app-journeys-list [criteria]="criteria" ></app-journeys-list>
 
 
 <button [routerLink]="['/journey','new']">New Journey</button>

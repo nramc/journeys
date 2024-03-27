@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, SortDirection} from "@angular/material/sort";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {catchError, map, merge, Observable, of, startWith, switchMap} from "rxjs";
 
 @Component({
@@ -18,15 +18,23 @@ export class JourneysListComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @Input("criteria") criteria: Map<string, string> = new Map();
 
   constructor(private _httpClient: HttpClient) {
   }
 
   getRepoIssues(sort: string, order: SortDirection, page: number, pageSize: number): Observable<GithubApi> {
     const href = 'https://api.github.com/search/issues';
-    const requestUrl = `${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1}&per_page=${pageSize}`;
 
-    return this._httpClient.get<GithubApi>(requestUrl);
+    let params = new HttpParams();
+    this.criteria.forEach((value, key) => params = params.set(key, value));
+    params = params.set("sort", sort);
+    params = params.set("order", order);
+    params = params.set("page", page + 1);
+    params = params.set("per_page", pageSize);
+    console.log(params)
+
+    return this._httpClient.get<GithubApi>(href, {params: params});
   }
 
   ngAfterViewInit() {
@@ -39,12 +47,14 @@ export class JourneysListComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
+
           return this.getRepoIssues(
             this.sort.active,
             this.sort.direction,
             this.paginator.pageIndex,
             this.paginator.pageSize
           ).pipe(catchError(() => of(null)));
+
         }),
         map(data => {
           // Flip flag to show that loading has finished.
@@ -59,12 +69,12 @@ export class JourneysListComponent implements AfterViewInit {
       .subscribe(data => (this.data = data));
   }
 
-  viewJourney(row:any) {
+  viewJourney(row: any) {
     console.log(row);
     alert(row.number);
   }
 
-  editJourney(row:any) {
+  editJourney(row: any) {
     console.log(row);
     alert(row.number);
   }
