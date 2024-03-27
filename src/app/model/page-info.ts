@@ -17,6 +17,12 @@ export const JOURNEY_SEARCH_PAGE_INFO: PageInfo = {
   description: "\"Life is a treasure hunt, always searching for those special moments.\" - Anonymous.",
   path: "/journeys"
 };
+export const NEW_JOURNEY_PAGE_INFO: PageInfo = {
+  name: "GeoPin",
+  title: "New Journey",
+  description: "\"Memories are the only real treasure. Save them here.\" - Anonymous.",
+  path: "/journey/new"
+};
 export const DASHBOARD_PAGE_INFO: PageInfo = {
   name: "Dashboard",
   title: "Dashboard",

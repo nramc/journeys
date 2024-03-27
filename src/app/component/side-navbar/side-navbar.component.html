@@ -30,6 +30,13 @@
         </li>
 
         <li class="nav-item">
+          <a [routerLink]="NEW_JOURNEY_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+            <i class="bi bi-pin-map pe-none me-2"></i>
+            {{NEW_JOURNEY_PAGE_INFO.name}}
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a [routerLink]="JOURNEY_SEARCH_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-boxes pe-none me-2"></i>
             {{JOURNEY_SEARCH_PAGE_INFO.name}}

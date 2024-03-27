@@ -47,6 +47,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {JourneysListComponent} from "./page/journeys/search-journey/journeys-list/journeys-list.component";
 import {MatRipple} from "@angular/material/core";
+import {
+  JourneySearchCriteriaComponent
+} from "./page/journeys/search-journey/journey-search-criteria/journey-search-criteria.component";
 
 @NgModule({
   declarations: [
@@ -66,7 +69,8 @@ import {MatRipple} from "@angular/material/core";
     MarkerPopupComponent,
     LocationComponent,
     MediaViewerComponent,
-    JourneysListComponent
+    JourneysListComponent,
+    JourneySearchCriteriaComponent
   ],
   imports: [
     BrowserModule,
