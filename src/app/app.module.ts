@@ -32,6 +32,21 @@ import {SearchJourneyComponent} from "./page/journeys/search-journey/search-jour
 import {EditJourneyComponent} from "./page/journeys/edit-journey/edit-journey.component";
 import {ViewJourneyComponent} from "./page/journeys/view-journey/view-journey.component";
 import {NewJourneyBackupComponent} from "./page/workspace/new-journey/new-journey-backup.component";
+import {MatPaginator} from "@angular/material/paginator";
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable
+} from "@angular/material/table";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSort, MatSortHeader} from "@angular/material/sort";
+import {JourneysListComponent} from "./page/journeys/search-journey/journeys-list/journeys-list.component";
+import {MatRipple} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -50,7 +65,8 @@ import {NewJourneyBackupComponent} from "./page/workspace/new-journey/new-journe
     PageHeaderComponent,
     MarkerPopupComponent,
     LocationComponent,
-    MediaViewerComponent
+    MediaViewerComponent,
+    JourneysListComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +87,22 @@ import {NewJourneyBackupComponent} from "./page/workspace/new-journey/new-journe
     MatStepLabel,
     MatStepContent,
     ReactiveFormsModule,
-    NewJourneyBackupComponent
+    NewJourneyBackupComponent,
+    MatPaginator,
+    MatHeaderCell,
+    MatColumnDef,
+    MatCell,
+    MatProgressSpinnerModule,
+    MatTable,
+    MatSort,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatHeaderRowDef,
+    MatSortHeader,
+    MatRipple
   ],
   providers: [
     {

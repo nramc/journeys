@@ -1,0 +1,65 @@
+<div class="container mat-elevation-z8 m-3">
+  @if (isLoadingResults) {
+    <div class="loading-shade">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+
+  <div class="data-table-container">
+
+    <table mat-table [dataSource]="data" matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+      <caption>Available Journeys</caption>
+
+      <!-- Number Column -->
+      <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+        <td mat-cell *matCellDef="let row">{{ row.number }}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+        <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+        <td mat-cell *matCellDef="let row">{{ row.state }}</td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Created
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.created_at | date }}</td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Action
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <div class="d-inline-flex">
+            <button class="m-1 text-primary" mat-raised-button (click)="viewJourney(row)">
+              <mat-icon color="primary"><span class="material-symbols-outlined">visibility</span></mat-icon>
+              View
+            </button>
+            <button class="m-1 text-primary" mat-raised-button (click)="editJourney(row)">
+              <mat-icon color="primary"><span class="material-symbols-outlined">edit_note</span></mat-icon>
+              Edit
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator showFirstLastButtons [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 30]"
+                 aria-label="Select page"></mat-paginator>
+</div>
