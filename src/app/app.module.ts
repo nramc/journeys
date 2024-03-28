@@ -31,7 +31,6 @@ import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/materi
 import {SearchJourneyComponent} from "./page/journeys/search-journey/search-journey.component";
 import {EditJourneyComponent} from "./page/journeys/edit-journey/edit-journey.component";
 import {ViewJourneyComponent} from "./page/journeys/view-journey/view-journey.component";
-import {NewJourneyBackupComponent} from "./page/workspace/new-journey/new-journey-backup.component";
 import {MatPaginator} from "@angular/material/paginator";
 import {
   MatCell,
@@ -96,7 +95,6 @@ import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
     MatStepLabel,
     MatStepContent,
     ReactiveFormsModule,
-    NewJourneyBackupComponent,
     MatPaginator,
     MatHeaderCell,
     MatColumnDef,
