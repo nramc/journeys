@@ -52,8 +52,9 @@ import {
   JourneySearchCriteriaComponent
 } from "./page/journeys/search-journey/journey-search-criteria/journey-search-criteria.component";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
-import {MatHint, MatSuffix} from "@angular/material/form-field";
+import {MatFormField, MatHint, MatSuffix} from "@angular/material/form-field";
 import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
+import {MatChip, MatChipGrid, MatChipInput, MatChipOption, MatChipRemove, MatChipRow} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -114,7 +115,14 @@ import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
     MatHint,
     MatSuffix,
     MatDatepickerToggle,
-    MatDatepicker
+    MatDatepicker,
+    MatChipGrid,
+    MatChipRow,
+    MatChipInput,
+    MatFormField,
+    MatChipRemove,
+    MatChip,
+    MatChipOption
   ],
   providers: [
     {

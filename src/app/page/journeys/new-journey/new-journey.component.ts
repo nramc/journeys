@@ -4,6 +4,8 @@ import {Journey} from "../../../model/core/journey.model";
 import {JourneyService} from "../../../service/journey/journey.service";
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
+import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
+import {MatChipInputEvent} from "@angular/material/chips";
 
 @Component({
   selector: 'app-new-journey',
@@ -11,6 +13,7 @@ import {Router} from "@angular/router";
 })
 export class NewJourneyComponent {
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
+  readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
 
   journey: Journey = new Journey();
 
@@ -53,6 +56,24 @@ export class NewJourneyComponent {
   continue() {
     if (this.journey.id) {
       this.router.navigate(['/journey', this.journey.id, 'edit']);
+    }
+  }
+
+  addTag(event: MatChipInputEvent): void {
+    const newTag = (event.value || '').trim();
+    if (newTag) {
+      this.journey.tags.push(newTag);
+    }
+
+    // Clear the input value
+    event.chipInput.clear();
+  }
+
+  removeTag(tag: string): void {
+    const index = this.journey.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.journey.tags.splice(index, 1);
     }
   }
 }

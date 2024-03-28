@@ -10,7 +10,7 @@ export class Journey {
     public country: string = '',
     public journeyDate: string = '',
     public category: string = '',
-    public tags: string[] = ['travel', 'initial'],
+    public tags: string[] = [],
     public thumbnail: string = 'default',
     public location: Geometry = {
       type: "Point",
