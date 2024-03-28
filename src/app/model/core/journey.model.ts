@@ -8,6 +8,7 @@ export class Journey {
     public description: string = '',
     public city: string = '',
     public country: string = '',
+    public journeyDate: string = '',
     public category: string = '',
     public tags: string[] = ['travel', 'initial'],
     public thumbnail: string = 'default',
