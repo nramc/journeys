@@ -20,7 +20,7 @@ export const JOURNEY_SEARCH_PAGE_INFO: PageInfo = {
 export const NEW_JOURNEY_PAGE_INFO: PageInfo = {
   name: "GeoPin",
   title: "New Journey",
-  description: "\"Memories are the only real treasure. Save them here.\" - Anonymous.",
+  description: "\"Memories are the only real treasure. Preserve them.\" - Anonymous.",
   path: "/journey/new"
 };
 export const DASHBOARD_PAGE_INFO: PageInfo = {

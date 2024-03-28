@@ -21,4 +21,8 @@ export class JourneyService {
     return this.httpClient.get<JourneyPage>(environment.journeyApi + '/journeys', {params: params});
   }
 
+  getJourneyById(id: string): Observable<Journey> {
+    return this.httpClient.get<Journey>(environment.journeyApi + '/journey/' + id);
+  }
+
 }

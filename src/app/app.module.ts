@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {WorldMapComponent} from './component/world-map/world-map.component';
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDateAdapter, NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {SideNavbarComponent} from './component/side-navbar/side-navbar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
@@ -31,14 +31,15 @@ import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/materi
 import {SearchJourneyComponent} from "./page/journeys/search-journey/search-journey.component";
 import {EditJourneyComponent} from "./page/journeys/edit-journey/edit-journey.component";
 import {ViewJourneyComponent} from "./page/journeys/view-journey/view-journey.component";
-import {NewJourneyBackupComponent} from "./page/workspace/new-journey/new-journey-backup.component";
 import {MatPaginator} from "@angular/material/paginator";
 import {
   MatCell,
   MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
   MatRow,
   MatRowDef,
   MatTable
@@ -50,6 +51,9 @@ import {MatRipple} from "@angular/material/core";
 import {
   JourneySearchCriteriaComponent
 } from "./page/journeys/search-journey/journey-search-criteria/journey-search-criteria.component";
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {MatHint, MatSuffix} from "@angular/material/form-field";
+import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 
 @NgModule({
   declarations: [
@@ -91,7 +95,6 @@ import {
     MatStepLabel,
     MatStepContent,
     ReactiveFormsModule,
-    NewJourneyBackupComponent,
     MatPaginator,
     MatHeaderCell,
     MatColumnDef,
@@ -106,7 +109,12 @@ import {
     MatHeaderCellDef,
     MatHeaderRowDef,
     MatSortHeader,
-    MatRipple
+    MatRipple,
+    MatDatepickerInput,
+    MatHint,
+    MatSuffix,
+    MatDatepickerToggle,
+    MatDatepicker
   ],
   providers: [
     {
@@ -114,7 +122,8 @@ import {
         // panelClass:  'fullscreen',
         keyboardShortcuts: true
       } as LightboxConfig
-    }
+    },
+    {provide: NgbDateAdapter, useClass: JourneyDateAdapter}
   ],
   exports: [
     PageHeaderComponent
