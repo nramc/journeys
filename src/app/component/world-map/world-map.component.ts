@@ -48,7 +48,6 @@ export class WorldMapComponent implements AfterViewInit {
   set geoJsonData(geoJsonData: GeoJsonObject | undefined) {
     this.#featureCollection = geoJsonData;
     this.addGeoJsonData(geoJsonData);
-    console.log("values received", geoJsonData)
   }
 
   @Input() disablePopup: boolean = false;
@@ -90,9 +89,7 @@ export class WorldMapComponent implements AfterViewInit {
       this.geoJsonLayer?.setZIndex(this.zoomIn)
       if (geoJsonData.type == "Point") {
         let coordinates = (geoJsonData as Point).coordinates;
-        this.map?.flyTo(
-          L.latLng(coordinates[1], coordinates[0]),
-          4);
+        this.map?.flyTo(L.latLng(coordinates[1], coordinates[0]), 4);
       }
     }
   }
