@@ -1,13 +1,14 @@
 @import "variables";
 
 .map-container {
-  height: 85vh;
-  width: 70vw;
+  height: 100%;
+  width: 100%;
 }
 
 .map-frame {
   border: 2px solid $primary;
   height: 100%;
+  position: relative;
 }
 
 #map {

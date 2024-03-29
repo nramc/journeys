@@ -1,13 +1,13 @@
 import {
-    AfterViewInit,
-    Component,
-    ElementRef,
-    EventEmitter,
-    inject,
-    Input,
-    Output,
-    ViewChild,
-    ViewContainerRef
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input, numberAttribute,
+  Output,
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
@@ -50,6 +50,7 @@ export class WorldMapComponent implements AfterViewInit {
     }
 
     @Input() disablePopup: boolean = false;
+    @Input({transform: numberAttribute}) zoomIn: number = 4;
 
 
     ngAfterViewInit(): void {
@@ -59,7 +60,8 @@ export class WorldMapComponent implements AfterViewInit {
 
     private initializeMap(): void {
 
-        this.map = L.map(this.elementRef.nativeElement.querySelector("div.map-renderer")).fitWorld();
+        this.map = L.map(this.elementRef.nativeElement.querySelector("div.map-renderer")).fitWorld()
+          .zoomIn(this.zoomIn);
 
         L.control.scale().addTo(this.map);
 
@@ -79,6 +81,7 @@ export class WorldMapComponent implements AfterViewInit {
     private addGeoJsonData(geoJsonData: GeoJsonObject | undefined) {
         if (geoJsonData) {
             this.geoJsonLayer?.addData(geoJsonData);
+            this.geoJsonLayer?.setZIndex(this.zoomIn)
         } else {
             this.geoJsonLayer?.clearLayers();
         }
