@@ -93,10 +93,8 @@
       </div>
 
       <div class="row mb-3">
-        <div class="col-12">
 
-          <label class="form-label">Tags</label>
-
+        <div class="col-12 col-md-6">
           <mat-chip-grid #chipGrid aria-label="Tags">
             @for (tag of journey.tags; track tag) {
               <mat-chip-row color="primary" [highlighted]="true" (removed)="removeTag(tag)" [editable]="false"
@@ -113,8 +111,33 @@
                    [matChipInputAddOnBlur]="true"
                    (matChipInputTokenEnd)="addTag($event)"/>
           </mat-chip-grid>
-
         </div>
+
+        <div class="col-12 col-md-6">
+          <div class="input-group mb-3">
+            <span class="input-group-text">Coordinates</span>
+            <input type="number" class="form-control" placeholder="Longitude" aria-label="Longitude"
+                   id="longitude" name="longitude" [(ngModel)]="journey.location.coordinates[0]"
+                   required min="-180.0" max="180.0" #longitude="ngModel">
+            <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
+                   id="latitude" name="latitude" [(ngModel)]="journey.location.coordinates[1]"
+                   required min="-90.0" max="90.0" #latitude="ngModel">
+
+          </div>
+          <div class="form-text text-danger">
+            <div [hidden]="longitude.valid || longitude.pristine">
+              <div *ngIf="longitude.errors?.['required']">Longitude is required.</div>
+              <div *ngIf="longitude.errors?.['min']">Longitude must be between -180.0 to 180.0.</div>
+              <div *ngIf="longitude.errors?.['max']">Longitude must be between -180.0 to 180.0.</div>
+            </div>
+            <div [hidden]="latitude.valid || latitude.pristine" class="form-text text-danger">
+              <div *ngIf="latitude.errors?.['required']">Latitude is required.</div>
+              <div *ngIf="latitude.errors?.['min']">Latitude must be between -180.0 to 180.0.</div>
+              <div *ngIf="latitude.errors?.['max']">Latitude must be between -180.0 to 180.0.</div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="row">
@@ -163,7 +186,7 @@
 
     </div>
     <div class="col-12 col-md-4 border border-2" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="geoJsonData" [disablePopup]="true" zoomIn="4"/>
+      <app-world-map class="h-50" [geoJsonData]="journey.location" [disablePopup]="true"/>
     </div>
   </div>
 

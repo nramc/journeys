@@ -7,7 +7,6 @@ import {Router} from "@angular/router";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {debounceTime, distinctUntilChanged, map, Observable, OperatorFunction} from "rxjs";
-import {GeoJsonObject} from "geojson";
 
 @Component({
   selector: 'app-new-journey',
@@ -20,12 +19,6 @@ export class NewJourneyComponent {
   readonly predefinedCategories = ['Travel', 'Work', 'Residential']
 
   journey: Journey = new Journey();
-
-  geoJsonData: GeoJsonObject = JSON.parse('{' +
-    '      "type": "Point",' +
-    '      "coordinates": [48.183160038296585, 11.53090747669896]' +
-    '' +
-    '}');
 
   constructor(
     private router: Router,
