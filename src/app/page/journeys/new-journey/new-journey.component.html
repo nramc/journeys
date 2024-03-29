@@ -117,12 +117,11 @@
           <div class="input-group mb-3">
             <span class="input-group-text">Coordinates</span>
             <input type="number" class="form-control" placeholder="Longitude" aria-label="Longitude"
-                   id="longitude" name="longitude" [(ngModel)]="journey.location.coordinates[0]"
-                   required min="-180.0" max="180.0" #longitude="ngModel">
+                   id="longitude" name="longitude" [(ngModel)]="coordinates[0]" [readOnly]="journey.id"
+                   required min="-180.0" max="180.0" #longitude="ngModel" (blur)="refreshMapWithCoordinates()">
             <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
-                   id="latitude" name="latitude" [(ngModel)]="journey.location.coordinates[1]"
-                   required min="-90.0" max="90.0" #latitude="ngModel">
-
+                   id="latitude" name="latitude" [(ngModel)]="coordinates[1]" [readOnly]="journey.id"
+                   required min="-90.0" max="90.0" #latitude="ngModel" (blur)="refreshMapWithCoordinates()">
           </div>
           <div class="form-text text-danger">
             <div [hidden]="longitude.valid || longitude.pristine">
@@ -132,8 +131,8 @@
             </div>
             <div [hidden]="latitude.valid || latitude.pristine" class="form-text text-danger">
               <div *ngIf="latitude.errors?.['required']">Latitude is required.</div>
-              <div *ngIf="latitude.errors?.['min']">Latitude must be between -180.0 to 180.0.</div>
-              <div *ngIf="latitude.errors?.['max']">Latitude must be between -180.0 to 180.0.</div>
+              <div *ngIf="latitude.errors?.['min']">Latitude must be between -90.0 to 90.0.</div>
+              <div *ngIf="latitude.errors?.['max']">Latitude must be between -9 0.0 to 90.0.</div>
             </div>
           </div>
         </div>
@@ -185,7 +184,7 @@
       </div>
 
     </div>
-    <div class="col-12 col-md-4 border border-2" style="position: relative; min-height: 25vh">
+    <div class="col-12 col-md-4" style="position: relative; min-height: 25vh">
       <app-world-map class="h-50" [geoJsonData]="journey.location" [disablePopup]="true"/>
     </div>
   </div>

@@ -19,6 +19,7 @@ export class NewJourneyComponent {
   readonly predefinedCategories = ['Travel', 'Work', 'Residential']
 
   journey: Journey = new Journey();
+  coordinates: number[] = [];
 
   constructor(
     private router: Router,
@@ -89,4 +90,12 @@ export class NewJourneyComponent {
     );
 
 
+  refreshMapWithCoordinates() {
+    if (this.coordinates.length == 2) {
+      this.journey.location = {
+        type: "Point",
+        coordinates: this.coordinates
+      }
+    }
+  }
 }

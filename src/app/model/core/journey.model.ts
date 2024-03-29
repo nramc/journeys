@@ -1,4 +1,4 @@
-import {Point} from "geojson";
+import {Geometry} from "geojson";
 
 export class Journey {
   constructor(
@@ -12,10 +12,7 @@ export class Journey {
     public category: string = '',
     public tags: string[] = [],
     public thumbnail: string = 'default',
-    public location: Point = {
-      type: "Point",
-      coordinates: [11.53090747669896, 48.183160038296585]
-    } as Point
+    public location: Geometry | undefined = undefined
   ) {
   }
 }
