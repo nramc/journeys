@@ -10,7 +10,8 @@ import {debounceTime, distinctUntilChanged, map, Observable, OperatorFunction} f
 
 @Component({
   selector: 'app-new-journey',
-  templateUrl: './new-journey.component.html'
+  templateUrl: './new-journey.component.html',
+  styleUrl: './new-journey.component.scss'
 })
 export class NewJourneyComponent {
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
@@ -18,6 +19,7 @@ export class NewJourneyComponent {
   readonly predefinedCategories = ['Travel', 'Work', 'Residential']
 
   journey: Journey = new Journey();
+  coordinates: number[] = [];
 
   constructor(
     private router: Router,
@@ -86,4 +88,14 @@ export class NewJourneyComponent {
           this.predefinedCategories.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)
       ),
     );
+
+
+  refreshMapWithCoordinates() {
+    if (this.coordinates.length == 2) {
+      this.journey.location = {
+        type: "Point",
+        coordinates: this.coordinates
+      }
+    }
+  }
 }

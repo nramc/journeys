@@ -12,11 +12,7 @@ export class Journey {
     public category: string = '',
     public tags: string[] = [],
     public thumbnail: string = 'default',
-    public location: Geometry = {
-      type: "Point",
-      coordinates: [48.183160038296585, 11.53090747669896]
-
-    }
+    public location: Geometry | undefined = undefined
   ) {
   }
 }
