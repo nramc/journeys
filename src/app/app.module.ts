@@ -55,6 +55,9 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/m
 import {MatFormField, MatHint, MatSuffix} from "@angular/material/form-field";
 import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {MatChip, MatChipGrid, MatChipInput, MatChipOption, MatChipRemove, MatChipRow} from "@angular/material/chips";
+import {
+  EditJourneyBasicDataComponent
+} from "./page/journeys/edit-journey/edit-journey-basic-data/edit-journey-basic-data.component";
 
 @NgModule({
   declarations: [
@@ -75,7 +78,8 @@ import {MatChip, MatChipGrid, MatChipInput, MatChipOption, MatChipRemove, MatChi
     LocationComponent,
     MediaViewerComponent,
     JourneysListComponent,
-    JourneySearchCriteriaComponent
+    JourneySearchCriteriaComponent,
+    EditJourneyBasicDataComponent
   ],
   imports: [
     BrowserModule,

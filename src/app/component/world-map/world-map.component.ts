@@ -89,7 +89,7 @@ export class WorldMapComponent implements AfterViewInit {
       this.geoJsonLayer?.setZIndex(this.zoomIn)
       if (geoJsonData.type == "Point") {
         let coordinates = (geoJsonData as Point).coordinates;
-        this.map?.flyTo(L.latLng(coordinates[1], coordinates[0]), 4);
+        setTimeout(() => this.map?.flyTo(L.latLng(coordinates[1], coordinates[0]), 4), 1000);
       }
     }
   }
