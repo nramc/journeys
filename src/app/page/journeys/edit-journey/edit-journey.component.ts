@@ -22,6 +22,11 @@ export class EditJourneyComponent implements OnInit {
     this.fetchJourney();
   }
 
+  stepsEventHandler(event: any) {
+    console.log('Event triggered:', event.type);
+    this.fetchJourney();
+  }
+
   fetchJourney() {
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.journeyService.getJourneyById(params.get('id')!))

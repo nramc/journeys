@@ -1,27 +1,28 @@
 <mat-stepper orientation="vertical" [linear]="true" #stepper>
 
-  <mat-step [optional]="false" [completed]="isBasicDataCollected()" color="primary">
+  <mat-step [optional]="false" [completed]="isBasicDataCollected()" color="primary"
+            (interacted)="stepsEventHandler($event)" matButtonIcon="phone">
     <ng-template matStepLabel>Add Journey Details</ng-template>
     <ng-template matStepContent>
       <app-edit-journey-basic-data></app-edit-journey-basic-data>
     </ng-template>
   </mat-step>
 
-  <mat-step [optional]="false" [completed]="isGeoInfoCollected()">
+  <mat-step [optional]="false" [completed]="isGeoInfoCollected()" (interacted)="stepsEventHandler($event)">
     <ng-template matStepLabel>Add Journey Geo Details</ng-template>
     <ng-template matStepContent>
       <p>Geo Information Collection</p>
     </ng-template>
   </mat-step>
 
-  <mat-step [optional]="false" [completed]="isEventInfoCollected()">
+  <mat-step [optional]="false" [completed]="isEventInfoCollected()" (interacted)="stepsEventHandler($event)">
     <ng-template matStepLabel>Add Journey Events Details</ng-template>
     <ng-template matStepContent>
       <p>Event Details collections</p>
     </ng-template>
   </mat-step>
 
-  <mat-step [optional]="false" [completed]="isJourneyPublished()">
+  <mat-step [optional]="false" [completed]="isJourneyPublished()" (interacted)="stepsEventHandler($event)">
     <ng-template matStepLabel>Publish Journey</ng-template>
     <ng-template matStepContent>
       <p>Publish Journey</p>
