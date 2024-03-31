@@ -27,7 +27,14 @@ import {CloudinaryModule} from "@cloudinary/ng";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NewJourneyComponent} from "./page/journeys/new-journey/new-journey.component";
 import {UpdateJourneyDetailsComponent} from "./page/workspace/update-journey-details/update-journey-details.component";
-import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/material/stepper";
+import {
+  MatStep,
+  MatStepContent,
+  MatStepLabel,
+  MatStepper,
+  MatStepperIcon,
+  MatStepperNext
+} from "@angular/material/stepper";
 import {SearchJourneyComponent} from "./page/journeys/search-journey/search-journey.component";
 import {EditJourneyComponent} from "./page/journeys/edit-journey/edit-journey.component";
 import {ViewJourneyComponent} from "./page/journeys/view-journey/view-journey.component";
@@ -55,6 +62,9 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/m
 import {MatFormField, MatHint, MatSuffix} from "@angular/material/form-field";
 import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {MatChip, MatChipGrid, MatChipInput, MatChipOption, MatChipRemove, MatChipRow} from "@angular/material/chips";
+import {
+  EditJourneyBasicDataComponent
+} from "./page/journeys/edit-journey/edit-journey-basic-data/edit-journey-basic-data.component";
 
 @NgModule({
   declarations: [
@@ -75,7 +85,8 @@ import {MatChip, MatChipGrid, MatChipInput, MatChipOption, MatChipRemove, MatChi
     LocationComponent,
     MediaViewerComponent,
     JourneysListComponent,
-    JourneySearchCriteriaComponent
+    JourneySearchCriteriaComponent,
+    EditJourneyBasicDataComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +133,9 @@ import {MatChip, MatChipGrid, MatChipInput, MatChipOption, MatChipRemove, MatChi
     MatFormField,
     MatChipRemove,
     MatChip,
-    MatChipOption
+    MatChipOption,
+    MatStepperNext,
+    MatStepperIcon
   ],
   providers: [
     {
