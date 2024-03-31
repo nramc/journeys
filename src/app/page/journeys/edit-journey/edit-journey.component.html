@@ -1,10 +1,9 @@
 <mat-stepper orientation="vertical" [linear]="true" #stepper>
 
-  <mat-step [optional]="false" [completed]="isBasicDataCollected()" color="primary"
-            (interacted)="stepsEventHandler($event)" matButtonIcon="phone">
+  <mat-step [optional]="false" [completed]="isBasicDataCollected()" color="primary">
     <ng-template matStepLabel>Add Journey Details</ng-template>
     <ng-template matStepContent>
-      <app-edit-journey-basic-data></app-edit-journey-basic-data>
+      <app-edit-journey-basic-data (saved)="stepsEventHandler($event)"></app-edit-journey-basic-data>
     </ng-template>
   </mat-step>
 

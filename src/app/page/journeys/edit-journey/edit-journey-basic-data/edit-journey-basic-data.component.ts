@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {Journey} from "../../../../model/core/journey.model";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
@@ -16,6 +16,8 @@ import {NgForm} from "@angular/forms";
 export class EditJourneyBasicDataComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
   readonly predefinedCategories = ['Travel', 'Work', 'Residential']
+
+  @Output("saved") savedEvent: EventEmitter<string> = new EventEmitter<string>();
 
   successMessage: string = '';
   errorMessage: string = '';
@@ -58,6 +60,7 @@ export class EditJourneyBasicDataComponent implements OnInit {
   onUpdateSuccess(result: Journey) {
     this.setSuccess('Journey saved successfully.');
     this.journey = result;
+    this.savedEvent.emit(this.journey.id);
   }
 
   continue() {
@@ -103,5 +106,6 @@ export class EditJourneyBasicDataComponent implements OnInit {
 
   save(journeyForm: NgForm) {
     console.log('Saved', journeyForm.value);
+    this.onUpdateSuccess(this.journey)
   }
 }
