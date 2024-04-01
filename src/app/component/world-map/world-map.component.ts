@@ -52,6 +52,7 @@ export class WorldMapComponent implements AfterViewInit {
 
   @Input() disablePopup: boolean = false;
   @Input({transform: numberAttribute}) zoomIn: number = 4;
+  @Input() maxZoom: number = 4;
 
 
   ngAfterViewInit(): void {
@@ -94,7 +95,7 @@ export class WorldMapComponent implements AfterViewInit {
   private flyToBound() {
     let bounds = this.geoJsonLayer?.getBounds();
     if (bounds) {
-      this.map?.flyToBounds(bounds);
+      this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom});
     }
   }
 
