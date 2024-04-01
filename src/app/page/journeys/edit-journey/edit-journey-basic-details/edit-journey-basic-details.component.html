@@ -1,13 +1,8 @@
-<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" class="container" *ngIf="this.journey async">
+<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" class="container" *ngIf="this.journey">
 
   <div class="row mb-3">
     <div class="col-12">
-      <div class="bg-success text-light input-group p-2 border border-2" *ngIf="successMessage">
-        {{ successMessage }}
-      </div>
-      <div class="bg-danger text-light input-group p-2 border border-2" *ngIf="errorMessage">
-        {{ errorMessage }}
-      </div>
+      <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
     </div>
   </div>
 

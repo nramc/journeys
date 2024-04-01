@@ -1,4 +1,4 @@
-import {Geometry} from "geojson";
+import {GeoJSON, Geometry} from "geojson";
 
 export class Journey {
   constructor(
@@ -12,7 +12,30 @@ export class Journey {
     public category: string = '',
     public tags: string[] = [],
     public thumbnail: string = 'default',
-    public location: Geometry | undefined = undefined
+    public location: Geometry | undefined = undefined,
+    public extendedDetails: JourneyExtendedDetails | undefined = undefined
+  ) {
+  }
+}
+
+export class JourneyExtendedDetails {
+  constructor(
+    public geoDetails: JourneyGeoDetails | undefined = undefined,
+    public mediaDetails: JourneyMediaDetails | undefined = undefined
+  ) {
+  }
+}
+
+export class JourneyGeoDetails {
+  constructor(
+    public geoJson: GeoJSON | undefined) {
+  }
+}
+
+export class JourneyMediaDetails {
+  constructor(
+    images: string[] = [],
+    videos: string[] = []
   ) {
   }
 }

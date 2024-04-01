@@ -63,8 +63,12 @@ import {MatFormField, MatHint, MatSuffix} from "@angular/material/form-field";
 import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {MatChip, MatChipGrid, MatChipInput, MatChipOption, MatChipRemove, MatChipRow} from "@angular/material/chips";
 import {
-  EditJourneyBasicDataComponent
-} from "./page/journeys/edit-journey/edit-journey-basic-data/edit-journey-basic-data.component";
+  EditJourneyBasicDetailsComponent
+} from "./page/journeys/edit-journey/edit-journey-basic-details/edit-journey-basic-details.component";
+import {FeedbackMessageComponent} from "./component/feedback-message/feedback-message.component";
+import {
+  EditJourneyGeoDetailsComponent
+} from "./page/journeys/edit-journey/edit-journey-geo-details/edit-journey-geo-details.component";
 
 @NgModule({
   declarations: [
@@ -86,57 +90,59 @@ import {
     MediaViewerComponent,
     JourneysListComponent,
     JourneySearchCriteriaComponent,
-    EditJourneyBasicDataComponent
+    EditJourneyBasicDetailsComponent,
+    EditJourneyGeoDetailsComponent
   ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatIconModule,
-    HttpClientModule,
-    MediaGalleryComponent,
-    MatTabsModule,
-    LocationCardComponent,
-    CloudinaryModule,
-    FormsModule,
-    UpdateJourneyDetailsComponent,
-    MatStepper,
-    MatStep,
-    MatStepLabel,
-    MatStepContent,
-    ReactiveFormsModule,
-    MatPaginator,
-    MatHeaderCell,
-    MatColumnDef,
-    MatCell,
-    MatProgressSpinnerModule,
-    MatTable,
-    MatSort,
-    MatHeaderRow,
-    MatRow,
-    MatRowDef,
-    MatCellDef,
-    MatHeaderCellDef,
-    MatHeaderRowDef,
-    MatSortHeader,
-    MatRipple,
-    MatDatepickerInput,
-    MatHint,
-    MatSuffix,
-    MatDatepickerToggle,
-    MatDatepicker,
-    MatChipGrid,
-    MatChipRow,
-    MatChipInput,
-    MatFormField,
-    MatChipRemove,
-    MatChip,
-    MatChipOption,
-    MatStepperNext,
-    MatStepperIcon
-  ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatIconModule,
+        HttpClientModule,
+        MediaGalleryComponent,
+        MatTabsModule,
+        LocationCardComponent,
+        CloudinaryModule,
+        FormsModule,
+        UpdateJourneyDetailsComponent,
+        MatStepper,
+        MatStep,
+        MatStepLabel,
+        MatStepContent,
+        ReactiveFormsModule,
+        MatPaginator,
+        MatHeaderCell,
+        MatColumnDef,
+        MatCell,
+        MatProgressSpinnerModule,
+        MatTable,
+        MatSort,
+        MatHeaderRow,
+        MatRow,
+        MatRowDef,
+        MatCellDef,
+        MatHeaderCellDef,
+        MatHeaderRowDef,
+        MatSortHeader,
+        MatRipple,
+        MatDatepickerInput,
+        MatHint,
+        MatSuffix,
+        MatDatepickerToggle,
+        MatDatepicker,
+        MatChipGrid,
+        MatChipRow,
+        MatChipInput,
+        MatFormField,
+        MatChipRemove,
+        MatChip,
+        MatChipOption,
+        MatStepperNext,
+        MatStepperIcon,
+        FeedbackMessageComponent
+    ],
   providers: [
     {
       provide: LIGHTBOX_CONFIG, useValue: {
