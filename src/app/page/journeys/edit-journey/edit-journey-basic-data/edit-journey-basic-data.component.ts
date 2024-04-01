@@ -22,16 +22,6 @@ export class EditJourneyBasicDataComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
 
-  setSuccess(message: string) {
-    this.successMessage = message;
-    this.errorMessage = '';
-  }
-
-  setError(message: string) {
-    this.successMessage = '';
-    this.errorMessage = message;
-  }
-
   journey!: Journey;
   coordinates: number[] = [];
 
@@ -48,8 +38,13 @@ export class EditJourneyBasicDataComponent implements OnInit {
     )
       .subscribe({
         next: data => this.onFetchSuccess(data),
-        error: err => console.error(err)
+        error: err => this.onError('Unexpected error occurred.', err)
       });
+  }
+
+  onError(errorMessage: string, err: any) {
+    this.errorMessage = errorMessage;
+    console.error(err);
   }
 
   onFetchSuccess(journey: Journey) {
@@ -58,15 +53,9 @@ export class EditJourneyBasicDataComponent implements OnInit {
   }
 
   onUpdateSuccess(result: Journey) {
-    this.setSuccess('Journey saved successfully.');
+    this.successMessage = 'Journey saved successfully.';
     this.journey = result;
     this.savedEvent.emit(this.journey.id);
-  }
-
-  continue() {
-    if (this.journey.id) {
-      this.router.navigate(['/journey', this.journey.id, 'edit']);
-    }
   }
 
   addTag(event: MatChipInputEvent): void {
@@ -106,6 +95,11 @@ export class EditJourneyBasicDataComponent implements OnInit {
 
   save(journeyForm: NgForm) {
     console.log('Saved', journeyForm.value);
-    this.onUpdateSuccess(this.journey)
+    this.journeyService.saveJourneyBasicDetails(this.journey)
+      .subscribe({
+        next: data => this.onUpdateSuccess(data),
+        error: err => this.onError('Unexpected error while saving data', err)
+      });
+
   }
 }

@@ -25,4 +25,11 @@ export class JourneyService {
     return this.httpClient.get<Journey>(environment.journeyApi + '/journey/' + id);
   }
 
+  saveJourneyBasicDetails(journey: Journey): Observable<Journey> {
+    return this.httpClient.put<Journey>(environment.journeyApi + '/journey/' + journey.id, journey,
+      {
+        headers: {'Content-Type': 'application/vnd.journey.api.basic.v1+json'}
+      });
+  }
+
 }
