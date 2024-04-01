@@ -13,7 +13,7 @@ import {
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
-import {Feature, GeoJsonObject, Point} from "geojson";
+import {Feature, GeoJsonObject} from "geojson";
 import {iconHome} from "./custom-icons.type";
 
 
@@ -86,11 +86,15 @@ export class WorldMapComponent implements AfterViewInit {
 
     if (geoJsonData) {
       this.geoJsonLayer?.addData(geoJsonData);
-      this.geoJsonLayer?.setZIndex(this.zoomIn)
-      if (geoJsonData.type == "Point") {
-        let coordinates = (geoJsonData as Point).coordinates;
-        setTimeout(() => this.map?.flyTo(L.latLng(coordinates[1], coordinates[0]), 4), 1000);
-      }
+      this.geoJsonLayer?.setZIndex(this.zoomIn);
+      setTimeout(() => this.flyToBound(), 1000);
+    }
+  }
+
+  private flyToBound() {
+    let bounds = this.geoJsonLayer?.getBounds();
+    if (bounds) {
+      this.map?.flyToBounds(bounds);
     }
   }
 
