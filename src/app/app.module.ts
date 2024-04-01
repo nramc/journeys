@@ -70,8 +70,8 @@ import {
   EditJourneyGeoDetailsComponent
 } from "./page/journeys/edit-journey/edit-journey-geo-details/edit-journey-geo-details.component";
 import {
-  EditJourneyMediaDetailsComponent
-} from "./page/journeys/edit-journey/edit-journey-media-details/edit-journey-media-details.component";
+  EditJourneyImageDetailsComponent
+} from "./page/journeys/edit-journey/edit-journey-image-details/edit-journey-image-details.component";
 
 @NgModule({
   declarations: [
@@ -95,7 +95,7 @@ import {
     JourneySearchCriteriaComponent,
     EditJourneyBasicDetailsComponent,
     EditJourneyGeoDetailsComponent,
-    EditJourneyMediaDetailsComponent
+    EditJourneyImageDetailsComponent
   ],
     imports: [
         BrowserModule,

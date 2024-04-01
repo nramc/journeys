@@ -4,11 +4,11 @@ import {JourneyService} from "../../../../service/journey/journey.service";
 import {NgForm} from "@angular/forms";
 
 @Component({
-  selector: 'app-edit-journey-media-details',
-  templateUrl: './edit-journey-media-details.component.html',
-  styleUrl: './edit-journey-media-details.component.scss'
+  selector: 'app-edit-journey-image-details',
+  templateUrl: './edit-journey-image-details.component.html',
+  styleUrl: './edit-journey-image-details.component.scss'
 })
-export class EditJourneyMediaDetailsComponent {
+export class EditJourneyImageDetailsComponent {
   @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
   @Input({required: true}) journey!: Journey;
 
@@ -26,7 +26,7 @@ export class EditJourneyMediaDetailsComponent {
   }
 
   onUpdateSuccess(result: Journey) {
-    this.successMessage = 'Media Details saved successfully.';
+    this.successMessage = 'Image Details saved successfully.';
     this.journey = result;
     this.savedEvent.emit(this.journey);
   }
@@ -36,7 +36,7 @@ export class EditJourneyMediaDetailsComponent {
     this.journeyService.saveJourneyBasicDetails(this.journey)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
-        error: err => this.onError('Unexpected error while saving media data', err)
+        error: err => this.onError('Unexpected error while saving image data', err)
       });
 
   }
