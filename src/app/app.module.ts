@@ -66,6 +66,9 @@ import {
   EditJourneyBasicDetailsComponent
 } from "./page/journeys/edit-journey/edit-journey-basic-details/edit-journey-basic-details.component";
 import {FeedbackMessageComponent} from "./component/feedback-message/feedback-message.component";
+import {
+  EditJourneyGeoDetailsComponent
+} from "./page/journeys/edit-journey/edit-journey-geo-details/edit-journey-geo-details.component";
 
 @NgModule({
   declarations: [
@@ -87,7 +90,8 @@ import {FeedbackMessageComponent} from "./component/feedback-message/feedback-me
     MediaViewerComponent,
     JourneysListComponent,
     JourneySearchCriteriaComponent,
-    EditJourneyBasicDetailsComponent
+    EditJourneyBasicDetailsComponent,
+    EditJourneyGeoDetailsComponent
   ],
     imports: [
         BrowserModule,
