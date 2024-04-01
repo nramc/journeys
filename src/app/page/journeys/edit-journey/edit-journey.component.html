@@ -19,7 +19,7 @@
   <mat-step [optional]="false" [completed]="isEventInfoCollected()" (interacted)="stepsEventHandler($event)">
     <ng-template matStepLabel>Add Journey Events Details</ng-template>
     <ng-template matStepContent>
-      <p>Event Details collections</p>
+      <app-edit-journey-media-details></app-edit-journey-media-details>
     </ng-template>
   </mat-step>
 
