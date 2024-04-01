@@ -1,16 +1,18 @@
-<mat-stepper orientation="vertical" [linear]="true" #stepper>
+<mat-stepper orientation="vertical" [linear]="true" #stepper *ngIf="journey">
 
   <mat-step [optional]="false" [completed]="isBasicDataCollected()" color="primary">
     <ng-template matStepLabel>Edit Journey Basic Details</ng-template>
     <ng-template matStepContent>
-      <app-edit-journey-basic-data (saved)="stepsEventHandler($event)"></app-edit-journey-basic-data>
+      <app-edit-journey-basic-data [journey]="journey"
+                                   (saved)="savedEventHandler($event)"></app-edit-journey-basic-data>
     </ng-template>
   </mat-step>
 
   <mat-step [optional]="false" [completed]="isGeoInfoCollected()" (interacted)="stepsEventHandler($event)">
     <ng-template matStepLabel>Edit Journey Geo Details</ng-template>
     <ng-template matStepContent>
-      <app-edit-journey-geo-details></app-edit-journey-geo-details>
+      <app-edit-journey-geo-details [journey]="journey"
+                                    (saved)="savedEventHandler($event)"></app-edit-journey-geo-details>
     </ng-template>
   </mat-step>
 

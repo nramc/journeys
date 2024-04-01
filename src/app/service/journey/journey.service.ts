@@ -32,4 +32,11 @@ export class JourneyService {
       });
   }
 
+  saveJourneyGeoDetails(journey: Journey): Observable<Journey> {
+    return this.httpClient.put<Journey>(environment.journeyApi + '/journey/' + journey.id, journey.extendedDetails?.geoDetails,
+      {
+        headers: {'Content-Type': 'application/vnd.journey.api.geo.v1+json'}
+      });
+  }
+
 }

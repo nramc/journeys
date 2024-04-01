@@ -1,1 +1,37 @@
-<p>edit-journey-geo-details works!</p>
+<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" class="container" *ngIf="this.journey">
+
+  <div class="row mb-3">
+    <div class="col-12">
+      <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
+    </div>
+  </div>
+
+  <div class="row geo-data-row mb-3">
+    <div class="col-md-6 col-12">
+      <div>
+        <label for="geojson" class="form-label">
+          <span>GeoJson</span><a class="geojson-tip" href="https://geojson.io/" target="_blank">Tip: GeoJson mapper</a>
+        </label>
+        <textarea class="form-control geojson-field" rows="10" [(ngModel)]="geoJsonString" (change)="reloadMap()"
+                  id="geojson" name="geojson" #geoJsonData="ngModel" required>
+          {{journey!.extendedDetails?.geoDetails?.geoJson | json}}
+        </textarea>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6" style="position: relative; min-height: 25vh">
+      <app-world-map class="h-50" [geoJsonData]="journey!.extendedDetails?.geoDetails?.geoJson" [disablePopup]="true"/>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="d-grid gap-2 d-flex justify-content-center">
+      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid">
+        Save
+      </button>
+      <button type="button" class="btn btn-outline-primary" [disabled]="!journeyForm.form.valid"
+              matStepperNext>Next
+      </button>
+    </div>
+  </div>
+</form>

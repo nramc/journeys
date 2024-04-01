@@ -10,7 +10,7 @@ import {JourneyService} from "../../../service/journey/journey.service";
   styleUrl: './edit-journey.component.scss'
 })
 export class EditJourneyComponent implements OnInit {
-  journey: Journey = new Journey();
+  journey!: Journey;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +25,10 @@ export class EditJourneyComponent implements OnInit {
   stepsEventHandler(event: any) {
     console.log('Event triggered:', event.type);
     this.fetchJourney();
+  }
+
+  savedEventHandler(data: Journey) {
+    this.journey = data;
   }
 
   fetchJourney() {
@@ -52,5 +56,6 @@ export class EditJourneyComponent implements OnInit {
   isJourneyPublished(): boolean {
     return this.journey.id != '';
   }
+
 
 }
