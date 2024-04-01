@@ -6,6 +6,7 @@ import {BehaviorSubject, catchError, map, merge, Observable, of, startWith, swit
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {JourneyPage} from "../../../../service/journey/journey-page.type";
 import {Journey} from "../../../../model/core/journey.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-journeys-list',
@@ -26,7 +27,9 @@ export class JourneysListComponent implements AfterViewInit {
     this.searchQuerySubject.next(value);
   }
 
-  constructor(private journeyService: JourneyService) {
+  constructor(
+    private journeyService: JourneyService,
+    private router: Router) {
   }
 
   getRepoIssues(queryString: string, sort: string, order: SortDirection, page: number, pageSize: number): Observable<JourneyPage> {
@@ -76,13 +79,12 @@ export class JourneysListComponent implements AfterViewInit {
   }
 
   viewJourney(row: Journey) {
-    console.log(row);
-    alert(row.id);
+    this.router.navigate(['/journey', row.id, 'view']);
+
   }
 
   editJourney(row: Journey) {
-    console.log(row);
-    alert(row.id);
+    this.router.navigate(['/journey', row.id, 'edit']);
   }
 
   trackJourney(index: number, item: Journey): string {
