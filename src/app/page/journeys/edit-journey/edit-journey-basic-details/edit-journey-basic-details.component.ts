@@ -10,10 +10,10 @@ import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-journey-basic-data',
-  templateUrl: './edit-journey-basic-data.component.html',
-  styleUrl: './edit-journey-basic-data.component.scss'
+  templateUrl: './edit-journey-basic-details.component.html',
+  styleUrl: './edit-journey-basic-details.component.scss'
 })
-export class EditJourneyBasicDataComponent implements OnInit {
+export class EditJourneyBasicDetailsComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
   readonly predefinedCategories = ['Travel', 'Work', 'Residential']
 

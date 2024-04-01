@@ -63,8 +63,8 @@ import {MatFormField, MatHint, MatSuffix} from "@angular/material/form-field";
 import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {MatChip, MatChipGrid, MatChipInput, MatChipOption, MatChipRemove, MatChipRow} from "@angular/material/chips";
 import {
-  EditJourneyBasicDataComponent
-} from "./page/journeys/edit-journey/edit-journey-basic-data/edit-journey-basic-data.component";
+  EditJourneyBasicDetailsComponent
+} from "./page/journeys/edit-journey/edit-journey-basic-details/edit-journey-basic-details.component";
 import {FeedbackMessageComponent} from "./component/feedback-message/feedback-message.component";
 
 @NgModule({
@@ -87,7 +87,7 @@ import {FeedbackMessageComponent} from "./component/feedback-message/feedback-me
     MediaViewerComponent,
     JourneysListComponent,
     JourneySearchCriteriaComponent,
-    EditJourneyBasicDataComponent
+    EditJourneyBasicDetailsComponent
   ],
     imports: [
         BrowserModule,
