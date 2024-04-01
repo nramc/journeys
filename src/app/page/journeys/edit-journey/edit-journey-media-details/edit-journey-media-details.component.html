@@ -1,1 +1,19 @@
-<p>edit-journey-media-details works!</p>
+<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" class="container" *ngIf="this.journey">
+
+  <div class="row mb-3">
+    <div class="col-12">
+      <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-12 ">
+      <p>Image Details</p>
+    </div>
+
+    <div class="col-md-6 col-12 ">
+      <p>Video Details</p>
+    </div>
+  </div>
+
+</form>
