@@ -21,7 +21,7 @@ export class Journey {
 export class JourneyExtendedDetails {
   constructor(
     public geoDetails: JourneyGeoDetails | undefined = new JourneyGeoDetails(undefined),
-    public imageDetails: JourneyImageDetails | undefined = new JourneyImageDetails()
+    public imagesDetails: JourneyImageDetails | undefined = new JourneyImageDetails()
   ) {
   }
 }

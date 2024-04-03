@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Journey} from "../../model/core/journey.model";
+import {Journey, JourneyImageDetails} from "../../model/core/journey.model";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {JourneyPage} from "./journey-page.type";
@@ -36,6 +36,13 @@ export class JourneyService {
     return this.httpClient.put<Journey>(environment.journeyApi + '/journey/' + journey.id, journey.extendedDetails?.geoDetails,
       {
         headers: {'Content-Type': 'application/vnd.journey.api.geo.v1+json'}
+      });
+  }
+
+  saveJourneyImagesDetails(journey: Journey, imagesDetails: JourneyImageDetails): Observable<Journey> {
+    return this.httpClient.put<Journey>(environment.journeyApi + '/journey/' + journey.id, imagesDetails,
+      {
+        headers: {'Content-Type': 'application/vnd.journey.api.images.v1+json'}
       });
   }
 

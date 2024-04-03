@@ -26,8 +26,8 @@ export class EditJourneyImageDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.journey?.extendedDetails?.imageDetails) {
-      this.formImageDetails = this.journey.extendedDetails.imageDetails;
+    if (this.journey?.extendedDetails?.imagesDetails) {
+      this.formImageDetails = this.journey.extendedDetails.imagesDetails;
     }
     // @ts-ignore
     this.myWidget = cloudinary.createUploadWidget(
@@ -81,11 +81,12 @@ export class EditJourneyImageDetailsComponent implements OnInit {
 
   save(journeyForm: NgForm) {
     console.log('Saved', journeyForm.value);
-    /*this.journeyService.saveJourneyBasicDetails(this.journey)
+
+    this.journeyService.saveJourneyImagesDetails(this.journey, this.formImageDetails)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
-        error: err => this.onError('Unexpected error while saving image data', err)
-      });*/
+        error: err => this.onError('Unexpected error while saving images data', err)
+      });
   }
 
   openUploadWidget() {
