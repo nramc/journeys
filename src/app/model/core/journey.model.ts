@@ -34,7 +34,7 @@ export class JourneyGeoDetails {
 
 export class JourneyImageDetails {
   constructor(
-    public images: JourneyImageDetail[] | undefined = []
+    public images: JourneyImageDetail[] = []
   ) {
   }
 }
@@ -42,9 +42,7 @@ export class JourneyImageDetails {
 export class JourneyImageDetail {
   constructor(
     public url: string,
-    public assetId: string,
-    publicId: string,
-    originalFileName: string
+    public assetId: string
   ) {
   }
 

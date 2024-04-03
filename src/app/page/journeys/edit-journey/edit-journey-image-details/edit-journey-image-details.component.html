@@ -14,8 +14,8 @@
     </div>
     <div class="col-md-6 col-12 ">
       <p>Image Details</p>
-      @if (journey.extendedDetails?.imageDetails?.images) {
-        <p *ngFor="let img of this.journey?.extendedDetails?.imageDetails?.images">
+      @if (formImageDetails.images) {
+        <p *ngFor="let img of this.formImageDetails.images">
           {{ img | json }}
         </p>
       }

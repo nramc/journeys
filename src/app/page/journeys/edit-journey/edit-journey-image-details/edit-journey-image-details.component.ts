@@ -1,10 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {
-  Journey,
-  JourneyExtendedDetails,
-  JourneyImageDetail,
-  JourneyImageDetails
-} from "../../../../model/core/journey.model";
+import {Journey, JourneyImageDetail, JourneyImageDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {NgForm} from "@angular/forms";
 import {environment} from "../../../../../environments/environment";
@@ -23,16 +18,16 @@ export class EditJourneyImageDetailsComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
 
+  formImageDetails: JourneyImageDetails = new JourneyImageDetails();
+
   constructor(
     private journeyService: JourneyService
   ) {
   }
 
   ngOnInit(): void {
-    if (!this.journey.extendedDetails) {
-      this.journey.extendedDetails = new JourneyExtendedDetails();
-    } else if (!this.journey.extendedDetails.imageDetails) {
-      this.journey.extendedDetails.imageDetails = new JourneyImageDetails();
+    if (this.journey?.extendedDetails?.imageDetails) {
+      this.formImageDetails = this.journey.extendedDetails.imageDetails;
     }
     // @ts-ignore
     this.myWidget = cloudinary.createUploadWidget(
@@ -47,8 +42,8 @@ export class EditJourneyImageDetailsComponent implements OnInit {
   }
 
   private addImage(info: CloudinaryUploadSuccessInfo) {
-    this.journey.extendedDetails!.imageDetails!.images!.push(
-      new JourneyImageDetail(info.secure_url, info.asset_id, info.public_id, info.original_filename)
+    this.formImageDetails.images.push(
+      new JourneyImageDetail(info.secure_url, info.asset_id)
     );
   }
 
@@ -57,7 +52,7 @@ export class EditJourneyImageDetailsComponent implements OnInit {
     return {
       cloudName: environment.cloudName,
       uploadPreset: environment.preset,
-      asset_folder: journey.id,
+      folder: `journey/${journey.id}`,
       tags: journey.tags,
       use_asset_folder_as_public_id_prefix: true,
       context: {'env': 'dev', 'id': `${journey.id}`},
