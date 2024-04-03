@@ -7,8 +7,19 @@
   </div>
 
   <div class="row">
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="btn btn-primary" (click)="openUploadWidget()">Add Images</button>
+      </div>
+    </div>
     <div class="col-md-6 col-12 ">
       <p>Image Details</p>
+      @if (journey.extendedDetails?.imageDetails?.images) {
+        <p *ngFor="let img of this.journey?.extendedDetails?.imageDetails?.images">
+          {{ img | json }}
+        </p>
+      }
+
     </div>
 
     <div class="col-md-6 col-12 ">

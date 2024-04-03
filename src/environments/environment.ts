@@ -1,6 +1,8 @@
 export const environment = {
-  production : true,
+  production: true,
   journeyApi: "http://prodcution.url/rest",
 
-  cloudName : "prodCloudName"
+  cloudName: "journeytogether",
+  preset: "journey"
+
 };
