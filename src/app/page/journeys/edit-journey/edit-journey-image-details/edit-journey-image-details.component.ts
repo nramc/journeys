@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Journey, JourneyImageDetail, JourneyImageDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
-import {NgForm} from "@angular/forms";
 import {environment} from "../../../../../environments/environment";
 import {CloudinaryUploadSuccessEvent, CloudinaryUploadSuccessInfo} from "../../../../model/upload-success-event.type";
 
@@ -34,8 +33,10 @@ export class EditJourneyImageDetailsComponent implements OnInit {
       this.getWidgetParams(this.journey),
       (error: any, result: CloudinaryUploadSuccessEvent) => {
         if (!error && result && result.event === "success") {
-          console.info(result.info);
           this.addImage(result.info);
+        }
+        if (!error && result && result.event === "close") {
+          this.save();
         }
       }
     );
@@ -79,9 +80,7 @@ export class EditJourneyImageDetailsComponent implements OnInit {
     this.savedEvent.emit(this.journey);
   }
 
-  save(journeyForm: NgForm) {
-    console.log('Saved', journeyForm.value);
-
+  save() {
     this.journeyService.saveJourneyImagesDetails(this.journey, this.formImageDetails)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
