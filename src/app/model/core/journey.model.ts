@@ -13,15 +13,15 @@ export class Journey {
     public tags: string[] = [],
     public thumbnail: string = 'default',
     public location: Geometry | undefined = undefined,
-    public extendedDetails: JourneyExtendedDetails | undefined = undefined
+    public extendedDetails: JourneyExtendedDetails| undefined = new JourneyExtendedDetails()
   ) {
   }
 }
 
 export class JourneyExtendedDetails {
   constructor(
-    public geoDetails: JourneyGeoDetails | undefined = undefined,
-    public mediaDetails: JourneyMediaDetails | undefined = undefined
+    public geoDetails: JourneyGeoDetails | undefined = new JourneyGeoDetails(undefined),
+    public imagesDetails: JourneyImageDetails | undefined = new JourneyImageDetails()
   ) {
   }
 }
@@ -32,10 +32,18 @@ export class JourneyGeoDetails {
   }
 }
 
-export class JourneyMediaDetails {
+export class JourneyImageDetails {
   constructor(
-    images: string[] = [],
-    videos: string[] = []
+    public images: JourneyImageDetail[] = []
   ) {
   }
+}
+
+export class JourneyImageDetail {
+  constructor(
+    public url: string,
+    public assetId: string
+  ) {
+  }
+
 }

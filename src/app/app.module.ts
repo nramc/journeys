@@ -69,6 +69,9 @@ import {FeedbackMessageComponent} from "./component/feedback-message/feedback-me
 import {
   EditJourneyGeoDetailsComponent
 } from "./page/journeys/edit-journey/edit-journey-geo-details/edit-journey-geo-details.component";
+import {
+  EditJourneyImageDetailsComponent
+} from "./page/journeys/edit-journey/edit-journey-image-details/edit-journey-image-details.component";
 
 @NgModule({
   declarations: [
@@ -91,7 +94,8 @@ import {
     JourneysListComponent,
     JourneySearchCriteriaComponent,
     EditJourneyBasicDetailsComponent,
-    EditJourneyGeoDetailsComponent
+    EditJourneyGeoDetailsComponent,
+    EditJourneyImageDetailsComponent
   ],
     imports: [
         BrowserModule,

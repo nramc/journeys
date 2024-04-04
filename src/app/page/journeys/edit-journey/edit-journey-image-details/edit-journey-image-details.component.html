@@ -1,0 +1,42 @@
+<form (ngSubmit)="save()" #journeyForm="ngForm" class="container" *ngIf="this.journey">
+
+  <div class="row mb-3">
+    <div class="col-12">
+      <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex flex-row mb-3">
+        @for (imageDetail of this.formImageDetails.images; track imageDetail.assetId; let i = $index) {
+          <div class="m-2">
+            <img
+              [src]="imageDetail.url"
+              [alt]="imageDetail.assetId"
+              [title]="imageDetail.assetId"
+              class="img-thumbnail rounded border border-2 border-opacity-50 border-primary"
+              style="width: 75px;height: 75px;"
+            />
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="d-grid gap-2 d-flex justify-content-center">
+
+      <button type="button" class="btn btn-outline-primary" (click)="openUploadWidget()">
+        <i class="bi bi-cloud-arrow-up-fill fs-5"></i><span class="ms-2">Upload</span>
+      </button>
+
+
+      <button type="button" class="btn btn-outline-primary" [disabled]="!journey.extendedDetails?.imagesDetails?.images"
+              matStepperNext>Next
+      </button>
+    </div>
+  </div>
+
+</form>

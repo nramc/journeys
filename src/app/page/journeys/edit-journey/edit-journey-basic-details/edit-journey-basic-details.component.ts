@@ -80,7 +80,6 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
   }
 
   save(journeyForm: NgForm) {
-    console.log('Saved', journeyForm.value);
     this.journeyService.saveJourneyBasicDetails(this.journey)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
