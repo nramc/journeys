@@ -47,8 +47,6 @@ export class NewJourneyComponent {
           next: data => this.onCreateSuccess(data),
           error: err => this.setError(err)
         });
-    } else {
-      console.log(journeyForm)
     }
   }
 

@@ -23,7 +23,6 @@ export class EditJourneyComponent implements OnInit {
   }
 
   stepsEventHandler(event: any) {
-    console.log('Event triggered:', event.type);
     this.fetchJourney();
   }
 

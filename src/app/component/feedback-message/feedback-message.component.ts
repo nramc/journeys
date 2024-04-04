@@ -16,7 +16,6 @@ export class FeedbackMessageComponent {
 
   @Input("successMessage")
   set successMessage(message: string) {
-    console.log("message received", message)
     this._successMessage = message;
     this._errorMessage = '';
   }
