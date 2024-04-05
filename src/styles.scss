@@ -111,24 +111,34 @@ body {
 }
 
 /* ng-bootstrap carousal styles customisation */
-.carousel-control-prev-icon{
+.carousel-control-prev-icon {
   filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
   background-image: url("/assets/svg/chevron-left.svg");
 }
-.carousel-control-next-icon{
+
+.carousel-control-next-icon {
   filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
   background-image: url("/assets/svg/chevron-right.svg");
 
 }
+
 .slide-media-image {
   object-fit: fill;
   width: 100%;
 }
 
-.ng-touched.ng-valid:not(form)  {
+.ng-touched.ng-valid:not(form) {
   border-left: 5px solid #42A948; /* green */
 }
 
-.ng-touched.ng-invalid:not(form)  {
+.ng-touched.ng-invalid:not(form) {
   border-left: 5px solid #a94442; /* red */
+}
+
+.h-60-px {
+  height: 60px;
+}
+
+.w-90-px {
+  width: 90px;
 }

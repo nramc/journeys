@@ -8,15 +8,18 @@
 
   <div class="row">
     <div class="col-12">
-      <div class="d-flex flex-row mb-3">
+      <div class="d-flex mb-3 flex-wrap">
         @for (imageDetail of this.formImageDetails.images; track imageDetail.assetId; let i = $index) {
-          <div class="m-2">
+          <div class="m-2 image-thumbnail-wrapper">
+            <button class="btn-image-remove" aria-label="Close" (click)="removeImageAndSaveJourney(imageDetail)"
+                    matBadge="x" matBadgePosition="below after" matBadgeColor="warn" matBadgeSize="small">
+            </button>
+
             <img
               [src]="imageDetail.url"
               [alt]="imageDetail.assetId"
               [title]="imageDetail.assetId"
-              class="img-thumbnail rounded border border-2 border-opacity-50 border-primary"
-              style="width: 75px;height: 75px;"
+              class="img-thumbnail rounded border border-2 border-opacity-50 border-primary h-60-px w-90-px"
             />
           </div>
         }

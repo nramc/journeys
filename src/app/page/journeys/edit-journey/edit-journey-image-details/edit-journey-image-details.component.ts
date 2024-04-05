@@ -48,6 +48,14 @@ export class EditJourneyImageDetailsComponent implements OnInit {
     );
   }
 
+  removeImageAndSaveJourney(imageDetails: JourneyImageDetail) {
+    const index = this.formImageDetails.images.indexOf(imageDetails);
+    if (index >= 0) {
+      this.formImageDetails.images.splice(index, 1);
+      this.save()
+    }
+  }
+
   private getWidgetParams(journey: Journey) {
     // Refer: https://cloudinary.com/documentation/image_upload_api_reference#upload
     return {

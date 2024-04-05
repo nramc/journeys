@@ -72,6 +72,7 @@ import {
 import {
   EditJourneyImageDetailsComponent
 } from "./page/journeys/edit-journey/edit-journey-image-details/edit-journey-image-details.component";
+import {MatBadge} from "@angular/material/badge";
 
 @NgModule({
   declarations: [
@@ -145,7 +146,8 @@ import {
         MatChipOption,
         MatStepperNext,
         MatStepperIcon,
-        FeedbackMessageComponent
+        FeedbackMessageComponent,
+        MatBadge
     ],
   providers: [
     {
