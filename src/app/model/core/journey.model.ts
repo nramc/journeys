@@ -13,7 +13,7 @@ export class Journey {
     public tags: string[] = [],
     public thumbnail: string = 'default',
     public location: Geometry | undefined = undefined,
-    public extendedDetails: JourneyExtendedDetails| undefined = new JourneyExtendedDetails()
+    public extendedDetails: JourneyExtendedDetails | undefined = new JourneyExtendedDetails()
   ) {
   }
 }
@@ -21,7 +21,8 @@ export class Journey {
 export class JourneyExtendedDetails {
   constructor(
     public geoDetails: JourneyGeoDetails | undefined = new JourneyGeoDetails(undefined),
-    public imagesDetails: JourneyImageDetails | undefined = new JourneyImageDetails()
+    public imagesDetails: JourneyImagesDetails | undefined = new JourneyImagesDetails(),
+    public videosDetails: JourneyVideosDetails | undefined = new JourneyVideosDetails()
   ) {
   }
 }
@@ -32,7 +33,7 @@ export class JourneyGeoDetails {
   }
 }
 
-export class JourneyImageDetails {
+export class JourneyImagesDetails {
   constructor(
     public images: JourneyImageDetail[] = []
   ) {
@@ -45,5 +46,14 @@ export class JourneyImageDetail {
     public assetId: string
   ) {
   }
+}
 
+export class JourneyVideosDetails {
+  constructor(public videos: JourneyVideoDetail[] = []) {
+  }
+}
+
+export class JourneyVideoDetail {
+  constructor(public videoId: string) {
+  }
 }
