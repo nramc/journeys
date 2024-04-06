@@ -1,4 +1,4 @@
-<form (ngSubmit)="save()" #journeyForm="ngForm" class="container" *ngIf="this.journey">
+<form #journeyForm="ngForm" class="container" *ngIf="this.journey">
 
   <div class="row mb-3">
     <div class="col-12">
@@ -23,12 +23,12 @@
       <div class="d-flex mb-3 flex-wrap">
         @for (videoDetail of formVideosDetails.videos; track videoDetail.videoId; let i = $index) {
           <div class="m-2 video-thumbnail-wrapper">
-            <button class="btn-video-remove" aria-label="Close" (click)="removeVideoAndSaveJourney(videoDetail)"
+            <button type="button" class="btn-video-remove" aria-label="Close" (click)="removeVideoAndSaveJourney(videoDetail)"
                     matBadge="x" matBadgePosition="below after" matBadgeColor="warn" matBadgeSize="small">
             </button>
 
             <img
-              src="favicon.ico"
+              [src]="'https://img.youtube.com/vi/' + videoDetail.videoId + '/0.jpg'"
               [alt]="videoDetail.videoId"
               [title]="videoDetail.videoId"
               class="video-thumbnail rounded border border-2 border-opacity-50 border-primary h-200-px w-200-px"

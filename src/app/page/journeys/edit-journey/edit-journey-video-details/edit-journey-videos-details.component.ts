@@ -45,7 +45,7 @@ export class EditJourneyVideosDetailsComponent implements OnInit {
     this.formVideosDetails.videos.push(
       new JourneyVideoDetail(videoId)
     );
-    // save()
+    this.save();
   }
 
   removeVideoAndSaveJourney(videoDetail: JourneyVideoDetail) {
