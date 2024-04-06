@@ -114,4 +114,33 @@ export class NewJourneyComponent {
       }
     }
   }
+
+  swapCoordinates() {
+    let temp = this.coordinates[0];
+    this.coordinates[0] = this.coordinates[1];
+    this.coordinates[1] = temp;
+    this.refreshMapWithCoordinates();
+  }
+
+  async copyCoordinatesFromGoogleMap() {
+    const copiedValue = await navigator.clipboard.readText()
+    console.debug('Value copied from clipboard:', copiedValue);
+    if (copiedValue) {
+      let copiedCoordinates = copiedValue.split(',');
+      this.coordinates[0] = Number(copiedCoordinates.length < 2 ? copiedCoordinates[0] : copiedCoordinates[1]);
+      this.coordinates[1] = Number(copiedCoordinates[0]);
+      this.refreshMapWithCoordinates();
+    }
+  }
+
+  async copyCoordinatesFromClipboard() {
+    const copiedValue = await navigator.clipboard.readText()
+    console.debug('Value copied from clipboard:', copiedValue);
+    if (copiedValue) {
+      let copiedCoordinates = copiedValue.split(',');
+      this.coordinates[0] = Number(copiedCoordinates[0]);
+      this.coordinates[1] = Number(copiedCoordinates.length >= 2 ? copiedCoordinates[1] : copiedCoordinates[0]);
+      this.refreshMapWithCoordinates();
+    }
+  }
 }

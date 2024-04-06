@@ -115,10 +115,18 @@
 
         <div class="col-12 col-md-6">
           <div class="input-group mb-3">
-            <span class="input-group-text">Coordinates</span>
             <input type="number" class="form-control" placeholder="Longitude" aria-label="Longitude"
                    id="longitude" name="longitude" [(ngModel)]="coordinates[0]" [readOnly]="journey.id"
                    required min="-180.0" max="180.0" #longitude="ngModel" (blur)="refreshMapWithCoordinates()">
+            <button class="btn btn-primary input-group-text dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+              Coordinates
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" role="button" (click)="copyCoordinatesFromGoogleMap()">Paste coordinates copied from Google Map</a></li>
+              <li><a class="dropdown-item" role="button" (click)="copyCoordinatesFromClipboard()">Paste from clipboard</a></li>
+              <li><a class="dropdown-item" role="button" (click)="swapCoordinates()">Swap Coordinates</a></li>
+            </ul>
             <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
                    id="latitude" name="latitude" [(ngModel)]="coordinates[1]" [readOnly]="journey.id"
                    required min="-90.0" max="90.0" #latitude="ngModel" (blur)="refreshMapWithCoordinates()">
