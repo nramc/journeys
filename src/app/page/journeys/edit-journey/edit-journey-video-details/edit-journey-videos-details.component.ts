@@ -3,13 +3,13 @@ import {Journey, JourneyVideoDetail, JourneyVideosDetails} from 'src/app/model/c
 import {JourneyService} from "../../../../service/journey/journey.service";
 
 @Component({
-  selector: 'app-edit-journey-video-details',
+  selector: 'app-edit-journey-videos-details',
   standalone: true,
   imports: [],
-  templateUrl: './edit-journey-video-details.component.html',
-  styleUrl: './edit-journey-video-details.component.scss'
+  templateUrl: './edit-journey-videos-details.component.html',
+  styleUrl: './edit-journey-videos-details.component.scss'
 })
-export class EditJourneyVideoDetailsComponent implements OnInit {
+export class EditJourneyVideosDetailsComponent implements OnInit {
   @Input({required: true}) journey!: Journey;
   @Output('saved') savedEvent = new EventEmitter<Journey>();
 

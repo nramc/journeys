@@ -25,7 +25,7 @@
   <mat-step [optional]="false" [completed]="isEventInfoCollected()" (interacted)="stepsEventHandler($event)">
     <ng-template matStepLabel>Edit Videos Details</ng-template>
     <ng-template matStepContent>
-      <app-edit-journey-video-details [journey]="journey" (saved)="savedEventHandler($event)"></app-edit-journey-video-details>
+      <app-edit-journey-videos-details [journey]="journey" (saved)="savedEventHandler($event)"></app-edit-journey-videos-details>
     </ng-template>
   </mat-step>
 

@@ -74,8 +74,8 @@ import {
 } from "./page/journeys/edit-journey/edit-journey-image-details/edit-journey-images-details.component";
 import {MatBadge} from "@angular/material/badge";
 import {
-    EditJourneyVideoDetailsComponent
-} from "./page/journeys/edit-journey/edit-journey-video-details/edit-journey-video-details.component";
+    EditJourneyVideosDetailsComponent
+} from "./page/journeys/edit-journey/edit-journey-video-details/edit-journey-videos-details.component";
 
 @NgModule({
   declarations: [
@@ -151,7 +151,7 @@ import {
         MatStepperIcon,
         FeedbackMessageComponent,
         MatBadge,
-        EditJourneyVideoDetailsComponent
+        EditJourneyVideosDetailsComponent
     ],
   providers: [
     {
