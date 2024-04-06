@@ -2,16 +2,34 @@ import {Component} from '@angular/core';
 import {NEW_JOURNEY_PAGE_INFO} from "../../../model/page-info";
 import {Journey} from "../../../model/core/journey.model";
 import {JourneyService} from "../../../service/journey/journey.service";
-import {NgForm} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
-import {MatChipInputEvent} from "@angular/material/chips";
+import {MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow} from "@angular/material/chips";
 import {debounceTime, distinctUntilChanged, map, Observable, OperatorFunction} from "rxjs";
+import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
+import {MatIcon} from "@angular/material/icon";
+import {NgIf} from "@angular/common";
+import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
+import {WorldMapComponent} from "../../../component/world-map/world-map.component";
 
 @Component({
   selector: 'app-new-journey',
   templateUrl: './new-journey.component.html',
-  styleUrl: './new-journey.component.scss'
+  styleUrl: './new-journey.component.scss',
+  imports: [
+    FormsModule,
+    NgbTypeahead,
+    MatChipGrid,
+    MatChipRow,
+    MatIcon,
+    MatChipInput,
+    NgIf,
+    NgbInputDatepicker,
+    PageHeaderComponent,
+    WorldMapComponent
+  ],
+  standalone: true
 })
 export class NewJourneyComponent {
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
@@ -57,7 +75,7 @@ export class NewJourneyComponent {
 
   continue() {
     if (this.journey.id) {
-      this.router.navigate(['/journey', this.journey.id, 'edit']);
+      this.router.navigate(['/journey', this.journey.id, 'edit']).then();
     }
   }
 
@@ -94,6 +112,35 @@ export class NewJourneyComponent {
         type: "Point",
         coordinates: this.coordinates
       }
+    }
+  }
+
+  swapCoordinates() {
+    let temp = this.coordinates[0];
+    this.coordinates[0] = this.coordinates[1];
+    this.coordinates[1] = temp;
+    this.refreshMapWithCoordinates();
+  }
+
+  async copyCoordinatesFromGoogleMap() {
+    const copiedValue = await navigator.clipboard.readText()
+    console.debug('Value copied from clipboard:', copiedValue);
+    if (copiedValue) {
+      let copiedCoordinates = copiedValue.split(',');
+      this.coordinates[0] = Number(copiedCoordinates.length < 2 ? copiedCoordinates[0] : copiedCoordinates[1]);
+      this.coordinates[1] = Number(copiedCoordinates[0]);
+      this.refreshMapWithCoordinates();
+    }
+  }
+
+  async copyCoordinatesFromClipboard() {
+    const copiedValue = await navigator.clipboard.readText()
+    console.debug('Value copied from clipboard:', copiedValue);
+    if (copiedValue) {
+      let copiedCoordinates = copiedValue.split(',');
+      this.coordinates[0] = Number(copiedCoordinates[0]);
+      this.coordinates[1] = Number(copiedCoordinates.length >= 2 ? copiedCoordinates[1] : copiedCoordinates[0]);
+      this.refreshMapWithCoordinates();
     }
   }
 }

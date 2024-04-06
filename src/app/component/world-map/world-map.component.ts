@@ -32,7 +32,8 @@ L.Marker.prototype.options.icon = iconDefault;
 @Component({
   selector: 'app-world-map',
   templateUrl: './world-map.component.html',
-  styleUrls: ['./world-map.component.scss']
+  styleUrls: ['./world-map.component.scss'],
+  standalone: true
 })
 export class WorldMapComponent implements AfterViewInit {
   private elementRef: ElementRef = inject(ElementRef);
