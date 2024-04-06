@@ -1,11 +1,23 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Journey, JourneyVideoDetail, JourneyVideosDetails} from 'src/app/model/core/journey.model';
 import {JourneyService} from "../../../../service/journey/journey.service";
+import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
+import {MatStepperNext} from "@angular/material/stepper";
+import {MatBadge} from "@angular/material/badge";
 
 @Component({
   selector: 'app-edit-journey-videos-details',
   standalone: true,
-  imports: [],
+  imports: [
+    FeedbackMessageComponent,
+    FormsModule,
+    NgIf,
+    ReactiveFormsModule,
+    MatStepperNext,
+    MatBadge
+  ],
   templateUrl: './edit-journey-videos-details.component.html',
   styleUrl: './edit-journey-videos-details.component.scss'
 })
@@ -29,10 +41,11 @@ export class EditJourneyVideosDetailsComponent implements OnInit {
     }
   }
 
-  private addVideo(videoId: string) {
+  addVideo(videoId: string) {
     this.formVideosDetails.videos.push(
       new JourneyVideoDetail(videoId)
     );
+    // save()
   }
 
   removeVideoAndSaveJourney(videoDetail: JourneyVideoDetail) {
@@ -47,7 +60,7 @@ export class EditJourneyVideosDetailsComponent implements OnInit {
     this.journeyService.saveJourneyVideosDetails(this.journey, this.formVideosDetails)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
-        error: err => this.onError('Unexpected error while saving images data', err)
+        error: err => this.onError('Unexpected error while saving videos data', err)
       });
   }
 

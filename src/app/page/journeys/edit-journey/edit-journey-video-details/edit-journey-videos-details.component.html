@@ -1,1 +1,51 @@
-<p>edit-journey-video-details works!</p>
+<form (ngSubmit)="save()" #journeyForm="ngForm" class="container" *ngIf="this.journey">
+
+  <div class="row mb-3">
+    <div class="col-12">
+      <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="YouTube Video ID" aria-label="YouTube Video ID"
+               aria-describedby="addVideo" #videoInput>
+        <button class="btn btn-outline-primary" type="button" id="addVideo"
+                (click)="addVideo(videoInput.value);videoInput.value=''">Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex mb-3 flex-wrap">
+        @for (videoDetail of formVideosDetails.videos; track videoDetail.videoId; let i = $index) {
+          <div class="m-2 video-thumbnail-wrapper">
+            <button class="btn-video-remove" aria-label="Close" (click)="removeVideoAndSaveJourney(videoDetail)"
+                    matBadge="x" matBadgePosition="below after" matBadgeColor="warn" matBadgeSize="small">
+            </button>
+
+            <img
+              src="favicon.ico"
+              [alt]="videoDetail.videoId"
+              [title]="videoDetail.videoId"
+              class="video-thumbnail rounded border border-2 border-opacity-50 border-primary h-200-px w-200-px"
+            />
+          </div>
+        }
+        @if (!formVideosDetails.videos.length) {
+          <p class="text-primary fst-italic opacity-50">No Videos available for the journey</p>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="d-grid gap-2 d-flex justify-content-center">
+      <button type="button" class="btn btn-outline-primary" matStepperNext>Next</button>
+    </div>
+  </div>
+
+</form>
