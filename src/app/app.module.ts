@@ -3,7 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {WorldMapComponent} from './component/world-map/world-map.component';
 import {NgbDateAdapter, NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {SideNavbarComponent} from './component/side-navbar/side-navbar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -14,7 +13,6 @@ import {DashboardComponent} from './page/dashboard/dashboard.component';
 import {SearchComponent} from './page/search/search.component';
 import {GalleryComponent} from './page/gallery/gallery.component';
 import {WorkspaceComponent} from './page/workspace/workspace.component';
-import {PageHeaderComponent} from './component/page-header/page-header.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MarkerPopupComponent} from './component/marker-popup/marker-popup.component';
 import {LocationComponent} from './page/location/location.component';
@@ -25,7 +23,6 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {LocationCardComponent} from "./component/location-card/location-card.component";
 import {CloudinaryModule} from "@cloudinary/ng";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NewJourneyComponent} from "./page/journeys/new-journey/new-journey.component";
 import {UpdateJourneyDetailsComponent} from "./page/workspace/update-journey-details/update-journey-details.component";
 import {
   MatStep,
@@ -74,24 +71,23 @@ import {
 } from "./page/journeys/edit-journey/edit-journey-image-details/edit-journey-images-details.component";
 import {MatBadge} from "@angular/material/badge";
 import {
-    EditJourneyVideosDetailsComponent
+  EditJourneyVideosDetailsComponent
 } from "./page/journeys/edit-journey/edit-journey-video-details/edit-journey-videos-details.component";
+import {PageHeaderComponent} from "./component/page-header/page-header.component";
+import {WorldMapComponent} from "./component/world-map/world-map.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    WorldMapComponent,
     SideNavbarComponent,
     HomeComponent,
     SearchJourneyComponent,
-    NewJourneyComponent,
     ViewJourneyComponent,
     EditJourneyComponent,
     DashboardComponent,
     SearchComponent,
     GalleryComponent,
     WorkspaceComponent,
-    PageHeaderComponent,
     MarkerPopupComponent,
     LocationComponent,
     MediaViewerComponent,
@@ -101,58 +97,60 @@ import {
     EditJourneyGeoDetailsComponent,
     EditJourneyImagesDetailsComponent
   ],
-    imports: [
-        BrowserModule,
-        NgbModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatIconModule,
-        HttpClientModule,
-        MediaGalleryComponent,
-        MatTabsModule,
-        LocationCardComponent,
-        CloudinaryModule,
-        FormsModule,
-        UpdateJourneyDetailsComponent,
-        MatStepper,
-        MatStep,
-        MatStepLabel,
-        MatStepContent,
-        ReactiveFormsModule,
-        MatPaginator,
-        MatHeaderCell,
-        MatColumnDef,
-        MatCell,
-        MatProgressSpinnerModule,
-        MatTable,
-        MatSort,
-        MatHeaderRow,
-        MatRow,
-        MatRowDef,
-        MatCellDef,
-        MatHeaderCellDef,
-        MatHeaderRowDef,
-        MatSortHeader,
-        MatRipple,
-        MatDatepickerInput,
-        MatHint,
-        MatSuffix,
-        MatDatepickerToggle,
-        MatDatepicker,
-        MatChipGrid,
-        MatChipRow,
-        MatChipInput,
-        MatFormField,
-        MatChipRemove,
-        MatChip,
-        MatChipOption,
-        MatStepperNext,
-        MatStepperIcon,
-        FeedbackMessageComponent,
-        MatBadge,
-        EditJourneyVideosDetailsComponent
-    ],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule,
+    HttpClientModule,
+    MediaGalleryComponent,
+    MatTabsModule,
+    LocationCardComponent,
+    CloudinaryModule,
+    FormsModule,
+    UpdateJourneyDetailsComponent,
+    MatStepper,
+    MatStep,
+    MatStepLabel,
+    MatStepContent,
+    ReactiveFormsModule,
+    MatPaginator,
+    MatHeaderCell,
+    MatColumnDef,
+    MatCell,
+    MatProgressSpinnerModule,
+    MatTable,
+    MatSort,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatHeaderRowDef,
+    MatSortHeader,
+    MatRipple,
+    MatDatepickerInput,
+    MatHint,
+    MatSuffix,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatChipGrid,
+    MatChipRow,
+    MatChipInput,
+    MatFormField,
+    MatChipRemove,
+    MatChip,
+    MatChipOption,
+    MatStepperNext,
+    MatStepperIcon,
+    FeedbackMessageComponent,
+    MatBadge,
+    EditJourneyVideosDetailsComponent,
+    PageHeaderComponent,
+    WorldMapComponent
+  ],
   providers: [
     {
       provide: LIGHTBOX_CONFIG, useValue: {
@@ -162,9 +160,7 @@ import {
     },
     {provide: NgbDateAdapter, useClass: JourneyDateAdapter}
   ],
-  exports: [
-    PageHeaderComponent
-  ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
