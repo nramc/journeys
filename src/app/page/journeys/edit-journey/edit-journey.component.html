@@ -1,7 +1,7 @@
 <mat-stepper orientation="vertical" [linear]="true" #stepper *ngIf="journey">
 
   <mat-step [optional]="false" [completed]="isBasicDataCollected()" color="primary">
-    <ng-template matStepLabel>Edit Journey Basic Details</ng-template>
+    <ng-template matStepLabel>Edit Basic Details</ng-template>
     <ng-template matStepContent>
       <app-edit-journey-basic-data [journey]="journey"
                                    (saved)="savedEventHandler($event)"></app-edit-journey-basic-data>
@@ -9,7 +9,7 @@
   </mat-step>
 
   <mat-step [optional]="false" [completed]="isGeoInfoCollected()" (interacted)="stepsEventHandler($event)">
-    <ng-template matStepLabel>Edit Journey Geo Details</ng-template>
+    <ng-template matStepLabel>Edit Geo Details</ng-template>
     <ng-template matStepContent>
       <app-edit-journey-geo-details [journey]="journey"
                                     (saved)="savedEventHandler($event)"></app-edit-journey-geo-details>
@@ -17,9 +17,15 @@
   </mat-step>
 
   <mat-step [optional]="false" [completed]="isEventInfoCollected()" (interacted)="stepsEventHandler($event)">
-    <ng-template matStepLabel>Add Journey Events Details</ng-template>
+    <ng-template matStepLabel>Edit Images Details</ng-template>
     <ng-template matStepContent>
-      <app-edit-journey-image-details [journey]="journey"></app-edit-journey-image-details>
+      <app-edit-journey-images-details [journey]="journey" (saved)="savedEventHandler($event)"></app-edit-journey-images-details>
+    </ng-template>
+  </mat-step>
+  <mat-step [optional]="false" [completed]="isEventInfoCollected()" (interacted)="stepsEventHandler($event)">
+    <ng-template matStepLabel>Edit Videos Details</ng-template>
+    <ng-template matStepContent>
+      <app-edit-journey-videos-details [journey]="journey" (saved)="savedEventHandler($event)"></app-edit-journey-videos-details>
     </ng-template>
   </mat-step>
 

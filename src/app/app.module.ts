@@ -70,9 +70,12 @@ import {
   EditJourneyGeoDetailsComponent
 } from "./page/journeys/edit-journey/edit-journey-geo-details/edit-journey-geo-details.component";
 import {
-  EditJourneyImageDetailsComponent
-} from "./page/journeys/edit-journey/edit-journey-image-details/edit-journey-image-details.component";
+  EditJourneyImagesDetailsComponent
+} from "./page/journeys/edit-journey/edit-journey-image-details/edit-journey-images-details.component";
 import {MatBadge} from "@angular/material/badge";
+import {
+    EditJourneyVideosDetailsComponent
+} from "./page/journeys/edit-journey/edit-journey-video-details/edit-journey-videos-details.component";
 
 @NgModule({
   declarations: [
@@ -96,7 +99,7 @@ import {MatBadge} from "@angular/material/badge";
     JourneySearchCriteriaComponent,
     EditJourneyBasicDetailsComponent,
     EditJourneyGeoDetailsComponent,
-    EditJourneyImageDetailsComponent
+    EditJourneyImagesDetailsComponent
   ],
     imports: [
         BrowserModule,
@@ -147,7 +150,8 @@ import {MatBadge} from "@angular/material/badge";
         MatStepperNext,
         MatStepperIcon,
         FeedbackMessageComponent,
-        MatBadge
+        MatBadge,
+        EditJourneyVideosDetailsComponent
     ],
   providers: [
     {

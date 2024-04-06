@@ -1,15 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Journey, JourneyImageDetail, JourneyImageDetails} from "../../../../model/core/journey.model";
+import {Journey, JourneyImageDetail, JourneyImagesDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {environment} from "../../../../../environments/environment";
 import {CloudinaryUploadSuccessEvent, CloudinaryUploadSuccessInfo} from "../../../../model/upload-success-event.type";
 
 @Component({
-  selector: 'app-edit-journey-image-details',
-  templateUrl: './edit-journey-image-details.component.html',
-  styleUrl: './edit-journey-image-details.component.scss'
+  selector: 'app-edit-journey-images-details',
+  templateUrl: './edit-journey-images-details.component.html',
+  styleUrl: './edit-journey-images-details.component.scss'
 })
-export class EditJourneyImageDetailsComponent implements OnInit {
+export class EditJourneyImagesDetailsComponent implements OnInit {
   @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
   @Input({required: true}) journey!: Journey;
   myWidget: any;
@@ -17,7 +17,7 @@ export class EditJourneyImageDetailsComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
 
-  formImageDetails: JourneyImageDetails = new JourneyImageDetails();
+  formImageDetails: JourneyImagesDetails = new JourneyImagesDetails();
 
   constructor(
     private journeyService: JourneyService
@@ -74,8 +74,6 @@ export class EditJourneyImageDetailsComponent implements OnInit {
       //theme: "purple", //change to a purple theme
     };
   }
-
-// thumbnail c_limit,h_60,w_90
 
   onError(errorMessage: string, err: any) {
     this.errorMessage = errorMessage;
