@@ -1,35 +1,73 @@
-<div class="list-group">
-  <a class="list-group-item list-group-item-action">Basic Details
-    @if (isBasicDetailsAvailableAndValid()) {
-      Basic Details
-      <mat-icon color="primary" class="float-end">check_circle</mat-icon>
-    } @else {
-      <mat-icon color="warn" class="float-end">cancel</mat-icon>
-    }
-  </a>
-  <a class="list-group-item list-group-item-action">Geo Details
-    @if (isGeoJsonAvailable()) {
-      Basic Details
-      <mat-icon color="primary" class="float-end">check_circle</mat-icon>
-    } @else {
-      <mat-icon color="warn" class="float-end">cancel</mat-icon>
-    }
-  </a>
-  <a class="list-group-item list-group-item-action">Images Details
-    @if (isImagesDetailsAvailable()) {
-      Basic Details
-      <mat-icon color="primary" class="float-end">check_circle</mat-icon>
-    } @else {
-      <mat-icon color="warn" class="float-end">cancel</mat-icon>
-    }
-  </a>
-  <a href="#" class="list-group-item list-group-item-action">Videos Details
-    @if (isVideosDetailsAvailable()) {
-      Basic Details
-      <mat-icon color="primary" class="float-end">check_circle</mat-icon>
-    } @else {
-      <mat-icon color="warn" class="float-end">cancel</mat-icon>
-    }
-  </a>
+<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" class="container" *ngIf="this.journey">
+  <div class="row mb-3">
+    <div class="col-12">
+      <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
+    </div>
+  </div>
 
-</div>
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <ul class="list-group">
+
+        <li class="list-group-item list-group-item-action">Basic Details
+          @if (isBasicDetailsAvailableAndValid()) {
+            Basic Details
+            <mat-icon color="primary" class="float-end">check_circle</mat-icon>
+          } @else {
+            <mat-icon color="warn" class="float-end">cancel</mat-icon>
+          }
+        </li>
+        <li class="list-group-item list-group-item-action">Geo Details
+          @if (isGeoJsonAvailable()) {
+            Basic Details
+            <mat-icon color="primary" class="float-end">check_circle</mat-icon>
+          } @else {
+            <mat-icon color="warn" class="float-end">cancel</mat-icon>
+          }
+        </li>
+        <li class="list-group-item list-group-item-action">Images Details
+          @if (isImagesDetailsAvailable()) {
+            Basic Details
+            <mat-icon color="primary" class="float-end">check_circle</mat-icon>
+          } @else {
+            <mat-icon color="warn" class="float-end">cancel</mat-icon>
+          }
+        </li>
+        <li class="list-group-item list-group-item-action">Videos Details
+          @if (isVideosDetailsAvailable()) {
+            Basic Details
+            <mat-icon color="primary" class="float-end">check_circle</mat-icon>
+          } @else {
+            <mat-icon color="warn" class="float-end">cancel</mat-icon>
+          }
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="thumbnail">Thumbnail</label>
+        <select class="form-select" id="thumbnail" name="thumbnail" [(ngModel)]="journey.thumbnail"
+                #thumbnail="ngModel">
+          @for (imageDetail of this.journey.extendedDetails?.imagesDetails?.images; track imageDetail.assetId; let i = $index) {
+            <option [value]="imageDetail.url">{{ imageDetail.assetId }}</option>
+          }
+        </select>
+      </div>
+      <div class="text-center" *ngIf="thumbnail.value && thumbnail.value != 'default'">
+        <img [src]="thumbnail.value" class="rounded border border-2 border-primary border-opacity-50 h-200-px w-200-px"
+             [alt]="thumbnail.value">
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-3">
+    <div class="d-grid gap-2 d-flex justify-content-center">
+      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid">
+        Publish
+      </button>
+    </div>
+  </div>
+
+</form>

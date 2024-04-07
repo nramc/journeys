@@ -53,4 +53,10 @@ export class JourneyService {
       });
   }
 
+  publishJourney(journey: Journey): Observable<Journey> {
+    return this.httpClient.put<Journey>(environment.journeyApi + '/journey/' + journey.id, journey,
+      {
+        headers: {'Content-Type': 'application/vnd.journey.api.publish.v1+json'}
+      });
+  }
 }

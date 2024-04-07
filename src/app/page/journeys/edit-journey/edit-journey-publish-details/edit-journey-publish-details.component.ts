@@ -2,12 +2,20 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {MatIcon} from "@angular/material/icon";
+import {FormsModule, NgForm} from "@angular/forms";
+import {NgIf} from "@angular/common";
+import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
+import {MatStepperNext} from "@angular/material/stepper";
 
 @Component({
   selector: 'app-edit-journey-publish-details',
   standalone: true,
   imports: [
-    MatIcon
+    MatIcon,
+    FormsModule,
+    NgIf,
+    FeedbackMessageComponent,
+    MatStepperNext
   ],
   templateUrl: './edit-journey-publish-details.component.html',
   styleUrl: './edit-journey-publish-details.component.scss'
@@ -50,4 +58,25 @@ export class EditJourneyPublishDetailsComponent {
     return this.journey.extendedDetails?.videosDetails?.videos != undefined &&
       this.journey.extendedDetails.videosDetails.videos.length > 0
   }
+
+  save(journeyForm: NgForm) {
+    console.debug('submitted form:', journeyForm);
+    this.journeyService.publishJourney(this.journey)
+      .subscribe({
+        next: data => this.onUpdateSuccess(data),
+        error: err => this.onError('Unexpected error while publishing data', err)
+      });
+  }
+
+  onError(errorMessage: string, err: any) {
+    this.errorMessage = errorMessage;
+    console.error(err);
+  }
+
+  onUpdateSuccess(result: Journey) {
+    this.successMessage = 'Journey published successfully.';
+    this.journey = result;
+    this.savedEvent.emit(this.journey);
+  }
+
 }

@@ -32,6 +32,7 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   }
 
   save(journeyForm: NgForm) {
+    console.debug('submitted form:', journeyForm);
     this.journeyService.saveJourneyGeoDetails(this.journey, this.formGeoDetails)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
