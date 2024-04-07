@@ -19,20 +19,23 @@
   <mat-step [optional]="false" [completed]="isEventInfoCollected()" (interacted)="stepsEventHandler($event)">
     <ng-template matStepLabel>Edit Images Details</ng-template>
     <ng-template matStepContent>
-      <app-edit-journey-images-details [journey]="journey" (saved)="savedEventHandler($event)"></app-edit-journey-images-details>
+      <app-edit-journey-images-details [journey]="journey"
+                                       (saved)="savedEventHandler($event)"></app-edit-journey-images-details>
     </ng-template>
   </mat-step>
   <mat-step [optional]="false" [completed]="isEventInfoCollected()" (interacted)="stepsEventHandler($event)">
     <ng-template matStepLabel>Edit Videos Details</ng-template>
     <ng-template matStepContent>
-      <app-edit-journey-videos-details [journey]="journey" (saved)="savedEventHandler($event)"></app-edit-journey-videos-details>
+      <app-edit-journey-videos-details [journey]="journey"
+                                       (saved)="savedEventHandler($event)"></app-edit-journey-videos-details>
     </ng-template>
   </mat-step>
 
   <mat-step [optional]="false" [completed]="isJourneyPublished()" (interacted)="stepsEventHandler($event)">
     <ng-template matStepLabel>Publish Journey</ng-template>
     <ng-template matStepContent>
-      <p>Publish Journey</p>
+      <app-edit-journey-publish-details [journey]="journey"
+                                        (saved)="savedEventHandler($event)"></app-edit-journey-publish-details>
     </ng-template>
   </mat-step>
 
