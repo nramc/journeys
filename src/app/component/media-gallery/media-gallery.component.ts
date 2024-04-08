@@ -13,9 +13,9 @@ import {Gallery, GalleryItem, GalleryItemTypes} from "ng-gallery";
            *ngFor="let item of items; let i = index"
            [lightbox]="i"
            [gallery]="galleryId">
-        <img class="border border-primary border-2"
+        <img class="rounded border border-primary border-2 border-opacity-50"
           [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? '/assets/image/default-video-thumbnail.png'"
-          height="150" width="150" alt="media"/>
+          height="200" width="200" alt="media"/>
       </div>
     </div>
   `,

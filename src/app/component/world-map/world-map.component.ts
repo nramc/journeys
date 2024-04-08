@@ -53,7 +53,7 @@ export class WorldMapComponent implements AfterViewInit {
 
   @Input() disablePopup: boolean = false;
   @Input({transform: numberAttribute}) zoomIn: number = 4;
-  @Input() maxZoom: number = 4;
+  @Input({transform: numberAttribute}) maxZoom: number = 18;
 
 
   ngAfterViewInit(): void {

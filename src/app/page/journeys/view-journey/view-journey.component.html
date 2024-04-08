@@ -1,1 +1,46 @@
-<p>view-journey works!</p>
+<app-page-header [pageInfo]="VIEW_JOURNEY_PAGE_INFO"></app-page-header>
+
+<div class="row" *ngIf="journey$ | async as journey">
+  <div class="col ms-1">
+    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+
+      <mat-tab bodyClass="mt-2">
+        <ng-template mat-tab-label>
+          <mat-icon class="me-1">map</mat-icon>
+          Geo Details
+        </ng-template>
+        <div class="row">
+          <div class="col-12" style="position: relative; height: 50vh">
+            <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location"
+                           [disablePopup]="true" [zoomIn]="10"></app-world-map>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div>{{journey.description}}</div>
+          </div>
+
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="me-1">photo_library</mat-icon>
+          Images
+        </ng-template>
+        <app-media-gallery galleryId="imageGallery" [images]="getImages(journey)" [videos]=""></app-media-gallery>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="me-1">video_library</mat-icon>
+          Videos
+        </ng-template>
+        <app-media-gallery galleryId="videoGallery" [images]="" [videos]="getVideos(journey)"></app-media-gallery>
+      </mat-tab>
+
+
+    </mat-tab-group>
+  </div>
+
+</div>
