@@ -23,6 +23,14 @@ export const NEW_JOURNEY_PAGE_INFO: PageInfo = {
   description: "\"Memories are the only real treasure. Preserve them.\" - Anonymous.",
   path: "/journey/new"
 };
+export const VIEW_JOURNEY_PAGE_INFO: PageInfo = {
+  name: "ViewJourney",
+  title: "View Journey",
+  description: "\"We are all travelers in the desert of this world. We are all searching for some oasis of meaning.\" - E.F. Schumacher.",
+  path: "/journey/{id}/view"
+};
+
+
 export const DASHBOARD_PAGE_INFO: PageInfo = {
   name: "Dashboard",
   title: "Dashboard",
