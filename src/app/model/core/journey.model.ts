@@ -11,7 +11,7 @@ export class Journey {
     public journeyDate: string = '',
     public category: string = '',
     public tags: string[] = [],
-    public thumbnail: string = 'https://res.cloudinary.com/journeytogether/image/upload/v1712604194/aeqhy3zwrwko7ba2rinr.jpg',
+    public thumbnail: string = 'https://res.cloudinary.com/journeytogether/image/upload/v1712604194/journey/aeqhy3zwrwko7ba2rinr.jpg',
     public location: Geometry | undefined = undefined,
     public extendedDetails: JourneyExtendedDetails | undefined = new JourneyExtendedDetails(),
     public isPublished: boolean = false
