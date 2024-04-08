@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Journey, JourneyExtendedDetails, JourneyGeoDetails} from "../../../../model/core/journey.model";
+import {Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {NgForm} from "@angular/forms";
 
@@ -13,8 +13,8 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
 
-  @Input({required: true}) journey: Journey | undefined;
-
+  @Input({required: true}) journey!: Journey;
+  formGeoDetails: JourneyGeoDetails = new JourneyGeoDetails(undefined);
   geoJsonString: string = '';
 
   constructor(
@@ -23,22 +23,17 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setupDefaultGeoJson()
-    this.geoJsonString = JSON.stringify(this.journey?.extendedDetails?.geoDetails?.geoJson);
-  }
-
-  setupDefaultGeoJson() {
-    if (!this.journey!.extendedDetails) {
-      this.journey!.extendedDetails = new JourneyExtendedDetails(new JourneyGeoDetails(this.journey?.location));
-    } else if (!this.journey!.extendedDetails.geoDetails) {
-      this.journey!.extendedDetails.geoDetails = new JourneyGeoDetails(this.journey?.location);
-    } else if (!this.journey!.extendedDetails.geoDetails.geoJson) {
-      this.journey!.extendedDetails.geoDetails.geoJson = this.journey?.location;
+    if (this.journey.extendedDetails?.geoDetails) {
+      this.formGeoDetails = this.journey.extendedDetails.geoDetails;
+    } else {
+      this.formGeoDetails = new JourneyGeoDetails(this.journey.location);
     }
+    this.geoJsonString = JSON.stringify(this.formGeoDetails.geoJson);
   }
 
   save(journeyForm: NgForm) {
-    this.journeyService.saveJourneyGeoDetails(this.journey!)
+    console.debug('submitted form:', journeyForm);
+    this.journeyService.saveJourneyGeoDetails(this.journey, this.formGeoDetails)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
         error: err => this.onError('Unexpected error while saving geo data', err)
@@ -57,6 +52,8 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   }
 
   reloadMap() {
-    this.journey!.extendedDetails!.geoDetails!.geoJson = JSON.parse(this.geoJsonString);
+    if (this.geoJsonString) {
+      this.formGeoDetails.geoJson = JSON.parse(this.geoJsonString);
+    }
   }
 }
