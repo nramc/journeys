@@ -59,8 +59,19 @@ export class EditJourneyPublishDetailsComponent {
       this.journey.extendedDetails.videosDetails.videos.length > 0
   }
 
+  publish(journeyForm: NgForm) {
+    console.debug('submitted form:', journeyForm);
+    this.journey.isPublished = true;
+    this.journeyService.publishJourney(this.journey)
+      .subscribe({
+        next: data => this.onUpdateSuccess(data),
+        error: err => this.onError('Unexpected error while publishing data', err)
+      });
+  }
+
   save(journeyForm: NgForm) {
     console.debug('submitted form:', journeyForm);
+    this.journey.isPublished = false;
     this.journeyService.publishJourney(this.journey)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
