@@ -1,23 +1,36 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from "./page/home/home.component";
-import {SearchJourneyComponent} from "./page/journeys/search-journey/search-journey.component";
-import {NewJourneyComponent} from "./page/journeys/new-journey/new-journey.component";
-import {ViewJourneyComponent} from "./page/journeys/view-journey/view-journey.component";
-import {EditJourneyComponent} from "./page/journeys/edit-journey/edit-journey.component";
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent, title: "Journey"},
-
-  {path: 'journeys', component: SearchJourneyComponent, title: 'Journey'},
+  {
+    path: 'home',
+    loadComponent: () => import('./page/home/home.component').then(m => m.HomeComponent),
+    title: "Journey"
+  },
+  {
+    path: 'journeys',
+    loadComponent: () => import('./page/journeys/search-journey/search-journey.component').then(m => m.SearchJourneyComponent),
+    title: 'Journey'
+  },
   {
     path: 'journey', children: [
-      {path: 'new', component: NewJourneyComponent, title: 'New Journey'},
-      {path: ':id/view', component: ViewJourneyComponent, title: 'View Journey'},
-      {path: ':id/edit', component: EditJourneyComponent, title: 'Edit Journey'}
+      {
+        path: 'new',
+        loadComponent: () => import('./page/journeys/new-journey/new-journey.component').then(m => m.NewJourneyComponent),
+        title: 'New Journey'
+      },
+      {
+        path: ':id/view',
+        loadComponent: () => import('./page/journeys/view-journey/view-journey.component').then(m => m.ViewJourneyComponent),
+        title: 'View Journey'
+      },
+      {
+        path: ':id/edit',
+        loadComponent: () => import('./page/journeys/edit-journey/edit-journey.component').then(m => m.EditJourneyComponent),
+        title: 'Edit Journey'
+      }
     ]
   },
-
   {
     path: 'dashboard',
     loadComponent: () => import('./page/dashboard/dashboard.component').then(m => m.DashboardComponent),
