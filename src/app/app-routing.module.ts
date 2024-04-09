@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./page/home/home.component";
-import {GalleryComponent} from "./page/gallery/gallery.component";
 import {SearchJourneyComponent} from "./page/journeys/search-journey/search-journey.component";
 import {NewJourneyComponent} from "./page/journeys/new-journey/new-journey.component";
 import {ViewJourneyComponent} from "./page/journeys/view-journey/view-journey.component";
@@ -24,7 +23,11 @@ const routes: Routes = [
     loadComponent: () => import('./page/dashboard/dashboard.component').then(m => m.DashboardComponent),
     title: "Dashboard"
   },
-  {path: 'gallery', component: GalleryComponent, title: "Gallery"},
+  {
+    path: 'gallery',
+    loadComponent: () => import('./page/gallery/gallery.component').then(m => m.GalleryComponent),
+    title: "Gallery"
+  },
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: "/home"}
 ];

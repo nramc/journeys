@@ -5,10 +5,20 @@ import {Location} from "../../model/location.model";
 import {Geometry} from "geojson";
 import {LocationService} from "../../service/location.service";
 import {convertFeatureToLocation} from "../../utility/feature-to-location.converter";
+import {PageHeaderComponent} from "../../component/page-header/page-header.component";
+import {AsyncPipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
+  standalone: true,
+  imports: [
+    PageHeaderComponent,
+    AsyncPipe,
+    JsonPipe,
+    NgForOf,
+    NgIf
+  ],
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
