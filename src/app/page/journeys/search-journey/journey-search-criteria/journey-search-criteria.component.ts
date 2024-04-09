@@ -1,10 +1,14 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-journey-search-criteria',
   templateUrl: './journey-search-criteria.component.html',
-  styleUrl: './journey-search-criteria.component.scss'
+  styleUrl: './journey-search-criteria.component.scss',
+  imports: [
+    FormsModule
+  ],
+  standalone: true
 })
 export class JourneySearchCriteriaComponent {
   @Output() searchEvent = new EventEmitter<string>();
