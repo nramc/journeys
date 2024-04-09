@@ -47,7 +47,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    enableViewTransitions: true
+    enableViewTransitions: true,
+    bindToComponentInputs: true,
+    scrollPositionRestoration: "enabled"
   })],
   exports: [RouterModule]
 })
