@@ -3,7 +3,6 @@
              [dismissible]="true" [animation]="true">{{ _successMessage }}
   </ngb-alert>
 }
-
 @if (_errorMessage) {
   <ngb-alert type="danger" [dismissible]="true" [animation]="true"
              (closed)="errorMessage = ''">{{ _errorMessage }}
