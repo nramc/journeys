@@ -3,7 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./page/home/home.component";
 import {SearchComponent} from "./page/search/search.component";
 import {GalleryComponent} from "./page/gallery/gallery.component";
-import {LocationComponent} from "./page/location/location.component";
 import {SearchJourneyComponent} from "./page/journeys/search-journey/search-journey.component";
 import {NewJourneyComponent} from "./page/journeys/new-journey/new-journey.component";
 import {ViewJourneyComponent} from "./page/journeys/view-journey/view-journey.component";
@@ -28,7 +27,6 @@ const routes: Routes = [
   },
   {path: 'search', component: SearchComponent, title: "Search"},
   {path: 'gallery', component: GalleryComponent, title: "Gallery"},
-  {path: 'place/:id', component: LocationComponent, title: "Location"},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: "/home"}
 ];
