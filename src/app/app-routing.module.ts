@@ -1,11 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./page/home/home.component";
-import {DashboardComponent} from "./page/dashboard/dashboard.component";
-import {SearchComponent} from "./page/search/search.component";
-import {GalleryComponent} from "./page/gallery/gallery.component";
-import {WorkspaceComponent} from "./page/workspace/workspace.component";
-import {LocationComponent} from "./page/location/location.component";
 import {SearchJourneyComponent} from "./page/journeys/search-journey/search-journey.component";
 import {NewJourneyComponent} from "./page/journeys/new-journey/new-journey.component";
 import {ViewJourneyComponent} from "./page/journeys/view-journey/view-journey.component";
@@ -23,11 +18,16 @@ const routes: Routes = [
     ]
   },
 
-  {path: 'dashboard', component: DashboardComponent, title: "Dashboard"},
-  {path: 'search', component: SearchComponent, title: "Search"},
-  {path: 'gallery', component: GalleryComponent, title: "Gallery"},
-  {path: 'place/:id', component: LocationComponent, title: "Location"},
-  {path: 'workspace', component: WorkspaceComponent, title: "Workspace"},
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./page/dashboard/dashboard.component').then(m => m.DashboardComponent),
+    title: "Dashboard"
+  },
+  {
+    path: 'gallery',
+    loadComponent: () => import('./page/gallery/gallery.component').then(m => m.GalleryComponent),
+    title: "Gallery"
+  },
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: "/home"}
 ];

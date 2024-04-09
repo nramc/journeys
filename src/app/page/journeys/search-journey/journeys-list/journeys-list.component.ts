@@ -1,17 +1,50 @@
 import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
-import {MatSort, SortDirection} from "@angular/material/sort";
+import {MatSort, MatSortHeader, SortDirection} from "@angular/material/sort";
 import {HttpParams} from "@angular/common/http";
 import {BehaviorSubject, catchError, map, merge, Observable, of, startWith, switchMap} from "rxjs";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {JourneyPage} from "../../../../service/journey/journey-page.type";
 import {Journey} from "../../../../model/core/journey.model";
 import {Router} from "@angular/router";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable
+} from "@angular/material/table";
+import {DatePipe} from "@angular/common";
+import {MatIcon} from "@angular/material/icon";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-journeys-list',
   templateUrl: './journeys-list.component.html',
-  styleUrl: './journeys-list.component.scss'
+  styleUrl: './journeys-list.component.scss',
+  imports: [
+    MatProgressSpinner,
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCell,
+    MatSortHeader,
+    DatePipe,
+    MatCell,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatIcon,
+    MatButton,
+    MatHeaderRow,
+    MatRow,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatPaginator
+  ],
+  standalone: true
 })
 export class JourneysListComponent implements AfterViewInit {
   displayedColumns: string[] = ['createdDate', 'id', 'name', 'category', 'journeyDate', 'action'];

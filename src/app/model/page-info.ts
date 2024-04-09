@@ -30,30 +30,17 @@ export const VIEW_JOURNEY_PAGE_INFO: PageInfo = {
   path: "/journey/{id}/view"
 };
 
-
 export const DASHBOARD_PAGE_INFO: PageInfo = {
   name: "Dashboard",
   title: "Dashboard",
   description: "The goal is to turn data into information and information into insight.",
   path: "/dashboard"
 };
-export const SEARCH_PAGE_INFO: PageInfo = {
-  name: "Search",
-  title: "Search",
-  description: "Memories are the Greatest Treasure. Find your Treasure.",
-  path: "/search"
-};
 export const GALLERY_PAGE_INFO: PageInfo = {
   name: "Gallery",
   title: "Gallery",
-  description: "Life is a Collection of Memories.",
+  description: "Life is a Collection of Memories. Memories are the Greatest Treasure. Find your Treasure.",
   path: "/gallery"
 };
 
-export const WORKSPACE_PAGE_INFO: PageInfo = {
-  name: "Workspace",
-  title: "Workspace",
-  description: "Create your Sweet Memory.",
-  path: "/workspace"
-};
 

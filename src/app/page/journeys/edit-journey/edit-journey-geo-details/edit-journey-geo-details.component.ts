@@ -1,12 +1,25 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
-import {NgForm} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
+import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
+import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
+import {MatStepperNext} from "@angular/material/stepper";
+import {JsonPipe, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-edit-journey-geo-details',
   templateUrl: './edit-journey-geo-details.component.html',
-  styleUrl: './edit-journey-geo-details.component.scss'
+  styleUrl: './edit-journey-geo-details.component.scss',
+  imports: [
+    FormsModule,
+    FeedbackMessageComponent,
+    WorldMapComponent,
+    MatStepperNext,
+    NgIf,
+    JsonPipe
+  ],
+  standalone: true
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
   @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();

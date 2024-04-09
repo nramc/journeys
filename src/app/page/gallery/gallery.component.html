@@ -3,7 +3,7 @@
 <div class="row row-cols-auto ps-2" *ngIf="location$ | async as locations">
 
   <div class="col-12 col-md-4 " *ngFor="let location of locations">
-    <app-location-card [location]="location"></app-location-card>
+    {{location | json}}
   </div>
 
 </div>

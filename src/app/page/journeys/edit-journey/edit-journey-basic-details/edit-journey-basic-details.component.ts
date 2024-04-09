@@ -4,13 +4,33 @@ import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {debounceTime, distinctUntilChanged, map, Observable, OperatorFunction} from "rxjs";
 import {Point} from "geojson";
-import {MatChipInputEvent} from "@angular/material/chips";
-import {NgForm} from "@angular/forms";
+import {MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow} from "@angular/material/chips";
+import {FormsModule, NgForm} from "@angular/forms";
+import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
+import {NgIf} from "@angular/common";
+import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
+import {MatIcon} from "@angular/material/icon";
+import {MatStepperNext} from "@angular/material/stepper";
+import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
 
 @Component({
   selector: 'app-edit-journey-basic-data',
   templateUrl: './edit-journey-basic-details.component.html',
-  styleUrl: './edit-journey-basic-details.component.scss'
+  styleUrl: './edit-journey-basic-details.component.scss',
+  imports: [
+    FeedbackMessageComponent,
+    FormsModule,
+    NgIf,
+    NgbTypeahead,
+    MatChipGrid,
+    MatChipRow,
+    MatIcon,
+    MatChipInput,
+    NgbInputDatepicker,
+    MatStepperNext,
+    WorldMapComponent
+  ],
+  standalone: true
 })
 export class EditJourneyBasicDetailsComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
@@ -80,6 +100,7 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
   }
 
   save(journeyForm: NgForm) {
+    console.debug('Submitted form data:', journeyForm);
     this.journeyService.saveJourneyBasicDetails(this.journey)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
