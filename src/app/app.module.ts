@@ -24,7 +24,7 @@ import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
   providers: [
     {
       provide: LIGHTBOX_CONFIG, useValue: {
-        // panelClass:  'fullscreen',
+        panelClass: 'fullscreen',
         keyboardShortcuts: true
       } as LightboxConfig
     },
