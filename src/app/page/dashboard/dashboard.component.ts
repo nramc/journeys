@@ -4,11 +4,17 @@ import * as L from "leaflet";
 import {LocationService} from "../../service/location.service";
 import {WorldMapComponent} from "../../component/world-map/world-map.component";
 import {FeatureCollection} from "geojson";
+import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  imports: [
+    PageHeaderComponent,
+    WorldMapComponent
+  ],
+  standalone: true
 })
 export class DashboardComponent implements OnInit {
   private map!: L.Map;

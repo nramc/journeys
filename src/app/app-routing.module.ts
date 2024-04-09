@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./page/home/home.component";
-import {DashboardComponent} from "./page/dashboard/dashboard.component";
 import {SearchComponent} from "./page/search/search.component";
 import {GalleryComponent} from "./page/gallery/gallery.component";
 import {WorkspaceComponent} from "./page/workspace/workspace.component";
@@ -23,7 +22,11 @@ const routes: Routes = [
     ]
   },
 
-  {path: 'dashboard', component: DashboardComponent, title: "Dashboard"},
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./page/dashboard/dashboard.component').then(m => m.DashboardComponent),
+    title: "Dashboard"
+  },
   {path: 'search', component: SearchComponent, title: "Search"},
   {path: 'gallery', component: GalleryComponent, title: "Gallery"},
   {path: 'place/:id', component: LocationComponent, title: "Location"},
