@@ -100,6 +100,7 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
   }
 
   save(journeyForm: NgForm) {
+    console.debug('Submitted form data:', journeyForm);
     this.journeyService.saveJourneyBasicDetails(this.journey)
       .subscribe({
         next: data => this.onUpdateSuccess(data),

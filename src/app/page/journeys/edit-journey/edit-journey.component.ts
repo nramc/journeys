@@ -45,6 +45,7 @@ export class EditJourneyComponent implements OnInit {
   }
 
   stepsEventHandler(event: any) {
+    console.debug('Received event:', event);
     this.fetchJourney();
   }
 
