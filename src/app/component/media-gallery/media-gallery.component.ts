@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {LightboxDirective} from "ng-gallery/lightbox";
 import {Gallery, GalleryItem, GalleryItemTypes} from "ng-gallery";
+import {GalleryConfig} from "ng-gallery/lib/models/config.model";
 
 @Component({
   selector: 'app-media-gallery',
@@ -15,7 +16,7 @@ import {Gallery, GalleryItem, GalleryItemTypes} from "ng-gallery";
            [gallery]="galleryId">
         <img class="rounded border border-primary border-2 border-opacity-50"
           [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? '/assets/image/default-video-thumbnail.png'"
-          height="200" width="200" alt="media"/>
+          height="200" width="200" alt="media" loading="lazy" />
       </div>
     </div>
   `,
@@ -28,13 +29,16 @@ export class MediaGalleryComponent implements OnInit {
   @Input("videos") videos: string[] | undefined = [];
 
   items: GalleryItem[] = [];
+  galleryConfig: GalleryConfig = {
+    loadingStrategy: "lazy"
+  };
 
   constructor(public gallery: Gallery) {
   }
 
   ngOnInit() {
     this.items = this.getGalleryItems();
-    const galleryRef = this.gallery.ref(this.galleryId);
+    const galleryRef = this.gallery.ref(this.galleryId, this.galleryConfig);
     galleryRef.load(this.items);
   }
 
