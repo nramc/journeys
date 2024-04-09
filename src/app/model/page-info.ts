@@ -50,10 +50,4 @@ export const GALLERY_PAGE_INFO: PageInfo = {
   path: "/gallery"
 };
 
-export const WORKSPACE_PAGE_INFO: PageInfo = {
-  name: "Workspace",
-  title: "Workspace",
-  description: "Create your Sweet Memory.",
-  path: "/workspace"
-};
 

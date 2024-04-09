@@ -11,7 +11,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {HomeComponent} from './page/home/home.component';
 import {SearchComponent} from './page/search/search.component';
 import {GalleryComponent} from './page/gallery/gallery.component';
-import {WorkspaceComponent} from './page/workspace/workspace.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MarkerPopupComponent} from './component/marker-popup/marker-popup.component';
 import {LocationComponent} from './page/location/location.component';
@@ -22,7 +21,6 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {LocationCardComponent} from "./component/location-card/location-card.component";
 import {CloudinaryModule} from "@cloudinary/ng";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {UpdateJourneyDetailsComponent} from "./page/workspace/update-journey-details/update-journey-details.component";
 import {
   MatStep,
   MatStepContent,
@@ -86,7 +84,6 @@ import {
     EditJourneyComponent,
     SearchComponent,
     GalleryComponent,
-    WorkspaceComponent,
     MarkerPopupComponent,
     LocationComponent,
     MediaViewerComponent,
@@ -109,7 +106,6 @@ import {
     LocationCardComponent,
     CloudinaryModule,
     FormsModule,
-    UpdateJourneyDetailsComponent,
     MatStepper,
     MatStep,
     MatStepLabel,

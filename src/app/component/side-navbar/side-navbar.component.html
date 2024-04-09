@@ -25,47 +25,41 @@
       <ul class="navbar-nav flex-column mb-auto">
         <li class="nav-item">
           <a [routerLink]="HOME_PAGE_INFO.path" class="nav-link" routerLinkActive="active" aria-current="page">
-            <i class="bi bi-house-door pe-none me-2"></i>{{HOME_PAGE_INFO.name}}
+            <i class="bi bi-house-door pe-none me-2"></i>{{ HOME_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item">
           <a [routerLink]="NEW_JOURNEY_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-pin-map pe-none me-2"></i>
-            {{NEW_JOURNEY_PAGE_INFO.name}}
+            {{ NEW_JOURNEY_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item">
           <a [routerLink]="JOURNEY_SEARCH_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-boxes pe-none me-2"></i>
-            {{JOURNEY_SEARCH_PAGE_INFO.name}}
+            {{ JOURNEY_SEARCH_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item">
           <a [routerLink]="DASHBOARD_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-speedometer2 pe-none me-2"></i>
-            {{DASHBOARD_PAGE_INFO.name}}
+            {{ DASHBOARD_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item">
           <a [routerLink]="SEARCH_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-search pe-none me-2"></i>
-            {{SEARCH_PAGE_INFO.name}}
+            {{ SEARCH_PAGE_INFO.name }}
           </a>
         </li>
         <li class="nav-item">
           <a [routerLink]="GALLERY_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-grid pe-none me-2"></i>
-            {{GALLERY_PAGE_INFO.name}}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a [routerLink]="WORKSPACE_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
-            <i class="bi bi-code-slash pe-none me-2"></i>
-            {{WORKSPACE_PAGE_INFO.name}}
+            {{ GALLERY_PAGE_INFO.name }}
           </a>
         </li>
       </ul>
