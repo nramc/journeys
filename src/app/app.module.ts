@@ -9,7 +9,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {HomeComponent} from './page/home/home.component';
-import {SearchComponent} from './page/search/search.component';
 import {GalleryComponent} from './page/gallery/gallery.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MediaGalleryComponent} from "./component/media-gallery/media-gallery.component";
@@ -78,7 +77,6 @@ import {
     HomeComponent,
     SearchJourneyComponent,
     EditJourneyComponent,
-    SearchComponent,
     GalleryComponent,
     JourneysListComponent,
     JourneySearchCriteriaComponent,
