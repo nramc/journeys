@@ -24,7 +24,6 @@ import {
   MatStepperNext
 } from "@angular/material/stepper";
 import {SearchJourneyComponent} from "./page/journeys/search-journey/search-journey.component";
-import {EditJourneyComponent} from "./page/journeys/edit-journey/edit-journey.component";
 import {MatPaginator} from "@angular/material/paginator";
 import {
   MatCell,
@@ -49,25 +48,10 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/m
 import {MatFormField, MatHint, MatSuffix} from "@angular/material/form-field";
 import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {MatChip, MatChipGrid, MatChipInput, MatChipOption, MatChipRemove, MatChipRow} from "@angular/material/chips";
-import {
-  EditJourneyBasicDetailsComponent
-} from "./page/journeys/edit-journey/edit-journey-basic-details/edit-journey-basic-details.component";
 import {FeedbackMessageComponent} from "./component/feedback-message/feedback-message.component";
-import {
-  EditJourneyGeoDetailsComponent
-} from "./page/journeys/edit-journey/edit-journey-geo-details/edit-journey-geo-details.component";
-import {
-  EditJourneyImagesDetailsComponent
-} from "./page/journeys/edit-journey/edit-journey-image-details/edit-journey-images-details.component";
 import {MatBadge} from "@angular/material/badge";
-import {
-  EditJourneyVideosDetailsComponent
-} from "./page/journeys/edit-journey/edit-journey-video-details/edit-journey-videos-details.component";
 import {PageHeaderComponent} from "./component/page-header/page-header.component";
 import {WorldMapComponent} from "./component/world-map/world-map.component";
-import {
-  EditJourneyPublishDetailsComponent
-} from "./page/journeys/edit-journey/edit-journey-publish-details/edit-journey-publish-details.component";
 
 @NgModule({
   declarations: [
@@ -75,12 +59,8 @@ import {
     SideNavbarComponent,
     HomeComponent,
     SearchJourneyComponent,
-    EditJourneyComponent,
     JourneysListComponent,
-    JourneySearchCriteriaComponent,
-    EditJourneyBasicDetailsComponent,
-    EditJourneyGeoDetailsComponent,
-    EditJourneyImagesDetailsComponent
+    JourneySearchCriteriaComponent
   ],
   imports: [
     BrowserModule,
@@ -130,10 +110,8 @@ import {
     MatStepperIcon,
     FeedbackMessageComponent,
     MatBadge,
-    EditJourneyVideosDetailsComponent,
     PageHeaderComponent,
-    WorldMapComponent,
-    EditJourneyPublishDetailsComponent
+    WorldMapComponent
   ],
   providers: [
     {

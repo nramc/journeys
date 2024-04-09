@@ -13,7 +13,7 @@
           <span>GeoJson</span><a class="geojson-tip" href="https://geojson.io/" target="_blank">Tip: GeoJson mapper</a>
         </label>
         <textarea class="form-control geojson-field" rows="10" [(ngModel)]="geoJsonString" (change)="reloadMap()"
-                  id="geojson" name="geojson" #geoJsonData="ngModel" required>
+                  id="geojson" name="geojson" required>
           {{journey!.extendedDetails?.geoDetails?.geoJson | json}}
         </textarea>
       </div>

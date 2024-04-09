@@ -3,11 +3,24 @@ import {Journey, JourneyImageDetail, JourneyImagesDetails} from "../../../../mod
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {environment} from "../../../../../environments/environment";
 import {CloudinaryUploadSuccessEvent, CloudinaryUploadSuccessInfo} from "../../../../model/upload-success-event.type";
+import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
+import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
+import {MatBadge} from "@angular/material/badge";
+import {MatStepperNext} from "@angular/material/stepper";
 
 @Component({
   selector: 'app-edit-journey-images-details',
   templateUrl: './edit-journey-images-details.component.html',
-  styleUrl: './edit-journey-images-details.component.scss'
+  styleUrl: './edit-journey-images-details.component.scss',
+  imports: [
+    FeedbackMessageComponent,
+    FormsModule,
+    NgIf,
+    MatBadge,
+    MatStepperNext
+  ],
+  standalone: true
 })
 export class EditJourneyImagesDetailsComponent implements OnInit {
   @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
