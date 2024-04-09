@@ -15,7 +15,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {MediaGalleryComponent} from "./component/media-gallery/media-gallery.component";
 import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
 import {MatTabsModule} from "@angular/material/tabs";
-import {LocationCardComponent} from "./component/location-card/location-card.component";
 import {CloudinaryModule} from "@cloudinary/ng";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {
@@ -97,7 +96,6 @@ import {
     HttpClientModule,
     MediaGalleryComponent,
     MatTabsModule,
-    LocationCardComponent,
     CloudinaryModule,
     FormsModule,
     MatStepper,
