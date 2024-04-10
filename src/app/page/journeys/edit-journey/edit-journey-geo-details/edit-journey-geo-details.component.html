@@ -10,7 +10,9 @@
     <div class="col-md-6 col-12">
       <div>
         <label for="geojson" class="form-label">
-          <span>GeoJson</span><a class="geojson-tip" href="https://geojson.io/" target="_blank">Tip: GeoJson mapper</a>
+          <span>Tip:</span>
+          <a class="geojson-tip me-2" href="https://geojson.io/" target="_blank">GeoJson Creator</a>
+          <a class="geojson-tip" (click)="formatGeoJsonIfRequired()">Format Data</a>
         </label>
         <textarea class="form-control geojson-field" rows="10" [(ngModel)]="geoJsonString" (change)="reloadMap()"
                   id="geojson" name="geojson" required>
@@ -20,7 +22,7 @@
     </div>
 
     <div class="col-12 col-md-6" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="formGeoDetails.geoJson" [disablePopup]="true"/>
+      <app-world-map class="h-50" [geoJsonData]="formGeoDetails.geoJson" [disablePopup]="true" maxZoom="10"/>
     </div>
   </div>
 

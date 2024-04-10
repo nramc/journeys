@@ -1,4 +1,4 @@
-import {GeoJSON, Geometry} from "geojson";
+import {Geometry} from "geojson";
 
 export class Journey {
   constructor(
@@ -30,7 +30,7 @@ export class JourneyExtendedDetails {
 
 export class JourneyGeoDetails {
   constructor(
-    public geoJson: GeoJSON | undefined) {
+    public geoJson: Geometry | undefined) {
   }
 }
 
