@@ -1,0 +1,18 @@
+@import "bootswatch/dist/zephyr/variables";
+
+.gallery-paginator {
+  background: rgb(248,249,250);
+  background: linear-gradient(90deg, rgba(248,249,250,1) 1%, rgba(113,115,200,1) 45%);
+  font-weight: normal;
+  font-size: 1.1em !important;
+  vertical-align: center;
+  text-align: center;
+  align-items: center;
+  justify-content: center !important;
+  display: flex;
+  color: black;
+}
+
+.mat-mdc-select {
+  color: whitesmoke !important;
+}

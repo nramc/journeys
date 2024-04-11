@@ -5,6 +5,7 @@ import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {JourneyPage} from "./journey-page.type";
 import {FeatureCollection} from "geojson";
+import {SortDirection} from "@angular/material/sort";
 
 
 @Injectable({
@@ -16,6 +17,18 @@ export class JourneyService {
 
   createJourney(journey: Journey): Observable<Journey> {
     return this.httpClient.post<Journey>(environment.journeyApi + '/journey', journey);
+  }
+
+  findJourneyByQuery(queryString: string, sort: string, order: SortDirection, page: number, pageSize: number): Observable<JourneyPage> {
+    let params = new HttpParams();
+    params = params.set("q", queryString);
+    params = params.set("sort", sort);
+    params = params.set("order", order.toUpperCase());
+    params = params.set("pageIndex", page);
+    params = params.set("pageSize", pageSize);
+    console.log(params)
+
+    return this.getAllJourneys(params);
   }
 
   getAllJourneys(params: HttpParams): Observable<JourneyPage> {
