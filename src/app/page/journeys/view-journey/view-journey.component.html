@@ -12,12 +12,12 @@
         <div class="row">
           <div class="col-12" style="position: relative; height: 50vh">
             <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location"
-                           [disablePopup]="true" [zoomIn]="10"></app-world-map>
+                           [zoomIn]="10"></app-world-map>
           </div>
         </div>
         <div class="row">
           <div class="col-12">
-            <div>{{journey.description}}</div>
+            <div>{{ journey.description }}</div>
           </div>
 
         </div>

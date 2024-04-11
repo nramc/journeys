@@ -123,8 +123,10 @@
               Coordinates
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" role="button" (click)="copyCoordinatesFromGoogleMap()">Paste coordinates copied from Google Map</a></li>
-              <li><a class="dropdown-item" role="button" (click)="copyCoordinatesFromClipboard()">Paste from clipboard</a></li>
+              <li><a class="dropdown-item" role="button" (click)="copyCoordinatesFromGoogleMap()">Paste coordinates
+                copied from Google Map</a></li>
+              <li><a class="dropdown-item" role="button" (click)="copyCoordinatesFromClipboard()">Paste from
+                clipboard</a></li>
               <li><a class="dropdown-item" role="button" (click)="swapCoordinates()">Swap Coordinates</a></li>
             </ul>
             <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
@@ -194,7 +196,7 @@
     </div>
 
     <div class="col-12 col-md-4" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="journey.location" [disablePopup]="true"/>
+      <app-world-map class="h-50" [geoJsonData]="journey.location"/>
     </div>
 
   </div>

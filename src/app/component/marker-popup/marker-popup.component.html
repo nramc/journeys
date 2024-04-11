@@ -1,15 +1,14 @@
-<div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-  <div class="card-header bg-gradient fw-bolder">{{feature?.properties?.['name']}}</div>
-  <div class="card-body bg-light">
-    <h4 class="card-title text-primary">{{feature?.properties?.['category']}}</h4>
+<div class="card text-white border-0 bg-transparent shadow-none" style="">
+  <div class="card-body p-0">
+    <h4 class="card-title text-primary fs-6">{{feature?.properties?.['name']}}</h4>
     <div class="card-text text-dark-emphasis">
       <p class="text-primary" [textContent]="feature?.properties?.['description']">
         Some description goes here later
       </p>
       <p>
         <span *ngFor="let tag of feature?.properties?.['tags']" class="badge  bg-primary me-1">{{tag}}</span>
+        <a [routerLink]="['/journey', feature?.id, 'view']" class="btn btn-sm btn-outline-primary float-end">View</a>
       </p>
-      <a [routerLink]="['/journey', feature?.id, 'view']" class="btn btn-primary text-light float-end">View</a>
     </div>
   </div>
 </div>
