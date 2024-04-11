@@ -4,6 +4,7 @@ import {Journey, JourneyGeoDetails, JourneyImagesDetails, JourneyVideosDetails} 
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {JourneyPage} from "./journey-page.type";
+import {FeatureCollection} from "geojson";
 
 
 @Injectable({
@@ -19,6 +20,13 @@ export class JourneyService {
 
   getAllJourneys(params: HttpParams): Observable<JourneyPage> {
     return this.httpClient.get<JourneyPage>(environment.journeyApi + '/journeys', {params: params});
+  }
+
+  getAllJourneysAsGeoJson(): Observable<FeatureCollection> {
+    return this.httpClient.get<FeatureCollection>(environment.journeyApi + '/journeys',
+      {
+        headers: {'Accept': 'application/geo+json'}
+      });
   }
 
   getJourneyById(id: string): Observable<Journey> {
