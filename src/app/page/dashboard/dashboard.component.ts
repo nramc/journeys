@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DASHBOARD_PAGE_INFO} from "../../model/page-info";
 import {WorldMapComponent} from "../../component/world-map/world-map.component";
 import {FeatureCollection} from "geojson";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {JourneyService} from "../../service/journey/journey.service";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,26 +13,22 @@ import {JourneyService} from "../../service/journey/journey.service";
   styleUrls: ['./dashboard.component.scss'],
   imports: [
     PageHeaderComponent,
-    WorldMapComponent
+    WorldMapComponent,
+    NgIf,
+    AsyncPipe
   ],
   standalone: true
 })
 export class DashboardComponent implements OnInit {
   protected readonly DASHBOARD_PAGE_INFO = DASHBOARD_PAGE_INFO;
-  featureCollection: FeatureCollection | undefined;
+  featureCollection$: Observable<FeatureCollection> | undefined;
 
-  constructor(private journeyService: JourneyService) {
+  constructor(
+    private journeyService: JourneyService) {
   }
 
   ngOnInit(): void {
-
-    this.journeyService.getAllJourneysAsGeoJson()
-      .subscribe((featureCollections: FeatureCollection) => {
-        this.featureCollection = featureCollections;
-        console.log(this.featureCollection)
-      });
-
+    this.featureCollection$ = this.journeyService.getAllJourneysAsGeoJson();
   }
-
 
 }
