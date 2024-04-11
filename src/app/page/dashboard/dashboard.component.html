@@ -4,8 +4,21 @@
   </div>
 </div>
 
+<div class="container mb-2">
+  <div class="d-flex gap-2 flex-wrap justify-content-center align-content-center" *ngIf="stats">
+
+    @for (entry of stats.entries(); track entry[0]) {
+      <div class="text-center border border-primary border-2 rounded rounded-2 p-2" style="min-width: 75px;">
+        <span class="fs-3 gradient-text text-primary fw-bold">{{ entry[1] }}</span>
+        <div class="small gradient-text">{{ entry[0] }}</div>
+      </div>
+    }
+  </div>
+</div>
+
+
 <div class="row">
-  <div class="col" style="position: relative; height: 80vh;">
+  <div class="col" style="position: relative; height: 70vh;">
     <app-world-map [geoJsonData]="featureCollection" enablePopup="true"></app-world-map>
   </div>
 </div>
