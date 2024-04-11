@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="featureCollection$ | async as featureCollection">
+<div class="row">
   <div class="col" style="position: relative; height: 80vh;">
     <app-world-map [geoJsonData]="featureCollection" enablePopup="true"></app-world-map>
   </div>
