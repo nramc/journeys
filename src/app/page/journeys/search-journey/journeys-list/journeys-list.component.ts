@@ -47,7 +47,7 @@ import {MatButton} from "@angular/material/button";
   standalone: true
 })
 export class JourneysListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['createdDate', 'id', 'name', 'category', 'journeyDate', 'action'];
+  displayedColumns: string[] = ['createdDate', 'id', 'name', 'category', 'journeyDate', 'published', 'action'];
   data: Journey[] = [];
   resultsLength = 0;
   isLoadingResults = true;

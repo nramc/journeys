@@ -27,13 +27,17 @@ table {
   font-size: medium;
 }
 
-.journey-data-row {
-  font-weight: bold;
-  font-size: small;
-}
+.journey-data-row p {
+  opacity: 70%;
+  font-weight: 500;
+  font-size: 0.9em;
 
+}
 
  .mat-column-action {
   text-align: center;
 }
 
+tr:nth-child(even) {
+  background: whitesmoke;
+}
