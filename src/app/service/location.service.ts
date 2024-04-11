@@ -15,10 +15,4 @@ export class LocationService {
     getAllAvailableLocations(): Observable<FeatureCollection> {
         return this.httpClient.get<FeatureCollection>(this.#data_url);
     }
-
-    getLocationById(id: string): Observable<Feature | undefined> {
-        return this.httpClient.get<FeatureCollection>(this.#data_url)
-            .pipe(map(data => data.features.find(f => f.id == id)))
-
-    }
 }
