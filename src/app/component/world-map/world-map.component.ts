@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  booleanAttribute,
   Component,
   ElementRef,
   EventEmitter,
@@ -51,7 +52,7 @@ export class WorldMapComponent implements AfterViewInit {
     this.addGeoJsonData(geoJsonData);
   }
 
-  @Input() disablePopup: boolean = false;
+  @Input({transform: booleanAttribute}) enablePopup: boolean = false;
   @Input({transform: numberAttribute}) zoomIn: number = 4;
   @Input({transform: numberAttribute}) maxZoom: number = 18;
 
@@ -108,15 +109,9 @@ export class WorldMapComponent implements AfterViewInit {
       return popupComponent?.instance.elementRef.nativeElement;
     }
 
-    const bindPopupIfRequired = (layer: Layer, feature: Feature) => {
-      if (!this.disablePopup) {
-        layer.bindTooltip(feature.properties?.['name']);
-        layer.bindPopup(getPopupComponentNativeElement(feature))
-      }
-    }
-
     if (this.map) {
 
+      const isPopupRequired = this.enablePopup;
       this.geoJsonLayer = L.geoJSON(this.#featureCollection, {
         pointToLayer: (feature, latlng) => {
           return L.marker(latlng, {
@@ -124,7 +119,9 @@ export class WorldMapComponent implements AfterViewInit {
           })
         },
         onEachFeature: function (feature: Feature, layer: Layer) {
-          bindPopupIfRequired(layer, feature);
+          if (isPopupRequired) {
+            layer.bindTooltip(feature.properties?.['name']);
+          }
         }
       })
         .addTo(this.map);
