@@ -6,15 +6,33 @@
     <div class="col-12 mb-3">
       <mat-paginator [length]="totalElements" [pageSize]="defaultPageSize" [pageSizeOptions]="[1, 5, 10, 20, 25]"
                      aria-label="Select page" [showFirstLastButtons]="true" class="gallery-paginator"
-      color="primary">
+                     color="primary">
       </mat-paginator>
     </div>
 
   </div>
 
-  <div class="row row-cols-auto ps-2">
-    <div class="border border-2" *ngFor="let journey of data">
-      {{ journey.id | json }}
+  <div class="card-group justify-content-center align-items-center">
+    <div class="m-0" *ngFor="let journey of data">
+
+      <div class="card text-bg-dark">
+        <img [src]="journey.thumbnail" class="card-img" [alt]="journey.thumbnail">
+        <div class="card-img-overlay d-flex flex-column align-self-stretch">
+          <h5 class="card-title ">{{ journey.name }}</h5>
+          <p class="card-text">{{ journey.title }}</p>
+          <p class="card-text">
+            <span *ngFor="let tag of journey.tags" class="badge rounded-pill border  border-light me-1">{{ tag }}</span>
+          </p>
+          <div class="d-inline-flex footer-wrapper mt-auto flex-nowrap flex-row justify-content-between">
+            <p class="card-text small"><small>{{ journey.journeyDate | date:"dd.MM.YYYY" }}</small></p>
+            <small>
+              <button type="button" class="btn btn-outline-success btn-sm" (click)="viewDetails(journey)">View</button>
+            </small>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
 

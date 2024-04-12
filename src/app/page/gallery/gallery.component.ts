@@ -2,12 +2,13 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {GALLERY_PAGE_INFO} from "../../model/page-info";
 import {catchError, map, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
-import {AsyncPipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, DatePipe, JsonPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
 import {HttpParams} from "@angular/common/http";
 import {JourneyPage} from "../../service/journey/journey-page.type";
 import {MatPaginator} from "@angular/material/paginator";
 import {Journey} from "../../model/core/journey.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-gallery',
@@ -19,7 +20,9 @@ import {Journey} from "../../model/core/journey.model";
     JsonPipe,
     NgForOf,
     NgIf,
-    MatPaginator
+    MatPaginator,
+    NgOptimizedImage,
+    DatePipe
   ],
   styleUrls: ['./gallery.component.scss']
 })
@@ -32,7 +35,9 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   totalElements: number = 0;
   data: Journey[] = [];
 
-  constructor(private journeyService: JourneyService) {
+  constructor(
+    private journeyService: JourneyService,
+    private router: Router) {
   }
 
   ngAfterViewInit(): void {
@@ -65,5 +70,9 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     let params = new HttpParams();
     this.journeyService.getAllJourneys(params).subscribe(data => this.onSuccess(data));
+  }
+
+  viewDetails(journey: Journey) {
+    this.router.navigate(['/journey', journey.id, 'view']);
   }
 }
