@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {GALLERY_PAGE_INFO} from "../../model/page-info";
-import {map, Observable} from "rxjs";
-import {Location} from "../../model/location.model";
-import {Geometry} from "geojson";
-import {LocationService} from "../../service/location.service";
-import {convertFeatureToLocation} from "../../utility/feature-to-location.converter";
+import {catchError, map, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
-import {AsyncPipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, DatePipe, JsonPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {JourneyService} from "../../service/journey/journey.service";
+import {HttpParams} from "@angular/common/http";
+import {JourneyPage} from "../../service/journey/journey-page.type";
+import {MatPaginator} from "@angular/material/paginator";
+import {Journey} from "../../model/core/journey.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-gallery',
@@ -17,19 +19,60 @@ import {AsyncPipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
     AsyncPipe,
     JsonPipe,
     NgForOf,
-    NgIf
+    NgIf,
+    MatPaginator,
+    NgOptimizedImage,
+    DatePipe
   ],
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent implements OnInit, AfterViewInit {
   protected readonly GALLERY_PAGE_INFO = GALLERY_PAGE_INFO;
-  location$: Observable<Location<Geometry>[]> | undefined;
+  isLoadingResults: boolean = false;
 
-  constructor(private locationService: LocationService) {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  defaultPageSize: number = 10;
+  totalElements: number = 0;
+  data: Journey[] = [];
+
+  constructor(
+    private journeyService: JourneyService,
+    private router: Router) {
+  }
+
+  ngAfterViewInit(): void {
+    merge(this.paginator.page)
+      .pipe(
+        startWith(),
+        switchMap(() => {
+          this.isLoadingResults = true;
+
+          return this.journeyService.findJourneyByQuery(
+            'queryString',
+            'journeyDate',
+            'desc',
+            this.paginator.pageIndex,
+            this.paginator.pageSize
+          ).pipe(catchError(() => of(null)));
+        }),
+        map(data => {
+          this.isLoadingResults = false;
+          return data;
+        }),
+      ).subscribe(data => this.onSuccess(data));
+  }
+
+  onSuccess(pageData: null | JourneyPage) {
+    this.totalElements = pageData?.totalElements || 0;
+    this.data = pageData?.content || [];
   }
 
   ngOnInit(): void {
-    this.location$ = this.locationService.getAllAvailableLocations()
-      .pipe(map(data => data ? data.features.map(convertFeatureToLocation) : []));
+    let params = new HttpParams();
+    this.journeyService.getAllJourneys(params).subscribe(data => this.onSuccess(data));
+  }
+
+  viewDetails(journey: Journey) {
+    this.router.navigate(['/journey', journey.id, 'view']);
   }
 }
