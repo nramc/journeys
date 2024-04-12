@@ -3,7 +3,12 @@
 
     <div class="row mb-3">
       <div class="col-12">
-        <a type="button" class="btn btn-outline-primary" routerLink="/journey/new">New</a>
+        <div class="d-grid gap-2">
+          <a type="button" class="btn btn-outline-primary" routerLink="/journey/new">
+            Create New Journey<i class="bi bi-pin-map-fill fs-6 text-success ms-3"></i>
+          </a>
+        </div>
+
       </div>
 
     </div>
@@ -13,7 +18,7 @@
         <div class="input-group mb-3 col-12">
           <input type="text" class="form-control" aria-label="Query" aria-describedby="queryLabel"
                  placeholder="Use % for wildcard search" id="query" name="query" ngModel>
-          <button type="submit" class="btn btn-outline-primary">Search</button>
+          <button type="submit" class="btn btn-outline-primary"><i class="bi bi-search"></i></button>
         </div>
       </div>
     </div>
