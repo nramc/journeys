@@ -36,7 +36,7 @@ export class JourneyService {
   }
 
   getAllJourneysAsGeoJson(): Observable<FeatureCollection> {
-    return this.httpClient.get<FeatureCollection>(environment.journeyApi + '/journeys',
+    return this.httpClient.get<FeatureCollection>(environment.journeyApi + '/public/journeys',
       {
         headers: {'Accept': 'application/geo+json'}
       });
