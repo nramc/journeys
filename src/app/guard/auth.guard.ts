@@ -1,10 +1,13 @@
 import {CanActivateChildFn, CanActivateFn, CanMatchFn, Router} from '@angular/router';
 import {inject} from "@angular/core";
+import {AuthService} from "../service/auth/auth.service";
+import {map} from "rxjs";
 
 
 export const authenticatedGuard: CanActivateFn = (route, state) => {
-  let router = inject(Router);
-  return router.createUrlTree(['/login']);
+  let loginUrl = inject(Router).createUrlTree(['/login']);
+  return inject(AuthService).isUserAuthenticatedAsObservable()
+    .pipe(map(authenticated => authenticated ? true : loginUrl));
 };
 
 export const canActivateGuard: CanActivateFn = (route, state) => {
