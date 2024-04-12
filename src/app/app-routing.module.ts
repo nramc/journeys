@@ -9,11 +9,16 @@ const routes: Routes = [
     title: "Journey"
   },
   {
-    path: 'journey', title: 'Journey',
+    path: 'journey',
     canActivate: [authenticatedGuard],
     canMatch: [authenticatedGuard],
-    loadComponent: () => import('./page/journeys/search-journey/search-journey.component').then(m => m.SearchJourneyComponent),
     children: [
+      {
+        path: '', title: 'Journey',
+        loadComponent: () => import('./page/journeys/search-journey/search-journey.component').then(m => m.SearchJourneyComponent),
+        canActivate: [authenticatedGuard],
+        canMatch: [authenticatedGuard]
+      },
       {
         path: 'new',
         loadComponent: () => import('./page/journeys/new-journey/new-journey.component').then(m => m.NewJourneyComponent),
