@@ -15,7 +15,7 @@ export const JOURNEY_SEARCH_PAGE_INFO: PageInfo = {
   name: "Journeys",
   title: "Journeys",
   description: "\"Life is a treasure hunt, always searching for those special moments.\" - Anonymous.",
-  path: "/journeys"
+  path: "/journey"
 };
 export const NEW_JOURNEY_PAGE_INFO: PageInfo = {
   name: "GeoPin",

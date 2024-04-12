@@ -6,6 +6,7 @@ import {
   JOURNEY_SEARCH_PAGE_INFO,
   NEW_JOURNEY_PAGE_INFO,
 } from "../../model/page-info";
+import {AuthService} from "../../service/auth/auth.service";
 
 @Component({
   selector: 'app-side-navbar',
@@ -13,11 +14,16 @@ import {
   styleUrls: ['./side-navbar.component.scss']
 })
 export class SideNavbarComponent {
-
   protected readonly HOME_PAGE_INFO = HOME_PAGE_INFO;
   protected readonly DASHBOARD_PAGE_INFO = DASHBOARD_PAGE_INFO;
   protected readonly GALLERY_PAGE_INFO = GALLERY_PAGE_INFO;
-
   protected readonly JOURNEY_SEARCH_PAGE_INFO = JOURNEY_SEARCH_PAGE_INFO;
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
+
+  constructor(private authService: AuthService) {
+  }
+
+  isAuthenticated() {
+    return this.authService.isUserAuthenticatedAsObservable();
+  }
 }

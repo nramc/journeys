@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {canActivateWhenAuthenticatedGuard, canMatchWhenAuthenticatedGuard} from "./guard/auth.guard";
 
 const routes: Routes = [
   {
@@ -8,26 +9,36 @@ const routes: Routes = [
     title: "Journey"
   },
   {
-    path: 'journeys',
-    loadComponent: () => import('./page/journeys/search-journey/search-journey.component').then(m => m.SearchJourneyComponent),
-    title: 'Journey'
-  },
-  {
-    path: 'journey', children: [
+    path: 'journey',
+    canActivate: [canActivateWhenAuthenticatedGuard],
+    canMatch: [canMatchWhenAuthenticatedGuard],
+    children: [
+      {
+        path: '', title: 'Journey',
+        loadComponent: () => import('./page/journeys/search-journey/search-journey.component').then(m => m.SearchJourneyComponent),
+        canActivate: [canActivateWhenAuthenticatedGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard]
+      },
       {
         path: 'new',
         loadComponent: () => import('./page/journeys/new-journey/new-journey.component').then(m => m.NewJourneyComponent),
-        title: 'New Journey'
+        title: 'New Journey',
+        canActivate: [canActivateWhenAuthenticatedGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard]
       },
       {
         path: ':id/view',
         loadComponent: () => import('./page/journeys/view-journey/view-journey.component').then(m => m.ViewJourneyComponent),
-        title: 'View Journey'
+        title: 'View Journey',
+        canActivate: [canActivateWhenAuthenticatedGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard]
       },
       {
         path: ':id/edit',
         loadComponent: () => import('./page/journeys/edit-journey/edit-journey.component').then(m => m.EditJourneyComponent),
-        title: 'Edit Journey'
+        title: 'Edit Journey',
+        canActivate: [canActivateWhenAuthenticatedGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard]
       }
     ]
   },
