@@ -9,6 +9,11 @@ const routes: Routes = [
     title: "Journey"
   },
   {
+    path: 'login',
+    loadComponent: () => import('./page/auth/login/login.component').then(m => m.LoginComponent),
+    title: 'Login'
+  },
+  {
     path: 'journey',
     canActivate: [canActivateWhenAuthenticatedGuard],
     canMatch: [canMatchWhenAuthenticatedGuard],

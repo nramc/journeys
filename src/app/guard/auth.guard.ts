@@ -5,9 +5,7 @@ import {map} from "rxjs";
 
 
 export const canActivateWhenAuthenticatedGuard: CanActivateFn = (route, state) => {
-  let loginUrl = inject(Router).createUrlTree(['/login']);
-  return inject(AuthService).isUserAuthenticatedAsObservable()
-    .pipe(map(authenticated => authenticated ? true : loginUrl));
+  return isUserAuthenticatedElseGetLogin();
 };
 
 export const canActivateGuard: CanActivateFn = (route, state) => {
@@ -20,5 +18,11 @@ export const canActivateChildGuard: CanActivateChildFn = (route, state) => {
 };
 
 export const canMatchWhenAuthenticatedGuard: CanMatchFn = (route, state) => {
-  return inject(AuthService).isUserAuthenticatedAsObservable();
+  return isUserAuthenticatedElseGetLogin();
 };
+
+function isUserAuthenticatedElseGetLogin() {
+  let loginUrl = inject(Router).createUrlTree(['/login']);
+  return inject(AuthService).isUserAuthenticatedAsObservable()
+    .pipe(map(authenticated => authenticated ? true : loginUrl));
+}
