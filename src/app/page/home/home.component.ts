@@ -18,7 +18,4 @@ export class HomeComponent {
   constructor(private authService: AuthService) {
   }
 
-  login() {
-    this.authService.login();
-  }
 }
