@@ -1,3 +1,9 @@
 <app-page-header [pageInfo]="HOME_PAGE_INFO"></app-page-header>
 
-
+<div class="container">
+  <div class="row" *ngIf="authService.getUserContext() | async as userContext">
+    <div class="col-12" *ngIf="userContext.isAuthenticated">
+      <p>Hello <strong class="text-primary">{{ userContext.userName}}</strong>, Welcome back..!</p>
+    </div>
+  </div>
+</div>

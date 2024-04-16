@@ -5,6 +5,7 @@ import {NgIf} from "@angular/common";
 import {AuthService} from "../../../service/auth/auth.service";
 import {UserContext} from "../../../service/auth/user-context";
 import {HttpErrorResponse} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,10 @@ export class LoginComponent {
 
   form: LoginForm = new LoginForm();
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
   }
 
   login(loginForm: NgForm) {
@@ -36,6 +40,7 @@ export class LoginComponent {
 
   onLoginSuccess(userContext: UserContext) {
     this.successMessage = 'Login successful';
+    this.router.navigate(['/home'])
   }
 
   onLoginFailed(error: HttpErrorResponse) {

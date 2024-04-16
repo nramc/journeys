@@ -38,7 +38,7 @@ export class AuthService {
       .pipe(map(tokenData => this.onLoginSuccessCallback(username, tokenData)));
   }
 
-  onLoginSuccessCallback(username: string, tokenData: LoginResponse) {
+  private onLoginSuccessCallback(username: string, tokenData: LoginResponse) {
     let userContext = new UserContext(username, true, tokenData.authorities, tokenData.token);
     localStorage.setItem(this.USER_CONTEXT_KEY, JSON.stringify(userContext));
     this.user$.next(userContext);
