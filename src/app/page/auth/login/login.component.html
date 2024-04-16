@@ -8,12 +8,12 @@
 
   <div class="row d-flex justify-content-center align-items-center h-100">
     <div class="col-12 col-md-6 mt-sm-0">
-      <div class="card login-card text-white m-auto" style="border-radius: 1rem;">
+      <div class="card login-card text-white m-auto border border-2 border-primary border-opacity-50" style="border-radius: 1rem;">
         <div class="card-body p-5 text-center">
 
           <form (ngSubmit)="login(loginForm)" #loginForm="ngForm">
             <h2 class="fw-bold mb-2">Login</h2>
-            <p class="text-white-50 mb-5">Please enter your login and password!</p>
+            <p class="text-white-50 mb-5">Please Identify Yourself!</p>
 
             <div class="form-outline form-white mb-4">
               <input type="email" id="username" name="username" class="form-control form-control-lg" required
@@ -22,8 +22,8 @@
                      maxlength="50"/>
               <label class="form-label" for="username">Username</label>
               <div [hidden]="username.valid || username.pristine" class="form-text text-danger">
-                <div *ngIf="username.errors?.['required']">Name is required.</div>
-                <div *ngIf="username.errors?.['maxlength']">Name must be at most 50 characters long.</div>
+                <div *ngIf="username.errors?.['required']">Username is required.</div>
+                <div *ngIf="username.errors?.['maxlength']">Username must be at most 50 characters long.</div>
               </div>
             </div>
 
@@ -32,8 +32,8 @@
                      [(ngModel)]="form.password" required #password="ngModel" maxlength="50"/>
               <label class="form-label" for="password">Password</label>
               <div [hidden]="password.valid || password.pristine" class="form-text text-danger">
-                <div *ngIf="password.errors?.['required']">Name is required.</div>
-                <div *ngIf="password.errors?.['maxlength']">Name must be at most 50 characters long.</div>
+                <div *ngIf="password.errors?.['required']">Password is required.</div>
+                <div *ngIf="password.errors?.['maxlength']">Password must be at most 50 characters long.</div>
               </div>
             </div>
 
