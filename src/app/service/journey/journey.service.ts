@@ -44,7 +44,14 @@ export class JourneyService {
   }
 
   getAllJourneys(params: HttpParams): Observable<JourneyPage> {
-    return this.httpClient.get<JourneyPage>(environment.journeyApi + '/journeys', {params: params});
+    return this.authService.getUserContext().pipe(
+      mergeMap(userContext => this.httpClient.get<JourneyPage>(environment.journeyApi + '/journeys',
+        {
+          params: params,
+          headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+        })
+      )
+    );
   }
 
   getAllJourneysAsGeoJson(): Observable<FeatureCollection> {
