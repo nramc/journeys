@@ -1,7 +1,7 @@
 <app-page-header [pageInfo]="NEW_JOURNEY_PAGE_INFO"></app-page-header>
 
 
-<form (ngSubmit)="onSubmit(journeyForm)" #journeyForm="ngForm" class="container">
+<form (ngSubmit)="onSubmit(journeyForm)" #journeyForm="ngForm">
   <div class="row">
 
     <div class="col-md-8 col-12 ">
@@ -201,8 +201,8 @@
 
   </div>
 
-  <div class="container">
-    <div class="d-flex gap-2 justify-content-center">
+  <div class="row">
+    <div class="col-12 d-flex gap-2 justify-content-center">
       <button type="submit" class="btn btn-outline-primary" *ngIf="!journey.id" [disabled]="!journeyForm.form.valid">
         Save
       </button>
