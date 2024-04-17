@@ -3,7 +3,8 @@ export class UserContext {
     public userName: string = '',
     public isAuthenticated: boolean = false,
     public roles: string[] = [],
-    public accessToken: string = ''
+    public accessToken: string = '',
+    public expiredAt: Date = new Date()
   ) {
   }
 

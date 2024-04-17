@@ -15,9 +15,14 @@ export class AuthService {
   ) {
     let localAuth = localStorage.getItem(this.USER_CONTEXT_KEY);
     if (localAuth) {
-      console.log('Local auth context found.', localAuth);
-      let localContext = JSON.parse(localAuth);
-      this.user$.next(localContext);
+      let localUserContext = JSON.parse(localAuth) as UserContext;
+      if (new Date() < localUserContext.expiredAt) {
+        this.user$.next(localUserContext);
+        console.log('Local auth context found and valid.', localAuth);
+      } else {
+        localStorage.removeItem(this.USER_CONTEXT_KEY);
+        console.log('Local auth context found, but not valid. Thus removed from local storage.', localAuth);
+      }
     }
   }
 
@@ -39,7 +44,12 @@ export class AuthService {
   }
 
   private onLoginSuccessCallback(username: string, tokenData: LoginResponse) {
-    let userContext = new UserContext(username, true, tokenData.authorities, tokenData.token);
+    let userContext = new UserContext(
+      username,
+      true,
+      tokenData.authorities,
+      tokenData.token,
+      tokenData.expiredAt);
     localStorage.setItem(this.USER_CONTEXT_KEY, JSON.stringify(userContext));
     this.user$.next(userContext);
     return userContext;
