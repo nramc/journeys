@@ -2,21 +2,33 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Journey, JourneyGeoDetails, JourneyImagesDetails, JourneyVideosDetails} from "../../model/core/journey.model";
 import {environment} from "../../../environments/environment";
-import {Observable} from "rxjs";
+import {mergeMap, Observable} from "rxjs";
 import {JourneyPage} from "./journey-page.type";
 import {FeatureCollection} from "geojson";
 import {SortDirection} from "@angular/material/sort";
+import {AuthService} from "../auth/auth.service";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class JourneyService {
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private authService: AuthService
+  ) {
   }
 
   createJourney(journey: Journey): Observable<Journey> {
-    return this.httpClient.post<Journey>(environment.journeyApi + '/journey', journey);
+    return this.authService.getUserContext().pipe(
+      mergeMap(userContext => this.httpClient.post<Journey>(
+          environment.journeyApi + '/journey', journey,
+          {
+            headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+          }
+        )
+      )
+    );
   }
 
   findJourneyByQuery(queryString: string, sort: string, order: SortDirection, page: number, pageSize: number): Observable<JourneyPage> {
