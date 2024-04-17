@@ -63,13 +63,14 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   onSuccess(pageData: null | JourneyPage) {
-    this.totalElements = pageData?.totalElements || 0;
-    this.data = pageData?.content || [];
+    this.totalElements = pageData?.totalElements ?? 0;
+    this.data = pageData?.content ?? [];
   }
 
   ngOnInit(): void {
     let params = new HttpParams();
-    this.journeyService.getAllJourneys(params).subscribe(data => this.onSuccess(data));
+    this.journeyService.getAllJourneys(params)
+      .subscribe(data => this.onSuccess(data));
   }
 
   viewDetails(journey: Journey) {
