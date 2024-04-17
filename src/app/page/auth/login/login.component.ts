@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {FeedbackMessageComponent} from "../../../component/feedback-message/feedback-message.component";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../../../service/auth/auth.service";
 import {UserContext} from "../../../service/auth/user-context";
 import {HttpErrorResponse} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ import {Router} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
 
@@ -26,9 +26,17 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
   }
+
+  ngOnInit(): void {
+    this.messageBanner = this.activatedRoute.snapshot.queryParams['q'];
+    console.log(this.messageBanner)
+  }
+
+  messageBanner: string = '';
 
   login(loginForm: NgForm) {
     this.authService.login(this.form.userName, this.form.password)

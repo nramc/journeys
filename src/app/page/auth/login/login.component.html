@@ -3,11 +3,23 @@
   <div class="row d-flex justify-content-center align-items-center h-100 m-auto">
     <div class="col-12 col-md-6 mt-sm-0">
 
-      <div class="alert alert-primary" role="alert">
-        <i class="bi bi-info-circle pe-none me-2"></i>
-        Identity Yourself to access more exciting features..!
+      <div>
+        @if (successMessage || errorMessage) {
+          <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
+        } @else if(messageBanner === 'unauthenticated') {
+          <div class="alert alert-warning" role="alert">
+            <i class="bi bi-info-circle pe-none me-2"></i>
+            Identity Yourself to access secured resource..!
+          </div>
+        } @else {
+          <div class="alert alert-primary" role="alert">
+            <i class="bi bi-info-circle pe-none me-2"></i>
+            Identity Yourself to access more exciting features..!
+          </div>
+        }
+
       </div>
-      <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
+
 
       <div class="card login-card text-white border border-2 border-primary border-opacity-50"
            style="border-radius: 1rem;">
