@@ -8,6 +8,7 @@ import AuthUtils from "./auth.utils";
   providedIn: 'root'
 })
 export class AuthService {
+  private user: UserContext = new UserContext();
   private user$: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(new UserContext());
 
   constructor(
@@ -15,8 +16,12 @@ export class AuthService {
   ) {
     let localAuth = AuthUtils.getUserContextFromLocalStorage();
     if (localAuth) {
-      this.user$.next(localAuth);
+      this.setUserContext(localAuth);
     }
+  }
+
+  getCurrentUserContext() {
+    return this.user;
   }
 
 
@@ -44,8 +49,13 @@ export class AuthService {
       tokenData.token,
       tokenData.expiredAt);
     AuthUtils.saveUserContextInLocalStorage(userContext)
-    this.user$.next(userContext);
+    this.setUserContext(userContext)
     return userContext;
+  }
+
+  private setUserContext(userContext: UserContext) {
+    this.user$.next(userContext);
+    this.user = userContext;
   }
 
 }
