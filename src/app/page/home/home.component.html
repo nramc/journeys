@@ -1,5 +1,11 @@
 <app-page-header [pageInfo]="HOME_PAGE_INFO"></app-page-header>
 
+<section class="container">
+  <div class="row" *ngIf="authService.getUserContext() | async as userContext">
+    <div class="col-12" *ngIf="userContext.isAuthenticated">
+      <p>Hello <strong class="text-primary">{{ userContext.userName }}</strong>, Welcome back..!</p>
+    </div>
+  </div>
 
-<button (click)="login()" class="btn btn-success btn-sm">Login Now</button>
+</section>
 

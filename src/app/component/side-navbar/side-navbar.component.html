@@ -43,12 +43,20 @@
           </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isAuthenticated() | async">
           <a [routerLink]="GALLERY_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-grid pe-none me-2"></i>
             {{ GALLERY_PAGE_INFO.name }}
           </a>
         </li>
+
+        <li class="nav-item" [hidden]="isAuthenticated() | async">
+          <a [routerLink]="LOGIN_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+            <i class="bi bi-lock-fill pe-none me-2"></i>
+            {{ LOGIN_PAGE_INFO.name }}
+          </a>
+        </li>
+
       </ul>
 
     </div>

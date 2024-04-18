@@ -1,21 +1,27 @@
 import {Injectable} from '@angular/core';
 import {UserContext} from "./user-context";
 import {BehaviorSubject, map} from "rxjs";
+import {LoginResponse, LoginService} from "./login.service";
+import AuthUtils from "./auth.utils";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private USER_CONTEXT_KEY: string = '_auth';
+  private user: UserContext = new UserContext();
   private user$: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(new UserContext());
 
-  constructor() {
-    let localAuth = localStorage.getItem(this.USER_CONTEXT_KEY);
+  constructor(
+    private loginService: LoginService
+  ) {
+    let localAuth = AuthUtils.getUserContextFromLocalStorage();
     if (localAuth) {
-      console.log('Local auth context found.', localAuth);
-      let localContext = JSON.parse(localAuth);
-      this.user$.next(localContext);
+      this.setUserContext(localAuth);
     }
+  }
+
+  getCurrentUserContext() {
+    return this.user;
   }
 
 
@@ -30,14 +36,26 @@ export class AuthService {
     return this.user$;
   }
 
-  login() {
-    let loggedInContext = new UserContext(
-      'username',
+  login(username: string, password: string) {
+    return this.loginService.login(username, password)
+      .pipe(map(tokenData => this.onLoginSuccessCallback(username, tokenData)));
+  }
+
+  private onLoginSuccessCallback(username: string, tokenData: LoginResponse) {
+    let userContext = new UserContext(
+      username,
       true,
-      ['authenticated', 'admin'],
-      'jwt');
-    localStorage.setItem(this.USER_CONTEXT_KEY, JSON.stringify(loggedInContext));
-    this.user$.next(loggedInContext);
+      tokenData.authorities,
+      tokenData.token,
+      tokenData.expiredAt);
+    AuthUtils.saveUserContextInLocalStorage(userContext)
+    this.setUserContext(userContext)
+    return userContext;
+  }
+
+  private setUserContext(userContext: UserContext) {
+    this.user$.next(userContext);
+    this.user = userContext;
   }
 
 }

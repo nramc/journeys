@@ -1,10 +1,14 @@
 @if (_successMessage) {
   <ngb-alert type="success" (closed)="successMessage = ''"
-             [dismissible]="true" [animation]="true">{{ _successMessage }}
+             [dismissible]="false" [animation]="true">
+    <i class="bi bi-check-circle-fill pe-none me-2"></i>
+    {{ _successMessage }}
   </ngb-alert>
 }
 @if (_errorMessage) {
-  <ngb-alert type="danger" [dismissible]="true" [animation]="true"
-             (closed)="errorMessage = ''">{{ _errorMessage }}
+  <ngb-alert type="danger" [dismissible]="false" [animation]="true"
+             (closed)="errorMessage = ''">
+    <i class="bi bi-dash-circle pe-none me-2"></i>
+    {{ _errorMessage }}
   </ngb-alert>
 }
