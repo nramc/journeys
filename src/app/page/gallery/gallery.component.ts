@@ -76,4 +76,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   viewDetails(journey: Journey) {
     this.router.navigate(['/journey', journey.id, 'view']);
   }
+  editDetails(journey: Journey) {
+    this.router.navigate(['/journey', journey.id, 'edit']);
+  }
 }
