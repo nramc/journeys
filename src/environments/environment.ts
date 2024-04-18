@@ -2,10 +2,10 @@ import packageJson from "../../package.json";
 
 export const environment = {
   production: true,
-  journeyApi: "http://prodcution.url/rest",
+  journeyApi: "https://journey-api-nxm5.onrender.com/rest",
 
   cloudName: "journeytogether",
-  preset: "journey",
+  preset: "journeys-prod",
   version: packageJson.version
 
 };
