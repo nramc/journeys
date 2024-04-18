@@ -15,7 +15,7 @@ import {GalleryConfig} from "ng-gallery/lib/models/config.model";
            [lightbox]="i"
            [gallery]="galleryId">
         <img class="rounded border border-primary border-2 border-opacity-50"
-          [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? '/assets/image/default-video-thumbnail.png'"
+          [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
           height="200" width="200" alt="media" loading="lazy" />
       </div>
     </div>
@@ -91,7 +91,7 @@ export class MediaGalleryComponent implements OnInit {
       type: GalleryItemTypes.Iframe,
       data: {
         src: videoUrl,
-        thumb: '/assets/image/default-video-thumbnail.png'
+        thumb: 'assets/image/default-video-thumbnail.png'
       }
     };
   }

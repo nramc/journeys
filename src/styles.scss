@@ -113,12 +113,12 @@ body {
 /* ng-bootstrap carousal styles customisation */
 .carousel-control-prev-icon {
   filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
-  background-image: url("/assets/svg/chevron-left.svg");
+  background-image: url("assets/svg/chevron-left.svg");
 }
 
 .carousel-control-next-icon {
   filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
-  background-image: url("/assets/svg/chevron-right.svg");
+  background-image: url("assets/svg/chevron-right.svg");
 
 }
 

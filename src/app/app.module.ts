@@ -10,18 +10,20 @@ import {HttpClientModule} from "@angular/common/http";
 import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
 import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {CustomErrorHandler} from "./utility/handler/error.handler";
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
     AppComponent,
     SideNavbarComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        NgOptimizedImage
+    ],
   providers: [
     {
       provide: LIGHTBOX_CONFIG, useValue: {
