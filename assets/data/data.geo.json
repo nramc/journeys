@@ -1,0 +1,62 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "id": "id_1",
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [11.6634, 48.1230]},
+      "properties": {
+        "name": "München House",
+        "category": "Residential",
+        "city": "Munich",
+        "country": "Germany",
+        "tags": ["Ram", "Sakunthala", "Germany", "Munich"],
+        "description": "Remember that happiness is a way of travel, not a destination.",
+        "thumbnail": "/assets/test-data/img/2022_1.png",
+        "events": [
+          {
+            "name": "2022",
+            "images": ["/assets/test-data/img/2022_1.png", "/assets/test-data/img/2022_2.png", "/assets/test-data/img/2022_3.png"],
+            "videos": []
+          },
+          {
+            "name": "2023",
+            "images": ["/assets/test-data/img/2023_1.png", "/assets/test-data/img/2023_2.png", "/assets/test-data/img/2023_3.png"],
+            "videos": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "id_2",
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [11.6170241, 48.1303613]},
+      "properties": {
+        "name": "München House [Bachelor Life]",
+        "category": "Residential",
+        "city": "Munich",
+        "country": "Germany",
+        "tags": ["Ram", "Germany", "Munich"],
+        "description": "Remember that happiness is a way of travel, not a destination.",
+        "thumbnail": "/assets/test-data/img/2019_1.png",
+        "events": [
+          {
+            "name": "2019",
+            "images": ["/assets/test-data/img/2019_1.png", "/assets/test-data/img/2019_2.png", "/assets/test-data/img/2019_3.png"],
+            "videos": ["OSuHTW9T57A"]
+          },
+          {
+            "name": "2020",
+            "images": ["/assets/test-data/img/2020_1.png", "/assets/test-data/img/2020_2.png", "/assets/test-data/img/2020_3.png"],
+            "videos": ["/assets/test-data/video/flower.mp4"]
+          },
+          {
+            "name": "2021",
+            "images": ["/assets/test-data/img/2021_1.png", "/assets/test-data/img/2021_2.png", "/assets/test-data/img/2021_3.png"],
+            "videos": []
+          }
+        ]
+      }
+    }
+  ]
+}
