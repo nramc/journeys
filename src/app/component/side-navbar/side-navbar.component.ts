@@ -3,10 +3,12 @@ import {
   DASHBOARD_PAGE_INFO,
   GALLERY_PAGE_INFO,
   HOME_PAGE_INFO,
-  JOURNEY_SEARCH_PAGE_INFO, LOGIN_PAGE_INFO,
+  JOURNEY_SEARCH_PAGE_INFO,
+  LOGIN_PAGE_INFO,
   NEW_JOURNEY_PAGE_INFO,
 } from "../../model/page-info";
 import {AuthService} from "../../service/auth/auth.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-side-navbar',
@@ -22,6 +24,8 @@ export class SideNavbarComponent {
 
   constructor(private authService: AuthService) {
   }
+
+  appVersion = environment.version;
 
   isAuthenticated() {
     return this.authService.isUserAuthenticatedAsObservable();
