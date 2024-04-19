@@ -3,7 +3,7 @@
 <section class="container">
   <div class="row" *ngIf="authService.getUserContext() | async as userContext">
     <div class="col-12" *ngIf="userContext.isAuthenticated">
-      <p>Hello <strong class="text-primary">{{ userContext.userName }}</strong>, Welcome back..!</p>
+      <p>Hello <strong class="text-primary">{{ userContext.name }}</strong>, Welcome back..!</p>
     </div>
   </div>
 

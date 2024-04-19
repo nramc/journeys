@@ -28,5 +28,6 @@ export class LoginService {
 export interface LoginResponse {
   token: string,
   expiredAt: Date,
-  authorities: string[]
+  authorities: string[],
+  name: string
 }

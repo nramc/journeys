@@ -1,6 +1,6 @@
 export class UserContext {
   constructor(
-    public userName: string = '',
+    public name: string = '',
     public isAuthenticated: boolean = false,
     public roles: string[] = [],
     public accessToken: string = '',
