@@ -38,18 +38,21 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.loginService.login(username, password)
-      .pipe(map(tokenData => this.onLoginSuccessCallback(username, tokenData)));
+      .pipe(map(tokenData => this.onLoginSuccessCallback(tokenData)));
   }
 
-  private onLoginSuccessCallback(username: string, tokenData: LoginResponse) {
+  private onLoginSuccessCallback(tokenData: LoginResponse) {
     let userContext = new UserContext(
-      username,
+      tokenData.name,
       true,
       tokenData.authorities,
       tokenData.token,
       tokenData.expiredAt);
+
     AuthUtils.saveUserContextInLocalStorage(userContext)
+
     this.setUserContext(userContext)
+
     return userContext;
   }
 
