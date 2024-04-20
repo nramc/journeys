@@ -7,7 +7,7 @@
     <div class="d-flex flex-row justify-content-between border-bottom border-2 border-secondary">
       <a [routerLink]="HOME_PAGE_INFO.path" class="navbar-brand d-flex flex-row">
         <div class="col">
-          <img ngSrc="assets/journey-logo.png" alt="Journey" width="32" height="32">
+          <img ngSrc="assets/journey-logo.png" alt="" width="32" height="32">
         </div>
         <div class="col">
           <span class="fs-4 pe-none">Journey</span>
@@ -29,13 +29,6 @@
           </a>
         </li>
 
-        <li class="nav-item" *ngIf="isAuthenticated() | async">
-          <a [routerLink]="JOURNEY_SEARCH_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
-            <i class="bi bi-boxes pe-none me-2"></i>
-            {{ JOURNEY_SEARCH_PAGE_INFO.name }}
-          </a>
-        </li>
-
         <li class="nav-item">
           <a [routerLink]="DASHBOARD_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-speedometer2 pe-none me-2"></i>
@@ -47,6 +40,13 @@
           <a [routerLink]="GALLERY_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-grid pe-none me-2"></i>
             {{ GALLERY_PAGE_INFO.name }}
+          </a>
+        </li>
+
+        <li class="nav-item" *ngIf="isAuthenticated() | async">
+          <a [routerLink]="JOURNEY_SEARCH_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+            <i class="bi bi-boxes pe-none me-2"></i>
+            {{ JOURNEY_SEARCH_PAGE_INFO.name }}
           </a>
         </li>
 
