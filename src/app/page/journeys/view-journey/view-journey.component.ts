@@ -10,6 +10,7 @@ import {MatTab, MatTabGroup, MatTabLabel} from "@angular/material/tabs";
 import {MatIcon} from "@angular/material/icon";
 import {WorldMapComponent} from "../../../component/world-map/world-map.component";
 import {MediaGalleryComponent} from "../../../component/media-gallery/media-gallery.component";
+import {ViewJourneyBasicDetailsComponent} from "./view-journey-basic-details/view-journey-basic-details.component";
 
 @Component({
   selector: 'app-view-journey',
@@ -23,7 +24,8 @@ import {MediaGalleryComponent} from "../../../component/media-gallery/media-gall
     MatTabLabel,
     WorldMapComponent,
     MediaGalleryComponent,
-    AsyncPipe
+    AsyncPipe,
+    ViewJourneyBasicDetailsComponent
   ],
   standalone: true
 })
