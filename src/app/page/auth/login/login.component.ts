@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageBanner = this.activatedRoute.snapshot.queryParams['q'];
-    console.log(this.messageBanner)
   }
 
   messageBanner: string = '';
