@@ -1,46 +1,52 @@
-<app-page-header [pageInfo]="VIEW_JOURNEY_PAGE_INFO"></app-page-header>
+<section *ngIf="journey$ | async as journey" class="mt-3">
+  <div class="row m-2">
+    <div class="col-12">
+      <h4 class="gradient-text" [innerText]="journey.name"></h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col ms-1">
+      <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
 
-<div class="row" *ngIf="journey$ | async as journey">
-  <div class="col ms-1">
-    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+        <mat-tab bodyClass="mt-2">
+          <ng-template mat-tab-label>
+            <mat-icon class="me-1">map</mat-icon>
+            Geo Details
+          </ng-template>
+          <div class="row d-flex flex-row m-0">
+            <div class="col-12" style="position: relative; height: 50vh; margin: inherit">
+              <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location"
+              ></app-world-map>
+            </div>
 
-      <mat-tab bodyClass="mt-2">
-        <ng-template mat-tab-label>
-          <mat-icon class="me-1">map</mat-icon>
-          Geo Details
-        </ng-template>
-        <div class="row">
-          <div class="col-12" style="position: relative; height: 50vh">
-            <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location"
-                           [zoomIn]="10"></app-world-map>
+            <div class="col-12">
+              <app-view-journey-basic-details [journey]="journey"></app-view-journey-basic-details>
+            </div>
+
           </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div>{{ journey.description }}</div>
-          </div>
+        </mat-tab>
 
-        </div>
-      </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="me-1">photo_library</mat-icon>
+            Images
+          </ng-template>
+          <app-media-gallery galleryId="imageGallery" [images]="getImages(journey)" [videos]=""></app-media-gallery>
+        </mat-tab>
 
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="me-1">photo_library</mat-icon>
-          Images
-        </ng-template>
-        <app-media-gallery galleryId="imageGallery" [images]="getImages(journey)" [videos]=""></app-media-gallery>
-      </mat-tab>
-
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="me-1">video_library</mat-icon>
-          Videos
-        </ng-template>
-        <app-media-gallery galleryId="videoGallery" [images]="" [videos]="getVideos(journey)"></app-media-gallery>
-      </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="me-1">video_library</mat-icon>
+            Videos
+          </ng-template>
+          <app-media-gallery galleryId="videoGallery" [images]="" [videos]="getVideos(journey)"></app-media-gallery>
+        </mat-tab>
 
 
-    </mat-tab-group>
+      </mat-tab-group>
+    </div>
+
   </div>
 
-</div>
+</section>
+
