@@ -5,7 +5,8 @@ import {MatIcon} from "@angular/material/icon";
 import {FormsModule, NgForm} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
-import {MatStepperNext} from "@angular/material/stepper";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
 
 @Component({
   selector: 'app-edit-journey-publish-details',
@@ -15,7 +16,8 @@ import {MatStepperNext} from "@angular/material/stepper";
     FormsModule,
     NgIf,
     FeedbackMessageComponent,
-    MatStepperNext
+    MatFormFieldModule,
+    MatSelectModule
   ],
   templateUrl: './edit-journey-publish-details.component.html',
   styleUrl: './edit-journey-publish-details.component.scss'
@@ -26,7 +28,6 @@ export class EditJourneyPublishDetailsComponent {
 
   successMessage: string = '';
   errorMessage: string = '';
-
   constructor(
     private journeyService: JourneyService
   ) {
@@ -70,7 +71,7 @@ export class EditJourneyPublishDetailsComponent {
   }
 
   save(journeyForm: NgForm) {
-    console.debug('submitted form:', journeyForm);
+    console.debug('submitted journey:', this.journey);
     this.journey.isPublished = false;
     this.journeyService.publishJourney(this.journey)
       .subscribe({
