@@ -14,7 +14,8 @@ export class Journey {
     public thumbnail: string = 'https://res.cloudinary.com/journeytogether/image/upload/v1712604194/journey/readonly/aeqhy3zwrwko7ba2rinr.jpg',
     public location: Geometry | undefined = undefined,
     public extendedDetails: JourneyExtendedDetails | undefined = new JourneyExtendedDetails(),
-    public isPublished: boolean = false
+    public isPublished: boolean = false,
+    public visibilities: string[] = []
   ) {
   }
 }
