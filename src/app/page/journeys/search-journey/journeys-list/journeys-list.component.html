@@ -8,8 +8,7 @@
   <div class="data-table-container">
 
     <table mat-table [dataSource]="data" matSort matSortActive="createdDate" matSortDisableClear
-           matSortDirection="desc" [fixedLayout]="true" [trackBy]="trackJourney">
-      <caption>Available Journeys</caption>
+           matSortDirection="desc" [fixedLayout]="true" [trackBy]="trackJourney" aria-describedby="Available Journeys">
 
       <!-- Created Date -->
       <ng-container matColumnDef="createdDate">
