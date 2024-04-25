@@ -72,8 +72,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
       '',
       'journeyDate',
       'desc',
-      this.paginator.pageIndex,
-      this.paginator.pageSize,
+      0,
+      this.defaultPageSize,
       true
     ).subscribe(data => this.onSuccess(data));
   }

@@ -19,7 +19,9 @@ export class JourneySearchCriteriaComponent {
   q: string = '';
 
   submitSearch(searchForm: NgForm) {
-    this.searchEvent.emit(this.q);
+    if (searchForm.valid) {
+      this.searchEvent.emit(this.q);
+    }
   }
 
 }
