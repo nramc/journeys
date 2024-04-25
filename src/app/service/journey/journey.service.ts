@@ -30,13 +30,14 @@ export class JourneyService {
     );
   }
 
-  findJourneyByQuery(queryString: string, sort: string, order: SortDirection, page: number, pageSize: number): Observable<JourneyPage> {
+  findJourneyByQuery(queryString: string, sort: string, order: SortDirection, page: number, pageSize: number, publishedOnly: boolean): Observable<JourneyPage> {
     let params = new HttpParams();
     params = params.set("q", queryString);
     params = params.set("sort", sort);
     params = params.set("order", order.toUpperCase());
     params = params.set("pageIndex", page);
     params = params.set("pageSize", pageSize);
+    params = params.set("publishedOnly", publishedOnly);
     console.log(params)
 
     return this.getAllJourneys(params);
@@ -53,7 +54,7 @@ export class JourneyService {
 
   getAllJourneysAsGeoJson(): Observable<FeatureCollection> {
     let userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<FeatureCollection>(environment.journeyApi + '/public/journeys',
+    return this.httpClient.get<FeatureCollection>(environment.journeyApi + '/journeys',
       {
         headers: {
           'Accept': 'application/geo+json',

@@ -4,7 +4,6 @@ import {catchError, map, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {AsyncPipe, DatePipe, JsonPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
-import {HttpParams} from "@angular/common/http";
 import {JourneyPage} from "../../service/journey/journey-page.type";
 import {MatPaginator} from "@angular/material/paginator";
 import {Journey} from "../../model/core/journey.model";
@@ -48,11 +47,12 @@ export class GalleryComponent implements OnInit, AfterViewInit {
           this.isLoadingResults = true;
 
           return this.journeyService.findJourneyByQuery(
-            'queryString',
+            '',
             'journeyDate',
             'desc',
             this.paginator.pageIndex,
-            this.paginator.pageSize
+            this.paginator.pageSize,
+            true
           ).pipe(catchError(() => of(null)));
         }),
         map(data => {
@@ -68,14 +68,20 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    let params = new HttpParams();
-    this.journeyService.getAllJourneys(params)
-      .subscribe(data => this.onSuccess(data));
+    this.journeyService.findJourneyByQuery(
+      '',
+      'journeyDate',
+      'desc',
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      true
+    ).subscribe(data => this.onSuccess(data));
   }
 
   viewDetails(journey: Journey) {
     this.router.navigate(['/journey', journey.id, 'view']);
   }
+
   editDetails(journey: Journey) {
     this.router.navigate(['/journey', journey.id, 'edit']);
   }
