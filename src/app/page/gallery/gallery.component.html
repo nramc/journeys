@@ -24,7 +24,7 @@
     </div>
     <div ngbDropdown class="d-inline-block">
       <button type="button" class="btn btn-outline-primary btn-sm" id="dropdownSortingDirection" ngbDropdownToggle>
-        {{ sortingDirectionChangedEvent.getValue() | titlecase }}
+        {{ sortingDirectionChangedEvent.getValue() | uppercase }}
       </button>
       <div ngbDropdownMenu aria-labelledby="dropdownSortingDirection">
         @for (sortingDirection of sortableDirections; track sortingDirection) {
@@ -47,10 +47,24 @@
         <h5 class="card-title ">{{ journey.name }}</h5>
         <p class="card-text">{{ journey.title }}</p>
         <p class="card-text">
-          <span *ngFor="let tag of journey.tags" class="badge bg-dark bg-opacity-25 border-dark rounded-pill border me-1">{{ tag }}</span>
+          <span *ngFor="let tag of journey.tags"
+                class="badge bg-dark bg-opacity-25 border-dark rounded-pill border me-1">{{ tag }}</span>
         </p>
         <div class="d-inline-flex footer-wrapper mt-auto flex-nowrap flex-row justify-content-between">
-          <p class="card-text small"><small>{{ journey.journeyDate | date:"dd.MM.YYYY" }}</small></p>
+          <div class="d-inline-flex gap-1">
+            <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50">
+              <small>{{ journey.journeyDate | date:"dd.MM.YYYY" }}</small>
+            </p>
+            <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50">
+              <small>{{ journey.city }}</small>
+            </p>
+            <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50">
+              <small>{{ journey.country }}</small>
+            </p>
+            <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50">
+              <small>{{ journey.category }}</small>
+            </p>
+          </div>
           <small>
             <button type="button" class="btn btn-outline-success btn-sm" (click)="viewDetails(journey)">View</button>
             <button type="button" class="btn btn-outline-success btn-sm ms-1" (click)="editDetails(journey)">Edit
