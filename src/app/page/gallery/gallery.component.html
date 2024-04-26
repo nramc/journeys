@@ -2,16 +2,40 @@
 
 
 <div class="row">
-  <div class="col-8 mb-3 me-0 pe-0">
+  <div class="col-12 col-md-8 mb-md-3 me-0 pe-0">
     <mat-paginator [length]="totalElements" [pageSize]="defaultPageSize" [pageSizeOptions]="[1, 5, 10, 20, 25]"
                    aria-label="Select page" [showFirstLastButtons]="true" class="paginator me-0"
                    color="primary">
     </mat-paginator>
   </div>
-  <div class="col-4 sorting mb-3 me-0">
-    <p>Sorting will be placed here</p>
-  </div>
 
+  <div class="col-12 col-md-4 sorting mb-3 me-0">
+
+    <div ngbDropdown class="d-inline-block me-1">
+      <button type="button" class="btn btn-outline-primary btn-sm" id="dropdownSortingField" ngbDropdownToggle>
+        {{ sortingFieldChangedEvent.getValue() | titlecase }}
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownSortingField">
+        @for (sortHeader of sortableFields; track sortHeader) {
+          <button ngbDropdownItem (click)="sortingFieldChangedEvent.next(sortHeader)">{{ sortHeader | titlecase }}
+          </button>
+        }
+      </div>
+    </div>
+    <div ngbDropdown class="d-inline-block">
+      <button type="button" class="btn btn-outline-primary btn-sm" id="dropdownSortingDirection" ngbDropdownToggle>
+        {{ sortingDirectionChangedEvent.getValue() | titlecase }}
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownSortingDirection">
+        @for (sortingDirection of sortableDirections; track sortingDirection) {
+          <button ngbDropdownItem
+                  (click)="sortingDirectionChangedEvent.next(sortingDirection)">{{ sortingDirection | uppercase }}
+          </button>
+        }
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <div class="card-group justify-content-center align-items-center">
@@ -29,7 +53,8 @@
           <p class="card-text small"><small>{{ journey.journeyDate | date:"dd.MM.YYYY" }}</small></p>
           <small>
             <button type="button" class="btn btn-outline-success btn-sm" (click)="viewDetails(journey)">View</button>
-            <button type="button" class="btn btn-outline-success btn-sm ms-1" (click)="editDetails(journey)">Edit</button>
+            <button type="button" class="btn btn-outline-success btn-sm ms-1" (click)="editDetails(journey)">Edit
+            </button>
           </small>
         </div>
 
