@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {RouterLink} from "@angular/router";
+import {MatSelect} from "@angular/material/select";
 
 @Component({
   selector: 'app-journey-search-criteria',
@@ -8,19 +9,19 @@ import {RouterLink} from "@angular/router";
   styleUrl: './journey-search-criteria.component.scss',
   imports: [
     FormsModule,
-    RouterLink
+    RouterLink,
+    MatSelect
   ],
   standalone: true
 })
 export class JourneySearchCriteriaComponent {
   @Output() searchEvent = new EventEmitter<string>();
+  q: string = '';
 
   submitSearch(searchForm: NgForm) {
-    let criteria = new Array<string>();
-
-
-    console.log("Search Event will be emitted with ", criteria)
-    this.searchEvent.emit(criteria.join('&'));
+    if (searchForm.valid) {
+      this.searchEvent.emit(this.q);
+    }
   }
 
 }

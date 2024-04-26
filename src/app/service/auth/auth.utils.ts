@@ -16,7 +16,7 @@ export default class AuthUtils {
       let contentAsJson = JSON.parse(content);
       if (Date.now() < Date.parse(contentAsJson.expiredAt)) {
         let userContext = new UserContext(
-          contentAsJson.userName,
+          contentAsJson.name,
           contentAsJson.isAuthenticated,
           contentAsJson.roles,
           contentAsJson.accessToken,

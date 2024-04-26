@@ -102,12 +102,12 @@
                 <mat-chip-row color="primary" [highlighted]="true" (removed)="removeTag(tag)" [editable]="false"
                               [removable]="journey.id == ''">
                   {{ tag }}
-                  <button matChipRemove (click)="removeTag(tag)">
+                  <button matChipRemove (click)="removeTag(tag)" [disabled]="journey.id">
                     <mat-icon>cancel</mat-icon>
                   </button>
                 </mat-chip-row>
               }
-              <input placeholder="Favorite Tags" class="form-control"
+              <input placeholder="Favorite Tags" class="form-control" [readOnly]="journey.id"
                      [matChipInputFor]="chipGrid"
                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                      [matChipInputAddOnBlur]="true"
@@ -121,7 +121,7 @@
                      id="longitude" name="longitude" [(ngModel)]="coordinates[0]" [readOnly]="journey.id"
                      required min="-180.0" max="180.0" #longitude="ngModel" (blur)="refreshMapWithCoordinates()">
               <button class="btn btn-primary input-group-text dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-expanded="false">
+                      aria-expanded="false" [disabled]="journey.id">
                 Coordinates
               </button>
               <ul class="dropdown-menu">
