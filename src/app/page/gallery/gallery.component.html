@@ -41,9 +41,9 @@
 <div class="card-group justify-content-center align-items-center">
   <div class="m-0" *ngFor="let journey of data">
 
-    <div class="card text-bg-dark">
+    <div class="card bg-dark text-bg-dark text-white">
       <img [src]="journey.thumbnail" class="card-img" [alt]="journey.thumbnail">
-      <div class="card-img-overlay d-flex flex-column align-self-stretch">
+      <div class="card-img-overlay d-flex flex-column align-self-stretch card-text-wrapper">
         <h5 class="card-title ">{{ journey.name }}</h5>
         <p class="card-text">{{ journey.title }}</p>
         <p class="card-text">
