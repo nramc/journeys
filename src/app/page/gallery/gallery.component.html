@@ -47,7 +47,7 @@
         <h5 class="card-title ">{{ journey.name }}</h5>
         <p class="card-text">{{ journey.title }}</p>
         <p class="card-text">
-          <span *ngFor="let tag of journey.tags" class="badge rounded-pill border  border-light me-1">{{ tag }}</span>
+          <span *ngFor="let tag of journey.tags" class="badge bg-dark bg-opacity-25 border-dark rounded-pill border me-1">{{ tag }}</span>
         </p>
         <div class="d-inline-flex footer-wrapper mt-auto flex-nowrap flex-row justify-content-between">
           <p class="card-text small"><small>{{ journey.journeyDate | date:"dd.MM.YYYY" }}</small></p>
