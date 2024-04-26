@@ -45,7 +45,7 @@ import {SortDirection} from "@angular/material/sort";
 export class GalleryComponent implements OnInit, AfterViewInit {
   protected readonly GALLERY_PAGE_INFO = GALLERY_PAGE_INFO;
   // Sorting properties
-  sortableFields: string[] = ["journeyDate", "title", "name", "description"];
+  sortableFields: string[] = ["journeyDate", "name", "title", "city", "country", "category", "location"];
   sortingFieldChangedEvent: BehaviorSubject<string> = new BehaviorSubject<string>("journeyDate");
   SortedField: string = 'journeyDate';
   sortableDirections: SortDirection[] = ["asc", "desc"];
