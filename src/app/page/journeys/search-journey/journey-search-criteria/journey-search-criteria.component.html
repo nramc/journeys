@@ -1,6 +1,6 @@
 <form class="ignore-proactive-error" (submit)="submitSearch(searchForm)" #searchForm="ngForm">
 
-  <div class="row mb-3">
+  <div class="row mb-3" *hasRole="[Role.MAINTAINER, Role.ADMINISTRATOR]">
     <div class="col-12">
       <div class="d-grid gap-2">
         <a type="button" class="btn btn-outline-primary" routerLink="/journey/new">
@@ -16,7 +16,7 @@
     <div class="col-12">
       <div class="input-group mb-3 col-12">
         <input type="text" class="form-control" aria-label="Query" aria-describedby="queryLabel"
-               placeholder="Use * for wildcard search" id="query" name="query" ngModel  [(ngModel)]="q">
+               placeholder="Use * for wildcard search" id="query" name="query" ngModel [(ngModel)]="q">
         <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
       </div>
     </div>

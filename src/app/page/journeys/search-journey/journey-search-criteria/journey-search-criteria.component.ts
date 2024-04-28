@@ -2,6 +2,8 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {MatSelect} from "@angular/material/select";
+import {HasRoleDirective} from "../../../../directive/has-role.directive";
+import {Role} from "../../../../service/auth/role";
 
 @Component({
   selector: 'app-journey-search-criteria',
@@ -10,7 +12,8 @@ import {MatSelect} from "@angular/material/select";
   imports: [
     FormsModule,
     RouterLink,
-    MatSelect
+    MatSelect,
+    HasRoleDirective
   ],
   standalone: true
 })
@@ -24,4 +27,5 @@ export class JourneySearchCriteriaComponent {
     }
   }
 
+  protected readonly Role = Role;
 }
