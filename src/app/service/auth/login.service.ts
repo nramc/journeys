@@ -23,6 +23,17 @@ export class LoginService {
       }
     });
   }
+
+  loginAsGuest() {
+    return this.httpClient.post<LoginResponse>(environment.journeyApi + '/guestLogin', {
+      'username': Math.random().toString(36)
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
 }
 
 export interface LoginResponse {

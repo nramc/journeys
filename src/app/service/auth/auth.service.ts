@@ -41,6 +41,11 @@ export class AuthService {
       .pipe(map(tokenData => this.onLoginSuccessCallback(tokenData)));
   }
 
+  loginAsGuest() {
+    return this.loginService.loginAsGuest()
+      .pipe(map(tokenData => this.onLoginSuccessCallback(tokenData)));
+  }
+
   private onLoginSuccessCallback(tokenData: LoginResponse) {
     let userContext = new UserContext(
       tokenData.name,

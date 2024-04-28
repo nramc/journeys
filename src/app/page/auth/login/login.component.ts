@@ -38,16 +38,18 @@ export class LoginComponent implements OnInit {
   messageBanner: string = '';
 
   login(loginForm: NgForm) {
-    this.authService.login(this.form.userName, this.form.password)
-      .subscribe({
-        next: userContext => this.onLoginSuccess(userContext),
-        error: error => this.onLoginFailed(error)
-      });
+    if (loginForm.valid) {
+      this.authService.login(this.form.userName, this.form.password)
+        .subscribe({
+          next: userContext => this.onLoginSuccess(userContext),
+          error: error => this.onLoginFailed(error)
+        });
+    }
   }
 
   onLoginSuccess(userContext: UserContext) {
-    this.successMessage = 'Login successful';
-    this.router.navigate(['/home'])
+    this.successMessage = 'Login successful for ' + userContext.name;
+    this.router.navigate(['/home']).then();
   }
 
   onLoginFailed(error: HttpErrorResponse) {
@@ -55,6 +57,12 @@ export class LoginComponent implements OnInit {
     this.errorMessage = 'Login failed. ' + error.message;
   }
 
+  loginAsGuest() {
+    this.authService.loginAsGuest().subscribe({
+      next: userContext => this.onLoginSuccess(userContext),
+      error: error => this.onLoginFailed(error)
+    });
+  }
 }
 
 class LoginForm {

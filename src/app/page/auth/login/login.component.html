@@ -50,7 +50,12 @@
               </div>
             </div>
 
-            <button class="btn btn-outline-dark btn-lg" type="submit" [disabled]="!loginForm.form.valid">Login</button>
+            <div class="d-flex flex-column gap-1">
+              <button class="btn btn-outline-dark btn-lg" type="submit" [disabled]="!loginForm.form.valid">Submit</button>
+              <small class="text-light">or</small>
+              <button class="btn btn-success btn-lg" type="button" (click)="loginAsGuest()">Login as Guest</button>
+            </div>
+
           </form>
 
         </div>
