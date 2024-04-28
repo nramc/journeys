@@ -54,7 +54,7 @@ export class JourneyService {
 
   getAllJourneysAsGeoJson(): Observable<FeatureCollection> {
     let userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<FeatureCollection>(environment.journeyApi + '/journeys',
+    return this.httpClient.get<FeatureCollection>(environment.journeyApi + '/journeys/published',
       {
         headers: {
           'Accept': 'application/geo+json',
