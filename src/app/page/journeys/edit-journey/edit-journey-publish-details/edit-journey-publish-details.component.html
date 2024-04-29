@@ -70,7 +70,7 @@
         <label class="input-group-text" for="thumbnail">Thumbnail</label>
         <select class="form-select" id="thumbnail" name="thumbnail" [(ngModel)]="journey.thumbnail"
                 #thumbnail="ngModel">
-          <option [value]="journey.thumbnail">Default</option>
+          <option [value]="DEFAULT_THUMBNAIL">Default</option>
           @for (imageDetail of this.journey.extendedDetails?.imagesDetails?.images; track imageDetail.assetId; let i = $index) {
             <option [value]="imageDetail.url">{{ imageDetail.assetId }}</option>
           }
@@ -89,7 +89,7 @@
               (click)="save(journeyForm)">
         Save as Draft
       </button>
-      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid || journey.isPublished">
+      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid">
         Publish
       </button>
 

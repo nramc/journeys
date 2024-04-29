@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Journey} from "../../../../model/core/journey.model";
+import {DEFAULT_THUMBNAIL, Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule, NgForm} from "@angular/forms";
@@ -91,4 +91,5 @@ export class EditJourneyPublishDetailsComponent {
     this.savedEvent.emit(this.journey);
   }
 
+  protected readonly DEFAULT_THUMBNAIL = DEFAULT_THUMBNAIL;
 }

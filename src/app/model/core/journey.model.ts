@@ -1,5 +1,7 @@
 import {Geometry} from "geojson";
 
+export const DEFAULT_THUMBNAIL: string = 'https://res.cloudinary.com/journeytogether/image/upload/v1712604194/journey/readonly/aeqhy3zwrwko7ba2rinr.jpg';
+
 export class Journey {
   constructor(
     public id: string = '',
@@ -11,7 +13,7 @@ export class Journey {
     public journeyDate: string = '',
     public category: string = '',
     public tags: string[] = [],
-    public thumbnail: string = 'https://res.cloudinary.com/journeytogether/image/upload/v1712604194/journey/readonly/aeqhy3zwrwko7ba2rinr.jpg',
+    public thumbnail: string = DEFAULT_THUMBNAIL,
     public location: Geometry | undefined = undefined,
     public extendedDetails: JourneyExtendedDetails | undefined = new JourneyExtendedDetails(),
     public isPublished: boolean = false,
