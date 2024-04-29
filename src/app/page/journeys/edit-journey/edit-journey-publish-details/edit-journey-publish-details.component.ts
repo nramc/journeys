@@ -28,6 +28,7 @@ export class EditJourneyPublishDetailsComponent {
 
   successMessage: string = '';
   errorMessage: string = '';
+
   constructor(
     private journeyService: JourneyService
   ) {
@@ -71,13 +72,14 @@ export class EditJourneyPublishDetailsComponent {
   }
 
   save(journeyForm: NgForm) {
-    console.debug('submitted journey:', this.journey);
-    this.journey.isPublished = false;
-    this.journeyService.publishJourney(this.journey)
-      .subscribe({
-        next: data => this.onUpdateSuccess(data),
-        error: err => this.onError('Unexpected error while publishing data', err)
-      });
+    if (journeyForm.valid) {
+      this.journey.isPublished = false;
+      this.journeyService.publishJourney(this.journey)
+        .subscribe({
+          next: data => this.onUpdateSuccess(data),
+          error: err => this.onError('Unexpected error while publishing data', err)
+        });
+    }
   }
 
   onError(errorMessage: string, err: any) {
@@ -86,7 +88,7 @@ export class EditJourneyPublishDetailsComponent {
   }
 
   onUpdateSuccess(result: Journey) {
-    this.successMessage = 'Journey published successfully.';
+    this.successMessage = result.isPublished ? 'Journey published successfully.' : 'Journey saved successfully';
     this.journey = result;
     this.savedEvent.emit(this.journey);
   }
