@@ -3,7 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {
   canActivateWhenAuthenticatedGuard,
   canActivateWhenHasWriteAccessGuard,
-  canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard
+  canMatchWhenAuthenticatedGuard,
+  canMatchWhenHasWriteAccessGuard
 } from "./guard/auth.guard";
 
 const routes: Routes = [
@@ -16,6 +17,11 @@ const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./page/auth/login/login.component').then(m => m.LoginComponent),
     title: 'Login'
+  },
+  {
+    path: 'accessDenied',
+    loadComponent: () => import('./page/auth/access-denied/access-denied.component').then(m => m.AccessDeniedComponent),
+    title: 'Access Denied'
   },
   {
     path: 'journey',
