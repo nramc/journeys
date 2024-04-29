@@ -1,4 +1,4 @@
-import {Directive, inject, Input, OnInit} from '@angular/core';
+import {Directive, inject, OnInit} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {DestroyedDirective} from "./destroyed-directive.directive";
 import {AuthService} from "../service/auth/auth.service";
@@ -6,19 +6,14 @@ import {takeUntil} from "rxjs";
 import {Role} from "../service/auth/role";
 
 @Directive({
-  selector: '[hasRole]',
+  selector: '[hasWriteAccess]',
   standalone: true,
   hostDirectives: [NgIf, DestroyedDirective]
 })
-export class HasRoleDirective implements OnInit {
+export class HasWriteAccessDirective implements OnInit {
   private readonly ngIfDirective = inject(NgIf);
   private readonly destroyed$ = inject(DestroyedDirective).destroyed$;
-  expectedRoles: Role[] = [];
-
-  @Input() set hasRole(roles: Role[]) {
-    this.expectedRoles = roles;
-  }
-
+  expectedRoles: Role[] = [Role.ADMINISTRATOR, Role.MAINTAINER];
 
   constructor(private readonly authService: AuthService) {
   }
