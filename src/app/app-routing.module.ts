@@ -1,6 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {canActivateWhenAuthenticatedGuard, canMatchWhenAuthenticatedGuard} from "./guard/auth.guard";
+import {
+  canActivateWhenAuthenticatedGuard,
+  canActivateWhenHasWriteAccessGuard,
+  canMatchWhenAuthenticatedGuard,
+  canMatchWhenHasWriteAccessGuard
+} from "./guard/auth.guard";
 
 const routes: Routes = [
   {
@@ -12,6 +17,11 @@ const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./page/auth/login/login.component').then(m => m.LoginComponent),
     title: 'Login'
+  },
+  {
+    path: 'accessDenied',
+    loadComponent: () => import('./page/auth/access-denied/access-denied.component').then(m => m.AccessDeniedComponent),
+    title: 'Access Denied'
   },
   {
     path: 'journey',
@@ -28,8 +38,8 @@ const routes: Routes = [
         path: 'new',
         loadComponent: () => import('./page/journeys/new-journey/new-journey.component').then(m => m.NewJourneyComponent),
         title: 'New Journey',
-        canActivate: [canActivateWhenAuthenticatedGuard],
-        canMatch: [canMatchWhenAuthenticatedGuard]
+        canActivate: [canActivateWhenAuthenticatedGuard, canActivateWhenHasWriteAccessGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard]
       },
       {
         path: ':id/view',
@@ -42,8 +52,8 @@ const routes: Routes = [
         path: ':id/edit',
         loadComponent: () => import('./page/journeys/edit-journey/edit-journey.component').then(m => m.EditJourneyComponent),
         title: 'Edit Journey',
-        canActivate: [canActivateWhenAuthenticatedGuard],
-        canMatch: [canMatchWhenAuthenticatedGuard]
+        canActivate: [canActivateWhenAuthenticatedGuard, canActivateWhenHasWriteAccessGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard]
       }
     ]
   },

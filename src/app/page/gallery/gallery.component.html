@@ -67,7 +67,7 @@
           </div>
           <small>
             <button type="button" class="btn btn-outline-success btn-sm" (click)="viewDetails(journey)">View</button>
-            <button type="button" class="btn btn-outline-success btn-sm ms-1" (click)="editDetails(journey)">Edit
+            <button type="button" class="btn btn-outline-success btn-sm ms-1" (click)="editDetails(journey)" *hasWriteAccess>Edit
             </button>
           </small>
         </div>

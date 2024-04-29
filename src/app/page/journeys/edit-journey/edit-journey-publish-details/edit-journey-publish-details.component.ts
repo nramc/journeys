@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Journey} from "../../../../model/core/journey.model";
+import {DEFAULT_THUMBNAIL, Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule, NgForm} from "@angular/forms";
@@ -28,6 +28,7 @@ export class EditJourneyPublishDetailsComponent {
 
   successMessage: string = '';
   errorMessage: string = '';
+
   constructor(
     private journeyService: JourneyService
   ) {
@@ -71,13 +72,14 @@ export class EditJourneyPublishDetailsComponent {
   }
 
   save(journeyForm: NgForm) {
-    console.debug('submitted journey:', this.journey);
-    this.journey.isPublished = false;
-    this.journeyService.publishJourney(this.journey)
-      .subscribe({
-        next: data => this.onUpdateSuccess(data),
-        error: err => this.onError('Unexpected error while publishing data', err)
-      });
+    if (journeyForm.valid) {
+      this.journey.isPublished = false;
+      this.journeyService.publishJourney(this.journey)
+        .subscribe({
+          next: data => this.onUpdateSuccess(data),
+          error: err => this.onError('Unexpected error while publishing data', err)
+        });
+    }
   }
 
   onError(errorMessage: string, err: any) {
@@ -86,9 +88,10 @@ export class EditJourneyPublishDetailsComponent {
   }
 
   onUpdateSuccess(result: Journey) {
-    this.successMessage = 'Journey published successfully.';
+    this.successMessage = result.isPublished ? 'Journey published successfully.' : 'Journey saved successfully';
     this.journey = result;
     this.savedEvent.emit(this.journey);
   }
 
+  protected readonly DEFAULT_THUMBNAIL = DEFAULT_THUMBNAIL;
 }

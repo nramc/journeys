@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Journey} from "../../../model/core/journey.model";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
 import {Observable, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
@@ -11,6 +11,7 @@ import {MatIcon} from "@angular/material/icon";
 import {WorldMapComponent} from "../../../component/world-map/world-map.component";
 import {MediaGalleryComponent} from "../../../component/media-gallery/media-gallery.component";
 import {ViewJourneyBasicDetailsComponent} from "./view-journey-basic-details/view-journey-basic-details.component";
+import {HasWriteAccessDirective} from "../../../directive/has-write-access.directive";
 
 @Component({
   selector: 'app-view-journey',
@@ -25,7 +26,8 @@ import {ViewJourneyBasicDetailsComponent} from "./view-journey-basic-details/vie
     WorldMapComponent,
     MediaGalleryComponent,
     AsyncPipe,
-    ViewJourneyBasicDetailsComponent
+    ViewJourneyBasicDetailsComponent,
+    HasWriteAccessDirective
   ],
   standalone: true
 })
@@ -35,7 +37,8 @@ export class ViewJourneyComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private journeyService: JourneyService
+    private journeyService: JourneyService,
+    private router: Router
   ) {
   }
 
@@ -56,5 +59,9 @@ export class ViewJourneyComponent implements OnInit {
     let videos = new Array<string>()
     journey.extendedDetails?.videosDetails?.videos?.map(videoDetail => videos.push(videoDetail.videoId));
     return videos;
+  }
+
+  editJourney(journey: Journey) {
+    this.router.navigate(['/journey', journey.id, 'edit']).then();
   }
 }

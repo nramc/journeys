@@ -1,7 +1,12 @@
 <section *ngIf="journey$ | async as journey" class="mt-3">
   <div class="row m-2">
     <div class="col-12">
-      <h4 class="gradient-text" [innerText]="journey.name"></h4>
+      <h4><span class="gradient-text me-1">{{journey.name}}</span>
+        <button class="btn btn-outline-primary btn-sm" type="button" *hasWriteAccess
+                title="Edit Journey" (click)="editJourney(journey)">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+      </h4>
     </div>
   </div>
   <div class="row">

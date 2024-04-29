@@ -20,6 +20,7 @@ import {
 import {DatePipe} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton} from "@angular/material/button";
+import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 
 @Component({
   selector: 'app-journeys-list',
@@ -42,7 +43,8 @@ import {MatButton} from "@angular/material/button";
     MatRow,
     MatHeaderRowDef,
     MatRowDef,
-    MatPaginator
+    MatPaginator,
+    HasWriteAccessDirective
   ],
   standalone: true
 })
