@@ -19,27 +19,29 @@ import {Journey} from "../../model/core/journey.model";
 import {Router} from "@angular/router";
 import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
 import {SortDirection} from "@angular/material/sort";
+import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   standalone: true,
-  imports: [
-    PageHeaderComponent,
-    AsyncPipe,
-    JsonPipe,
-    NgForOf,
-    NgIf,
-    MatPaginator,
-    NgOptimizedImage,
-    DatePipe,
-    NgbDropdown,
-    NgbDropdownItem,
-    NgbDropdownMenu,
-    TitleCasePipe,
-    NgbDropdownToggle,
-    UpperCasePipe
-  ],
+    imports: [
+        PageHeaderComponent,
+        AsyncPipe,
+        JsonPipe,
+        NgForOf,
+        NgIf,
+        MatPaginator,
+        NgOptimizedImage,
+        DatePipe,
+        NgbDropdown,
+        NgbDropdownItem,
+        NgbDropdownMenu,
+        TitleCasePipe,
+        NgbDropdownToggle,
+        UpperCasePipe,
+        HasWriteAccessDirective
+    ],
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
