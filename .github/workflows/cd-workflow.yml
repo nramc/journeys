@@ -34,7 +34,7 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v5
         with:
           github-token: ${{ secrets.DEPLOY_TOKEN }}
-          skip-on-empty: false
+          skip-on-empty: 'false'
           output-file: false
           create-summary: true
 
