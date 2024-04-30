@@ -24,6 +24,13 @@ const routes: Routes = [
     title: 'Access Denied'
   },
   {
+    path: 'logout',
+    loadComponent: () => import('./page/auth/logout/logout.component').then(m => m.LogoutComponent),
+    title: 'Logout',
+    canActivate: [canActivateWhenAuthenticatedGuard],
+    canMatch: [canMatchWhenAuthenticatedGuard]
+  },
+  {
     path: 'journey',
     canActivate: [canActivateWhenAuthenticatedGuard],
     canMatch: [canMatchWhenAuthenticatedGuard],

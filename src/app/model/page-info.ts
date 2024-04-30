@@ -17,6 +17,12 @@ export const LOGIN_PAGE_INFO: PageInfo = {
   description: "Identity Yourself !!!",
   path: "/login"
 };
+export const LOGOUT_PAGE_INFO: PageInfo = {
+  name: "Logout",
+  title: "Logout",
+  description: "Successfully logged out !!!",
+  path: "/logout"
+};
 export const JOURNEY_SEARCH_PAGE_INFO: PageInfo = {
   name: "Journeys",
   title: "Journeys",
