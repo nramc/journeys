@@ -58,6 +58,13 @@
           </a>
         </li>
 
+        <li class="nav-item" *ngIf="isAuthenticated() | async">
+          <a [routerLink]="LOGOUT_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+            <i class="bi bi-lock-fill pe-none me-2"></i>
+            {{ LOGOUT_PAGE_INFO.name }}
+          </a>
+        </li>
+
       </ul>
 
     </div>

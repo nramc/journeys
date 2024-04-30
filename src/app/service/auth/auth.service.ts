@@ -46,6 +46,11 @@ export class AuthService {
       .pipe(map(tokenData => this.onLoginSuccessCallback(tokenData)));
   }
 
+  logout() {
+    AuthUtils.removeUserContextFromLocalStorage();
+    this.setUserContext(new UserContext());
+  }
+
   private onLoginSuccessCallback(tokenData: LoginResponse) {
     let userContext = new UserContext(
       tokenData.name,
