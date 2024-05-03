@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, TrackByFunction} from '@angular/core';
+import {Component, ElementRef, Input} from '@angular/core';
 import {Feature} from "geojson";
 import {RouterLink} from "@angular/router";
 import {NgForOf} from "@angular/common";
@@ -18,7 +18,7 @@ export class MarkerPopupComponent {
   @Input() feature: Feature | undefined;
 
   elementRef: ElementRef;
-  trackByFn = (index: number, feature : Feature) => feature.id;
+  trackByFn = (index: number, feature: Feature) => feature.id;
 
   constructor(myElement: ElementRef) {
     this.elementRef = myElement;
