@@ -11,7 +11,7 @@ import {GalleryConfig} from "ng-gallery/lib/models/config.model";
   template: `
     <div class="row row-cols-auto mt-2">
       <div class="col mb-1"
-           *ngFor="let item of items; let i = index"
+           *ngFor="let item of items; let i = index; trackBy: trackMediaByFn"
            [lightbox]="i"
            [gallery]="galleryId">
         <img class="rounded border border-primary border-2 border-opacity-50"
@@ -32,6 +32,7 @@ export class MediaGalleryComponent implements OnInit {
   galleryConfig: GalleryConfig = {
     loadingStrategy: "lazy"
   };
+  trackMediaByFn = (index: number, item: GalleryItem) => item.data?.src;
 
   constructor(public gallery: Gallery) {
   }

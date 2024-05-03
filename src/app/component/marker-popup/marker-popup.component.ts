@@ -18,6 +18,7 @@ export class MarkerPopupComponent {
   @Input() feature: Feature | undefined;
 
   elementRef: ElementRef;
+  trackByFn = (index: number, feature: Feature) => feature.id;
 
   constructor(myElement: ElementRef) {
     this.elementRef = myElement;

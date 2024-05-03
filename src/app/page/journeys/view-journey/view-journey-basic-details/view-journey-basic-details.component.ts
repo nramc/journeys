@@ -14,6 +14,7 @@ import {DatePipe, NgForOf} from "@angular/common";
 })
 export class ViewJourneyBasicDetailsComponent {
   @Input("journey") journey!: Journey;
+  trackTagByFn = (index: number, tag: string) => tag;
 
 
 }

@@ -39,7 +39,7 @@
 </div>
 
 <div class="card-group justify-content-center align-items-center">
-  <div class="m-0" *ngFor="let journey of data">
+  <div class="m-0" *ngFor="let journey of data; trackBy: trackJourneyByFn">
 
     <div class="card bg-dark text-bg-dark text-white">
       <img [src]="journey.thumbnail" class="card-img" [alt]="journey.thumbnail">
@@ -47,7 +47,7 @@
         <h5 class="card-title ">{{ journey.name }}</h5>
         <p class="card-text">{{ journey.title }}</p>
         <p class="card-text">
-          <span *ngFor="let tag of journey.tags"
+          <span *ngFor="let tag of journey.tags; trackBy:trackTagByFn;"
                 class="badge bg-dark bg-opacity-25 border-dark rounded-pill border me-1">{{ tag }}</span>
         </p>
         <div class="d-inline-flex footer-wrapper mt-auto flex-nowrap flex-row justify-content-between">
@@ -67,7 +67,8 @@
           </div>
           <small>
             <button type="button" class="btn btn-outline-success btn-sm" (click)="viewDetails(journey)">View</button>
-            <button type="button" class="btn btn-outline-success btn-sm ms-1" (click)="editDetails(journey)" *hasWriteAccess>Edit
+            <button type="button" class="btn btn-outline-success btn-sm ms-1" (click)="editDetails(journey)"
+                    *hasWriteAccess>Edit
             </button>
           </small>
         </div>

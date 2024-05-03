@@ -1,12 +1,13 @@
 <div class="card text-white border-0 bg-transparent shadow-none" style="">
   <div class="card-body p-0">
-    <h4 class="card-title text-primary fs-6">{{feature?.properties?.['name']}}</h4>
+    <h4 class="card-title text-primary fs-6">{{ feature?.properties?.['name'] }}</h4>
     <div class="card-text text-dark-emphasis">
       <p class="text-primary" [textContent]="feature?.properties?.['description']">
         Some description goes here later
       </p>
       <p>
-        <span *ngFor="let tag of feature?.properties?.['tags']" class="badge  bg-primary me-1">{{tag}}</span>
+        <span *ngFor="let tag of feature?.properties?.['tags']; trackBy: trackByFn"
+              class="badge  bg-primary me-1">{{ tag }}</span>
         <a [routerLink]="['/journey', feature?.id, 'view']" class="btn btn-sm btn-outline-primary float-end">View</a>
       </p>
     </div>
