@@ -67,12 +67,16 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () => import('./page/dashboard/dashboard.component').then(m => m.DashboardComponent),
-    title: "Dashboard"
+    title: "Dashboard",
+    canActivate: [canActivateWhenAuthenticatedGuard],
+    canMatch: [canMatchWhenAuthenticatedGuard]
   },
   {
     path: 'gallery',
     loadComponent: () => import('./page/gallery/gallery.component').then(m => m.GalleryComponent),
-    title: "Gallery"
+    title: "Gallery",
+    canActivate: [canActivateWhenAuthenticatedGuard],
+    canMatch: [canMatchWhenAuthenticatedGuard]
   },
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: "/home"}
