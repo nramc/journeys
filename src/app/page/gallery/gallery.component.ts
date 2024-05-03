@@ -25,23 +25,23 @@ import {HasWriteAccessDirective} from "../../directive/has-write-access.directiv
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   standalone: true,
-    imports: [
-        PageHeaderComponent,
-        AsyncPipe,
-        JsonPipe,
-        NgForOf,
-        NgIf,
-        MatPaginator,
-        NgOptimizedImage,
-        DatePipe,
-        NgbDropdown,
-        NgbDropdownItem,
-        NgbDropdownMenu,
-        TitleCasePipe,
-        NgbDropdownToggle,
-        UpperCasePipe,
-        HasWriteAccessDirective
-    ],
+  imports: [
+    PageHeaderComponent,
+    AsyncPipe,
+    JsonPipe,
+    NgForOf,
+    NgIf,
+    MatPaginator,
+    NgOptimizedImage,
+    DatePipe,
+    NgbDropdown,
+    NgbDropdownItem,
+    NgbDropdownMenu,
+    TitleCasePipe,
+    NgbDropdownToggle,
+    UpperCasePipe,
+    HasWriteAccessDirective
+  ],
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
@@ -58,6 +58,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   defaultPageSize: number = 10;
   totalElements: number = 0;
   data: Journey[] = [];
+  trackJourneyByFn = (index: number, journey: Journey) => journey.id;
+  trackTagByFn = (index: number, tag: string) => tag;
 
   constructor(
     private journeyService: JourneyService,
