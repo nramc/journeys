@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
-import {debounceTime, distinctUntilChanged, map, Observable, OperatorFunction} from "rxjs";
+import {debounceTime, distinctUntilChanged, Observable, of, OperatorFunction, startWith, switchMap} from "rxjs";
 import {Point} from "geojson";
 import {MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
@@ -12,6 +12,7 @@ import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 import {MatIcon} from "@angular/material/icon";
 import {MatStepperNext} from "@angular/material/stepper";
 import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
+import {AutoCompleteService} from "../../../../service/auto-complete/auto-complete.service";
 
 @Component({
   selector: 'app-edit-journey-basic-data',
@@ -45,7 +46,8 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
   coordinates: number[] = [];
 
   constructor(
-    private journeyService: JourneyService
+    private journeyService: JourneyService,
+    private autoCompleteService: AutoCompleteService
   ) {
   }
 
@@ -65,7 +67,7 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
   }
 
   addTag(event: MatChipInputEvent): void {
-    const newTag = (event.value || '').trim();
+    const newTag = (event.value || '').toLowerCase().trim();
     if (newTag) {
       this.journey.tags.push(newTag);
     }
@@ -82,11 +84,12 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
 
   searchCategory: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
     text$.pipe(
+      startWith(''),
       debounceTime(200),
       distinctUntilChanged(),
-      map((term) =>
-        term.length < 2 ? [] :
-          this.predefinedCategories.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)
+      switchMap((text) =>
+        text.length < 1 ? of([]) :
+          this.autoCompleteService.getAvailableCategories(text.toLowerCase())
       ),
     );
 
