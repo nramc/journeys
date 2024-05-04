@@ -30,7 +30,15 @@ export class JourneyService {
     );
   }
 
-  findJourneyByQuery(queryString: string, sort: string, order: SortDirection, page: number, pageSize: number, publishedOnly: boolean): Observable<JourneyPage> {
+  findJourneyByQuery(
+    queryString: string,
+    sort: string,
+    order: SortDirection,
+    page: number,
+    pageSize: number,
+    publishedOnly: boolean,
+    tags: string[] = []
+  ): Observable<JourneyPage> {
     let params = new HttpParams();
     params = params.set("q", queryString);
     params = params.set("sort", sort);
@@ -38,6 +46,7 @@ export class JourneyService {
     params = params.set("pageIndex", page);
     params = params.set("pageSize", pageSize);
     params = params.set("publishedOnly", publishedOnly);
+    params = params.set("tags", tags.join(','));
     console.log(params)
 
     return this.getAllJourneys(params);
