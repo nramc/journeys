@@ -6,12 +6,13 @@ import {FormsModule, NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow} from "@angular/material/chips";
-import {debounceTime, distinctUntilChanged, map, Observable, OperatorFunction} from "rxjs";
+import {debounceTime, distinctUntilChanged, Observable, of, OperatorFunction, startWith, switchMap} from "rxjs";
 import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 import {MatIcon} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {WorldMapComponent} from "../../../component/world-map/world-map.component";
+import {AutoCompleteService} from "../../../service/auto-complete/auto-complete.service";
 
 @Component({
   selector: 'app-new-journey',
@@ -41,7 +42,8 @@ export class NewJourneyComponent {
 
   constructor(
     private router: Router,
-    private journeyService: JourneyService
+    private journeyService: JourneyService,
+    private autoCompleteService: AutoCompleteService
   ) {
   }
 
@@ -80,7 +82,7 @@ export class NewJourneyComponent {
   }
 
   addTag(event: MatChipInputEvent): void {
-    const newTag = (event.value || '').trim();
+    const newTag = (event.value || '').toLowerCase().trim();
     if (newTag) {
       this.journey.tags.push(newTag);
     }
@@ -97,11 +99,12 @@ export class NewJourneyComponent {
 
   searchCategory: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
     text$.pipe(
+      startWith(''),
       debounceTime(200),
       distinctUntilChanged(),
-      map((term) =>
-        term.length < 2 ? [] :
-          this.predefinedCategories.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)
+      switchMap((text) =>
+        text.length < 1 ? of([]) :
+          this.autoCompleteService.getAvailableCategories(text.toLowerCase())
       ),
     );
 
