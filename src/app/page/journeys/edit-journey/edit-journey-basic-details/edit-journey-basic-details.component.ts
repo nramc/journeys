@@ -13,6 +13,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatStepperNext} from "@angular/material/stepper";
 import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {AutoCompleteService} from "../../../../service/auto-complete/auto-complete.service";
+import {SUPPORTED_ICONS} from "../../../../config/journey-config";
 
 @Component({
   selector: 'app-edit-journey-basic-data',
@@ -111,4 +112,6 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
       });
 
   }
+
+  protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
 }

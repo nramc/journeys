@@ -80,7 +80,6 @@
           <!-- icon -->
           <div class="mb-3 col-12 col-md-4">
             <label for="iconType" class="form-label">Icon</label>
-
             <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
                     [(ngModel)]="journey.icon" required [disabled]="journey.id != ''" name="iconType" #iconType="ngModel">
               @for (iconType of SUPPORTED_ICONS;track iconType) {
