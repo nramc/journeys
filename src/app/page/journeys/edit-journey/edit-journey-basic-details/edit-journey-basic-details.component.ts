@@ -7,7 +7,7 @@ import {Point} from "geojson";
 import {MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
 import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
-import {NgIf} from "@angular/common";
+import {NgIf, TitleCasePipe} from "@angular/common";
 import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 import {MatIcon} from "@angular/material/icon";
 import {MatStepperNext} from "@angular/material/stepper";
@@ -30,7 +30,8 @@ import {SUPPORTED_ICONS} from "../../../../config/icon-config";
     MatChipInput,
     NgbInputDatepicker,
     MatStepperNext,
-    WorldMapComponent
+    WorldMapComponent,
+    TitleCasePipe
   ],
   standalone: true
 })
