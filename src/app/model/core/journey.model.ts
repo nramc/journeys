@@ -14,6 +14,7 @@ export class Journey {
     public category: string = '',
     public tags: string[] = [],
     public thumbnail: string = DEFAULT_THUMBNAIL,
+    public icon: string = 'default',
     public location: Geometry | undefined = undefined,
     public extendedDetails: JourneyExtendedDetails | undefined = new JourneyExtendedDetails(),
     public isPublished: boolean = false,

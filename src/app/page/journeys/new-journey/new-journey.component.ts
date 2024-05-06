@@ -13,6 +13,7 @@ import {NgIf} from "@angular/common";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {WorldMapComponent} from "../../../component/world-map/world-map.component";
 import {AutoCompleteService} from "../../../service/auto-complete/auto-complete.service";
+import {SUPPORTED_ICONS} from "../../../config/journey-config";
 
 @Component({
   selector: 'app-new-journey',
@@ -35,8 +36,6 @@ import {AutoCompleteService} from "../../../service/auto-complete/auto-complete.
 export class NewJourneyComponent {
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
-  readonly predefinedCategories = ['Travel', 'Work', 'Residential']
-
   journey: Journey = new Journey();
   coordinates: number[] = [];
 
@@ -146,4 +145,6 @@ export class NewJourneyComponent {
       this.refreshMapWithCoordinates();
     }
   }
+
+  protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
 }
