@@ -20,7 +20,7 @@
           </ng-template>
           <div class="row d-flex flex-row m-0">
             <div class="col-12" style="position: relative; height: 50vh; margin: inherit">
-              <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location"
+              <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location" [iconType]="journey.icon"
               ></app-world-map>
             </div>
 

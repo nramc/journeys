@@ -15,7 +15,7 @@ import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
 import {Feature, GeoJsonObject} from "geojson";
-import {iconHome} from "./custom-icons.type";
+import {getIcon} from "../../config/icon-config";
 
 
 const iconDefault = L.icon({
@@ -55,6 +55,7 @@ export class WorldMapComponent implements AfterViewInit {
   @Input({transform: booleanAttribute}) enablePopup: boolean = false;
   @Input({transform: numberAttribute}) zoomIn: number = 4;
   @Input({transform: numberAttribute}) maxZoom: number = 10;
+  @Input({required: false}) iconType: string | undefined = undefined;
 
 
   ngAfterViewInit(): void {
@@ -115,7 +116,7 @@ export class WorldMapComponent implements AfterViewInit {
       this.geoJsonLayer = L.geoJSON(this.#featureCollection, {
         pointToLayer: (feature, latlng) => {
           return L.marker(latlng, {
-            icon: iconHome,
+            icon: getIcon(feature, this.iconType)
           })
         },
         onEachFeature: function (feature: Feature, layer: Layer) {

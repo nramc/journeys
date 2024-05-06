@@ -69,7 +69,7 @@
         <!-- icon -->
         <div class="mb-3 col-12 col-md-4">
           <label for="iconType" class="form-label">Icon</label>
-          <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
+          <select id="iconType" class="form-select form-select-sm" aria-label="Icon" (change)="refreshMapWithCoordinates()"
                   [(ngModel)]="journey.icon" required name="iconType" #iconType="ngModel">
             @for (iconType of SUPPORTED_ICONS;track iconType) {
               <option [value]="iconType">{{iconType}}</option>
@@ -190,7 +190,7 @@
     </div>
 
     <div class="col-12 col-md-4" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="journey.location" [maxZoom]="10"/>
+      <app-world-map class="h-50" [geoJsonData]="journey.location" [iconType]="journey.icon" [maxZoom]="10"/>
     </div>
 
   </div>

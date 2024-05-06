@@ -13,7 +13,7 @@ import {NgIf} from "@angular/common";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {WorldMapComponent} from "../../../component/world-map/world-map.component";
 import {AutoCompleteService} from "../../../service/auto-complete/auto-complete.service";
-import {SUPPORTED_ICONS} from "../../../config/journey-config";
+import {SUPPORTED_ICONS} from "../../../config/icon-config";
 
 @Component({
   selector: 'app-new-journey',
@@ -109,12 +109,14 @@ export class NewJourneyComponent {
 
 
   refreshMapWithCoordinates() {
-    if (this.coordinates.length == 2) {
-      this.journey.location = {
-        type: "Point",
-        coordinates: this.coordinates
+    setTimeout(() => {
+      if (this.coordinates.length == 2) {
+        this.journey.location = {
+          type: "Point",
+          coordinates: this.coordinates
+        }
       }
-    }
+    }, 100);
   }
 
   swapCoordinates() {
