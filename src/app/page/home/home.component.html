@@ -7,9 +7,19 @@
     </div>
   </div>
 
-  <footer class="fixed-bottom m-auto text-primary text-center align-items-center justify-content-center align-content-center">
-    <span class="text-light-emphasis ms-2 small"><small>GUI : v{{appVersion}}</small></span>
-    <span class="text-light-emphasis ms-2 small"><small>BFF : {{bffApiVersion}}</small></span>
+  <div class="row" *ngIf="bffApiVersion == 'CHECKING'">
+    <div class="col-12 text-center m-1">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden text-primary">Loading...</span>
+      </div>
+      <p class="text-primary">Backend Server is starting. Please wait..</p>
+    </div>
+  </div>
+
+  <footer
+    class="fixed-bottom m-auto text-primary text-center align-items-center justify-content-center align-content-center">
+    <span class="text-light-emphasis ms-2 small"><small>GUI : v{{ appVersion }}</small></span>
+    <span class="text-light-emphasis ms-2 small"><small>BFF : {{ bffApiVersion }}</small></span>
   </footer>
 </section>
 
