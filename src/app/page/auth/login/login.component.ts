@@ -42,7 +42,10 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.form.userName, this.form.password)
         .subscribe({
           next: userContext => this.onLoginSuccess(userContext),
-          error: error => this.onLoginFailed(error)
+          error: error => {
+            loginForm.resetForm();
+            this.onLoginFailed(error);
+          }
         });
     }
   }
