@@ -115,9 +115,9 @@
             <mat-chip-grid #chipGrid aria-label="Tags">
               @for (tag of journey.tags; track tag) {
                 <mat-chip-row color="primary" [highlighted]="true" (removed)="removeTag(tag)" [editable]="false"
-                              [removable]="journey.id == ''">
+                              [removable]="!journey.id">
                   {{ tag }}
-                  <button matChipRemove (click)="removeTag(tag)" [disabled]="journey.id">
+                  <button matChipRemove (click)="removeTag(tag)" [disabled]="journey.id !== ''">
                     <mat-icon>cancel</mat-icon>
                   </button>
                 </mat-chip-row>

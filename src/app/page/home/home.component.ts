@@ -5,6 +5,8 @@ import {AuthService} from "../../service/auth/auth.service";
 import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
 import {environment} from "../../../environments/environment";
 import {BffService} from "../../service/bff/bff.service";
+import {ActivatedRoute} from "@angular/router";
+import {exhaustMap} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -25,17 +27,20 @@ export class HomeComponent implements OnInit {
 
   constructor(
     protected authService: AuthService,
-    private bffService: BffService
+    private bffService: BffService,
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
-    this.bffService.getVersion().subscribe({
-      next: result => this.bffApiVersion = 'v' + result.version,
-      error: error => {
-        this.bffApiVersion = 'NOT_AVAILABLE';
-      }
-    });
+    this.activatedRoute.params
+      .pipe(exhaustMap(__ => this.bffService.getVersion()))
+      .subscribe({
+        next: result => this.bffApiVersion = 'v' + result.version,
+        error: error => {
+          this.bffApiVersion = 'NOT_AVAILABLE';
+        }
+      });
   }
 
 }

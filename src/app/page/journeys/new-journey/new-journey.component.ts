@@ -5,10 +5,10 @@ import {JourneyService} from "../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
-import {MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow} from "@angular/material/chips";
+import {MatChipInputEvent, MatChipsModule} from "@angular/material/chips";
 import {debounceTime, distinctUntilChanged, Observable, of, OperatorFunction, startWith, switchMap} from "rxjs";
 import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
-import {MatIcon} from "@angular/material/icon";
+import {MatIconModule} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {WorldMapComponent} from "../../../component/world-map/world-map.component";
@@ -22,10 +22,8 @@ import {SUPPORTED_ICONS} from "../../../config/icon-config";
   imports: [
     FormsModule,
     NgbTypeahead,
-    MatChipGrid,
-    MatChipRow,
-    MatIcon,
-    MatChipInput,
+    MatIconModule,
+    MatChipsModule,
     NgIf,
     NgbInputDatepicker,
     PageHeaderComponent,
@@ -90,9 +88,12 @@ export class NewJourneyComponent {
   }
 
   removeTag(tag: string): void {
+    console.log('remove tag called', tag);
     const index = this.journey.tags.indexOf(tag);
+    console.log('remove tag index', index);
     if (index >= 0) {
       this.journey.tags.splice(index, 1);
+      console.log('removed tag');
     }
   }
 
