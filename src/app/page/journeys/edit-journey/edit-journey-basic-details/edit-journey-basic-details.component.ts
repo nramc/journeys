@@ -4,12 +4,12 @@ import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {debounceTime, distinctUntilChanged, Observable, of, OperatorFunction, startWith, switchMap} from "rxjs";
 import {Point} from "geojson";
-import {MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow} from "@angular/material/chips";
+import {MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow, MatChipsModule} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
 import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
 import {NgIf, TitleCasePipe} from "@angular/common";
 import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
-import {MatIcon} from "@angular/material/icon";
+import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {MatStepperNext} from "@angular/material/stepper";
 import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {AutoCompleteService} from "../../../../service/auto-complete/auto-complete.service";
@@ -24,10 +24,8 @@ import {SUPPORTED_ICONS} from "../../../../config/icon-config";
     FormsModule,
     NgIf,
     NgbTypeahead,
-    MatChipGrid,
-    MatChipRow,
-    MatIcon,
-    MatChipInput,
+    MatIconModule,
+    MatChipsModule,
     NgbInputDatepicker,
     MatStepperNext,
     WorldMapComponent,
