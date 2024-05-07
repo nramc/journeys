@@ -20,7 +20,7 @@
 
       <!-- Name -->
       <div class="row">
-        <div class="mb-3 col-md-8">
+        <div class="mb-3 col-12 col-md-8">
           <label for="name" class="form-label">Name</label>
           <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="journey.name"
                  #name=ngModel
@@ -33,7 +33,7 @@
         </div>
 
         <!-- Category -->
-        <div class="mb-3 col-md-4">
+        <div class="mb-3 col-12 col-md-4">
           <label for="category" class="form-label">Category</label>
 
           <input id="category" type="text" class="form-control" [(ngModel)]="journey.category"
@@ -50,20 +50,39 @@
 
       </div>
 
-      <!-- Title -->
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" class="form-control" id="title" name="title" [(ngModel)]="journey.title" required
-               #title="ngModel"
-               maxlength="100"
-               minlength="10"
-               placeholder="Shortly describe the Journey">
-        <div [hidden]="title.valid || title.pristine" class="form-text text-danger">
-          <div *ngIf="title.errors?.['required']">Title is required.</div>
-          <div *ngIf="title.errors?.['minlength']">Title must be at least 10 characters long.</div>
-          <div *ngIf="title.errors?.['maxlength']">Title must be at most 100 characters long.</div>
+      <div class="row">
+        <!-- Title -->
+        <div class="mb-3 col-md-8">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" name="title" [(ngModel)]="journey.title" required
+                 #title="ngModel"
+                 maxlength="100"
+                 minlength="10"
+                 placeholder="Shortly describe the Journey">
+          <div [hidden]="title.valid || title.pristine" class="form-text text-danger">
+            <div *ngIf="title.errors?.['required']">Title is required.</div>
+            <div *ngIf="title.errors?.['minlength']">Title must be at least 10 characters long.</div>
+            <div *ngIf="title.errors?.['maxlength']">Title must be at most 100 characters long.</div>
+          </div>
         </div>
+
+        <!-- icon -->
+        <div class="mb-3 col-12 col-md-4">
+          <label for="iconType" class="form-label">Icon</label>
+          <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
+                  (change)="refreshMapWithCoordinates()"
+                  [(ngModel)]="journey.icon" required name="iconType" #iconType="ngModel">
+            @for (iconType of SUPPORTED_ICONS; track iconType) {
+              <option [value]="iconType">{{ iconType| titlecase }}</option>
+            }
+          </select>
+          <div [hidden]="iconType.valid || iconType.pristine" class="form-text text-danger">
+            <div *ngIf="iconType.errors?.['required']">Icon is required.</div>
+          </div>
+        </div>
+
       </div>
+
 
       <!-- Memories -->
       <div class="mb-3">
@@ -172,7 +191,7 @@
     </div>
 
     <div class="col-12 col-md-4" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="journey.location" [maxZoom]="10"/>
+      <app-world-map class="h-50" [geoJsonData]="journey.location" [iconType]="journey.icon" [maxZoom]="10"/>
     </div>
 
   </div>

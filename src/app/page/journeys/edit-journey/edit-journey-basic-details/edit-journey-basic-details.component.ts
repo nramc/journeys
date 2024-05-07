@@ -7,12 +7,13 @@ import {Point} from "geojson";
 import {MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
 import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
-import {NgIf} from "@angular/common";
+import {NgIf, TitleCasePipe} from "@angular/common";
 import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 import {MatIcon} from "@angular/material/icon";
 import {MatStepperNext} from "@angular/material/stepper";
 import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {AutoCompleteService} from "../../../../service/auto-complete/auto-complete.service";
+import {SUPPORTED_ICONS} from "../../../../config/icon-config";
 
 @Component({
   selector: 'app-edit-journey-basic-data',
@@ -29,7 +30,8 @@ import {AutoCompleteService} from "../../../../service/auto-complete/auto-comple
     MatChipInput,
     NgbInputDatepicker,
     MatStepperNext,
-    WorldMapComponent
+    WorldMapComponent,
+    TitleCasePipe
   ],
   standalone: true
 })
@@ -94,12 +96,14 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
     );
 
   refreshMapWithCoordinates() {
-    if (this.coordinates.length == 2) {
-      this.journey.location = {
-        type: "Point",
-        coordinates: this.coordinates
+    setTimeout(() => {
+      if (this.coordinates.length == 2) {
+        this.journey.location = {
+          type: "Point",
+          coordinates: this.coordinates
+        }
       }
-    }
+    }, 100);
   }
 
   save(journeyForm: NgForm) {
@@ -111,4 +115,6 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
       });
 
   }
+
+  protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
 }

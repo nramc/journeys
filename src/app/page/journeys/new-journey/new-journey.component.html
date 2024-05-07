@@ -31,7 +31,7 @@
 
         <!-- Name -->
         <div class="row">
-          <div class="mb-3 col-md-8">
+          <div class="mb-3 col-12 col-md-8">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="journey.name"
                    #name=ngModel
@@ -44,7 +44,7 @@
           </div>
 
           <!-- Category -->
-          <div class="mb-3 col-md-4">
+          <div class="mb-3 col-12 col-md-4">
             <label for="category" class="form-label">Category</label>
 
             <input id="category" type="text" class="form-control" [(ngModel)]="journey.category"
@@ -63,7 +63,7 @@
 
         <!-- Title -->
         <div class="row">
-          <div class="mb-3">
+          <div class="mb-3 col-12 col-md-8">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" id="title" name="title" [(ngModel)]="journey.title" required
                    #title="ngModel"
@@ -76,6 +76,21 @@
               <div *ngIf="title.errors?.['maxlength']">Title must be at most 100 characters long.</div>
             </div>
           </div>
+
+          <!-- icon -->
+          <div class="mb-3 col-12 col-md-4">
+            <label for="iconType" class="form-label">Icon</label>
+            <select id="iconType" class="form-select form-select-sm" aria-label="Icon" (ngModelChange)="refreshMapWithCoordinates()"
+                    [(ngModel)]="journey.icon" required [disabled]="journey.id != ''" name="iconType" #iconType="ngModel">
+              @for (iconType of SUPPORTED_ICONS;track iconType) {
+                <option [value]="iconType">{{iconType}}</option>
+              }
+            </select>
+            <div [hidden]="iconType.valid || iconType.pristine" class="form-text text-danger">
+              <div *ngIf="iconType.errors?.['required']">Icon is required.</div>
+            </div>
+          </div>
+
         </div>
 
         <!-- Memories -->
@@ -198,7 +213,7 @@
       </div>
 
       <div class="col-12 col-md-4" style="position: relative; min-height: 25vh">
-        <app-world-map class="h-50" [geoJsonData]="journey.location"/>
+        <app-world-map class="h-50" [geoJsonData]="journey.location" [iconType]="journey.icon" />
       </div>
 
     </div>
