@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Journey} from "../../../model/core/journey.model";
+import {Journey, JourneyImagesDetails} from "../../../model/core/journey.model";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
 import {Observable, switchMap} from "rxjs";
@@ -49,10 +49,8 @@ export class ViewJourneyComponent implements OnInit {
   }
 
 
-  getImages(journey: Journey) {
-    let images = new Array<string>()
-    journey.extendedDetails?.imagesDetails?.images?.map(img => images.push(img.url));
-    return images;
+  getImages(journey: Journey): JourneyImagesDetails {
+    return journey.extendedDetails?.imagesDetails ?? new JourneyImagesDetails();
   }
 
   getVideos(journey: Journey) {
