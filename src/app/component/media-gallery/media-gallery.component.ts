@@ -3,29 +3,31 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {LightboxDirective} from "ng-gallery/lightbox";
 import {Gallery, GalleryItem, GalleryItemTypes} from "ng-gallery";
 import {GalleryConfig} from "ng-gallery/lib/models/config.model";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {JourneyImagesDetails} from "../../model/core/journey.model";
 
 @Component({
   selector: 'app-media-gallery',
   standalone: true,
-  imports: [CommonModule, LightboxDirective, NgOptimizedImage],
+  imports: [CommonModule, LightboxDirective, NgOptimizedImage, MatTooltipModule],
   template: `
     <div class="row row-cols-auto mt-2">
       <div class="col mb-1"
            *ngFor="let item of items; let i = index; trackBy: trackMediaByFn"
            [lightbox]="i"
            [gallery]="galleryId">
-        <img class="rounded border border-primary border-2 border-opacity-50"
-          [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
-          height="200" width="200" alt="media" loading="lazy" />
+        <img class="rounded border border-primary border-2 border-opacity-50 journey-image-thumbnail"
+             [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
+             height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['text']"/>
       </div>
     </div>
   `,
-  styles: []
+  styles: ['.journey-image-thumbnail{object-fit: fill}']
 })
 export class MediaGalleryComponent implements OnInit {
   protected readonly GalleryItemTypes = GalleryItemTypes;
   @Input("galleryId") galleryId: string = 'myLightbox';
-  @Input("images") images: string[] | undefined = [];
+  @Input("images") imagesDetails: JourneyImagesDetails = new JourneyImagesDetails();
   @Input("videos") videos: string[] | undefined = [];
 
   items: GalleryItem[] = [];
@@ -51,10 +53,16 @@ export class MediaGalleryComponent implements OnInit {
   }
 
   private getImageItems(): GalleryItem[] | undefined {
-    return this.images?.map(imageUrl => {
+    return this.imagesDetails?.images.map(imageDetail => {
       return {
         type: GalleryItemTypes.Image,
-        data: {src: imageUrl, thumb: imageUrl}
+        data: {
+          src: imageDetail.url,
+          thumb: imageDetail.url,
+          args: {
+            text: imageDetail.assetId
+          }
+        }
       };
     });
   }
