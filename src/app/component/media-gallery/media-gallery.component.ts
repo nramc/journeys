@@ -14,13 +14,13 @@ import {GalleryConfig} from "ng-gallery/lib/models/config.model";
            *ngFor="let item of items; let i = index; trackBy: trackMediaByFn"
            [lightbox]="i"
            [gallery]="galleryId">
-        <img class="rounded border border-primary border-2 border-opacity-50"
+        <img class="rounded border border-primary border-2 border-opacity-50 journey-image-thumbnail"
           [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
           height="200" width="200" alt="media" loading="lazy" />
       </div>
     </div>
   `,
-  styles: []
+  styles: ['.journey-image-thumbnail{object-fit: cover}']
 })
 export class MediaGalleryComponent implements OnInit {
   protected readonly GalleryItemTypes = GalleryItemTypes;
