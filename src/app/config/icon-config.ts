@@ -1,7 +1,7 @@
 import * as L from "leaflet";
 import {Feature} from "geojson";
 
-export const SUPPORTED_ICONS: string[] = ['default', 'adventure', 'park', 'restaurant', 'home', 'flight', 'temple', 'favorite'];
+export const SUPPORTED_ICONS: string[] = ['default', 'adventure', 'park', 'restaurant', 'home', 'flight', 'temple', 'favorite', 'love'];
 
 export const iconHome = L.divIcon({
   className: 'custom-div-icon',
@@ -32,7 +32,7 @@ export const iconRestaurant = L.divIcon({
 });
 export const iconTemple = L.divIcon({
   className: 'custom-div-icon',
-  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>temple_hindu</i></div>",
+  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons small text-primary fs-5'>temple_hindu</i></div>",
   iconSize: [30, 42],
   iconAnchor: [15, 42],
   popupAnchor: [1, -34],
@@ -50,7 +50,7 @@ export const iconAdventure = L.divIcon({
 });
 export const iconPark = L.divIcon({
   className: 'custom-div-icon',
-  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>park</i></div>",
+  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-success fs-5'>park</i></div>",
   iconSize: [30, 42],
   iconAnchor: [15, 42],
   popupAnchor: [1, -34],
@@ -60,7 +60,17 @@ export const iconPark = L.divIcon({
 
 export const iconFavorite = L.divIcon({
   className: 'custom-div-icon',
-  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>favorite</i></div>",
+  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>star</i></div>",
+  iconSize: [30, 42],
+  iconAnchor: [15, 42],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41]
+});
+
+export const iconLove = L.divIcon({
+  className: 'custom-div-icon',
+  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-danger fs-5'>favorite</i></div>",
   iconSize: [30, 42],
   iconAnchor: [15, 42],
   popupAnchor: [1, -34],
@@ -98,6 +108,8 @@ function getIconForType(iconType: string) {
         return iconDefault;
       case "favorite":
         return iconFavorite;
+      case "love":
+        return iconLove;
       case "home":
         return iconHome;
       case "restaurant":
