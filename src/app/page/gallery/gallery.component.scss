@@ -2,7 +2,7 @@
 
 .sorting {
   background: rgb(248, 249, 250);
-  background: linear-gradient(90deg, rgba(66, 70, 215, 0.65) 1%, rgba(248, 249, 250, 0.1) 80% );
+  background: linear-gradient(90deg, rgba(66, 70, 215, 0.65) 1%, rgba(248, 249, 250, 0.1) 80%);
   font-weight: normal;
   font-size: 0.9em !important;
   vertical-align: center;
@@ -35,6 +35,7 @@
   width: 30rem;
   height: 15rem;
   margin: 0 0.5rem 0.5rem 0 !important;
+  cursor: pointer;
 }
 
 .card-img {
@@ -44,7 +45,11 @@
 }
 
 .card-text-wrapper {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  cursor: default;
 }
 
 
