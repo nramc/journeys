@@ -69,7 +69,7 @@
   <div class="card-group justify-content-center align-items-center">
     <div class="m-0" *ngFor="let journey of data; trackBy: trackJourneyByFn">
 
-      <div class="card bg-dark text-bg-dark text-white">
+      <div class="card bg-dark text-bg-dark text-white pointer" role="link" (click)="viewDetails(journey)">
         <img [src]="journey.thumbnail" class="card-img" [alt]="journey.thumbnail">
         <div class="card-img-overlay d-flex flex-column align-self-stretch card-text-wrapper">
           <h5 class="card-title ">{{ journey.name }}</h5>
@@ -94,7 +94,6 @@
               </p>
             </div>
             <small>
-              <button type="button" class="btn btn-outline-success btn-sm" (click)="viewDetails(journey)">View</button>
               <button type="button" class="btn btn-outline-success btn-sm ms-1" (click)="editDetails(journey)"
                       *hasWriteAccess>Edit
               </button>
