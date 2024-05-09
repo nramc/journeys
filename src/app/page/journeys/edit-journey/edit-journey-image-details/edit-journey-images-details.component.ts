@@ -8,6 +8,8 @@ import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {MatBadge} from "@angular/material/badge";
 import {MatStepperNext} from "@angular/material/stepper";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {EditJourneyImageItemComponent} from "./edit-journey-image-item/edit-journey-image-item.component";
 
 @Component({
   selector: 'app-edit-journey-images-details',
@@ -33,7 +35,8 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   formImageDetails: JourneyImagesDetails = new JourneyImagesDetails();
 
   constructor(
-    private journeyService: JourneyService
+    private journeyService: JourneyService,
+    private modelService: NgbModal
   ) {
   }
 
@@ -109,6 +112,33 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
 
   openUploadWidget() {
     this.myWidget.open();
+  }
+
+  openImageItem(imageItem: JourneyImageDetail) {
+    console.log(imageItem);
+    const imageItemModel = this.modelService.open(EditJourneyImageItemComponent, {
+      animation: true,
+      size: 'lg',
+      backdrop: true,
+      centered: true,
+      scrollable: true
+    });
+    imageItemModel.componentInstance.imageItem = imageItem;
+    imageItemModel.result.then(result => {
+      if (result && typeof result == 'object') {
+        let target = this.journey.extendedDetails?.imagesDetails?.images?.find(item => item.assetId == result.assertId);
+        Object.assign(target ?? {}, result);
+      } else if (typeof result == "string") {
+          const index = this.journey.extendedDetails?.imagesDetails?.images?.findIndex(item => item.assetId == result);
+        if (index && index > -1) {
+          this.journey.extendedDetails?.imagesDetails?.images.splice(index, 1);
+        }
+      }
+      this.save();
+    }, reason => {
+      console.log('Update cancelled, reason:', reason)
+    });
+
   }
 
 

@@ -10,10 +10,7 @@
     <div class="col-12">
       <div class="d-flex mb-3 flex-wrap">
         @for (imageDetail of this.formImageDetails.images; track imageDetail.assetId; let i = $index) {
-          <div class="m-2 image-thumbnail-wrapper">
-            <button class="btn-image-remove" aria-label="Close" (click)="removeImageAndSaveJourney(imageDetail)"
-                    matBadge="x" matBadgePosition="below after" matBadgeColor="warn" matBadgeSize="small">
-            </button>
+          <div class="m-2 image-thumbnail-wrapper" (click)="openImageItem(imageDetail)">
 
             <img
               [src]="imageDetail.url"
@@ -34,7 +31,6 @@
       <button type="button" class="btn btn-outline-primary" (click)="openUploadWidget()">
         <i class="bi bi-cloud-arrow-up-fill fs-5"></i><span class="ms-2">Upload</span>
       </button>
-
 
       <button type="button" class="btn btn-outline-primary" [disabled]="!journey.extendedDetails?.imagesDetails?.images"
               matStepperNext>Next

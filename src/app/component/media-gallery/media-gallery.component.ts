@@ -69,7 +69,7 @@ export class MediaGalleryComponent implements OnInit {
           src: imageDetail.url,
           thumb: imageDetail.url,
           args: {
-            title: imageDetail.assetId
+            title: imageDetail.title
           }
         }
       };
