@@ -58,6 +58,12 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+@media screen and (-ms-high-contrast: none), screen and (-ms-high-contrast: active) {
+  html {
+    font-size: 13.5px; /* Adjust as needed for Windows */
+  }
+}
+
 .gradient-text {
   background: $primary;
   background: linear-gradient(to right, $indigo 1%, $primary 25%);
