@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {LightboxDirective} from "ng-gallery/lightbox";
-import {Gallery, GalleryItem, GalleryItemTypes} from "ng-gallery";
+import {Gallery, GalleryImageDef, GalleryItem, GalleryItemTypes} from "ng-gallery";
 import {GalleryConfig} from "ng-gallery/lib/models/config.model";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {JourneyImagesDetails} from "../../model/core/journey.model";
@@ -9,7 +9,7 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
 @Component({
   selector: 'app-media-gallery',
   standalone: true,
-  imports: [CommonModule, LightboxDirective, NgOptimizedImage, MatTooltipModule],
+  imports: [CommonModule, LightboxDirective, NgOptimizedImage, MatTooltipModule, GalleryImageDef],
   template: `
     <div class="row row-cols-auto mt-2">
       <div class="col mb-1"
@@ -18,9 +18,14 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
            [gallery]="galleryId">
         <img class="rounded border border-primary border-2 border-opacity-50 journey-image-thumbnail"
              [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
-             height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['text']"/>
+             height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"/>
       </div>
     </div>
+    <ng-container *galleryImageDef="let itemData; active as active">
+      <div class="h-100 w-100 text-end d-flex flex-column justify-content-end">
+        <p class="text-center">{{ itemData?.args?.['title'] }}</p>
+      </div>
+    </ng-container>
   `,
   styles: ['.journey-image-thumbnail{object-fit: fill}']
 })
@@ -29,6 +34,7 @@ export class MediaGalleryComponent implements OnInit {
   @Input("galleryId") galleryId: string = 'myLightbox';
   @Input("images") imagesDetails: JourneyImagesDetails = new JourneyImagesDetails();
   @Input("videos") videos: string[] | undefined = [];
+  @ViewChild(GalleryImageDef, {static: true}) imageDef!: GalleryImageDef;
 
   items: GalleryItem[] = [];
   galleryConfig: GalleryConfig = {
@@ -41,8 +47,11 @@ export class MediaGalleryComponent implements OnInit {
 
   ngOnInit() {
     this.items = this.getGalleryItems();
-    const galleryRef = this.gallery.ref(this.galleryId, this.galleryConfig);
-    galleryRef.load(this.items);
+    this.gallery.ref(this.galleryId, Object.assign({
+        imageTemplate: this.imageDef.templateRef
+      }, this.galleryConfig)
+    )
+      .load(this.items);
   }
 
   private getGalleryItems(): GalleryItem[] {
@@ -60,7 +69,7 @@ export class MediaGalleryComponent implements OnInit {
           src: imageDetail.url,
           thumb: imageDetail.url,
           args: {
-            text: imageDetail.assetId
+            title: imageDetail.assetId
           }
         }
       };
