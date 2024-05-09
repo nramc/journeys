@@ -58,10 +58,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-@media screen and (-ms-high-contrast: none), screen and (-ms-high-contrast: active) {
-  html {
-    font-size: 13.5px; /* Adjust as needed for Windows */
-  }
+.base-fs-windows {
+  font-size: 13px !important; /* Adjust as needed for Windows */
 }
 
 .gradient-text {
