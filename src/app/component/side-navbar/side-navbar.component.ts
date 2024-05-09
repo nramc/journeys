@@ -7,7 +7,7 @@ import {
   LOGIN_PAGE_INFO,
   LOGOUT_PAGE_INFO,
   NEW_JOURNEY_PAGE_INFO,
-} from "../../model/page-info";
+} from "../../model/page.info.model";
 import {AuthService} from "../../service/auth/auth.service";
 
 @Component({

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NEW_JOURNEY_PAGE_INFO} from "../../../model/page-info";
+import {NEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 import {Journey} from "../../../model/core/journey.model";
 import {JourneyService} from "../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";

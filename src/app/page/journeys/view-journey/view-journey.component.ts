@@ -5,7 +5,7 @@ import {JourneyService} from "../../../service/journey/journey.service";
 import {Observable, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {VIEW_JOURNEY_PAGE_INFO} from "../../../model/page-info";
+import {VIEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 import {MatTab, MatTabGroup, MatTabLabel} from "@angular/material/tabs";
 import {MatIcon} from "@angular/material/icon";
 import {WorldMapComponent} from "../../../component/world-map/world-map.component";

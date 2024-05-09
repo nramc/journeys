@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {JOURNEY_SEARCH_PAGE_INFO} from "../../../model/page-info";
+import {JOURNEY_SEARCH_PAGE_INFO} from "../../../model/page.info.model";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {JourneySearchCriteriaComponent} from "./journey-search-criteria/journey-search-criteria.component";
 import {JourneysListComponent} from "./journeys-list/journeys-list.component";

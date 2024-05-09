@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HOME_PAGE_INFO} from "../../model/page-info";
+import {HOME_PAGE_INFO} from "../../model/page.info.model";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {AuthService} from "../../service/auth/auth.service";
 import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
