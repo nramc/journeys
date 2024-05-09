@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DASHBOARD_PAGE_INFO} from "../../model/page-info";
+import {DASHBOARD_PAGE_INFO} from "../../model/page.info.model";
 import {WorldMapComponent} from "../../component/world-map/world-map.component";
 import {FeatureCollection} from "geojson";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";

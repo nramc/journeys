@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {GALLERY_PAGE_INFO} from "../../model/page-info";
+import {GALLERY_PAGE_INFO} from "../../model/page.info.model";
 import {BehaviorSubject, catchError, map, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {
