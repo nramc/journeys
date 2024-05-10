@@ -5,7 +5,7 @@ import {environment} from "../../../../../environments/environment";
 import {CloudinaryUploadSuccessEvent, CloudinaryUploadSuccessInfo} from "../../../../model/upload-success-event.type";
 import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
 import {FormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {MatBadge} from "@angular/material/badge";
 import {MatStepperNext} from "@angular/material/stepper";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -20,7 +20,8 @@ import {EditJourneyImageItemComponent} from "./edit-journey-image-item/edit-jour
     FormsModule,
     NgIf,
     MatBadge,
-    MatStepperNext
+    MatStepperNext,
+    NgClass
   ],
   standalone: true
 })
@@ -115,7 +116,6 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   }
 
   openImageItem(imageItem: JourneyImageDetail) {
-    console.log(imageItem);
     const imageItemModel = this.modelService.open(EditJourneyImageItemComponent, {
       animation: true,
       size: 'lg',

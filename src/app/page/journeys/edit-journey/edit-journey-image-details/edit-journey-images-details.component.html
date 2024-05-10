@@ -16,7 +16,8 @@
               [src]="imageDetail.url"
               [alt]="imageDetail.assetId"
               [title]="imageDetail.assetId"
-              class="img-thumbnail rounded border border-2 border-opacity-50 border-primary h-60-px w-90-px"
+              class="img-thumbnail rounded border border-2 border-opacity-75 h-60-px w-90-px"
+              [ngClass]="{'border-success': imageDetail.isThumbnail, 'border-primary': !imageDetail.isThumbnail}"
             />
           </div>
         }
