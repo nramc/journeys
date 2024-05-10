@@ -16,9 +16,11 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
            *ngFor="let item of items; let i = index; trackBy: trackMediaByFn"
            [lightbox]="i"
            [gallery]="galleryId">
-        <img class="rounded border border-primary border-2 border-opacity-50 journey-image-thumbnail"
+        <img class="rounded border border-2 border-opacity-75 journey-image-thumbnail"
              [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
-             height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"/>
+             height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"
+             [ngClass]="{'border-success': item.data?.args?.['isThumbnail'], 'border-primary': !item.data?.args?.['isThumbnail']}"
+        />
       </div>
     </div>
     <ng-container *galleryImageDef="let itemData; active as active">
@@ -69,7 +71,8 @@ export class MediaGalleryComponent implements OnInit {
           src: imageDetail.url,
           thumb: imageDetail.url,
           args: {
-            title: imageDetail.title
+            title: imageDetail.title,
+            isThumbnail: imageDetail.isThumbnail
           }
         }
       };
