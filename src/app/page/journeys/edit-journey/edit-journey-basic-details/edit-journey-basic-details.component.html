@@ -38,7 +38,7 @@
 
           <input id="category" type="text" class="form-control" [(ngModel)]="journey.category"
                  [ngbTypeahead]="searchCategory"
-                 required minlength="3" maxlength="16"
+                 required minlength="3" maxlength="50"
                  name="category" #category="ngModel">
 
           <div [hidden]="category.valid || category.pristine" class="form-text text-danger">
