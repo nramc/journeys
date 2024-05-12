@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Journey} from "../../../model/core/journey.model";
 import {switchMap} from "rxjs";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
 import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/material/stepper";
 import {EditJourneyBasicDetailsComponent} from "./edit-journey-basic-details/edit-journey-basic-details.component";
@@ -36,7 +36,8 @@ export class EditJourneyComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private journeyService: JourneyService
+    private journeyService: JourneyService,
+    private router: Router
   ) {
   }
 
@@ -45,7 +46,6 @@ export class EditJourneyComponent implements OnInit {
   }
 
   stepsEventHandler(event: any) {
-    console.debug('Received event:', event);
     this.fetchJourney();
   }
 
@@ -80,4 +80,7 @@ export class EditJourneyComponent implements OnInit {
   }
 
 
+  viewJourney(journey: Journey) {
+    this.router.navigate(['/journey', journey.id, 'view']).then();
+  }
 }
