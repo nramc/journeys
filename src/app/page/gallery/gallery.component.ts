@@ -117,8 +117,10 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/journey', journey.id, 'view']).then();
   }
 
-  editDetails(journey: Journey) {
+  editDetails(journey: Journey, $event: MouseEvent) {
+    $event.stopPropagation()
     this.router.navigate(['/journey', journey.id, 'edit']).then();
+    return false;
   }
 
   addTag(event: MatChipInputEvent): void {

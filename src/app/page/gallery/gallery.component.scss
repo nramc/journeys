@@ -48,10 +48,6 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-.btn {
-  cursor: default;
-}
-
 
 @include media-breakpoint-down(sm) {
   .card {
