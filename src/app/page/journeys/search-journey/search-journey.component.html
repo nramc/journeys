@@ -1,6 +1,4 @@
-<app-page-header [pageInfo]="JOURNEY_SEARCH_PAGE_INFO"></app-page-header>
-
-<section class="container">
+<section class="container mt-2">
   <app-journey-search-criteria (searchEvent)="handleSearchEvent($event)"></app-journey-search-criteria>
 
   <app-journeys-list [criteria]="queryString"></app-journeys-list>
