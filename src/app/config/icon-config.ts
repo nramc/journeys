@@ -1,7 +1,7 @@
 import * as L from "leaflet";
 import {Feature} from "geojson";
 
-export const SUPPORTED_ICONS: string[] = ['default', 'adventure', 'park', 'restaurant', 'home', 'flight', 'temple', 'favorite', 'love'];
+export const SUPPORTED_ICONS: string[] = ['default', 'adventure', 'shopping', 'funny', 'park', 'restaurant', 'home', 'flight', 'temple', 'favorite', 'love'];
 
 export const iconHome = L.divIcon({
   className: 'custom-div-icon',
@@ -78,6 +78,26 @@ export const iconLove = L.divIcon({
   shadowSize: [41, 41]
 });
 
+export const iconShopping = L.divIcon({
+  className: 'custom-div-icon',
+  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-success fs-5'>local_mall</i></div>",
+  iconSize: [30, 42],
+  iconAnchor: [15, 42],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41]
+});
+
+export const iconFunny = L.divIcon({
+  className: 'custom-div-icon',
+  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>mood</i></div>",
+  iconSize: [30, 42],
+  iconAnchor: [15, 42],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41]
+});
+
 export const iconDefault = L.divIcon({
   className: 'custom-div-icon',
   html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>navigation</i></div>",
@@ -122,6 +142,10 @@ function getIconForType(iconType: string) {
         return iconAdventure;
       case "park":
         return iconPark;
+      case "shopping":
+        return iconShopping;
+      case "funny":
+        return iconFunny;
       default:
         return iconDefault;
     }
