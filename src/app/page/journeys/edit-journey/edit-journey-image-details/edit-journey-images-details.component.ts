@@ -28,7 +28,6 @@ import {EditJourneyImageItemComponent} from "./edit-journey-image-item/edit-jour
 export class EditJourneyImagesDetailsComponent implements OnInit {
   @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
   @Input({required: true}) journey!: Journey;
-  myWidget: any;
 
   successMessage: string = '';
   errorMessage: string = '';
@@ -45,18 +44,6 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
     if (this.journey?.extendedDetails?.imagesDetails) {
       this.formImageDetails = this.journey.extendedDetails.imagesDetails;
     }
-    // @ts-ignore
-    this.myWidget = cloudinary.createUploadWidget(
-      this.getWidgetParams(this.journey),
-      (error: any, result: CloudinaryUploadSuccessEvent) => {
-        if (!error && result && result.event === "success") {
-          this.addImage(result.info);
-        }
-        if (!error && result && result.event === "close") {
-          this.save();
-        }
-      }
-    );
   }
 
   private addImage(info: CloudinaryUploadSuccessInfo) {
@@ -73,7 +60,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
     }
   }
 
-  private getWidgetParams(journey: Journey) {
+  private getWidgetParams(journey: Journey, isMultipleUpload: boolean) {
     // Refer: https://cloudinary.com/documentation/image_upload_api_reference#upload
     return {
       cloudName: environment.cloudName,
@@ -82,10 +69,10 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
       tags: journey.tags,
       use_asset_folder_as_public_id_prefix: true,
       context: {'env': 'dev', 'id': `${journey.id}`},
-      cropping: false,
+      cropping: !isMultipleUpload,
       showAdvancedOptions: true,
       // sources: [ "local", "url"], // restrict the upload sources to URL and local files
-      multiple: true,
+      multiple: isMultipleUpload
       // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
       // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
       //theme: "purple", //change to a purple theme
@@ -111,8 +98,19 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
       });
   }
 
-  openUploadWidget() {
-    this.myWidget.open();
+  openUploadWidget(isMultipleUpload: boolean = true) {
+    // @ts-ignore
+    cloudinary.createUploadWidget(
+      this.getWidgetParams(this.journey, isMultipleUpload),
+      (error: any, result: CloudinaryUploadSuccessEvent) => {
+        if (!error && result && result.event === "success") {
+          this.addImage(result.info);
+        }
+        if (!error && result && result.event === "close") {
+          this.save();
+        }
+      }
+    ).open();
   }
 
   openImageItem(imageItem: JourneyImageDetail) {
@@ -129,7 +127,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
         let target = this.journey.extendedDetails?.imagesDetails?.images?.find(item => item.assetId == result.assertId);
         Object.assign(target ?? {}, result);
       } else if (typeof result == "string") {
-          const index = this.journey.extendedDetails?.imagesDetails?.images?.findIndex(item => item.assetId == result);
+        const index = this.journey.extendedDetails?.imagesDetails?.images?.findIndex(item => item.assetId == result);
         if (index && index > -1) {
           this.journey.extendedDetails?.imagesDetails?.images.splice(index, 1);
         }
