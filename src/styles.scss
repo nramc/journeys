@@ -70,6 +70,10 @@ body {
 
 }
 
+.gradient-bg {
+  background-image: linear-gradient(to right, #3459e6, #5d76ed, #7f93f2, #a0b0f6, #c2cdf8);
+}
+
 /* Map marker icons styles */
 .marker-pin {
   width: 30px;
