@@ -55,4 +55,9 @@ export const GALLERY_PAGE_INFO: PageInfo = {
   path: "/gallery"
 };
 
-
+export const ABOUT_PAGE_INFO: PageInfo = {
+  name: "About Us",
+  title: "About Us",
+  description: "",
+  path: "/aboutUs"
+};

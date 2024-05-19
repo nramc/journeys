@@ -78,6 +78,11 @@ const routes: Routes = [
     canActivate: [canActivateWhenAuthenticatedGuard],
     canMatch: [canMatchWhenAuthenticatedGuard]
   },
+  {
+    path: 'aboutUs',
+    loadComponent: () => import('./page/about/about.component').then(m => m.AboutComponent),
+    title: "About"
+  },
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: "/home"}
 ];
