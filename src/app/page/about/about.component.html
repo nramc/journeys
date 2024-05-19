@@ -1,10 +1,45 @@
-<app-page-header [pageInfo]="ABOUT_PAGE_INFO"></app-page-header>
+<section class="mt-3 mb-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+        <h4 class="gradient-text">About Us</h4>
+        <h1 class="gradient-text">Your one-stop shop for documenting, cherishing, and reliving your adventures.</h1>
+        <p class="text-primary fs-6 mt-4">
+          Have you ever tried explaining about hilarious moments happened at your trip to your kids, partner years later,
+          only to realise the details are fuzzy?
+        </p>
+        <p class="text-primary fs-6">
+          Travel creates lasting memories for the whole family, but capturing those precious moments can be a challenge.
+          Never forget a travel detail again!
+        </p>
 
+        <p class="text-primary fs-5">
+          <span class="gradient-text fw-bold fs-6">Journey, your one-stop shop for creating a shared travel legacy!</span>
+        </p>
+        <p class="text-primary fs-6">
+          This user-friendly app lets everyone in the family contribute photos, stories, and funny anecdotes, building a beautiful and hilarious record of your adventures together.
+        </p>
+
+        <h6 class="text-primary">
+          Don't let your travel memories fade away. Signup today and start preserving your adventures for a lifetime!
+        </h6>
+        <button type="button" class="btn btn-primary" (click)="signup()">Signup Today</button>
+
+      </div>
+      <div class="col-4 text-center">
+        <img ngSrc="assets/icon/journeys/ms-icon-310x310.png" height="310" width="310" class="img-fluid rounded-start"
+             alt="Journey">
+      </div>
+    </div>
+
+  </div>
+
+</section>
 
 <section>
   <legend class="gradient-text">Contributors</legend>
   <div class="card-group justify-content-evenly">
-    <div class="card mb-3 border border-primary border-2 rounded-2 border-opacity-50" style="max-width: 540px;">
+    <div class="card mb-3 border border-primary border-1 rounded-2 border-opacity-50" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4">
           <img ngSrc="assets/icon/journeys/ms-icon-310x310.png" height="310" width="310" class="img-fluid rounded-start"
@@ -14,20 +49,23 @@
           <div class="card-body">
             <h5 class="card-title gradient-text">Sakunthala Devi Muthusamy</h5>
             <p class="card-text text-primary">Geo Specialist, Maintainer</p>
-            <ul class="social mb-0 list-inline mt-3">
+            <ul class="social mb-0 list-inline mt-3 d-flex justify-content-start gap-2">
               <li class="list-inline-item"><a href="https://x.com/ram_n_74" class="social-link"><i
                 class="bi bi-twitter-x"></i></a></li>
-              <li class="list-inline-item"><a href="https://www.linkedin.com/in/ramachandran-nellaiyappan/"
+              <li class="list-inline-item"><a href="https://www.linkedin.com/in/sakunthala-devi-muthusamy-834799147/"
                                               class="social-link"><i class="bi bi-linkedin"></i></a></li>
-              <li class="list-inline-item"><a href="mailto:ramachandrannellai@gmail.com" class="social-link"><i
+              <li class="list-inline-item"><a href="mailto:sakunthaladevi.muthusamy@gmail.com" class="social-link"><i
                 class="bi bi-envelope-fill"></i></a></li>
+              <li class="list-inline-item"><a href="https://github.com/nramc" class="social-link">
+                <i class="bi bi-github"></i>
+              </a></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card mb-3 border border-primary border-2 rounded-2 border-opacity-50" style="max-width: 540px;">
+    <div class="card mb-3 border border-primary border-1 rounded-2 border-opacity-50" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4">
           <img ngSrc="assets/icon/journeys/ms-icon-310x310.png" height="310" width="310" class="img-fluid rounded-start"
@@ -37,37 +75,50 @@
           <div class="card-body">
             <h5 class="card-title gradient-text">Ramachandran Nellaiyappan</h5>
             <p class="card-text text-primary">Maintainer</p>
-            <ul class="social mb-0 list-inline mt-3">
+            <ul class="social mb-0 list-inline mt-3 d-flex justify-content-start gap-2">
               <li class="list-inline-item"><a href="https://x.com/ram_n_74" class="social-link"><i
                 class="bi bi-twitter-x"></i></a></li>
               <li class="list-inline-item"><a href="https://www.linkedin.com/in/ramachandran-nellaiyappan/"
                                               class="social-link"><i class="bi bi-linkedin"></i></a></li>
               <li class="list-inline-item"><a href="mailto:ramachandrannellai@gmail.com" class="social-link"><i
                 class="bi bi-envelope-fill"></i></a></li>
+              <li class="list-inline-item"><a href="https://github.com/nramc" class="social-link">
+                <i class="bi bi-github"></i>
+              </a></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </section>
 
 
 <section>
 
   <div class="col-8 text-primary-emphasis">
-    <p class="">Never forget a travel detail again!</p>
-    <p class="">
-      <span class="gradient-text fw-bolder fs-5">Journeys</span> is your one-stop shop for documenting, cherishing, and
-      reliving your adventures.
-      Easily track destinations, expenses, and itineraries - all in one place.
-    </p>
     <p class="">
       With <span class="gradient-text fw-bolder">Journeys</span>, your travel memories become a treasure trove of
       inspiration and planning for future escapades.
     </p>
   </div>
 
+
+  <p>Preserve Memories: Our memories naturally fade over time. Recording your trips with photos, videos, journals, or
+    even just detailed notes helps you remember the sights, sounds, smells, and emotions you experience while
+    traveling.</p>
+  <p>Relive the Experience: Looking back at your travel records allows you to relive the joy and wonder of your trip.
+    This can be a great way to de-stress and bring back positive feelings.</p>
+  <p>Personal Growth: Traveling can be a transformative experience. Recording your trips allows you to reflect on your
+    experiences, the new cultures you encountered, and how travel has shaped you as a person.</p>
+  <p>Record Special Moments: Journey can be a place to document all the special moments you share as a couple on your
+    travels - romantic dinners, sunsets on the beach, overcoming a challenge together.</p>
+  <p>By using Journey, you can go beyond recording the places you visit - you can document the journey of your love.
+    It's a testament to the little things, the unwavering support, and the commitment to face life's adventures
+    together. Journey can be a powerful tool to nurture and celebrate the love you share.</p>
+  <p>A Window to Your Hearts: Journey becomes a window into your hearts, a place where you can express your love and
+    appreciation for each other in a way that transcends words. A photo of a breathtaking landscape you witnessed
+    together, a note expressing gratitude for their presence, or a silly video that captures your shared sense of humor
+    - these elements in Journey paint a vivid picture of the love you share.</p>
 
 </section>
