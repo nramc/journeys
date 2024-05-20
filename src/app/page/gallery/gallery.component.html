@@ -1,6 +1,42 @@
-<app-page-header [pageInfo]="GALLERY_PAGE_INFO"></app-page-header>
+<section class="container advanced-search">
+  <div class="d-flex justify-content-end">
+    <a class="text-decoration-none" data-bs-toggle="collapse" href="#searchFields" role="link" aria-expanded="false" aria-controls="searchFields">
+      Advanced Search
+    </a>
+  </div>
+
+  <div class="row g-2 mb-3 collapse" id="searchFields">
+
+    <!-- Category -->
+    <div class="col-sm">
+      <div class="form-floating">
+        <input type="text" class="form-control form-control-sm" id="categoryInput" placeholder="Category" [(ngModel)]="searchCriteria.category">
+        <label for="categoryInput">Category</label>
+      </div>
+    </div>
+
+    <!-- City -->
+    <div class="col-sm">
+      <div class="form-floating">
+        <input type="text" class="form-control form-control-sm" id="cityInput" placeholder="City" [(ngModel)]="searchCriteria.city">
+        <label for="cityInput">City</label>
+      </div>
+    </div>
+
+    <!-- Country -->
+    <div class="col-sm">
+      <div class="form-floating">
+        <input type="text" class="form-control form-control-sm" id="countryInput" placeholder="Country" [(ngModel)]="searchCriteria.country">
+        <label for="countryInput">Country</label>
+      </div>
+    </div>
+
+  </div>
+
+</section>
 
 <section class="container">
+
   <div class="row">
     <mat-chip-grid #chipGrid aria-label="Tags">
       <div class="col-12">

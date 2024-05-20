@@ -1,0 +1,31 @@
+<section class="mt-3">
+  <legend class="gradient-text"><div class="bg-primary">{{ header }}</div></legend>
+
+  <div class="card-group gap-2">
+    @for (statistic of data.sort(comparatorFn); track statistic.name; let index = $index) {
+
+      <div class="card border border-primary border-1 rounded-2 " [ngClass]="'card-' + index">
+        <div class="card-statistics p-4">
+          <div class="mb-4">
+            <h5 class="card-title gradient-text mb-0">{{ statistic.name }}</h5>
+          </div>
+          <div class="row align-items-center mb-2 d-flex">
+            <div class="col-8">
+              <h2 class="d-flex align-items-center mb-0 gradient-text">
+                {{ statistic.count }}
+              </h2>
+            </div>
+            <div class="col-4 text-right gradient-text">
+              <span>{{ (statistic.count / total) * 100 }}%</span>
+            </div>
+          </div>
+          <mat-progress-bar mode="determinate" [value]="(statistic.count / total) * 100"></mat-progress-bar>
+
+        </div>
+      </div>
+
+    }
+  </div>
+
+</section>
+

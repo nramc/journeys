@@ -1,0 +1,14 @@
+<app-page-header [pageInfo]="STATISTICS_PAGE_INFO"></app-page-header>
+
+
+@if (statistics) {
+  <app-statistics-panel [data]="statistics.categories" header="Categories"></app-statistics-panel>
+  <app-statistics-panel [data]="statistics.cities" header="Cities"></app-statistics-panel>
+  <app-statistics-panel [data]="statistics.countries" header="Countries"></app-statistics-panel>
+  <app-statistics-panel [data]="statistics.years" header="Years"></app-statistics-panel>
+} @else {
+  <div class="loading-shade">
+    <mat-spinner></mat-spinner>
+  </div>
+}
+
