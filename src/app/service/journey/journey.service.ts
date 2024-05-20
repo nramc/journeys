@@ -7,6 +7,7 @@ import {JourneyPage} from "./journey-page.type";
 import {FeatureCollection} from "geojson";
 import {SortDirection} from "@angular/material/sort";
 import {AuthService} from "../auth/auth.service";
+import {SearchCriteria} from "../../model/core/search-criteria.model";
 
 
 @Injectable({
@@ -31,7 +32,7 @@ export class JourneyService {
   }
 
   findJourneyByQuery(
-    queryString: string,
+    searchCriteria: SearchCriteria,
     sort: string,
     order: SortDirection,
     page: number,
@@ -40,7 +41,10 @@ export class JourneyService {
     tags: string[] = []
   ): Observable<JourneyPage> {
     let params = new HttpParams();
-    params = params.set("q", queryString);
+    params = params.set("q", searchCriteria.text ?? '');
+    params = params.set("city", searchCriteria.city ?? '');
+    params = params.set("country", searchCriteria.country ?? '');
+    params = params.set("category", searchCriteria.category ?? '');
     params = params.set("sort", sort);
     params = params.set("order", order.toUpperCase());
     params = params.set("pageIndex", page);

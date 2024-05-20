@@ -23,6 +23,8 @@ import {HasWriteAccessDirective} from "../../directive/has-write-access.directiv
 import {MatChipInputEvent, MatChipsModule} from "@angular/material/chips";
 import {MatIcon} from "@angular/material/icon";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
+import {SearchCriteria} from "../../model/core/search-criteria.model";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-gallery',
@@ -42,7 +44,8 @@ import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
     UpperCasePipe,
     HasWriteAccessDirective,
     MatChipsModule,
-    MatIcon
+    MatIcon,
+    FormsModule
   ],
   styleUrls: ['./gallery.component.scss']
 })
@@ -66,10 +69,16 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
   tags: string[] = []
   tagsCriteriaChange = new BehaviorSubject<string[]>([]);
+  searchCriteria: SearchCriteria = new SearchCriteria();
 
   constructor(
     private journeyService: JourneyService,
     private router: Router) {
+
+    if(router.getCurrentNavigation()?.extras.state) {
+      this.searchCriteria = router.getCurrentNavigation()?.extras.state as SearchCriteria;
+    }
+
   }
 
   ngAfterViewInit(): void {
@@ -80,7 +89,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
           this.isLoadingResults = true;
 
           return this.journeyService.findJourneyByQuery(
-            '',
+            this.searchCriteria,
             this.sortingFieldChangedEvent.getValue(),
             this.sortingDirectionChangedEvent.getValue(),
             this.paginator.pageIndex,
@@ -103,7 +112,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.journeyService.findJourneyByQuery(
-      '',
+      this.searchCriteria,
       'journeyDate',
       'desc',
       0,

@@ -51,6 +51,13 @@
           </a>
         </li>
 
+        <li class="nav-item" *ngIf="isAuthenticated() | async">
+          <a [routerLink]="STATISTICS_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+            <i class="bi bi-speedometer2 pe-none me-2"></i>
+            {{ STATISTICS_PAGE_INFO.name }}
+          </a>
+        </li>
+
         <li class="nav-item">
           <a [routerLink]="ABOUT_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-info-circle pe-none me-2"></i>
