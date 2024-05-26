@@ -30,7 +30,7 @@
           </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isAuthenticated() | async">
           <a [routerLink]="DASHBOARD_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-speedometer2 pe-none me-2"></i>
             {{ DASHBOARD_PAGE_INFO.name }}
