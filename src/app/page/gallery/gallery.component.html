@@ -9,25 +9,33 @@
 
     <!-- Category -->
     <div class="col-sm">
-      <div class="form-floating">
-        <input type="text" class="form-control form-control-sm" id="categoryInput" placeholder="Category" [(ngModel)]="searchCriteria.category">
+      <div class="form-floating border border-primary">
+        <input type="text" class="form-control form-control-sm ignore-highlight" id="categoryInput" placeholder="Category" [(ngModel)]="searchCriteria.category">
         <label for="categoryInput">Category</label>
       </div>
     </div>
 
     <!-- City -->
     <div class="col-sm">
-      <div class="form-floating">
-        <input type="text" class="form-control form-control-sm" id="cityInput" placeholder="City" [(ngModel)]="searchCriteria.city">
+      <div class="form-floating border border-primary">
+        <input type="text" class="form-control form-control-sm ignore-highlight" id="cityInput" placeholder="City" [(ngModel)]="searchCriteria.city">
         <label for="cityInput">City</label>
       </div>
     </div>
 
     <!-- Country -->
     <div class="col-sm">
-      <div class="form-floating">
-        <input type="text" class="form-control form-control-sm" id="countryInput" placeholder="Country" [(ngModel)]="searchCriteria.country">
+      <div class="form-floating border border-primary">
+        <input type="text" class="form-control form-control-sm ignore-highlight" id="countryInput" placeholder="Country" [(ngModel)]="searchCriteria.country">
         <label for="countryInput">Country</label>
+      </div>
+    </div>
+
+    <!-- Year -->
+    <div class="col-sm">
+      <div class="form-floating border border-primary">
+        <input type="text" class="form-control form-control-sm ignore-highlight" id="yearInput" placeholder="Year" [(ngModel)]="searchCriteria.year">
+        <label for="yearInput">Year</label>
       </div>
     </div>
 

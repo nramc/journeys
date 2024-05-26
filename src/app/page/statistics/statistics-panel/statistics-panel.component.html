@@ -1,9 +1,11 @@
-<section class="mt-3">
-  <legend class="bg-primary bg-opacity-50">
-    <div class="gradient-text ps-2">{{ header }}</div>
+<section class="mt-3 bg-primary-subtle p-2 rounded-2 d-flex flex-column">
+  <legend class="gradient-bg rounded-2 border border-primary">
+    <a class="text-decoration-none text-light ps-2 w-100 fs-5 d-flex" data-bs-toggle="collapse" [href]="'#' + header" role="button" aria-expanded="true">
+      {{header}}
+    </a>
   </legend>
 
-  <div class="card-group gap-2">
+  <div class="card-group gap-2 show" [id]="header">
     @for (statistic of data.sort(comparatorFn); track statistic.name; let index = $index) {
 
       <div class="card border border-primary border-1 rounded-2 " [ngClass]="'card-' + index"
