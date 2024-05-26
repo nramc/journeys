@@ -1,10 +1,13 @@
 <section class="mt-3">
-  <legend class="gradient-text"><div class="bg-primary">{{ header }}</div></legend>
+  <legend class="bg-primary bg-opacity-50">
+    <div class="gradient-text ps-2">{{ header }}</div>
+  </legend>
 
   <div class="card-group gap-2">
     @for (statistic of data.sort(comparatorFn); track statistic.name; let index = $index) {
 
-      <div class="card border border-primary border-1 rounded-2 " [ngClass]="'card-' + index">
+      <div class="card border border-primary border-1 rounded-2 " [ngClass]="'card-' + index"
+           (click)="gotoGallery(type,statistic.name)">
         <div class="card-statistics p-4">
           <div class="mb-4">
             <h5 class="card-title gradient-text mb-0">{{ statistic.name }}</h5>

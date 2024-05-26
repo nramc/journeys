@@ -45,6 +45,7 @@ export class JourneyService {
     params = params.set("city", searchCriteria.city ?? '');
     params = params.set("country", searchCriteria.country ?? '');
     params = params.set("category", searchCriteria.category ?? '');
+    params = params.set("year", searchCriteria.year ?? '');
     params = params.set("sort", sort);
     params = params.set("order", order.toUpperCase());
     params = params.set("pageIndex", page);

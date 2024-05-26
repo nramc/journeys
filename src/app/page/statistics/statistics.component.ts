@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {STATISTICS_PAGE_INFO} from "../../model/page.info.model";
-import {Router} from "@angular/router";
 import {StatisticsService} from "../../service/statistics/statistics.service";
 import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
 import {Statistics} from "../../service/statistics/statistics.type";
@@ -27,7 +26,6 @@ export class StatisticsComponent implements OnInit {
   statistics: Statistics | undefined = undefined;
 
   constructor(
-    private router: Router,
     protected statisticsService: StatisticsService
   ) {
   }
