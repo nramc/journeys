@@ -74,6 +74,10 @@ body {
   background-image: linear-gradient(to right, #3459e6, #5d76ed, #7f93f2, #a0b0f6, #c2cdf8);
 }
 
+.gradient-bg-light {
+  background-image: linear-gradient(to right, #6a81ef, #6a81ef, #768cf1, #8397f3, #8fa2f4, #9facf5, #afb7f7, #bdc2f8, #d0d0fa, #e1dffb, #f1effd, #ffffff);
+}
+
 /* Map marker icons styles */
 .marker-pin {
   width: 30px;
