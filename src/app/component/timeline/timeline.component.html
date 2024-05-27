@@ -1,0 +1,16 @@
+<div class="fs-2">
+  <p><span class="gradient-text me-2">{{ timelineData?.title }}</span>
+    <button class="btn btn-sm btn-outline-primary" (click)="togglePlayer()" title="Toggle Timeline Player">
+      <i class="bi bi-play-circle"></i>
+    </button>
+  </p>
+</div>
+
+<gallery [items]="images" [thumb]="false" [imageSize]="'cover'" [dots]="true" (itemClick)="togglePlayer()"
+         [playerInterval]="2000">
+  <ng-container *galleryImageDef="let item;">
+    <div class="h-100 w-100 text-end d-flex flex-column justify-content-end mb-2 fs-5">
+      <p class="text-center">{{ item?.args?.['caption'] }}</p>
+    </div>
+  </ng-container>
+</gallery>
