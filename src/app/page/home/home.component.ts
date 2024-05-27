@@ -68,7 +68,8 @@ export class HomeComponent implements OnInit {
       .pipe(exhaustMap(__ => this.bffService.getVersion()))
       .subscribe({
         next: result => this.bffApiVersion = 'v' + result.version,
-        error: error => {
+        error: err => {
+          console.error(err);
           this.bffApiVersion = 'NOT_AVAILABLE';
         }
       });

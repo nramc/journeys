@@ -158,19 +158,30 @@ body {
 .h-200-px {
   height: 200px;
 }
+
 .w-200-px {
   width: 200px;
 }
 
-gallery-image  img {
+gallery-image img {
   animation: 12s autoplay infinite ease-in-out;
 }
 
 @keyframes autoplay {
-  0% {left: 100%}
-  5% {left: 0%}
-  25% {left: 0%}
-  30% {left: -100%}
-  100% {left: -100%}
+  0% {
+    left: 100%
+  }
+  5% {
+    left: 0
+  }
+  25% {
+    left: 0
+  }
+  30% {
+    left: -100%
+  }
+  100% {
+    left: -100%
+  }
 }
 
