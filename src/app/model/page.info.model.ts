@@ -61,6 +61,13 @@ export const STATISTICS_PAGE_INFO: PageInfo = {
   path: "/statistics"
 };
 
+export const TIMELINE_PAGE_INFO: PageInfo = {
+  name: "Timeline",
+  title: "Timeline",
+  description: "",
+  path: "/timeline"
+};
+
 export const ABOUT_PAGE_INFO: PageInfo = {
   name: "About Us",
   title: "About Us",

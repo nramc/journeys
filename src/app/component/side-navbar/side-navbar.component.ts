@@ -6,7 +6,7 @@ import {
   HOME_PAGE_INFO,
   JOURNEY_SEARCH_PAGE_INFO,
   LOGIN_PAGE_INFO,
-  LOGOUT_PAGE_INFO, STATISTICS_PAGE_INFO,
+  LOGOUT_PAGE_INFO, STATISTICS_PAGE_INFO, TIMELINE_PAGE_INFO,
 } from "../../model/page.info.model";
 import {AuthService} from "../../service/auth/auth.service";
 
@@ -32,4 +32,5 @@ export class SideNavbarComponent {
   protected readonly LOGOUT_PAGE_INFO = LOGOUT_PAGE_INFO;
   protected readonly ABOUT_PAGE_INFO = ABOUT_PAGE_INFO;
   protected readonly STATISTICS_PAGE_INFO = STATISTICS_PAGE_INFO;
+  protected readonly TIMELINE_PAGE_INFO = TIMELINE_PAGE_INFO;
 }
