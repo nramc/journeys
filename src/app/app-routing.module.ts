@@ -87,7 +87,7 @@ const routes: Routes = [
   },
   {
     path: 'timeline',
-    loadComponent: () => import('./page/timeline/timeline.component').then(m => m.TimelineComponent),
+    loadComponent: () => import('./page/timeline/timeline-page.component').then(m => m.TimelinePageComponent),
     title: "Timeline",
     canActivate: [canActivateWhenAuthenticatedGuard],
     canMatch: [canMatchWhenAuthenticatedGuard]
