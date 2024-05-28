@@ -24,6 +24,7 @@ import {StatisticsPanelComponent} from "./statistics-panel/statistics-panel.comp
 export class StatisticsComponent implements OnInit {
   protected readonly STATISTICS_PAGE_INFO = STATISTICS_PAGE_INFO;
   statistics: Statistics | undefined = undefined;
+  isLoadingResults: boolean = true;
 
   constructor(
     protected statisticsService: StatisticsService
@@ -33,9 +34,14 @@ export class StatisticsComponent implements OnInit {
   ngOnInit(): void {
     this.statisticsService.getStatistics()
       .subscribe({
-        next: data => this.statistics = data,
+        next: data => this.onSuccessCallback(data),
         error: err => console.error(err)
       });
+  }
+
+  onSuccessCallback(data: Statistics) {
+    this.statistics = data;
+    this.isLoadingResults = false;
   }
 
 }

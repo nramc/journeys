@@ -25,6 +25,7 @@ import {MatIcon} from "@angular/material/icon";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {SearchCriteria} from "../../model/core/search-criteria.model";
 import {FormsModule} from "@angular/forms";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-gallery',
@@ -45,7 +46,8 @@ import {FormsModule} from "@angular/forms";
     HasWriteAccessDirective,
     MatChipsModule,
     MatIcon,
-    FormsModule
+    FormsModule,
+    MatProgressSpinner
   ],
   styleUrls: ['./gallery.component.scss']
 })

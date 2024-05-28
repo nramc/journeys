@@ -45,6 +45,7 @@
 
 <section class="container">
 
+  <!-- Tags search bar -->
   <div class="row">
     <mat-chip-grid #chipGrid aria-label="Tags">
       <div class="col-12">
@@ -73,6 +74,7 @@
     </mat-chip-grid>
   </div>
 
+  <!-- Paginator -->
   <div class="row">
     <div class="col-12 col-md-8 mb-md-3 me-0 pe-0">
       <mat-paginator [length]="totalElements" [pageSize]="defaultPageSize" [pageSizeOptions]="[1, 5, 10, 20, 25]"
@@ -109,6 +111,12 @@
 
     </div>
   </div>
+
+  @if(isLoadingResults) {
+    <div class="loading-shade">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
 
   <div class="card-group justify-content-center align-items-center">
     <div class="m-0" *ngFor="let journey of data; trackBy: trackJourneyByFn">
