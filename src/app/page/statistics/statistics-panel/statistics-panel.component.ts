@@ -68,4 +68,7 @@ export class StatisticsPanelComponent implements OnInit {
     return criteria;
   }
 
+  getPercentage(count: number, total: number) {
+    return Math.round((count / total) * 100);
+  }
 }

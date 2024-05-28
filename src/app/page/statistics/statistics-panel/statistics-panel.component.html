@@ -24,7 +24,7 @@
               <span>{{ (statistic.count / total) * 100 }}%</span>
             </div>
           </div>
-          <mat-progress-bar mode="determinate" [value]="(statistic.count / total) * 100"></mat-progress-bar>
+          <mat-progress-bar mode="determinate" [value]="getPercentage(statistic.count, total)"></mat-progress-bar>
 
         </div>
       </div>
