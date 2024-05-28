@@ -1,8 +1,5 @@
 <app-page-header [pageInfo]="HOME_PAGE_INFO"></app-page-header>
 
-
-<app-timeline [data]="timelineData"></app-timeline>
-
 <section class="container">
   <div class="row" *ngIf="authService.getUserContext() | async as userContext">
     <div class="col-12" *ngIf="userContext.isAuthenticated">
