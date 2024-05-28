@@ -1,4 +1,5 @@
 export interface TimelineData {
+  heading?: string,
   title: string,
   images: TimelineImage[]
 }
