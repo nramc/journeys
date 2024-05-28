@@ -7,7 +7,6 @@ import {environment} from "../../../environments/environment";
 import {BffService} from "../../service/bff/bff.service";
 import {ActivatedRoute} from "@angular/router";
 import {exhaustMap} from "rxjs";
-import {TimelineComponent} from "../../component/timeline/timeline.component";
 
 @Component({
   selector: 'app-home',
@@ -17,8 +16,7 @@ import {TimelineComponent} from "../../component/timeline/timeline.component";
     PageHeaderComponent,
     AsyncPipe,
     NgIf,
-    JsonPipe,
-    TimelineComponent
+    JsonPipe
   ],
   standalone: true
 })
