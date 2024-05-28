@@ -1,0 +1,20 @@
+<div class="fs-2" *ngIf="timelineData?.heading">
+  <p><span class="gradient-text me-2" [textContent]="timelineData?.heading"></span>
+    <button class="btn btn-sm btn-outline-primary" (click)="togglePlayer()" title="Toggle Timeline Player">
+      <i class="bi bi-play-circle"></i>
+    </button>
+  </p>
+</div>
+
+<gallery [items]="images" [thumb]="false" [imageSize]="'cover'" [dots]="true" (itemClick)="togglePlayer()"
+         [playerInterval]="2000" [loop]="true" [slidingDuration]="500">
+  <ng-container *galleryImageDef="let item;">
+    <div class="text-start d-flex flex-row w-100">
+      <span
+        class="text-light me-2 fs-5 bg-dark bg-opacity-50 m-2 border border-2 border-light ps-2 pe-2 rounded-2">{{ timelineData?.title }}</span>
+    </div>
+    <div class="h-100 w-100 text-end d-flex flex-column justify-content-end mb-2 fs-5">
+      <p class="text-center">{{ item?.args?.['caption'] }}</p>
+    </div>
+  </ng-container>
+</gallery>

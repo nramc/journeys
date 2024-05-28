@@ -7,6 +7,7 @@ import {environment} from "../../../environments/environment";
 import {BffService} from "../../service/bff/bff.service";
 import {ActivatedRoute} from "@angular/router";
 import {exhaustMap} from "rxjs";
+import {TimelineComponent} from "../../component/timeline/timeline.component";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ import {exhaustMap} from "rxjs";
     PageHeaderComponent,
     AsyncPipe,
     NgIf,
-    JsonPipe
+    JsonPipe,
+    TimelineComponent
   ],
   standalone: true
 })
@@ -33,11 +35,13 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.activatedRoute.params
       .pipe(exhaustMap(__ => this.bffService.getVersion()))
       .subscribe({
         next: result => this.bffApiVersion = 'v' + result.version,
-        error: error => {
+        error: err => {
+          console.error(err);
           this.bffApiVersion = 'NOT_AVAILABLE';
         }
       });
