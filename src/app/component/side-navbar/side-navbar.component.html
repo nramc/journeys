@@ -58,6 +58,13 @@
           </a>
         </li>
 
+        <li class="nav-item" *ngIf="isAuthenticated() | async">
+          <a [routerLink]="TIMELINE_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+            <i class="bi bi-clock-history pe-none me-2"></i>
+            {{ TIMELINE_PAGE_INFO.name }}
+          </a>
+        </li>
+
         <li class="nav-item">
           <a [routerLink]="ABOUT_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-info-circle pe-none me-2"></i>
