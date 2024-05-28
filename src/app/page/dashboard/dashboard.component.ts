@@ -5,6 +5,7 @@ import {FeatureCollection} from "geojson";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {JourneyService} from "../../service/journey/journey.service";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,8 @@ import {AsyncPipe, NgIf} from "@angular/common";
     PageHeaderComponent,
     WorldMapComponent,
     NgIf,
-    AsyncPipe
+    AsyncPipe,
+    MatProgressSpinner
   ],
   standalone: true
 })
@@ -22,7 +24,8 @@ export class DashboardComponent implements OnInit {
   protected readonly DASHBOARD_PAGE_INFO = DASHBOARD_PAGE_INFO;
   // Tip: Async pipe can not be used due to popup maker component view initialisation hook
   featureCollection: FeatureCollection | undefined;
-  stats: Map<String, number> = new Map<String, number>()
+  stats: Map<string, number> = new Map<string, number>()
+  isLoadingResults: boolean = true;
 
   constructor(
     private journeyService: JourneyService) {
@@ -37,6 +40,7 @@ export class DashboardComponent implements OnInit {
   onFetchSuccessCallback(featureCollection: FeatureCollection) {
     this.featureCollection = featureCollection;
     this.collectStats(featureCollection);
+    this.isLoadingResults = false;
   }
 
   collectStats(featureCollection: FeatureCollection) {

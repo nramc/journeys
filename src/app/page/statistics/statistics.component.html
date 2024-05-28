@@ -1,7 +1,10 @@
 <app-page-header [pageInfo]="STATISTICS_PAGE_INFO"></app-page-header>
 
-
-@if (statistics) {
+@if(isLoadingResults) {
+  <div class="loading-shade">
+    <mat-spinner></mat-spinner>
+  </div>
+} @else if (statistics) {
   <app-statistics-panel [data]="statistics.categories" type="category" header="Categories"></app-statistics-panel>
   <app-statistics-panel [data]="statistics.cities" type="city" header="Cities"></app-statistics-panel>
   <app-statistics-panel [data]="statistics.countries" type="country" header="Countries"></app-statistics-panel>

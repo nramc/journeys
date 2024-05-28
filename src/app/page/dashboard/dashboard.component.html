@@ -1,5 +1,11 @@
 <app-page-header [pageInfo]="DASHBOARD_PAGE_INFO"></app-page-header>
 
+@if(isLoadingResults) {
+  <div class="loading-shade">
+    <mat-spinner></mat-spinner>
+  </div>
+}
+
 <section class="container">
   <div class="row mb-2">
     <div class="col-12 d-flex gap-2 flex-wrap justify-content-center align-content-center" *ngIf="stats">

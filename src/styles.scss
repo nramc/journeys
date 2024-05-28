@@ -75,7 +75,7 @@ body {
 }
 
 .gradient-bg-light {
-  background-image: linear-gradient(to right, #6a81ef, #6a81ef, #768cf1, #8397f3, #8fa2f4, #9facf5, #afb7f7, #bdc2f8, #d0d0fa, #e1dffb, #f1effd, #ffffff);
+  background-image: linear-gradient(to right, #d0d0fa, #d3d3fa, #d7d5fa, #dad8fb, #dddbfb, #e1dffb, #e5e3fc, #e9e7fc, #efedfd, #f4f3fd, #faf9fe, #ffffff);
 }
 
 /* Map marker icons styles */
@@ -185,3 +185,15 @@ gallery-image img {
   }
 }
 
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
