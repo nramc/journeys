@@ -4,7 +4,6 @@ import {AuthService} from "../auth/auth.service";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {TimelineData} from "../../component/timeline/timeline-data.model";
-import {Journey} from "../../model/core/journey.model";
 
 @Injectable({
   providedIn: 'root'
@@ -48,4 +47,25 @@ export class TimelineService {
       });
   }
 
+  getTimelineForCity(city: string): Observable<TimelineData> {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
+      {
+        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
+        params: {
+          'city': city
+        }
+      });
+  }
+
+  getTimelineForCategory(category: string): Observable<TimelineData> {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
+      {
+        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
+        params: {
+          'IDs': category
+        }
+      });
+  }
 }

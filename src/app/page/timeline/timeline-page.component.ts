@@ -24,8 +24,11 @@ export class TimelinePageComponent implements OnInit {
 
   ngOnInit(): void {
     let journeyId = this.activatedRoute.snapshot.queryParams['id'];
+    let city = this.activatedRoute.snapshot.queryParams['city'];
     if (journeyId) {
       this.getDataForJourney(journeyId);
+    } else if (city) {
+      this.getDataForCity(city);
     } else {
       this.getDataForUpcomingEvents();
     }
@@ -33,6 +36,14 @@ export class TimelinePageComponent implements OnInit {
 
   getDataForJourney(journeyId: string) {
     this.timelineService.getTimelineForJourney(journeyId)
+      .subscribe({
+        next: data => this.timelineData = data,
+        error: err => console.error(err)
+      });
+  }
+
+  getDataForCity(city: string) {
+    this.timelineService.getTimelineForCity(city)
       .subscribe({
         next: data => this.timelineData = data,
         error: err => console.error(err)

@@ -1,7 +1,8 @@
 <section class="mt-3 gradient-bg-light p-2 rounded-2 d-flex flex-column">
   <legend class="gradient-bg rounded-2 border border-primary">
-    <a class="text-decoration-none text-light ps-2 w-100 fs-5 d-flex" data-bs-toggle="collapse" [href]="'#' + header" role="button" aria-expanded="true">
-      {{header}}
+    <a class="text-decoration-none text-light ps-2 w-100 fs-5 d-flex" data-bs-toggle="collapse" [href]="'#' + header"
+       role="button" aria-expanded="true">
+      {{ header }}
     </a>
   </legend>
 
@@ -19,6 +20,7 @@
               <h2 class="d-flex align-items-center mb-0 gradient-text">
                 {{ statistic.count }}
               </h2>
+              <button (click)="gotoTimeline(type,statistic.name, $event)">Timeline</button>
             </div>
             <div class="col-4 text-right gradient-text">
               <span>{{ (statistic.count / total) * 100 }}%</span>
