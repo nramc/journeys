@@ -58,13 +58,24 @@ export class TimelineService {
       });
   }
 
+  getTimelineForCountry(country: string): Observable<TimelineData> {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
+      {
+        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
+        params: {
+          'country': country
+        }
+      });
+  }
+
   getTimelineForCategory(category: string): Observable<TimelineData> {
     let userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
       {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`},
         params: {
-          'IDs': category
+          'category': category
         }
       });
   }
