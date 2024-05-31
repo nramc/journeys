@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {TimelineData} from "../../component/timeline/timeline-data.model";
 
@@ -81,5 +81,22 @@ export class TimelineService {
           'category': category
         }
       });
+  }
+
+  getTimelineForToday(): Observable<TimelineData> {
+    let userContext = this.authService.getCurrentUserContext();
+
+    if (userContext.isAuthenticated) {
+      console.log("authenticated..!");
+      return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
+        {
+          headers: {'Authorization': `Bearer ${userContext.accessToken}`},
+          params: {
+            'today': true
+          }
+        });
+    }
+    console.log("not authenticated..!")
+    return of()
   }
 }
