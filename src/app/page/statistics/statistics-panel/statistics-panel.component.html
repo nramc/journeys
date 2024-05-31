@@ -12,15 +12,17 @@
       <div class="card border border-primary border-1 rounded-2 " [ngClass]="'card-' + index"
            (click)="gotoGallery(type,statistic.name)">
         <div class="card-statistics p-4">
-          <div class="mb-4">
+          <div class="mb-4 d-inline-flex justify-content-around w-100">
             <h5 class="card-title gradient-text mb-0">{{ statistic.name }}</h5>
+            <button class="btn btn-sm btn-outline-primary" (click)="gotoTimeline(type,statistic.name, $event)">
+              <i class="bi bi-clock-history"></i>
+            </button>
           </div>
           <div class="row align-items-center mb-2 d-flex">
             <div class="col-8">
               <h2 class="d-flex align-items-center mb-0 gradient-text">
                 {{ statistic.count }}
               </h2>
-              <button (click)="gotoTimeline(type,statistic.name, $event)">Timeline</button>
             </div>
             <div class="col-4 text-right gradient-text">
               <span>{{ (statistic.count / total) * 100 }}%</span>
