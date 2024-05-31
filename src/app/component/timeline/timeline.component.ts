@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {GalleryComponent, GalleryItem, GalleryModule, ImageItem} from "ng-gallery";
 import {TimelineData} from "./timeline-data.model";
 import {NgIf} from "@angular/common";
@@ -10,22 +10,25 @@ import {NgIf} from "@angular/common";
   templateUrl: './timeline.component.html',
   styleUrl: './timeline.component.scss'
 })
-export class TimelineComponent implements OnInit {
-  @Input({alias: "data", required: true}) timelineData: TimelineData | undefined;
+export class TimelineComponent {
+  timelineData: TimelineData | undefined;
+
+  @Input({alias: "data", required: true})
+  set setImageData(timelineData: TimelineData | undefined) {
+    this.timelineData = timelineData;
+    this.images = this.getImageItems(timelineData);
+  }
+
   images: GalleryItem[] = [];
   @ViewChild(GalleryComponent) gallery!: GalleryComponent;
 
   isPlayerRunning: boolean = false;
 
-  ngOnInit(): void {
-    this.images = this.getImageItems();
-  }
-
-  getImageItems() {
-    if (this.timelineData && this.timelineData.images?.length > 0) {
-      return this.timelineData.images.map(data => new ImageItem({
+  getImageItems(timelineData: TimelineData | undefined) {
+    if (timelineData && timelineData.images?.length > 0) {
+      return timelineData.images.map(data => new ImageItem({
         src: data.src,
-        args: Object.assign({caption: data.caption}, data.args)
+        args: {caption: data.caption, title: data.title, ...data.args}
       }));
     } else {
       return [];

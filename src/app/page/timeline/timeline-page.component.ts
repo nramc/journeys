@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TimelineComponent} from "../../component/timeline/timeline.component";
 import {TimelineData} from "../../component/timeline/timeline-data.model";
+import {TimelineService} from "../../service/timeline/timeline.service";
 
 @Component({
   selector: 'app-timeline-page',
@@ -11,14 +12,19 @@ import {TimelineData} from "../../component/timeline/timeline-data.model";
   templateUrl: './timeline-page.component.html',
   styleUrl: './timeline-page.component.scss'
 })
-export class TimelinePageComponent {
-  timelineData: TimelineData = {
-    heading: 'First Timeline',
-    title: '2019',
-    images: [
-      {src: 'assets/test-data/img/2019_1.png'},
-      {src: 'assets/test-data/img/2019_2.png'},
-      {src: 'assets/test-data/img/2019_3.png'}
-    ]
-  };
+export class TimelinePageComponent implements OnInit {
+  timelineData: TimelineData | undefined;
+
+  constructor(private timelineService: TimelineService) {
+  }
+
+  ngOnInit(): void {
+    this.timelineService.getTimeline()
+      .subscribe({
+        next: data => this.timelineData = data,
+        error: err => console.error(err)
+      })
+  }
+
+
 }
