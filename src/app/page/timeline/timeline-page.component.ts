@@ -19,7 +19,7 @@ export class TimelinePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.timelineService.getTimeline()
+    this.timelineService.getTimelineForUpcomingEvents()
       .subscribe({
         next: data => this.timelineData = data,
         error: err => console.error(err)

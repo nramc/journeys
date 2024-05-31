@@ -25,4 +25,15 @@ export class TimelineService {
       });
   }
 
+  getTimelineForUpcomingEvents(): Observable<TimelineData> {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
+      {
+        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
+        params: {
+          'upcoming': 'true'
+        }
+      });
+  }
+
 }

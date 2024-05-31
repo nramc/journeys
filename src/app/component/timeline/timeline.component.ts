@@ -22,7 +22,7 @@ export class TimelineComponent {
   images: GalleryItem[] = [];
   @ViewChild(GalleryComponent) gallery!: GalleryComponent;
 
-  isPlayerRunning: boolean = false;
+  isPlayerRunning: boolean = true;
 
   getImageItems(timelineData: TimelineData | undefined) {
     if (timelineData && timelineData.images?.length > 0) {
