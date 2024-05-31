@@ -109,7 +109,6 @@ export const iconDefault = L.divIcon({
 });
 
 export function getIcon(feature: Feature, iconType: string = 'default') {
-  console.log("getIcon()", feature, iconType);
   if (feature?.properties?.["icon"]) {
     return getIconForType(feature?.properties?.["icon"]);
   } else if (iconType) {

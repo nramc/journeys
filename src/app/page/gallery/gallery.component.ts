@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {GALLERY_PAGE_INFO} from "../../model/page.info.model";
 import {BehaviorSubject, catchError, map, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {
@@ -52,8 +51,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
-  protected readonly GALLERY_PAGE_INFO = GALLERY_PAGE_INFO;
-  // Sorting properties
+// Sorting properties
   sortableFields: string[] = ["journeyDate", "name", "title", "city", "country", "category", "location"];
   sortingFieldChangedEvent: BehaviorSubject<string> = new BehaviorSubject<string>("journeyDate");
   sortableDirections: SortDirection[] = ["asc", "desc"];
@@ -77,7 +75,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     private journeyService: JourneyService,
     private router: Router) {
 
-    if(router.getCurrentNavigation()?.extras.state) {
+    if (router.getCurrentNavigation()?.extras.state) {
       this.searchCriteria = router.getCurrentNavigation()?.extras.state as SearchCriteria;
     }
 
@@ -125,12 +123,22 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   viewDetails(journey: Journey) {
-    this.router.navigate(['/journey', journey.id, 'view']).then();
+    this.router.navigate(['/journey', journey.id, 'view']).then(console.log);
   }
 
   editDetails(journey: Journey, $event: MouseEvent) {
-    $event.stopPropagation()
-    this.router.navigate(['/journey', journey.id, 'edit']).then();
+    $event.stopPropagation();
+    this.router.navigate(['/journey', journey.id, 'edit']).then(console.log);
+    return false;
+  }
+
+  viewInTimeline(journey: Journey, $event: MouseEvent) {
+    $event.stopPropagation();
+    this.router.navigate(['/timeline'], {
+      queryParams: {
+        'id': journey.id
+      }
+    }).then(console.log);
     return false;
   }
 

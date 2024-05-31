@@ -1,6 +1,7 @@
 <section class="container advanced-search">
   <div class="d-flex justify-content-end">
-    <a class="text-decoration-none" data-bs-toggle="collapse" href="#searchFields" role="link" aria-expanded="false" aria-controls="searchFields">
+    <a class="text-decoration-none" data-bs-toggle="collapse" href="#searchFields" role="link" aria-expanded="false"
+       aria-controls="searchFields">
       Advanced Search
     </a>
   </div>
@@ -10,7 +11,8 @@
     <!-- Category -->
     <div class="col-sm">
       <div class="form-floating border border-primary">
-        <input type="text" class="form-control form-control-sm ignore-highlight" id="categoryInput" placeholder="Category" [(ngModel)]="searchCriteria.category">
+        <input type="text" class="form-control form-control-sm ignore-highlight" id="categoryInput"
+               placeholder="Category" [(ngModel)]="searchCriteria.category">
         <label for="categoryInput">Category</label>
       </div>
     </div>
@@ -18,7 +20,8 @@
     <!-- City -->
     <div class="col-sm">
       <div class="form-floating border border-primary">
-        <input type="text" class="form-control form-control-sm ignore-highlight" id="cityInput" placeholder="City" [(ngModel)]="searchCriteria.city">
+        <input type="text" class="form-control form-control-sm ignore-highlight" id="cityInput" placeholder="City"
+               [(ngModel)]="searchCriteria.city">
         <label for="cityInput">City</label>
       </div>
     </div>
@@ -26,7 +29,8 @@
     <!-- Country -->
     <div class="col-sm">
       <div class="form-floating border border-primary">
-        <input type="text" class="form-control form-control-sm ignore-highlight" id="countryInput" placeholder="Country" [(ngModel)]="searchCriteria.country">
+        <input type="text" class="form-control form-control-sm ignore-highlight" id="countryInput" placeholder="Country"
+               [(ngModel)]="searchCriteria.country">
         <label for="countryInput">Country</label>
       </div>
     </div>
@@ -34,7 +38,8 @@
     <!-- Year -->
     <div class="col-sm">
       <div class="form-floating border border-primary">
-        <input type="text" class="form-control form-control-sm ignore-highlight" id="yearInput" placeholder="Year" [(ngModel)]="searchCriteria.year">
+        <input type="text" class="form-control form-control-sm ignore-highlight" id="yearInput" placeholder="Year"
+               [(ngModel)]="searchCriteria.year">
         <label for="yearInput">Year</label>
       </div>
     </div>
@@ -112,7 +117,7 @@
     </div>
   </div>
 
-  @if(isLoadingResults) {
+  @if (isLoadingResults) {
     <div class="loading-shade">
       <mat-spinner></mat-spinner>
     </div>
@@ -150,6 +155,9 @@
               <button type="button" class="btn btn-sm btn-outline-success ms-1"
                       (click)="editDetails(journey, $event)"
                       *hasWriteAccess>Edit
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-success ms-1"
+                      (click)="viewInTimeline(journey, $event)">Timeline
               </button>
             </small>
           </div>

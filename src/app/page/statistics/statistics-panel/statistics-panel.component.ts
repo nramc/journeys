@@ -40,12 +40,21 @@ export class StatisticsPanelComponent implements OnInit {
   }
 
   gotoGallery(statisticsType: StatisticsType, statisticsValue: string) {
-    console.log(['/gallery', statisticsType, statisticsValue]);
     this.router.navigate(['/gallery'], {
         state: this.getSearchCriteria(statisticsType, statisticsValue)
       }
     )
       .then(console.log);
+  }
+
+  gotoTimeline(statisticsType: StatisticsType, statisticsValue: string, $event: MouseEvent) {
+    $event.stopPropagation();
+    this.router.navigate(['/timeline'], {
+      queryParams: {
+        [statisticsType]: statisticsValue
+      }
+    }).then(console.log);
+    return false;
   }
 
   getSearchCriteria(statisticsType: StatisticsType, statisticsValue: string): SearchCriteria {
