@@ -17,14 +17,6 @@ export class TimelineService {
   ) {
   }
 
-  getTimeline(): Observable<TimelineData> {
-    let userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
-      {
-        headers: {'Authorization': `Bearer ${userContext.accessToken}`}
-      });
-  }
-
   getTimelineForUpcomingEvents(): Observable<TimelineData> {
     let userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
@@ -65,6 +57,17 @@ export class TimelineService {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`},
         params: {
           'country': country
+        }
+      });
+  }
+
+  getTimelineForYear(year: string): Observable<TimelineData> {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
+      {
+        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
+        params: {
+          'year': year
         }
       });
   }
