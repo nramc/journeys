@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TimelineComponent} from "../../component/timeline/timeline.component";
 import {TimelineData} from "../../component/timeline/timeline-data.model";
 import {TimelineService} from "../../service/timeline/timeline.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-timeline-page',
@@ -15,16 +16,35 @@ import {TimelineService} from "../../service/timeline/timeline.service";
 export class TimelinePageComponent implements OnInit {
   timelineData: TimelineData | undefined;
 
-  constructor(private timelineService: TimelineService) {
+  constructor(
+    private timelineService: TimelineService,
+    private activatedRoute: ActivatedRoute
+  ) {
   }
 
   ngOnInit(): void {
+    let journeyId = this.activatedRoute.snapshot.queryParams['id'];
+    if (journeyId) {
+      this.getDataForJourney(journeyId);
+    } else {
+      this.getDataForUpcomingEvents();
+    }
+  }
+
+  getDataForJourney(journeyId: string) {
+    this.timelineService.getTimelineForJourney(journeyId)
+      .subscribe({
+        next: data => this.timelineData = data,
+        error: err => console.error(err)
+      });
+  }
+
+  getDataForUpcomingEvents() {
     this.timelineService.getTimelineForUpcomingEvents()
       .subscribe({
         next: data => this.timelineData = data,
         error: err => console.error(err)
-      })
+      });
   }
-
 
 }
