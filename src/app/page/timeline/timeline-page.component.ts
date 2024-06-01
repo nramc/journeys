@@ -3,17 +3,21 @@ import {TimelineComponent} from "../../component/timeline/timeline.component";
 import {TimelineData} from "../../component/timeline/timeline-data.model";
 import {TimelineService} from "../../service/timeline/timeline.service";
 import {ActivatedRoute} from "@angular/router";
+import {TIMELINE_PAGE_INFO} from "../../model/page.info.model";
+import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 
 @Component({
   selector: 'app-timeline-page',
   standalone: true,
   imports: [
-    TimelineComponent
+    TimelineComponent,
+    PageHeaderComponent
   ],
   templateUrl: './timeline-page.component.html',
   styleUrl: './timeline-page.component.scss'
 })
 export class TimelinePageComponent implements OnInit {
+  protected readonly TIMELINE_PAGE_INFO = TIMELINE_PAGE_INFO;
   timelineData: TimelineData | undefined;
 
   constructor(
@@ -91,5 +95,6 @@ export class TimelinePageComponent implements OnInit {
         error: err => console.error(err)
       });
   }
+
 
 }
