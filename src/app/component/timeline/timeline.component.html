@@ -11,9 +11,9 @@
            (itemClick)="togglePlayer()"
            [playerInterval]="3000" [loop]="true" [slidingDuration]="500" [autoPlay]="true">
     <ng-container *galleryImageDef="let item;">
-      <div class="text-start d-flex flex-row w-100">
-      <span
-        class="text-light me-2 fs-5 bg-dark bg-opacity-50 m-2 border border-2 border-light ps-2 pe-2 rounded-2">{{ item?.args?.['title'] }}</span>
+      <div class="text-start d-flex flex-row w-100" *ngIf="item?.args?.['title']">
+        <span
+          class="text-light me-2 fs-5 bg-dark bg-opacity-50 m-2 border border-2 border-light ps-2 pe-2 rounded-2">{{ item?.args?.['title'] }}</span>
       </div>
       <div class="h-100 w-100 text-end d-flex flex-column justify-content-end mb-2 fs-5">
         <p class="text-center bg-light bg-opacity-25">{{ item?.args?.['caption'] }}</p>

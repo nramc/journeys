@@ -25,7 +25,7 @@
               </h2>
             </div>
             <div class="col-4 text-right gradient-text">
-              <span>{{ (statistic.count / total) * 100 }}%</span>
+              <span>{{getPercentage(statistic.count, total)}}%</span>
             </div>
           </div>
           <mat-progress-bar mode="determinate" [value]="getPercentage(statistic.count, total)"></mat-progress-bar>

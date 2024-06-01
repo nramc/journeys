@@ -1,12 +1,26 @@
 <app-page-header [pageInfo]="HOME_PAGE_INFO"></app-page-header>
 
-<section class="container">
-  <div class="row" *ngIf="authService.getUserContext() | async as userContext">
-    <div class="col-12" *ngIf="userContext.isAuthenticated">
-      <p>Hello <strong class="text-primary">{{ userContext.name }}</strong>, Welcome back..!</p>
+<section class="container" *ngIf="authService.getUserContext() | async as userContext">
+  <div class="row">
+    <div class="col-12 text-primary" *ngIf="userContext.isAuthenticated">
+      <p>Welcome <strong class="gradient-text">{{ userContext.name }}</strong>..!,</p>
+      <p class="small">Never lose track of a travel memory again.
+        <a routerLink="/journey/new" role="link" class="fw-bold">
+          Create Journey to store your trips, photos, and stories - forever!
+          <i class="bi bi-arrow-right-circle-fill"></i></a>
+      </p>
+      <p class="text-primary small">
+        Don't miss out! Relive the magic - See Upcoming
+        <a routerLink="/timeline" role="link" class="fw-bold">Journiversaries (Journey + Anniversaries)
+          <i class="bi bi-arrow-right-circle-fill"></i></a>
+      </p>
     </div>
   </div>
-  <div class="row" *ngIf="timelineData && timelineData?.images?.length">
+</section>
+
+<!-- Today timeline data -->
+<section class="container" *ngIf="timelineData && timelineData?.images?.length">
+  <div class="row">
     <div class="col-12 d-flex flex-row">
       <div style="height: 50vh;" class="col">
         <app-timeline [data]="timelineData"></app-timeline>
