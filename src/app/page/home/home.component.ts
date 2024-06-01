@@ -5,7 +5,7 @@ import {AuthService} from "../../service/auth/auth.service";
 import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
 import {environment} from "../../../environments/environment";
 import {BffService} from "../../service/bff/bff.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {exhaustMap, mergeMap} from "rxjs";
 import {TimelineService} from "../../service/timeline/timeline.service";
 import {TimelineData} from "../../component/timeline/timeline-data.model";
@@ -21,7 +21,8 @@ import {TimelineComponent} from "../../component/timeline/timeline.component";
     AsyncPipe,
     NgIf,
     JsonPipe,
-    TimelineComponent
+    TimelineComponent,
+    RouterLink
   ],
   standalone: true
 })
