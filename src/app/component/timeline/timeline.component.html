@@ -1,4 +1,4 @@
-<div class="fs-2" *ngIf="timelineData?.heading">
+<div class="fs-5" *ngIf="timelineData?.heading">
   <p><span class="gradient-text me-2" [textContent]="timelineData?.heading"></span>
     <button class="btn btn-sm btn-outline-primary" (click)="togglePlayer()" title="Toggle Timeline Player">
       <i class="bi bi-play-circle"></i>
@@ -21,8 +21,8 @@
     </ng-container>
   </gallery>
 } @else {
-  <div class="gradient-text">
-    <p class="fs-5">No events found for next 7 days.</p>
+  <div>
+    <p class="gradient-text">No events found for next 7 days.</p>
   </div>
 }
 

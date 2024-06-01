@@ -6,7 +6,7 @@
       <p>Hello <strong class="text-primary">{{ userContext.name }}</strong>, Welcome back..!</p>
     </div>
   </div>
-  <div class="row" *ngIf="timelineData">
+  <div class="row" *ngIf="timelineData && timelineData?.images?.length">
     <div class="col-12 d-flex flex-row">
       <div style="height: 50vh;" class="col">
         <app-timeline [data]="timelineData"></app-timeline>
