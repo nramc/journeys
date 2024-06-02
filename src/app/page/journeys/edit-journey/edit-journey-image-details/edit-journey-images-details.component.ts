@@ -10,6 +10,7 @@ import {MatBadge} from "@angular/material/badge";
 import {MatStepperNext} from "@angular/material/stepper";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {EditJourneyImageItemComponent} from "./edit-journey-image-item/edit-journey-image-item.component";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-edit-journey-images-details',
@@ -21,7 +22,8 @@ import {EditJourneyImageItemComponent} from "./edit-journey-image-item/edit-jour
     NgIf,
     MatBadge,
     MatStepperNext,
-    NgClass
+    NgClass,
+    RouterLink
   ],
   standalone: true
 })

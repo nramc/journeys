@@ -67,6 +67,12 @@ export const TIMELINE_PAGE_INFO: PageInfo = {
   description: "",
   path: "/timeline"
 };
+export const TOOLS_PAGE_INFO: PageInfo = {
+  name: "Tools",
+  title: "Tools",
+  description: "",
+  path: "/tools"
+};
 
 export const ABOUT_PAGE_INFO: PageInfo = {
   name: "About Us",

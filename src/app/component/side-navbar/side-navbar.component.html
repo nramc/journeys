@@ -66,6 +66,13 @@
         </li>
 
         <li class="nav-item">
+          <a [routerLink]="TOOLS_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+            <i class="bi bi-tools pe-none me-2"></i>
+            {{ TOOLS_PAGE_INFO.name }}
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a [routerLink]="ABOUT_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
             <i class="bi bi-info-circle pe-none me-2"></i>
             {{ ABOUT_PAGE_INFO.name }}
