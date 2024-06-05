@@ -31,12 +31,21 @@ $journey-theme: mat.define-light-theme((
     primary: $journey-primary,
     accent: $journey-accent,
     warn: $journey-warn,
+    use-system-variables: true
+  ),
+  typography: (
+    use-system-variables: true
   )
 ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
+:root {
+  @include mat.all-component-themes($journey-theme);
+  @include mat.system-level-colors($journey-theme);
+  @include mat.system-level-typography($journey-theme);
+}
 @include mat.all-component-themes($journey-theme);
 
 /* Overriding any library/framework Variables */
