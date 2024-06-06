@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, MatSortHeader, SortDirection} from "@angular/material/sort";
-import {HttpParams} from "@angular/common/http";
+import { HttpParams } from "@angular/common/http";
 import {BehaviorSubject, catchError, map, merge, Observable, of, startWith, switchMap} from "rxjs";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {JourneyPage} from "../../../../service/journey/journey-page.type";
