@@ -1,4 +1,7 @@
 @use '@angular/material' as mat;
+mat.$theme-legacy-inspection-api-compatibility: false;
+mat.$theme-ignore-duplication-warnings: true;
+
 
 /* Application specific variables */
 @import "scss/variables";
@@ -26,15 +29,18 @@ $journey-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$journey-theme: mat.m2-define-light-theme((
+$journey-theme: mat.define-theme((
   color: (
-    primary: $journey-primary,
-    accent: $journey-accent,
-    warn: $journey-warn,
+    theme-type: light,
+    primary: mat.$blue-palette,
+    tertiary: mat.$magenta-palette,
     use-system-variables: true
   ),
   typography: (
     use-system-variables: true
+  ),
+  density: (
+    scale: 0,
   )
 ));
 
@@ -46,14 +52,15 @@ $journey-theme: mat.m2-define-light-theme((
   @include mat.system-level-colors($journey-theme);
   @include mat.system-level-typography($journey-theme);
 }
-@include mat.all-component-themes($journey-theme);
+
 
 /* Overriding any library/framework Variables */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
 /* Bootstrap theme customization */
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap/scss/bootstrap";
 @import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
-@import "bootswatch/dist/zephyr/bootswatch";
+@import "scss/zephyr/bootswatch";
 
 
 /* Application specific global styles */
