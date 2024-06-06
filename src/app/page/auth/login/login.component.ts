@@ -4,7 +4,7 @@ import {FeedbackMessageComponent} from "../../../component/feedback-message/feed
 import {NgIf} from "@angular/common";
 import {AuthService} from "../../../service/auth/auth.service";
 import {UserContext} from "../../../service/auth/user-context";
-import {HttpErrorResponse} from "@angular/common/http";
+import { HttpErrorResponse } from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
