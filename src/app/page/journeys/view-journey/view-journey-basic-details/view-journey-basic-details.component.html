@@ -3,7 +3,9 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title gradient-text" [innerText]="journey.title"></h5>
-        <p class="card-text" [innerText]="journey.description"></p>
+        <div class="card-text gradient-text">
+          <markdown [data]="journey.description"></markdown>
+        </div>
       </div>
     </div>
   </div>

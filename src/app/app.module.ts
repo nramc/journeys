@@ -6,30 +6,35 @@ import {AppComponent} from './app.component';
 import {NgbDateAdapter} from "@ng-bootstrap/ng-bootstrap";
 import {SideNavbarComponent} from './component/side-navbar/side-navbar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
 import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {CustomErrorHandler} from "./utility/handler/error.handler";
 import {NgOptimizedImage} from "@angular/common";
+import {MarkdownModule} from "ngx-markdown";
 
-@NgModule({ declarations: [
-        AppComponent,
-        SideNavbarComponent
-    ],
-    exports: [],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        NgOptimizedImage], providers: [
-        {
-            provide: LIGHTBOX_CONFIG, useValue: {
-                panelClass: 'fullscreen',
-                keyboardShortcuts: true
-            } as LightboxConfig
-        },
-        { provide: NgbDateAdapter, useClass: JourneyDateAdapter },
-        { provide: ErrorHandler, useClass: CustomErrorHandler },
-        provideHttpClient(withInterceptorsFromDi())
-    ] })
+@NgModule({
+  declarations: [
+    AppComponent,
+    SideNavbarComponent
+  ],
+  exports: [],
+  bootstrap: [AppComponent], imports: [BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    NgOptimizedImage,
+    MarkdownModule.forRoot()
+  ], providers: [
+    {
+      provide: LIGHTBOX_CONFIG, useValue: {
+        panelClass: 'fullscreen',
+        keyboardShortcuts: true
+      } as LightboxConfig
+    },
+    {provide: NgbDateAdapter, useClass: JourneyDateAdapter},
+    {provide: ErrorHandler, useClass: CustomErrorHandler},
+    provideHttpClient(withInterceptorsFromDi())
+  ]
+})
 export class AppModule {
 }
