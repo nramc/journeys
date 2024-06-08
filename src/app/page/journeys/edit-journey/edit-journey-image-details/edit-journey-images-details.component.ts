@@ -66,7 +66,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
     // Refer: https://cloudinary.com/documentation/image_upload_api_reference#upload
     return {
       cloudName: environment.cloudName,
-      uploadPreset: environment.cloudinaryPreset,
+      uploadPreset: isMultipleUpload ? environment.cloudinaryPreset : environment.cloudinarySingleImgPreset,
       folder: `${environment.cloudBaseDir}/${journey.id}`,
       tags: journey.tags,
       use_asset_folder_as_public_id_prefix: true,
@@ -129,9 +129,9 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
         let target = this.journey.extendedDetails?.imagesDetails?.images?.find(item => item.assetId == result.assertId);
         Object.assign(target ?? {}, result);
       } else if (typeof result == "string") {
-        const index = this.journey.extendedDetails?.imagesDetails?.images?.findIndex(item => item.assetId == result);
-        if (index && index > -1) {
-          this.journey.extendedDetails?.imagesDetails?.images.splice(index, 1);
+        const index = this.formImageDetails.images.findIndex(item => item.assetId == result);
+        if (index >= 0) {
+          this.formImageDetails.images.splice(index, 1);
         }
       }
       this.save();

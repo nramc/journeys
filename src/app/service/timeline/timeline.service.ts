@@ -87,7 +87,6 @@ export class TimelineService {
     let userContext = this.authService.getCurrentUserContext();
 
     if (userContext.isAuthenticated) {
-      console.log("authenticated..!");
       return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
         {
           headers: {'Authorization': `Bearer ${userContext.accessToken}`},
@@ -96,7 +95,6 @@ export class TimelineService {
           }
         });
     }
-    console.log("not authenticated..!")
     return of()
   }
 }

@@ -22,6 +22,5 @@ export class SearchJourneyComponent {
 
   handleSearchEvent(queryString: string) {
     this.queryString = queryString;
-    console.log('Search Event Received with ', queryString);
   }
 }

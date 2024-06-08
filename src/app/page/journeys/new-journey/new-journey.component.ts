@@ -88,12 +88,9 @@ export class NewJourneyComponent {
   }
 
   removeTag(tag: string): void {
-    console.log('remove tag called', tag);
     const index = this.journey.tags.indexOf(tag);
-    console.log('remove tag index', index);
     if (index >= 0) {
       this.journey.tags.splice(index, 1);
-      console.log('removed tag');
     }
   }
 
