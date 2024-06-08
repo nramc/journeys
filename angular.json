@@ -25,7 +25,9 @@
               "zone.js"
             ],
             "allowedCommonJsDependencies": [
-              "leaflet"
+              "leaflet",
+              "jszip",
+              "file-saver"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
