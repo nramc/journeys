@@ -129,9 +129,9 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
         let target = this.journey.extendedDetails?.imagesDetails?.images?.find(item => item.assetId == result.assertId);
         Object.assign(target ?? {}, result);
       } else if (typeof result == "string") {
-        const index = this.journey.extendedDetails?.imagesDetails?.images?.findIndex(item => item.assetId == result);
-        if (index && index > -1) {
-          this.journey.extendedDetails?.imagesDetails?.images.splice(index, 1);
+        const index = this.formImageDetails.images.findIndex(item => item.assetId == result);
+        if (index >= 0) {
+          this.formImageDetails.images.splice(index, 1);
         }
       }
       this.save();
