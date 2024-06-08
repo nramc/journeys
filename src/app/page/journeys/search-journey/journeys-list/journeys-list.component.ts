@@ -75,7 +75,6 @@ export class JourneysListComponent implements AfterViewInit {
     params = params.set("order", order.toUpperCase());
     params = params.set("pageIndex", page);
     params = params.set("pageSize", pageSize);
-    console.log(params)
 
     return this.journeyService.getAllJourneys(params);
   }

@@ -66,7 +66,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
     // Refer: https://cloudinary.com/documentation/image_upload_api_reference#upload
     return {
       cloudName: environment.cloudName,
-      uploadPreset: environment.cloudinaryPreset,
+      uploadPreset: isMultipleUpload ? environment.cloudinaryPreset : environment.cloudinarySingleImgPreset,
       folder: `${environment.cloudBaseDir}/${journey.id}`,
       tags: journey.tags,
       use_asset_folder_as_public_id_prefix: true,

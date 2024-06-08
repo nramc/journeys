@@ -5,7 +5,8 @@ export const environment = {
   journeyApi: "https://journey-api-nxm5.onrender.com/rest",
 
   cloudName: "journeytogether",
-  cloudinaryPreset: "journeys-prod",
+  cloudinaryPreset: "journey-prod",
+  cloudinarySingleImgPreset: "journey-prod-single",
   cloudBaseDir: "journey/journey-prod",
   version: packageJson.version
 

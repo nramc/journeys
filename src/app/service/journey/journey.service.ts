@@ -52,7 +52,6 @@ export class JourneyService {
     params = params.set("pageSize", pageSize);
     params = params.set("publishedOnly", publishedOnly);
     params = params.set("tags", tags.join(','));
-    console.log(params)
 
     return this.getAllJourneys(params);
   }

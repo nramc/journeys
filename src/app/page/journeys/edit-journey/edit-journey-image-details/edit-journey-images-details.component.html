@@ -32,6 +32,9 @@
       <button type="button" class="btn btn-outline-primary" (click)="openUploadWidget(true)">
         <i class="bi bi-folder-plus"></i><span class="ms-2">Upload Image(s)</span>
       </button>
+      <button type="button" class="btn btn-outline-primary" (click)="openUploadWidget(false)">
+        <i class="bi bi-file-earmark-binary"></i><span class="ms-2">Upload Image</span>
+      </button>
       <button type="button" class="btn btn-outline-primary" [disabled]="!journey.extendedDetails?.imagesDetails?.images"
               matStepperNext>Next
       </button>
