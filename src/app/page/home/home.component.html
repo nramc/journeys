@@ -21,10 +21,8 @@
 <!-- Today timeline data -->
 <section class="container" *ngIf="timelineData && timelineData?.images?.length">
   <div class="row">
-    <div class="col-12 d-flex flex-row">
-      <div style="height: 50vh;" class="col">
-        <app-timeline [data]="timelineData"></app-timeline>
-      </div>
+    <div class="col-12 d-flex flex-column justify-content-start">
+      <app-timeline [data]="timelineData"></app-timeline>
     </div>
   </div>
 </section>
