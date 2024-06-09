@@ -1,6 +1,9 @@
 <div class="fs-5" *ngIf="timelineData?.heading">
   <p><span class="gradient-text me-2" [textContent]="timelineData?.heading"></span>
-    <button class="btn btn-sm btn-outline-primary" (click)="togglePlayer()" title="Toggle Timeline Player">
+    <button *ngIf="isPlayerRunning" class="btn btn-sm btn-outline-primary" (click)="togglePlayer()" mat-tooltip="Pause">
+      <i class="bi bi-pause-circle"></i>
+    </button>
+    <button *ngIf="!isPlayerRunning" class="btn btn-sm btn-outline-primary" (click)="togglePlayer()" title="Play">
       <i class="bi bi-play-circle"></i>
     </button>
   </p>

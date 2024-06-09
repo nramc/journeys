@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {Observable, of} from "rxjs";
 import {environment} from "../../../environments/environment";
@@ -17,13 +17,13 @@ export class TimelineService {
   ) {
   }
 
-  getTimelineForUpcomingEvents(): Observable<TimelineData> {
+  getTimelineForUpcomingJourniversaries(numberOfDays: number): Observable<TimelineData> {
     let userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
       {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`},
         params: {
-          'upcoming': 'true'
+          'upcoming': numberOfDays
         }
       });
   }
