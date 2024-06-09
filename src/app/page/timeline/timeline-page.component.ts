@@ -5,13 +5,17 @@ import {TimelineService} from "../../service/timeline/timeline.service";
 import {ActivatedRoute} from "@angular/router";
 import {TIMELINE_PAGE_INFO} from "../../model/page.info.model";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
+import {NgIf} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-timeline-page',
   standalone: true,
   imports: [
     TimelineComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    NgIf,
+    FormsModule
   ],
   templateUrl: './timeline-page.component.html',
   styleUrl: './timeline-page.component.scss'
@@ -19,6 +23,8 @@ import {PageHeaderComponent} from "../../component/page-header/page-header.compo
 export class TimelinePageComponent implements OnInit {
   protected readonly TIMELINE_PAGE_INFO = TIMELINE_PAGE_INFO;
   timelineData: TimelineData | undefined;
+  upcomingJourniversaries: boolean = false;
+  numberOfDaysJourniversaries: number = 7;
 
   constructor(
     private timelineService: TimelineService,
@@ -44,7 +50,8 @@ export class TimelinePageComponent implements OnInit {
     } else if (category) {
       this.getDataForCategory(category);
     } else {
-      this.getDataForUpcomingEvents();
+      this.upcomingJourniversaries = true;
+      this.getDataForUpcomingJourniversaries();
     }
   }
 
@@ -88,8 +95,8 @@ export class TimelinePageComponent implements OnInit {
       });
   }
 
-  getDataForUpcomingEvents() {
-    this.timelineService.getTimelineForUpcomingEvents()
+  getDataForUpcomingJourniversaries() {
+    this.timelineService.getTimelineForUpcomingJourniversaries(this.numberOfDaysJourniversaries)
       .subscribe({
         next: data => this.timelineData = data,
         error: err => console.error(err)
