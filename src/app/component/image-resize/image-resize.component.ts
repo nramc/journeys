@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {Component} from '@angular/core';
+import {NgForOf, NgIf} from "@angular/common";
 import JSZip from "jszip";
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
+import {MatProgressBar} from "@angular/material/progress-bar";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-image-resize',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    MatProgressBar,
+    MatProgressSpinner,
+    NgIf
   ],
   template: `
     <section class="container">
@@ -17,11 +22,19 @@ import { saveAs } from 'file-saver';
           <input type="file" (change)="onFileChange($event)" multiple placeholder="Choose files resize"
                  class="form-control text-primary border border-primary"/>
         </div>
-        <div class="col text-center">
-          <p class="text-primary">Resized Images: {{ resizedImages.length }}</p>
+        <div class="col text-center" *ngIf="totalImages > 0">
+          <p class="text-primary">Resized Images: {{ resizedImages.length }}
+            <span
+              *ngIf="totalImages - resizedImages.length > 0">Remaining: {{ totalImages - resizedImages.length }}</span>
+          </p>
+          <mat-progress-bar *ngIf="isProcessing" mode="determinate"
+                            [value]="(resizedImages.length/totalImages)*100"></mat-progress-bar>
         </div>
         <div class="col text-center">
-          <button (click)="downloadAll()" [disabled]="resizedImages.length == 0" class="btn btn-sm btn-outline-primary">Download All</button>
+          <button (click)="downloadAll()" *ngIf="resizedImages.length == totalImages && totalImages > 0"
+                  class="btn btn-sm btn-outline-primary">
+            Download All
+          </button>
         </div>
       </div>
     </section>
@@ -30,11 +43,13 @@ import { saveAs } from 'file-saver';
 })
 export class ImageResizeComponent {
   protected isProcessing = false;
+  totalImages: number = 0;
   resizedImages: { dataUrl: string, name: string }[] = [];
 
   onFileChange(event: any) {
     this.isProcessing = true;
     const files = event.target.files;
+    this.totalImages = files.length;
     if (files.length > 0) {
       this.resizedImages = [];
       for (let i = 0; i < files.length; i++) {
@@ -65,7 +80,7 @@ export class ImageResizeComponent {
             canvas.height = height;
             ctx.drawImage(img, 0, 0, width, height);
 
-            this.resizedImages.push({ dataUrl: canvas.toDataURL('image/jpeg'), name: file.name });
+            this.resizedImages.push({dataUrl: canvas.toDataURL('image/jpeg'), name: file.name});
           };
           img.src = e.target.result;
         };
@@ -80,9 +95,9 @@ export class ImageResizeComponent {
     const zip = new JSZip();
     this.resizedImages.forEach((image, index) => {
       const imgData = image.dataUrl.split(',')[1];
-      zip.file(`resized-image-${index + 1}.jpg`, imgData, { base64: true });
+      zip.file(image.name, imgData, {base64: true});
     });
-    zip.generateAsync({ type: 'blob' }).then((content) => {
+    zip.generateAsync({type: 'blob'}).then((content) => {
       saveAs(content, 'resized-images.zip');
     });
   }
