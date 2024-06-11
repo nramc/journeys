@@ -11,7 +11,7 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
   standalone: true,
   imports: [CommonModule, LightboxDirective, NgOptimizedImage, MatTooltipModule, GalleryImageDef],
   template: `
-    <div class="row row-cols-auto mt-2">
+    <div class="row row-cols-auto mt-2 me-0">
       <div class="col mb-1"
            *ngFor="let item of items; let i = index; trackBy: trackMediaByFn"
            [lightbox]="i"
