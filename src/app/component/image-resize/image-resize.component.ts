@@ -93,7 +93,7 @@ export class ImageResizeComponent {
 
   downloadAll() {
     const zip = new JSZip();
-    this.resizedImages.forEach((image, index) => {
+    this.resizedImages.forEach((image) => {
       const imgData = image.dataUrl.split(',')[1];
       zip.file(image.name, imgData, {base64: true});
     });
