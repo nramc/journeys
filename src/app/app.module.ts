@@ -12,7 +12,7 @@ import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {CustomErrorHandler} from "./utility/handler/error.handler";
 import {NgOptimizedImage} from "@angular/common";
 import {MarkdownModule} from "ngx-markdown";
-import {MatMenu, MatMenuModule} from "@angular/material/menu";
+import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
