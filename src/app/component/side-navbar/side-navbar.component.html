@@ -86,12 +86,32 @@
           </a>
         </li>
 
-        <li class="nav-item" *ngIf="isAuthenticated() | async">
-          <a [routerLink]="LOGOUT_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
-            <i class="bi bi-lock-fill pe-none me-2"></i>
-            {{ LOGOUT_PAGE_INFO.name }}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" routerLink="/my-account" routerLinkActive="active" role="link"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle pe-none me-2"></i>
+            My Account
           </a>
+          <ul class="dropdown-menu bg-primary border-0">
+            <li *ngIf="isAuthenticated() | async">
+              <a class="dropdown-item" routerLink="/my-account/profile">
+                <i class="bi bi-person-fill pe-none me-2"></i>My Profile</a>
+            </li>
+            <li *ngIf="isAuthenticated() | async">
+              <a class="dropdown-item" routerLink="/my-account/securitySettings">
+                <i class="bi bi-gear-fill pe-none me-2"></i>Security Settings</a>
+            </li>
+            <li *ngIf="isAuthenticated() | async">
+              <a class="dropdown-item" routerLink="/my-account/deleteAccount">
+                <i class="bi bi-dash-circle-fill pe-none me-2"></i>Delete Account</a>
+            </li>
+            <li *ngIf="isAuthenticated() | async">
+              <a [routerLink]="LOGOUT_PAGE_INFO.path" class="dropdown-item" routerLinkActive="active">
+                <i class="bi bi-power pe-none me-2"></i>{{ LOGOUT_PAGE_INFO.name }}</a>
+            </li>
+          </ul>
         </li>
+
 
       </ul>
 

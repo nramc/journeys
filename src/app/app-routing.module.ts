@@ -65,6 +65,20 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'my-account',
+    canActivate: [canActivateWhenAuthenticatedGuard],
+    canMatch: [canMatchWhenAuthenticatedGuard],
+    children: [
+      {
+        path: 'profile',
+        loadComponent: () => import('./page/my-account/my-profile-page/my-profile-page.component').then(m => m.MyProfilePageComponent),
+        title: 'My Profile',
+        canActivate: [canActivateWhenAuthenticatedGuard, canActivateWhenHasWriteAccessGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard]
+      }
+    ]
+  },
+  {
     path: 'dashboard',
     loadComponent: () => import('./page/dashboard/dashboard.component').then(m => m.DashboardComponent),
     title: "Dashboard",
