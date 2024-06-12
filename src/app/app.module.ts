@@ -12,6 +12,8 @@ import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {CustomErrorHandler} from "./utility/handler/error.handler";
 import {NgOptimizedImage} from "@angular/common";
 import {MarkdownModule} from "ngx-markdown";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {MarkdownModule} from "ngx-markdown";
     AppRoutingModule,
     BrowserAnimationsModule,
     NgOptimizedImage,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    MatMenuModule,
+    MatIconModule
   ], providers: [
     {
       provide: LIGHTBOX_CONFIG, useValue: {
