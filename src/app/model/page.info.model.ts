@@ -80,3 +80,11 @@ export const ABOUT_PAGE_INFO: PageInfo = {
   description: "",
   path: "/aboutUs"
 };
+
+export const MY_ACCOUNT_PAGE_INFO: PageInfo = {
+  name: "My Account",
+  title: "My Account",
+  description: "Your Account: Control your details, secure your data, manage access.",
+  path: "/my-account"
+};
+

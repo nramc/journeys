@@ -86,7 +86,7 @@
           </a>
         </li>
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="isAuthenticated() | async">
           <a class="nav-link dropdown-toggle" routerLink="/my-account" routerLinkActive="active" role="link"
              data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person-circle pe-none me-2"></i>
