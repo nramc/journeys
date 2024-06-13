@@ -1,23 +1,66 @@
-<app-page-header [pageInfo]="MY_ACCOUNT_PAGE_INFO"></app-page-header>
+<app-page-header [pageInfo]="MY_PROFILE_PAGE_INFO"></app-page-header>
 
-<fieldset class="container">
-  <legend class="gradient-text">My Profile</legend>
-  <form *ngIf="mydata as profile">
+
+<section class="container d-flex justify-content-start">
+  <form *ngIf="mydata" class="col-12 col-lg-8">
     <div class="row mb-3">
-      <label for="username" class="col-sm-2 col-form-label">Username</label>
+      <label for="username" class="col-sm-2 col-form-label text-primary">Username</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="username" [value]="mydata.username" disabled>
       </div>
     </div>
     <div class="row mb-3">
-      <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+      <div class="col-sm-10 offset-sm-2">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="isAccountActive" name="isAccountActive" [checked]="mydata.enabled" disabled>
+          <label class="form-check-label text-primary" for="isAccountActive">
+            Active
+          </label>
+        </div>
+      </div>
+    </div>
+    <fieldset class="row mb-3">
+      <legend class="col-form-label col-sm-2 pt-0 text-primary">Role(s)</legend>
+      <div class="col-sm-10 text-primary d-inline-flex gap-3">
+        <div class="form-check" *ngFor="let roleName of mydata.roles">
+          <input class="form-check-input" type="checkbox" name="roleName" id="roleName" checked disabled>
+          <label class="form-check-label" for="roleName">
+            {{roleName}}
+          </label>
+        </div>
+      </div>
+    </fieldset>
+    <div class="row mb-3">
+      <label for="createdDate" class="col-sm-2 col-form-label text-primary">Created</label>
       <div class="col-sm-10">
-        <input type="password" class="form-control" id="inputPassword3">
+        <input type="datetime-local" class="form-control" id="createdDate" name="createdDate" [value]="mydata.createdDate" disabled readonly>
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Sign in</button>
+    <!--  Editable fields  -->
+    <div class="row mb-3">
+      <label for="name" class="col-sm-2 col-form-label text-primary">Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="mydata.name" required>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="emailAddress" class="col-sm-2 col-form-label text-primary">Email Address</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="emailAddress" name="emailAddress" [(ngModel)]="mydata.emailAddress" required email>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col text-center d-flex gap-3 justify-content-center">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-primary">Cancel</button>
+      </div>
+    </div>
+
+
   </form>
-</fieldset>
+</section>
 
 {{ mydata | json }}

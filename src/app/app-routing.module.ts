@@ -75,6 +75,13 @@ const routes: Routes = [
         title: 'My Profile',
         canActivate: [canActivateWhenAuthenticatedGuard, canActivateWhenHasWriteAccessGuard],
         canMatch: [canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard]
+      },
+      {
+        path: "",
+        loadComponent: () => import('./page/my-account/my-account-page.component').then(m => m.MyAccountPageComponent),
+        title: 'My Account',
+        canActivate: [canActivateWhenAuthenticatedGuard, canActivateWhenHasWriteAccessGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard]
       }
     ]
   },

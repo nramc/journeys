@@ -14,6 +14,10 @@ export class AppUser {
     this._name = value;
   }
 
+  set emailAddress(value: string) {
+    this._emailAddress = value;
+  }
+
   get username() {
     return this._username
   }

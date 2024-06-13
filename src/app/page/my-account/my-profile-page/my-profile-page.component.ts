@@ -2,8 +2,8 @@ import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {MyAccountService} from "../../../service/my-account/my-account.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {AppUser} from "../../../model/account/app-user";
-import {JsonPipe, NgIf} from "@angular/common";
-import {MY_ACCOUNT_PAGE_INFO} from "../../../model/page.info.model";
+import {JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {MY_PROFILE_PAGE_INFO} from "../../../model/page.info.model";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {FormsModule} from "@angular/forms";
 
@@ -14,17 +14,19 @@ import {FormsModule} from "@angular/forms";
     JsonPipe,
     PageHeaderComponent,
     NgIf,
-    FormsModule
+    FormsModule,
+    NgForOf
   ],
   templateUrl: './my-profile-page.component.html',
   styleUrl: './my-profile-page.component.scss'
 })
 export class MyProfilePageComponent implements OnInit {
-  protected readonly MY_ACCOUNT_PAGE_INFO = MY_ACCOUNT_PAGE_INFO;
+  protected readonly MY_PROFILE_PAGE_INFO = MY_PROFILE_PAGE_INFO;
   private destroyRef = inject(DestroyRef);
   mydata: AppUser | undefined;
 
-  constructor(private myAccountService: MyAccountService) {
+  constructor(
+    private myAccountService: MyAccountService) {
   }
 
   ngOnInit(): void {

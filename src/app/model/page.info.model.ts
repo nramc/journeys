@@ -88,3 +88,10 @@ export const MY_ACCOUNT_PAGE_INFO: PageInfo = {
   path: "/my-account"
 };
 
+export const MY_PROFILE_PAGE_INFO: PageInfo = {
+  name: "My Profile",
+  title: "My Profilet",
+  description: "",
+  path: "/my-account/profile"
+};
+
