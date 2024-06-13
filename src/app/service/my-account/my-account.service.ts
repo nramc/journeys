@@ -22,4 +22,15 @@ export class MyAccountService {
       headers: {'Authorization': `Bearer ${userContext.accessToken}`}
     });
   }
+
+  saveProfileData(profileData: AppUser) {
+    console.log(profileData);
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.post<void>(environment.journeyApi + '/my-account', profileData, {
+      headers: {
+        'Authorization': `Bearer ${userContext.accessToken}`,
+        'Content-Type': 'application/json'
+      },
+    });
+  }
 }
