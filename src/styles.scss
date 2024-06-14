@@ -94,6 +94,10 @@ body {
   background-image: linear-gradient(to right, #d0d0fa, #d3d3fa, #d7d5fa, #dad8fb, #dddbfb, #e1dffb, #e5e3fc, #e9e7fc, #efedfd, #f4f3fd, #faf9fe, #ffffff);
 }
 
+.gradient-bg-dark {
+  background-image: linear-gradient(to right, #e311f1, #c733f4, #aa43f5, #8c4df3, #6b54ef, #6751e7, #644edf, #604bd7, #7440cb, #8333be, #8f23b0, #9809a2);
+}
+
 /* Map marker icons styles */
 .marker-pin {
   width: 30px;
