@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
 import {Journey, JourneyImageDetail, JourneyImagesDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {environment} from "../../../../../environments/environment";
@@ -11,6 +11,7 @@ import {MatStepperNext} from "@angular/material/stepper";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {EditJourneyImageItemComponent} from "./edit-journey-image-item/edit-journey-image-item.component";
 import {RouterLink} from "@angular/router";
+import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
 
 @Component({
   selector: 'app-edit-journey-images-details',
@@ -30,9 +31,7 @@ import {RouterLink} from "@angular/router";
 export class EditJourneyImagesDetailsComponent implements OnInit {
   @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
   @Input({required: true}) journey!: Journey;
-
-  successMessage: string = '';
-  errorMessage: string = '';
+  feedbackMessage = signal<FeedbackMessage>({});
 
   formImageDetails: JourneyImagesDetails = new JourneyImagesDetails();
 
@@ -82,12 +81,12 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   }
 
   onError(errorMessage: string, err: any) {
-    this.errorMessage = errorMessage;
+    this.feedbackMessage.set({error: errorMessage});
     console.error(err);
   }
 
   onUpdateSuccess(result: Journey) {
-    this.successMessage = 'Image Details saved successfully.';
+    this.feedbackMessage.set({success: 'Image Details saved successfully.'});
     this.journey = result;
     this.savedEvent.emit(this.journey);
   }

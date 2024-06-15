@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, signal} from '@angular/core';
 import {DEFAULT_THUMBNAIL, Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {MatIcon} from "@angular/material/icon";
@@ -7,6 +7,7 @@ import {NgIf} from "@angular/common";
 import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
+import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
 
 @Component({
   selector: 'app-edit-journey-publish-details',
@@ -25,9 +26,7 @@ import {MatSelectModule} from "@angular/material/select";
 export class EditJourneyPublishDetailsComponent {
   @Input({required: true}) journey!: Journey;
   @Output('saved') savedEvent = new EventEmitter<Journey>();
-
-  successMessage: string = '';
-  errorMessage: string = '';
+  feedbackMessage = signal<FeedbackMessage>({});
 
   constructor(
     private journeyService: JourneyService
@@ -83,12 +82,13 @@ export class EditJourneyPublishDetailsComponent {
   }
 
   onError(errorMessage: string, err: any) {
-    this.errorMessage = errorMessage;
+    this.feedbackMessage.set({error: errorMessage});
     console.error(err);
   }
 
   onUpdateSuccess(result: Journey) {
-    this.successMessage = result.isPublished ? 'Journey published successfully.' : 'Journey saved successfully';
+    const successMessage: string = result.isPublished ? 'Journey published successfully.' : 'Journey saved successfully';
+    this.feedbackMessage.set({success: successMessage});
     this.journey = result;
     this.savedEvent.emit(this.journey);
   }

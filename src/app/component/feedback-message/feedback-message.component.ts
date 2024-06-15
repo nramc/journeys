@@ -1,29 +1,16 @@
-import {Component, Input} from '@angular/core';
-import {NgbAlert} from "@ng-bootstrap/ng-bootstrap";
+import {Component, input} from '@angular/core';
+import {FeedbackMessage} from "./feedback-message";
 
 @Component({
   selector: 'app-feedback-message',
   standalone: true,
-  imports: [
-    NgbAlert
-  ],
+  imports: [],
   templateUrl: './feedback-message.component.html',
   styleUrl: './feedback-message.component.scss'
 })
 export class FeedbackMessageComponent {
-  _successMessage: string = '';
-  _errorMessage: string = '';
-
-  @Input("successMessage")
-  set successMessage(message: string) {
-    this._successMessage = message;
-    this._errorMessage = '';
-  }
-
-  @Input("errorMessage")
-  set errorMessage(message: string) {
-    this._errorMessage = message;
-    this._successMessage = '';
-  }
+  message = input<FeedbackMessage>({}, {
+    alias: 'message'
+  });
 
 }

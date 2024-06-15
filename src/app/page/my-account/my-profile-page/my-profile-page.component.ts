@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {MyAccountService} from "../../../service/my-account/my-account.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {AppUser} from "../../../model/account/app-user";
@@ -8,6 +8,7 @@ import {PageHeaderComponent} from "../../../component/page-header/page-header.co
 import {FormsModule, NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {FeedbackMessageComponent} from "../../../component/feedback-message/feedback-message.component";
+import {FeedbackMessage} from "../../../component/feedback-message/feedback-message";
 
 @Component({
   selector: 'app-my-profile-page',
@@ -26,8 +27,7 @@ export class MyProfilePageComponent implements OnInit {
   protected readonly MY_PROFILE_PAGE_INFO = MY_PROFILE_PAGE_INFO;
   private destroyRef = inject(DestroyRef);
 
-  successMessage: string = '';
-  errorMessage: string = '';
+  feedbackMessage = signal<FeedbackMessage>({});
 
   mydata: AppUser | undefined;
 
@@ -48,17 +48,17 @@ export class MyProfilePageComponent implements OnInit {
   save(profileForm: NgForm) {
     if (profileForm.valid && profileForm.dirty) {
       this.myAccountService.saveProfileData(this.mydata!).subscribe(
-        {next: data => this.onSuccessCallback(), error: err => this.onErrorCallback()}
+        {next: _ => this.onSuccessCallback(), error: _ => this.onErrorCallback()}
       );
     }
   }
 
   onSuccessCallback() {
-    this.successMessage = 'Profile data saved successfully';
+    this.feedbackMessage.set({success: 'Profile data saved successfully'});
   }
 
   onErrorCallback() {
-    this.errorMessage = 'Update failed. Please check data.';
+    this.feedbackMessage.set({error: 'Update failed. Please check data.'});
   }
 
   cancel() {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
 import {Journey, JourneyVideoDetail, JourneyVideosDetails} from 'src/app/model/core/journey.model';
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {MatStepperNext} from "@angular/material/stepper";
 import {MatBadge} from "@angular/material/badge";
+import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
 
 @Component({
   selector: 'app-edit-journey-videos-details',
@@ -24,9 +25,7 @@ import {MatBadge} from "@angular/material/badge";
 export class EditJourneyVideosDetailsComponent implements OnInit {
   @Input({required: true}) journey!: Journey;
   @Output('saved') savedEvent = new EventEmitter<Journey>();
-
-  successMessage: string = '';
-  errorMessage: string = '';
+  feedbackMessage = signal<FeedbackMessage>({});
 
   formVideosDetails: JourneyVideosDetails = new JourneyVideosDetails();
 
@@ -65,13 +64,13 @@ export class EditJourneyVideosDetailsComponent implements OnInit {
   }
 
   onUpdateSuccess(result: Journey) {
-    this.successMessage = 'Video Details saved successfully.';
+    this.feedbackMessage.set({success: 'Video Details saved successfully.'});
     this.journey = result;
     this.savedEvent.emit(this.journey);
   }
 
   onError(errorMessage: string, err: any) {
-    this.errorMessage = errorMessage;
+    this.feedbackMessage.set({error: errorMessage});
     console.error(err);
   }
 

@@ -1,7 +1,7 @@
 <form (ngSubmit)="publish(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey">
   <div class="row mb-3">
     <div class="col-12">
-      <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
+      <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
     </div>
   </div>
 
@@ -73,7 +73,8 @@
         </select>
       </div>
       <div class="text-center" *ngIf="thumbnail.value && thumbnail.value != 'default'">
-        <img [src]="thumbnail.value" class="journey-thumbnail-img rounded border border-2 border-primary border-opacity-50 h-200-px w-200-px"
+        <img [src]="thumbnail.value"
+             class="journey-thumbnail-img rounded border border-2 border-primary border-opacity-50 h-200-px w-200-px"
              [alt]="thumbnail.value">
       </div>
     </div>

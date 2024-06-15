@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
@@ -14,6 +14,7 @@ import {MatStepperNext} from "@angular/material/stepper";
 import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {AutoCompleteService} from "../../../../service/auto-complete/auto-complete.service";
 import {SUPPORTED_ICONS} from "../../../../config/icon-config";
+import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
 
 @Component({
   selector: 'app-edit-journey-basic-data',
@@ -35,13 +36,8 @@ import {SUPPORTED_ICONS} from "../../../../config/icon-config";
 })
 export class EditJourneyBasicDetailsComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
-  readonly predefinedCategories = ['Travel', 'Work', 'Residential']
-
   @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
-
-  successMessage: string = '';
-  errorMessage: string = '';
-
+  feedbackMessage = signal<FeedbackMessage>({});
   @Input({required: true}) journey!: Journey;
   coordinates: number[] = [];
 
@@ -56,12 +52,12 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
   }
 
   onError(errorMessage: string, err: any) {
-    this.errorMessage = errorMessage;
+    this.feedbackMessage.set({error: errorMessage});
     console.error(err);
   }
 
   onUpdateSuccess(result: Journey) {
-    this.successMessage = 'Journey saved successfully.';
+    this.feedbackMessage.set({success: 'Journey details saved successfully.'});
     this.journey = result;
     this.savedEvent.emit(this.journey);
   }
