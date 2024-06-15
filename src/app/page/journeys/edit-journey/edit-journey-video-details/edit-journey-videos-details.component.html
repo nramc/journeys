@@ -2,7 +2,7 @@
 
   <div class="row mb-3">
     <div class="col-12">
-      <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
+      <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
     </div>
   </div>
 
@@ -23,7 +23,8 @@
       <div class="d-flex mb-3 flex-wrap">
         @for (videoDetail of formVideosDetails.videos; track videoDetail.videoId; let i = $index) {
           <div class="m-2 video-thumbnail-wrapper">
-            <button type="button" class="btn-video-remove" aria-label="Close" (click)="removeVideoAndSaveJourney(videoDetail)"
+            <button type="button" class="btn-video-remove" aria-label="Close"
+                    (click)="removeVideoAndSaveJourney(videoDetail)"
                     matBadge="x" matBadgePosition="below after" matBadgeColor="warn" matBadgeSize="small">
             </button>
 

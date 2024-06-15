@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
 import {Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
@@ -7,6 +7,7 @@ import {WorldMapComponent} from "../../../../component/world-map/world-map.compo
 import {MatStepperNext} from "@angular/material/stepper";
 import {JsonPipe, NgIf} from "@angular/common";
 import {FeatureCollection, GeoJsonObject, GeometryCollection} from "geojson";
+import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
 
 @Component({
   selector: 'app-edit-journey-geo-details',
@@ -24,8 +25,7 @@ import {FeatureCollection, GeoJsonObject, GeometryCollection} from "geojson";
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
   @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
-  successMessage: string = '';
-  errorMessage: string = '';
+  feedbackMessage = signal<FeedbackMessage>({});
 
   @Input({required: true}) journey!: Journey;
   formGeoDetails: JourneyGeoDetails = new JourneyGeoDetails(undefined);
@@ -55,13 +55,13 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   }
 
   onUpdateSuccess(result: Journey) {
-    this.successMessage = 'Journey saved successfully.';
+    this.feedbackMessage.set({success: 'Journey details saved successfully.'});
     this.journey = result;
     this.savedEvent.emit(result);
   }
 
   onError(errorMessage: string, err: any) {
-    this.errorMessage = errorMessage;
+    this.feedbackMessage.set({error: errorMessage});
     console.error(err);
   }
 

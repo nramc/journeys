@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {FeedbackMessageComponent} from "../../../component/feedback-message/feedback-message.component";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../../../service/auth/auth.service";
 import {UserContext} from "../../../service/auth/user-context";
-import { HttpErrorResponse } from "@angular/common/http";
+import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FeedbackMessage} from "../../../component/feedback-message/feedback-message";
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
-  successMessage: string = '';
-  errorMessage: string = '';
+  feedbackMessage = signal<FeedbackMessage>({});
 
   form: LoginForm = new LoginForm();
 
@@ -51,13 +51,13 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSuccess(userContext: UserContext) {
-    this.successMessage = 'Login successful for ' + userContext.name;
+    this.feedbackMessage.set({success: 'Login successful for ' + userContext.name});
     this.router.navigate(['/home']).then();
   }
 
   onLoginFailed(error: HttpErrorResponse) {
     console.error(error);
-    this.errorMessage = 'Login failed. ' + error.message;
+    this.feedbackMessage.set({error: 'Login failed. ' + error.message});
   }
 
   loginAsGuest() {

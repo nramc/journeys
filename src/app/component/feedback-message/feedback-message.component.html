@@ -1,14 +1,16 @@
-@if (_successMessage) {
-  <ngb-alert type="success" (closed)="successMessage = ''"
-             [dismissible]="false" [animation]="true">
-    <i class="bi bi-check-circle-fill pe-none me-2"></i>
-    {{ _successMessage }}
-  </ngb-alert>
+@if (message().success) {
+  <div class="alert alert-success d-inline-flex w-100 align-content-center align-items-center" role="alert">
+    <i class="bi bi-check-circle-fill pe-none me-2 fs-6"></i>
+    <strong class="me-2">Success! </strong>
+    <span>{{ message().success }}</span>
+  </div>
 }
-@if (_errorMessage) {
-  <ngb-alert type="danger" [dismissible]="false" [animation]="true"
-             (closed)="errorMessage = ''">
-    <i class="bi bi-dash-circle pe-none me-2"></i>
-    {{ _errorMessage }}
-  </ngb-alert>
+@if (message().error) {
+  <div class="alert alert-danger d-inline-flex w-100 align-content-center align-items-center" role="alert">
+    <i class="bi bi-exclamation-octagon-fill pe-none me-2 fs-6"></i>
+    <strong class="me-2">Error!</strong>
+    <span>{{ message().error }}</span>
+  </div>
 }
+
+

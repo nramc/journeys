@@ -4,9 +4,9 @@
     <div class="col-12 col-md-6 mt-sm-0">
 
       <div>
-        @if (successMessage || errorMessage) {
-          <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
-        } @else if(messageBanner === 'unauthenticated') {
+        @if (feedbackMessage().success || feedbackMessage().error) {
+          <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
+        } @else if (messageBanner === 'unauthenticated') {
           <div class="alert alert-warning" role="alert">
             <i class="bi bi-info-circle pe-none me-2"></i>
             Identity Yourself to access secured resource..!
@@ -56,7 +56,9 @@
             </div>
 
             <div class="d-flex flex-column gap-1">
-              <button class="btn btn-outline-dark btn-lg" type="submit" [disabled]="!loginForm.form.valid || loginForm.submitted">Submit</button>
+              <button class="btn btn-outline-dark btn-lg" type="submit"
+                      [disabled]="!loginForm.form.valid || loginForm.submitted">Submit
+              </button>
               <small class="text-light">or</small>
               <button class="btn btn-success btn-lg" type="button" (click)="loginAsGuest()">Login as Guest</button>
             </div>

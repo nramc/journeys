@@ -2,7 +2,7 @@
 
   <div class="row mb-3">
     <div class="col-12">
-      <app-feedback-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-feedback-message>
+      <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
     </div>
   </div>
 
@@ -38,7 +38,8 @@
       <button type="button" class="btn btn-outline-primary" [disabled]="!journey.extendedDetails?.imagesDetails?.images"
               matStepperNext>Next
       </button>
-      <a role="link" class="text-decoration-none" routerLink="/tools" target="_blank">Reduce Image Size<i class="bi bi-box-arrow-up-right ms-1"></i></a>
+      <a role="link" class="text-decoration-none" routerLink="/tools" target="_blank">Reduce Image Size<i
+        class="bi bi-box-arrow-up-right ms-1"></i></a>
     </div>
   </div>
 
