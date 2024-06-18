@@ -1,4 +1,4 @@
-import {Geometry} from "geojson";
+import {GeoJSON, Geometry} from "geojson";
 
 export const DEFAULT_THUMBNAIL: string = 'https://res.cloudinary.com/journeytogether/image/upload/v1712604194/journey/readonly/aeqhy3zwrwko7ba2rinr.jpg';
 
@@ -34,7 +34,7 @@ export class JourneyExtendedDetails {
 
 export class JourneyGeoDetails {
   constructor(
-    public geoJson: Geometry | undefined) {
+    public geoJson: GeoJSON | undefined) {
   }
 }
 
