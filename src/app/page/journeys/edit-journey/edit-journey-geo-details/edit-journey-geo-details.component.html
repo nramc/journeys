@@ -12,7 +12,6 @@
         <label for="geojson" class="form-label">
           <span>Tip:</span>
           <a class="geojson-tip me-2" href="https://geojson.io/" target="_blank">GeoJson Creator</a>
-          <a class="geojson-tip" (click)="formatGeoJsonIfRequired()">Format Data</a>
         </label>
         <textarea class="form-control geojson-field" rows="10" [(ngModel)]="geoJsonString" (change)="reloadMap()"
                   id="geojson" name="geojson" required>

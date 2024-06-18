@@ -121,8 +121,11 @@ export class WorldMapComponent implements AfterViewInit {
         },
         onEachFeature: function (feature: Feature, layer: Layer) {
           if (isPopupRequired) {
-            layer.bindTooltip(feature.properties?.['name']);
             layer.bindPopup(getPopupComponentNativeElement(feature));
+          }
+          let featureName = feature.properties?.['name'];
+          if (featureName) {
+            layer.bindTooltip(featureName);
           }
         }
       })

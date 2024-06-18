@@ -6,7 +6,6 @@ import {FeedbackMessageComponent} from "../../../../component/feedback-message/f
 import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {MatStepperNext} from "@angular/material/stepper";
 import {JsonPipe, NgIf} from "@angular/common";
-import {FeatureCollection, GeoJsonObject, GeometryCollection} from "geojson";
 import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
 
 @Component({
@@ -71,19 +70,4 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
     }
   }
 
-  formatGeoJsonIfRequired() {
-    if (this.geoJsonString) {
-      let data = JSON.parse(this.geoJsonString) as GeoJsonObject;
-      if (data.type == "FeatureCollection") {
-
-        let geometryCollection: GeometryCollection = {
-          type: "GeometryCollection",
-          geometries: (data as FeatureCollection).features.map(f => f.geometry)
-        };
-
-        this.geoJsonString = JSON.stringify(geometryCollection);
-        this.reloadMap();
-      }
-    }
-  }
 }
