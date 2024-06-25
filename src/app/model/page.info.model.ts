@@ -95,3 +95,10 @@ export const MY_PROFILE_PAGE_INFO: PageInfo = {
   path: "/my-account/profile"
 };
 
+export const DELETE_MY_ACCOUNT_PAGE_INFO: PageInfo = {
+  name: "Delete Account",
+  title: "Delete Account",
+  description: "",
+  path: "/my-account/delete"
+};
+

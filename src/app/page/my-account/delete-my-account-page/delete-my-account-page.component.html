@@ -1,0 +1,48 @@
+<app-page-header [pageInfo]="DELETE_MY_ACCOUNT_PAGE_INFO"></app-page-header>
+
+<section class="container d-flex flex-column">
+  <div class="col mb-3">
+    <h2 class="text-primary">We're Sorry to See You Go
+      <mat-icon>sentiment_dissatisfied</mat-icon>
+    </h2>
+  </div>
+  <div class="col text-primary">
+    <p>We're genuinely sorry to hear that you're considering deleting your account.</p>
+    <p>Your presence means a lot to us, and losing you as a valued user would be a significant loss.</p>
+  </div>
+  <div class="col text-primary mt-3">
+    <h6>Before you go, please consider the following:</h6>
+
+    <dl class="mt-3 p-3">
+      <dt>Valuable Data Loss:</dt>
+      <dd> - Once your account is deleted, all your data, preferences, and history with us will be permanently lost and
+        cannot be recovered.
+      </dd>
+
+      <dt>Help Us Improve:</dt>
+      <dd> - Your feedback is invaluable to us. If there’s anything we can do to improve your experience, please let us
+        know by <a href="https://github.com/nramc/journeys/issues" target="_blank" class="fw-bold small">
+          creating issue at GitHub</a>.
+      </dd>
+
+      <dt>Special Offers:</dt>
+      <dd> - We’d love to have you stay. Contact us by
+        <a href="https://github.com/nramc/journeys/issues" target="_blank" class="fw-bold small">
+          creating issue at GitHub</a> for any assistance we can provide to make your experience better.
+      </dd>
+    </dl>
+
+  </div>
+
+  <div class="text-primary">
+    <p>If you're sure about leaving, we respect your decision and hope to see you again in the future. Thank you for
+      being a part of our community.</p>
+  </div>
+
+  <div class="col mt-3 d-inline-flex">
+    <button type="button" class="btn btn-danger me-3" (click)="deleteAccount()">Delete My Account</button>
+    <button type="button" class="btn btn-success me-3" (click)="cancel()">Keep My Account</button>
+  </div>
+
+
+</section>

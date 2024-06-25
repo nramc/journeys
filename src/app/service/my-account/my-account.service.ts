@@ -24,7 +24,6 @@ export class MyAccountService {
   }
 
   saveProfileData(profileData: AppUser) {
-    console.log(profileData);
     let userContext = this.authService.getCurrentUserContext();
     return this.httpClient.post<void>(environment.journeyApi + '/my-account', profileData, {
       headers: {
@@ -33,4 +32,15 @@ export class MyAccountService {
       },
     });
   }
+
+  deleteMyAccount() {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.delete<void>(environment.journeyApi + '/my-account', {
+      headers: {
+        'Authorization': `Bearer ${userContext.accessToken}`,
+        'Content-Type': 'application/json'
+      },
+    });
+  }
+
 }
