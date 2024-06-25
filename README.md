@@ -42,7 +42,7 @@ So make sure you have installed Docker CLI or any other docker container tool.
    npm run start
    ```
 
-### Contributing
+### Contribution
 
 Any contributions you make are **greatly appreciated**.
 
