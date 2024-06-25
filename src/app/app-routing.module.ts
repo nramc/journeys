@@ -77,6 +77,13 @@ const routes: Routes = [
         canMatch: [canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard]
       },
       {
+        path: 'delete',
+        loadComponent: () => import('./page/my-account/delete-my-account-page/delete-my-account-page.component').then(m => m.DeleteMyAccountPageComponent),
+        title: 'Delete Account',
+        canActivate: [canActivateWhenAuthenticatedGuard, canActivateWhenHasWriteAccessGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard]
+      },
+      {
         path: "",
         loadComponent: () => import('./page/my-account/my-account-page.component').then(m => m.MyAccountPageComponent),
         title: 'My Account',
