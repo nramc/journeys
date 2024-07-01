@@ -49,9 +49,11 @@ export class JourneyImageDetail {
   constructor(
     public url: string,
     public assetId: string,
+    public publicId: string = '',
     public title: string = '',
     public isFavorite: boolean = false,
-    public isThumbnail: boolean = false
+    public isThumbnail: boolean = false,
+    public eventDate: string = ''
   ) {
   }
 }

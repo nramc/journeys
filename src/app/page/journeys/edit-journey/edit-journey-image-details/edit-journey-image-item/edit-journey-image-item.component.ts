@@ -2,14 +2,15 @@ import {Component, Input} from '@angular/core';
 import {JourneyImageDetail} from "../../../../../model/core/journey.model";
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-edit-journey-image-item',
   standalone: true,
   imports: [
     FormsModule,
-    NgIf
+    NgIf,
+    NgbInputDatepicker
   ],
   template: `
     <div class="container">
@@ -37,7 +38,12 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
             <div class="form-floating mb-1">
               <input type="text" class="form-control ignore-highlight" id="imageId" name="imageId" placeholder="ID"
                      [(ngModel)]="imageItem.assetId" readonly="readonly" disabled="disabled">
-              <label for="imageId">ID</label>
+              <label for="imageId">Asset ID</label>
+            </div>
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control ignore-highlight" id="publicId" name="publicId" placeholder="ID"
+                     [(ngModel)]="imageItem.publicId" readonly="readonly" disabled="disabled">
+              <label for="publicId">Public ID</label>
             </div>
 
             <div class="form-floating mb-1">
@@ -54,6 +60,19 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
               <input type="text" class="form-control" value="Make it as my favorite" disabled>
             </div>
 
+            <!-- Journey Date -->
+            <div class="input-group input-group-sm mb-1">
+              <div class="form-floating">
+                <input type="text" class="form-control form-control-sm ignore-highlight" id="journeyDate" name="journeyDate"
+                       [(ngModel)]="imageItem.eventDate"
+                       placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
+                <label for="journeyDate">Event Date</label>
+              </div>
+              <div class="input-group-text">
+                <button class="btn btn-sm btn-outline-secondary bi bi-calendar3 " (click)="d.toggle()" type="button"></button>
+              </div>
+            </div>
+
             <div class="input-group mb-1">
               <div class="input-group-text">
                 <input class="form-check-input ignore-highlight" type="checkbox" id="thumbnailFlag" name="thumbnailFlag"
@@ -61,8 +80,6 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
               </div>
               <input type="text" class="form-control" value="Make it as thumbnail" disabled>
             </div>
-
-
 
 
             <div class="d-inline-flex justify-content-center align-content-center align-items-center mt-2 w-100">
