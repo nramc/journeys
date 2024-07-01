@@ -49,7 +49,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
 
   private addImage(info: CloudinaryUploadSuccessInfo) {
     this.formImageDetails.images.push(
-      new JourneyImageDetail(info.secure_url, info.asset_id)
+      new JourneyImageDetail(info.secure_url, info.asset_id, info.public_id)
     );
   }
 
