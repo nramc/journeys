@@ -12,7 +12,7 @@
         <mat-select id="visibilities" name="visibilities" class="ignore-highlight"
                     [(ngModel)]="journey.visibilities" multiple required #visibilities="ngModel">
           <mat-option value="MYSELF" [disabled]="true">MYSELF</mat-option>
-          <mat-option value="ADMINISTRATOR" [disabled]="true">ADMINISTRATOR</mat-option>
+          <mat-option value="ADMINISTRATOR">ADMINISTRATOR</mat-option>
           <mat-option value="MAINTAINER">MAINTAINER</mat-option>
           <mat-option value="AUTHENTICATED_USER">AUTHENTICATED_USER</mat-option>
           <mat-option value="GUEST">GUEST</mat-option>
