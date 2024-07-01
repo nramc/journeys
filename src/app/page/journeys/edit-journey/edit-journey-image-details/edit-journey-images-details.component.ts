@@ -69,7 +69,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
       folder: `${environment.cloudBaseDir}/${journey.id}`,
       tags: journey.tags,
       use_asset_folder_as_public_id_prefix: true,
-      context: {'env': 'dev', 'id': `${journey.id}`},
+      context: {'env': environment.stage, 'id': `${journey.id}`},
       cropping: !isMultipleUpload,
       showAdvancedOptions: true,
       // sources: [ "local", "url"], // restrict the upload sources to URL and local files
