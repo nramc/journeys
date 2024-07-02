@@ -24,6 +24,10 @@ export class AuthService {
     return this.user;
   }
 
+  hasRole(roles: string[] = []): boolean {
+    return this.getCurrentUserContext().roles.some(role => roles.indexOf(role) != -1);
+  }
+
 
   isUserAuthenticatedAsObservable() {
     return this.user$.pipe(

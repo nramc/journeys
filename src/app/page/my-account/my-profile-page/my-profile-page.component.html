@@ -62,8 +62,8 @@
 
     <div class="row mb-3">
       <div class="col text-center d-flex gap-3 justify-content-center">
-        <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid">Save</button>
-        <button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid || !authService.hasRole([Role.AUTHENTICATED_USER])">Save</button>
+        <button type="button" class="btn btn-primary" (click)="cancel()" [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Cancel</button>
       </div>
     </div>
 

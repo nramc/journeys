@@ -73,8 +73,8 @@ const routes: Routes = [
         path: 'profile',
         loadComponent: () => import('./page/my-account/my-profile-page/my-profile-page.component').then(m => m.MyProfilePageComponent),
         title: 'My Profile',
-        canActivate: [canActivateWhenAuthenticatedGuard, canActivateWhenHasWriteAccessGuard],
-        canMatch: [canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard]
+        canActivate: [canActivateWhenAuthenticatedGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard]
       },
       {
         path: 'delete',

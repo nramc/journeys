@@ -9,6 +9,9 @@ import {FormsModule, NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {FeedbackMessageComponent} from "../../../component/feedback-message/feedback-message.component";
 import {FeedbackMessage} from "../../../component/feedback-message/feedback-message";
+import {DisableIfNoRoleExistsDirective} from "../../../directive/disable-if-no-role-exists.directive";
+import {AuthService} from "../../../service/auth/auth.service";
+import {Role} from "../../../service/auth/role";
 
 @Component({
   selector: 'app-my-profile-page',
@@ -18,7 +21,8 @@ import {FeedbackMessage} from "../../../component/feedback-message/feedback-mess
     NgIf,
     FormsModule,
     NgForOf,
-    FeedbackMessageComponent
+    FeedbackMessageComponent,
+    DisableIfNoRoleExistsDirective
   ],
   templateUrl: './my-profile-page.component.html',
   styleUrl: './my-profile-page.component.scss'
@@ -33,7 +37,8 @@ export class MyProfilePageComponent implements OnInit {
 
   constructor(
     private myAccountService: MyAccountService,
-    private router: Router) {
+    private router: Router,
+    protected authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -64,4 +69,6 @@ export class MyProfilePageComponent implements OnInit {
   cancel() {
     this.router.navigate(['/']).then(console.log);
   }
+
+  protected readonly Role = Role;
 }
