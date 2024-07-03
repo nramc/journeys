@@ -14,7 +14,7 @@ export class HasWriteAccessDirective implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
   private readonly ngIfDirective = inject(NgIf);
   private readonly destroyed$ = inject(DestroyedDirective).destroyed$;
-  expectedRoles: Role[] = [Role.ADMINISTRATOR, Role.MAINTAINER];
+  expectedRoles: Role[] = [Role.ADMINISTRATOR, Role.MAINTAINER, Role.AUTHENTICATED_USER];
 
   constructor(private readonly authService: AuthService) {
   }
