@@ -63,10 +63,10 @@ import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
             <!-- Journey Date -->
             <div class="input-group input-group-sm mb-1">
               <div class="form-floating">
-                <input type="text" class="form-control form-control-sm ignore-highlight" id="journeyDate" name="journeyDate"
+                <input type="text" class="form-control form-control-sm ignore-highlight" id="eventDate" name="eventDate"
                        [(ngModel)]="imageItem.eventDate"
                        placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
-                <label for="journeyDate">Event Date</label>
+                <label for="eventDate">Event Date</label>
               </div>
               <div class="input-group-text">
                 <button class="btn btn-sm btn-outline-secondary bi bi-calendar3 " (click)="d.toggle()" type="button"></button>
