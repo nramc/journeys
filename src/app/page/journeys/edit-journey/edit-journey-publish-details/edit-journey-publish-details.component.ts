@@ -8,6 +8,8 @@ import {FeedbackMessageComponent} from "../../../../component/feedback-message/f
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
+import {Router} from "@angular/router";
+import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 
 @Component({
   selector: 'app-edit-journey-publish-details',
@@ -18,17 +20,20 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
     NgIf,
     FeedbackMessageComponent,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    HasWriteAccessDirective
   ],
   templateUrl: './edit-journey-publish-details.component.html',
   styleUrl: './edit-journey-publish-details.component.scss'
 })
 export class EditJourneyPublishDetailsComponent {
+  protected readonly DEFAULT_THUMBNAIL = DEFAULT_THUMBNAIL;
   @Input({required: true}) journey!: Journey;
   @Output('saved') savedEvent = new EventEmitter<Journey>();
   feedbackMessage = signal<FeedbackMessage>({});
 
   constructor(
+    private router: Router,
     private journeyService: JourneyService
   ) {
   }
@@ -93,5 +98,19 @@ export class EditJourneyPublishDetailsComponent {
     this.savedEvent.emit(this.journey);
   }
 
-  protected readonly DEFAULT_THUMBNAIL = DEFAULT_THUMBNAIL;
+  delete(deleteButton: HTMLButtonElement) {
+    deleteButton.disabled = true;
+    deleteButton.name = 'Deleting';
+    this.journeyService.deleteJourney(this.journey)
+      .subscribe({
+        next: __ => this.onDeleteSuccess(),
+        error: err => this.onError('Unexpected error while publishing data', err)
+      });
+  }
+
+  onDeleteSuccess() {
+    this.feedbackMessage.set({success: 'Journey deleted successfully'});
+    setTimeout(() => this.router.navigate(['journey']), 1000)
+  }
+
 }

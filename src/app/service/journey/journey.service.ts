@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Journey, JourneyGeoDetails, JourneyImagesDetails, JourneyVideosDetails} from "../../model/core/journey.model";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
@@ -133,6 +133,16 @@ export class JourneyService {
       {
         headers: {
           'Content-Type': 'application/vnd.journey.api.publish.v1+json',
+          'Authorization': `Bearer ${userContext.accessToken}`
+        }
+      });
+  }
+
+  deleteJourney(journey: Journey) {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.delete<void>(environment.journeyApi + '/journey/' + journey.id,
+      {
+        headers: {
           'Authorization': `Bearer ${userContext.accessToken}`
         }
       });
