@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
+import {Component, computed, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {MyAccountService} from "../../../service/my-account/my-account.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {AppUser} from "../../../model/account/app-user";
@@ -12,6 +12,7 @@ import {FeedbackMessage} from "../../../component/feedback-message/feedback-mess
 import {DisableIfNoRoleExistsDirective} from "../../../directive/disable-if-no-role-exists.directive";
 import {AuthService} from "../../../service/auth/auth.service";
 import {Role} from "../../../service/auth/role";
+import {HasWriteAccessDirective} from "../../../directive/has-write-access.directive";
 
 @Component({
   selector: 'app-my-profile-page',
@@ -22,7 +23,8 @@ import {Role} from "../../../service/auth/role";
     FormsModule,
     NgForOf,
     FeedbackMessageComponent,
-    DisableIfNoRoleExistsDirective
+    DisableIfNoRoleExistsDirective,
+    HasWriteAccessDirective
   ],
   templateUrl: './my-profile-page.component.html',
   styleUrl: './my-profile-page.component.scss'
@@ -34,6 +36,7 @@ export class MyProfilePageComponent implements OnInit {
   feedbackMessage = signal<FeedbackMessage>({});
 
   mydata: AppUser | undefined;
+  hasAccess = computed(() => this.authService.hasRole([Role.AUTHENTICATED_USER]));
 
   constructor(
     private myAccountService: MyAccountService,
