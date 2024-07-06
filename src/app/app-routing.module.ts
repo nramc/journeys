@@ -77,6 +77,13 @@ const routes: Routes = [
         canMatch: [canMatchWhenAuthenticatedGuard]
       },
       {
+        path: 'securitySettings',
+        loadComponent: () => import('./page/my-account/my-account-settings-page/my-account-settings-page.component').then(m => m.MyAccountSettingsPageComponent),
+        title: 'My Settings',
+        canActivate: [canActivateWhenAuthenticatedGuard],
+        canMatch: [canMatchWhenAuthenticatedGuard]
+      },
+      {
         path: 'delete',
         loadComponent: () => import('./page/my-account/delete-my-account-page/delete-my-account-page.component').then(m => m.DeleteMyAccountPageComponent),
         title: 'Delete Account',
