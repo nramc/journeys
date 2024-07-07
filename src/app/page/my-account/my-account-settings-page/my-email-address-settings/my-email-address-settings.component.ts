@@ -35,6 +35,10 @@ export class MyEmailAddressSettingsComponent implements OnInit {
   editModeToggle = model<boolean>(false);
 
   ngOnInit(): void {
+    this.fetchSecurityEmailAddress();
+  }
+
+  private fetchSecurityEmailAddress() {
     this.myAccountService.getSecurityEmailAddress()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -73,7 +77,7 @@ export class MyEmailAddressSettingsComponent implements OnInit {
     const dialogRef = this.dialog.open(EmailCodeVerificationComponent, {disableClose: true});
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.fetchSecurityEmailAddress();
     });
   }
 
