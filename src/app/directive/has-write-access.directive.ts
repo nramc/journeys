@@ -2,7 +2,7 @@ import {Directive, inject, OnChanges, OnInit, SimpleChanges} from '@angular/core
 import {NgIf} from "@angular/common";
 import {DestroyedDirective} from "./destroyed-directive.directive";
 import {AuthService} from "../service/auth/auth.service";
-import {Subscription, takeUntil} from "rxjs";
+import {takeUntil} from "rxjs";
 import {Role} from "../service/auth/role";
 
 @Directive({
@@ -11,7 +11,6 @@ import {Role} from "../service/auth/role";
   hostDirectives: [NgIf, DestroyedDirective]
 })
 export class HasWriteAccessDirective implements OnInit, OnChanges {
-  private subscriptions = new Subscription();
   private readonly ngIfDirective = inject(NgIf);
   private readonly destroyed$ = inject(DestroyedDirective).destroyed$;
   expectedRoles: Role[] = [Role.ADMINISTRATOR, Role.MAINTAINER, Role.AUTHENTICATED_USER];
