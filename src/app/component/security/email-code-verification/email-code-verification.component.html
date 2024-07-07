@@ -1,1 +1,29 @@
-<p>email-code-verification works!</p>
+<div class="card">
+  <div class="card-header bg-primary text-light">
+    Email Code Confirmation Required
+  </div>
+  <div class="card-body">
+    <div class="card-text">
+      <p>To complete verification, please follow these steps:</p>
+
+      <ol>
+        <li>Click the <code>Send</code> button to receive a verification code in your registered
+          email
+        <li>Check your email for the verification code</li>
+        <li>Enter the code in the field below and click "Confirm" to complete the verification</li>
+      </ol>
+
+      <div class="input-group">
+        <span class="input-group-text">Code</span>
+        <input type="text" class="form-control" required pattern="[0-9]">
+      </div>
+
+    </div>
+
+    <div class="d-inline-flex gap-2 mt-4">
+      <button class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
+      <button class="btn btn-outline-primary" (click)="sendCode()" cdkFocusInitial>Send</button>
+      <button class="btn btn-primary" (click)="confirmCode()">Confirm</button>
+    </div>
+  </div>
+</div>

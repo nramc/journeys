@@ -15,7 +15,8 @@
         @if (emailAddressData().verified) {
           <span class="text-success"><i class="bi bi-check-circle-fill fs-6 me-1"></i>Verified</span>
         } @else {
-          <button class="btn btn-sm btn-outline-danger" [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Verify Now
+          <button class="btn btn-sm btn-outline-danger" [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]" (click)="verifyEmailAddress()">
+            Verify Now
           </button>
         }
       </div>

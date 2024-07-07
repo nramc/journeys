@@ -7,6 +7,10 @@ import {MyAccountService} from "../../../../service/my-account/my-account.servic
 import {EmailSecurityAttribute} from "../../../../model/account/email-security-attribute";
 import {JsonPipe, NgIf} from "@angular/common";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  EmailCodeVerificationComponent
+} from "../../../../component/security/email-code-verification/email-code-verification.component";
 
 @Component({
   selector: 'my-email-address-settings',
@@ -24,6 +28,9 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 export class MyEmailAddressSettingsComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private myAccountService = inject(MyAccountService)
+  readonly dialog = inject(MatDialog);
+
+  protected readonly Role = Role;
   emailAddressData: ModelSignal<EmailSecurityAttribute> = model(new EmailSecurityAttribute());
   editModeToggle = model<boolean>(false);
 
@@ -51,8 +58,6 @@ export class MyEmailAddressSettingsComponent implements OnInit {
     this.editModeToggle.set(true);
   }
 
-  protected readonly Role = Role;
-
   save(emailAddressElement: HTMLInputElement) {
     if (emailAddressElement.validity.valid && this.editModeToggle()) {
       this.myAccountService.saveSecurityEmailAddress(emailAddressElement.value)
@@ -62,6 +67,14 @@ export class MyEmailAddressSettingsComponent implements OnInit {
           error: err => this.onError(err)
         });
     }
+  }
+
+  verifyEmailAddress() {
+    const dialogRef = this.dialog.open(EmailCodeVerificationComponent, {disableClose: true});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }
