@@ -94,6 +94,12 @@ export const MY_PROFILE_PAGE_INFO: PageInfo = {
   description: "",
   path: "/my-account/profile"
 };
+export const MY_SECURITY_SETTINGS_PAGE_INFO: PageInfo = {
+  name: "My Settings",
+  title: "Security Settings",
+  description: "",
+  path: "/my-account/securitySettings"
+};
 
 export const DELETE_MY_ACCOUNT_PAGE_INFO: PageInfo = {
   name: "Delete Account",
