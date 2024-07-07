@@ -1,4 +1,4 @@
-import {Directive, inject, OnDestroy, OnInit} from '@angular/core';
+import {Directive, inject, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {DestroyedDirective} from "./destroyed-directive.directive";
 import {AuthService} from "../service/auth/auth.service";
@@ -10,7 +10,7 @@ import {Role} from "../service/auth/role";
   standalone: true,
   hostDirectives: [NgIf, DestroyedDirective]
 })
-export class HasWriteAccessDirective implements OnInit, OnDestroy {
+export class HasWriteAccessDirective implements OnInit, OnChanges {
   private subscriptions = new Subscription();
   private readonly ngIfDirective = inject(NgIf);
   private readonly destroyed$ = inject(DestroyedDirective).destroyed$;
@@ -20,16 +20,19 @@ export class HasWriteAccessDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.authService.getUserContext()
+    this.applyVisibility();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.applyVisibility();
+  }
+
+  private applyVisibility() {
+    this.authService.getUserContext()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((userContext) => {
         this.ngIfDirective.ngIf = userContext.roles.some(role => this.expectedRoles.indexOf(role) != -1);
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+      });
   }
 
 

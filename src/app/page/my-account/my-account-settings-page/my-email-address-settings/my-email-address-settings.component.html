@@ -3,32 +3,47 @@
   <div class="col">
     <h4 class="gradient-text">Email Address</h4>
   </div>
-  <div class="col input-group">
-    <span class="input-group-text bg-primary text-light">Primary</span>
-    <input type="email" aria-label="Email Address" class="form-control" [disabled]="!editMode"
-           required email [(ngModel)]="emailAddress" id="emailAddress" name="emailAddress" #emailAddressElement>
 
-    <div [hidden]="editMode" class="input-group-text">
-      @if (isVerified) {
-        <span class="text-success"><i class="bi bi-check-circle-fill fs-6 me-1"></i>Verified</span>
-      } @else {
-        <button class="btn btn-sm btn-outline-danger" [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Verify Now
+  <!-- Read Mode -->
+  <div class="col-12" *ngIf="!editModeToggle()">
+    <div class="col input-group">
+      <span class="input-group-text bg-primary text-light">Primary</span>
+      <input type="email" class="form-control" [disabled]="true"
+             id="emailAddressRead" name="emailAddressRead" [value]="emailAddressData().value">
+
+      <div class="input-group-text" *ngIf="emailAddressData().value">
+        @if (emailAddressData().verified) {
+          <span class="text-success"><i class="bi bi-check-circle-fill fs-6 me-1"></i>Verified</span>
+        } @else {
+          <button class="btn btn-sm btn-outline-danger" [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Verify Now
+          </button>
+        }
+      </div>
+
+      <div class="input-group-text">
+        <button type="button" class="btn btn-sm btn-outline-primary" (click)="enableEdit()"
+                [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Edit
         </button>
-      }
-    </div>
+      </div>
 
-    <div class="input-group-text" *hasWriteAccess>
-      @if (editMode) {
-        <button type="button" class=" btn btn-sm btn-outline-primary" (click)="save(emailAddressElement)">Save
-        </button>
-      } @else {
-        <button type="button" class=" btn btn-sm btn-outline-primary" (click)="enableEdit()">Edit</button>
-      }
     </div>
-
   </div>
-  <div class="col" [hidden]="!editMode || emailAddressElement.validity.valid">
-    <span class="text-danger small">Email Address invalid</span>
+
+  <!-- Edit Mode -->
+  <div class="col-12" *ngIf="editModeToggle()">
+    <div class="col input-group">
+      <span class="input-group-text bg-primary text-light">Primary</span>
+      <input type="email" class="form-control"
+             required email [(ngModel)]="emailAddressData().value" id="emailAddressElement" name="emailAddressElement"
+             #emailAddressElement>
+
+      <div class="input-group-text">
+        <button type="button" class=" btn btn-sm btn-outline-primary" (click)="save(emailAddressElement)"
+                [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Save
+        </button>
+      </div>
+
+    </div>
   </div>
 
 </section>
