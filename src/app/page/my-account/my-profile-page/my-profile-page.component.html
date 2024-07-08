@@ -54,14 +54,6 @@
     </div>
 
     <div class="row mb-3">
-      <label for="emailAddress" class="col-sm-2 col-form-label text-primary">Email</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="emailAddress" name="emailAddress" [(ngModel)]="mydata.emailAddress"
-               required email [disabled]="!hasAccess()">
-      </div>
-    </div>
-
-    <div class="row mb-3">
       <div class="col text-center d-flex gap-3 justify-content-center">
         <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid" *hasWriteAccess>Save</button>
         <button type="button" class="btn btn-primary" (click)="cancel()" *hasWriteAccess>Cancel</button>
