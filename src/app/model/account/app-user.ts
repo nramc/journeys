@@ -3,7 +3,6 @@ export class AppUser {
   constructor(
     private _username: string,
     private _name: string,
-    private _emailAddress: string,
     private _createdDate: string,
     private _lastLoggedIn: string,
     private _enabled: boolean,
@@ -14,20 +13,12 @@ export class AppUser {
     this._name = value;
   }
 
-  set emailAddress(value: string) {
-    this._emailAddress = value;
-  }
-
   get username() {
     return this._username
   }
 
   get name(): string {
     return this._name;
-  }
-
-  get emailAddress(): string {
-    return this._emailAddress;
   }
 
   get createdDate(): string {
