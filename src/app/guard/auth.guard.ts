@@ -26,7 +26,12 @@ export const canMatchWhenHasWriteAccessGuard: CanMatchFn = (route, state) => {
 };
 
 function isUserAuthenticatedElseGetLogin() {
-  let loginUrl = inject(Router).createUrlTree(['/login']);
+  let redirectUrl = inject(Router).getCurrentNavigation()?.initialUrl.toString();
+  let loginUrl = inject(Router).createUrlTree(['/login'], {
+    queryParams: {
+      redirectUrl: redirectUrl
+    }
+  });
   return inject(AuthService).isUserAuthenticatedAsObservable()
     .pipe(map(authenticated => authenticated ? true : loginUrl));
 }

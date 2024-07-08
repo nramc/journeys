@@ -52,7 +52,8 @@ export class LoginComponent implements OnInit {
 
   onLoginSuccess(userContext: UserContext) {
     this.feedbackMessage.set({success: 'Login successful for ' + userContext.name});
-    this.router.navigate(['/home']).then();
+    let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
+    this.router.navigateByUrl(targetUrl).then(console.log);
   }
 
   onLoginFailed(error: HttpErrorResponse) {
