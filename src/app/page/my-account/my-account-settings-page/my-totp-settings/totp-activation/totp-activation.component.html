@@ -72,6 +72,10 @@
                    id="totpCode" name="totpCode" ngModel #totpCode required pattern="[0-9]{6,6}" maxlength="6" min="6">
           </div>
 
+          <div class="error-message">
+            <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
+          </div>
+
           <div class="d-inline-flex gap-2">
             <button type="button" class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
             <button type="button" class="btn btn-primary" (click)="activate(totpCode)">Activate</button>

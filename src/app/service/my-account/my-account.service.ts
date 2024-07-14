@@ -6,6 +6,8 @@ import {AuthService} from "../auth/auth.service";
 import {AppUser} from "../../model/account/app-user";
 import {EmailSecurityAttribute} from "../../model/account/email-security-attribute";
 import {QrCodeData} from "../../model/account/qr-code-data";
+import {TotpActivation} from "./totp-activation";
+import {TotpStatus} from "./totp-status";
 
 @Injectable({
   providedIn: 'root'
@@ -64,9 +66,26 @@ export class MyAccountService {
     });
   }
 
-    generateNewQRCode() {
+  generateNewQRCode() {
     let userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<QrCodeData>(environment.journeyApi + '/my-account/securityAttribute/totp', {
+      headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+    });
+  }
+
+  activateTotp(activationRequest: TotpActivation) {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.post(environment.journeyApi + '/my-account/securityAttribute/totp', activationRequest, {
+      headers: {
+        'Authorization': `Bearer ${userContext.accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  getTotpStatus() {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<TotpStatus>(environment.journeyApi + '/my-account/securityAttribute/totp/status', {
       headers: {'Authorization': `Bearer ${userContext.accessToken}`}
     });
   }

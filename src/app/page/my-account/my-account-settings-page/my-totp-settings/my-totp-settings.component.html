@@ -5,11 +5,11 @@
   </div>
 
   <div class="activation col">
-    <button type="button" class="btn btn-success" (click)="setupTotp()">Activate</button>
+    <button type="button" class="btn btn-success" (click)="setupTotp()" [hidden]="totpStatus()">Activate</button>
   </div>
 
   <div class="deactivation col">
-    <button type="button" class="btn btn-outline-danger">Deactivate</button>
+    <button type="button" class="btn btn-outline-danger" [hidden]="!totpStatus()">Deactivate</button>
   </div>
 
 </section>
