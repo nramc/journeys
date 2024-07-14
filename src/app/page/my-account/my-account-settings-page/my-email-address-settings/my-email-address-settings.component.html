@@ -5,29 +5,28 @@
   </div>
 
   <!-- Read Mode -->
-  <div class="col-12" *ngIf="!editModeToggle()">
-    <div class="col input-group">
-      <span class="input-group-text bg-primary text-light">Primary</span>
-      <input type="email" class="form-control" [disabled]="true"
-             id="emailAddressRead" name="emailAddressRead" [value]="emailAddressData().value">
-
-      <div class="input-group-text" *ngIf="emailAddressData().value">
-        @if (emailAddressData().verified) {
-          <span class="text-success border border-success border-2 rounded-2 p-1"><i class="bi bi-check-circle-fill fs-6 me-1"></i>Verified</span>
-        } @else {
-          <button class="btn btn-sm btn-outline-danger" [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]" (click)="verifyEmailAddress()">
-            Verify Now
-          </button>
-        }
-      </div>
-
-      <div class="input-group-text">
-        <button type="button" class="btn btn-outline-primary" (click)="enableEdit()"
-                [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Edit
-        </button>
-      </div>
-
+  <div class="col-12 d-flex flex-column" *ngIf="!editModeToggle()">
+    <p class="text-primary">
+      <span class="small pe-2">Primary:</span> <span class="fw-bold pe-2 fs-6"
+                                                     [textContent]="emailAddressData().value"></span>
+      @if (emailAddressData().verified) {
+        <span class="text-success border border-success border-2 rounded-2 p-1"><i
+          class="bi bi-check-circle-fill fs-6"></i></span>
+      } @else {
+        <span class="text-warning border border-warning border-2 rounded-2 p-1"><i
+          class="bi bi-exclamation-octagon-fill fs-6"></i></span>
+      }
+    </p>
+    <div class="d-inline-flex gap-2">
+      <button class="btn btn-success" [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]"
+              (click)="verifyEmailAddress()" *ngIf="emailAddressData().value && !emailAddressData().verified">
+        Verify Now
+      </button>
+      <button type="button" class="btn btn-outline-primary" (click)="enableEdit()"
+              [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Edit
+      </button>
     </div>
+
   </div>
 
   <!-- Edit Mode -->
