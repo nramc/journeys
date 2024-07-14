@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {AppUser} from "../../model/account/app-user";
 import {EmailSecurityAttribute} from "../../model/account/email-security-attribute";
+import {QrCodeData} from "../../model/account/qr-code-data";
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,13 @@ export class MyAccountService {
         'Authorization': `Bearer ${userContext.accessToken}`,
         'Content-Type': 'application/json'
       },
+    });
+  }
+
+    generateNewQRCode() {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<QrCodeData>(environment.journeyApi + '/my-account/securityAttribute/totp', {
+      headers: {'Authorization': `Bearer ${userContext.accessToken}`}
     });
   }
 
