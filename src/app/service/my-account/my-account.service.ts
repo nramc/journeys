@@ -8,6 +8,7 @@ import {EmailSecurityAttribute} from "../../model/account/email-security-attribu
 import {QrCodeData} from "../../model/account/qr-code-data";
 import {TotpActivation} from "./totp-activation";
 import {TotpStatus} from "./totp-status";
+import {TotpCodeVerification} from "./totp-code-verification";
 
 @Injectable({
   providedIn: 'root'
@@ -87,6 +88,18 @@ export class MyAccountService {
     let userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TotpStatus>(environment.journeyApi + '/my-account/securityAttribute/totp/status', {
       headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+    });
+  }
+
+  verifyTotpCode(code: string) {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.post<TotpCodeVerification>(environment.journeyApi + '/my-account/securityAttribute/totp/verify', {
+      code: code
+    }, {
+      headers: {
+        'Authorization': `Bearer ${userContext.accessToken}`,
+        'Content-Type': 'application/json'
+      }
     });
   }
 
