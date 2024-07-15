@@ -1,3 +1,3 @@
 export interface TotpStatus {
-  status: boolean
+  active: boolean
 }

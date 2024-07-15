@@ -10,12 +10,13 @@
       <span class="small pe-2">Primary:</span> <span class="fw-bold pe-2 fs-6"
                                                      [textContent]="emailAddressData().value"></span>
       @if (emailAddressData().verified) {
-        <span class="text-success border border-success border-2 rounded-2 p-1"><i
-          class="bi bi-check-circle-fill fs-6"></i></span>
+        <span class="text-success border border-success border-2 rounded-2 p-1 small ms-1 me-1"><i
+          class="bi bi-check-circle-fill"></i> Verified</span>
       } @else {
-        <span class="text-warning border border-warning border-2 rounded-2 p-1"><i
-          class="bi bi-exclamation-octagon-fill fs-6"></i></span>
+        <span class="text-danger border border-danger border-2 rounded-2 p-1 small ms-1 me-1"><i
+          class="bi bi-exclamation-octagon-fill"></i> Not Verified</span>
       }
+
     </p>
     <div class="d-inline-flex gap-2">
       <button class="btn btn-success" [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]"

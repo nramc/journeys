@@ -1,7 +1,6 @@
 import {Component, DestroyRef, inject, model, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {TotpActivationComponent} from "./totp-activation/totp-activation.component";
-import * as console from "node:console";
 import {MyAccountService} from "../../../../service/my-account/my-account.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
@@ -17,7 +16,7 @@ export class MyTotpSettingsComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   private myAccountService = inject(MyAccountService);
 
-  totpStatus = model<boolean>(false);
+  isTotpActive = model<boolean>(false);
 
   setupTotp() {
     const dialogRef = this.dialog.open(TotpActivationComponent, {disableClose: true});
@@ -31,7 +30,10 @@ export class MyTotpSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.myAccountService.getTotpStatus().pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: data => this.totpStatus.set(data.status),
+        next: data => {
+          console.log(data);
+          this.isTotpActive.set(data.active);
+        },
         error: err => console.log(err)
       });
   }
