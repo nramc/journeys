@@ -1,0 +1,90 @@
+<div class="card pb-4">
+  <div class="card-header bg-primary text-light">
+    Two-Factor Authentication (2FA) - TOTP Activation
+  </div>
+  <div class="card-body">
+    <div class="card-text">
+      <div class="step step-1">
+        <div class="d-flex flex-column">
+          <a class="col-12 gradient-bg-light p-2 fs-6 text-decoration-none" data-bs-toggle="collapse"
+             href="#collapseStep1" aria-expanded="true"
+             aria-controls="collapseStep1">Step 1: Install an Authenticator App
+          </a>
+        </div>
+        <div id="collapseStep1" class="collapse show">
+          <p>To use 2FA, you will need an authenticator app installed on your mobile device. If you don’t already have
+            one, you can download one of these apps:
+          </p>
+          <ol class="small">
+            <li><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en"
+                   target="_blank">Google Authenticator (iOS and Android)</a></li>
+            <li><a href="https://www.microsoft.com/en-us/security/mobile-authenticator-app" target="_blank">Microsoft
+              Authenticator (iOS and Android)</a></li>
+            <li><a href="https://authy.com/download/" target="_blank">Authy (iOS and Android)</a></li>
+          </ol>
+        </div>
+
+      </div>
+
+      <div class="step step-2">
+        <div class="d-flex flex-column">
+          <a class="col-12 gradient-bg-light p-2 fs-6 text-decoration-none" data-bs-toggle="collapse"
+             href="#collapseStep2" aria-expanded="true"
+             aria-controls="collapseStep2">Step 2: Scan the QR Code
+          </a>
+        </div>
+        <div id="collapseStep2" class="collapse show">
+          <ol>
+            <li>Open your authenticator app.</li>
+            <li>Select the option to add a new account. This is usually done by tapping the "+" icon.</li>
+            <li>Choose the option to scan a QR code.</li>
+            <li>Use your phone’s camera to scan the QR code displayed below.</li>
+          </ol>
+          <div class="qr-code-section text-center">
+            <img id="qrCode" width="200px" height="200px" alt="QR"
+                 [src]="'data:image/png;base64,' + qrCodeData()?.data">
+          </div>
+          <div class="secret-key-section text-center">
+            <p class="fw-bold text-primary small">Or enter code manually: <span
+              [textContent]="qrCodeData()?.secretKey"></span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step step-3">
+        <div class="d-flex flex-column">
+          <a class="col-12 gradient-bg-light p-2 fs-6 text-decoration-none" data-bs-toggle="collapse"
+             href="#collapseStep3" aria-expanded="true"
+             aria-controls="collapseStep3">Step 3: Enter the Verification Code
+          </a>
+        </div>
+        <div id="collapseStep3" class="collapse show">
+          <ol>
+            <li>After scanning the QR code, your authenticator app will display a 6-digit verification code.</li>
+            <li>Enter the 6-digit code into the field below to verify and activate 2FA on your account.</li>
+            <li>After entering the verification code, click on the "Activate" button below.</li>
+            <li>You will see a confirmation message once 2FA is successfully activated.</li>
+          </ol>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="totpCodeLabel">Code</span>
+            <input type="text" class="form-control" aria-label="6 Digit TOTP Code" aria-describedby="totpCodeLabel"
+                   id="totpCode" name="totpCode" ngModel #totpCode required pattern="[0-9]{6,6}" maxlength="6" min="6">
+          </div>
+
+          <div class="error-message">
+            <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
+          </div>
+
+          <div class="d-inline-flex gap-2">
+            <button type="button" class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="activate(totpCode)">Activate</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

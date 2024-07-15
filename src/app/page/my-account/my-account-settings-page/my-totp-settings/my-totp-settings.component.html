@@ -1,0 +1,26 @@
+<section
+  class="container d-flex flex-column gradient-bg-light-left mt-2 pt-2 pb-3 border border-opacity-50 rounded-2 shadow border-primary">
+  <div class="col d-inline-flex">
+    <h4 class="gradient-text">Authenticator TOTP</h4>
+    <div class="status-badge">
+      @if (isTotpActive()) {
+        <span class="text-success border border-success border-2 rounded-2 p-1 small ms-1 me-1"><i
+          class="bi bi-check-circle-fill"></i> Activated</span>
+      } @else {
+        <span class="text-danger border border-danger border-2 rounded-2 p-1 small ms-1 me-1"><i
+          class="bi bi-exclamation-octagon-fill"></i> Not Activated</span>
+      }
+    </div>
+  </div>
+
+  <div class="activation col" *ngIf="!isTotpActive()">
+    <button type="button" class="btn btn-success" (click)="setupTotp()">Activate</button>
+  </div>
+
+  <div class="deactivation col d-inline-flex gap-2" *ngIf="isTotpActive()">
+    <button type="button" class="btn btn-outline-danger" (click)="deactivateTotp()">Deactivate</button>
+    <button type="button" class="btn btn-outline-primary" (click)="testCode()">Test</button>
+  </div>
+
+</section>
+

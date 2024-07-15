@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-header bg-primary text-light">
+    Two-Factor Authentication
+  </div>
+  <div class="card-body">
+    <div class="card-title text-primary">TOTP Code Verification</div>
+    <div class="card-text">
+      <p>Your security is our top priority. To ensure your account remains protected, please complete the two-factor
+        authentication process by entering the 6-digit code from your authenticator app.</p>
+
+      <div class="input-group">
+        <span class="input-group-text">Code</span>
+        <input type="text" class="form-control" required pattern="[0-9]{6,6}" maxlength="6" min="6" #confirmationCode>
+      </div>
+      <div class="form-text text-danger text-center" *ngIf="isCodeInvalid()">
+        Code invalid. Please enter valid code.
+      </div>
+
+    </div>
+
+    <div class="d-inline-flex gap-2 mt-4">
+      <button class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
+      <button class="btn btn-primary" (click)="confirmCode(confirmationCode)">Confirm</button>
+    </div>
+  </div>
+</div>

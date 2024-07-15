@@ -5,6 +5,10 @@ import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {AppUser} from "../../model/account/app-user";
 import {EmailSecurityAttribute} from "../../model/account/email-security-attribute";
+import {QrCodeData} from "../../model/account/qr-code-data";
+import {TotpActivation} from "./totp-activation";
+import {TotpStatus} from "./totp-status";
+import {TotpCodeVerification} from "./totp-code-verification";
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +64,49 @@ export class MyAccountService {
         'Authorization': `Bearer ${userContext.accessToken}`,
         'Content-Type': 'application/json'
       },
+    });
+  }
+
+  generateNewQRCode() {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<QrCodeData>(environment.journeyApi + '/my-account/securityAttribute/totp', {
+      headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+    });
+  }
+
+  activateTotp(activationRequest: TotpActivation) {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.post(environment.journeyApi + '/my-account/securityAttribute/totp', activationRequest, {
+      headers: {
+        'Authorization': `Bearer ${userContext.accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  getTotpStatus() {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<TotpStatus>(environment.journeyApi + '/my-account/securityAttribute/totp/status', {
+      headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+    });
+  }
+
+  verifyTotpCode(code: string) {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.post<TotpCodeVerification>(environment.journeyApi + '/my-account/securityAttribute/totp/verify', {
+      code: code
+    }, {
+      headers: {
+        'Authorization': `Bearer ${userContext.accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+  deactivateTotp() {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.delete(environment.journeyApi + '/my-account/securityAttribute/totp', {
+      headers: {'Authorization': `Bearer ${userContext.accessToken}`}
     });
   }
 
