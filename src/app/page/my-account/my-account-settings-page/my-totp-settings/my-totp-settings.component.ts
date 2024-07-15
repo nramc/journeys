@@ -33,10 +33,13 @@ export class MyTotpSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCurrentTotpStatus();
+  }
+
+  getCurrentTotpStatus() {
     this.myAccountService.getTotpStatus().pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: data => {
-          console.log(data);
           this.isTotpActive.set(data.active);
         },
         error: err => console.log(err)
@@ -48,6 +51,15 @@ export class MyTotpSettingsComponent implements OnInit {
     dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(result => {
         console.log('Result:', result);
+      });
+  }
+
+  deactivateTotp() {
+    this.myAccountService.deactivateTotp()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: _ => this.getCurrentTotpStatus(),
+        error: err => console.log(err)
       });
   }
 }

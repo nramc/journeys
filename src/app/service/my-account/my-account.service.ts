@@ -103,4 +103,11 @@ export class MyAccountService {
     });
   }
 
+  deactivateTotp() {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.delete(environment.journeyApi + '/my-account/securityAttribute/totp', {
+      headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+    });
+  }
+
 }
