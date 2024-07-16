@@ -18,7 +18,7 @@ export class DisableIfNoRoleExistsDirective implements OnInit {
   }
 
   private checkRoleAndDisableIfRequired() {
-    if (this.authService.hasRole(this.roles)) {
+    if (this.authService.hasAnyRole(this.roles)) {
       this.renderer.setProperty(this.el.nativeElement, 'disabled', false);
       this.renderer.setAttribute(this.el.nativeElement, 'disabled', 'false');
       this.el.nativeElement.disabled = false;

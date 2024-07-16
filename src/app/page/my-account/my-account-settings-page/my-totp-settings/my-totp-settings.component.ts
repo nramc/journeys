@@ -7,12 +7,16 @@ import {NgIf} from "@angular/common";
 import {
   TotpCodeVerificationComponent
 } from "../../../../component/security/totp-code-verification/totp-code-verification.component";
+import {AuthService} from "../../../../service/auth/auth.service";
+import {Role} from "../../../../service/auth/role";
+import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
 
 @Component({
   selector: 'my-totp-settings',
   standalone: true,
   imports: [
-    NgIf
+    NgIf,
+    DisableIfNoRoleExistsDirective
   ],
   templateUrl: './my-totp-settings.component.html',
   styleUrl: './my-totp-settings.component.scss'
@@ -21,6 +25,7 @@ export class MyTotpSettingsComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   readonly dialog = inject(MatDialog);
   private myAccountService = inject(MyAccountService);
+  protected authService = inject(AuthService);
 
   isTotpActive = model<boolean>(false);
 
@@ -62,4 +67,6 @@ export class MyTotpSettingsComponent implements OnInit {
         error: err => console.log(err)
       });
   }
+
+  protected readonly Role = Role;
 }

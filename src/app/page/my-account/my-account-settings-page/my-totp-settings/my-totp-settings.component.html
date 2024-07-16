@@ -14,12 +14,18 @@
   </div>
 
   <div class="activation col" *ngIf="!isTotpActive()">
-    <button type="button" class="btn btn-success" (click)="setupTotp()">Activate</button>
+    <button type="button" class="btn btn-success" (click)="setupTotp()"
+            [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Activate
+    </button>
   </div>
 
   <div class="deactivation col d-inline-flex gap-2" *ngIf="isTotpActive()">
-    <button type="button" class="btn btn-outline-danger" (click)="deactivateTotp()">Deactivate</button>
-    <button type="button" class="btn btn-outline-primary" (click)="testCode()">Test</button>
+    <button type="button" class="btn btn-outline-danger" (click)="deactivateTotp()"
+            [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Deactivate
+    </button>
+    <button type="button" class="btn btn-outline-primary" (click)="testCode()"
+            [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Test
+    </button>
   </div>
 
 </section>
