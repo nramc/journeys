@@ -10,6 +10,7 @@ import {
 import {AuthService} from "../../../../service/auth/auth.service";
 import {Role} from "../../../../service/auth/role";
 import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
+import {ConfirmationDialogComponent} from "../../../../component/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'my-totp-settings',
@@ -34,6 +35,7 @@ export class MyTotpSettingsComponent implements OnInit {
     dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(result => {
         console.log('Result:', result);
+        this.getCurrentTotpStatus();
       });
   }
 
@@ -56,6 +58,16 @@ export class MyTotpSettingsComponent implements OnInit {
     dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(result => {
         console.log('Result:', result);
+      });
+  }
+
+  confirmTotpDeactivation() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {disableClose: true});
+    dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        if (result === true) {
+          this.deactivateTotp();
+        }
       });
   }
 

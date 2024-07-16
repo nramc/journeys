@@ -20,7 +20,7 @@
   </div>
 
   <div class="deactivation col d-inline-flex gap-2" *ngIf="isTotpActive()">
-    <button type="button" class="btn btn-outline-danger" (click)="deactivateTotp()"
+    <button type="button" class="btn btn-outline-danger" (click)="confirmTotpDeactivation()"
             [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Deactivate
     </button>
     <button type="button" class="btn btn-outline-primary" (click)="testCode()"
