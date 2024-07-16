@@ -36,7 +36,7 @@ export class MyProfilePageComponent implements OnInit {
   feedbackMessage = signal<FeedbackMessage>({});
 
   mydata: AppUser | undefined;
-  hasAccess = computed(() => this.authService.hasRole([Role.AUTHENTICATED_USER]));
+  hasAccess = computed(() => this.authService.hasAnyRole([Role.AUTHENTICATED_USER]));
 
   constructor(
     private myAccountService: MyAccountService,
