@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
         options: loginResponse.securityAttributes
       };
       this.router.navigate(['mfa'], {
+        queryParams: this.activatedRoute.snapshot.queryParams,
         state: mfaOptions
       })
         .then(console.log);
