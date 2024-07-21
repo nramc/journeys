@@ -3,10 +3,10 @@ import {FormsModule, NgForm} from "@angular/forms";
 import {FeedbackMessageComponent} from "../../../component/feedback-message/feedback-message.component";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../../../service/auth/auth.service";
-import {UserContext} from "../../../service/auth/user-context";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FeedbackMessage} from "../../../component/feedback-message/feedback-message";
+import {Credential, LoginResponse, LoginService} from "../../../service/auth/login.service";
 
 @Component({
   selector: 'app-login',
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private loginService: LoginService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
@@ -39,9 +40,10 @@ export class LoginComponent implements OnInit {
 
   login(loginForm: NgForm) {
     if (loginForm.valid) {
-      this.authService.login(this.form.userName, this.form.password)
+      let credential: Credential = {username: this.form.userName, password: this.form.password};
+      this.loginService.login(credential)
         .subscribe({
-          next: userContext => this.onLoginSuccess(userContext),
+          next: loginResponse => this.onLoginSuccess(credential, loginResponse),
           error: error => {
             loginForm.resetForm();
             this.onLoginFailed(error);
@@ -50,10 +52,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onLoginSuccess(userContext: UserContext) {
-    this.feedbackMessage.set({success: 'Login successful for ' + userContext.name});
-    let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
-    this.router.navigateByUrl(targetUrl).then(console.log);
+  onLoginSuccess(credential: Credential, loginResponse: LoginResponse) {
+    if (loginResponse.additionalFactorRequired) {
+      // redirect to a component which displays all security attributes
+    } else {
+      let userContext = this.authService.getUserContextForSuccessfulLogin(loginResponse);
+      this.feedbackMessage.set({success: 'Login successful for ' + userContext.name});
+      let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
+      this.router.navigateByUrl(targetUrl).then(console.log);
+    }
   }
 
   onLoginFailed(error: HttpErrorResponse) {
@@ -62,8 +69,8 @@ export class LoginComponent implements OnInit {
   }
 
   loginAsGuest() {
-    this.authService.loginAsGuest().subscribe({
-      next: userContext => this.onLoginSuccess(userContext),
+    this.loginService.loginAsGuest().subscribe({
+      next: loginResponse => this.authService.getUserContextForSuccessfulLogin(loginResponse),
       error: error => this.onLoginFailed(error)
     });
   }
