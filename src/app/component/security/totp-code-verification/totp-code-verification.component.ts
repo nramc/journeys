@@ -1,4 +1,4 @@
-import {Component, DestroyRef, Inject, inject, model} from '@angular/core';
+import {Component, DestroyRef, inject, model} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogClose, MatDialogRef} from "@angular/material/dialog";
 import {NgIf} from "@angular/common";
 import {MyAccountService} from "../../../service/my-account/my-account.service";
@@ -23,11 +23,7 @@ export class TotpCodeVerificationComponent {
   private loginService = inject(LoginService);
   private authService = inject(AuthService);
   dialogRef: MatDialogRef<TotpCodeVerificationComponent> = inject(MatDialogRef<TotpCodeVerificationComponent>);
-  credential: Credential | undefined;
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Credential) {
-    this.credential = data;
-  }
+  credential: Credential = inject(MAT_DIALOG_DATA);
 
   isCodeInvalid = model<boolean>(false);
 
