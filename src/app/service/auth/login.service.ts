@@ -25,6 +25,18 @@ export class LoginService {
     });
   }
 
+  mfa(confirmationCode: string, confirmationType: SecurityAttribute, credential: Credential) {
+    return this.httpClient.post<LoginResponse>(environment.journeyApi + '/mfa', {
+      'type': confirmationType,
+      'value': confirmationCode
+    }, {
+      headers: {
+        'Authorization': 'Basic ' + btoa(credential.username + ':' + credential.password),
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
   loginAsGuest() {
     return this.httpClient.post<LoginResponse>(environment.journeyApi + '/guestLogin', {
       'username': Math.random().toString(36)

@@ -7,7 +7,8 @@
 
     @if (mfaOptions?.options?.includes('TOTP')) {
       <div class="mfa-option m-2">
-        <button class="btn btn-outline-primary fw-bold p-2 w-100 h-100 round rounded-5">Using Mobile Authenticator -
+        <button class="btn btn-outline-primary fw-bold p-2 w-100 h-100 round rounded-5"
+                (click)="continueWithTotpVerification()">Using Mobile Authenticator -
           TOTP Code
         </button>
       </div>

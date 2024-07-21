@@ -1,9 +1,11 @@
-import {Component, DestroyRef, inject, model} from '@angular/core';
-import {MatDialogClose, MatDialogRef} from "@angular/material/dialog";
+import {Component, DestroyRef, Inject, inject, model} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogClose, MatDialogRef} from "@angular/material/dialog";
 import {NgIf} from "@angular/common";
 import {MyAccountService} from "../../../service/my-account/my-account.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {TotpCodeVerification} from "../../../service/my-account/totp-code-verification";
+import {Credential, LoginService} from "../../../service/auth/login.service";
+import {AuthService} from "../../../service/auth/auth.service";
 
 @Component({
   selector: 'app-totp-code-verification',
@@ -18,19 +20,48 @@ import {TotpCodeVerification} from "../../../service/my-account/totp-code-verifi
 export class TotpCodeVerificationComponent {
   private destroyRef = inject(DestroyRef);
   private myAccountService = inject(MyAccountService);
+  private loginService = inject(LoginService);
+  private authService = inject(AuthService);
   dialogRef: MatDialogRef<TotpCodeVerificationComponent> = inject(MatDialogRef<TotpCodeVerificationComponent>);
+  credential: Credential | undefined;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Credential) {
+    this.credential = data;
+  }
 
   isCodeInvalid = model<boolean>(false);
 
   confirmCode(confirmationCode: HTMLInputElement) {
     if (confirmationCode.validity.valid) {
-      this.myAccountService.verifyTotpCode(confirmationCode.value)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-          next: data => this.onSuccess(data),
-          error: err => this.onError(err)
-        });
+      if (this.credential) {
+        this.verifyCodeInUnauthenticatedContext(confirmationCode.value, this.credential);
+      } else {
+        this.verifyCodeInAuthenticatedContext(confirmationCode.value);
+      }
+    } else {
+      console.log('Code invalid');
     }
+  }
+
+  verifyCodeInUnauthenticatedContext(confirmationCode: string, credential: Credential) {
+    this.loginService.mfa(confirmationCode, "TOTP", credential)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: loginResponse => {
+          this.authService.getUserContextForSuccessfulLogin(loginResponse);
+          this.dialogRef.close(true);
+        },
+        error: err => this.onError(err)
+      });
+  }
+
+  verifyCodeInAuthenticatedContext(confirmationCode: string) {
+    this.myAccountService.verifyTotpCode(confirmationCode)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: data => this.onSuccess(data),
+        error: err => this.onError(err)
+      });
   }
 
   onSuccess(data: TotpCodeVerification) {
