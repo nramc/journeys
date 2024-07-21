@@ -1,7 +1,7 @@
 import {Component, DestroyRef, inject} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Credential, SecurityAttribute} from "../../../service/auth/login.service";
-import {JsonPipe, NgForOf} from "@angular/common";
+import {NgForOf} from "@angular/common";
 import {
   TotpCodeVerificationComponent
 } from "../../../component/security/totp-code-verification/totp-code-verification.component";
@@ -10,6 +10,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   EmailCodeVerificationComponent
 } from "../../../component/security/email-code-verification/email-code-verification.component";
+import {MatIcon} from "@angular/material/icon";
 
 export type MfaOptions = {
   credential: Credential,
@@ -21,7 +22,7 @@ export type MfaOptions = {
   standalone: true,
   imports: [
     NgForOf,
-    JsonPipe
+    MatIcon
   ],
   templateUrl: './display-mfa-options.component.html',
   styles: `.mfa-option {
