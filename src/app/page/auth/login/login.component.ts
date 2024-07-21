@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FeedbackMessage} from "../../../component/feedback-message/feedback-message";
 import {Credential, LoginResponse, LoginService} from "../../../service/auth/login.service";
 import {UserContext} from "../../../service/auth/user-context";
+import {MfaOptions} from "../display-mfa-options/display-mfa-options.component";
 
 @Component({
   selector: 'app-login',
@@ -56,6 +57,14 @@ export class LoginComponent implements OnInit {
   onLoginSuccess(credential: Credential, loginResponse: LoginResponse) {
     if (loginResponse.additionalFactorRequired) {
       // redirect to a component which displays all security attributes
+      let mfaOptions: MfaOptions = {
+        credential: credential,
+        options: loginResponse.securityAttributes
+      };
+      this.router.navigate(['mfa'], {
+        state: mfaOptions
+      })
+        .then(console.log);
     } else {
       let userContext = this.authService.getUserContextForSuccessfulLogin(loginResponse);
       this.onLogOnSuccess(userContext);

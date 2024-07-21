@@ -1,0 +1,25 @@
+<section class="container m-auto h-100 w-100 mt-4">
+
+  <div class="d-flex flex-column justify-content-center align-items-center align-content-between m-auto">
+    <div class="p-2">
+      <h5 class="gradient-text">Select Multi-factor Authentication Type to proceed further</h5>
+    </div>
+
+    @if (mfaOptions?.options?.includes('TOTP')) {
+      <div class="mfa-option m-2">
+        <button class="btn btn-outline-primary fw-bold p-2 w-100 h-100 round rounded-5">Using Mobile Authenticator -
+          TOTP Code
+        </button>
+      </div>
+    }
+    @if (mfaOptions?.options?.includes('EMAIL_ADDRESS')) {
+      <div class="mfa-option m-2">
+        <button class="btn btn-outline-primary fw-bold p-2 w-100 h-100 round rounded-5">Using Email Code</button>
+      </div>
+    }
+
+  </div>
+
+  {{ mfaOptions | json }}
+
+</section>

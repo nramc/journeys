@@ -19,6 +19,11 @@ const routes: Routes = [
     title: 'Login'
   },
   {
+    path: 'mfa',
+    loadComponent: () => import('./page/auth/display-mfa-options/display-mfa-options.component').then(m => m.DisplayMfaOptionsComponent),
+    title: 'Login'
+  },
+  {
     path: 'accessDenied',
     loadComponent: () => import('./page/auth/access-denied/access-denied.component').then(m => m.AccessDeniedComponent),
     title: 'Access Denied'
