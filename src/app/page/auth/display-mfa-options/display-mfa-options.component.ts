@@ -7,6 +7,9 @@ import {
 } from "../../../component/security/totp-code-verification/totp-code-verification.component";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MatDialog} from "@angular/material/dialog";
+import {
+  EmailCodeVerificationComponent
+} from "../../../component/security/email-code-verification/email-code-verification.component";
 
 export type MfaOptions = {
   credential: Credential,
@@ -46,12 +49,25 @@ export class DisplayMfaOptionsComponent {
     });
 
     dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(result => {
-        if (result) {
-          let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
-          this.router.navigateByUrl(targetUrl).then(console.log);
-        }
-      });
+      .subscribe(result => this.onCloseCallback(result));
+  }
+
+  continueWithEmailCodeVerification() {
+
+    const dialogRef = this.dialog.open(EmailCodeVerificationComponent, {
+      data: this.mfaOptions!.credential,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => this.onCloseCallback(result));
+  }
+
+  onCloseCallback(result: any) {
+    if (result === true) {
+      let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
+      this.router.navigateByUrl(targetUrl).then(console.log);
+    }
   }
 
 

@@ -1,7 +1,9 @@
 import {Component, DestroyRef, inject, model} from '@angular/core';
-import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {EmailConfirmationCodeService} from "../../../service/confirmation-code/email-confirmation-code.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {Credential, LoginService} from "../../../service/auth/login.service";
+import {AuthService} from "../../../service/auth/auth.service";
 
 @Component({
   selector: 'app-email-code-verification',
@@ -15,7 +17,10 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 export class EmailCodeVerificationComponent {
   private destroyRef = inject(DestroyRef);
   private emailConfirmationCodeService = inject(EmailConfirmationCodeService);
+  private loginService = inject(LoginService);
+  private authService = inject(AuthService);
   dialogRef: MatDialogRef<EmailCodeVerificationComponent> = inject(MatDialogRef<EmailCodeVerificationComponent>);
+  credential: Credential = inject(MAT_DIALOG_DATA);
   isCodeSent = model(false);
   canSendCode = model(true);
   isCodeValid = model(true);
@@ -24,17 +29,34 @@ export class EmailCodeVerificationComponent {
     this.isCodeValid.set(true);
     if (confirmationCode.validity.valid) {
       confirmButton.disabled = true;
-      this.emailConfirmationCodeService.verifyConfirmationCode(confirmationCode.value)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-          next: _ => this.onVerificationSuccess(confirmButton),
-          error: err => this.onVerificationError(err, confirmButton)
-        })
+      this.credential ? this.verifyCodeInUnauthenticatedContext(confirmationCode, confirmButton)
+        : this.verifyCodeInAuthenticatedContext(confirmationCode, confirmButton);
     } else {
       this.isCodeValid.set(false);
       console.log('invalid code')
     }
 
+  }
+
+  verifyCodeInUnauthenticatedContext(confirmationCode: HTMLInputElement, confirmButton: HTMLButtonElement) {
+    this.loginService.mfa(confirmationCode.value, "EMAIL_ADDRESS", this.credential)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: loginResponse => {
+          this.authService.getUserContextForSuccessfulLogin(loginResponse);
+          this.onVerificationSuccess(confirmButton);
+        },
+        error: err => this.onVerificationError(err, confirmButton)
+      });
+  }
+
+  verifyCodeInAuthenticatedContext(confirmationCode: HTMLInputElement, confirmButton: HTMLButtonElement) {
+    this.emailConfirmationCodeService.verifyConfirmationCode(confirmationCode.value)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: _ => this.onVerificationSuccess(confirmButton),
+        error: err => this.onVerificationError(err, confirmButton)
+      })
   }
 
   onVerificationSuccess(confirmButton: HTMLButtonElement) {
@@ -51,7 +73,7 @@ export class EmailCodeVerificationComponent {
 
   sendCode() {
     this.canSendCode.set(false);
-    this.emailConfirmationCodeService.sendConfirmationCode()
+    this.emailConfirmationCodeService.sendConfirmationCode(this.credential)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: _ => this.onSentSuccess(),

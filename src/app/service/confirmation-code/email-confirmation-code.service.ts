@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {environment} from "../../../environments/environment";
+import {Credential} from "../auth/login.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,13 @@ export class EmailConfirmationCodeService {
   private httpClient: HttpClient = inject(HttpClient);
   private authService: AuthService = inject(AuthService);
 
-  sendConfirmationCode() {
+  sendConfirmationCode(credential: Credential) {
     let userContext = this.authService.getCurrentUserContext();
+    let authCredential = credential ? 'Basic ' + btoa(credential.username + ':' + credential.password)
+      : `Bearer ${userContext.accessToken}`;
     return this.httpClient.post<void>(environment.journeyApi + '/sendEmailCode', {}, {
       headers: {
-        'Authorization': `Bearer ${userContext.accessToken}`
+        'Authorization': authCredential
       },
     });
   }

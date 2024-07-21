@@ -15,7 +15,9 @@
     }
     @if (mfaOptions?.options?.includes('EMAIL_ADDRESS')) {
       <div class="mfa-option m-2">
-        <button class="btn btn-outline-primary fw-bold p-2 w-100 h-100 round rounded-5">Using Email Code</button>
+        <button class="btn btn-outline-primary fw-bold p-2 w-100 h-100 round rounded-5"
+                (click)="continueWithEmailCodeVerification()">Using Email Code
+        </button>
       </div>
     }
 
