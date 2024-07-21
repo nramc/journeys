@@ -7,6 +7,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FeedbackMessage} from "../../../component/feedback-message/feedback-message";
 import {Credential, LoginResponse, LoginService} from "../../../service/auth/login.service";
+import {UserContext} from "../../../service/auth/user-context";
 
 @Component({
   selector: 'app-login',
@@ -57,9 +58,7 @@ export class LoginComponent implements OnInit {
       // redirect to a component which displays all security attributes
     } else {
       let userContext = this.authService.getUserContextForSuccessfulLogin(loginResponse);
-      this.feedbackMessage.set({success: 'Login successful for ' + userContext.name});
-      let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
-      this.router.navigateByUrl(targetUrl).then(console.log);
+      this.onLogOnSuccess(userContext);
     }
   }
 
@@ -68,9 +67,18 @@ export class LoginComponent implements OnInit {
     this.feedbackMessage.set({error: 'Login failed. ' + error.message});
   }
 
+  onLogOnSuccess(userContext: UserContext) {
+    this.feedbackMessage.set({success: 'Login successful for ' + userContext.name});
+    let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
+    this.router.navigateByUrl(targetUrl).then(console.log);
+  }
+
   loginAsGuest() {
     this.loginService.loginAsGuest().subscribe({
-      next: loginResponse => this.authService.getUserContextForSuccessfulLogin(loginResponse),
+      next: loginResponse => {
+        let userContext = this.authService.getUserContextForSuccessfulLogin(loginResponse);
+        this.onLogOnSuccess(userContext);
+      },
       error: error => this.onLoginFailed(error)
     });
   }
