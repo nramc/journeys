@@ -48,7 +48,6 @@ export class MyEmailAddressSettingsComponent implements OnInit {
   }
 
   private onSuccess(data: EmailSecurityAttribute, editMode: boolean = false) {
-    console.log('received data:', data)
     this.emailAddressData.set(data);
     this.editModeToggle.set(editMode);
   }
@@ -58,7 +57,6 @@ export class MyEmailAddressSettingsComponent implements OnInit {
   }
 
   enableEdit() {
-    console.log("edit model enabled")
     this.editModeToggle.set(true);
   }
 
