@@ -36,7 +36,6 @@ export class MfaSettingsComponent implements OnInit {
       .subscribe({
         next: data => {
           this.userData.set(data);
-          console.log('data:', data);
         },
         error: err => console.log(err)
       });

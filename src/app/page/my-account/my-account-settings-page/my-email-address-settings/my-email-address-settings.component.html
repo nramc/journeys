@@ -6,18 +6,21 @@
 
   <!-- Read Mode -->
   <div class="col-12 d-flex flex-column" *ngIf="!editModeToggle()">
-    <p class="text-primary">
-      <span class="small pe-2">Primary:</span> <span class="fw-bold pe-2 fs-6"
-                                                     [textContent]="emailAddressData().value"></span>
+    <div class="col d-inline-flex flex-row text-primary align-items-center">
+      <div>
+        <span class="small pe-2">Primary:</span>
+        <span class="fw-bold pe-2 fs-6" [textContent]="emailAddressData().value"></span>
+      </div>
+
       @if (emailAddressData().verified) {
-        <span class="text-success border border-success border-2 rounded-2 p-1 small ms-1 me-1"><i
+        <span class="text-success border border-success border-2 rounded-2 p-1 small text-nowrap"><i
           class="bi bi-check-circle-fill"></i> Verified</span>
       } @else {
-        <span class="text-danger border border-danger border-2 rounded-2 p-1 small ms-1 me-1"><i
+        <span class="text-danger border border-danger border-2 rounded-2 p-1 small text-nowrap"><i
           class="bi bi-exclamation-octagon-fill"></i> Not Verified</span>
       }
+    </div>
 
-    </p>
     <div class="d-inline-flex gap-2">
       <button class="btn btn-success" [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]"
               (click)="verifyEmailAddress()" *ngIf="emailAddressData().value && !emailAddressData().verified">
