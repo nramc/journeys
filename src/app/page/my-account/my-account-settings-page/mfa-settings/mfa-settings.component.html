@@ -27,13 +27,20 @@
     <button type="button" class="btn btn-success" (click)="enableMfa()"
             [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Activate
     </button>
+    <p *ngIf="isErrorOccurred()" class="text-danger small fw-bold">
+      Unable to activate MFA. Please check prerequisite conditions before activating MFA.
+    </p>
   </div>
 
   <div class="deactivation col d-inline-flex gap-2" *ngIf="userData()?.mfaEnabled">
     <button type="button" class="btn btn-outline-danger" (click)="confirmMfaDeactivation()"
             [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Deactivate
     </button>
+    <p *ngIf="isErrorOccurred()" class="text-danger small fw-bold">
+      Unable to deactivate MFA. Please try again.
+    </p>
   </div>
+
 
 </section>
 

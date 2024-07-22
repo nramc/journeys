@@ -110,4 +110,13 @@ export class MyAccountService {
     });
   }
 
+  changeMfaStatus(status: boolean) {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.post(environment.journeyApi + '/my-account/securityAttribute/mfa', {
+      status: status
+    }, {
+      headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+    });
+  }
+
 }
