@@ -40,14 +40,9 @@ export class AuthService {
     return this.user$;
   }
 
-  login(username: string, password: string) {
-    return this.loginService.login(username, password)
-      .pipe(map(tokenData => this.onLoginSuccessCallback(tokenData)));
-  }
-
   loginAsGuest() {
     return this.loginService.loginAsGuest()
-      .pipe(map(tokenData => this.onLoginSuccessCallback(tokenData)));
+      .pipe(map(tokenData => this.getUserContextForSuccessfulLogin(tokenData)));
   }
 
   logout() {
@@ -55,24 +50,22 @@ export class AuthService {
     this.setUserContext(new UserContext());
   }
 
-  private onLoginSuccessCallback(tokenData: LoginResponse) {
+  public getUserContextForSuccessfulLogin(loginResponse: LoginResponse) {
     let userContext = new UserContext(
-      tokenData.name,
+      loginResponse.name,
       true,
-      tokenData.authorities,
-      tokenData.token,
-      tokenData.expiredAt);
+      loginResponse.authorities,
+      loginResponse.token,
+      loginResponse.expiredAt);
 
-    AuthUtils.saveUserContextInLocalStorage(userContext)
-
-    this.setUserContext(userContext)
-
+    this.setUserContext(userContext);
     return userContext;
   }
 
-  private setUserContext(userContext: UserContext) {
+  public setUserContext(userContext: UserContext) {
     this.user$.next(userContext);
     this.user = userContext;
+    AuthUtils.saveUserContextInLocalStorage(userContext)
   }
 
 }
