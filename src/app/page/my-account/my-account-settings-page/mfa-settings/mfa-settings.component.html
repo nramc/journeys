@@ -1,0 +1,46 @@
+<section
+  class="container d-flex flex-column gradient-bg-light-left mt-2 pt-2 pb-3 border border-opacity-50 rounded-2 shadow border-primary"
+  *ngIf="userData()">
+  <div class="col d-inline-flex">
+    <h4 class="gradient-text">Multi-Factor Authentication</h4>
+    <div class="status-badge text-nowrap">
+      @if (userData()?.mfaEnabled) {
+        <span class="text-success border border-success border-2 rounded-2 p-1 small ms-1 me-1"><i
+          class="bi bi-check-circle-fill"></i> Activated</span>
+      } @else {
+        <span class="text-danger border border-danger border-2 rounded-2 p-1 small ms-1 me-1"><i
+          class="bi bi-exclamation-octagon-fill"></i> Not Activated</span>
+      }
+    </div>
+  </div>
+
+  <div class="text-primary small fw-bold" *ngIf="!userData()?.mfaEnabled">
+    <p>Multi-Factor authentication activation possible only after any one the following security information
+      successfully activated or verified,</p>
+    <ul>
+      <li>Email Address</li>
+      <li>TOTP</li>
+    </ul>
+  </div>
+
+  <div class="activation col" *ngIf="!userData()?.mfaEnabled">
+    <button type="button" class="btn btn-success" (click)="enableMfa()"
+            [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Activate
+    </button>
+    <p *ngIf="isErrorOccurred()" class="text-danger small fw-bold">
+      Unable to activate MFA. Please check prerequisite conditions before activating MFA.
+    </p>
+  </div>
+
+  <div class="deactivation col d-inline-flex gap-2" *ngIf="userData()?.mfaEnabled">
+    <button type="button" class="btn btn-outline-danger" (click)="confirmMfaDeactivation()"
+            [disableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Deactivate
+    </button>
+    <p *ngIf="isErrorOccurred()" class="text-danger small fw-bold">
+      Unable to deactivate MFA. Please try again.
+    </p>
+  </div>
+
+
+</section>
+

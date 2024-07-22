@@ -6,7 +6,8 @@ export class AppUser {
     private _createdDate: string,
     private _lastLoggedIn: string,
     private _enabled: boolean,
-    private _roles: string[]) {
+    private _roles: string[],
+    private _mfaEnabled: boolean) {
   }
 
   set name(value: string) {
@@ -36,5 +37,14 @@ export class AppUser {
   get roles(): string[] {
     return this._roles;
   }
+
+  set mfaEnabled(status: boolean) {
+    this._mfaEnabled = status;
+  }
+
+  get mfaEnabled() {
+    return this._mfaEnabled;
+  }
+
 
 }
