@@ -4,6 +4,7 @@ import {PageHeaderComponent} from "../../../component/page-header/page-header.co
 import {MyEmailAddressSettingsComponent} from "./my-email-address-settings/my-email-address-settings.component";
 import {MyTotpSettingsComponent} from "./my-totp-settings/my-totp-settings.component";
 import {MfaSettingsComponent} from "./mfa-settings/mfa-settings.component";
+import {PasswordSettingsComponent} from "./password-settings/password-settings.component";
 
 @Component({
   selector: 'app-my-account-settings-page',
@@ -12,7 +13,8 @@ import {MfaSettingsComponent} from "./mfa-settings/mfa-settings.component";
     PageHeaderComponent,
     MyEmailAddressSettingsComponent,
     MyTotpSettingsComponent,
-    MfaSettingsComponent
+    MfaSettingsComponent,
+    PasswordSettingsComponent
   ],
   templateUrl: './my-account-settings-page.component.html',
   styleUrl: './my-account-settings-page.component.scss'

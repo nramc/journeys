@@ -4,7 +4,7 @@ export class AppUser {
     private _username: string,
     private _name: string,
     private _createdDate: string,
-    private _lastLoggedIn: string,
+    private _passwordChangedAt: string,
     private _enabled: boolean,
     private _roles: string[],
     private _mfaEnabled: boolean) {
@@ -26,8 +26,8 @@ export class AppUser {
     return this._createdDate;
   }
 
-  get lastLoggedIn(): string {
-    return this._lastLoggedIn;
+  get passwordChangedAt(): string {
+    return this.passwordChangedAt;
   }
 
   get enabled(): boolean {

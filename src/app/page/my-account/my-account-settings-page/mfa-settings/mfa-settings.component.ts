@@ -9,7 +9,7 @@ import {AppUser} from "../../../../model/account/app-user";
 import {ConfirmationDialogComponent} from "../../../../component/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
-  selector: 'app-mfa-settings',
+  selector: 'my-mfa-settings',
   standalone: true,
   imports: [
     NgIf,
