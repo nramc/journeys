@@ -119,4 +119,13 @@ export class MyAccountService {
     });
   }
 
+  changePassword(newPassword: string) {
+    let userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.post(environment.journeyApi + '/my-account/changePassword', {
+      newPassword: newPassword
+    }, {
+      headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+    });
+  }
+
 }
