@@ -27,7 +27,7 @@ export class AppUser {
   }
 
   get passwordChangedAt(): string {
-    return this.passwordChangedAt;
+    return this._passwordChangedAt;
   }
 
   get enabled(): boolean {

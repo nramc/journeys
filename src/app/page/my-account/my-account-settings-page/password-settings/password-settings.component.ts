@@ -61,4 +61,13 @@ export class PasswordSettingsComponent {
       this.isErrorOccurred.set(true);
     }
   }
+
+  isPasswordComplaint() {
+    if (this.userData()?.passwordChangedAt) {
+      let numberOfMonthsSincePasswordChanged = (new Date().getFullYear())
+        - (new Date(Date.parse(this.userData()!.passwordChangedAt)).getFullYear()) * 12;
+      return numberOfMonthsSincePasswordChanged <= 3
+    }
+    return false;
+  }
 }
