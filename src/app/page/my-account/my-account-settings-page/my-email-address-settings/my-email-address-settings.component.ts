@@ -57,6 +57,7 @@ export class MyEmailAddressSettingsComponent implements OnInit {
   }
 
   enableEdit() {
+    this.emailAddressData().value = '';
     this.editModeToggle.set(true);
   }
 
@@ -74,7 +75,7 @@ export class MyEmailAddressSettingsComponent implements OnInit {
   verifyEmailAddress() {
     const dialogRef = this.dialog.open(EmailCodeVerificationComponent, {disableClose: true});
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(_ => {
       this.fetchSecurityEmailAddress();
     });
   }
