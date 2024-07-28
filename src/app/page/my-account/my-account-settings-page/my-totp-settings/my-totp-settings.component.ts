@@ -29,12 +29,12 @@ export class MyTotpSettingsComponent implements OnInit {
   protected authService = inject(AuthService);
 
   isTotpActive = model<boolean>(false);
+  isLoadingCompleted = model<boolean>(false);
 
   setupTotp() {
     const dialogRef = this.dialog.open(TotpActivationComponent, {disableClose: true});
     dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(result => {
-        console.log('Result:', result);
         this.getCurrentTotpStatus();
       });
   }
@@ -48,8 +48,12 @@ export class MyTotpSettingsComponent implements OnInit {
       .subscribe({
         next: data => {
           this.isTotpActive.set(data.active);
+          this.isLoadingCompleted.set(true);
         },
-        error: err => console.log(err)
+        error: err => {
+          console.log(err);
+          this.isLoadingCompleted.set(true);
+        }
       });
   }
 

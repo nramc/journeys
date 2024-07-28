@@ -1,5 +1,5 @@
-<section
-  class="container d-flex flex-column gradient-bg-light-left mt-2 pt-2 pb-3 border border-opacity-50 rounded-2 shadow border-primary">
+<section *ngIf="isLoadingCompleted()"
+         class="container d-flex flex-column gradient-bg-light-left mt-2 pt-2 pb-3 border border-opacity-50 rounded-2 shadow border-primary">
   <div class="col d-inline-flex">
     <h4 class="gradient-text">Authenticator TOTP</h4>
     <div class="status-badge text-nowrap">
