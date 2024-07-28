@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {Observable, shareReplay} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {BffApiVersion} from "./bff-api-version.model";
 
@@ -13,6 +13,7 @@ export class BffService {
   }
 
   getVersion(): Observable<BffApiVersion> {
-    return this.httpClient.get<BffApiVersion>(environment.journeyApi + '/version');
+    return this.httpClient.get<BffApiVersion>(environment.journeyApi + '/version')
+      .pipe(shareReplay(1));
   }
 }
