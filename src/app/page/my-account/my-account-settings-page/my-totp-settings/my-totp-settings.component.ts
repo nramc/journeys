@@ -34,7 +34,7 @@ export class MyTotpSettingsComponent implements OnInit {
   setupTotp() {
     const dialogRef = this.dialog.open(TotpActivationComponent, {disableClose: true});
     dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(result => {
+      .subscribe(_ => {
         this.getCurrentTotpStatus();
       });
   }
