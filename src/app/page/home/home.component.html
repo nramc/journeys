@@ -1,6 +1,6 @@
 <app-page-header [pageInfo]="HOME_PAGE_INFO"></app-page-header>
 
-<section class="container" *ngIf="authService.getUserContext() | async as userContext">
+<section class="container" *ngIf="userData() as userContext">
   <div class="row">
     <div class="col-12 text-primary" *ngIf="userContext.isAuthenticated">
       <p>Welcome <strong class="gradient-text">{{ userContext.name }}</strong>..!,</p>
@@ -19,16 +19,16 @@
 </section>
 
 <!-- Today timeline data -->
-<section class="container" *ngIf="timelineData && timelineData?.images?.length">
+<section class="container" *ngIf="timelineData() && timelineData()?.images?.length">
   <div class="row">
     <div class="col-12 d-flex flex-column justify-content-start">
-      <app-timeline [data]="timelineData"></app-timeline>
+      <app-timeline [data]="timelineData()"></app-timeline>
     </div>
   </div>
 </section>
 
 <section class="container footer-section">
-  <div class="row" *ngIf="bffApiVersion == 'CHECKING'">
+  <div class="row" *ngIf="!bffApiVersion()">
     <div class="col-12 text-center m-1">
       <div class="spinner-border text-primary">
         <span class="visually-hidden text-primary">Loading...</span>
@@ -44,7 +44,7 @@
   <footer
     class="fixed-bottom m-auto text-primary text-center align-items-center justify-content-center align-content-center">
     <span class="text-light-emphasis ms-2 small"><small>GUI : v{{ appVersion }}</small></span>
-    <span class="text-light-emphasis ms-2 small"><small>BFF : {{ bffApiVersion }}</small></span>
+    <span class="text-light-emphasis ms-2 small"><small>BFF : {{ bffApiVersion()?.version }}</small></span>
   </footer>
 </section>
 
