@@ -35,9 +35,7 @@
 
             <div class="form-outline form-white mb-4">
               <input type="email" id="username" name="username" class="form-control form-control-lg" required
-                     [(ngModel)]="form.userName"
-                     #username="ngModel"
-                     maxlength="50"/>
+                     [(ngModel)]="form.userName" autocomplete="username" #username="ngModel" maxlength="50"/>
               <label class="form-label" for="username">Username</label>
               <div [hidden]="username.valid || username.pristine" class="form-text text-danger">
                 <div *ngIf="username.errors?.['required']">Username is required.</div>
@@ -47,7 +45,8 @@
 
             <div class="form-outline form-white mb-4">
               <input type="password" id="password" name="password" class="form-control form-control-lg"
-                     [(ngModel)]="form.password" required #password="ngModel" maxlength="50"/>
+                     [(ngModel)]="form.password" required #password="ngModel" maxlength="50"
+                     autocomplete="current-password"/>
               <label class="form-label" for="password">Password</label>
               <div [hidden]="password.valid || password.pristine" class="form-text text-danger">
                 <div *ngIf="password.errors?.['required']">Password is required.</div>
