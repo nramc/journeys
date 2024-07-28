@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, model, ModelSignal, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, model, OnInit} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
@@ -31,8 +31,9 @@ export class MyEmailAddressSettingsComponent implements OnInit {
   readonly dialog = inject(MatDialog);
 
   protected readonly Role = Role;
-  emailAddressData: ModelSignal<EmailSecurityAttribute> = model(new EmailSecurityAttribute());
+  emailAddressData = model<EmailSecurityAttribute>(new EmailSecurityAttribute());
   editModeToggle = model<boolean>(false);
+  isLoadingCompleted = model(false);
 
   ngOnInit(): void {
     this.fetchSecurityEmailAddress();
@@ -48,16 +49,17 @@ export class MyEmailAddressSettingsComponent implements OnInit {
   }
 
   private onSuccess(data: EmailSecurityAttribute, editMode: boolean = false) {
-    this.emailAddressData.set(data);
+    this.emailAddressData.set(data || new EmailSecurityAttribute());
     this.editModeToggle.set(editMode);
+    this.isLoadingCompleted.set(true);
   }
 
   private onError(err: any) {
     console.log(err);
+    this.isLoadingCompleted.set(true);
   }
 
   enableEdit() {
-    this.emailAddressData().value = '';
     this.editModeToggle.set(true);
   }
 

@@ -1,5 +1,5 @@
-<section
-  class="container d-flex flex-column gradient-bg-light-left mt-2 pt-2 pb-3 border border-opacity-50 rounded-2 shadow border-primary">
+<section *ngIf="isLoadingCompleted()"
+         class="container d-flex flex-column gradient-bg-light-left mt-2 pt-2 pb-3 border border-opacity-50 rounded-2 shadow border-primary">
   <div class="col">
     <h4 class="gradient-text">Email Address</h4>
   </div>
@@ -38,8 +38,8 @@
     <div class="col input-group">
       <span class="input-group-text bg-primary text-light">Primary</span>
       <input type="email" class="form-control"
-             required email [(ngModel)]="emailAddressData().value" id="emailAddressElement" name="emailAddressElement"
-             #emailAddressElement>
+             required email id="emailAddressElement" name="emailAddressElement"
+             #emailAddressElement ngModel>
 
       <div class="input-group-text">
         <button type="button" class=" btn btn-sm btn-outline-primary" (click)="save(emailAddressElement)"
