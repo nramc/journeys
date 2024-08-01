@@ -33,10 +33,12 @@
             <h2 class="fw-bold mb-2">Login</h2>
             <p class="text-white-50 mb-5">Please Identify Yourself!</p>
 
-            <div class="form-outline form-white mb-4">
+            <div class="form-outline form-white mb-2">
               <input type="email" id="username" name="username" class="form-control form-control-lg" required
+                     placeholder="Username"
                      [(ngModel)]="form.userName" autocomplete="username" #username="ngModel" maxlength="50"/>
-              <label class="form-label" for="username">Username</label>
+              <label class="form-label small" for="username">Don't have an account?
+                <a class="text-light ms-2" [routerLink]="SIGNUP_PAGE_INFO.path">Sign Up</a></label>
               <div [hidden]="username.valid || username.pristine" class="form-text text-danger">
                 <div *ngIf="username.errors?.['required']">Username is required.</div>
                 <div *ngIf="username.errors?.['maxlength']">Username must be at most 50 characters long.</div>
@@ -45,9 +47,13 @@
 
             <div class="form-outline form-white mb-4">
               <input type="password" id="password" name="password" class="form-control form-control-lg"
-                     [(ngModel)]="form.password" required #password="ngModel" maxlength="50"
+                     [(ngModel)]="form.password" required #password="ngModel" maxlength="50" placeholder="Password"
                      autocomplete="current-password"/>
-              <label class="form-label" for="password">Password</label>
+              <label class="form-label small" for="password">Forgot Password?
+                <a class="text-light ms-2"
+                   href="https://github.com/nramc/journeys/issues/new?assignees=&labels=bug&projects=&template=bug-report-form.yml&title=%5BBug%5D%3A+"
+                   target="_blank">Contact
+                  Us</a></label>
               <div [hidden]="password.valid || password.pristine" class="form-text text-danger">
                 <div *ngIf="password.errors?.['required']">Password is required.</div>
                 <div *ngIf="password.errors?.['maxlength']">Password must be at most 50 characters long.</div>

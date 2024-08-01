@@ -21,6 +21,6 @@ export class AboutComponent {
   }
 
   signup() {
-    this.router.navigate(['/login']).then(console.log);
+    this.router.navigate(['/signup']).then(console.log);
   }
 }
