@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, model} from '@angular/core';
 import {FeedbackMessageComponent} from "../../../component/feedback-message/feedback-message.component";
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
@@ -31,12 +31,23 @@ export class SignupComponent {
   protected readonly LOGIN_PAGE_INFO = LOGIN_PAGE_INFO;
 
   form = new SignupForm();
+  isSuccessful = model(false);
 
   signup(signupForm: NgForm) {
+    this.isSuccessful.set(false);
+
     if (signupForm.valid) {
-      console.log('data valid');
+      this.onSuccessCallback(signupForm);
     } else {
-      console.log('data not valid');
+      this.onErrorCallback();
     }
+  }
+
+  onSuccessCallback(signupForm: NgForm) {
+    this.isSuccessful.set(true);
+  }
+
+  onErrorCallback() {
+    console.log('data not valid');
   }
 }
