@@ -4,11 +4,12 @@ import {FeedbackMessageComponent} from "../../../component/feedback-message/feed
 import {NgIf} from "@angular/common";
 import {AuthService} from "../../../service/auth/auth.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {FeedbackMessage} from "../../../component/feedback-message/feedback-message";
 import {Credential, LoginResponse, LoginService} from "../../../service/auth/login.service";
 import {UserContext} from "../../../service/auth/user-context";
 import {MfaOptions} from "../display-mfa-options/display-mfa-options.component";
+import {SIGNUP_PAGE_INFO} from "../../../model/page.info.model";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ import {MfaOptions} from "../display-mfa-options/display-mfa-options.component";
   imports: [
     FormsModule,
     FeedbackMessageComponent,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -92,6 +94,9 @@ export class LoginComponent implements OnInit {
       error: error => this.onLoginFailed(error)
     });
   }
+
+  protected readonly SIGNUP_PAGE_INFO = SIGNUP_PAGE_INFO;
+  forgotPasswordAssistanceUrl: string = "https://github.com/nramc/journeys/issues/new?assignees=&labels=bug&projects=&template=bug-report-form.yml&title=%5BBug%5D%3A+";
 }
 
 class LoginForm {

@@ -14,6 +14,11 @@ const routes: Routes = [
     title: "Journey"
   },
   {
+    path: 'signup',
+    loadComponent: () => import('./page/auth/signup/signup.component').then(m => m.SignupComponent),
+    title: "Signup"
+  },
+  {
     path: 'login',
     loadComponent: () => import('./page/auth/login/login.component').then(m => m.LoginComponent),
     title: 'Login'

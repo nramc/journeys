@@ -11,6 +11,12 @@ export const HOME_PAGE_INFO: PageInfo = {
   description: "The Time Machine: Reconnect with the past. Every journey a memory made.",
   path: "/home"
 };
+export const SIGNUP_PAGE_INFO: PageInfo = {
+  name: "Signup",
+  title: "Signup",
+  description: "",
+  path: "/signup"
+};
 export const LOGIN_PAGE_INFO: PageInfo = {
   name: "Login",
   title: "Login",
