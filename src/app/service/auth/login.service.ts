@@ -47,6 +47,20 @@ export class LoginService {
     });
   }
 
+  signup(request: SignupRequest) {
+    return this.httpClient.post<void>(environment.journeyApi + '/signup', request, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+}
+
+export interface SignupRequest {
+  username: string,
+  password: string,
+  name: string
 }
 
 export interface Credential {
