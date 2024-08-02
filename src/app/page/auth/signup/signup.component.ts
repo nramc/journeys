@@ -27,7 +27,7 @@ export class SignupForm {
     RouterLink
   ],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styles: ''
 })
 export class SignupComponent {
   protected readonly LOGIN_PAGE_INFO = LOGIN_PAGE_INFO;
