@@ -47,7 +47,7 @@ export class SignupComponent {
         name: this.form.name
       }).pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
-          next: value => this.onSuccessCallback(signupForm),
+          next: _ => this.onSuccessCallback(),
           error: err => this.onErrorCallback(err)
         });
     } else {
@@ -55,11 +55,11 @@ export class SignupComponent {
     }
   }
 
-  onSuccessCallback(signupForm: NgForm) {
+  onSuccessCallback() {
     this.isSuccessful.set(true);
   }
 
   onErrorCallback(err: any = {}) {
-    console.log('data not valid');
+    console.log('data not valid', err);
   }
 }
