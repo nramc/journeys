@@ -96,6 +96,7 @@ export class LoginComponent implements OnInit {
   }
 
   protected readonly SIGNUP_PAGE_INFO = SIGNUP_PAGE_INFO;
+  forgotPasswordAssistanceUrl: string = "https://github.com/nramc/journeys/issues/new?assignees=&labels=bug&projects=&template=bug-report-form.yml&title=%5BBug%5D%3A+";
 }
 
 class LoginForm {
