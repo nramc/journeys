@@ -4,7 +4,7 @@
     <div class="card border-primary shadow-lg">
       <div class="card-header gradient-bg text-light fs-4">Registration</div>
       <div class="card-body p-3 p-md-4 p-xl-5">
-        <div class="card-title small p-2 border border-success border-2 shadow-lg rounded-2 bg-transparent text-success" *ngIf="!isSuccessful()">
+        <div class="card-title small p-2 border border-success border-2 shadow-lg rounded-2 bg-transparent text-success" *ngIf="isSuccessful()">
           <div class="fs-6 mb-2 fw-bold text-center">Registration Successful!</div>
           <p>We've sent an activation email to your email address. Please check and click the activation link to
             complete your registration.</p>
@@ -14,7 +14,7 @@
 
             <div class="col-12">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control form-control-sm" id="name" name="name"
+                <input type="text" class="form-control form-control-sm" id="name" name="name" autofocus
                        placeholder="Name" [(ngModel)]="form.name" #name="ngModel"
                        required maxlength="50" minlength="3"
                        [disabled]="isSuccessful()">
