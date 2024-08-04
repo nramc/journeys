@@ -36,6 +36,7 @@ export class SignupComponent {
 
   form = new SignupForm();
   isSuccessful = model(false);
+  isErrorOccurred = model(false);
 
   signup(signupForm: NgForm) {
     this.isSuccessful.set(false);
@@ -61,5 +62,6 @@ export class SignupComponent {
 
   onErrorCallback(err: any = {}) {
     console.log('data not valid', err);
+    this.isErrorOccurred.set(true);
   }
 }
