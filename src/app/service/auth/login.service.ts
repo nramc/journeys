@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Role} from "./role";
@@ -7,11 +7,7 @@ import {Role} from "./role";
   providedIn: 'root'
 })
 export class LoginService {
-
-  constructor(
-    private httpClient: HttpClient
-  ) {
-  }
+  private httpClient = inject(HttpClient);
 
   login(credential: Credential) {
     return this.httpClient.post<LoginResponse>(environment.journeyApi + '/login', {
@@ -47,34 +43,6 @@ export class LoginService {
     });
   }
 
-  signup(request: SignupRequest) {
-    return this.httpClient.post<void>(environment.journeyApi + '/signup', request, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  }
-
-  activate(activationRequest: AccountActivationRequest) {
-    return this.httpClient.post<void>(environment.journeyApi + '/activate', activationRequest, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  }
-
-}
-
-export interface AccountActivationRequest {
-  username: string;
-  emailToken: string,
-  apiVersion: string
-}
-
-export interface SignupRequest {
-  username: string,
-  password: string,
-  name: string
 }
 
 export interface Credential {

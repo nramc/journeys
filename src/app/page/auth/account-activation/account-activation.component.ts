@@ -6,8 +6,8 @@ import {ActivatedRoute, RouterLink} from "@angular/router";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {BffService} from "../../../service/bff/bff.service";
 import {filter, mergeMap, tap} from "rxjs";
-import {LoginService} from "../../../service/auth/login.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {RegistrationService} from "../../../service/registration/registration.service";
 
 export class AccountActivationForm {
   constructor(public username: string | null = '', public emailToken: string | null = '') {
@@ -32,7 +32,7 @@ export class AccountActivationComponent implements OnInit {
 
   destroyRef = inject(DestroyRef);
   bffService = inject(BffService);
-  loginService = inject(LoginService);
+  registrationService = inject(RegistrationService);
 
   accountActivationForm;
   isSuccessful = signal<boolean>(false);
@@ -64,7 +64,7 @@ export class AccountActivationComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef),
       filter(_ => this.accountActivationForm.username != null && this.accountActivationForm.emailToken != null),
       tap(_ => this.isLoading.set(true)),
-      mergeMap(version => this.loginService.activate({
+      mergeMap(version => this.registrationService.activate({
         username: this.accountActivationForm.username!,
         emailToken: this.accountActivationForm.emailToken!,
         apiVersion: version.version
