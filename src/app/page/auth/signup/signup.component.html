@@ -44,7 +44,7 @@
                   <div *ngIf="username.errors?.['minlength'] && !username.errors?.['email']">
                     Email Address must have at least 8 characters long.
                   </div>
-                  <div *ngIf="username.errors?.['email'] && !username.errors?.['email']">Email Address invalid.</div>
+                  <div *ngIf="username.errors?.['email']">Email Address invalid.</div>
                 </div>
               </div>
             </div>

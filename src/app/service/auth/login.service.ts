@@ -55,6 +55,20 @@ export class LoginService {
     });
   }
 
+  activate(activationRequest: AccountActivationRequest) {
+    return this.httpClient.post<void>(environment.journeyApi + '/activate', activationRequest, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
+}
+
+export interface AccountActivationRequest {
+  username: string;
+  emailToken: string,
+  apiVersion: string
 }
 
 export interface SignupRequest {
