@@ -25,7 +25,7 @@ export class AccountActivationForm {
     MatProgressSpinner
   ],
   templateUrl: './account-activation.component.html',
-  styleUrl: './account-activation.component.scss'
+  styles: ''
 })
 export class AccountActivationComponent implements OnInit {
   protected readonly LOGIN_PAGE_INFO = LOGIN_PAGE_INFO;
