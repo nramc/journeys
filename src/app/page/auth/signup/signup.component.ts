@@ -4,7 +4,6 @@ import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {LOGIN_PAGE_INFO} from "../../../model/page.info.model";
-import {LoginService} from "../../../service/auth/login.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {RegistrationService} from "../../../service/registration/registration.service";
 
