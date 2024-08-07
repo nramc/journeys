@@ -4,8 +4,8 @@ import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {LOGIN_PAGE_INFO} from "../../../model/page.info.model";
-import {LoginService} from "../../../service/auth/login.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {RegistrationService} from "../../../service/registration/registration.service";
 
 export class SignupForm {
   constructor(
@@ -32,7 +32,7 @@ export class SignupForm {
 export class SignupComponent {
   protected readonly LOGIN_PAGE_INFO = LOGIN_PAGE_INFO;
   destroyRef = inject(DestroyRef);
-  loginService = inject(LoginService);
+  registrationService = inject(RegistrationService);
 
   form = new SignupForm();
   isSuccessful = model(false);
@@ -42,7 +42,7 @@ export class SignupComponent {
     this.isSuccessful.set(false);
 
     if (signupForm.valid) {
-      this.loginService.signup({
+      this.registrationService.signup({
         username: this.form.username,
         password: this.form.password,
         name: this.form.name
