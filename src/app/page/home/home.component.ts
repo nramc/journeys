@@ -9,6 +9,7 @@ import {RouterLink} from "@angular/router";
 import {TimelineService} from "../../service/timeline/timeline.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {TimelineComponent} from "../../component/timeline/timeline.component";
+import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ import {TimelineComponent} from "../../component/timeline/timeline.component";
     NgIf,
     JsonPipe,
     TimelineComponent,
-    RouterLink
+    RouterLink,
+    HasWriteAccessDirective
   ],
   standalone: true
 })
