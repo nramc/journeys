@@ -1,3 +1,19 @@
-<div class="container">
-  <h1 class="gradient-text">Logged out successfully</h1>
-</div>
+<ng-template #logoutDialogContent>
+  <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+    <mat-dialog-content class="d-flex flex-column justify-content-center align-items-center">
+      <div class="border border-2 rounded-5 border-danger p-3 border-opacity-50 bg-danger bg-opacity-10">
+        <mat-icon class="fs-3 text-danger">logout</mat-icon>
+      </div>
+      <h2 class="text-danger">Logout</h2>
+      <div class="mt-2">
+        <p class="text-danger">Are you sure you want to logout ?</p>
+      </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions class="d-flex gap-3">
+      <button class="btn btn-outline-success" [mat-dialog-close]="false">No, Stay</button>
+      <button class="btn btn-outline-danger" [mat-dialog-close]="true" cdkFocusInitial>Yes, Logout</button>
+    </mat-dialog-actions>
+  </div>
+
+</ng-template>
