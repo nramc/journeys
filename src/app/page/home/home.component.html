@@ -4,7 +4,8 @@
   <div class="row">
     <div class="col-12 text-primary" *ngIf="userContext.isAuthenticated">
       <p>Welcome <strong class="gradient-text">{{ userContext.name }}</strong>..!,</p>
-      <p class="small">Never lose track of a travel memory again.
+      <p class="small" *hasWriteAccess>
+        Never lose track of a travel memory again.
         <a routerLink="/journey/new" role="link" class="">
           Create Journey to store your trips, photos, and stories - forever!
           <i class="bi bi-arrow-right-circle-fill"></i></a>
@@ -35,8 +36,10 @@
       </div>
       <p class="text-primary">Warming up the chrono-engine! (Backend server too!)</p>
       <p class="text-primary small opacity-75">
-        It'll be ready for temporal displacement in a minute or two. <i class="fs-5 fw-bolder bi bi-emoji-grin pe-none text-primary"></i><br/>
-        In the meantime, why not explore the space-time continuum of our other pages? <i class="fs-5 fw-bolder bi bi-emoji-sunglasses pe-none text-primary"></i>
+        It'll be ready for temporal displacement in a minute or two. <i
+        class="fs-5 fw-bolder bi bi-emoji-grin pe-none text-primary"></i><br/>
+        In the meantime, why not explore the space-time continuum of our other pages? <i
+        class="fs-5 fw-bolder bi bi-emoji-sunglasses pe-none text-primary"></i>
       </p>
     </div>
   </div>

@@ -10,7 +10,7 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './confirmation-dialog.component.html',
-  styleUrl: './confirmation-dialog.component.scss'
+  styles: ''
 })
 export class ConfirmationDialogComponent {
   dialogRef: MatDialogRef<ConfirmationDialogComponent> = inject(MatDialogRef<ConfirmationDialogComponent>);
