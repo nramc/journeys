@@ -4,11 +4,12 @@ import {Router} from "@angular/router";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatIcon} from "@angular/material/icon";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-logout',
   standalone: true,
-  imports: [MatDialogModule, MatIcon],
+  imports: [MatDialogModule, MatIcon, MatButton],
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.scss'
 })
