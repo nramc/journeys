@@ -35,7 +35,6 @@ export class AuthService {
     );
   }
 
-
   getUserContext(): BehaviorSubject<UserContext> {
     return this.user$;
   }
