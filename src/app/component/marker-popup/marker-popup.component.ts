@@ -6,7 +6,7 @@ import {NgForOf} from "@angular/common";
 @Component({
   selector: 'app-marker-popup',
   templateUrl: './marker-popup.component.html',
-  styleUrls: ['./marker-popup.component.scss'],
+  styles: [],
   imports: [
     RouterLink,
     NgForOf
@@ -18,7 +18,6 @@ export class MarkerPopupComponent {
   @Input() feature: Feature | undefined;
 
   elementRef: ElementRef;
-  trackByFn = (index: number, feature: Feature) => feature.id;
 
   constructor(myElement: ElementRef) {
     this.elementRef = myElement;
