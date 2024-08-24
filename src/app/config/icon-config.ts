@@ -41,7 +41,7 @@ export const iconTemple = L.divIcon({
 });
 export const iconAdventure = L.divIcon({
   className: 'custom-div-icon',
-  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>public</i></div>",
+  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>explore</i></div>",
   iconSize: [30, 42],
   iconAnchor: [15, 42],
   popupAnchor: [1, -34],
@@ -80,7 +80,7 @@ export const iconLove = L.divIcon({
 
 export const iconShopping = L.divIcon({
   className: 'custom-div-icon',
-  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-success fs-5'>local_mall</i></div>",
+  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>local_mall</i></div>",
   iconSize: [30, 42],
   iconAnchor: [15, 42],
   popupAnchor: [1, -34],
@@ -90,7 +90,7 @@ export const iconShopping = L.divIcon({
 
 export const iconFunny = L.divIcon({
   className: 'custom-div-icon',
-  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>mood</i></div>",
+  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-info fs-5'>mood</i></div>",
   iconSize: [30, 42],
   iconAnchor: [15, 42],
   popupAnchor: [1, -34],
@@ -100,7 +100,7 @@ export const iconFunny = L.divIcon({
 
 export const iconDefault = L.divIcon({
   className: 'custom-div-icon',
-  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>navigation</i></div>",
+  html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-primary fs-5'>location_on</i></div>",
   iconSize: [30, 42],
   iconAnchor: [15, 42],
   popupAnchor: [1, -34],
