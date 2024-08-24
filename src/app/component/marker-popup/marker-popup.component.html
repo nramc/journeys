@@ -1,15 +1,15 @@
 <div class="card text-white border-0 bg-transparent shadow-none" style="">
   <div class="card-body p-0">
-    <h4 class="card-title text-primary fs-6">{{ feature?.properties?.['name'] }}</h4>
+    <h4 class="card-title text-primary fs-6">{{ feature()?.properties?.['name'] }}</h4>
     <div class="card-text text-dark-emphasis">
-      <p class="text-primary" [textContent]="feature?.properties?.['title']">
+      <p class="text-primary" [textContent]="feature()?.properties?.['title']">
         Some description goes here later
       </p>
       <p>
-        @for (tag of feature?.properties?.['tags']; track tag) {
+        @for (tag of feature()?.properties?.['tags']; track tag) {
           <span class="badge border border-primary border-2 text-primary me-1">{{ tag }}</span>
         }
-        <a [routerLink]="['/journey', feature?.id, 'view']" class="btn btn-sm btn-primary text-light float-end">View</a>
+        <a [routerLink]="['/journey', feature()?.id, 'view']" class="btn btn-sm btn-primary text-light float-end">View</a>
       </p>
     </div>
   </div>

@@ -1,7 +1,7 @@
-import {Component, ElementRef, Input} from '@angular/core';
-import {Feature} from "geojson";
+import {Component, ElementRef, input} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {NgForOf} from "@angular/common";
+import {Feature} from "geojson";
 
 @Component({
   selector: 'app-marker-popup',
@@ -15,7 +15,7 @@ import {NgForOf} from "@angular/common";
 })
 export class MarkerPopupComponent {
 
-  @Input() feature: Feature | undefined;
+  public feature = input<Feature>();
 
   elementRef: ElementRef;
 

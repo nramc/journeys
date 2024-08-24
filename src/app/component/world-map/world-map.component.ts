@@ -106,7 +106,7 @@ export class WorldMapComponent implements AfterViewInit {
 
     const getPopupComponentNativeElement = (feature: Feature) => {
       let popupComponent = this.markerPopupViewContainerRef?.createComponent(MarkerPopupComponent);
-      popupComponent!.instance.feature = feature;
+      popupComponent!.setInput('feature', feature);
       return popupComponent?.instance.elementRef.nativeElement;
     }
 
