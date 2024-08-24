@@ -2,13 +2,14 @@
   <div class="card-body p-0">
     <h4 class="card-title text-primary fs-6">{{ feature?.properties?.['name'] }}</h4>
     <div class="card-text text-dark-emphasis">
-      <p class="text-primary" [textContent]="feature?.properties?.['description']">
+      <p class="text-primary" [textContent]="feature?.properties?.['title']">
         Some description goes here later
       </p>
       <p>
-        <span *ngFor="let tag of feature?.properties?.['tags']; trackBy: trackByFn"
-              class="badge  bg-primary me-1">{{ tag }}</span>
-        <a [routerLink]="['/journey', feature?.id, 'view']" class="btn btn-sm btn-outline-primary float-end">View</a>
+        @for (tag of feature?.properties?.['tags']; track tag) {
+          <span class="badge border border-primary border-2 text-primary me-1">{{ tag }}</span>
+        }
+        <a [routerLink]="['/journey', feature?.id, 'view']" class="btn btn-sm btn-primary text-light float-end">View</a>
       </p>
     </div>
   </div>
