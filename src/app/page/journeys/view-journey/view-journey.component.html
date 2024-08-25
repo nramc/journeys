@@ -1,7 +1,7 @@
 <section *ngIf="journey$ | async as journey" class="mt-3 mb-2">
   <div class="row m-2">
     <div class="col-12">
-      <h4><span class="gradient-text me-1">{{journey.name}}</span>
+      <h4><span class="gradient-text me-1">{{ journey.name }}</span>
         <button class="btn btn-outline-primary btn-sm" type="button" *hasWriteAccess
                 title="Edit Journey" (click)="editJourney(journey)">
           <i class="bi bi-pencil-square"></i>
@@ -16,18 +16,25 @@
         <mat-tab bodyClass="mt-2">
           <ng-template mat-tab-label>
             <mat-icon class="me-1">map</mat-icon>
-            Geo Details
+            Geo
           </ng-template>
           <div class="row d-flex flex-row m-0">
-            <div class="col-12" style="position: relative; height: 50vh; margin: inherit">
-              <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location" [iconType]="journey.icon"
-              ></app-world-map>
+            <div class="col-12" style="position: relative; height: 80vh; margin: inherit">
+              <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location"
+                             [iconType]="journey.icon"></app-world-map>
             </div>
+          </div>
+        </mat-tab>
 
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="me-1">bookmark_heart</mat-icon>
+            Memories
+          </ng-template>
+          <div class="row d-flex flex-row m-0">
             <div class="col-12">
               <app-view-journey-basic-details [journey]="journey"></app-view-journey-basic-details>
             </div>
-
           </div>
         </mat-tab>
 
