@@ -12,6 +12,7 @@ import {WorldMapComponent} from "../../../component/world-map/world-map.componen
 import {MediaGalleryComponent} from "../../../component/media-gallery/media-gallery.component";
 import {ViewJourneyBasicDetailsComponent} from "./view-journey-basic-details/view-journey-basic-details.component";
 import {HasWriteAccessDirective} from "../../../directive/has-write-access.directive";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @Component({
   selector: 'app-view-journey',
@@ -27,7 +28,8 @@ import {HasWriteAccessDirective} from "../../../directive/has-write-access.direc
     MediaGalleryComponent,
     AsyncPipe,
     ViewJourneyBasicDetailsComponent,
-    HasWriteAccessDirective
+    HasWriteAccessDirective,
+    MatButtonToggleModule
   ],
   standalone: true
 })
