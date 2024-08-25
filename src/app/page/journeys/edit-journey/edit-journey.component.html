@@ -1,7 +1,7 @@
 <section *ngIf="journey" class="mt-3">
   <div class="row m-2">
     <div class="col-12">
-      <h4><span class="gradient-text me-1">{{journey.name}}</span>
+      <h4><span class="gradient-text me-1">{{ journey.name }}</span>
         <button class="btn btn-outline-primary btn-sm" type="button"
                 title="View Journey" (click)="viewJourney(journey)">
           <i class="bi bi-eye-fill"></i>
@@ -11,9 +11,9 @@
   </div>
 
 
-  <mat-stepper orientation="vertical" [linear]="true">
+  <mat-stepper orientation="horizontal">
 
-    <mat-step [optional]="false" [completed]="isBasicDataCollected()" color="primary">
+    <mat-step [completed]="journey.id">
       <ng-template matStepLabel>Edit Basic Details</ng-template>
       <ng-template matStepContent>
         <app-edit-journey-basic-data [journey]="journey"
@@ -21,7 +21,7 @@
       </ng-template>
     </mat-step>
 
-    <mat-step [optional]="false" [completed]="isGeoInfoCollected()" (interacted)="stepsEventHandler($event)">
+    <mat-step (interacted)="stepsEventHandler($event)">
       <ng-template matStepLabel>Edit Geo Details</ng-template>
       <ng-template matStepContent>
         <app-edit-journey-geo-details [journey]="journey"
@@ -29,14 +29,14 @@
       </ng-template>
     </mat-step>
 
-    <mat-step [optional]="false" [completed]="isEventInfoCollected()" (interacted)="stepsEventHandler($event)">
+    <mat-step (interacted)="stepsEventHandler($event)">
       <ng-template matStepLabel>Edit Images Details</ng-template>
       <ng-template matStepContent>
         <app-edit-journey-images-details [journey]="journey"
                                          (saved)="savedEventHandler($event)"></app-edit-journey-images-details>
       </ng-template>
     </mat-step>
-    <mat-step [optional]="false" [completed]="isEventInfoCollected()" (interacted)="stepsEventHandler($event)">
+    <mat-step (interacted)="stepsEventHandler($event)">
       <ng-template matStepLabel>Edit Videos Details</ng-template>
       <ng-template matStepContent>
         <app-edit-journey-videos-details [journey]="journey"
@@ -44,7 +44,7 @@
       </ng-template>
     </mat-step>
 
-    <mat-step [optional]="false" [completed]="isJourneyPublished()" (interacted)="stepsEventHandler($event)">
+    <mat-step (interacted)="stepsEventHandler($event)">
       <ng-template matStepLabel>Publish Journey</ng-template>
       <ng-template matStepContent>
         <app-edit-journey-publish-details [journey]="journey"
