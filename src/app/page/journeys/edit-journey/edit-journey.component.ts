@@ -63,23 +63,6 @@ export class EditJourneyComponent implements OnInit {
       });
   }
 
-  isBasicDataCollected(): boolean {
-    return this.journey.id != '';
-  }
-
-  isGeoInfoCollected(): boolean {
-    return this.journey.id != '';
-  }
-
-  isEventInfoCollected(): boolean {
-    return this.journey.id != '';
-  }
-
-  isJourneyPublished(): boolean {
-    return this.journey.id != '';
-  }
-
-
   viewJourney(journey: Journey) {
     this.router.navigate(['/journey', journey.id, 'view']).then();
   }
