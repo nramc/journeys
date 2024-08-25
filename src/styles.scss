@@ -222,3 +222,8 @@ gallery-image img {
   justify-content: center;
   flex-direction: column;
 }
+
+.mdc-tab--active {
+  background: $primary-bg-subtle !important;
+  transition: background-color 1s ease;
+}
