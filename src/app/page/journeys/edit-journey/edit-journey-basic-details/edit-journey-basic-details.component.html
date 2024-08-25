@@ -131,11 +131,11 @@
               Coordinates
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" role="button" (click)="copyCoordinatesFromGoogleMap()">Paste coordinates
-                copied from Google Map</a></li>
-              <li><a class="dropdown-item" role="button" (click)="copyCoordinatesFromClipboard()">Paste from
-                clipboard</a></li>
-              <li><a class="dropdown-item" role="button" (click)="swapCoordinates()">Swap Coordinates</a></li>
+              <li><button type="button" class="dropdown-item" (click)="copyCoordinatesFromGoogleMap()">Paste coordinates
+                copied from Google Map</button></li>
+              <li><button type="button" class="dropdown-item" (click)="copyCoordinatesFromClipboard()">Paste from
+                clipboard</button></li>
+              <li><button type="button" class="dropdown-item" (click)="swapCoordinates()">Swap Coordinates</button></li>
             </ul>
 
             <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
@@ -160,7 +160,7 @@
 
       <div class="row">
         <!-- City -->
-        <div class="mb-3 col-md-6">
+        <div class="mb-3 col-md-4">
           <label for="city" class="form-label">City</label>
           <input type="text" class="form-control" id="city" name="city" [(ngModel)]="journey.city" #city="ngModel"
                  required minlength="3" maxlength="50">
@@ -172,7 +172,7 @@
         </div>
 
         <!-- Country -->
-        <div class="mb-3 col-md-6">
+        <div class="mb-3 col-md-4">
           <label for="country" class="form-label">Country</label>
           <input type="text" class="form-control" id="country" name="country" [(ngModel)]="journey.country"
                  #country="ngModel"
