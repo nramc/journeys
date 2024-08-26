@@ -5,7 +5,6 @@ import {FeedbackMessageComponent} from "../../../../component/feedback-message/f
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {MatStepperNext} from "@angular/material/stepper";
-import {MatBadge} from "@angular/material/badge";
 import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
 
 @Component({
@@ -16,8 +15,7 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
     FormsModule,
     NgIf,
     ReactiveFormsModule,
-    MatStepperNext,
-    MatBadge
+    MatStepperNext
   ],
   templateUrl: './edit-journey-videos-details.component.html',
   styleUrl: './edit-journey-videos-details.component.scss'

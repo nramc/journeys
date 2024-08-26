@@ -23,9 +23,9 @@
       <div class="d-flex mb-3 flex-wrap">
         @for (videoDetail of formVideosDetails.videos; track videoDetail.videoId; let i = $index) {
           <div class="m-2 video-thumbnail-wrapper">
-            <button type="button" class="btn-video-remove" aria-label="Close"
-                    (click)="removeVideoAndSaveJourney(videoDetail)"
-                    matBadge="x" matBadgePosition="below after" matBadgeColor="warn" matBadgeSize="small">
+            <button aria-label="close" (click)="removeVideoAndSaveJourney(videoDetail)"
+                    class="btn btn-sm btn-outline-danger btn-video-remove rounded-2">
+              X
             </button>
 
             <img
