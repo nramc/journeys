@@ -52,8 +52,8 @@ export class ImageResizeComponent {
     this.totalImages = files.length;
     if (files.length > 0) {
       this.resizedImages = [];
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
+      for (const element of files) {
+        const file = element;
         const reader = new FileReader();
         reader.onload = (e: any) => {
           const img = new Image();
@@ -67,14 +67,12 @@ export class ImageResizeComponent {
 
             if (width > height) {
               if (width > maxWidth) {
-                height = Math.round((height *= maxWidth / width));
+                height = Math.round((height * maxWidth / width));
                 width = maxWidth;
               }
-            } else {
-              if (height > maxHeight) {
-                width = Math.round((width *= maxHeight / height));
-                height = maxHeight;
-              }
+            } else if (height > maxHeight) {
+              width = Math.round((width * maxHeight / height));
+              height = maxHeight;
             }
             canvas.width = width;
             canvas.height = height;
