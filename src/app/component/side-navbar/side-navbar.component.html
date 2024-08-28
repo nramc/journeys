@@ -85,12 +85,6 @@
             {{ LOGIN_PAGE_INFO.name }}
           </a>
         </li>
-        <li class="nav-item" [hidden]="isAuthenticated() | async">
-          <a [routerLink]="SIGNUP_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
-            <i class="bi bi-person-fill-add pe-none me-2"></i>
-            {{ SIGNUP_PAGE_INFO.name }}
-          </a>
-        </li>
 
         <li class="nav-item dropdown" *ngIf="isAuthenticated() | async">
           <a class="nav-link dropdown-toggle" href="#" routerLinkActive="active"
