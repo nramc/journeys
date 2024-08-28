@@ -1,17 +1,16 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {PageInfo} from "../../model/page.info.model";
 import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-page-header',
   templateUrl: './page-header.component.html',
-  imports: [
-    NgIf
-  ],
-  standalone: true
+  imports: [NgIf],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageHeaderComponent {
 
-  @Input() pageInfo: PageInfo | undefined;
+  pageInfo = input.required<PageInfo>();
 
 }
