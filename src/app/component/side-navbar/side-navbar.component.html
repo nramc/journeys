@@ -4,14 +4,14 @@
 
   <div class="d-flex flex-column flex-shrink-0 p-3 w-100">
     <!-- App Band logo section   -->
-    <div class="d-flex flex-row justify-content-between border-bottom border-2 border-secondary">
+    <div class="d-flex flex-row justify-content-between border-bottom border-2 border-secondary mb-md-2">
       <a [routerLink]="HOME_PAGE_INFO.path" class="navbar-brand d-flex flex-row">
         <div class="col">
           <img ngSrc="assets/journey-logo.png" alt="" width="32" height="32">
         </div>
         <div class="col">
           <span class="fs-4 pe-none">Journey</span>
-          <p class="text-monospace app-tagline text-center">Your Portal to the Past</p>
+          <p class="text-monospace app-tagline text-center overflow-hidden">Your Portal to the Past</p>
         </div>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -20,9 +20,9 @@
       </button>
     </div>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse flex-column" id="navbarNav">
 
-      <ul class="navbar-nav flex-column mb-auto">
+      <ul class="navbar-nav flex-column flex-grow-1 mb-auto w-100 gap-2">
         <li class="nav-item">
           <a [routerLink]="HOME_PAGE_INFO.path" class="nav-link" routerLinkActive="active" aria-current="page">
             <i class="bi bi-house-door pe-none me-2"></i>
@@ -111,7 +111,6 @@
             </li>
           </ul>
         </li>
-
 
       </ul>
 
