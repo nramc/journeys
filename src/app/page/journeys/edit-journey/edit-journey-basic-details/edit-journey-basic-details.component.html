@@ -87,10 +87,22 @@
       <!-- Memories -->
       <div class="mb-3">
         <label for="description" class="form-label">Memories</label>
-        <textarea rows="5" class="form-control" id="description" name="description" required minlength="10"
+        <textarea rows="15" class="form-control vh-50" id="description" name="description" required minlength="10"
                   maxlength="5000" #description="ngModel"
-                  [(ngModel)]="journey.description"
+                  [(ngModel)]="journey.description" [hidden]="markdownStyle() === 'Preview'"
                   placeholder="Detailed information about the Journey"></textarea>
+        <div class="vh-50" [hidden]="markdownStyle() == 'Source'">
+          <app-display-markdown-component
+            [title]="journey.title"
+            [markdownText]="journey.description"></app-display-markdown-component>
+        </div>
+
+        <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style"
+                                 class="ignore-highlight" [(ngModel)]="markdownStyle">
+          <mat-button-toggle value="Source">Edit</mat-button-toggle>
+          <mat-button-toggle value="Preview">Preview</mat-button-toggle>
+        </mat-button-toggle-group>
+
         <div [hidden]="description.valid || description.pristine" class="form-text text-danger">
           <div *ngIf="description.errors?.['required']">Memories is required.</div>
           <div *ngIf="description.errors?.['minlength']">Memories must be at least 10 characters long.</div>
@@ -126,16 +138,24 @@
                    id="longitude" name="longitude" [(ngModel)]="coordinates[0]"
                    required min="-180.0" max="180.0" #longitude="ngModel" (blur)="refreshMapWithCoordinates()">
 
-            <button class="btn btn-primary input-group-text dropdown-toggle" data-bs-toggle="dropdown"
+            <button class="btn btn-outline-light input-group-text dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false">
               Coordinates
             </button>
-            <ul class="dropdown-menu">
-              <li><button type="button" class="dropdown-item" (click)="copyCoordinatesFromGoogleMap()">Paste coordinates
-                copied from Google Map</button></li>
-              <li><button type="button" class="dropdown-item" (click)="copyCoordinatesFromClipboard()">Paste from
-                clipboard</button></li>
-              <li><button type="button" class="dropdown-item" (click)="swapCoordinates()">Swap Coordinates</button></li>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li>
+                <button type="button" class="dropdown-item" (click)="copyCoordinatesFromGoogleMap()">Paste coordinates
+                  copied from Google Map
+                </button>
+              </li>
+              <li>
+                <button type="button" class="dropdown-item" (click)="copyCoordinatesFromClipboard()">Paste from
+                  clipboard
+                </button>
+              </li>
+              <li>
+                <button type="button" class="dropdown-item" (click)="swapCoordinates()">Swap Coordinates</button>
+              </li>
             </ul>
 
             <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"

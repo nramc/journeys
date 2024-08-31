@@ -227,3 +227,15 @@ gallery-image img {
   background: $primary-bg-subtle !important;
   transition: background-color 1s ease;
 }
+
+.min-vh-50 {
+  min-height: 50vh !important;
+}
+
+.max-vh-50 {
+  max-height: 50vh !important;
+}
+
+.vh-50 {
+  height: 50vh !important;
+}

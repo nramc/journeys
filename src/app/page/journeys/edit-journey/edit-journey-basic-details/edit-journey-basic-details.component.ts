@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
+import {Component, EventEmitter, Input, model, OnInit, Output, signal} from '@angular/core';
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
@@ -15,6 +15,8 @@ import {WorldMapComponent} from "../../../../component/world-map/world-map.compo
 import {AutoCompleteService} from "../../../../service/auto-complete/auto-complete.service";
 import {SUPPORTED_ICONS} from "../../../../config/icon-config";
 import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {DisplayMarkdownComponent} from "../../../../component/display-markdown-component/display-markdown.component";
 
 @Component({
   selector: 'app-edit-journey-basic-data',
@@ -30,12 +32,15 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
     NgbInputDatepicker,
     MatStepperNext,
     WorldMapComponent,
-    TitleCasePipe
+    TitleCasePipe,
+    MatButtonToggleModule,
+    DisplayMarkdownComponent
   ],
   standalone: true
 })
 export class EditJourneyBasicDetailsComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
+  markdownStyle = model<string>('Source')
   @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
   feedbackMessage = signal<FeedbackMessage>({});
   @Input({required: true}) journey!: Journey;

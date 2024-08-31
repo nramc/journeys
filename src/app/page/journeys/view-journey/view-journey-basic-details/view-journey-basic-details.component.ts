@@ -2,6 +2,9 @@ import {Component, Input} from '@angular/core';
 import {Journey} from "../../../../model/core/journey.model";
 import {DatePipe, NgForOf} from "@angular/common";
 import {MarkdownModule} from "ngx-markdown";
+import {
+  DisplayMarkdownComponent
+} from "../../../../component/display-markdown-component/display-markdown.component";
 
 @Component({
   selector: 'app-view-journey-basic-details',
@@ -9,7 +12,8 @@ import {MarkdownModule} from "ngx-markdown";
   imports: [
     DatePipe,
     NgForOf,
-    MarkdownModule
+    MarkdownModule,
+    DisplayMarkdownComponent
   ],
   templateUrl: './view-journey-basic-details.component.html',
   styleUrl: './view-journey-basic-details.component.scss'
