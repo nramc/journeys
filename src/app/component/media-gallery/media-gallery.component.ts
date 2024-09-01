@@ -1,4 +1,4 @@
-import {Component, input, OnInit, viewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, model, OnInit, viewChild} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {LightboxDirective} from "ng-gallery/lightbox";
 import {Gallery, GalleryImageDef, GalleryItem, GalleryItemTypes} from "ng-gallery";
@@ -12,7 +12,7 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
   imports: [CommonModule, LightboxDirective, NgOptimizedImage, MatTooltipModule, GalleryImageDef],
   template: `
     <div class="row row-cols-auto mt-2 me-0">
-      @for (item of items; let i = $index; track item.data?.src) {
+      @for (item of items(); let i = $index; track item.data?.src) {
         <div class="col mb-1"
              [lightbox]="i"
              [gallery]="galleryId()">
@@ -30,28 +30,27 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
       </div>
     </ng-container>
   `,
-  styles: ['.journey-image-thumbnail{object-fit: fill}']
+  styles: ['.journey-image-thumbnail{object-fit: fill}'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaGalleryComponent implements OnInit {
   protected readonly GalleryItemTypes = GalleryItemTypes;
   galleryId = input<string>('myLightbox');
   images = input<JourneyImagesDetails>(new JourneyImagesDetails());
   videos = input<string[] | undefined>([]);
-
   galleryImageDef = viewChild.required(GalleryImageDef);
+  gallery = inject(Gallery);
 
-  items: GalleryItem[] = [];
+  items = model<GalleryItem[]>([]);
+
   galleryConfig: GalleryConfig = {
     loadingStrategy: "lazy"
   };
 
-  constructor(public gallery: Gallery) {
-  }
-
   ngOnInit() {
-    this.items = this.getGalleryItems();
+    this.items.set(this.getGalleryItems());
     this.gallery.ref(this.galleryId(), {imageTemplate: this.galleryImageDef().templateRef, ...this.galleryConfig})
-      .load(this.items);
+      .load(this.items());
   }
 
   private getGalleryItems(): GalleryItem[] {
