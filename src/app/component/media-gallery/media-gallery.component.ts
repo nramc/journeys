@@ -22,9 +22,9 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
     }
   ],
   template: `
-    <div class="row row-cols-auto mt-2 me-0">
+    <div class="row row-cols-auto mt-2 me-0 justify-content-center">
       @for (item of items(); let i = $index; track item.data?.src) {
-        <div class="col mb-1"
+        <div class="col mb-1 text-center"
              [lightbox]="i"
              [gallery]="galleryId()">
           <img class="journey-image-thumbnail"
