@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, input, model, OnInit, viewChild} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {LightboxDirective} from "ng-gallery/lightbox";
+import {LIGHTBOX_CONFIG, LightboxConfig, LightboxModule} from "ng-gallery/lightbox";
 import {Gallery, GalleryImageDef, GalleryItem, GalleryItemTypes} from "ng-gallery";
 import {GalleryConfig} from "ng-gallery/lib/models/config.model";
 import {MatTooltipModule} from "@angular/material/tooltip";
@@ -9,17 +9,27 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
 @Component({
   selector: 'app-media-gallery',
   standalone: true,
-  imports: [CommonModule, LightboxDirective, NgOptimizedImage, MatTooltipModule, GalleryImageDef],
+  imports: [CommonModule, LightboxModule, NgOptimizedImage, MatTooltipModule],
+  providers: [
+    {
+      provide: LIGHTBOX_CONFIG,
+      useValue: {
+        keyboardShortcuts: true,
+        startAnimationTime: 1000,
+        exitAnimationTime: 1000,
+        panelClass: 'fullscreen'
+      } as LightboxConfig
+    }
+  ],
   template: `
     <div class="row row-cols-auto mt-2 me-0">
       @for (item of items(); let i = $index; track item.data?.src) {
         <div class="col mb-1"
              [lightbox]="i"
              [gallery]="galleryId()">
-          <img class="rounded border border-2 border-opacity-75 journey-image-thumbnail"
+          <img class="journey-image-thumbnail"
                [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
                height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"
-               [ngClass]="{'border-success': item.data?.args?.['isThumbnail'], 'border-primary': !item.data?.args?.['isThumbnail']}"
           />
         </div>
       }
