@@ -76,6 +76,7 @@ Sincere Thanks to following open source community for their wonderful efforts to
 - [Angular](https://angular.io/) - TypeScript based Single Page Application(SPA) Web Framework
 - [Bootstrap](https://getbootstrap.com/) - Open Source CSS Framework
 - [Angular Material](https://material.angular.io/) - Open Source UI Component library for Angular
+- [Angular Gallery](https://github.com/MurhafSousli/ngx-gallery/wiki) - Open Source Media Gallery library for Angular
 
 
 ## Show your support
