@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, input, OnInit, ViewChild} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {LightboxDirective} from "ng-gallery/lightbox";
 import {Gallery, GalleryImageDef, GalleryItem, GalleryItemTypes} from "ng-gallery";
@@ -15,7 +15,7 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
       @for (item of items; let i = $index; track item.data?.src) {
         <div class="col mb-1"
              [lightbox]="i"
-             [gallery]="galleryId">
+             [gallery]="galleryId()">
           <img class="rounded border border-2 border-opacity-75 journey-image-thumbnail"
                [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
                height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"
@@ -34,9 +34,10 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
 })
 export class MediaGalleryComponent implements OnInit {
   protected readonly GalleryItemTypes = GalleryItemTypes;
-  @Input("galleryId") galleryId: string = 'myLightbox';
-  @Input("images") imagesDetails: JourneyImagesDetails = new JourneyImagesDetails();
-  @Input("videos") videos: string[] | undefined = [];
+  galleryId = input<string>('myLightbox');
+  images = input<JourneyImagesDetails>(new JourneyImagesDetails());
+  videos = input<string[] | undefined>([]);
+
   @ViewChild(GalleryImageDef, {static: true}) imageDef!: GalleryImageDef;
 
   items: GalleryItem[] = [];
@@ -49,7 +50,7 @@ export class MediaGalleryComponent implements OnInit {
 
   ngOnInit() {
     this.items = this.getGalleryItems();
-    this.gallery.ref(this.galleryId, {imageTemplate: this.imageDef.templateRef, ...this.galleryConfig})
+    this.gallery.ref(this.galleryId(), {imageTemplate: this.imageDef.templateRef, ...this.galleryConfig})
       .load(this.items);
   }
 
@@ -61,7 +62,7 @@ export class MediaGalleryComponent implements OnInit {
   }
 
   private getImageItems(): GalleryItem[] | undefined {
-    return this.imagesDetails?.images.map(imageDetail => {
+    return this.images()?.images.map(imageDetail => {
       return {
         type: GalleryItemTypes.Image,
         data: {
@@ -77,7 +78,7 @@ export class MediaGalleryComponent implements OnInit {
   }
 
   private getVideoItems(): GalleryItem[] | undefined {
-    return this.videos?.map(videoUrl =>
+    return this.videos()?.map(videoUrl =>
       this.isItYoutubeVideoId(videoUrl) ?
         this.newYoutubeItem(videoUrl) :
         this.newVideoItem(videoUrl));
