@@ -1,4 +1,4 @@
-import {Component, input, OnInit, ViewChild} from '@angular/core';
+import {Component, input, OnInit, viewChild} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {LightboxDirective} from "ng-gallery/lightbox";
 import {Gallery, GalleryImageDef, GalleryItem, GalleryItemTypes} from "ng-gallery";
@@ -38,7 +38,7 @@ export class MediaGalleryComponent implements OnInit {
   images = input<JourneyImagesDetails>(new JourneyImagesDetails());
   videos = input<string[] | undefined>([]);
 
-  @ViewChild(GalleryImageDef, {static: true}) imageDef!: GalleryImageDef;
+  galleryImageDef = viewChild.required(GalleryImageDef);
 
   items: GalleryItem[] = [];
   galleryConfig: GalleryConfig = {
@@ -50,7 +50,7 @@ export class MediaGalleryComponent implements OnInit {
 
   ngOnInit() {
     this.items = this.getGalleryItems();
-    this.gallery.ref(this.galleryId(), {imageTemplate: this.imageDef.templateRef, ...this.galleryConfig})
+    this.gallery.ref(this.galleryId(), {imageTemplate: this.galleryImageDef().templateRef, ...this.galleryConfig})
       .load(this.items);
   }
 
