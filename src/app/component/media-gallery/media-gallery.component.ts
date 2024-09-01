@@ -12,16 +12,17 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
   imports: [CommonModule, LightboxDirective, NgOptimizedImage, MatTooltipModule, GalleryImageDef],
   template: `
     <div class="row row-cols-auto mt-2 me-0">
-      <div class="col mb-1"
-           *ngFor="let item of items; let i = index; trackBy: trackMediaByFn"
-           [lightbox]="i"
-           [gallery]="galleryId">
-        <img class="rounded border border-2 border-opacity-75 journey-image-thumbnail"
-             [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
-             height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"
-             [ngClass]="{'border-success': item.data?.args?.['isThumbnail'], 'border-primary': !item.data?.args?.['isThumbnail']}"
-        />
-      </div>
+      @for (item of items; let i = $index; track item.data?.src) {
+        <div class="col mb-1"
+             [lightbox]="i"
+             [gallery]="galleryId">
+          <img class="rounded border border-2 border-opacity-75 journey-image-thumbnail"
+               [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
+               height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"
+               [ngClass]="{'border-success': item.data?.args?.['isThumbnail'], 'border-primary': !item.data?.args?.['isThumbnail']}"
+          />
+        </div>
+      }
     </div>
     <ng-container *galleryImageDef="let itemData; active as active">
       <div class="h-100 w-100 text-end d-flex flex-column justify-content-end">
@@ -42,17 +43,13 @@ export class MediaGalleryComponent implements OnInit {
   galleryConfig: GalleryConfig = {
     loadingStrategy: "lazy"
   };
-  trackMediaByFn = (index: number, item: GalleryItem) => item.data?.src;
 
   constructor(public gallery: Gallery) {
   }
 
   ngOnInit() {
     this.items = this.getGalleryItems();
-    this.gallery.ref(this.galleryId, Object.assign({
-        imageTemplate: this.imageDef.templateRef
-      }, this.galleryConfig)
-    )
+    this.gallery.ref(this.galleryId, {imageTemplate: this.imageDef.templateRef, ...this.galleryConfig})
       .load(this.items);
   }
 
