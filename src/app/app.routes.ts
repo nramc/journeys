@@ -1,13 +1,11 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Routes} from '@angular/router';
 import {
   canActivateWhenAuthenticatedGuard,
   canActivateWhenHasWriteAccessGuard,
-  canMatchWhenAuthenticatedGuard,
-  canMatchWhenHasWriteAccessGuard
+  canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard
 } from "./guard/auth.guard";
 
-const routes: Routes = [
+export const ROUTES: Routes = [
   {
     path: 'home',
     loadComponent: () => import('./page/home/home.component').then(m => m.HomeComponent),
@@ -155,14 +153,3 @@ const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: "/home"}
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    enableViewTransitions: true,
-    bindToComponentInputs: true,
-    scrollPositionRestoration: "enabled"
-  })],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {
-}
