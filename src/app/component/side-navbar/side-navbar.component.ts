@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
   ABOUT_PAGE_INFO,
   DASHBOARD_PAGE_INFO,
@@ -12,6 +12,7 @@ import {
   TOOLS_PAGE_INFO,
 } from "../../model/page.info.model";
 import {AuthService} from "../../service/auth/auth.service";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-side-navbar',
@@ -24,12 +25,8 @@ export class SideNavbarComponent {
   protected readonly GALLERY_PAGE_INFO = GALLERY_PAGE_INFO;
   protected readonly JOURNEY_SEARCH_PAGE_INFO = JOURNEY_SEARCH_PAGE_INFO;
 
-  constructor(private authService: AuthService) {
-  }
-
-  isAuthenticated() {
-    return this.authService.isUserAuthenticatedAsObservable();
-  }
+  authService = inject(AuthService);
+  isUserAuthenticated = toSignal(this.authService.isUserAuthenticatedAsObservable(), {initialValue: false});
 
   protected readonly LOGIN_PAGE_INFO = LOGIN_PAGE_INFO;
   protected readonly LOGOUT_PAGE_INFO = LOGOUT_PAGE_INFO;

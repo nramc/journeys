@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {UserContext} from "./user-context";
 import {BehaviorSubject, map} from "rxjs";
-import {LoginResponse, LoginService} from "./login.service";
+import {LoginResponse} from "./login.service";
 import AuthUtils from "./auth.utils";
 
 @Injectable({
@@ -11,9 +11,7 @@ export class AuthService {
   private user: UserContext = new UserContext();
   private user$: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(new UserContext());
 
-  constructor(
-    private loginService: LoginService
-  ) {
+  constructor() {
     let localAuth = AuthUtils.getUserContextFromLocalStorage();
     if (localAuth) {
       this.setUserContext(localAuth);
@@ -37,11 +35,6 @@ export class AuthService {
 
   getUserContext(): BehaviorSubject<UserContext> {
     return this.user$;
-  }
-
-  loginAsGuest() {
-    return this.loginService.loginAsGuest()
-      .pipe(map(tokenData => this.getUserContextForSuccessfulLogin(tokenData)));
   }
 
   logout() {
