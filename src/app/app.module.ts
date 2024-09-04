@@ -16,29 +16,25 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SideNavbarComponent
-  ],
-  exports: [],
-  bootstrap: [AppComponent], imports: [BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    NgOptimizedImage,
-    MarkdownModule.forRoot(),
-    MatMenuModule,
-    MatIconModule
-  ], providers: [
-    {
-      provide: LIGHTBOX_CONFIG, useValue: {
-        panelClass: 'fullscreen',
-        keyboardShortcuts: true
-      } as LightboxConfig
-    },
-    {provide: NgbDateAdapter, useClass: JourneyDateAdapter},
-    {provide: ErrorHandler, useClass: CustomErrorHandler},
-    provideHttpClient(withInterceptorsFromDi())
-  ]
+    declarations: [AppComponent],
+    exports: [],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        NgOptimizedImage,
+        MarkdownModule.forRoot(),
+        MatMenuModule,
+        MatIconModule, SideNavbarComponent], providers: [
+        {
+            provide: LIGHTBOX_CONFIG, useValue: {
+                panelClass: 'fullscreen',
+                keyboardShortcuts: true
+            } as LightboxConfig
+        },
+        { provide: NgbDateAdapter, useClass: JourneyDateAdapter },
+        { provide: ErrorHandler, useClass: CustomErrorHandler },
+        provideHttpClient(withInterceptorsFromDi())
+    ]
 })
 export class AppModule {
 }
