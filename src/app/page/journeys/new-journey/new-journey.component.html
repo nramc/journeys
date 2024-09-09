@@ -80,88 +80,16 @@
           <!-- icon -->
           <div class="mb-3 col-12 col-md-4">
             <label for="iconType" class="form-label">Icon</label>
-            <select id="iconType" class="form-select form-select-sm" aria-label="Icon" (ngModelChange)="refreshMapWithCoordinates()"
-                    [(ngModel)]="journey.icon" required [disabled]="journey.id != ''" name="iconType" #iconType="ngModel">
-              @for (iconType of SUPPORTED_ICONS;track iconType) {
-                <option [value]="iconType">{{iconType}}</option>
+            <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
+                    (ngModelChange)="refreshMapWithCoordinates()"
+                    [(ngModel)]="journey.icon" required [disabled]="journey.id != ''" name="iconType"
+                    #iconType="ngModel">
+              @for (iconType of SUPPORTED_ICONS; track iconType) {
+                <option [value]="iconType">{{ iconType }}</option>
               }
             </select>
             <div [hidden]="iconType.valid || iconType.pristine" class="form-text text-danger">
               <div *ngIf="iconType.errors?.['required']">Icon is required.</div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Memories -->
-        <div class="row">
-          <div class="mb-3 col">
-            <label for="description" class="form-label">Memories</label>
-            <textarea rows="5" class="form-control" id="description" name="description" required minlength="10"
-                      maxlength="5000" #description="ngModel"
-                      [(ngModel)]="journey.description"
-                      placeholder="Detailed information about the Journey" [readOnly]="journey.id"></textarea>
-            <div [hidden]="description.valid || description.pristine" class="form-text text-danger">
-              <div *ngIf="description.errors?.['required']">Memories is required.</div>
-              <div *ngIf="description.errors?.['minlength']">Memories must be at least 10 characters long.</div>
-              <div *ngIf="description.errors?.['maxlength']">Memories must be at most 5000 characters long.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-
-          <div class="col-12 col-md-6">
-            <mat-chip-grid #chipGrid aria-label="Tags">
-              @for (tag of journey.tags; track tag) {
-                <mat-chip-row color="primary" [highlighted]="true" (removed)="removeTag(tag)" [editable]="false"
-                              [removable]="!journey.id">
-                  {{ tag }}
-                  <button matChipRemove (click)="removeTag(tag)" [disabled]="journey.id !== ''">
-                    <mat-icon>cancel</mat-icon>
-                  </button>
-                </mat-chip-row>
-              }
-              <input placeholder="Favorite Tags" class="form-control" [readOnly]="journey.id"
-                     [matChipInputFor]="chipGrid"
-                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                     [matChipInputAddOnBlur]="true"
-                     (matChipInputTokenEnd)="addTag($event)"/>
-            </mat-chip-grid>
-          </div>
-
-          <!-- Location  -->
-          <div class="col-12 col-md-6">
-            <div class="input-group mb-3">
-              <input type="number" class="form-control" placeholder="Longitude" aria-label="Longitude"
-                     id="longitude" name="longitude" [(ngModel)]="coordinates[0]" [readOnly]="journey.id"
-                     required min="-180.0" max="180.0" #longitude="ngModel" (blur)="refreshMapWithCoordinates()">
-              <button class="btn btn-primary input-group-text dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-expanded="false" [disabled]="journey.id">
-                Coordinates
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" role="button" (click)="copyCoordinatesFromGoogleMap()">Paste coordinates
-                  copied from Google Map</a></li>
-                <li><a class="dropdown-item" role="button" (click)="copyCoordinatesFromClipboard()">Paste from
-                  clipboard</a></li>
-                <li><a class="dropdown-item" role="button" (click)="swapCoordinates()">Swap Coordinates</a></li>
-              </ul>
-              <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
-                     id="latitude" name="latitude" [(ngModel)]="coordinates[1]" [readOnly]="journey.id"
-                     required min="-90.0" max="90.0" #latitude="ngModel" (blur)="refreshMapWithCoordinates()">
-            </div>
-            <div class="form-text text-danger">
-              <div [hidden]="longitude.valid || longitude.pristine">
-                <div *ngIf="longitude.errors?.['required']">Longitude is required.</div>
-                <div *ngIf="longitude.errors?.['min']">Longitude must be between -180.0 to 180.0.</div>
-                <div *ngIf="longitude.errors?.['max']">Longitude must be between -180.0 to 180.0.</div>
-              </div>
-              <div [hidden]="latitude.valid || latitude.pristine" class="form-text text-danger">
-                <div *ngIf="latitude.errors?.['required']">Latitude is required.</div>
-                <div *ngIf="latitude.errors?.['min']">Latitude must be between -90.0 to 90.0.</div>
-                <div *ngIf="latitude.errors?.['max']">Latitude must be between -9 0.0 to 90.0.</div>
-              </div>
             </div>
           </div>
 
@@ -212,20 +140,125 @@
         </div>
 
       </div>
+      <div class="col-12 col-md-4">
+        <div class="row justify-content-evenly">
+          <!-- Map -->
+          <div class="col-12" style="position: relative; min-height: 25vh">
+            <app-world-map class="h-50" [geoJsonData]="journey.location" [iconType]="journey.icon"/>
+          </div>
 
-      <div class="col-12 col-md-4" style="position: relative; min-height: 25vh">
-        <app-world-map class="h-50" [geoJsonData]="journey.location" [iconType]="journey.icon" />
+          <!-- Location  -->
+          <div class="col-12">
+            <div class="input-group mb-3">
+              <input type="number" class="form-control" placeholder="Longitude" aria-label="Longitude"
+                     id="longitude" name="longitude" [(ngModel)]="coordinates[0]" [readOnly]="journey.id"
+                     required min="-180.0" max="180.0" #longitude="ngModel" (blur)="refreshMapWithCoordinates()">
+              <button class="btn btn-primary input-group-text dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-expanded="false" [disabled]="journey.id">
+                Quick Actions
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <button type="button" class="dropdown-item" (click)="copyCoordinatesFromGoogleMap()">Paste coordinates
+                    copied from Google Map
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="dropdown-item" (click)="copyCoordinatesFromClipboard()">Paste from
+                    clipboard
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="dropdown-item" (click)="swapCoordinates()">Swap Coordinates</button>
+                </li>
+              </ul>
+              <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
+                     id="latitude" name="latitude" [(ngModel)]="coordinates[1]" [readOnly]="journey.id"
+                     required min="-90.0" max="90.0" #latitude="ngModel" (blur)="refreshMapWithCoordinates()">
+            </div>
+            <div class="form-text text-danger">
+              <div [hidden]="longitude.valid || longitude.pristine">
+                <div *ngIf="longitude.errors?.['required']">Longitude is required.</div>
+                <div *ngIf="longitude.errors?.['min']">Longitude must be between -180.0 to 180.0.</div>
+                <div *ngIf="longitude.errors?.['max']">Longitude must be between -180.0 to 180.0.</div>
+              </div>
+              <div [hidden]="latitude.valid || latitude.pristine" class="form-text text-danger">
+                <div *ngIf="latitude.errors?.['required']">Latitude is required.</div>
+                <div *ngIf="latitude.errors?.['min']">Latitude must be between -90.0 to 90.0.</div>
+                <div *ngIf="latitude.errors?.['max']">Latitude must be between -9 0.0 to 90.0.</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
+
+    </div>
+
+    <div>
+      <div>
+
+        <!-- Memories -->
+        <div class="row">
+          <div class="mb-3 col">
+            <label for="description" class="form-label">Memories</label>
+            <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style"
+                                     hideSingleSelectionIndicator="true"
+                                     class="ignore-highlight ms-2 small" [(ngModel)]="markdownStyle">
+              <mat-button-toggle value="Source">Edit</mat-button-toggle>
+              <mat-button-toggle value="Preview">Preview</mat-button-toggle>
+            </mat-button-toggle-group>
+            <textarea rows="15" class="form-control" id="description" name="description" required minlength="10"
+                      maxlength="5000" #description="ngModel" [hidden]="markdownStyle() == 'Preview'"
+                      [(ngModel)]="journey.description"
+                      placeholder="Detailed information about the Journey" [readOnly]="journey.id"></textarea>
+            <div [hidden]="markdownStyle() != 'Preview'" style="height: 25rem;">
+              <app-display-markdown-component
+                [title]="journey.title"
+                [markdownText]="journey.description"></app-display-markdown-component>
+            </div>
+            <div [hidden]="description.valid || description.pristine" class="form-text text-danger">
+              <div *ngIf="description.errors?.['required']">Memories is required.</div>
+              <div *ngIf="description.errors?.['minlength']">Memories must be at least 10 characters long.</div>
+              <div *ngIf="description.errors?.['maxlength']">Memories must be at most 5000 characters long.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col-12 col-md-6">
+            <mat-chip-grid #chipGrid aria-label="Tags">
+              @for (tag of journey.tags; track tag) {
+                <mat-chip-row color="primary" [highlighted]="true" (removed)="removeTag(tag)" [editable]="false"
+                              [removable]="!journey.id">
+                  {{ tag }}
+                  <button matChipRemove (click)="removeTag(tag)" [disabled]="journey.id !== ''">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              }
+              <input placeholder="Favorite Tags" class="form-control" [readOnly]="journey.id"
+                     [matChipInputFor]="chipGrid"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="true"
+                     (matChipInputTokenEnd)="addTag($event)"/>
+            </mat-chip-grid>
+          </div>
+
+        </div>
+
+
+      </div>
     </div>
 
     <div class="row">
       <div class="col-12 d-flex gap-2 justify-content-center">
-        <button type="submit" class="btn btn-outline-primary" *ngIf="!journey.id" [disabled]="!journeyForm.form.valid">
+        <button type="submit" class="btn btn-primary" *ngIf="!journey.id" [disabled]="!journeyForm.form.valid">
           Save
         </button>
-        <button type="reset" class="btn btn-outline-info" *ngIf="!journey.id">Reset</button>
-        <button type="button" class="btn btn-outline-info" *ngIf="journey.id" (click)="continue()">Continue</button>
+        <button type="reset" class="btn btn-outline-primary" *ngIf="!journey.id">Reset</button>
+        <button type="button" class="btn btn-primary" *ngIf="journey.id" (click)="continue()">Continue</button>
       </div>
     </div>
   </form>

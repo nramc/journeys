@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, model} from '@angular/core';
 import {NEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 import {Journey} from "../../../model/core/journey.model";
 import {JourneyService} from "../../../service/journey/journey.service";
@@ -14,6 +14,8 @@ import {PageHeaderComponent} from "../../../component/page-header/page-header.co
 import {WorldMapComponent} from "../../../component/world-map/world-map.component";
 import {AutoCompleteService} from "../../../service/auto-complete/auto-complete.service";
 import {SUPPORTED_ICONS} from "../../../config/icon-config";
+import {DisplayMarkdownComponent} from "../../../component/display-markdown-component/display-markdown.component";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @Component({
   selector: 'app-new-journey',
@@ -27,7 +29,9 @@ import {SUPPORTED_ICONS} from "../../../config/icon-config";
     NgIf,
     NgbInputDatepicker,
     PageHeaderComponent,
-    WorldMapComponent
+    WorldMapComponent,
+    DisplayMarkdownComponent,
+    MatButtonToggleModule
   ],
   standalone: true
 })
@@ -36,6 +40,7 @@ export class NewJourneyComponent {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
   journey: Journey = new Journey();
   coordinates: number[] = [];
+  markdownStyle = model<string>('Source')
 
   constructor(
     private router: Router,

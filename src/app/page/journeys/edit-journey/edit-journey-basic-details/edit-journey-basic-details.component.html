@@ -87,22 +87,21 @@
       <!-- Memories -->
       <div class="mb-3">
         <label for="description" class="form-label">Memories</label>
+        <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style"
+                                 hideSingleSelectionIndicator="true"
+                                 class="ignore-highlight ms-2" [(ngModel)]="markdownStyle">
+          <mat-button-toggle value="Source">Edit</mat-button-toggle>
+          <mat-button-toggle value="Preview">Preview</mat-button-toggle>
+        </mat-button-toggle-group>
         <textarea rows="15" class="form-control vh-50" id="description" name="description" required minlength="10"
                   maxlength="5000" #description="ngModel"
                   [(ngModel)]="journey.description" [hidden]="markdownStyle() === 'Preview'"
                   placeholder="Detailed information about the Journey"></textarea>
-        <div class="vh-50" [hidden]="markdownStyle() == 'Source'">
+        <div [hidden]="markdownStyle() == 'Source'"  style="height: 25rem;">
           <app-display-markdown-component
             [title]="journey.title"
             [markdownText]="journey.description"></app-display-markdown-component>
         </div>
-
-        <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style"
-                                 class="ignore-highlight" [(ngModel)]="markdownStyle">
-          <mat-button-toggle value="Source">Edit</mat-button-toggle>
-          <mat-button-toggle value="Preview">Preview</mat-button-toggle>
-        </mat-button-toggle-group>
-
         <div [hidden]="description.valid || description.pristine" class="form-text text-danger">
           <div *ngIf="description.errors?.['required']">Memories is required.</div>
           <div *ngIf="description.errors?.['minlength']">Memories must be at least 10 characters long.</div>
