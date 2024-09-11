@@ -24,63 +24,72 @@
 
       <ul class="navbar-nav flex-column flex-grow-1 mb-auto w-100 gap-2">
         <li class="nav-item">
-          <a [routerLink]="HOME_PAGE_INFO.path" class="nav-link" routerLinkActive="active" aria-current="page">
+          <a [routerLink]="HOME_PAGE_INFO.path" class="nav-link" routerLinkActive="active" aria-current="page"
+             data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <i class="bi bi-house-door pe-none me-2"></i>
             {{ HOME_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item" *ngIf="isUserAuthenticated()">
-          <a [routerLink]="DASHBOARD_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+          <a [routerLink]="DASHBOARD_PAGE_INFO.path" class="nav-link" routerLinkActive="active"
+             data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <i class="bi bi-speedometer2 pe-none me-2"></i>
             {{ DASHBOARD_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item" *ngIf="isUserAuthenticated()">
-          <a [routerLink]="GALLERY_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+          <a [routerLink]="GALLERY_PAGE_INFO.path" class="nav-link" routerLinkActive="active"
+             data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <i class="bi bi-grid pe-none me-2"></i>
             {{ GALLERY_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item" *ngIf="isUserAuthenticated()">
-          <a [routerLink]="JOURNEY_SEARCH_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+          <a [routerLink]="JOURNEY_SEARCH_PAGE_INFO.path" class="nav-link" routerLinkActive="active"
+             data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <i class="bi bi-boxes pe-none me-2"></i>
             {{ JOURNEY_SEARCH_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item" *ngIf="isUserAuthenticated()">
-          <a [routerLink]="STATISTICS_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+          <a [routerLink]="STATISTICS_PAGE_INFO.path" class="nav-link" routerLinkActive="active"
+             data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <i class="bi bi-graph-up-arrow pe-none me-2"></i>
             {{ STATISTICS_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item" *ngIf="isUserAuthenticated()">
-          <a [routerLink]="TIMELINE_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+          <a [routerLink]="TIMELINE_PAGE_INFO.path" class="nav-link" routerLinkActive="active"
+             data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <i class="bi bi-clock-history pe-none me-2"></i>
             {{ TIMELINE_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item">
-          <a [routerLink]="TOOLS_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+          <a [routerLink]="TOOLS_PAGE_INFO.path" class="nav-link" routerLinkActive="active"
+             data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <i class="bi bi-tools pe-none me-2"></i>
             {{ TOOLS_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item">
-          <a [routerLink]="ABOUT_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+          <a [routerLink]="ABOUT_PAGE_INFO.path" class="nav-link" routerLinkActive="active"
+             data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <i class="bi bi-info-circle pe-none me-2"></i>
             {{ ABOUT_PAGE_INFO.name }}
           </a>
         </li>
 
         <li class="nav-item" [hidden]="isUserAuthenticated()">
-          <a [routerLink]="LOGIN_PAGE_INFO.path" class="nav-link" routerLinkActive="active">
+          <a [routerLink]="LOGIN_PAGE_INFO.path" class="nav-link" routerLinkActive="active"
+             data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <i class="bi bi-lock-fill pe-none me-2"></i>
             {{ LOGIN_PAGE_INFO.name }}
           </a>
@@ -94,19 +103,19 @@
           </a>
           <ul class="dropdown-menu bg-primary border-0">
             <li *ngIf="isUserAuthenticated()">
-              <a class="dropdown-item" routerLink="/my-account/profile">
+              <a class="dropdown-item" routerLink="/my-account/profile" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-person-fill pe-none me-2"></i>My Profile</a>
             </li>
             <li *ngIf="isUserAuthenticated()">
-              <a class="dropdown-item" routerLink="/my-account/securitySettings">
+              <a class="dropdown-item" routerLink="/my-account/securitySettings" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-gear-fill pe-none me-2"></i>Security Settings</a>
             </li>
             <li *ngIf="isUserAuthenticated()">
-              <a class="dropdown-item" routerLink="/my-account/delete">
+              <a class="dropdown-item" routerLink="/my-account/delete" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-dash-circle-fill pe-none me-2"></i>Delete Account</a>
             </li>
             <li *ngIf="isUserAuthenticated()">
-              <a [routerLink]="LOGOUT_PAGE_INFO.path" class="dropdown-item" routerLinkActive="active">
+              <a [routerLink]="LOGOUT_PAGE_INFO.path" class="dropdown-item" routerLinkActive="active" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-power pe-none me-2"></i>{{ LOGOUT_PAGE_INFO.name }}</a>
             </li>
           </ul>
