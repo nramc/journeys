@@ -1,7 +1,14 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, computed, input, ViewChild} from '@angular/core';
 import {GalleryComponent, GalleryItem, GalleryModule, ImageItem} from "ng-gallery";
-import {TimelineData} from "./timeline-data.model";
+import {TimelineData, TimelineImage} from "./timeline-data.model";
 import {NgIf} from "@angular/common";
+
+export function fnImageEntityToGalleryItem(data: TimelineImage): GalleryItem {
+  return new ImageItem({
+    src: data.src,
+    args: {caption: data.caption, title: data.title, ...data.args}
+  });
+}
 
 @Component({
   selector: 'app-timeline',
@@ -11,29 +18,13 @@ import {NgIf} from "@angular/common";
   styleUrl: './timeline.component.scss'
 })
 export class TimelineComponent {
-  timelineData: TimelineData | undefined;
 
-  @Input({alias: "data", required: true})
-  set setImageData(timelineData: TimelineData | undefined) {
-    this.timelineData = timelineData;
-    this.images = this.getImageItems(timelineData);
-  }
+  timelineData = input.required<TimelineData | undefined>({alias: 'data'});
+  images = computed<GalleryItem[]>(() => this.timelineData()?.images?.map(fnImageEntityToGalleryItem) ?? []);
 
-  images: GalleryItem[] = [];
   @ViewChild(GalleryComponent) gallery!: GalleryComponent;
 
   isPlayerRunning: boolean = true;
-
-  getImageItems(timelineData: TimelineData | undefined) {
-    if (timelineData && timelineData.images?.length > 0) {
-      return timelineData.images.map(data => new ImageItem({
-        src: data.src,
-        args: {caption: data.caption, title: data.title, ...data.args}
-      }));
-    } else {
-      return [];
-    }
-  }
 
   togglePlayer() {
     if (this.isPlayerRunning) {
