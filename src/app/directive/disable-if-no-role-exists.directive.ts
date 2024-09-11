@@ -1,4 +1,4 @@
-import {Directive, ElementRef, inject, Input, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, inject, input, OnInit, Renderer2} from '@angular/core';
 import {AuthService} from "../service/auth/auth.service";
 import {Role} from "../service/auth/role";
 
@@ -7,7 +7,7 @@ import {Role} from "../service/auth/role";
   standalone: true
 })
 export class DisableIfNoRoleExistsDirective implements OnInit {
-  @Input("disableIfNoRoleExists") roles: Role[] = [];
+  roles = input.required<Role[]>({alias: 'disableIfNoRoleExists'});
 
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
@@ -18,7 +18,7 @@ export class DisableIfNoRoleExistsDirective implements OnInit {
   }
 
   private checkRoleAndDisableIfRequired() {
-    if (this.authService.hasAnyRole(this.roles)) {
+    if (this.authService.hasAnyRole(this.roles())) {
       this.renderer.setProperty(this.el.nativeElement, 'disabled', false);
       this.renderer.setAttribute(this.el.nativeElement, 'disabled', 'false');
       this.el.nativeElement.disabled = false;
