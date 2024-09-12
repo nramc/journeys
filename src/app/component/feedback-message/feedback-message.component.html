@@ -12,5 +12,11 @@
     <span>{{ message().error }}</span>
   </div>
 }
+@if (message().loading) {
+  <div class="alert alert-light text-primary d-inline-flex w-100 gap-2  border  border-2 border-primary" role="alert">
+    <mat-spinner diameter="25"></mat-spinner>
+    <span> {{ message().loading }}</span>
+  </div>
+}
 
 
