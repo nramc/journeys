@@ -98,9 +98,8 @@ export class EditJourneyPublishDetailsComponent {
     this.savedEvent.emit(this.journey);
   }
 
-  delete(deleteButton: HTMLButtonElement) {
-    deleteButton.disabled = true;
-    deleteButton.name = 'Deleting';
+  delete() {
+    this.feedbackMessage.set({loading: 'Please wait while your request processing...'});
     this.journeyService.deleteJourney(this.journey)
       .subscribe({
         next: __ => this.onDeleteSuccess(),
