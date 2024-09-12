@@ -124,6 +124,7 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
     this.refreshMapWithCoordinates();
   }
 
+  // noinspection DuplicatedCode
   async copyCoordinatesFromGoogleMap() {
     const copiedValue = await navigator.clipboard.readText()
     console.debug('Value copied from clipboard:', copiedValue);
@@ -135,6 +136,7 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
     }
   }
 
+  // noinspection DuplicatedCode
   async copyCoordinatesFromClipboard() {
     const copiedValue = await navigator.clipboard.readText()
     console.debug('Value copied from clipboard:', copiedValue);
