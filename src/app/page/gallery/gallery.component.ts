@@ -89,7 +89,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
             this.tags()
           ).pipe(catchError(() => of(null)));
         }),
-        tap(data => this.isLoadingResults = false)
+        tap(_ => this.isLoadingResults = false)
       ).subscribe(data => this.onSuccess(data));
   }
 
