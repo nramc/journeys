@@ -61,7 +61,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   tagsCriteriaChange = new BehaviorSubject<string[]>([]);
   searchCriteria: SearchCriteria = new SearchCriteria();
 
-  searchResult = model<SearchResult>({totalElements: 0, data: []});
+  searchResult = signal<SearchResult>({totalElements: 0, data: []});
 
   constructor(
     private journeyService: JourneyService,
