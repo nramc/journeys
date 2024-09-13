@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, viewChild, ViewChild} from '@angular/core';
 import {BehaviorSubject, catchError, map, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
@@ -47,7 +47,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   sortingDirectionChangedEvent: BehaviorSubject<SortDirection> = new BehaviorSubject<SortDirection>("desc");
   isLoadingResults: boolean = false;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  paginator = viewChild.required(MatPaginator);
   defaultPageSize: number = 10;
   totalElements: number = 0;
   data: Journey[] = [];
@@ -71,7 +71,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    merge(this.paginator.page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsCriteriaChange)
+    merge(this.paginator().page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsCriteriaChange)
       .pipe(
         startWith(),
         switchMap(() => {
@@ -81,8 +81,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
             this.searchCriteria,
             this.sortingFieldChangedEvent.getValue(),
             this.sortingDirectionChangedEvent.getValue(),
-            this.paginator.pageIndex,
-            this.paginator.pageSize,
+            this.paginator().pageIndex,
+            this.paginator().pageSize,
             true,
             this.tags
           ).pipe(catchError(() => of(null)));
