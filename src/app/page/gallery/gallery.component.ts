@@ -1,16 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {BehaviorSubject, catchError, map, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
-import {
-  AsyncPipe,
-  DatePipe,
-  JsonPipe,
-  NgForOf,
-  NgIf,
-  NgOptimizedImage,
-  TitleCasePipe,
-  UpperCasePipe
-} from "@angular/common";
+import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
 import {JourneyPage} from "../../service/journey/journey-page.type";
 import {MatPaginator} from "@angular/material/paginator";
@@ -32,8 +23,6 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   standalone: true,
   imports: [
     PageHeaderComponent,
-    AsyncPipe,
-    JsonPipe,
     NgForOf,
     NgIf,
     MatPaginator,

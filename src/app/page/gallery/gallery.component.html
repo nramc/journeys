@@ -1,6 +1,6 @@
 <section class="container advanced-search">
   <div class="d-flex justify-content-end">
-    <a class="text-decoration-none" data-bs-toggle="collapse" href="#searchFields" role="link" aria-expanded="false"
+    <a class="text-decoration-none" data-bs-toggle="collapse" href="#searchFields" aria-expanded="false"
        aria-controls="searchFields">
       Advanced Search
     </a>
@@ -126,8 +126,8 @@
   <div class="card-group justify-content-center align-items-center">
     <div class="m-0" *ngFor="let journey of data; trackBy: trackJourneyByFn">
 
-      <div class="card bg-dark text-bg-dark text-white" role="link" (click)="viewDetails(journey)">
-        <img [src]="journey.thumbnail" class="card-img" [alt]="journey.thumbnail">
+      <a class="card bg-dark text-bg-dark text-white" (click)="viewDetails(journey)">
+        <img [ngSrc]="journey.thumbnail" class="card-img" [alt]="journey.thumbnail" fill>
         <div class="card-img-overlay d-flex flex-column align-self-stretch card-text-wrapper">
           <h5 class="card-title ">{{ journey.name }}</h5>
           <p class="card-text">{{ journey.title }}</p>
@@ -163,7 +163,7 @@
           </div>
 
         </div>
-      </div>
+      </a>
 
     </div>
   </div>
