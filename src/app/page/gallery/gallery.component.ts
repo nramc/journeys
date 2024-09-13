@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, model, OnInit, viewChild} from '@angular/core';
+import {AfterViewInit, Component, model, OnInit, signal, viewChild} from '@angular/core';
 import {BehaviorSubject, catchError, map, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
@@ -57,7 +57,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
-  tags: string[] = []
+  tags = signal<string[]>([]);
   tagsCriteriaChange = new BehaviorSubject<string[]>([]);
   searchCriteria: SearchCriteria = new SearchCriteria();
 
@@ -87,7 +87,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
             this.paginator().pageIndex,
             this.paginator().pageSize,
             true,
-            this.tags
+            this.tags()
           ).pipe(catchError(() => of(null)));
         }),
         map(data => {
@@ -138,19 +138,17 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   addTag(event: MatChipInputEvent): void {
     const newTag = (event.value || '').trim();
+    console.log('event:', newTag)
     if (newTag) {
-      this.tags.push(newTag);
-      this.tagsCriteriaChange.next(this.tags);
+      this.tags.update(values => [...values, newTag]);
+      this.tagsCriteriaChange.next(this.tags());
     }
     // Clear the input value
     event.chipInput.clear();
   }
 
   removeTag(tag: string): void {
-    const index = this.tags.indexOf(tag);
-    if (index >= 0) {
-      this.tags.splice(index, 1);
-      this.tagsCriteriaChange.next(this.tags);
-    }
+    this.tags.update(values => values.filter(value => value !== tag));
+    this.tagsCriteriaChange.next(this.tags());
   }
 }
