@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, viewChild} from '@angular/core';
+import {AfterViewInit, Component, model, OnInit, viewChild} from '@angular/core';
 import {BehaviorSubject, catchError, map, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
@@ -16,6 +16,11 @@ import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {SearchCriteria} from "../../model/core/search-criteria.model";
 import {FormsModule} from "@angular/forms";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+
+export interface SearchResult {
+  totalElements: number;
+  data: Journey[];
+}
 
 @Component({
   selector: 'app-gallery',
@@ -49,14 +54,14 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   paginator = viewChild.required(MatPaginator);
   defaultPageSize: number = 10;
-  totalElements: number = 0;
-  data: Journey[] = [];
 
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
   tags: string[] = []
   tagsCriteriaChange = new BehaviorSubject<string[]>([]);
   searchCriteria: SearchCriteria = new SearchCriteria();
+
+  searchResult = model<SearchResult>({totalElements: 0, data: []});
 
   constructor(
     private journeyService: JourneyService,
@@ -93,8 +98,10 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   onSuccess(pageData: null | JourneyPage) {
-    this.totalElements = pageData?.totalElements ?? 0;
-    this.data = pageData?.content ?? [];
+    this.searchResult.set({
+      totalElements: pageData?.totalElements ?? 0,
+      data: pageData?.content ?? []
+    });
   }
 
   ngOnInit(): void {
