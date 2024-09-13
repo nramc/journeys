@@ -16,6 +16,7 @@ import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {SearchCriteria} from "../../model/core/search-criteria.model";
 import {FormsModule} from "@angular/forms";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {toObservable} from "@angular/core/rxjs-interop";
 
 export interface SearchResult {
   totalElements: number;
@@ -58,7 +59,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
   tags = signal<string[]>([]);
-  tagsCriteriaChange = new BehaviorSubject<string[]>([]);
+  tagsObservable = toObservable(this.tags);
   searchCriteria: SearchCriteria = new SearchCriteria();
 
   searchResult = signal<SearchResult>({totalElements: 0, data: []});
@@ -74,7 +75,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    merge(this.paginator().page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsCriteriaChange)
+    merge(this.paginator().page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsObservable)
       .pipe(
         startWith(),
         switchMap(() => {
@@ -141,7 +142,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     console.log('event:', newTag)
     if (newTag) {
       this.tags.update(values => [...values, newTag]);
-      this.tagsCriteriaChange.next(this.tags());
     }
     // Clear the input value
     event.chipInput.clear();
@@ -149,6 +149,5 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   removeTag(tag: string): void {
     this.tags.update(values => values.filter(value => value !== tag));
-    this.tagsCriteriaChange.next(this.tags());
   }
 }
