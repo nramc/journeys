@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, model, OnInit, signal, viewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, signal, viewChild} from '@angular/core';
 import {BehaviorSubject, catchError, map, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
