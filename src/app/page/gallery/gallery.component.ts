@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, signal, viewChild} from '@angular/core';
-import {BehaviorSubject, catchError, map, merge, of, startWith, switchMap} from "rxjs";
+import {BehaviorSubject, catchError, merge, of, startWith, switchMap, tap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
@@ -52,16 +52,15 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   sortableDirections: SortDirection[] = ["asc", "desc"];
   sortingDirectionChangedEvent: BehaviorSubject<SortDirection> = new BehaviorSubject<SortDirection>("desc");
   isLoadingResults: boolean = false;
-
-  paginator = viewChild.required(MatPaginator);
   defaultPageSize: number = 10;
 
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
-  tags = signal<string[]>([]);
-  tagsObservable = toObservable(this.tags);
   searchCriteria: SearchCriteria = new SearchCriteria();
 
+  paginator = viewChild.required(MatPaginator);
+  tags = signal<string[]>([]);
+  tagsObservable = toObservable(this.tags);
   searchResult = signal<SearchResult>({totalElements: 0, data: []});
 
   constructor(
@@ -78,9 +77,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     merge(this.paginator().page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsObservable)
       .pipe(
         startWith(),
+        tap(() => this.isLoadingResults = true),
         switchMap(() => {
-          this.isLoadingResults = true;
-
           return this.journeyService.findJourneyByQuery(
             this.searchCriteria,
             this.sortingFieldChangedEvent.getValue(),
@@ -91,10 +89,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
             this.tags()
           ).pipe(catchError(() => of(null)));
         }),
-        map(data => {
-          this.isLoadingResults = false;
-          return data;
-        }),
+        tap(data => this.isLoadingResults = false)
       ).subscribe(data => this.onSuccess(data));
   }
 
@@ -139,7 +134,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   addTag(event: MatChipInputEvent): void {
     const newTag = (event.value || '').trim();
-    console.log('event:', newTag)
     if (newTag) {
       this.tags.update(values => [...values, newTag]);
     }
