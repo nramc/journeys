@@ -51,8 +51,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   defaultPageSize: number = 10;
   totalElements: number = 0;
   data: Journey[] = [];
-  trackJourneyByFn = (index: number, journey: Journey) => journey.id;
-  trackTagByFn = (index: number, tag: string) => tag;
 
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
