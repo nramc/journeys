@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
+import {Component, input, OnInit, output, signal} from '@angular/core';
 import {Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
@@ -23,10 +23,10 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
   standalone: true
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
-  @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
+  savedEvent = output<Journey>({alias: "saved"});
   feedbackMessage = signal<FeedbackMessage>({});
 
-  @Input({required: true}) journey!: Journey;
+  journey = input.required<Journey>();
   formGeoDetails: JourneyGeoDetails = new JourneyGeoDetails(undefined);
   geoJsonString: string = '';
 
@@ -36,17 +36,17 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.journey.extendedDetails?.geoDetails) {
-      this.formGeoDetails = this.journey.extendedDetails.geoDetails;
+    if (this.journey().extendedDetails?.geoDetails) {
+      this.formGeoDetails = this.journey().extendedDetails!.geoDetails!;
     } else {
-      this.formGeoDetails = new JourneyGeoDetails(this.journey.location);
+      this.formGeoDetails = new JourneyGeoDetails(this.journey().location);
     }
     this.geoJsonString = JSON.stringify(this.formGeoDetails.geoJson);
   }
 
   save(journeyForm: NgForm) {
     console.debug('submitted form:', journeyForm);
-    this.journeyService.saveJourneyGeoDetails(this.journey, this.formGeoDetails)
+    this.journeyService.saveJourneyGeoDetails(this.journey(), this.formGeoDetails)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
         error: err => this.onError('Unexpected error while saving geo data', err)
@@ -55,7 +55,6 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
 
   onUpdateSuccess(result: Journey) {
     this.feedbackMessage.set({success: 'Journey details saved successfully.'});
-    this.journey = result;
     this.savedEvent.emit(result);
   }
 
