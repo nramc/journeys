@@ -1,16 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {BehaviorSubject, catchError, map, merge, of, startWith, switchMap} from "rxjs";
+import {AfterViewInit, Component, OnInit, signal, viewChild} from '@angular/core';
+import {BehaviorSubject, catchError, merge, of, startWith, switchMap, tap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
-import {
-  AsyncPipe,
-  DatePipe,
-  JsonPipe,
-  NgForOf,
-  NgIf,
-  NgOptimizedImage,
-  TitleCasePipe,
-  UpperCasePipe
-} from "@angular/common";
+import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
 import {JourneyPage} from "../../service/journey/journey-page.type";
 import {MatPaginator} from "@angular/material/paginator";
@@ -25,6 +16,12 @@ import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {SearchCriteria} from "../../model/core/search-criteria.model";
 import {FormsModule} from "@angular/forms";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {toObservable} from "@angular/core/rxjs-interop";
+
+export interface SearchResult {
+  totalElements: number;
+  data: Journey[];
+}
 
 @Component({
   selector: 'app-gallery',
@@ -32,8 +29,6 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   standalone: true,
   imports: [
     PageHeaderComponent,
-    AsyncPipe,
-    JsonPipe,
     NgForOf,
     NgIf,
     MatPaginator,
@@ -57,19 +52,16 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   sortableDirections: SortDirection[] = ["asc", "desc"];
   sortingDirectionChangedEvent: BehaviorSubject<SortDirection> = new BehaviorSubject<SortDirection>("desc");
   isLoadingResults: boolean = false;
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   defaultPageSize: number = 10;
-  totalElements: number = 0;
-  data: Journey[] = [];
-  trackJourneyByFn = (index: number, journey: Journey) => journey.id;
-  trackTagByFn = (index: number, tag: string) => tag;
 
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
-  tags: string[] = []
-  tagsCriteriaChange = new BehaviorSubject<string[]>([]);
   searchCriteria: SearchCriteria = new SearchCriteria();
+
+  paginator = viewChild.required(MatPaginator);
+  tags = signal<string[]>([]);
+  tagsObservable = toObservable(this.tags);
+  searchResult = signal<SearchResult>({totalElements: 0, data: []});
 
   constructor(
     private journeyService: JourneyService,
@@ -82,32 +74,30 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    merge(this.paginator.page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsCriteriaChange)
+    merge(this.paginator().page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsObservable)
       .pipe(
         startWith(),
+        tap(() => this.isLoadingResults = true),
         switchMap(() => {
-          this.isLoadingResults = true;
-
           return this.journeyService.findJourneyByQuery(
             this.searchCriteria,
             this.sortingFieldChangedEvent.getValue(),
             this.sortingDirectionChangedEvent.getValue(),
-            this.paginator.pageIndex,
-            this.paginator.pageSize,
+            this.paginator().pageIndex,
+            this.paginator().pageSize,
             true,
-            this.tags
+            this.tags()
           ).pipe(catchError(() => of(null)));
         }),
-        map(data => {
-          this.isLoadingResults = false;
-          return data;
-        }),
+        tap(_ => this.isLoadingResults = false)
       ).subscribe(data => this.onSuccess(data));
   }
 
   onSuccess(pageData: null | JourneyPage) {
-    this.totalElements = pageData?.totalElements ?? 0;
-    this.data = pageData?.content ?? [];
+    this.searchResult.set({
+      totalElements: pageData?.totalElements ?? 0,
+      data: pageData?.content ?? []
+    });
   }
 
   ngOnInit(): void {
@@ -145,18 +135,13 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   addTag(event: MatChipInputEvent): void {
     const newTag = (event.value || '').trim();
     if (newTag) {
-      this.tags.push(newTag);
-      this.tagsCriteriaChange.next(this.tags);
+      this.tags.update(values => [...values, newTag]);
     }
     // Clear the input value
     event.chipInput.clear();
   }
 
   removeTag(tag: string): void {
-    const index = this.tags.indexOf(tag);
-    if (index >= 0) {
-      this.tags.splice(index, 1);
-      this.tagsCriteriaChange.next(this.tags);
-    }
+    this.tags.update(values => values.filter(value => value !== tag));
   }
 }
