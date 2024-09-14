@@ -1,6 +1,11 @@
 @use '@angular/material' as mat;
-mat.$theme-legacy-inspection-api-compatibility: false;
-mat.$theme-ignore-duplication-warnings: true;
+
+mat.$theme-legacy-inspection-api-compatibility: false
+
+;
+mat.$theme-ignore-duplication-warnings: true
+
+;
 
 
 /* Application specific variables */
@@ -238,4 +243,21 @@ gallery-image img {
 
 .vh-50 {
   height: 50vh !important;
+}
+
+.fullscreen-icon {
+  display: flex !important;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.fullscreen-icon:after {
+  content: '';
+  background: url("assets/svg/maximize.svg");
+  background-size: cover;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }

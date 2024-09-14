@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
+import 'leaflet.fullscreen';
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
 import {Feature, GeoJsonObject} from "geojson";
 import {getIcon} from "../../config/icon-config";
@@ -65,7 +66,16 @@ export class WorldMapComponent implements AfterViewInit {
 
   private initializeMap(): void {
 
-    this.map = L.map(this.elementRef.nativeElement.querySelector("div.map-renderer")).fitWorld()
+    this.map = L.map(this.elementRef.nativeElement.querySelector("div.map-renderer"),
+      {
+        // @ts-ignore
+        fullscreenControl: true,
+        forceSeparateButton: true,
+        fullscreenControlOptions: {
+          position: 'topleft'
+        }
+      })
+      .fitWorld()
       .zoomIn(this.zoomIn);
 
     L.control.scale().addTo(this.map);
