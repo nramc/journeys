@@ -9,6 +9,6 @@ export const environment = {
   cloudinarySingleImgPreset: "journey-prod-single",
   cloudBaseDir: "journey/journey-prod",
   version: packageJson.version,
-  stage: 'prod'
-
+  stage: 'prod',
+  maptilerKey: 'Li0Tw6BIChGtu8Jb304A'
 };
