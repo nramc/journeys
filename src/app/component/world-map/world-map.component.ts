@@ -14,9 +14,12 @@ import {
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import 'leaflet.fullscreen';
+// @ts-ignore
+import {MaptilerLayer} from "@maptiler/leaflet-maptilersdk";
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
 import {Feature, GeoJsonObject} from "geojson";
 import {getIcon} from "../../config/icon-config";
+import {environment} from "../../../environments/environment";
 
 
 const iconDefault = L.icon({
@@ -79,6 +82,9 @@ export class WorldMapComponent implements AfterViewInit {
       .zoomIn(this.zoomIn);
 
     L.control.scale().addTo(this.map);
+    const mtLayer = new MaptilerLayer({
+      apiKey: environment.maptilerKey,
+    }).addTo(this.map);
 
     this.addTileLayers();
     this.addGeoJsonLayer();
@@ -86,7 +92,7 @@ export class WorldMapComponent implements AfterViewInit {
 
   private addTileLayers() {
     if (this.map) {
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      L.tileLayer(`https://api.maptiler.com/maps/streets-v2/style.json?key=${environment.maptilerKey}`, {
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(this.map);
