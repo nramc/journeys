@@ -1,6 +1,6 @@
 <app-page-header [pageInfo]="HOME_PAGE_INFO"></app-page-header>
 
-<section class="container" *ngIf="userData() as userContext">
+<section class="ms-3 d-flex" *ngIf="userData() as userContext">
   <div class="row">
     <div class="col-12 text-primary" *ngIf="userContext.isAuthenticated">
       <p>Welcome <strong class="gradient-text">{{ userContext.name }}</strong>..!,</p>
@@ -18,6 +18,8 @@
     </div>
   </div>
 </section>
+
+<app-quick-links class="ms-3" *ngIf="isUserAuthenticated()"></app-quick-links>
 
 <!-- Today timeline data -->
 <section class="container" *ngIf="timelineData() && timelineData()?.images?.length">
