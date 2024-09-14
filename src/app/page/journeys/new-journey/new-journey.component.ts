@@ -1,4 +1,4 @@
-import {Component, model} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {NEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 import {Journey} from "../../../model/core/journey.model";
 import {JourneyService} from "../../../service/journey/journey.service";
@@ -40,7 +40,7 @@ export class NewJourneyComponent {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
   journey: Journey = new Journey();
   coordinates: number[] = [];
-  markdownStyle = model<string>('Source')
+  markdownStyle = signal<string>('Source')
 
   constructor(
     private router: Router,
