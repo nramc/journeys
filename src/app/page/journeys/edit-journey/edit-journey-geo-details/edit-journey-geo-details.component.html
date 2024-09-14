@@ -15,7 +15,7 @@
         </label>
         <textarea class="form-control geojson-field" rows="10" [(ngModel)]="geoJsonString" (change)="reloadMap()"
                   id="geojson" name="geojson" required>
-          {{journey!.extendedDetails?.geoDetails?.geoJson | json}}
+          {{journey().extendedDetails?.geoDetails?.geoJson | json}}
         </textarea>
       </div>
     </div>
