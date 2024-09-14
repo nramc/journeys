@@ -1,4 +1,4 @@
-import {Component, input, OnInit, output, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, OnInit, output, signal} from '@angular/core';
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
@@ -36,7 +36,8 @@ import {DisplayMarkdownComponent} from "../../../../component/display-markdown-c
     MatButtonToggleModule,
     DisplayMarkdownComponent
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyBasicDetailsComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
@@ -63,7 +64,7 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
 
   onUpdateSuccess(result: Journey) {
     this.feedbackMessage.set({success: 'Journey details saved successfully.'});
-    this.savedEvent.emit(this.journey());
+    this.savedEvent.emit(result);
   }
 
   addTag(event: MatChipInputEvent): void {
