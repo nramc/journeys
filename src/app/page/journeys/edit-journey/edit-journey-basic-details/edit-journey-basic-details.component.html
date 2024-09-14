@@ -13,7 +13,8 @@
       <div class="row">
         <div class="input-group mb-3 col-12">
           <span class="input-group-text" id="idLabel">ID</span>
-          <input type="text" class="form-control" aria-describedby="idLabel" id="id" name="id" [(ngModel)]="journey.id"
+          <input type="text" class="form-control" aria-describedby="idLabel" id="id" name="id"
+                 [(ngModel)]="journey().id"
                  readonly="readonly" disabled="disabled">
         </div>
       </div>
@@ -22,7 +23,7 @@
       <div class="row">
         <div class="mb-3 col-12 col-md-8">
           <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="journey.name"
+          <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="journey().name"
                  #name=ngModel
                  maxlength="50" minlength="5" placeholder="Name your Journey">
           <div [hidden]="name.valid || name.pristine" class="form-text text-danger">
@@ -36,7 +37,7 @@
         <div class="mb-3 col-12 col-md-4">
           <label for="category" class="form-label">Category</label>
 
-          <input id="category" type="text" class="form-control" [(ngModel)]="journey.category"
+          <input id="category" type="text" class="form-control" [(ngModel)]="journey().category"
                  [ngbTypeahead]="searchCategory"
                  required minlength="3" maxlength="50"
                  name="category" #category="ngModel">
@@ -54,7 +55,7 @@
         <!-- Title -->
         <div class="mb-3 col-md-8">
           <label for="title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="title" name="title" [(ngModel)]="journey.title" required
+          <input type="text" class="form-control" id="title" name="title" [(ngModel)]="journey().title" required
                  #title="ngModel"
                  maxlength="100"
                  minlength="10"
@@ -71,7 +72,7 @@
           <label for="iconType" class="form-label">Icon</label>
           <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
                   (change)="refreshMapWithCoordinates()"
-                  [(ngModel)]="journey.icon" required name="iconType" #iconType="ngModel">
+                  [(ngModel)]="journey().icon" required name="iconType" #iconType="ngModel">
             @for (iconType of SUPPORTED_ICONS; track iconType) {
               <option [value]="iconType">{{ iconType| titlecase }}</option>
             }
@@ -95,12 +96,12 @@
         </mat-button-toggle-group>
         <textarea rows="15" class="form-control vh-50" id="description" name="description" required minlength="10"
                   maxlength="5000" #description="ngModel"
-                  [(ngModel)]="journey.description" [hidden]="markdownStyle() === 'Preview'"
+                  [(ngModel)]="journey().description" [hidden]="markdownStyle() === 'Preview'"
                   placeholder="Detailed information about the Journey"></textarea>
-        <div [hidden]="markdownStyle() == 'Source'"  style="height: 25rem;">
+        <div [hidden]="markdownStyle() == 'Source'" style="height: 25rem;">
           <app-display-markdown-component
-            [title]="journey.title"
-            [markdownText]="journey.description"></app-display-markdown-component>
+            [title]="journey().title"
+            [markdownText]="journey().description"></app-display-markdown-component>
         </div>
         <div [hidden]="description.valid || description.pristine" class="form-text text-danger">
           <div *ngIf="description.errors?.['required']">Memories is required.</div>
@@ -113,7 +114,7 @@
 
         <div class="col-12 col-md-6">
           <mat-chip-grid #chipGrid aria-label="Tags">
-            @for (tag of journey.tags; track tag) {
+            @for (tag of journey().tags; track tag) {
               <mat-chip-row color="primary" [highlighted]="true" (removed)="removeTag(tag)" [editable]="false"
                             [removable]="true">
                 {{ tag }}
@@ -181,7 +182,7 @@
         <!-- City -->
         <div class="mb-3 col-md-4">
           <label for="city" class="form-label">City</label>
-          <input type="text" class="form-control" id="city" name="city" [(ngModel)]="journey.city" #city="ngModel"
+          <input type="text" class="form-control" id="city" name="city" [(ngModel)]="journey().city" #city="ngModel"
                  required minlength="3" maxlength="50">
           <div [hidden]="city.valid || city.pristine" class="form-text text-danger">
             <div *ngIf="city.errors?.['required']">City is required.</div>
@@ -193,7 +194,7 @@
         <!-- Country -->
         <div class="mb-3 col-md-4">
           <label for="country" class="form-label">Country</label>
-          <input type="text" class="form-control" id="country" name="country" [(ngModel)]="journey.country"
+          <input type="text" class="form-control" id="country" name="country" [(ngModel)]="journey().country"
                  #country="ngModel"
                  required minlength="3" maxlength="50">
           <div [hidden]="country.valid || country.pristine" class="form-text text-danger">
@@ -208,7 +209,7 @@
           <label for="journeyDate" class="form-label">Journey Date</label>
           <div class="input-group">
             <input type="text" class="form-control" id="journeyDate" name="journeyDate"
-                   [(ngModel)]="journey.journeyDate"
+                   [(ngModel)]="journey().journeyDate"
                    #journeyDate="ngModel" required placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
             <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
             <div [hidden]="journeyDate.valid || journeyDate.pristine" class="form-text text-danger">
@@ -223,7 +224,7 @@
     </div>
 
     <div class="col-12 col-md-4" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="journey.location" [iconType]="journey.icon" [maxZoom]="10"/>
+      <app-world-map class="h-50" [geoJsonData]="journey().location" [iconType]="journey().icon" [maxZoom]="10"/>
     </div>
 
   </div>

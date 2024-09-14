@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, model, OnInit, Output, signal} from '@angular/core';
+import {Component, input, OnInit, output, signal} from '@angular/core';
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
@@ -40,10 +40,10 @@ import {DisplayMarkdownComponent} from "../../../../component/display-markdown-c
 })
 export class EditJourneyBasicDetailsComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
-  markdownStyle = model<string>('Source')
-  @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
+  markdownStyle = signal<string>('Source')
+  savedEvent = output<Journey>({alias: "saved"});
   feedbackMessage = signal<FeedbackMessage>({});
-  @Input({required: true}) journey!: Journey;
+  journey = input.required<Journey>();
   coordinates: number[] = [];
 
   constructor(
@@ -53,7 +53,7 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.coordinates = (this.journey.location as Point).coordinates;
+    this.coordinates = (this.journey().location as Point).coordinates;
   }
 
   onError(errorMessage: string, err: any) {
@@ -63,23 +63,22 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
 
   onUpdateSuccess(result: Journey) {
     this.feedbackMessage.set({success: 'Journey details saved successfully.'});
-    this.journey = result;
-    this.savedEvent.emit(this.journey);
+    this.savedEvent.emit(this.journey());
   }
 
   addTag(event: MatChipInputEvent): void {
     const newTag = (event.value || '').toLowerCase().trim();
     if (newTag) {
-      this.journey.tags.push(newTag);
+      this.journey().tags.push(newTag);
     }
     // Clear the input value
     event.chipInput.clear();
   }
 
   removeTag(tag: string): void {
-    const index = this.journey.tags.indexOf(tag);
+    const index = this.journey().tags.indexOf(tag);
     if (index >= 0) {
-      this.journey.tags.splice(index, 1);
+      this.journey().tags.splice(index, 1);
     }
   }
 
@@ -97,7 +96,7 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
   refreshMapWithCoordinates() {
     setTimeout(() => {
       if (this.coordinates.length == 2) {
-        this.journey.location = {
+        this.journey().location = {
           type: "Point",
           coordinates: this.coordinates
         }
@@ -107,7 +106,7 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
 
   save(journeyForm: NgForm) {
     console.debug('Submitted form data:', journeyForm);
-    this.journeyService.saveJourneyBasicDetails(this.journey)
+    this.journeyService.saveJourneyBasicDetails(this.journey())
       .subscribe({
         next: data => this.onUpdateSuccess(data),
         error: err => this.onError('Unexpected error while saving data', err)
