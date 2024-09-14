@@ -1,4 +1,4 @@
-import {Component, input, OnInit, output, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, OnInit, output, signal} from '@angular/core';
 import {Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
@@ -20,7 +20,8 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
     NgIf,
     JsonPipe
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
   savedEvent = output<Journey>({alias: "saved"});
