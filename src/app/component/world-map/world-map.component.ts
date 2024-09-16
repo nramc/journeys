@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, input, Input, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, input, Input, viewChild, ViewContainerRef} from '@angular/core';
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import 'leaflet.fullscreen';
@@ -35,7 +35,10 @@ export class WorldMapComponent implements AfterViewInit {
   private map: L.Map | undefined;
   private geoJsonLayer: L.GeoJSON | undefined;
 
-  @ViewChild("markerPopupViewContainer", {read: ViewContainerRef}) markerPopupViewContainerRef: ViewContainerRef | undefined;
+  // @ViewChild("markerPopupViewContainer", {read: ViewContainerRef}) markerPopupViewContainerRef: ViewContainerRef | undefined;
+  markerPopupViewContainerRef = viewChild.required('markerPopupViewContainer', { read: ViewContainerRef });
+
+
 
   #featureCollection: GeoJsonObject | undefined;
 
@@ -124,8 +127,8 @@ export class WorldMapComponent implements AfterViewInit {
   private addGeoJsonLayer() {
 
     const getPopupComponentNativeElement = (feature: Feature) => {
-      let popupComponent = this.markerPopupViewContainerRef?.createComponent(MarkerPopupComponent);
-      popupComponent!.setInput('feature', feature);
+      let popupComponent = this.markerPopupViewContainerRef().createComponent(MarkerPopupComponent);
+      popupComponent.setInput('feature', feature);
       return popupComponent?.instance.elementRef.nativeElement;
     }
 
