@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, input, Input, viewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, input, viewChild, ViewContainerRef} from '@angular/core';
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import 'leaflet.fullscreen';
@@ -10,6 +10,7 @@ import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
 import {Feature, GeoJsonObject} from "geojson";
 import {getIcon} from "../../config/icon-config";
 import {environment} from "../../../environments/environment";
+import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
 
 
 const iconDefault = L.icon({
@@ -35,24 +36,20 @@ export class WorldMapComponent implements AfterViewInit {
   private map: L.Map | undefined;
   private geoJsonLayer: L.GeoJSON | undefined;
 
-  // @ViewChild("markerPopupViewContainer", {read: ViewContainerRef}) markerPopupViewContainerRef: ViewContainerRef | undefined;
-  markerPopupViewContainerRef = viewChild.required('markerPopupViewContainer', { read: ViewContainerRef });
-
-
-
-  #featureCollection: GeoJsonObject | undefined;
-
-  @Input("geoJsonData")
-  set geoJsonData(geoJsonData: GeoJsonObject | undefined) {
-    this.#featureCollection = geoJsonData;
-    this.addGeoJsonData(geoJsonData);
-  }
-
+  geoJson = input<GeoJsonObject | undefined>(undefined, {alias: 'geoJsonData'});
+  markerPopupViewContainerRef = viewChild.required('markerPopupViewContainer', {read: ViewContainerRef});
   enablePopup = input<boolean>(false);
   zoomIn = input<number>(4);
   maxZoom = input<number>(10);
   iconType = input<string>("default");
 
+  constructor() {
+    toObservable(this.geoJson).pipe(takeUntilDestroyed()).subscribe({
+      next: data => {
+        this.addGeoJsonData(data)
+      }
+    })
+  }
 
   ngAfterViewInit(): void {
     this.initializeMap();
@@ -120,7 +117,7 @@ export class WorldMapComponent implements AfterViewInit {
   private flyToBound() {
     let bounds = this.geoJsonLayer?.getBounds();
     if (bounds) {
-      this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom()});
+      this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom(), paddingTopLeft: [25, 25]});
     }
   }
 
@@ -135,7 +132,7 @@ export class WorldMapComponent implements AfterViewInit {
     if (this.map) {
 
       const isPopupRequired = this.enablePopup();
-      this.geoJsonLayer = L.geoJSON(this.#featureCollection, {
+      this.geoJsonLayer = L.geoJSON(this.geoJson(), {
         pointToLayer: (feature, latlng) => {
           return L.marker(latlng, {
             icon: getIcon(feature, this.iconType())
