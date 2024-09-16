@@ -3,11 +3,9 @@ import {
   booleanAttribute,
   Component,
   ElementRef,
-  EventEmitter,
   inject,
   Input,
   numberAttribute,
-  Output,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -47,7 +45,6 @@ export class WorldMapComponent implements AfterViewInit {
   private map: L.Map | undefined;
   private geoJsonLayer: L.GeoJSON | undefined;
 
-  @Output() mapInitializedEvent = new EventEmitter<L.Map>();
   @ViewChild("markerPopupViewContainer", {read: ViewContainerRef}) markerPopupViewContainerRef: ViewContainerRef | undefined;
 
   #featureCollection: GeoJsonObject | undefined;
@@ -66,7 +63,6 @@ export class WorldMapComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initializeMap();
-    this.mapInitializedEvent.emit(this.map);
   }
 
   private initializeMap(): void {
