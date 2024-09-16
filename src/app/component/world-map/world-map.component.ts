@@ -1,14 +1,4 @@
-import {
-  AfterViewInit,
-  booleanAttribute,
-  Component,
-  ElementRef,
-  inject, input,
-  Input,
-  numberAttribute,
-  ViewChild,
-  ViewContainerRef
-} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, input, Input, ViewChild, ViewContainerRef} from '@angular/core';
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import 'leaflet.fullscreen';
@@ -56,9 +46,9 @@ export class WorldMapComponent implements AfterViewInit {
   }
 
   enablePopup = input<boolean>(false);
-  @Input({transform: numberAttribute}) zoomIn: number = 4;
-  @Input({transform: numberAttribute}) maxZoom: number = 10;
-  @Input({required: false}) iconType: string | undefined = undefined;
+  zoomIn = input<number>(4);
+  maxZoom = input<number>(10);
+  iconType = input<string>("default");
 
 
   ngAfterViewInit(): void {
@@ -77,7 +67,7 @@ export class WorldMapComponent implements AfterViewInit {
         }
       })
       .fitWorld()
-      .zoomIn(this.zoomIn);
+      .zoomIn(this.zoomIn());
 
     L.control.scale().addTo(this.map);
     new MaptilerLayer({
@@ -119,7 +109,7 @@ export class WorldMapComponent implements AfterViewInit {
 
     if (geoJsonData) {
       this.geoJsonLayer?.addData(geoJsonData);
-      this.geoJsonLayer?.setZIndex(this.zoomIn);
+      this.geoJsonLayer?.setZIndex(this.zoomIn());
       setTimeout(() => this.flyToBound(), 1000);
     }
   }
@@ -127,7 +117,7 @@ export class WorldMapComponent implements AfterViewInit {
   private flyToBound() {
     let bounds = this.geoJsonLayer?.getBounds();
     if (bounds) {
-      this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom});
+      this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom()});
     }
   }
 
@@ -145,7 +135,7 @@ export class WorldMapComponent implements AfterViewInit {
       this.geoJsonLayer = L.geoJSON(this.#featureCollection, {
         pointToLayer: (feature, latlng) => {
           return L.marker(latlng, {
-            icon: getIcon(feature, this.iconType)
+            icon: getIcon(feature, this.iconType())
           })
         },
         onEachFeature: function (feature: Feature, layer: Layer) {
