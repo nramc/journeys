@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, ElementRef, inject, input, viewChild, ViewContainerRef} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  input,
+  viewChild,
+  ViewContainerRef
+} from '@angular/core';
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import 'leaflet.fullscreen';
@@ -29,7 +38,8 @@ L.Marker.prototype.options.icon = iconDefault;
   selector: 'app-world-map',
   templateUrl: './world-map.component.html',
   styleUrls: ['./world-map.component.scss'],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WorldMapComponent implements AfterViewInit {
   private elementRef: ElementRef = inject(ElementRef);
