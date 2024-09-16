@@ -3,8 +3,11 @@ import {
   booleanAttribute,
   Component,
   ElementRef,
+  EventEmitter,
   inject,
   Input,
+  numberAttribute,
+  Output,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -44,6 +47,7 @@ export class WorldMapComponent implements AfterViewInit {
   private map: L.Map | undefined;
   private geoJsonLayer: L.GeoJSON | undefined;
 
+  @Output() mapInitializedEvent = new EventEmitter<L.Map>();
   @ViewChild("markerPopupViewContainer", {read: ViewContainerRef}) markerPopupViewContainerRef: ViewContainerRef | undefined;
 
   #featureCollection: GeoJsonObject | undefined;
@@ -55,11 +59,14 @@ export class WorldMapComponent implements AfterViewInit {
   }
 
   @Input({transform: booleanAttribute}) enablePopup: boolean = false;
+  @Input({transform: numberAttribute}) zoomIn: number = 4;
+  @Input({transform: numberAttribute}) maxZoom: number = 10;
   @Input({required: false}) iconType: string | undefined = undefined;
 
 
   ngAfterViewInit(): void {
     this.initializeMap();
+    this.mapInitializedEvent.emit(this.map);
   }
 
   private initializeMap(): void {
@@ -73,7 +80,8 @@ export class WorldMapComponent implements AfterViewInit {
           position: 'topleft'
         }
       })
-      .fitWorld();
+      .fitWorld()
+      .zoomIn(this.zoomIn);
 
     L.control.scale().addTo(this.map);
     new MaptilerLayer({
@@ -115,6 +123,7 @@ export class WorldMapComponent implements AfterViewInit {
 
     if (geoJsonData) {
       this.geoJsonLayer?.addData(geoJsonData);
+      this.geoJsonLayer?.setZIndex(this.zoomIn);
       setTimeout(() => this.flyToBound(), 1000);
     }
   }
@@ -122,7 +131,7 @@ export class WorldMapComponent implements AfterViewInit {
   private flyToBound() {
     let bounds = this.geoJsonLayer?.getBounds();
     if (bounds) {
-      this.map?.flyToBounds(bounds, {animate: true});
+      this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom});
     }
   }
 
