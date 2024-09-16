@@ -3,7 +3,7 @@ import {
   booleanAttribute,
   Component,
   ElementRef,
-  inject,
+  inject, input,
   Input,
   numberAttribute,
   ViewChild,
@@ -55,7 +55,7 @@ export class WorldMapComponent implements AfterViewInit {
     this.addGeoJsonData(geoJsonData);
   }
 
-  @Input({transform: booleanAttribute}) enablePopup: boolean = false;
+  enablePopup = input<boolean>(false);
   @Input({transform: numberAttribute}) zoomIn: number = 4;
   @Input({transform: numberAttribute}) maxZoom: number = 10;
   @Input({required: false}) iconType: string | undefined = undefined;
@@ -141,7 +141,7 @@ export class WorldMapComponent implements AfterViewInit {
 
     if (this.map) {
 
-      const isPopupRequired = this.enablePopup;
+      const isPopupRequired = this.enablePopup();
       this.geoJsonLayer = L.geoJSON(this.#featureCollection, {
         pointToLayer: (feature, latlng) => {
           return L.marker(latlng, {
