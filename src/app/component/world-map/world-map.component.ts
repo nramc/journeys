@@ -88,11 +88,16 @@ export class WorldMapComponent implements AfterViewInit {
       apiKey: environment.maptilerKey,
     }).addTo(this.map);
 
-    new GeocodingControl({
+    // https://docs.maptiler.com/sdk-js/modules/geocoding/api/usage/leaflet/
+    // https://docs.maptiler.com/sdk-js/modules/geocoding/api/api-reference/#event:pick
+    let geocodingControl = new GeocodingControl({
       apiKey: environment.maptilerKey,
-      class: 'text-primary'
-    }).addTo(this.map);
+      class: 'text-primary',
+      debounceSearch: 1000
+    });
+    this.map.addControl(geocodingControl);
 
+    this.map.on("pick", (e) => console.log(e));
 
     this.addTileLayers();
     this.addGeoJsonLayer();
