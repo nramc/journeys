@@ -1,4 +1,4 @@
-<form (ngSubmit)="publish(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey">
+<form (ngSubmit)="publish(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey()">
   <div class="row mb-3">
     <div class="col-12">
       <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
@@ -10,7 +10,7 @@
       <mat-form-field class="w-100 ignore-highlight" color="primary">
         <mat-label>Visibility</mat-label>
         <mat-select id="visibilities" name="visibilities" class="ignore-highlight"
-                    [(ngModel)]="journey.visibilities" multiple required #visibilities="ngModel">
+                    [(ngModel)]="journey().visibilities" multiple required #visibilities="ngModel">
           <mat-option value="MYSELF" [disabled]="true">MYSELF</mat-option>
           <mat-option value="ADMINISTRATOR">ADMINISTRATOR</mat-option>
           <mat-option value="MAINTAINER">MAINTAINER</mat-option>
@@ -64,10 +64,10 @@
     <div class="col-12 col-md-8 mt-2 mt-md-0">
       <div class="input-group mb-3">
         <label class="input-group-text" for="thumbnail">Thumbnail</label>
-        <select class="form-select" id="thumbnail" name="thumbnail" [(ngModel)]="journey.thumbnail"
+        <select class="form-select" id="thumbnail" name="thumbnail" [(ngModel)]="journey().thumbnail"
                 #thumbnail="ngModel">
           <option [value]="DEFAULT_THUMBNAIL">Default</option>
-          @for (imageDetail of this.journey.extendedDetails?.imagesDetails?.images; track imageDetail.assetId; let i = $index) {
+          @for (imageDetail of this.journey().extendedDetails?.imagesDetails?.images; track imageDetail.assetId; let i = $index) {
             <option [value]="imageDetail.url">{{ imageDetail.assetId }}</option>
           }
         </select>

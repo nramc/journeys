@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, signal} from '@angular/core';
+import {Component, input, output, signal} from '@angular/core';
 import {DEFAULT_THUMBNAIL, Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {MatIcon} from "@angular/material/icon";
@@ -28,8 +28,8 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
 })
 export class EditJourneyPublishDetailsComponent {
   protected readonly DEFAULT_THUMBNAIL = DEFAULT_THUMBNAIL;
-  @Input({required: true}) journey!: Journey;
-  @Output('saved') savedEvent = new EventEmitter<Journey>();
+  journey = input.required<Journey>();
+  savedEvent = output<Journey>({alias: 'saved'});
   feedbackMessage = signal<FeedbackMessage>({});
 
   constructor(
@@ -39,36 +39,34 @@ export class EditJourneyPublishDetailsComponent {
   }
 
   isBasicDetailsAvailableAndValid(): boolean {
-    return this.journey.id != '' &&
-      this.journey.name != '' &&
-      this.journey.title != '' &&
-      this.journey.description != '' &&
-      this.journey.city != '' &&
-      this.journey.country != '' &&
-      this.journey.journeyDate != '' &&
-      this.journey.category != '' &&
-      this.journey.tags?.length > 0 &&
-      this.journey.location != undefined
+    return this.journey().id != '' &&
+      this.journey().name != '' &&
+      this.journey().title != '' &&
+      this.journey().description != '' &&
+      this.journey().city != '' &&
+      this.journey().country != '' &&
+      this.journey().journeyDate != '' &&
+      this.journey().category != '' &&
+      this.journey().tags?.length > 0 &&
+      this.journey().location != undefined
   }
 
   isGeoJsonAvailable() {
-    return this.journey.extendedDetails?.geoDetails?.geoJson != null;
+    return this.journey().extendedDetails?.geoDetails?.geoJson != null;
   }
 
   isImagesDetailsAvailable() {
-    return this.journey.extendedDetails?.imagesDetails?.images != undefined &&
-      this.journey.extendedDetails.imagesDetails.images.length > 0
+    return this.journey().extendedDetails?.imagesDetails?.images?.length ?? -1 > 0;
   }
 
   isVideosDetailsAvailable() {
-    return this.journey.extendedDetails?.videosDetails?.videos != undefined &&
-      this.journey.extendedDetails.videosDetails.videos.length > 0
+    return this.journey().extendedDetails?.videosDetails?.videos?.length ?? -1 > 0
   }
 
   publish(journeyForm: NgForm) {
     console.debug('submitted form:', journeyForm);
-    this.journey.isPublished = true;
-    this.journeyService.publishJourney(this.journey)
+    this.journey().isPublished = true;
+    this.journeyService.publishJourney(this.journey())
       .subscribe({
         next: data => this.onUpdateSuccess(data),
         error: err => this.onError('Unexpected error while publishing data', err)
@@ -77,8 +75,8 @@ export class EditJourneyPublishDetailsComponent {
 
   save(journeyForm: NgForm) {
     if (journeyForm.valid) {
-      this.journey.isPublished = false;
-      this.journeyService.publishJourney(this.journey)
+      this.journey().isPublished = false;
+      this.journeyService.publishJourney(this.journey())
         .subscribe({
           next: data => this.onUpdateSuccess(data),
           error: err => this.onError('Unexpected error while publishing data', err)
@@ -94,13 +92,12 @@ export class EditJourneyPublishDetailsComponent {
   onUpdateSuccess(result: Journey) {
     const successMessage: string = result.isPublished ? 'Journey published successfully.' : 'Journey saved successfully';
     this.feedbackMessage.set({success: successMessage});
-    this.journey = result;
-    this.savedEvent.emit(this.journey);
+    this.savedEvent.emit(result);
   }
 
   delete() {
     this.feedbackMessage.set({loading: 'Please wait while your request processing...'});
-    this.journeyService.deleteJourney(this.journey)
+    this.journeyService.deleteJourney(this.journey())
       .subscribe({
         next: __ => this.onDeleteSuccess(),
         error: err => this.onError('Unexpected error while publishing data', err)
