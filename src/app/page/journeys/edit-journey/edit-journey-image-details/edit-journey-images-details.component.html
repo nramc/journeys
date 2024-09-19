@@ -1,4 +1,4 @@
-<form (ngSubmit)="save()" *ngIf="this.journey">
+<form (ngSubmit)="save()" *ngIf="this.journey()">
 
   <div class="row mb-3">
     <div class="col-12">
@@ -10,16 +10,15 @@
     <div class="col-12">
       <div class="d-flex mb-3 flex-wrap">
         @for (imageDetail of this.formImageDetails.images; track imageDetail.assetId; let i = $index) {
-          <div class="m-2 image-thumbnail-wrapper" (click)="openImageItem(imageDetail)">
-
+          <a class="m-2 image-thumbnail-wrapper" (click)="openImageItem(imageDetail)">
             <img
               [src]="imageDetail.url"
-              [alt]="imageDetail.assetId"
+              alt="thumbnail"
               [title]="imageDetail.assetId"
               class="img-thumbnail rounded border border-2 border-opacity-75 h-60-px w-90-px"
               [ngClass]="{'border-success': imageDetail.isThumbnail, 'border-primary': !imageDetail.isThumbnail}"
             />
-          </div>
+          </a>
         }
       </div>
     </div>
@@ -35,7 +34,7 @@
       <button type="button" class="btn btn-outline-primary" (click)="openUploadWidget(false)">
         <i class="bi bi-file-earmark-binary"></i><span class="ms-2">Upload Image</span>
       </button>
-      <button type="button" class="btn btn-outline-primary" [disabled]="!journey.extendedDetails?.imagesDetails?.images"
+      <button type="button" class="btn btn-outline-primary" [disabled]="!journey().extendedDetails?.imagesDetails?.images"
               matStepperNext>Next
       </button>
       <a role="link" class="text-decoration-none" routerLink="/tools" target="_blank">Reduce Image Size<i

@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, model} from '@angular/core';
 import {JourneyImageDetail} from "../../../../../model/core/journey.model";
 import {FormsModule} from "@angular/forms";
 import {NgIf, NgOptimizedImage} from "@angular/common";
@@ -19,10 +19,10 @@ import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
         <h6 class="gradient-text m-1 border-bottom border-primary-subtle border-3 pb-2">Edit Image Details</h6>
       </div>
 
-      <div class="d-flex flex-column flex-md-row justify-content-evenly">
+      <div class="d-flex flex-column flex-md-row justify-content-evenly align-items-center align-content-center">
         <div class="image-thumbnail m-1 col-md-4 text-center">
           <img
-            [ngSrc]="imageItem().url"
+            [src]="imageItem().url"
             [alt]="imageItem().assetId"
             [title]="imageItem().assetId"
             class="img-thumbnail rounded border border-2 border-opacity-50 border-primary h-200-px w-200-px"
@@ -99,7 +99,7 @@ import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
   styles: []
 })
 export class EditJourneyImageItemComponent {
-  imageItem = input.required<JourneyImageDetail>();
+  imageItem = model.required<JourneyImageDetail>();
 
   constructor(public activeModel: NgbActiveModal) {
   }

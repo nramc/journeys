@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
+import {Component, EventEmitter, input, OnInit, Output, signal} from '@angular/core';
 import {Journey, JourneyImageDetail, JourneyImagesDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {environment} from "../../../../../environments/environment";
@@ -24,13 +24,14 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
     MatBadge,
     MatStepperNext,
     NgClass,
-    RouterLink
+    RouterLink,
+    EditJourneyImageItemComponent
   ],
   standalone: true
 })
 export class EditJourneyImagesDetailsComponent implements OnInit {
   @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
-  @Input({required: true}) journey!: Journey;
+  journey = input.required<Journey>();
   feedbackMessage = signal<FeedbackMessage>({});
 
   formImageDetails: JourneyImagesDetails = new JourneyImagesDetails();
@@ -42,8 +43,8 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.journey?.extendedDetails?.imagesDetails) {
-      this.formImageDetails = this.journey.extendedDetails.imagesDetails;
+    if (this.journey().extendedDetails?.imagesDetails) {
+      this.formImageDetails = this.journey().extendedDetails?.imagesDetails ?? new JourneyImagesDetails();
     }
   }
 
@@ -87,12 +88,11 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
 
   onUpdateSuccess(result: Journey) {
     this.feedbackMessage.set({success: 'Image Details saved successfully.'});
-    this.journey = result;
-    this.savedEvent.emit(this.journey);
+    this.savedEvent.emit(result);
   }
 
   save() {
-    this.journeyService.saveJourneyImagesDetails(this.journey, this.formImageDetails)
+    this.journeyService.saveJourneyImagesDetails(this.journey(), this.formImageDetails)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
         error: err => this.onError('Unexpected error while saving images data', err)
@@ -102,7 +102,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   openUploadWidget(isMultipleUpload: boolean = true) {
     // @ts-ignore
     cloudinary.createUploadWidget(
-      this.getWidgetParams(this.journey, isMultipleUpload),
+      this.getWidgetParams(this.journey(), isMultipleUpload),
       (error: any, result: CloudinaryUploadSuccessEvent) => {
         if (!error && result && result.event === "success") {
           this.addImage(result.info);
@@ -122,10 +122,10 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
       centered: true,
       scrollable: true
     });
-    imageItemModel.componentInstance.imageItem = imageItem;
+    imageItemModel.componentInstance.imageItem.set(imageItem);
     imageItemModel.result.then(result => {
       if (result && typeof result == 'object') {
-        let target = this.journey.extendedDetails?.imagesDetails?.images?.find(item => item.assetId == result.assertId);
+        let target = this.journey().extendedDetails?.imagesDetails?.images?.find(item => item.assetId == result.assertId);
         Object.assign(target ?? {}, result);
       } else if (typeof result == "string") {
         const index = this.formImageDetails.images.findIndex(item => item.assetId == result);
