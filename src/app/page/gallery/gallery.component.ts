@@ -100,7 +100,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
       totalElements: pageData?.totalElements ?? 0,
       data: pageData?.content ?? []
     });
-    console.log("searchResult:", this.searchResult());
   }
 
   ngOnInit(): void {
