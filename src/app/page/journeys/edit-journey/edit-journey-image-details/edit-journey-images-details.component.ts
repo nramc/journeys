@@ -122,8 +122,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
       centered: true,
       scrollable: true
     });
-    console.log('imageItem:', imageItem);
-    imageItemModel.componentInstance.setInput('imageItem', imageItem);
+    imageItemModel.componentInstance.imageItem.set(imageItem);
     imageItemModel.result.then(result => {
       if (result && typeof result == 'object') {
         let target = this.journey().extendedDetails?.imagesDetails?.images?.find(item => item.assetId == result.assertId);
