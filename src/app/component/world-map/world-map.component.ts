@@ -1,14 +1,11 @@
 import {
   AfterViewInit,
-  booleanAttribute,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
   inject,
-  Input,
-  numberAttribute,
-  Output,
-  ViewChild,
+  input,
+  viewChild,
   ViewContainerRef
 } from '@angular/core';
 import * as L from 'leaflet';
@@ -16,10 +13,13 @@ import {Layer} from 'leaflet';
 import 'leaflet.fullscreen';
 // @ts-ignore
 import {MaptilerLayer} from "@maptiler/leaflet-maptilersdk";
+import {GeocodingControl} from "@maptiler/geocoding-control/leaflet";
+import "@maptiler/geocoding-control/style.css";
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
 import {Feature, GeoJsonObject} from "geojson";
 import {getIcon} from "../../config/icon-config";
 import {environment} from "../../../environments/environment";
+import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
 
 
 const iconDefault = L.icon({
@@ -38,33 +38,31 @@ L.Marker.prototype.options.icon = iconDefault;
   selector: 'app-world-map',
   templateUrl: './world-map.component.html',
   styleUrls: ['./world-map.component.scss'],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WorldMapComponent implements AfterViewInit {
   private elementRef: ElementRef = inject(ElementRef);
   private map: L.Map | undefined;
   private geoJsonLayer: L.GeoJSON | undefined;
 
-  @Output() mapInitializedEvent = new EventEmitter<L.Map>();
-  @ViewChild("markerPopupViewContainer", {read: ViewContainerRef}) markerPopupViewContainerRef: ViewContainerRef | undefined;
+  geoJson = input<GeoJsonObject | undefined>(undefined, {alias: 'geoJsonData'});
+  markerPopupViewContainerRef = viewChild.required('markerPopupViewContainer', {read: ViewContainerRef});
+  enablePopup = input<boolean>(false);
+  zoomIn = input<number>(4);
+  maxZoom = input<number>(10);
+  iconType = input<string>("default");
 
-  #featureCollection: GeoJsonObject | undefined;
-
-  @Input("geoJsonData")
-  set geoJsonData(geoJsonData: GeoJsonObject | undefined) {
-    this.#featureCollection = geoJsonData;
-    this.addGeoJsonData(geoJsonData);
+  constructor() {
+    toObservable(this.geoJson).pipe(takeUntilDestroyed()).subscribe({
+      next: data => {
+        this.addGeoJsonData(data)
+      }
+    })
   }
-
-  @Input({transform: booleanAttribute}) enablePopup: boolean = false;
-  @Input({transform: numberAttribute}) zoomIn: number = 4;
-  @Input({transform: numberAttribute}) maxZoom: number = 10;
-  @Input({required: false}) iconType: string | undefined = undefined;
-
 
   ngAfterViewInit(): void {
     this.initializeMap();
-    this.mapInitializedEvent.emit(this.map);
   }
 
   private initializeMap(): void {
@@ -79,12 +77,23 @@ export class WorldMapComponent implements AfterViewInit {
         }
       })
       .fitWorld()
-      .zoomIn(this.zoomIn);
+      .zoomIn(this.zoomIn());
 
     L.control.scale().addTo(this.map);
-    const mtLayer = new MaptilerLayer({
+    new MaptilerLayer({
       apiKey: environment.maptilerKey,
     }).addTo(this.map);
+
+    // https://docs.maptiler.com/sdk-js/modules/geocoding/api/usage/leaflet/
+    // https://docs.maptiler.com/sdk-js/modules/geocoding/api/api-reference/#event:pick
+    let geocodingControl = new GeocodingControl({
+      apiKey: environment.maptilerKey,
+      class: 'text-primary',
+      debounceSearch: 1000
+    });
+    this.map.addControl(geocodingControl);
+
+    this.map.on("pick", (e) => console.log(e));
 
     this.addTileLayers();
     this.addGeoJsonLayer();
@@ -93,7 +102,11 @@ export class WorldMapComponent implements AfterViewInit {
   private addTileLayers() {
     if (this.map) {
       L.tileLayer(`https://api.maptiler.com/maps/streets-v2/style.json?key=${environment.maptilerKey}`, {
+        tileSize: 512,
+        zoomOffset: -1,
+        minZoom: 2,
         maxZoom: 19,
+        crossOrigin: true,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(this.map);
     }
@@ -106,7 +119,7 @@ export class WorldMapComponent implements AfterViewInit {
 
     if (geoJsonData) {
       this.geoJsonLayer?.addData(geoJsonData);
-      this.geoJsonLayer?.setZIndex(this.zoomIn);
+      this.geoJsonLayer?.setZIndex(this.zoomIn());
       setTimeout(() => this.flyToBound(), 1000);
     }
   }
@@ -114,25 +127,25 @@ export class WorldMapComponent implements AfterViewInit {
   private flyToBound() {
     let bounds = this.geoJsonLayer?.getBounds();
     if (bounds) {
-      this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom});
+      this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom(), paddingTopLeft: [25, 25]});
     }
   }
 
   private addGeoJsonLayer() {
 
     const getPopupComponentNativeElement = (feature: Feature) => {
-      let popupComponent = this.markerPopupViewContainerRef?.createComponent(MarkerPopupComponent);
-      popupComponent!.setInput('feature', feature);
+      let popupComponent = this.markerPopupViewContainerRef().createComponent(MarkerPopupComponent);
+      popupComponent.setInput('feature', feature);
       return popupComponent?.instance.elementRef.nativeElement;
     }
 
     if (this.map) {
 
-      const isPopupRequired = this.enablePopup;
-      this.geoJsonLayer = L.geoJSON(this.#featureCollection, {
+      const isPopupRequired = this.enablePopup();
+      this.geoJsonLayer = L.geoJSON(this.geoJson(), {
         pointToLayer: (feature, latlng) => {
           return L.marker(latlng, {
-            icon: getIcon(feature, this.iconType)
+            icon: getIcon(feature, this.iconType())
           })
         },
         onEachFeature: function (feature: Feature, layer: Layer) {
