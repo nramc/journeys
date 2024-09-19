@@ -17,6 +17,7 @@ import {SearchCriteria} from "../../model/core/search-criteria.model";
 import {FormsModule} from "@angular/forms";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {toObservable} from "@angular/core/rxjs-interop";
+import {JourneyCardViewComponent} from "../../component/journey-card-view/journey-card-view.component";
 
 export interface SearchResult {
   totalElements: number;
@@ -41,7 +42,8 @@ export interface SearchResult {
     MatChipsModule,
     MatIcon,
     FormsModule,
-    MatProgressSpinner
+    MatProgressSpinner,
+    JourneyCardViewComponent
   ],
   styleUrls: ['./gallery.component.scss']
 })
@@ -65,7 +67,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   constructor(
     private journeyService: JourneyService,
-    private router: Router) {
+    router: Router) {
 
     if (router.getCurrentNavigation()?.extras.state) {
       this.searchCriteria = router.getCurrentNavigation()?.extras.state as SearchCriteria;
@@ -98,6 +100,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
       totalElements: pageData?.totalElements ?? 0,
       data: pageData?.content ?? []
     });
+    console.log("searchResult:", this.searchResult());
   }
 
   ngOnInit(): void {
@@ -110,26 +113,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
       true
     ).subscribe(data => this.onSuccess(data));
 
-  }
-
-  viewDetails(journey: Journey) {
-    this.router.navigate(['/journey', journey.id, 'view']).then(console.log);
-  }
-
-  editDetails(journey: Journey, $event: MouseEvent) {
-    $event.stopPropagation();
-    this.router.navigate(['/journey', journey.id, 'edit']).then(console.log);
-    return false;
-  }
-
-  viewInTimeline(journey: Journey, $event: MouseEvent) {
-    $event.stopPropagation();
-    this.router.navigate(['/timeline'], {
-      queryParams: {
-        'id': journey.id
-      }
-    }).then(console.log);
-    return false;
   }
 
   addTag(event: MatChipInputEvent): void {
