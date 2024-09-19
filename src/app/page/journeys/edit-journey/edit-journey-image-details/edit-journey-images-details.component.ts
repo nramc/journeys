@@ -1,4 +1,4 @@
-import {Component, EventEmitter, input, OnInit, Output, signal} from '@angular/core';
+import {Component, input, OnInit, output, signal} from '@angular/core';
 import {Journey, JourneyImageDetail, JourneyImagesDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {environment} from "../../../../../environments/environment";
@@ -30,7 +30,7 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
   standalone: true
 })
 export class EditJourneyImagesDetailsComponent implements OnInit {
-  @Output("saved") savedEvent: EventEmitter<Journey> = new EventEmitter<Journey>();
+  savedEvent = output<Journey>({alias: 'saved'});
   journey = input.required<Journey>();
   feedbackMessage = signal<FeedbackMessage>({});
 
@@ -43,23 +43,13 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.journey().extendedDetails?.imagesDetails) {
-      this.formImageDetails = this.journey().extendedDetails?.imagesDetails ?? new JourneyImagesDetails();
-    }
+    this.formImageDetails = this.journey().extendedDetails?.imagesDetails ?? new JourneyImagesDetails();
   }
 
   private addImage(info: CloudinaryUploadSuccessInfo) {
     this.formImageDetails.images.push(
       new JourneyImageDetail(info.secure_url, info.asset_id, info.public_id)
     );
-  }
-
-  removeImageAndSaveJourney(imageDetails: JourneyImageDetail) {
-    const index = this.formImageDetails.images.indexOf(imageDetails);
-    if (index >= 0) {
-      this.formImageDetails.images.splice(index, 1);
-      this.save()
-    }
   }
 
   private getWidgetParams(journey: Journey, isMultipleUpload: boolean) {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, signal} from '@angular/core';
+import {Component, input, OnInit, output, signal} from '@angular/core';
 import {Journey, JourneyVideoDetail, JourneyVideosDetails} from 'src/app/model/core/journey.model';
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
@@ -21,8 +21,8 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
   styleUrl: './edit-journey-videos-details.component.scss'
 })
 export class EditJourneyVideosDetailsComponent implements OnInit {
-  @Input({required: true}) journey!: Journey;
-  @Output('saved') savedEvent = new EventEmitter<Journey>();
+  journey = input.required<Journey>();
+  savedEvent = output<Journey>({alias: 'saved'});
   feedbackMessage = signal<FeedbackMessage>({});
 
   formVideosDetails: JourneyVideosDetails = new JourneyVideosDetails();
@@ -33,9 +33,7 @@ export class EditJourneyVideosDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.journey?.extendedDetails?.videosDetails) {
-      this.formVideosDetails = this.journey.extendedDetails.videosDetails;
-    }
+    this.formVideosDetails = this.journey().extendedDetails?.videosDetails ?? new JourneyVideosDetails();
   }
 
   addVideo(videoId: string) {
@@ -54,7 +52,7 @@ export class EditJourneyVideosDetailsComponent implements OnInit {
   }
 
   save() {
-    this.journeyService.saveJourneyVideosDetails(this.journey, this.formVideosDetails)
+    this.journeyService.saveJourneyVideosDetails(this.journey(), this.formVideosDetails)
       .subscribe({
         next: data => this.onUpdateSuccess(data),
         error: err => this.onError('Unexpected error while saving videos data', err)
@@ -63,8 +61,7 @@ export class EditJourneyVideosDetailsComponent implements OnInit {
 
   onUpdateSuccess(result: Journey) {
     this.feedbackMessage.set({success: 'Video Details saved successfully.'});
-    this.journey = result;
-    this.savedEvent.emit(this.journey);
+    this.savedEvent.emit(result);
   }
 
   onError(errorMessage: string, err: any) {
