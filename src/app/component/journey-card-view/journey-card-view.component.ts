@@ -1,4 +1,4 @@
-import {Component, effect, inject, input} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {DatePipe, NgIf, NgOptimizedImage} from "@angular/common";
 import {Journey} from "../../model/core/journey.model";
 import {Router} from "@angular/router";
