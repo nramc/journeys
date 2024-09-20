@@ -30,32 +30,7 @@
   color: whitesmoke !important;
 }
 
-// Card styles
-.card {
-  width: 30rem;
-  height: 15rem;
-  margin: 0 0.5rem 0.5rem 0 !important;
-  cursor: pointer;
-}
-
-.card-img {
-  opacity: 75%;
-  width: 100%;
-  height: 100%;
-}
-
-.card-text-wrapper {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-
 @include media-breakpoint-down(sm) {
-  .card {
-    width: 100%;
-    height: 15rem;
-    margin: 0 0 0.5rem 0 !important;
-  }
-
   .sorting {
     background: rgb(248, 249, 250);
     background: linear-gradient(90deg, rgba(248, 249, 250, 0.5) 1%, rgba(66, 70, 215, 0.65) 45%);

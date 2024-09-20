@@ -62,7 +62,6 @@ export class TotpCodeVerificationComponent {
 
   onSuccess(data: TotpCodeVerification) {
     if (data.success) {
-      console.log('success');
       this.dialogRef.close(true);
     } else {
       this.isCodeInvalid.set(true);
