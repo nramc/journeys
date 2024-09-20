@@ -14,7 +14,6 @@ import 'leaflet.fullscreen';
 // @ts-ignore
 import {MaptilerLayer} from "@maptiler/leaflet-maptilersdk";
 import {GeocodingControl} from "@maptiler/geocoding-control/leaflet";
-import "@maptiler/geocoding-control/style.css";
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
 import {Feature, GeoJsonObject} from "geojson";
 import {getIcon} from "../../config/icon-config";

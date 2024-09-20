@@ -61,6 +61,7 @@ $journey-theme: mat.define-theme((
 
 /* Overriding any library/framework Variables */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+@import 'node_modules/@maptiler/geocoding-control/style.css';
 
 /* Bootstrap theme customization */
 @import "node_modules/bootstrap/scss/bootstrap";
