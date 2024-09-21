@@ -92,6 +92,28 @@ body {
 
 }
 
+.border-gradient-primary {
+  border-image-slice: 1 !important;
+  border-image-source: linear-gradient(to left, #3459e6, #d53a9d) !important;
+}
+
+.border-gradient-circle {
+  border-radius: 50% !important;
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.border-gradient-circle-sm {
+  padding: 0.15rem;
+  border-radius: 50% !important;
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.19), 0 3px 3px rgba(0,0,0,0.23);
+}
+
 .gradient-bg {
   background-image: linear-gradient(to right, #3459e6, #5d76ed, #7f93f2, #a0b0f6, #c2cdf8);
 }

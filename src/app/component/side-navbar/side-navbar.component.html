@@ -5,13 +5,15 @@
   <div class="d-flex flex-column flex-shrink-0 p-3 w-100">
     <!-- App Band logo section   -->
     <div class="d-flex flex-row justify-content-between border-bottom border-2 border-secondary mb-md-2">
-      <a [routerLink]="HOME_PAGE_INFO.path" class="navbar-brand d-flex flex-row">
-        <div class="col">
-          <img ngSrc="assets/journey-logo.png" alt="" width="32" height="32">
+      <a [routerLink]="HOME_PAGE_INFO.path"
+         class="navbar-brand d-flex flex-row justify-content-center align-items-center align-content-center ">
+        <div class="col-4 align-self-stretch">
+          <img ngSrc="assets/logo/journey-logo-180x180.png" class="img-thumbnail bg-white border2 border-gradient-circle-sm" alt=""
+               width="180" height="180">
         </div>
-        <div class="col">
-          <span class="fs-4 pe-none">Journey</span>
-          <p class="text-monospace app-tagline text-center overflow-hidden">Your Portal to the Past</p>
+        <div class="col-8 ms-2 d-flex flex-column">
+          <span class="fs-4 app-title">Journey</span>
+          <p class="text-monospace app-tagline overflow-hidden">Your Portal to the Past</p>
         </div>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -103,19 +105,23 @@
           </a>
           <ul class="dropdown-menu bg-primary border-0">
             <li *ngIf="isUserAuthenticated()">
-              <a class="dropdown-item" routerLink="/my-account/profile" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <a class="dropdown-item" routerLink="/my-account/profile" data-bs-toggle="collapse"
+                 data-bs-target="#navbarNav">
                 <i class="bi bi-person-fill pe-none me-2"></i>My Profile</a>
             </li>
             <li *ngIf="isUserAuthenticated()">
-              <a class="dropdown-item" routerLink="/my-account/securitySettings" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <a class="dropdown-item" routerLink="/my-account/securitySettings" data-bs-toggle="collapse"
+                 data-bs-target="#navbarNav">
                 <i class="bi bi-gear-fill pe-none me-2"></i>Security Settings</a>
             </li>
             <li *ngIf="isUserAuthenticated()">
-              <a class="dropdown-item" routerLink="/my-account/delete" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <a class="dropdown-item" routerLink="/my-account/delete" data-bs-toggle="collapse"
+                 data-bs-target="#navbarNav">
                 <i class="bi bi-dash-circle-fill pe-none me-2"></i>Delete Account</a>
             </li>
             <li *ngIf="isUserAuthenticated()">
-              <a [routerLink]="LOGOUT_PAGE_INFO.path" class="dropdown-item" routerLinkActive="active" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <a [routerLink]="LOGOUT_PAGE_INFO.path" class="dropdown-item" routerLinkActive="active"
+                 data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-power pe-none me-2"></i>{{ LOGOUT_PAGE_INFO.name }}</a>
             </li>
           </ul>
