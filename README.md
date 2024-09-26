@@ -9,6 +9,21 @@
 # Journeys
 <hr />
 
+
+> Preserving Your Travel Memories with Narration, Geo Information, and Media
+
+**Journey** is a personal project designed to help users document and relive their travel experiences in a rich, immersive way. The platform allows travellers to seamlessly store memories of their trips, combining textual narration, geographic information, and multimedia elements such as photos and videos.
+
+With Journey, users can:
+
+* Capture stories of their adventures with detailed narratives.
+* Log geo-tagged locations to visually map their travel routes and destinations.
+* Upload and organize images and videos, creating a digital scrapbook of their experiences.
+
+Whether it’s a weekend getaway or a year-long adventure, Journey enables users to keep all their cherished travel moments in one organized place, transforming trips into unforgettable stories.
+
+---
+
 This is a [Angular](https://angular.io/) based Geo Spatial Single Page Application(SPA).
 The Application is deployed using [gh-pages](https://pages.github.com/).
 
