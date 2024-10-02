@@ -6,7 +6,12 @@
 [![Stars](https://img.shields.io/github/stars/nramc/journeys.svg?style=for-the-badge?logoColor=fff&style=flat)](https://github.com/nramc/journeys/stargazers)
 [![Badge](https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=159&style=flat)](https://www.linkedin.com/in/ramachandran-nellaiyappan/)
 
+![Journey](src/assets/logo/apple-icon-120x120.png "Journey")
+
 # Journeys
+
+###### Your Portal to the Past
+
 <hr />
 
 
@@ -28,30 +33,34 @@ This is a [Angular](https://angular.io/) based Geo Spatial Single Page Applicati
 The Application is deployed using [gh-pages](https://pages.github.com/).
 
 Since application uses geographical information, data is being processed in [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) format.
-[Open Street Map](https://www.openstreetmap.org/) is being used for displaying geospatial data with help of Map based JavaScript Library [Leaflet](https://leafletjs.com/). 
+[Open Street Map](https://www.openstreetmap.org/) is being used for displaying geospatial data with help of Map based JavaScript Library [Leaflet](https://leafletjs.com/).
 
 ## Helpful Links
+
 - [Journeys Application](https://nramc.github.io/journeys/)
 - [REST API Documentation](https://journey-api-nxm5.onrender.com/doc/swagger-ui.html)
 - [REST Open API YML Configuration](https://journey-api-nxm5.onrender.com/doc/openapi)
 
 ## Getting Started
+
 Please find below steps to set up and run application in your workstation.
 
 ### Prerequisites
+
 The service uses MongoDB for persistence.
 For Local development, Local MongoDB instance created with help of Docker CLI.
 So make sure you have installed Docker CLI or any other docker container tool.
 
 ### Installation
+
 1. Download Repository
    ```sh
    git clone https://github.com/nramc/journeys.git 
    ```
 2. Set up your `environment.development.ts` to have
-   1. Development Journey-API BFF service
-   2. Your Cloudinary's `cloud name` and `preset`
-   3. Optional Cloudinary base directory for development
+1. Development Journey-API BFF service
+2. Your Cloudinary's `cloud name` and `preset`
+3. Optional Cloudinary base directory for development
 3. Run Application
    ```sh
    npm run start
@@ -71,6 +80,7 @@ You can also simply open an issue with the tag "enhancement".
 5. Open a Pull Request
 
 ### Release new version
+
 1. Manually run [Release Workflow](https://github.com/nramc/journeys/actions/workflows/cd-workflow.yml)
 2. The Workflow flow uses [Conventional Changelog Action Plugin](https://github.com/marketplace/actions/conventional-changelog-action), which determines next version based on commit logs
 3. Based on the determined release type (MAJOR or MINOR or PATCH), bump version in package.json
@@ -79,10 +89,11 @@ You can also simply open an issue with the tag "enhancement".
 6. When build successful, Application available on [https://nramc.github.io/journeys](https://nramc.github.io/journeys/)
 
 ## Contact
+
 Ramachandran Nellaiyappan [Website](https://github.com/nramc) | [Twitter](https://twitter.com/ram_n_74) | [E-Mail](mailto:ramachandrannellai@gmail.com)
 
-
 ## Credits
+
 Sincere Thanks to following open source community for their wonderful efforts to make our life much easier.
 
 - [Open Street Map](https://www.openstreetmap.org) - Open Source Map Provider
@@ -93,6 +104,6 @@ Sincere Thanks to following open source community for their wonderful efforts to
 - [Angular Material](https://material.angular.io/) - Open Source UI Component library for Angular
 - [Angular Gallery](https://github.com/MurhafSousli/ngx-gallery/wiki) - Open Source Media Gallery library for Angular
 
-
 ## Show your support
+
 Give a ⭐️ if you like this project!
