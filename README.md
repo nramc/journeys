@@ -22,14 +22,14 @@
 With Journey, users can:
 
 * Capture stories of their adventures with detailed narratives.
-* Log geo-tagged locations to visually map their travel routes and destinations.
+* Log geotagged locations to visually map their travel routes and destinations.
 * Upload and organize images and videos, creating a digital scrapbook of their experiences.
 
 Whether it’s a weekend getaway or a year-long adventure, Journey enables users to keep all their cherished travel moments in one organized place, transforming trips into unforgettable stories.
 
 ---
 
-This is a [Angular](https://angular.io/) based Geo Spatial Single Page Application(SPA).
+This is an [Angular](https://angular.io/) based Geo Spatial Single Page Application(SPA).
 The Application is deployed using [gh-pages](https://pages.github.com/).
 
 Since application uses geographical information, data is being processed in [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) format.
@@ -58,10 +58,10 @@ So make sure you have installed Docker CLI or any other docker container tool.
    git clone https://github.com/nramc/journeys.git 
    ```
 2. Set up your `environment.development.ts` to have
-1. Development Journey-API BFF service
-2. Your Cloudinary's `cloud name` and `preset`
-3. Optional Cloudinary base directory for development
-3. Run Application
+3. Development Journey-API BFF service
+4. Your Cloudinary's `cloud name` and `preset`
+5. Optional Cloudinary base directory for development
+6. Run Application
    ```sh
    npm run start
    ```
