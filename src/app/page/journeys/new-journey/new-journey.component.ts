@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {NEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 import {Journey} from "../../../model/core/journey.model";
 import {JourneyService} from "../../../service/journey/journey.service";
@@ -33,21 +33,19 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     DisplayMarkdownComponent,
     MatButtonToggleModule
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewJourneyComponent {
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
-  journey: Journey = new Journey();
-  coordinates: number[] = [];
+  journey = signal(new Journey());
+  coordinates = signal<number[]>([]);
   markdownStyle = signal<string>('Source')
 
-  constructor(
-    private router: Router,
-    private journeyService: JourneyService,
-    private autoCompleteService: AutoCompleteService
-  ) {
-  }
+  private readonly router = inject(Router);
+  private readonly journeyService = inject(JourneyService);
+  private readonly autoCompleteService = inject(AutoCompleteService);
 
   successMessage: string = '';
   errorMessage: string = '';
@@ -64,7 +62,7 @@ export class NewJourneyComponent {
 
   onSubmit(journeyForm: NgForm) {
     if (journeyForm.submitted && journeyForm.valid) {
-      this.journeyService.createJourney(this.journey)
+      this.journeyService.createJourney(this.journey())
         .subscribe({
           next: data => this.onCreateSuccess(data),
           error: err => this.setError(err)
@@ -74,29 +72,32 @@ export class NewJourneyComponent {
 
   onCreateSuccess(result: Journey) {
     this.setSuccess('Journey added successfully.');
-    this.journey = result;
+    this.journey.set(result);
   }
 
   continue() {
-    if (this.journey.id) {
-      this.router.navigate(['/journey', this.journey.id, 'edit']).then();
+    if (this.journey().id) {
+      this.router.navigate(['/journey', this.journey().id, 'edit']).then();
     }
   }
 
   addTag(event: MatChipInputEvent): void {
     const newTag = (event.value || '').toLowerCase().trim();
     if (newTag) {
-      this.journey.tags.push(newTag);
+      this.journey.update(data => ({
+        ...data,
+        tags: data.tags.concat(newTag)
+      }))
     }
     // Clear the input value
     event.chipInput.clear();
   }
 
   removeTag(tag: string): void {
-    const index = this.journey.tags.indexOf(tag);
-    if (index >= 0) {
-      this.journey.tags.splice(index, 1);
-    }
+    this.journey.update(data => ({
+      ...data,
+      tags: data.tags.filter(value => value !== tag)
+    }));
   }
 
   searchCategory: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
@@ -112,31 +113,24 @@ export class NewJourneyComponent {
 
 
   refreshMapWithCoordinates() {
-    setTimeout(() => {
-      if (this.coordinates.length == 2) {
-        this.journey.location = {
+    if (this.coordinates()[0] && this.coordinates()[1]) {
+      this.journey.update(data => ({
+        ...data,
+        location: {
           type: "Point",
-          coordinates: this.coordinates
+          coordinates: [this.coordinates()?.[0], this.coordinates()?.[1]],
         }
-      }
-    }, 100);
-  }
-
-  swapCoordinates() {
-    let temp = this.coordinates[0];
-    this.coordinates[0] = this.coordinates[1];
-    this.coordinates[1] = temp;
-    this.refreshMapWithCoordinates();
+      }));
+    }
   }
 
   // noinspection DuplicatedCode
   async copyCoordinatesFromGoogleMap() {
     const copiedValue = await navigator.clipboard.readText()
     console.debug('Value copied from clipboard:', copiedValue);
-    if (copiedValue) {
+    if (copiedValue && copiedValue.split(',').length > 1) {
       let copiedCoordinates = copiedValue.split(',');
-      this.coordinates[0] = Number(copiedCoordinates.length < 2 ? copiedCoordinates[0] : copiedCoordinates[1]);
-      this.coordinates[1] = Number(copiedCoordinates[0]);
+      this.coordinates.set([Number(copiedCoordinates[1]), Number(copiedCoordinates[0])]);
       this.refreshMapWithCoordinates();
     }
   }
@@ -147,8 +141,7 @@ export class NewJourneyComponent {
     console.debug('Value copied from clipboard:', copiedValue);
     if (copiedValue) {
       let copiedCoordinates = copiedValue.split(',');
-      this.coordinates[0] = Number(copiedCoordinates[0]);
-      this.coordinates[1] = Number(copiedCoordinates.length >= 2 ? copiedCoordinates[1] : copiedCoordinates[0]);
+      this.coordinates.set([Number(copiedCoordinates[0]), Number(copiedCoordinates[1])])
       this.refreshMapWithCoordinates();
     }
   }
@@ -156,13 +149,19 @@ export class NewJourneyComponent {
   protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
 
   addGeoCodingLocation(geoCodingData: GeoCodingLocationData) {
-    this.coordinates[0] = geoCodingData.location.coordinates[0];
-    this.coordinates[1] = geoCodingData.location.coordinates[1];
+    this.coordinates.set([geoCodingData.location.coordinates[0], geoCodingData.location.coordinates[1]]);
 
-    this.journey.title = geoCodingData.name;
-    this.journey.city = geoCodingData.state;
-    this.journey.country = geoCodingData.country;
+    this.journey.update(data => ({
+        ...data,
+        title: geoCodingData.name,
+        city: geoCodingData.state,
+        country: geoCodingData.country,
+        location: {
+          type: "Point",
+          coordinates: [geoCodingData.location.coordinates[0], geoCodingData.location.coordinates[1]]
+        }
+      })
+    );
 
-    this.refreshMapWithCoordinates();
   }
 }

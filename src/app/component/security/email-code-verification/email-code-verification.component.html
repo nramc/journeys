@@ -28,7 +28,8 @@
       <button class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
       <button class="btn btn-primary" (click)="sendCode()" [disabled]="!canSendCode()" cdkFocusInitial>Send
       </button>
-      <button class="btn btn-primary" (click)="confirmCode(confirmationCode, confirmButton)" #confirmButton>Confirm</button>
+      <button class="btn btn-primary" (click)="confirmCode(confirmationCode, confirmButton)" #confirmButton
+      [disabled]="!confirmationCode.validity.valid">Confirm</button>
     </div>
     <div class="mt-2">
       <p [hidden]="!isCodeSent()" class="text-success small fw-bold">Code has been sent successfully to register email. If you haven't received, click Sent
