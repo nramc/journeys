@@ -5,6 +5,7 @@ import {
   ElementRef,
   inject,
   input,
+  output,
   viewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -15,10 +16,11 @@ import 'leaflet.fullscreen';
 import {MaptilerLayer} from "@maptiler/leaflet-maptilersdk";
 import {GeocodingControl} from "@maptiler/geocoding-control/leaflet";
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
-import {Feature, GeoJsonObject} from "geojson";
+import {Feature, GeoJsonObject, Geometry, Point} from "geojson";
 import {getIcon} from "../../config/icon-config";
 import {environment} from "../../../environments/environment";
 import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
+import {GeoCodingFeature} from "./geo-coding-feature";
 
 
 const iconDefault = L.icon({
@@ -32,6 +34,18 @@ const iconDefault = L.icon({
   shadowSize: [41, 41]
 });
 L.Marker.prototype.options.icon = iconDefault;
+
+export interface GeoCodingLocationData {
+  name: string;
+  location: Point;
+  state: string;
+  country: string;
+}
+
+export interface GeoCodingAreaData {
+  name: string;
+  area: Geometry;
+}
 
 @Component({
   selector: 'app-world-map',
@@ -51,6 +65,8 @@ export class WorldMapComponent implements AfterViewInit {
   zoomIn = input<number>(4);
   maxZoom = input<number>(10);
   iconType = input<string>("default");
+  location = output<GeoCodingLocationData>();
+  area = output<GeoCodingAreaData>();
 
   constructor() {
     toObservable(this.geoJson).pipe(takeUntilDestroyed()).subscribe({
@@ -88,14 +104,37 @@ export class WorldMapComponent implements AfterViewInit {
     let geocodingControl = new GeocodingControl({
       apiKey: environment.maptilerKey,
       class: 'text-primary',
-      debounceSearch: 1000
+      debounceSearch: 1000,
+      language: "en"
     });
     this.map.addControl(geocodingControl);
 
-    this.map.on("pick", (e) => console.log(e));
+    this.map.on("pick", (eventData: any) => this.emitGeoCodingData(new GeoCodingFeature(
+      eventData['place_name'],
+      eventData['geometry'],
+      eventData['context']
+    )));
 
     this.addTileLayers();
     this.addGeoJsonLayer();
+  }
+
+  private emitGeoCodingData(geoCodingFeatures: GeoCodingFeature) {
+    if (geoCodingFeatures.location != null) {
+      this.location.emit({
+        name: geoCodingFeatures.name ?? '',
+        location: geoCodingFeatures.location,
+        state: geoCodingFeatures.state ?? '',
+        country: geoCodingFeatures.country ?? ''
+      });
+    } else if (geoCodingFeatures.area != null) {
+      this.area.emit({
+        area: geoCodingFeatures.area,
+        name: geoCodingFeatures.name ?? ''
+      })
+    } else {
+      console.log('No Area and location detected:', geoCodingFeatures);
+    }
   }
 
   private addTileLayers() {
