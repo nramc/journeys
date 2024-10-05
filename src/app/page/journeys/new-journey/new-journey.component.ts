@@ -43,9 +43,9 @@ export class NewJourneyComponent {
   coordinates = signal<number[]>([]);
   markdownStyle = signal<string>('Source')
 
-  private router = inject(Router);
-  private journeyService = inject(JourneyService);
-  private autoCompleteService = inject(AutoCompleteService);
+  private readonly router = inject(Router);
+  private readonly journeyService = inject(JourneyService);
+  private readonly autoCompleteService = inject(AutoCompleteService);
 
   successMessage: string = '';
   errorMessage: string = '';
