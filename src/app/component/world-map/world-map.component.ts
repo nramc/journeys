@@ -65,6 +65,9 @@ export class WorldMapComponent implements AfterViewInit {
   zoomIn = input<number>(4);
   maxZoom = input<number>(10);
   iconType = input<string>("default");
+
+  // GeoCoding properties
+  enableGeoCoding = input<boolean>(false);
   location = output<GeoCodingLocationData>();
   area = output<GeoCodingAreaData>();
 
@@ -99,24 +102,33 @@ export class WorldMapComponent implements AfterViewInit {
       apiKey: environment.maptilerKey,
     }).addTo(this.map);
 
-    // https://docs.maptiler.com/sdk-js/modules/geocoding/api/usage/leaflet/
-    // https://docs.maptiler.com/sdk-js/modules/geocoding/api/api-reference/#event:pick
-    let geocodingControl = new GeocodingControl({
-      apiKey: environment.maptilerKey,
-      class: 'text-primary',
-      debounceSearch: 1000,
-      language: "en"
-    });
-    this.map.addControl(geocodingControl);
+    if (this.enableGeoCoding()) {
+      this.enableGeoCodingSearch();
+    }
 
-    this.map.on("pick", (eventData: any) => this.emitGeoCodingData(new GeoCodingFeature(
-      eventData['place_name'],
-      eventData['geometry'],
-      eventData['context']
-    )));
 
     this.addTileLayers();
     this.addGeoJsonLayer();
+  }
+
+  private enableGeoCodingSearch() {
+    // https://docs.maptiler.com/sdk-js/modules/geocoding/api/usage/leaflet/
+    // https://docs.maptiler.com/sdk-js/modules/geocoding/api/api-reference/#event:pick
+    if (this.map) {
+      let geocodingControl = new GeocodingControl({
+        apiKey: environment.maptilerKey,
+        class: 'text-primary',
+        debounceSearch: 1000,
+        language: "en"
+      });
+      this.map.addControl(geocodingControl);
+
+      this.map.on("pick", (eventData: any) => this.emitGeoCodingData(new GeoCodingFeature(
+        eventData['place_name'],
+        eventData['geometry'],
+        eventData['context']
+      )));
+    }
   }
 
   private emitGeoCodingData(geoCodingFeatures: GeoCodingFeature) {
