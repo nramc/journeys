@@ -40,7 +40,7 @@ export class NewJourneyComponent {
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
   journey = signal(new Journey());
-  coordinates: number[] = [];
+  coordinates = signal<number[]>([]);
   markdownStyle = signal<string>('Source')
 
   private router = inject(Router);
@@ -84,7 +84,7 @@ export class NewJourneyComponent {
   addTag(event: MatChipInputEvent): void {
     const newTag = (event.value || '').toLowerCase().trim();
     if (newTag) {
-      this.journey.update(data =>  ({
+      this.journey.update(data => ({
         ...data,
         tags: data.tags.concat(newTag)
       }))
@@ -113,31 +113,24 @@ export class NewJourneyComponent {
 
 
   refreshMapWithCoordinates() {
-    setTimeout(() => {
-      if (this.coordinates.length == 2) {
-        this.journey().location = {
+    if (this.coordinates()[0] && this.coordinates()[1]) {
+      this.journey.update(data => ({
+        ...data,
+        location: {
           type: "Point",
-          coordinates: this.coordinates
+          coordinates: [this.coordinates()?.[0], this.coordinates()?.[1]],
         }
-      }
-    }, 100);
-  }
-
-  swapCoordinates() {
-    let temp = this.coordinates[0];
-    this.coordinates[0] = this.coordinates[1];
-    this.coordinates[1] = temp;
-    this.refreshMapWithCoordinates();
+      }));
+    }
   }
 
   // noinspection DuplicatedCode
   async copyCoordinatesFromGoogleMap() {
     const copiedValue = await navigator.clipboard.readText()
     console.debug('Value copied from clipboard:', copiedValue);
-    if (copiedValue) {
+    if (copiedValue && copiedValue.split(',').length > 1) {
       let copiedCoordinates = copiedValue.split(',');
-      this.coordinates[0] = Number(copiedCoordinates.length < 2 ? copiedCoordinates[0] : copiedCoordinates[1]);
-      this.coordinates[1] = Number(copiedCoordinates[0]);
+      this.coordinates.set([Number(copiedCoordinates[1]), Number(copiedCoordinates[0])]);
       this.refreshMapWithCoordinates();
     }
   }
@@ -148,8 +141,7 @@ export class NewJourneyComponent {
     console.debug('Value copied from clipboard:', copiedValue);
     if (copiedValue) {
       let copiedCoordinates = copiedValue.split(',');
-      this.coordinates[0] = Number(copiedCoordinates[0]);
-      this.coordinates[1] = Number(copiedCoordinates.length >= 2 ? copiedCoordinates[1] : copiedCoordinates[0]);
+      this.coordinates.set([Number(copiedCoordinates[0]), Number(copiedCoordinates[1])])
       this.refreshMapWithCoordinates();
     }
   }
@@ -157,23 +149,19 @@ export class NewJourneyComponent {
   protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
 
   addGeoCodingLocation(geoCodingData: GeoCodingLocationData) {
-    this.coordinates[0] = geoCodingData.location.coordinates[0];
-    this.coordinates[1] = geoCodingData.location.coordinates[1];
+    this.coordinates.set([geoCodingData.location.coordinates[0], geoCodingData.location.coordinates[1]]);
 
     this.journey.update(data => ({
         ...data,
-        title: geoCodingData.name
+        title: geoCodingData.name,
+        city: geoCodingData.state,
+        country: geoCodingData.country,
+        location: {
+          type: "Point",
+          coordinates: [geoCodingData.location.coordinates[0], geoCodingData.location.coordinates[1]]
+        }
       })
     );
-    this.journey.update(data => ({
-      ...data,
-      city: geoCodingData.state
-    }));
-    this.journey.update(data => ({
-      ...data,
-      country: geoCodingData.country
-    }));
 
-    //this.refreshMapWithCoordinates();
   }
 }

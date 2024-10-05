@@ -1,4 +1,4 @@
-import {GeoJSON, Geometry} from "geojson";
+import {GeoJSON, Point} from "geojson";
 
 export const DEFAULT_THUMBNAIL: string = 'https://res.cloudinary.com/journeytogether/image/upload/v1712604194/journey/readonly/aeqhy3zwrwko7ba2rinr.jpg';
 
@@ -15,7 +15,7 @@ export class Journey {
     public tags: string[] = [],
     public thumbnail: string = DEFAULT_THUMBNAIL,
     public icon: string = 'default',
-    public location: Geometry | undefined = undefined,
+    public location: Point | undefined = undefined,
     public extendedDetails: JourneyExtendedDetails | undefined = new JourneyExtendedDetails(),
     public isPublished: boolean = false,
     public visibilities: string[] = []

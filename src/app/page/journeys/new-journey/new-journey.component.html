@@ -152,7 +152,7 @@
           <div class="col-12">
             <div class="input-group mb-3">
               <input type="number" class="form-control" placeholder="Longitude" aria-label="Longitude"
-                     id="longitude" name="longitude" [(ngModel)]="coordinates[0]" [readOnly]="journey().id"
+                     id="longitude" name="longitude" [(ngModel)]="coordinates()[0]" [readOnly]="journey().id"
                      required min="-180.0" max="180.0" #longitude="ngModel" (blur)="refreshMapWithCoordinates()">
               <button class="btn btn-primary input-group-text dropdown-toggle" data-bs-toggle="dropdown"
                       aria-expanded="false" [disabled]="journey().id">
@@ -169,12 +169,9 @@
                     clipboard
                   </button>
                 </li>
-                <li>
-                  <button type="button" class="dropdown-item" (click)="swapCoordinates()">Swap Coordinates</button>
-                </li>
               </ul>
               <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
-                     id="latitude" name="latitude" [(ngModel)]="coordinates[1]" [readOnly]="journey().id"
+                     id="latitude" name="latitude" [(ngModel)]="coordinates()[1]" [readOnly]="journey().id"
                      required min="-90.0" max="90.0" #latitude="ngModel" (blur)="refreshMapWithCoordinates()">
             </div>
             <div class="form-text text-danger">
