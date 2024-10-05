@@ -119,7 +119,9 @@ export class WorldMapComponent implements AfterViewInit {
         apiKey: environment.maptilerKey,
         class: 'text-primary',
         debounceSearch: 1000,
-        language: "en"
+        language: "en",
+        markerOnSelected: false,
+        marker: false,
       });
       this.map.addControl(geocodingControl);
 
