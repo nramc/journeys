@@ -144,7 +144,8 @@
         <div class="row justify-content-evenly">
           <!-- Map -->
           <div class="col-12" style="position: relative; min-height: 25vh">
-            <app-world-map class="h-50" [geoJsonData]="journey.location" [iconType]="journey.icon"/>
+            <app-world-map class="h-50" [geoJsonData]="journey.location" [iconType]="journey.icon"
+                           [enableGeoCoding]="true" (location)="addGeoCodingLocation($event)"/>
           </div>
 
           <!-- Location  -->

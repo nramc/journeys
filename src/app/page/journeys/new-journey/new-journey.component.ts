@@ -11,7 +11,7 @@ import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 import {MatIconModule} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
-import {WorldMapComponent} from "../../../component/world-map/world-map.component";
+import {GeoCodingLocationData, WorldMapComponent} from "../../../component/world-map/world-map.component";
 import {AutoCompleteService} from "../../../service/auto-complete/auto-complete.service";
 import {SUPPORTED_ICONS} from "../../../config/icon-config";
 import {DisplayMarkdownComponent} from "../../../component/display-markdown-component/display-markdown.component";
@@ -154,4 +154,15 @@ export class NewJourneyComponent {
   }
 
   protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
+
+  addGeoCodingLocation(geoCodingData: GeoCodingLocationData) {
+    this.coordinates[0] = geoCodingData.location.coordinates[0];
+    this.coordinates[1] = geoCodingData.location.coordinates[1];
+
+    this.journey.title = geoCodingData.name;
+    this.journey.city = geoCodingData.state;
+    this.journey.country = geoCodingData.country;
+
+    this.refreshMapWithCoordinates();
+  }
 }
