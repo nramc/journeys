@@ -20,11 +20,11 @@
         </div>
 
         <!-- Id -->
-        <div class="row" *ngIf="journey.id">
+        <div class="row" *ngIf="journey().id">
           <div class="input-group mb-3 col-12">
             <span class="input-group-text" id="idLabel">ID</span>
             <input type="text" class="form-control" aria-describedby="idLabel" id="id" name="id"
-                   [(ngModel)]="journey.id"
+                   [(ngModel)]="journey().id"
                    readonly="readonly">
           </div>
         </div>
@@ -33,9 +33,9 @@
         <div class="row">
           <div class="mb-3 col-12 col-md-8">
             <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="journey.name"
+            <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="journey().name"
                    #name=ngModel
-                   maxlength="50" minlength="5" placeholder="Name your Journey" [readOnly]="journey.id">
+                   maxlength="50" minlength="5" placeholder="Name your Journey" [readOnly]="journey().id">
             <div [hidden]="name.valid || name.pristine" class="form-text text-danger">
               <div *ngIf="name.errors?.['required']">Name is required.</div>
               <div *ngIf="name.errors?.['minlength']">Name must be at least 5 characters long.</div>
@@ -47,10 +47,10 @@
           <div class="mb-3 col-12 col-md-4">
             <label for="category" class="form-label">Category</label>
 
-            <input id="category" type="text" class="form-control" [(ngModel)]="journey.category"
+            <input id="category" type="text" class="form-control" [(ngModel)]="journey().category"
                    [ngbTypeahead]="searchCategory"
                    required minlength="3" maxlength="50"
-                   [disabled]="journey.id != ''" name="category" #category="ngModel">
+                   [disabled]="journey().id != ''" name="category" #category="ngModel">
 
             <div [hidden]="category.valid || category.pristine" class="form-text text-danger">
               <div *ngIf="category.errors?.['required']">Category is required.</div>
@@ -65,11 +65,11 @@
         <div class="row">
           <div class="mb-3 col-12 col-md-8">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="journey.title" required
+            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="journey().title" required
                    #title="ngModel"
                    maxlength="100"
                    minlength="10"
-                   placeholder="Shortly describe the Journey" [readOnly]="journey.id">
+                   placeholder="Shortly describe the Journey" [readOnly]="journey().id">
             <div [hidden]="title.valid || title.pristine" class="form-text text-danger">
               <div *ngIf="title.errors?.['required']">Title is required.</div>
               <div *ngIf="title.errors?.['minlength']">Title must be at least 10 characters long.</div>
@@ -82,7 +82,7 @@
             <label for="iconType" class="form-label">Icon</label>
             <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
                     (ngModelChange)="refreshMapWithCoordinates()"
-                    [(ngModel)]="journey.icon" required [disabled]="journey.id != ''" name="iconType"
+                    [(ngModel)]="journey().icon" required [disabled]="journey().id != ''" name="iconType"
                     #iconType="ngModel">
               @for (iconType of SUPPORTED_ICONS; track iconType) {
                 <option [value]="iconType">{{ iconType }}</option>
@@ -99,8 +99,8 @@
           <!-- City -->
           <div class="mb-3 col-md-4">
             <label for="city" class="form-label">City</label>
-            <input type="text" class="form-control" id="city" name="city" [(ngModel)]="journey.city" #city="ngModel"
-                   required minlength="3" maxlength="50" [readOnly]="journey.id">
+            <input type="text" class="form-control" id="city" name="city" [(ngModel)]="journey().city" #city="ngModel"
+                   required minlength="3" maxlength="50" [readOnly]="journey().id">
             <div [hidden]="city.valid || city.pristine" class="form-text text-danger">
               <div *ngIf="city.errors?.['required']">City is required.</div>
               <div *ngIf="city.errors?.['minlength']">City must be at least 3 characters long.</div>
@@ -111,8 +111,8 @@
           <!-- Country -->
           <div class="mb-3 col-md-4">
             <label for="country" class="form-label">Country</label>
-            <input type="text" class="form-control" id="country" name="country" [(ngModel)]="journey.country"
-                   #country="ngModel" required minlength="3" maxlength="50" [readOnly]="journey.id">
+            <input type="text" class="form-control" id="country" name="country" [(ngModel)]="journey().country"
+                   #country="ngModel" required minlength="3" maxlength="50" [readOnly]="journey().id">
             <div [hidden]="country.valid || country.pristine" class="form-text text-danger">
               <div *ngIf="country.errors?.['required']">Country is required.</div>
               <div *ngIf="country.errors?.['minlength']">Country must be at least 3 characters long.</div>
@@ -126,11 +126,11 @@
             <label for="journeyDate" class="form-label">Journey Date</label>
             <div class="input-group">
               <input type="text" class="form-control" id="journeyDate" name="journeyDate"
-                     [(ngModel)]="journey.journeyDate"
+                     [(ngModel)]="journey().journeyDate"
                      #journeyDate="ngModel" required placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker"
-                     [readOnly]="journey.id">
+                     [readOnly]="journey().id">
               <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"
-                      [disabled]="journey.id"></button>
+                      [disabled]="journey().id"></button>
               <div [hidden]="journeyDate.valid || journeyDate.pristine" class="form-text text-danger">
                 <div *ngIf="journeyDate.errors?.['required']">Journey Date is required.</div>
               </div>
@@ -144,7 +144,7 @@
         <div class="row justify-content-evenly">
           <!-- Map -->
           <div class="col-12" style="position: relative; min-height: 25vh">
-            <app-world-map class="h-50" [geoJsonData]="journey.location" [iconType]="journey.icon"
+            <app-world-map class="h-50" [geoJsonData]="journey().location" [iconType]="journey().icon"
                            [enableGeoCoding]="true" (location)="addGeoCodingLocation($event)"/>
           </div>
 
@@ -152,10 +152,10 @@
           <div class="col-12">
             <div class="input-group mb-3">
               <input type="number" class="form-control" placeholder="Longitude" aria-label="Longitude"
-                     id="longitude" name="longitude" [(ngModel)]="coordinates[0]" [readOnly]="journey.id"
+                     id="longitude" name="longitude" [(ngModel)]="coordinates[0]" [readOnly]="journey().id"
                      required min="-180.0" max="180.0" #longitude="ngModel" (blur)="refreshMapWithCoordinates()">
               <button class="btn btn-primary input-group-text dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-expanded="false" [disabled]="journey.id">
+                      aria-expanded="false" [disabled]="journey().id">
                 Quick Actions
               </button>
               <ul class="dropdown-menu">
@@ -174,7 +174,7 @@
                 </li>
               </ul>
               <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
-                     id="latitude" name="latitude" [(ngModel)]="coordinates[1]" [readOnly]="journey.id"
+                     id="latitude" name="latitude" [(ngModel)]="coordinates[1]" [readOnly]="journey().id"
                      required min="-90.0" max="90.0" #latitude="ngModel" (blur)="refreshMapWithCoordinates()">
             </div>
             <div class="form-text text-danger">
@@ -211,12 +211,12 @@
             </mat-button-toggle-group>
             <textarea rows="15" class="form-control" id="description" name="description" required minlength="10"
                       maxlength="5000" #description="ngModel" [hidden]="markdownStyle() == 'Preview'"
-                      [(ngModel)]="journey.description"
-                      placeholder="Detailed information about the Journey" [readOnly]="journey.id"></textarea>
+                      [(ngModel)]="journey().description"
+                      placeholder="Detailed information about the Journey" [readOnly]="journey().id"></textarea>
             <div [hidden]="markdownStyle() != 'Preview'" style="height: 25rem;">
               <app-display-markdown-component
-                [title]="journey.title"
-                [markdownText]="journey.description"></app-display-markdown-component>
+                [title]="journey().title"
+                [markdownText]="journey().description"></app-display-markdown-component>
             </div>
             <div [hidden]="description.valid || description.pristine" class="form-text text-danger">
               <div *ngIf="description.errors?.['required']">Memories is required.</div>
@@ -230,16 +230,16 @@
 
           <div class="col-12">
             <mat-chip-grid #chipGrid aria-label="Tags">
-              @for (tag of journey.tags; track tag) {
+              @for (tag of journey().tags; track tag) {
                 <mat-chip-row color="primary" [highlighted]="true" (removed)="removeTag(tag)" [editable]="false"
-                              [removable]="!journey.id">
+                              [removable]="!journey().id">
                   {{ tag }}
-                  <button matChipRemove (click)="removeTag(tag)" [disabled]="journey.id !== ''">
+                  <button matChipRemove (click)="removeTag(tag)" [disabled]="journey().id !== ''">
                     <mat-icon>cancel</mat-icon>
                   </button>
                 </mat-chip-row>
               }
-              <input placeholder="Favorite Tags" class="form-control" [readOnly]="journey.id"
+              <input placeholder="Favorite Tags" class="form-control" [readOnly]="journey().id"
                      [matChipInputFor]="chipGrid"
                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                      [matChipInputAddOnBlur]="true"
@@ -255,11 +255,11 @@
 
     <div class="row">
       <div class="col-12 d-flex gap-2 justify-content-center">
-        <button type="submit" class="btn btn-primary" *ngIf="!journey.id" [disabled]="!journeyForm.form.valid">
+        <button type="submit" class="btn btn-primary" *ngIf="!journey().id" [disabled]="!journeyForm.form.valid">
           Save
         </button>
-        <button type="reset" class="btn btn-outline-primary" *ngIf="!journey.id">Reset</button>
-        <button type="button" class="btn btn-primary" *ngIf="journey.id" (click)="continue()">Continue</button>
+        <button type="reset" class="btn btn-outline-primary" *ngIf="!journey().id">Reset</button>
+        <button type="button" class="btn btn-primary" *ngIf="journey().id" (click)="continue()">Continue</button>
       </div>
     </div>
   </form>
