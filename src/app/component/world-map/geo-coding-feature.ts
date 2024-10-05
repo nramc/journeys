@@ -8,9 +8,9 @@ export class GeoCodingFeature {
   public country: string | undefined;
 
   constructor(
-    private place_name: string,
-    private geometry: Geometry,
-    private context: GeoCodingContext[] = []
+    private readonly place_name: string,
+    private readonly geometry: Geometry,
+    private readonly context: GeoCodingContext[] = []
   ) {
     this.name = this.place_name;
     this.location = this.geometry?.type === "Point" ? this.geometry : undefined;
