@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {NEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 import {Journey} from "../../../model/core/journey.model";
 import {JourneyService} from "../../../service/journey/journey.service";
@@ -33,7 +33,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     DisplayMarkdownComponent,
     MatButtonToggleModule
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewJourneyComponent {
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
@@ -42,12 +43,9 @@ export class NewJourneyComponent {
   coordinates: number[] = [];
   markdownStyle = signal<string>('Source')
 
-  constructor(
-    private router: Router,
-    private journeyService: JourneyService,
-    private autoCompleteService: AutoCompleteService
-  ) {
-  }
+  private router = inject(Router);
+  private journeyService = inject(JourneyService);
+  private autoCompleteService = inject(AutoCompleteService);
 
   successMessage: string = '';
   errorMessage: string = '';
