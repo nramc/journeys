@@ -284,3 +284,19 @@ gallery-image img {
   width: 20px;
   height: 20px;
 }
+
+.toggle-link[aria-expanded="false"]::after {
+  content: '\25BC'; /* Down arrow */
+  margin-right: 1rem;
+  transition: transform 0.3s ease;
+  color: $primary;
+  font-size: 0.9rem;
+}
+
+.toggle-link[aria-expanded="true"]::after {
+  content: '\25B2'; /* Up arrow */
+  margin-right: 1rem;
+  transition: transform 0.3s ease;
+  color: $primary;
+  font-size: 0.9rem;
+}

@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {STATISTICS_PAGE_INFO} from "../../model/page.info.model";
 import {StatisticsService} from "../../service/statistics/statistics.service";
-import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
+import {AsyncPipe, NgIf} from "@angular/common";
 import {Statistics} from "../../service/statistics/statistics.type";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {StatisticsPanelComponent} from "./statistics-panel/statistics-panel.component";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {tap} from "rxjs";
 
 @Component({
   selector: 'app-statistics',
@@ -13,35 +15,24 @@ import {StatisticsPanelComponent} from "./statistics-panel/statistics-panel.comp
   imports: [
     PageHeaderComponent,
     AsyncPipe,
-    JsonPipe,
     NgIf,
     MatProgressSpinner,
     StatisticsPanelComponent
   ],
   templateUrl: './statistics.component.html',
-  styleUrl: './statistics.component.scss'
+  styles: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatisticsComponent implements OnInit {
+export class StatisticsComponent {
   protected readonly STATISTICS_PAGE_INFO = STATISTICS_PAGE_INFO;
-  statistics: Statistics | undefined = undefined;
-  isLoadingResults: boolean = true;
+  isLoadingResults = signal<boolean>(true);
 
-  constructor(
-    protected statisticsService: StatisticsService
-  ) {
-  }
+  private readonly statisticsService = inject(StatisticsService);
 
-  ngOnInit(): void {
-    this.statisticsService.getStatistics()
-      .subscribe({
-        next: data => this.onSuccessCallback(data),
-        error: err => console.error(err)
-      });
-  }
-
-  onSuccessCallback(data: Statistics) {
-    this.statistics = data;
-    this.isLoadingResults = false;
-  }
+  statistics = toSignal<Statistics>(
+    this.statisticsService.getStatistics().pipe(tap(_ => {
+      this.isLoadingResults.set(false);
+    }))
+  );
 
 }

@@ -1,20 +1,22 @@
-<section class="mt-3 gradient-bg-light p-2 rounded-2 d-flex flex-column">
+<section class="mt-3 p-2 rounded-2 d-flex flex-column">
   <legend class="gradient-bg rounded-2 border border-primary">
-    <a class="text-decoration-none text-light ps-2 w-100 fs-5 d-flex" data-bs-toggle="collapse" [href]="'#' + header"
-       role="button" aria-expanded="true">
-      {{ header }}
+    <a
+      class="text-decoration-none text-light ps-2 w-100 fs-5 d-flex toggle-link d-inline-flex align-items-center justify-content-between"
+      data-bs-toggle="collapse" [href]="'#' + header()"
+      aria-expanded="true">
+      {{ header() }}
     </a>
   </legend>
 
-  <div class="card-group gap-2 show" [id]="header">
-    @for (statistic of data.sort(comparatorFn); track statistic.name; let index = $index) {
+  <div class="card-group gap-2 show ps-2" [id]="header()">
+    @for (statistic of data().sort(comparatorFn); track statistic.name; let index = $index) {
 
-      <div class="card border border-primary border-1 rounded-2 " [ngClass]="'card-' + index"
-           (click)="gotoGallery(type,statistic.name)">
+      <a class="text-decoration-none card border border-primary border-1 rounded-2" [ngClass]="'card-' + index"
+         (click)="gotoGallery(type(),statistic.name)">
         <div class="card-statistics p-4">
           <div class="mb-4 d-inline-flex justify-content-around w-100">
             <h5 class="card-title gradient-text mb-0">{{ statistic.name }}</h5>
-            <button class="btn btn-sm btn-outline-primary" (click)="gotoTimeline(type,statistic.name, $event)">
+            <button class="btn btn-sm btn-primary" (click)="gotoTimeline(type(),statistic.name, $event)">
               <i class="bi bi-clock-history"></i>
             </button>
           </div>
@@ -25,13 +27,14 @@
               </h2>
             </div>
             <div class="col-4 text-right gradient-text">
-              <span>{{getPercentage(statistic.count, total)}}%</span>
+              <span>{{ getPercentage(statistic.count, totalCount()) }}%</span>
             </div>
           </div>
-          <mat-progress-bar mode="determinate" [value]="getPercentage(statistic.count, total)"></mat-progress-bar>
+          <mat-progress-bar mode="determinate"
+                            [value]="getPercentage(statistic.count, totalCount())"></mat-progress-bar>
 
         </div>
-      </div>
+      </a>
 
     }
   </div>
