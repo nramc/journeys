@@ -50,4 +50,6 @@ jobs:
 
       - name: Deploy
         run: npm run ci:deploy
+        env:
+          GH_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
 
