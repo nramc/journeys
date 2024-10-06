@@ -19,7 +19,7 @@ import {StatisticsPanelComponent} from "./statistics-panel/statistics-panel.comp
     StatisticsPanelComponent
   ],
   templateUrl: './statistics.component.html',
-  styleUrl: './statistics.component.scss'
+  styles: ''
 })
 export class StatisticsComponent implements OnInit {
   protected readonly STATISTICS_PAGE_INFO = STATISTICS_PAGE_INFO;
