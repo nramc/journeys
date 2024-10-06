@@ -113,12 +113,12 @@ export class JourneysListComponent implements AfterViewInit {
   }
 
   viewJourney(row: Journey) {
-    this.router.navigate(['/journey', row.id, 'view']);
+    this.router.navigate(['/journey', row.id, 'view']).then(console.log);
 
   }
 
   editJourney(row: Journey) {
-    this.router.navigate(['/journey', row.id, 'edit']);
+    this.router.navigate(['/journey', row.id, 'edit']).then(console.log);
   }
 
   trackJourney(index: number, item: Journey): string {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, output} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {MatSelect} from "@angular/material/select";
@@ -17,7 +17,8 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
   standalone: true
 })
 export class JourneySearchCriteriaComponent {
-  @Output() searchEvent = new EventEmitter<string>();
+  searchEvent = output<string>();
+
   q: string = '';
 
   submitSearch(searchForm: NgForm) {
