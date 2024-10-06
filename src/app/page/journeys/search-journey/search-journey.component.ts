@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {JourneySearchCriteriaComponent} from "./journey-search-criteria/journey-search-criteria.component";
 import {JourneysListComponent} from "./journeys-list/journeys-list.component";
@@ -12,12 +12,10 @@ import {JourneysListComponent} from "./journeys-list/journeys-list.component";
     JourneySearchCriteriaComponent,
     JourneysListComponent
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchJourneyComponent {
-  queryString: string = '';
+  queryString = signal<string>('');
 
-  handleSearchEvent(queryString: string) {
-    this.queryString = queryString;
-  }
 }

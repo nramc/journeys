@@ -1,4 +1,4 @@
-import {Component, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, output} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {MatSelect} from "@angular/material/select";
@@ -14,7 +14,8 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
     MatSelect,
     HasWriteAccessDirective
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneySearchCriteriaComponent {
   searchEvent = output<string>();
