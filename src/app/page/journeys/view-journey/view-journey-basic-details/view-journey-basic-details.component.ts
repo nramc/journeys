@@ -1,10 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {Journey} from "../../../../model/core/journey.model";
 import {DatePipe, NgForOf} from "@angular/common";
 import {MarkdownModule} from "ngx-markdown";
-import {
-  DisplayMarkdownComponent
-} from "../../../../component/display-markdown-component/display-markdown.component";
+import {DisplayMarkdownComponent} from "../../../../component/display-markdown-component/display-markdown.component";
 
 @Component({
   selector: 'app-view-journey-basic-details',
@@ -16,11 +14,10 @@ import {
     DisplayMarkdownComponent
   ],
   templateUrl: './view-journey-basic-details.component.html',
-  styleUrl: './view-journey-basic-details.component.scss'
+  styleUrl: './view-journey-basic-details.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewJourneyBasicDetailsComponent {
-  @Input("journey") journey!: Journey;
-  trackTagByFn = (index: number, tag: string) => tag;
-
+  journey = input.required<Journey>();
 
 }
