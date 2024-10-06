@@ -1,7 +1,7 @@
 <section class="container mt-2 d-flex flex-column flex-fill justify-content-center">
-  <app-journey-search-criteria (searchEvent)="handleSearchEvent($event)"></app-journey-search-criteria>
+  <app-journey-search-criteria (searchEvent)="queryString.set($event)"></app-journey-search-criteria>
 
-  <app-journeys-list [criteria]="queryString"></app-journeys-list>
+  <app-journeys-list [criteria]="queryString()"></app-journeys-list>
 
 </section>
 

@@ -1,8 +1,17 @@
-import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  signal,
+  viewChild
+} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, MatSortHeader, SortDirection} from "@angular/material/sort";
-import { HttpParams } from "@angular/common/http";
-import {BehaviorSubject, catchError, map, merge, Observable, of, startWith, switchMap} from "rxjs";
+import {HttpParams} from "@angular/common/http";
+import {merge, Observable, startWith, switchMap, tap} from "rxjs";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {JourneyPage} from "../../../../service/journey/journey-page.type";
 import {Journey} from "../../../../model/core/journey.model";
@@ -14,13 +23,17 @@ import {
   MatColumnDef,
   MatHeaderCell,
   MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable
 } from "@angular/material/table";
 import {DatePipe} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton} from "@angular/material/button";
 import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
+import {toObservable} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-journeys-list',
@@ -46,28 +59,29 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
     MatPaginator,
     HasWriteAccessDirective
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneysListComponent implements AfterViewInit {
   displayedColumns: string[] = ['createdDate', 'id', 'name', 'category', 'journeyDate', 'published', 'action'];
-  data: Journey[] = [];
-  resultsLength = 0;
-  isLoadingResults = true;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  searchQuerySubject = new BehaviorSubject<string>("");
+  paginator = viewChild.required(MatPaginator);
+  sort = viewChild.required(MatSort);
+  criteria = input.required<string>();
+  criteria$ = toObservable(this.criteria)
+  data = signal<JourneyPage>({
+    content: [],
+    numberOfElements: 0,
+    totalElements: 0,
+    totalPages: 0
+  });
+  resultsLength = computed(() => this.data().totalElements);
+  isLoadingResult = signal<boolean>(false);
 
-  @Input("criteria") set criteria(value: string) {
-    this.searchQuerySubject.next(value);
-  }
+  private readonly journeyService = inject(JourneyService);
+  private readonly router = inject(Router);
 
-  constructor(
-    private journeyService: JourneyService,
-    private router: Router) {
-  }
-
-  getRepoIssues(queryString: string, sort: string, order: SortDirection, page: number, pageSize: number): Observable<JourneyPage> {
+  searchJourneys(queryString: string, sort: string, order: SortDirection, page: number, pageSize: number): Observable<JourneyPage> {
 
     let params = new HttpParams();
     params = params.set("q", queryString);
@@ -80,48 +94,35 @@ export class JourneysListComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-
     // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    this.sort().sortChange.subscribe(() => this.paginator().pageIndex = 0);
 
-    merge(this.sort.sortChange, this.paginator.page, this.searchQuerySubject)
+    merge(this.criteria$, this.sort().sortChange, this.paginator().page)
       .pipe(
+        tap(() => this.isLoadingResult.set(true)),
         startWith(),
-        switchMap(() => {
-          this.isLoadingResults = true;
-
-          return this.getRepoIssues(
-            this.searchQuerySubject.getValue(),
-            this.sort.active,
-            this.sort.direction,
-            this.paginator.pageIndex,
-            this.paginator.pageSize
-          ).pipe(catchError(() => of(null)));
-
-        }),
-        map(data => {
-          // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
-          if (data === null) {
-            return [];
-          }
-          this.resultsLength = data.totalElements;
-          return data.content;
-        }),
+        switchMap(() => this.searchJourneys(
+            this.criteria(),
+            this.sort().active,
+            this.sort().direction,
+            this.paginator().pageIndex,
+            this.paginator().pageSize
+          )
+        ),
+        tap(() => this.isLoadingResult.set(false))
       )
-      .subscribe(data => (this.data = data));
+      .subscribe(this.data.set);
   }
 
   viewJourney(row: Journey) {
-    this.router.navigate(['/journey', row.id, 'view']);
-
+    this.router.navigate(['/journey', row.id, 'view']).then(console.log);
   }
 
   editJourney(row: Journey) {
-    this.router.navigate(['/journey', row.id, 'edit']);
+    this.router.navigate(['/journey', row.id, 'edit']).then(console.log);
   }
 
-  trackJourney(index: number, item: Journey): string {
+  trackJourney(_: number, item: Journey): string {
     return `${item.id}`;
   }
 }

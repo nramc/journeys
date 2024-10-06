@@ -1,5 +1,4 @@
-import {Component} from '@angular/core';
-import {JOURNEY_SEARCH_PAGE_INFO} from "../../../model/page.info.model";
+import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {JourneySearchCriteriaComponent} from "./journey-search-criteria/journey-search-criteria.component";
 import {JourneysListComponent} from "./journeys-list/journeys-list.component";
@@ -7,20 +6,16 @@ import {JourneysListComponent} from "./journeys-list/journeys-list.component";
 @Component({
   selector: 'app-search-journey',
   templateUrl: './search-journey.component.html',
-  styleUrl: './search-journey.component.scss',
+  styles: [],
   imports: [
     PageHeaderComponent,
     JourneySearchCriteriaComponent,
     JourneysListComponent
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchJourneyComponent {
-  protected readonly JOURNEY_SEARCH_PAGE_INFO = JOURNEY_SEARCH_PAGE_INFO;
+  queryString = signal<string>('');
 
-  queryString: string = '';
-
-  handleSearchEvent(queryString: string) {
-    this.queryString = queryString;
-  }
 }
