@@ -19,7 +19,8 @@ import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
         <h6 class="gradient-text m-1 border-bottom border-primary-subtle border-3 pb-2">Edit Image Details</h6>
       </div>
 
-      <div class="d-flex flex-column flex-md-row justify-content-evenly align-items-center align-content-center">
+      <div class="d-flex flex-column flex-md-row justify-content-evenly align-items-center align-content-center"
+           [style]="'background-image: url(\'+imageItem().url+ \');background-size: cover;background-repeat: no-repeat;'">
         <div class="image-thumbnail m-1 col-md-4 text-center">
           <img
             [src]="imageItem().url"
@@ -85,9 +86,9 @@ import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 
 
             <div class="d-inline-flex justify-content-center align-content-center align-items-center mt-2 w-100">
-              <button class="btn btn-outline-primary me-1">Save</button>
-              <button type="button" class="btn btn-outline-danger me-1" (click)="remove()">Remove</button>
-              <button type="button" class="btn btn-outline-dark" (click)="cancel()">Cancel</button>
+              <button class="btn btn-primary me-1">Save</button>
+              <button type="button" class="btn btn-danger me-1" (click)="remove()">Remove</button>
+              <button type="button" class="btn btn-dark" (click)="cancel()">Cancel</button>
             </div>
           </form>
 
