@@ -1,6 +1,6 @@
 <div class="row mt-3 mb-2">
   <div class="col-12 min-vh-50">
-    <app-display-markdown-component [title]="journey.title" [markdownText]="journey.description"></app-display-markdown-component>
+    <app-display-markdown-component [title]="journey().title" [markdownText]="journey().description"></app-display-markdown-component>
   </div>
 </div>
 
@@ -9,7 +9,7 @@
   <div class="field-wrapper">
     <div class="form-floating">
       <div class="form-control-plaintext text-primary fw-bold"
-           id="journeyDate">{{ journey.journeyDate | date:"dd.MM.YYYY" }}
+           id="journeyDate">{{ journey().journeyDate | date:"dd.MM.YYYY" }}
       </div>
       <label for="journeyDate">Journey Date</label>
     </div>
@@ -17,21 +17,21 @@
 
   <div class="field-wrapper">
     <div class="form-floating">
-      <div class="form-control-plaintext text-primary fw-bold" id="city" [innerText]="journey.city"></div>
+      <div class="form-control-plaintext text-primary fw-bold" id="city" [innerText]="journey().city"></div>
       <label for="city">City</label>
     </div>
   </div>
 
   <div class="field-wrapper">
     <div class="form-floating">
-      <div class="form-control-plaintext text-primary fw-bold" id="country" [innerText]="journey.country"></div>
+      <div class="form-control-plaintext text-primary fw-bold" id="country" [innerText]="journey().country"></div>
       <label for="country">Country</label>
     </div>
   </div>
 
   <div class="field-wrapper">
     <div class="form-floating">
-      <div class="form-control-plaintext text-primary fw-bold" id="category" [innerText]="journey.category"></div>
+      <div class="form-control-plaintext text-primary fw-bold" id="category" [innerText]="journey().category"></div>
       <label for="category">Category</label>
     </div>
   </div>
@@ -39,7 +39,7 @@
   <div class="field-wrapper">
     <div class="form-floating">
       <div class="form-control-plaintext text-primary fw-bold" id="isPublished">
-        @if (journey.isPublished) {
+        @if (journey().isPublished) {
           <i class="bi bi-check-circle-fill text-success fs-6"></i>
         } @else {
           <i class="bi bi-dash-circle-fill text-warning fs-6"></i>
@@ -53,6 +53,8 @@
 
 <div class="row mt-2">
   <div class="col-12 d-flex flex-wrap justify-content-start">
-    <span *ngFor="let tag of journey.tags; trackBy: trackTagByFn;" class="badge text-primary border border-primary me-1">{{ tag }}</span>
+    @for(tag of journey().tags; track tag) {
+      <span class="badge text-primary border border-primary me-1">{{ tag }}</span>
+    }
   </div>
 </div>
