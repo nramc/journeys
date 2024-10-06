@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, input} from '@angular/core';
 import {StatisticsKeyValue} from "../../../service/statistics/statistics.type";
-import {JsonPipe, NgClass, NgForOf} from "@angular/common";
+import {NgClass, NgForOf} from "@angular/common";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {Router} from "@angular/router";
 import {SearchCriteria} from "../../../model/core/search-criteria.model";
@@ -11,33 +11,27 @@ type StatisticsType = 'category' | 'year' | 'city' | 'country';
   selector: 'app-statistics-panel',
   standalone: true,
   imports: [
-    JsonPipe,
     NgForOf,
     MatProgressBar,
     NgClass
   ],
   templateUrl: './statistics-panel.component.html',
-  styleUrl: './statistics-panel.component.scss'
+  styleUrl: './statistics-panel.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatisticsPanelComponent implements OnInit {
-  @Input({required: true}) data: StatisticsKeyValue[] = [];
-  @Input({required: true}) header: string = '';
-  @Input({required: true}) type!: StatisticsType;
+export class StatisticsPanelComponent {
+  private readonly router = inject(Router);
 
-  total: number = 0;
+  data = input.required<StatisticsKeyValue[]>();
+  header = input.required<string>();
+  type = input.required<StatisticsType>();
+  totalCount = computed(() => this.data()
+    .map(keyValue => keyValue.count)
+    .reduce((previousValue, currentValue) => previousValue + currentValue));
 
   comparatorFn(a: StatisticsKeyValue, b: StatisticsKeyValue) {
     return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
   };
-
-  constructor(private router: Router) {
-  }
-
-  ngOnInit(): void {
-    this.total = this.data
-      .map(keyValue => keyValue.count)
-      .reduce((previousValue, currentValue) => previousValue + currentValue);
-  }
 
   gotoGallery(statisticsType: StatisticsType, statisticsValue: string) {
     this.router.navigate(['/gallery'], {
