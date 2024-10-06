@@ -4,12 +4,14 @@ import {EmailConfirmationCodeService} from "../../../service/confirmation-code/e
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {Credential, LoginService} from "../../../service/auth/login.service";
 import {AuthService} from "../../../service/auth/auth.service";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-email-code-verification',
   standalone: true,
   imports: [
-    MatDialogModule
+    MatDialogModule,
+    FormsModule
   ],
   templateUrl: './email-code-verification.component.html',
   styleUrl: './email-code-verification.component.scss'

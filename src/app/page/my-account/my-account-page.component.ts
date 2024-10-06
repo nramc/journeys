@@ -9,7 +9,7 @@ import {PageHeaderComponent} from "../../component/page-header/page-header.compo
     PageHeaderComponent
   ],
   templateUrl: './my-account-page.component.html',
-  styleUrl: './my-account-page.component.scss'
+  styles: []
 })
 export class MyAccountPageComponent {
 

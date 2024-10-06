@@ -1,39 +1,42 @@
-<div class="card">
-  <div class="card-header bg-primary text-light">
-    Email Code Confirmation Required
-  </div>
-  <div class="card-body">
-    <div class="card-text">
-      <p>To complete verification, please follow these steps:</p>
+<form #codeForm="ngForm" (submit)="confirmCode(confirmationCode, confirmButton)">
+  <div class="card">
+    <div class="card-header bg-primary text-light">
+      Email Code Confirmation Required
+    </div>
+    <div class="card-body">
+      <div class="card-text">
+        <p>To complete verification, please follow these steps:</p>
 
-      <ol>
-        <li>Click the <code>Send</code> button to receive a verification code in your registered
-          email
-        <li>Check your email for the verification code</li>
-        <li>Enter the code in the field below and click "Confirm" to complete the verification</li>
-      </ol>
+        <ol>
+          <li>Click the <code>Send</code> button to receive a verification code in your registered
+            email
+          <li>Check your email for the verification code</li>
+          <li>Enter the code in the field below and click "Confirm" to complete the verification</li>
+        </ol>
 
-      <div class="input-group">
-        <span class="input-group-text">Code</span>
-        <input type="text" class="form-control" required pattern="[0-9]{6,6}" maxlength="6" min="6" #confirmationCode
-        autocomplete="off">
+        <div class="input-group">
+          <span class="input-group-text">Code</span>
+          <input type="text" class="form-control" id="confirmationCode" name="confirmationCode" required pattern="[0-9]{6,6}" maxlength="6" min="6" #confirmationCode
+                 autocomplete="off" ngModel>
+        </div>
+        <div class="form-text text-danger text-center" [hidden]="isCodeValid()">
+          Code invalid. Please enter valid code.
+        </div>
+
       </div>
-      <div class="form-text text-danger text-center" [hidden]="isCodeValid()">
-        Code invalid. Please enter valid code.
+
+      <div class="d-inline-flex gap-2 mt-4">
+        <button class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
+        <button class="btn btn-primary" (click)="sendCode()" [disabled]="!canSendCode()" cdkFocusInitial>Send
+        </button>
+        <button class="btn btn-primary" (click)="confirmCode(confirmationCode, confirmButton)" #confirmButton
+                [disabled]="codeForm.invalid">Confirm</button>
       </div>
-
-    </div>
-
-    <div class="d-inline-flex gap-2 mt-4">
-      <button class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
-      <button class="btn btn-primary" (click)="sendCode()" [disabled]="!canSendCode()" cdkFocusInitial>Send
-      </button>
-      <button class="btn btn-primary" (click)="confirmCode(confirmationCode, confirmButton)" #confirmButton
-      [disabled]="!confirmationCode.validity.valid">Confirm</button>
-    </div>
-    <div class="mt-2">
-      <p [hidden]="!isCodeSent()" class="text-success small fw-bold">Code has been sent successfully to register email. If you haven't received, click Sent
-        button again after 60 seconds.</p>
+      <div class="mt-2">
+        <p [hidden]="!isCodeSent()" class="text-success small fw-bold">Code has been sent successfully to register email. If you haven't received, click Sent
+          button again after 60 seconds.</p>
+      </div>
     </div>
   </div>
-</div>
+
+</form>

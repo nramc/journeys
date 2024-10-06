@@ -4,7 +4,6 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {AppUser} from "../../model/account/app-user";
-import {EmailSecurityAttribute} from "../../model/account/email-security-attribute";
 import {QrCodeData} from "../../model/account/qr-code-data";
 import {TotpActivation} from "./totp-activation";
 import {TotpStatus} from "./totp-status";
@@ -31,25 +30,6 @@ export class MyAccountService {
   saveProfileData(profileData: AppUser) {
     let userContext = this.authService.getCurrentUserContext();
     return this.httpClient.post<void>(environment.journeyApi + '/my-account', profileData, {
-      headers: {
-        'Authorization': `Bearer ${userContext.accessToken}`,
-        'Content-Type': 'application/json'
-      },
-    });
-  }
-
-  getSecurityEmailAddress(): Observable<EmailSecurityAttribute> {
-    let userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<EmailSecurityAttribute>(environment.journeyApi + '/my-account/securityAttribute/emailAddress', {
-      headers: {'Authorization': `Bearer ${userContext.accessToken}`}
-    });
-  }
-
-  saveSecurityEmailAddress(emailAddress: string) {
-    let userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.post<EmailSecurityAttribute>(environment.journeyApi + '/my-account/securityAttribute/emailAddress', {
-      emailAddress: emailAddress
-    }, {
       headers: {
         'Authorization': `Bearer ${userContext.accessToken}`,
         'Content-Type': 'application/json'
