@@ -20,7 +20,7 @@ import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
       </div>
 
       <div class="d-flex flex-column flex-md-row justify-content-evenly align-items-center align-content-center"
-           [style]="'background-image: url(\'+imageItem().url+ \');background-size: cover;background-repeat: no-repeat;'">
+           [style]="'background-image: url('+imageItem().url+ ');background-size: cover;background-repeat: no-repeat;'">
         <div class="image-thumbnail m-1 col-md-4 text-center">
           <img
             [src]="imageItem().url"
