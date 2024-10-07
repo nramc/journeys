@@ -27,7 +27,6 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 })
 export class LoginComponent implements OnInit {
   feedbackMessage = signal<FeedbackMessage>({});
-  isLoading = signal(false);
 
   form: LoginForm = new LoginForm();
 
@@ -47,7 +46,6 @@ export class LoginComponent implements OnInit {
 
   login(loginForm: NgForm) {
     if (loginForm.valid) {
-      this.isLoading.set(true);
       let credential: Credential = {username: this.form.userName, password: this.form.password};
       this.loginService.login(credential)
         .subscribe({
@@ -61,7 +59,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSuccess(credential: Credential, loginResponse: LoginResponse) {
-    this.isLoading.set(false);
     if (loginResponse.additionalFactorRequired) {
       // redirect to a component which displays all security attributes
       let mfaOptions: MfaOptions = {
@@ -80,20 +77,17 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginFailed(error: HttpErrorResponse) {
-    this.isLoading.set(false);
     console.error(error);
     this.feedbackMessage.set({error: 'Login failed. ' + error.message});
   }
 
   onLogOnSuccess(userContext: UserContext) {
-    this.isLoading.set(false);
     this.feedbackMessage.set({success: 'Login successful for ' + userContext.name});
     let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
     this.router.navigateByUrl(targetUrl).then(console.log);
   }
 
   loginAsGuest() {
-    this.isLoading.set(true);
     this.loginService.loginAsGuest().subscribe({
       next: loginResponse => {
         let userContext = this.authService.getUserContextForSuccessfulLogin(loginResponse);

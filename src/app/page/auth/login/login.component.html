@@ -50,7 +50,8 @@
                      [(ngModel)]="form.password" required #password="ngModel" maxlength="50" placeholder="Password"
                      autocomplete="current-password"/>
               <label class="form-label small" for="password">Forgot Password?
-                <a class="text-light ms-2" [href]="forgotPasswordAssistanceUrl" target="_blank" tabindex="-1">Contact Us</a></label>
+                <a class="text-light ms-2" [href]="forgotPasswordAssistanceUrl" target="_blank" tabindex="-1">Contact
+                  Us</a></label>
               <div [hidden]="password.valid || password.pristine" class="form-text text-danger">
                 <div *ngIf="password.errors?.['required']">Password is required.</div>
                 <div *ngIf="password.errors?.['maxlength']">Password must be at most 50 characters long.</div>
@@ -72,8 +73,3 @@
     </div>
   </div>
 </div>
-@if(isLoading()) {
-  <div class="loading-shade">
-    <mat-spinner></mat-spinner>
-  </div>
-}
