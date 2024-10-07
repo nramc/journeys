@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
 import {DASHBOARD_PAGE_INFO} from "../../model/page.info.model";
 import {WorldMapComponent} from "../../component/world-map/world-map.component";
 import {FeatureCollection} from "geojson";
@@ -6,6 +6,7 @@ import {PageHeaderComponent} from "../../component/page-header/page-header.compo
 import {JourneyService} from "../../service/journey/journey.service";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-dashboard',
@@ -18,40 +19,23 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     AsyncPipe,
     MatProgressSpinner
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   protected readonly DASHBOARD_PAGE_INFO = DASHBOARD_PAGE_INFO;
+
+  private journeyService = inject(JourneyService);
+
   // Tip: Async pipe can not be used due to popup maker component view initialisation hook
-  featureCollection: FeatureCollection | undefined;
-  stats: Map<string, number> = new Map<string, number>()
-  isLoadingResults: boolean = true;
+  featureCollection = toSignal(this.journeyService.getAllJourneysAsGeoJson());
+  totalJourneys = computed(() => this.featureCollection()?.features.length);
+  totalPlaces = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'location'));
+  totalCountry = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'country'))
+  totalCity = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'city'))
 
-  constructor(
-    private journeyService: JourneyService) {
-  }
-
-  ngOnInit(): void {
-
-    this.journeyService.getAllJourneysAsGeoJson()
-      .subscribe(data => this.onFetchSuccessCallback(data));
-  }
-
-  onFetchSuccessCallback(featureCollection: FeatureCollection) {
-    this.featureCollection = featureCollection;
-    this.collectStats(featureCollection);
-    this.isLoadingResults = false;
-  }
-
-  collectStats(featureCollection: FeatureCollection) {
-    this.stats.set("Journeys", featureCollection.features.length);
-    this.stats.set("Places", this.uniqueJourneysByProperty(featureCollection, 'location'));
-    this.stats.set("Country", this.uniqueJourneysByProperty(featureCollection, 'country'));
-    this.stats.set("City", this.uniqueJourneysByProperty(featureCollection, 'city'));
-  }
-
-  private uniqueJourneysByProperty(featureCollection: FeatureCollection, property: string) {
-    return featureCollection.features
+  private uniqueJourneysByProperty(featureCollection: FeatureCollection | undefined, property: string) {
+    return featureCollection?.features
       .filter(feature => feature.properties?.[property])
       .filter((feature, i, arr) =>
         arr.findIndex(f =>
