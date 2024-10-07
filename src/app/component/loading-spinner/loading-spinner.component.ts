@@ -1,6 +1,8 @@
-import {Component, signal} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {LoadingService} from "../../service/common/loading.service";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-loading-spinner',
@@ -30,6 +32,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   `]
 })
 export class LoadingSpinnerComponent {
-  isLoading = signal(false);
+  private readonly loadingService = inject(LoadingService);
+  isLoading = toSignal(this.loadingService.loading$, {initialValue: false});
 
 }
