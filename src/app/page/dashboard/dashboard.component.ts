@@ -4,7 +4,7 @@ import {WorldMapComponent} from "../../component/world-map/world-map.component";
 import {FeatureCollection} from "geojson";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {JourneyService} from "../../service/journey/journey.service";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {toSignal} from "@angular/core/rxjs-interop";
 
@@ -16,7 +16,6 @@ import {toSignal} from "@angular/core/rxjs-interop";
     PageHeaderComponent,
     WorldMapComponent,
     NgIf,
-    AsyncPipe,
     MatProgressSpinner
   ],
   standalone: true,
@@ -27,7 +26,6 @@ export class DashboardComponent {
 
   private journeyService = inject(JourneyService);
 
-  // Tip: Async pipe can not be used due to popup maker component view initialisation hook
   featureCollection = toSignal(this.journeyService.getAllJourneysAsGeoJson());
   totalJourneys = computed(() => this.featureCollection()?.features.length);
   totalPlaces = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'location'));
