@@ -30,6 +30,6 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   `]
 })
 export class LoadingSpinnerComponent {
-  isLoading = signal(true);
+  isLoading = signal(false);
 
 }
