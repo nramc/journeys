@@ -6,7 +6,6 @@ import {MY_PROFILE_PAGE_INFO} from "../../../model/page.info.model";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {FormsModule, NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
-import {FeedbackMessageComponent} from "../../../component/feedback-message/feedback-message.component";
 import {DisableIfNoRoleExistsDirective} from "../../../directive/disable-if-no-role-exists.directive";
 import {AuthService} from "../../../service/auth/auth.service";
 import {Role} from "../../../service/auth/role";
@@ -21,7 +20,6 @@ import {NotificationService} from "../../../service/common/notification.service"
     NgIf,
     FormsModule,
     NgForOf,
-    FeedbackMessageComponent,
     DisableIfNoRoleExistsDirective,
     HasWriteAccessDirective
   ],
