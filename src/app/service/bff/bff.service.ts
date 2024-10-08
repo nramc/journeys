@@ -13,7 +13,11 @@ export class BffService {
   }
 
   getVersion(): Observable<BffApiVersion> {
-    return this.httpClient.get<BffApiVersion>(environment.journeyApi + '/version')
+    return this.httpClient.get<BffApiVersion>(environment.journeyApi + '/version', {
+      headers: {
+        'X-Async-Process': 'true'
+      }
+    })
       .pipe(shareReplay(1));
   }
 }
