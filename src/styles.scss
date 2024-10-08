@@ -100,19 +100,19 @@ body {
 
 .border-gradient-circle {
   border-radius: 50% !important;
-  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff);
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00, #3020ff);
   background-origin: border-box;
   background-clip: content-box, border-box;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .border-gradient-circle-sm {
   padding: 0.15rem;
   border-radius: 50% !important;
-  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff);
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00, #3020ff);
   background-origin: border-box;
   background-clip: content-box, border-box;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.19), 0 3px 3px rgba(0,0,0,0.23);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
 }
 
 .gradient-bg {
@@ -238,20 +238,6 @@ gallery-image img {
   }
 }
 
-.loading-shade {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.15);
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
 .mdc-tab--active {
   background: $primary-bg-subtle !important;
   transition: background-color 1s ease;
@@ -277,6 +263,7 @@ gallery-image img {
   align-content: center;
   align-items: center;
 }
+
 .fullscreen-icon:after {
   content: '';
   background: url("assets/svg/maximize.svg");
@@ -300,4 +287,41 @@ gallery-image img {
   transition: transform 0.3s ease;
   color: $primary;
   font-size: 0.9rem;
+}
+
+.success-snackbar .mat-mdc-snackbar-surface {
+  background-color: #4caf50 !important; /* Green for success */
+}
+
+.success-snackbar .mat-mdc-snackbar-surface::before {
+  content: '\2713'; /* Heavy Check Mark */
+  margin-left: 1rem;
+  transition: transform 0.3s ease;
+  font-size: 1rem;
+  font-weight: bolder;
+
+  background-color: white;
+  color: green;
+  border-radius: 50%; /* Make it circular */
+  display: inline-block;
+  border: 2px solid white;
+  box-shadow: 0 0 8px white;
+}
+
+.error-snackbar .mat-mdc-snackbar-surface {
+  background-color: #f44336 !important; /* Red for error */
+}
+
+.error-snackbar .mat-mdc-snackbar-surface::before {
+  content: '\274C'; /* Heavy Check Mark */
+  margin-left: 1rem;
+  transition: transform 0.3s ease;
+  font-size: 0.9rem;
+
+  background-color: white;
+  color: green;
+  border-radius: 50%; /* Make it circular */
+  display: inline-block;
+  border: 2px solid white;
+  box-shadow: 0 0 8px white;
 }
