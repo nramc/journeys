@@ -12,10 +12,9 @@
 
 ###### Your Portal to the Past
 
-<hr />
-
-
 > Preserving Your Travel Memories with Narration, Geo Information, and Media
+
+<hr />
 
 **Journey** is a personal project designed to help users document and relive their travel experiences in a rich, immersive way. The platform allows travellers to seamlessly store memories of their trips, combining textual narration, geographic information, and multimedia elements such as photos and videos.
 
