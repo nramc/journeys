@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, signal, viewChild} from '@angular/core';
-import {BehaviorSubject, catchError, merge, of, startWith, switchMap, tap} from "rxjs";
+import {BehaviorSubject, catchError, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
@@ -53,7 +53,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   sortingFieldChangedEvent: BehaviorSubject<string> = new BehaviorSubject<string>("journeyDate");
   sortableDirections: SortDirection[] = ["asc", "desc"];
   sortingDirectionChangedEvent: BehaviorSubject<SortDirection> = new BehaviorSubject<SortDirection>("desc");
-  isLoadingResults: boolean = false;
   defaultPageSize: number = 10;
 
   // search filter params
@@ -79,7 +78,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     merge(this.paginator().page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsObservable)
       .pipe(
         startWith(),
-        tap(() => this.isLoadingResults = true),
         switchMap(() => {
           return this.journeyService.findJourneyByQuery(
             this.searchCriteria,
@@ -91,7 +89,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
             this.tags()
           ).pipe(catchError(() => of(null)));
         }),
-        tap(_ => this.isLoadingResults = false)
       ).subscribe(data => this.onSuccess(data));
   }
 

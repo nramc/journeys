@@ -11,7 +11,7 @@ import {
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, MatSortHeader, SortDirection} from "@angular/material/sort";
 import {HttpParams} from "@angular/common/http";
-import {merge, Observable, startWith, switchMap, tap} from "rxjs";
+import {merge, Observable, startWith, switchMap} from "rxjs";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {JourneyPage} from "../../../../service/journey/journey-page.type";
 import {Journey} from "../../../../model/core/journey.model";
@@ -76,7 +76,6 @@ export class JourneysListComponent implements AfterViewInit {
     totalPages: 0
   });
   resultsLength = computed(() => this.data().totalElements);
-  isLoadingResult = signal<boolean>(false);
 
   private readonly journeyService = inject(JourneyService);
   private readonly router = inject(Router);
@@ -99,7 +98,6 @@ export class JourneysListComponent implements AfterViewInit {
 
     merge(this.criteria$, this.sort().sortChange, this.paginator().page)
       .pipe(
-        tap(() => this.isLoadingResult.set(true)),
         startWith(),
         switchMap(() => this.searchJourneys(
             this.criteria(),
@@ -109,7 +107,6 @@ export class JourneysListComponent implements AfterViewInit {
             this.paginator().pageSize
           )
         ),
-        tap(() => this.isLoadingResult.set(false))
       )
       .subscribe(this.data.set);
   }

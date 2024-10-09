@@ -5,7 +5,7 @@ import {LOGIN_PAGE_INFO} from "../../../model/page.info.model";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {BffService} from "../../../service/bff/bff.service";
-import {filter, mergeMap, tap} from "rxjs";
+import {filter, mergeMap} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {RegistrationService} from "../../../service/registration/registration.service";
 
@@ -37,7 +37,6 @@ export class AccountActivationComponent implements OnInit {
   accountActivationForm;
   isSuccessful = signal<boolean>(false);
   isErrorOccurred = signal<boolean>(false);
-  isLoading = signal<boolean>(false);
 
   constructor(route: ActivatedRoute) {
     this.accountActivationForm = new AccountActivationForm(
@@ -63,7 +62,6 @@ export class AccountActivationComponent implements OnInit {
     this.bffService.getVersion().pipe(
       takeUntilDestroyed(this.destroyRef),
       filter(_ => this.accountActivationForm.username != null && this.accountActivationForm.emailToken != null),
-      tap(_ => this.isLoading.set(true)),
       mergeMap(version => this.registrationService.activate({
         username: this.accountActivationForm.username!,
         emailToken: this.accountActivationForm.emailToken!,
@@ -77,14 +75,12 @@ export class AccountActivationComponent implements OnInit {
 
   onSuccess() {
     this.isSuccessful.set(true);
-    this.isLoading.set(false);
     this.isErrorOccurred.set(false);
   }
 
   private onError(err: any) {
     console.log(err);
     this.isErrorOccurred.set(true);
-    this.isLoading.set(false);
     this.isSuccessful.set(false);
   }
 }
