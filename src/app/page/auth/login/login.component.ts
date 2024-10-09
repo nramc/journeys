@@ -1,16 +1,16 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {FeedbackMessageComponent} from "../../../component/feedback-message/feedback-message.component";
-import {NgIf} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
 import {AuthService} from "../../../service/auth/auth.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {FeedbackMessage} from "../../../component/feedback-message/feedback-message";
 import {Credential, LoginResponse, LoginService} from "../../../service/auth/login.service";
 import {UserContext} from "../../../service/auth/user-context";
 import {MfaOptions} from "../display-mfa-options/display-mfa-options.component";
 import {SIGNUP_PAGE_INFO} from "../../../model/page.info.model";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {NotificationService} from "../../../service/common/notification.service";
 
 @Component({
   selector: 'app-login',
@@ -20,36 +20,31 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     FeedbackMessageComponent,
     NgIf,
     RouterLink,
-    MatProgressSpinner
+    MatProgressSpinner,
+    NgOptimizedImage
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit {
-  feedbackMessage = signal<FeedbackMessage>({});
+export class LoginComponent {
+  protected readonly SIGNUP_PAGE_INFO = SIGNUP_PAGE_INFO;
+  forgotPasswordAssistanceUrl: string = "https://github.com/nramc/journeys/issues/new?" +
+    "assignees=&labels=bug&projects=&template=bug-report-form.yml&title=%5BBug%5D%3A+";
 
-  form: LoginForm = new LoginForm();
+  private readonly authService = inject(AuthService);
+  private readonly loginService = inject(LoginService);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly notificationService = inject(NotificationService);
 
-  constructor(
-    private authService: AuthService,
-    private loginService: LoginService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {
-  }
-
-  ngOnInit(): void {
-    this.messageBanner = this.activatedRoute.snapshot.queryParams['q'];
-  }
-
-  messageBanner: string = '';
+  form = signal<Credential>({username: '', password: ''});
 
   login(loginForm: NgForm) {
     if (loginForm.valid) {
-      let credential: Credential = {username: this.form.userName, password: this.form.password};
-      this.loginService.login(credential)
+      this.loginService.login(this.form())
         .subscribe({
-          next: loginResponse => this.onLoginSuccess(credential, loginResponse),
+          next: loginResponse => this.onLoginSuccess(this.form(), loginResponse),
           error: error => {
             loginForm.resetForm();
             this.onLoginFailed(error);
@@ -78,11 +73,11 @@ export class LoginComponent implements OnInit {
 
   onLoginFailed(error: HttpErrorResponse) {
     console.error(error);
-    this.feedbackMessage.set({error: 'Login failed. ' + error.message});
+    this.notificationService.showError('Login failed. ' + error.message);
   }
 
-  onLogOnSuccess(userContext: UserContext) {
-    this.feedbackMessage.set({success: 'Login successful for ' + userContext.name});
+  onLogOnSuccess(_: UserContext) {
+    this.notificationService.showSuccess('Login successful!');
     let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
     this.router.navigateByUrl(targetUrl).then(console.log);
   }
@@ -97,12 +92,4 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  protected readonly SIGNUP_PAGE_INFO = SIGNUP_PAGE_INFO;
-  forgotPasswordAssistanceUrl: string = "https://github.com/nramc/journeys/issues/new?assignees=&labels=bug&projects=&template=bug-report-form.yml&title=%5BBug%5D%3A+";
 }
-
-class LoginForm {
-  constructor(public userName: string = '', public password: string = '') {
-  }
-}
-
