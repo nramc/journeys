@@ -3,24 +3,6 @@
   <div class="row d-flex justify-content-center align-items-center h-100 m-auto">
     <div class="col-12 col-md-6 mt-sm-0">
 
-      <div>
-        @if (feedbackMessage().success || feedbackMessage().error) {
-          <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
-        } @else if (messageBanner === 'unauthenticated') {
-          <div class="alert alert-warning" role="alert">
-            <i class="bi bi-info-circle pe-none me-2"></i>
-            Identity Yourself to access secured resource..!
-          </div>
-        } @else if (messageBanner === 'logoutSuccessful') {
-          <div class="alert alert-success" role="alert">
-            <i class="bi bi-info-circle pe-none me-2"></i>
-            You have been successfully logged out!
-          </div>
-        }
-
-      </div>
-
-
       <div class="card login-card border border-2 border-primary border-opacity-50"
            style="border-radius: 1rem;">
         <div class="card-body p-5 text-center">
