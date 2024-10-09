@@ -1,7 +1,7 @@
-import {Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {FeedbackMessageComponent} from "../../../component/feedback-message/feedback-message.component";
-import {NgIf} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
 import {AuthService} from "../../../service/auth/auth.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -20,10 +20,12 @@ import {NotificationService} from "../../../service/common/notification.service"
     FeedbackMessageComponent,
     NgIf,
     RouterLink,
-    MatProgressSpinner
+    MatProgressSpinner,
+    NgOptimizedImage
   ],
   templateUrl: './login.component.html',
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
   protected readonly SIGNUP_PAGE_INFO = SIGNUP_PAGE_INFO;
@@ -36,15 +38,13 @@ export class LoginComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly notificationService = inject(NotificationService);
 
-  form: LoginForm = new LoginForm();
-
+  form = signal<Credential>({username: '', password: ''});
 
   login(loginForm: NgForm) {
     if (loginForm.valid) {
-      let credential: Credential = {username: this.form.userName, password: this.form.password};
-      this.loginService.login(credential)
+      this.loginService.login(this.form())
         .subscribe({
-          next: loginResponse => this.onLoginSuccess(credential, loginResponse),
+          next: loginResponse => this.onLoginSuccess(this.form(), loginResponse),
           error: error => {
             loginForm.resetForm();
             this.onLoginFailed(error);
@@ -93,9 +93,3 @@ export class LoginComponent {
   }
 
 }
-
-class LoginForm {
-  constructor(public userName: string = '', public password: string = '') {
-  }
-}
-
