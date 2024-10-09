@@ -5,7 +5,6 @@ import {JourneyService} from "../../../../service/journey/journey.service";
 import {debounceTime, distinctUntilChanged, Observable, of, OperatorFunction, startWith, switchMap} from "rxjs";
 import {MatChipInputEvent, MatChipsModule} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
-import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
 import {NgIf, TitleCasePipe} from "@angular/common";
 import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 import {MatIconModule} from "@angular/material/icon";
@@ -22,7 +21,6 @@ import {NotificationService} from "../../../../service/common/notification.servi
   templateUrl: './edit-journey-basic-details.component.html',
   styleUrl: './edit-journey-basic-details.component.scss',
   imports: [
-    FeedbackMessageComponent,
     FormsModule,
     NgIf,
     NgbTypeahead,
