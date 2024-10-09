@@ -1,9 +1,8 @@
-import {ChangeDetectionStrategy, Component, input, OnInit, output, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, OnInit, output, signal} from '@angular/core';
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {debounceTime, distinctUntilChanged, Observable, of, OperatorFunction, startWith, switchMap} from "rxjs";
-import {Point} from "geojson";
 import {MatChipInputEvent, MatChipsModule} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
 import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
@@ -11,12 +10,12 @@ import {NgIf, TitleCasePipe} from "@angular/common";
 import {NgbInputDatepicker, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 import {MatIconModule} from "@angular/material/icon";
 import {MatStepperNext} from "@angular/material/stepper";
-import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
+import {GeoCodingLocationData, WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {AutoCompleteService} from "../../../../service/auto-complete/auto-complete.service";
 import {SUPPORTED_ICONS} from "../../../../config/icon-config";
-import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {DisplayMarkdownComponent} from "../../../../component/display-markdown-component/display-markdown.component";
+import {NotificationService} from "../../../../service/common/notification.service";
 
 @Component({
   selector: 'app-edit-journey-basic-data',
@@ -41,46 +40,50 @@ import {DisplayMarkdownComponent} from "../../../../component/display-markdown-c
 })
 export class EditJourneyBasicDetailsComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
+
+  private readonly journeyService = inject(JourneyService);
+  private readonly autoCompleteService = inject(AutoCompleteService);
+  private readonly notificationService = inject(NotificationService);
+
   markdownStyle = signal<string>('Source')
   savedEvent = output<Journey>({alias: "saved"});
-  feedbackMessage = signal<FeedbackMessage>({});
-  journey = input.required<Journey>();
-  coordinates: number[] = [];
+  journeyInitialValue = input.required<Journey>();
+  journey = signal(new Journey());
 
-  constructor(
-    private journeyService: JourneyService,
-    private autoCompleteService: AutoCompleteService
-  ) {
-  }
+  coordinates = signal<number[]>(this.journey().location?.coordinates ?? []);
 
   ngOnInit(): void {
-    this.coordinates = (this.journey().location as Point).coordinates;
+    this.journey.set(this.journeyInitialValue());
+    this.coordinates.set(this.journeyInitialValue().location?.coordinates ?? []);
   }
 
   onError(errorMessage: string, err: any) {
-    this.feedbackMessage.set({error: errorMessage});
+    this.notificationService.showError(errorMessage);
     console.error(err);
   }
 
   onUpdateSuccess(result: Journey) {
-    this.feedbackMessage.set({success: 'Journey details saved successfully.'});
+    this.notificationService.showSuccess('Journey details saved successfully.');
     this.savedEvent.emit(result);
   }
 
   addTag(event: MatChipInputEvent): void {
     const newTag = (event.value || '').toLowerCase().trim();
     if (newTag) {
-      this.journey().tags.push(newTag);
+      this.journey.update(data => ({
+        ...data,
+        tags: data.tags.concat(newTag)
+      }))
     }
     // Clear the input value
     event.chipInput.clear();
   }
 
   removeTag(tag: string): void {
-    const index = this.journey().tags.indexOf(tag);
-    if (index >= 0) {
-      this.journey().tags.splice(index, 1);
-    }
+    this.journey.update(data => ({
+      ...data,
+      tags: data.tags.filter(value => value !== tag)
+    }));
   }
 
   searchCategory: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
@@ -95,14 +98,15 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
     );
 
   refreshMapWithCoordinates() {
-    setTimeout(() => {
-      if (this.coordinates.length == 2) {
-        this.journey().location = {
+    if (this.coordinates()[0] && this.coordinates()[1]) {
+      this.journey.update(data => ({
+        ...data,
+        location: {
           type: "Point",
-          coordinates: this.coordinates
+          coordinates: [this.coordinates()?.[0], this.coordinates()?.[1]],
         }
-      }
-    }, 100);
+      }));
+    }
   }
 
   save(journeyForm: NgForm) {
@@ -117,21 +121,13 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
 
   protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
 
-  swapCoordinates() {
-    let temp = this.coordinates[0];
-    this.coordinates[0] = this.coordinates[1];
-    this.coordinates[1] = temp;
-    this.refreshMapWithCoordinates();
-  }
-
   // noinspection DuplicatedCode
   async copyCoordinatesFromGoogleMap() {
     const copiedValue = await navigator.clipboard.readText()
     console.debug('Value copied from clipboard:', copiedValue);
-    if (copiedValue) {
+    if (copiedValue && copiedValue.split(',').length > 1) {
       let copiedCoordinates = copiedValue.split(',');
-      this.coordinates[0] = Number(copiedCoordinates.length < 2 ? copiedCoordinates[0] : copiedCoordinates[1]);
-      this.coordinates[1] = Number(copiedCoordinates[0]);
+      this.coordinates.set([Number(copiedCoordinates[1]), Number(copiedCoordinates[0])]);
       this.refreshMapWithCoordinates();
     }
   }
@@ -142,9 +138,27 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
     console.debug('Value copied from clipboard:', copiedValue);
     if (copiedValue) {
       let copiedCoordinates = copiedValue.split(',');
-      this.coordinates[0] = Number(copiedCoordinates[0]);
-      this.coordinates[1] = Number(copiedCoordinates.length >= 2 ? copiedCoordinates[1] : copiedCoordinates[0]);
+      this.coordinates.set([Number(copiedCoordinates[0]), Number(copiedCoordinates[1])])
       this.refreshMapWithCoordinates();
     }
   }
+
+  // noinspection DuplicatedCode
+  addGeoCodingLocation(geoCodingData: GeoCodingLocationData) {
+    this.coordinates.set([geoCodingData.location.coordinates[0], geoCodingData.location.coordinates[1]]);
+
+    this.journey.update(data => ({
+        ...data,
+        title: geoCodingData.name,
+        city: geoCodingData.state,
+        country: geoCodingData.country,
+        location: {
+          type: "Point",
+          coordinates: [geoCodingData.location.coordinates[0], geoCodingData.location.coordinates[1]]
+        }
+      })
+    );
+
+  }
+
 }

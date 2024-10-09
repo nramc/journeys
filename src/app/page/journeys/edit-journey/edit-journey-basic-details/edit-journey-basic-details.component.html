@@ -1,11 +1,5 @@
 <form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey">
 
-  <div class="row mb-3">
-    <div class="col-12">
-      <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
-    </div>
-  </div>
-
   <div class="row">
     <div class="col-md-8 col-12 ">
 
@@ -135,7 +129,7 @@
           <div class="input-group mb-3">
             <span class="input-group-text">Coordinates</span>
             <input type="number" class="form-control" placeholder="Longitude" aria-label="Longitude"
-                   id="longitude" name="longitude" [(ngModel)]="coordinates[0]"
+                   id="longitude" name="longitude" [(ngModel)]="coordinates()[0]"
                    required min="-180.0" max="180.0" #longitude="ngModel" (blur)="refreshMapWithCoordinates()">
 
             <button class="btn btn-outline-light input-group-text dropdown-toggle" data-bs-toggle="dropdown"
@@ -153,13 +147,10 @@
                   clipboard
                 </button>
               </li>
-              <li>
-                <button type="button" class="dropdown-item" (click)="swapCoordinates()">Swap Coordinates</button>
-              </li>
             </ul>
 
             <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
-                   id="latitude" name="latitude" [(ngModel)]="coordinates[1]"
+                   id="latitude" name="latitude" [(ngModel)]="coordinates()[1]"
                    required min="-90.0" max="90.0" #latitude="ngModel" (blur)="refreshMapWithCoordinates()">
           </div>
           <div class="form-text text-danger">
@@ -224,7 +215,8 @@
     </div>
 
     <div class="col-12 col-md-4" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="journey().location" [iconType]="journey().icon" />
+      <app-world-map class="h-50" [geoJsonData]="journey().location" [iconType]="journey().icon"
+                     [enableGeoCoding]="true" (location)="addGeoCodingLocation($event)"/>
     </div>
 
   </div>

@@ -39,13 +39,16 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 export class NewJourneyComponent {
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
+  protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
+
+  private readonly router = inject(Router);
+
+  private readonly journeyService = inject(JourneyService);
+  private readonly autoCompleteService = inject(AutoCompleteService);
+
   journey = signal(new Journey());
   coordinates = signal<number[]>([]);
   markdownStyle = signal<string>('Source')
-
-  private readonly router = inject(Router);
-  private readonly journeyService = inject(JourneyService);
-  private readonly autoCompleteService = inject(AutoCompleteService);
 
   successMessage: string = '';
   errorMessage: string = '';
@@ -146,8 +149,7 @@ export class NewJourneyComponent {
     }
   }
 
-  protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
-
+  // noinspection DuplicatedCode
   addGeoCodingLocation(geoCodingData: GeoCodingLocationData) {
     this.coordinates.set([geoCodingData.location.coordinates[0], geoCodingData.location.coordinates[1]]);
 
