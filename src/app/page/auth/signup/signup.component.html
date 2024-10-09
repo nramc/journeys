@@ -19,7 +19,7 @@
             <div class="col-12">
               <div class="form-floating mb-3">
                 <input type="text" class="form-control form-control-sm" id="name" name="name" autofocus
-                       placeholder="Name" [(ngModel)]="form.name" #name="ngModel"
+                       placeholder="Name" [(ngModel)]="form().name" #name="ngModel"
                        required maxlength="50" minlength="3"
                        [disabled]="isSuccessful()">
                 <label for="name">Name</label>
@@ -35,7 +35,7 @@
               <div class="form-floating mb-3">
                 <input type="email" class="form-control form-control-sm" id="username" name="username"
                        placeholder="Email Address" autocomplete="username" #username="ngModel"
-                       [(ngModel)]="form.username" [disabled]="isSuccessful()"
+                       [(ngModel)]="form().username" [disabled]="isSuccessful()"
                        required minlength="8" maxlength="50" email>
                 <label for="username">Email Address</label>
                 <div *ngIf="username.invalid && (username.dirty || signupForm.submitted)" class="form-text text-danger">
@@ -53,7 +53,7 @@
               <div class="form-floating mb-3">
                 <input type="password" class="form-control form-control-sm" id="password" name="password"
                        placeholder="Password" autocomplete="new-password" #password="ngModel"
-                       [(ngModel)]="form.password" [disabled]="isSuccessful()"
+                       [(ngModel)]="form().password" [disabled]="isSuccessful()"
                        required min="8" maxlength="50"
                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,50}$">
                 <label for="password">Password</label>
