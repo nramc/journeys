@@ -23,7 +23,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     MatProgressSpinner
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styles: []
 })
 export class LoginComponent implements OnInit {
   feedbackMessage = signal<FeedbackMessage>({});
