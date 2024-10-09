@@ -40,6 +40,6 @@ function hasWriteAccessElseAccessDenied() {
   let accessDeniedUrl = inject(Router).createUrlTree(['/accessDenied']);
   return inject(AuthService).getUserContext()
     .pipe(map(userContext => userContext.roles
-      .some(role => role == Role.MAINTAINER || role == Role.ADMINISTRATOR)
+      .some(role => role == Role.MAINTAINER || role == Role.ADMINISTRATOR || role == Role.AUTHENTICATED_USER)
       ? true : accessDeniedUrl));
 }

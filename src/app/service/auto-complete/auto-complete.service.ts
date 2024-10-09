@@ -24,7 +24,8 @@ export class AutoCompleteService {
         },
         headers: {
           'Content-Type': 'application/vnd.journey.api.basic.v1+json',
-          'Authorization': `Bearer ${userContext.accessToken}`
+          'Authorization': `Bearer ${userContext.accessToken}`,
+          'X-Async-Process': 'true'
         }
       });
   }
