@@ -12,7 +12,7 @@
 
 ###### Your Portal to the Past
 
-> Preserving Your Travel Memories with Narration, Geo Information, and Media
+> Preserve Your Travel Memories with Narration, Geo Information, and Media
 
 <hr />
 
