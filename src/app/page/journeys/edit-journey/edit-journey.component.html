@@ -30,8 +30,7 @@
     <mat-step (interacted)="stepsEventHandler($event)">
       <ng-template matStepLabel>Images</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-images-details [journey]="journey()"
-                                         (saved)="savedEventHandler($event)"></app-edit-journey-images-details>
+        <app-edit-journey-images-details [(journey)]="journey"></app-edit-journey-images-details>
       </ng-template>
     </mat-step>
     <mat-step (interacted)="stepsEventHandler($event)">

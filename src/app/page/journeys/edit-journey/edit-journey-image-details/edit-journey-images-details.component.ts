@@ -1,9 +1,8 @@
-import {Component, input, OnInit, output, signal} from '@angular/core';
+import {Component, inject, model, OnInit, signal} from '@angular/core';
 import {Journey, JourneyImageDetail, JourneyImagesDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {environment} from "../../../../../environments/environment";
 import {CloudinaryUploadSuccessEvent, CloudinaryUploadSuccessInfo} from "../../../../model/upload-success-event.type";
-import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
 import {FormsModule} from "@angular/forms";
 import {NgClass, NgIf} from "@angular/common";
 import {MatBadge} from "@angular/material/badge";
@@ -11,14 +10,13 @@ import {MatStepperNext} from "@angular/material/stepper";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {EditJourneyImageItemComponent} from "./edit-journey-image-item/edit-journey-image-item.component";
 import {RouterLink} from "@angular/router";
-import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
+import {NotificationService} from "../../../../service/common/notification.service";
 
 @Component({
   selector: 'app-edit-journey-images-details',
   templateUrl: './edit-journey-images-details.component.html',
   styleUrl: './edit-journey-images-details.component.scss',
   imports: [
-    FeedbackMessageComponent,
     FormsModule,
     NgIf,
     MatBadge,
@@ -30,25 +28,22 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
   standalone: true
 })
 export class EditJourneyImagesDetailsComponent implements OnInit {
-  savedEvent = output<Journey>({alias: 'saved'});
-  journey = input.required<Journey>();
-  feedbackMessage = signal<FeedbackMessage>({});
+  private readonly notificationService = inject(NotificationService);
+  private readonly journeyService = inject(JourneyService);
+  private modelService = inject(NgbModal);
 
-  formImageDetails: JourneyImagesDetails = new JourneyImagesDetails();
+  journey = model.required<Journey>();
 
-  constructor(
-    private journeyService: JourneyService,
-    private modelService: NgbModal
-  ) {
-  }
+  formImageDetails = signal(new JourneyImagesDetails());
 
   ngOnInit(): void {
-    this.formImageDetails = this.journey().extendedDetails?.imagesDetails ?? new JourneyImagesDetails();
+    this.formImageDetails.set(this.journey().extendedDetails?.imagesDetails ?? new JourneyImagesDetails());
   }
 
   private addImage(info: CloudinaryUploadSuccessInfo) {
-    this.formImageDetails.images.push(
-      new JourneyImageDetail(info.secure_url, info.asset_id, info.public_id)
+    this.formImageDetails.update(data => ({
+        ...data, images: [...data.images, new JourneyImageDetail(info.secure_url, info.asset_id, info.public_id)]
+      })
     );
   }
 
@@ -72,17 +67,17 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   }
 
   onError(errorMessage: string, err: any) {
-    this.feedbackMessage.set({error: errorMessage});
+    this.notificationService.showError(errorMessage);
     console.error(err);
   }
 
   onUpdateSuccess(result: Journey) {
-    this.feedbackMessage.set({success: 'Image Details saved successfully.'});
-    this.savedEvent.emit(result);
+    this.notificationService.showSuccess('Image Details saved successfully.');
+    this.journey.set(result);
   }
 
   save() {
-    this.journeyService.saveJourneyImagesDetails(this.journey(), this.formImageDetails)
+    this.journeyService.saveJourneyImagesDetails(this.journey(), this.formImageDetails())
       .subscribe({
         next: data => this.onUpdateSuccess(data),
         error: err => this.onError('Unexpected error while saving images data', err)
@@ -118,10 +113,9 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
         let target = this.journey().extendedDetails?.imagesDetails?.images?.find(item => item.assetId == result.assertId);
         Object.assign(target ?? {}, result);
       } else if (typeof result == "string") {
-        const index = this.formImageDetails.images.findIndex(item => item.assetId == result);
-        if (index >= 0) {
-          this.formImageDetails.images.splice(index, 1);
-        }
+        this.formImageDetails.update(data => ({
+          ...data, images: data.images.filter(item => item.assetId != result)
+        }));
       }
       this.save();
     }, reason => {

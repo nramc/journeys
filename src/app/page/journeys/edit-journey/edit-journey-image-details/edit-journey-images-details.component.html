@@ -1,15 +1,9 @@
 <form (ngSubmit)="save()" *ngIf="this.journey()">
 
-  <div class="row mb-3">
-    <div class="col-12">
-      <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
-    </div>
-  </div>
-
   <div class="row">
     <div class="col-12">
       <div class="d-flex mb-3 flex-wrap">
-        @for (imageDetail of this.formImageDetails.images; track imageDetail.assetId; let i = $index) {
+        @for (imageDetail of this.formImageDetails().images; track imageDetail.assetId; let i = $index) {
           <a class="m-2 image-thumbnail-wrapper" (click)="openImageItem(imageDetail)">
             <img
               [src]="imageDetail.url"
@@ -34,7 +28,8 @@
       <button type="button" class="btn btn-outline-primary" (click)="openUploadWidget(false)">
         <i class="bi bi-file-earmark-binary"></i><span class="ms-2">Upload Image</span>
       </button>
-      <button type="button" class="btn btn-outline-primary" [disabled]="!journey().extendedDetails?.imagesDetails?.images"
+      <button type="button" class="btn btn-outline-primary"
+              [disabled]="!journey().extendedDetails?.imagesDetails?.images"
               matStepperNext>Next
       </button>
       <a role="link" class="text-decoration-none" routerLink="/tools" target="_blank">Reduce Image Size<i
