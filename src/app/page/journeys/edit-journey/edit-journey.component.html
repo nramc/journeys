@@ -16,7 +16,7 @@
     <mat-step [completed]="journey.id">
       <ng-template matStepLabel>Memories</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-basic-data [journeyInitialValue]="journey"
+        <app-edit-journey-basic-data [journey]="journey"
                                      (saved)="savedEventHandler($event)"></app-edit-journey-basic-data>
       </ng-template>
     </mat-step>

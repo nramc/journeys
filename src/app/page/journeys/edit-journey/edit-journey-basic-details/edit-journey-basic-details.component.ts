@@ -45,7 +45,7 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
 
   markdownStyle = signal<string>('Source')
   savedEvent = output<Journey>({alias: "saved"});
-  journeyInitialValue = input.required<Journey>();
+  journeyInitialValue = input.required<Journey>({alias: 'journey'});
   journey = signal(new Journey());
 
   coordinates = signal<number[]>(this.journey().location?.coordinates ?? []);

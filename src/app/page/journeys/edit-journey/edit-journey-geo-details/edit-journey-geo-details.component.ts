@@ -1,12 +1,11 @@
-import {ChangeDetectionStrategy, Component, input, OnInit, output, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, OnInit, output, signal} from '@angular/core';
 import {Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
-import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
 import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {MatStepperNext} from "@angular/material/stepper";
 import {JsonPipe, NgIf} from "@angular/common";
-import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
+import {NotificationService} from "../../../../service/common/notification.service";
 
 @Component({
   selector: 'app-edit-journey-geo-details',
@@ -14,7 +13,6 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
   styleUrl: './edit-journey-geo-details.component.scss',
   imports: [
     FormsModule,
-    FeedbackMessageComponent,
     WorldMapComponent,
     MatStepperNext,
     NgIf,
@@ -24,30 +22,26 @@ import {FeedbackMessage} from "../../../../component/feedback-message/feedback-m
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
+  private readonly journeyService = inject(JourneyService);
+  private readonly notificationService = inject(NotificationService);
+
+  journeyInitialData = input.required<Journey>({alias: 'journey'});
+  journey = signal<Journey>(new Journey());
   savedEvent = output<Journey>({alias: "saved"});
-  feedbackMessage = signal<FeedbackMessage>({});
 
-  journey = input.required<Journey>();
-  formGeoDetails: JourneyGeoDetails = new JourneyGeoDetails(undefined);
-  geoJsonString: string = '';
+  formGeoDetails = signal(new JourneyGeoDetails(undefined));
+  geoJsonString = signal('');
 
-  constructor(
-    private journeyService: JourneyService
-  ) {
-  }
 
   ngOnInit(): void {
-    if (this.journey().extendedDetails?.geoDetails) {
-      this.formGeoDetails = this.journey().extendedDetails!.geoDetails!;
-    } else {
-      this.formGeoDetails = new JourneyGeoDetails(this.journey().location);
-    }
-    this.geoJsonString = JSON.stringify(this.formGeoDetails.geoJson);
+    this.journey.set(this.journeyInitialData());
+    this.formGeoDetails.set(this.journey().extendedDetails!.geoDetails ?? new JourneyGeoDetails(this.journey().location));
+    this.geoJsonString.set(JSON.stringify(this.formGeoDetails().geoJson));
   }
 
   save(journeyForm: NgForm) {
     console.debug('submitted form:', journeyForm);
-    this.journeyService.saveJourneyGeoDetails(this.journey(), this.formGeoDetails)
+    this.journeyService.saveJourneyGeoDetails(this.journey(), this.formGeoDetails())
       .subscribe({
         next: data => this.onUpdateSuccess(data),
         error: err => this.onError('Unexpected error while saving geo data', err)
@@ -55,18 +49,18 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   }
 
   onUpdateSuccess(result: Journey) {
-    this.feedbackMessage.set({success: 'Journey details saved successfully.'});
+    this.notificationService.showSuccess('Journey details saved successfully.');
     this.savedEvent.emit(result);
   }
 
   onError(errorMessage: string, err: any) {
-    this.feedbackMessage.set({error: errorMessage});
+    this.notificationService.showError(errorMessage);
     console.error(err);
   }
 
   reloadMap() {
-    if (this.geoJsonString) {
-      this.formGeoDetails.geoJson = JSON.parse(this.geoJsonString);
+    if (this.geoJsonString()) {
+      this.formGeoDetails.update(data => ({...data, geoJson: JSON.parse(this.geoJsonString())}));
     }
   }
 
