@@ -16,15 +16,14 @@
     <mat-step [completed]="journey().id">
       <ng-template matStepLabel>Memories</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-basic-data [journey]="journey()"
-                                     (saved)="savedEventHandler($event)"></app-edit-journey-basic-data>
+        <app-edit-journey-basic-data [(journey)]="journey"></app-edit-journey-basic-data>
       </ng-template>
     </mat-step>
 
     <mat-step (interacted)="stepsEventHandler($event)">
       <ng-template matStepLabel>Geography</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-geo-details [journey]="journey()"></app-edit-journey-geo-details>
+        <app-edit-journey-geo-details [(journey)]="journey"></app-edit-journey-geo-details>
       </ng-template>
     </mat-step>
 

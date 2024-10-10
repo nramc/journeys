@@ -21,6 +21,7 @@ import {getIcon} from "../../config/icon-config";
 import {environment} from "../../../environments/environment";
 import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
 import {GeoCodingFeature} from "./geo-coding-feature";
+import {merge} from "rxjs";
 
 
 const iconDefault = L.icon({
@@ -72,11 +73,13 @@ export class WorldMapComponent implements AfterViewInit {
   area = output<GeoCodingAreaData>();
 
   constructor() {
-    toObservable(this.geoJson).pipe(takeUntilDestroyed()).subscribe({
-      next: data => {
-        this.addGeoJsonData(data)
-      }
-    })
+    merge(toObservable(this.geoJson), toObservable(this.iconType))
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: _ => {
+          this.addGeoJsonData(this.geoJson())
+        }
+      })
   }
 
   ngAfterViewInit(): void {

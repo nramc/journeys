@@ -65,7 +65,6 @@
         <div class="mb-3 col-12 col-md-4">
           <label for="iconType" class="form-label">Icon</label>
           <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
-                  (change)="refreshMapWithCoordinates()"
                   [(ngModel)]="journey().icon" required name="iconType" #iconType="ngModel">
             @for (iconType of SUPPORTED_ICONS; track iconType) {
               <option [value]="iconType">{{ iconType| titlecase }}</option>
@@ -129,8 +128,8 @@
           <div class="input-group mb-3">
             <span class="input-group-text">Coordinates</span>
             <input type="number" class="form-control" placeholder="Longitude" aria-label="Longitude"
-                   id="longitude" name="longitude" [(ngModel)]="coordinates()[0]"
-                   required min="-180.0" max="180.0" #longitude="ngModel" (blur)="refreshMapWithCoordinates()">
+                   id="longitude" name="longitude" [(ngModel)]="journey().location!.coordinates[0]"
+                   required min="-180.0" max="180.0" #longitude="ngModel">
 
             <button class="btn btn-outline-light input-group-text dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false">
@@ -150,8 +149,8 @@
             </ul>
 
             <input type="number" class="form-control" placeholder="Latitude" aria-label="Latitude"
-                   id="latitude" name="latitude" [(ngModel)]="coordinates()[1]"
-                   required min="-90.0" max="90.0" #latitude="ngModel" (blur)="refreshMapWithCoordinates()">
+                   id="latitude" name="latitude" [(ngModel)]="journey().location!.coordinates[1]"
+                   required min="-90.0" max="90.0" #latitude="ngModel">
           </div>
           <div class="form-text text-danger">
             <div [hidden]="longitude.valid || longitude.pristine">
