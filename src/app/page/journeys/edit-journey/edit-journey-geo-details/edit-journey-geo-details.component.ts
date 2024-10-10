@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, input, OnInit, output, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, model, OnInit, signal} from '@angular/core';
 import {Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
@@ -25,16 +25,13 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
 
-  journeyInitialData = input.required<Journey>({alias: 'journey'});
-  journey = signal<Journey>(new Journey());
-  savedEvent = output<Journey>({alias: "saved"});
+  journey = model.required<Journey>();
 
   formGeoDetails = signal(new JourneyGeoDetails(undefined));
   geoJsonString = signal('');
 
 
   ngOnInit(): void {
-    this.journey.set(this.journeyInitialData());
     this.formGeoDetails.set(this.journey().extendedDetails!.geoDetails ?? new JourneyGeoDetails(this.journey().location));
     this.geoJsonString.set(JSON.stringify(this.formGeoDetails().geoJson));
   }
@@ -48,9 +45,8 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
       });
   }
 
-  onUpdateSuccess(result: Journey) {
+  onUpdateSuccess(_: Journey) {
     this.notificationService.showSuccess('Journey details saved successfully.');
-    this.savedEvent.emit(result);
   }
 
   onError(errorMessage: string, err: any) {
