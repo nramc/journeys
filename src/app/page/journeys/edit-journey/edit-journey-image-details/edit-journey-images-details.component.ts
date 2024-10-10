@@ -1,4 +1,4 @@
-import {Component, inject, model, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, model, OnInit, signal} from '@angular/core';
 import {Journey, JourneyImageDetail, JourneyImagesDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {environment} from "../../../../../environments/environment";
@@ -25,7 +25,8 @@ import {NotificationService} from "../../../../service/common/notification.servi
     RouterLink,
     EditJourneyImageItemComponent
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyImagesDetailsComponent implements OnInit {
   private readonly notificationService = inject(NotificationService);
@@ -33,7 +34,6 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   private modelService = inject(NgbModal);
 
   journey = model.required<Journey>();
-
   formImageDetails = signal(new JourneyImagesDetails());
 
   ngOnInit(): void {
