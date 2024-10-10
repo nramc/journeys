@@ -1,27 +1,21 @@
-import {CanActivateChildFn, CanActivateFn, CanMatchFn, Router} from '@angular/router';
+import {CanActivateFn, CanMatchFn, Router} from '@angular/router';
 import {inject} from "@angular/core";
 import {AuthService} from "../service/auth/auth.service";
 import {map} from "rxjs";
 import {Role} from "../service/auth/role";
 
 
-export const canActivateWhenAuthenticatedGuard: CanActivateFn = (route, state) => {
+export const canActivateWhenAuthenticatedGuard: CanActivateFn = () => {
   return isUserAuthenticatedElseGetLogin();
 };
-export const canActivateWhenHasWriteAccessGuard: CanActivateFn = (route, state) => {
+export const canActivateWhenHasWriteAccessGuard: CanActivateFn = () => {
   return hasWriteAccessElseAccessDenied();
 };
-
-
-export const canActivateChildGuard: CanActivateChildFn = (route, state) => {
-  return true;
-};
-
-export const canMatchWhenAuthenticatedGuard: CanMatchFn = (route, state) => {
+export const canMatchWhenAuthenticatedGuard: CanMatchFn = () => {
   return isUserAuthenticatedElseGetLogin();
 };
 
-export const canMatchWhenHasWriteAccessGuard: CanMatchFn = (route, state) => {
+export const canMatchWhenHasWriteAccessGuard: CanMatchFn = () => {
   return hasWriteAccessElseAccessDenied();
 };
 
@@ -40,6 +34,6 @@ function hasWriteAccessElseAccessDenied() {
   let accessDeniedUrl = inject(Router).createUrlTree(['/accessDenied']);
   return inject(AuthService).getUserContext()
     .pipe(map(userContext => userContext.roles
-      .some(role => role == Role.MAINTAINER || role == Role.ADMINISTRATOR)
+      .some(role => role == Role.MAINTAINER || role == Role.ADMINISTRATOR || role == Role.AUTHENTICATED_USER)
       ? true : accessDeniedUrl));
 }
