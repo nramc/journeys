@@ -36,8 +36,7 @@
     <mat-step (interacted)="stepsEventHandler($event)">
       <ng-template matStepLabel>Videos</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-videos-details [journey]="journey()"
-                                         (saved)="savedEventHandler($event)"></app-edit-journey-videos-details>
+        <app-edit-journey-videos-details [(journey)]="journey"></app-edit-journey-videos-details>
       </ng-template>
     </mat-step>
 
