@@ -43,8 +43,7 @@
     <mat-step (interacted)="stepsEventHandler($event)">
       <ng-template matStepLabel>Publish</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-publish-details [journey]="journey()"
-                                          (saved)="savedEventHandler($event)"></app-edit-journey-publish-details>
+        <app-edit-journey-publish-details [(journey)]="journey"></app-edit-journey-publish-details>
       </ng-template>
     </mat-step>
 

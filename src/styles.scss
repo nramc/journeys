@@ -325,3 +325,8 @@ gallery-image img {
   border: 2px solid white;
   box-shadow: 0 0 8px white;
 }
+
+// Customize mat styles
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background: rgba(0, 0, 0, 0) !important;
+}
