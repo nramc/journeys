@@ -18,7 +18,6 @@
     </div>
   </div>
 
-
   <div class="row">
     <div class="col-12 d-grid gap-2 d-flex justify-content-center align-items-end">
 
@@ -38,3 +37,12 @@
   </div>
 
 </form>
+
+<dialog #imageItemDetailDialog class="w-100 w-md-75 border border-2 border-gradient-primary">
+  <app-edit-journey-image-item [imageItem]="imageItemDetail()"
+                               (save)="saveImageItemDetail($event)"
+                               (remove)="deleteImageItemDetail($event)"
+                               (cancel)="imageItemDialog().nativeElement.close()"
+  />
+</dialog>
+

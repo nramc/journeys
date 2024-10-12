@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, model, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, inject, model, OnInit, signal, viewChild} from '@angular/core';
 import {Journey, JourneyImageDetail, JourneyImagesDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {environment} from "../../../../../environments/environment";
@@ -7,7 +7,6 @@ import {FormsModule} from "@angular/forms";
 import {NgClass, NgIf} from "@angular/common";
 import {MatBadge} from "@angular/material/badge";
 import {MatStepperNext} from "@angular/material/stepper";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {EditJourneyImageItemComponent} from "./edit-journey-image-item/edit-journey-image-item.component";
 import {RouterLink} from "@angular/router";
 import {NotificationService} from "../../../../service/common/notification.service";
@@ -31,10 +30,11 @@ import {NotificationService} from "../../../../service/common/notification.servi
 export class EditJourneyImagesDetailsComponent implements OnInit {
   private readonly notificationService = inject(NotificationService);
   private readonly journeyService = inject(JourneyService);
-  private modelService = inject(NgbModal);
 
   journey = model.required<Journey>();
   formImageDetails = signal(new JourneyImagesDetails());
+  imageItemDetail = model<JourneyImageDetail>(new JourneyImageDetail('', ''));
+  imageItemDialog = viewChild.required<ElementRef<HTMLDialogElement>>('imageItemDetailDialog');
 
   ngOnInit(): void {
     this.formImageDetails.set(this.journey().extendedDetails?.imagesDetails ?? new JourneyImagesDetails());
@@ -77,6 +77,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   }
 
   save() {
+    console.log('saving')
     this.journeyService.saveJourneyImagesDetails(this.journey(), this.formImageDetails())
       .subscribe({
         next: data => this.onUpdateSuccess(data),
@@ -100,28 +101,28 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   }
 
   openImageItem(imageItem: JourneyImageDetail) {
-    const imageItemModel = this.modelService.open(EditJourneyImageItemComponent, {
-      animation: true,
-      size: 'lg',
-      backdrop: true,
-      centered: true,
-      scrollable: true
-    });
-    imageItemModel.componentInstance.imageItem.set(imageItem);
-    imageItemModel.result.then(result => {
-      if (result && typeof result == 'object') {
-        let target = this.journey().extendedDetails?.imagesDetails?.images?.find(item => item.assetId == result.assertId);
-        Object.assign(target ?? {}, result);
-      } else if (typeof result == "string") {
-        this.formImageDetails.update(data => ({
-          ...data, images: data.images.filter(item => item.assetId != result)
-        }));
-      }
-      this.save();
-    }, reason => {
-      console.log('Update cancelled, reason:', reason)
-    });
+    this.imageItemDetail.set(imageItem);
+    this.imageItemDialog().nativeElement.showModal();
+  }
 
+  saveImageItemDetail(imageItemDetail: JourneyImageDetail) {
+    this.formImageDetails.update(data => ({
+        ...data,
+        images: [...data.images.filter(item => item.assetId != imageItemDetail.assetId), imageItemDetail]
+      })
+    );
+    this.save();
+    this.imageItemDialog().nativeElement.close();
+  }
+
+  deleteImageItemDetail(imageItemDetail: JourneyImageDetail) {
+    this.formImageDetails.update(data => ({
+        ...data,
+        images: [...data.images.filter(item => item.assetId != imageItemDetail.assetId)]
+      })
+    );
+    this.save();
+    this.imageItemDialog().nativeElement.close();
   }
 
 
