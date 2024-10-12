@@ -1,4 +1,4 @@
-import {Component, input, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
 import {JourneyImageDetail} from "../../../../../model/core/journey.model";
 import {FormsModule} from "@angular/forms";
 import {NgIf, NgOptimizedImage} from "@angular/common";
@@ -99,7 +99,8 @@ import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
       </div>
     </div>
   `,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyImageItemComponent {
   imageItem = input.required<JourneyImageDetail>();

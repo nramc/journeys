@@ -108,7 +108,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   saveImageItemDetail(imageItemDetail: JourneyImageDetail) {
     this.formImageDetails.update(data => ({
         ...data,
-        images: [...data.images.filter(item => item.assetId != imageItemDetail.assetId), imageItemDetail]
+        images: [...data.images.map(item => item.assetId == imageItemDetail.assetId ? imageItemDetail : item)]
       })
     );
     this.save();
