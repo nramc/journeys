@@ -42,14 +42,6 @@ export class EditJourneyComponent implements OnInit {
       .subscribe(data => this.journey.set(data));
   }
 
-  stepsEventHandler(event: any) {
-    // delete it later
-  }
-
-  savedEventHandler(data: Journey) {
-    this.journey.set(data);
-  }
-
   viewJourney(journey: Journey) {
     this.router.navigate(['/journey', journey.id, 'view']).then();
   }
