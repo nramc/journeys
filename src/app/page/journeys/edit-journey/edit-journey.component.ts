@@ -31,9 +31,9 @@ import {NgIf} from "@angular/common";
   standalone: true
 })
 export class EditJourneyComponent implements OnInit {
-  private route = inject(ActivatedRoute);
-  private journeyService = inject(JourneyService);
-  private router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly journeyService = inject(JourneyService);
+  private readonly router = inject(Router);
 
   journey = model(new Journey());
 
