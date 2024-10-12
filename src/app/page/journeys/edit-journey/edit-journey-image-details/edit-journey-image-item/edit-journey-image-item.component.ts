@@ -1,8 +1,8 @@
-import {Component, model} from '@angular/core';
+import {Component, input, output} from '@angular/core';
 import {JourneyImageDetail} from "../../../../../model/core/journey.model";
 import {FormsModule} from "@angular/forms";
 import {NgIf, NgOptimizedImage} from "@angular/common";
-import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
+import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-edit-journey-image-item',
@@ -15,7 +15,7 @@ import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
   ],
   template: `
     <div class="container">
-      <div class="model-header m-1">
+      <div class="model-header">
         <h6 class="gradient-text m-1 border-bottom border-primary-subtle border-3 pb-2">Edit Image Details</h6>
       </div>
 
@@ -32,7 +32,7 @@ import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
           </div>
           <div class="image-details flex-fill m-1">
 
-            <form (submit)="save()">
+            <form>
               <div class="form-floating mb-1">
                 <input type="text" class="form-control ignore-highlight" id="imageUrl" name="imageUrl" placeholder="URL"
                        [(ngModel)]="imageItem().url" readonly="readonly" disabled="disabled">
@@ -81,17 +81,15 @@ import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
               <div class="input-group mb-1">
                 <div class="input-group-text">
                   <input class="form-check-input ignore-highlight" type="checkbox" id="thumbnailFlag"
-                         name="thumbnailFlag"
-                         [(ngModel)]="imageItem().isThumbnail">
+                         name="thumbnailFlag" [(ngModel)]="imageItem().isThumbnail">
                 </div>
                 <input type="text" class="form-control" value="Make it as thumbnail" disabled>
               </div>
 
-
               <div class="d-inline-flex justify-content-center align-content-center align-items-center mt-2 w-100">
-                <button class="btn btn-primary me-1">Save</button>
-                <button type="button" class="btn btn-danger me-1" (click)="remove()">Remove</button>
-                <button type="button" class="btn btn-dark" (click)="cancel()">Cancel</button>
+                <button type="button" class="btn btn-primary me-1" (click)="save.emit(imageItem())">Save</button>
+                <button type="button" class="btn btn-danger me-1" (click)="remove.emit(imageItem())">Remove</button>
+                <button type="button" class="btn btn-dark" (click)="cancel.emit(imageItem())">Cancel</button>
               </div>
             </form>
 
@@ -104,20 +102,9 @@ import {NgbActiveModal, NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
   styles: []
 })
 export class EditJourneyImageItemComponent {
-  imageItem = model.required<JourneyImageDetail>();
+  imageItem = input.required<JourneyImageDetail>();
+  save = output<JourneyImageDetail>();
+  cancel = output<JourneyImageDetail>();
+  remove = output<JourneyImageDetail>();
 
-  constructor(public activeModel: NgbActiveModal) {
-  }
-
-  save() {
-    this.activeModel.close(this.imageItem());
-  }
-
-  cancel() {
-    this.activeModel.dismiss();
-  }
-
-  remove() {
-    this.activeModel.close(this.imageItem()?.assetId);
-  }
 }
