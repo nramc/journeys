@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, input, OnInit, output, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, model, signal} from '@angular/core';
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
@@ -36,7 +36,7 @@ import {NotificationService} from "../../../../service/common/notification.servi
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditJourneyBasicDetailsComponent implements OnInit {
+export class EditJourneyBasicDetailsComponent {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
 
   private readonly journeyService = inject(JourneyService);
@@ -44,25 +44,17 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
   private readonly notificationService = inject(NotificationService);
 
   markdownStyle = signal<string>('Source')
-  savedEvent = output<Journey>({alias: "saved"});
-  journeyInitialValue = input.required<Journey>();
-  journey = signal(new Journey());
+  journey = model<Journey>(new Journey());
 
-  coordinates = signal<number[]>(this.journey().location?.coordinates ?? []);
-
-  ngOnInit(): void {
-    this.journey.set(this.journeyInitialValue());
-    this.coordinates.set(this.journeyInitialValue().location?.coordinates ?? []);
-  }
+  coordinates = computed<number[]>(() => this.journey().location?.coordinates ?? []);
 
   onError(errorMessage: string, err: any) {
     this.notificationService.showError(errorMessage);
     console.error(err);
   }
 
-  onUpdateSuccess(result: Journey) {
+  onUpdateSuccess(_: Journey) {
     this.notificationService.showSuccess('Journey details saved successfully.');
-    this.savedEvent.emit(result);
   }
 
   addTag(event: MatChipInputEvent): void {
@@ -95,18 +87,6 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
       ),
     );
 
-  refreshMapWithCoordinates() {
-    if (this.coordinates()[0] && this.coordinates()[1]) {
-      this.journey.update(data => ({
-        ...data,
-        location: {
-          type: "Point",
-          coordinates: [this.coordinates()?.[0], this.coordinates()?.[1]],
-        }
-      }));
-    }
-  }
-
   save(journeyForm: NgForm) {
     console.debug('Submitted form data:', journeyForm);
     this.journeyService.saveJourneyBasicDetails(this.journey())
@@ -125,8 +105,15 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
     console.debug('Value copied from clipboard:', copiedValue);
     if (copiedValue && copiedValue.split(',').length > 1) {
       let copiedCoordinates = copiedValue.split(',');
-      this.coordinates.set([Number(copiedCoordinates[1]), Number(copiedCoordinates[0])]);
-      this.refreshMapWithCoordinates();
+
+      this.journey.update(data => ({
+        ...data,
+        location: {
+          type: "Point",
+          coordinates: [Number(copiedCoordinates[1]), Number(copiedCoordinates[0])]
+        }
+      }));
+
     }
   }
 
@@ -136,15 +123,19 @@ export class EditJourneyBasicDetailsComponent implements OnInit {
     console.debug('Value copied from clipboard:', copiedValue);
     if (copiedValue) {
       let copiedCoordinates = copiedValue.split(',');
-      this.coordinates.set([Number(copiedCoordinates[0]), Number(copiedCoordinates[1])])
-      this.refreshMapWithCoordinates();
+      this.journey.update(data => ({
+        ...data,
+        location: {
+          type: "Point",
+          coordinates: [Number(copiedCoordinates[0]), Number(copiedCoordinates[1])]
+        }
+      }));
+
     }
   }
 
   // noinspection DuplicatedCode
   addGeoCodingLocation(geoCodingData: GeoCodingLocationData) {
-    this.coordinates.set([geoCodingData.location.coordinates[0], geoCodingData.location.coordinates[1]]);
-
     this.journey.update(data => ({
         ...data,
         title: geoCodingData.name,

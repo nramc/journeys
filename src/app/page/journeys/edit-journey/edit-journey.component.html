@@ -1,9 +1,9 @@
 <section *ngIf="journey" class="mt-3">
   <div class="row m-2">
     <div class="col-12">
-      <h4><span class="gradient-text me-1">{{ journey.name }}</span>
+      <h4><span class="gradient-text me-1">{{ journey().name }}</span>
         <button class="btn btn-outline-primary btn-sm" type="button"
-                title="View Journey" (click)="viewJourney(journey)">
+                title="View Journey" (click)="viewJourney(journey())">
           <i class="bi bi-eye-fill"></i>
         </button>
       </h4>
@@ -13,42 +13,37 @@
 
   <mat-stepper orientation="horizontal">
 
-    <mat-step [completed]="journey.id">
+    <mat-step [completed]="journey().id">
       <ng-template matStepLabel>Memories</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-basic-data [journeyInitialValue]="journey"
-                                     (saved)="savedEventHandler($event)"></app-edit-journey-basic-data>
+        <app-edit-journey-basic-data [(journey)]="journey"></app-edit-journey-basic-data>
       </ng-template>
     </mat-step>
 
-    <mat-step (interacted)="stepsEventHandler($event)">
+    <mat-step>
       <ng-template matStepLabel>Geography</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-geo-details [journey]="journey"
-                                      (saved)="savedEventHandler($event)"></app-edit-journey-geo-details>
+        <app-edit-journey-geo-details [(journey)]="journey"></app-edit-journey-geo-details>
       </ng-template>
     </mat-step>
 
-    <mat-step (interacted)="stepsEventHandler($event)">
+    <mat-step>
       <ng-template matStepLabel>Images</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-images-details [journey]="journey"
-                                         (saved)="savedEventHandler($event)"></app-edit-journey-images-details>
+        <app-edit-journey-images-details [(journey)]="journey"></app-edit-journey-images-details>
       </ng-template>
     </mat-step>
-    <mat-step (interacted)="stepsEventHandler($event)">
+    <mat-step>
       <ng-template matStepLabel>Videos</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-videos-details [journey]="journey"
-                                         (saved)="savedEventHandler($event)"></app-edit-journey-videos-details>
+        <app-edit-journey-videos-details [(journey)]="journey"></app-edit-journey-videos-details>
       </ng-template>
     </mat-step>
 
-    <mat-step (interacted)="stepsEventHandler($event)">
+    <mat-step>
       <ng-template matStepLabel>Publish</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-publish-details [journey]="journey"
-                                          (saved)="savedEventHandler($event)"></app-edit-journey-publish-details>
+        <app-edit-journey-publish-details [(journey)]="journey"></app-edit-journey-publish-details>
       </ng-template>
     </mat-step>
 

@@ -1,9 +1,4 @@
 <form (ngSubmit)="publish(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey()">
-  <div class="row mb-3">
-    <div class="col-12">
-      <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
-    </div>
-  </div>
 
   <div class="row">
     <div class="col-12">
@@ -31,28 +26,28 @@
 
         <li class="list-group-item list-group-item-action">Basic Details
           @if (isBasicDetailsAvailableAndValid()) {
-            <mat-icon color="primary" class="float-end">check_circle</mat-icon>
+            <mat-icon color="primary" class="float-end text-success">check_circle</mat-icon>
           } @else {
             <mat-icon color="warn" class="float-end">cancel</mat-icon>
           }
         </li>
         <li class="list-group-item list-group-item-action">Geo Details
           @if (isGeoJsonAvailable()) {
-            <mat-icon color="primary" class="float-end">check_circle</mat-icon>
+            <mat-icon color="primary" class="float-end text-success">check_circle</mat-icon>
           } @else {
             <mat-icon color="warn" class="float-end">cancel</mat-icon>
           }
         </li>
         <li class="list-group-item list-group-item-action">Images Details
           @if (isImagesDetailsAvailable()) {
-            <mat-icon color="primary" class="float-end">check_circle</mat-icon>
+            <mat-icon color="primary" class="float-end text-success">check_circle</mat-icon>
           } @else {
             <mat-icon color="warn" class="float-end">cancel</mat-icon>
           }
         </li>
         <li class="list-group-item list-group-item-action">Videos Details
           @if (isVideosDetailsAvailable()) {
-            <mat-icon color="primary" class="float-end">check_circle</mat-icon>
+            <mat-icon color="primary" class="float-end text-success">check_circle</mat-icon>
           } @else {
             <mat-icon color="warn" class="float-end">cancel</mat-icon>
           }

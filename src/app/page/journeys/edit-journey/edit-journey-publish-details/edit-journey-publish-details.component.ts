@@ -1,15 +1,14 @@
-import {Component, input, output, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, model} from '@angular/core';
 import {DEFAULT_THUMBNAIL, Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule, NgForm} from "@angular/forms";
 import {NgIf} from "@angular/common";
-import {FeedbackMessageComponent} from "../../../../component/feedback-message/feedback-message.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
-import {FeedbackMessage} from "../../../../component/feedback-message/feedback-message";
 import {Router} from "@angular/router";
 import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
+import {NotificationService} from "../../../../service/common/notification.service";
 
 @Component({
   selector: 'app-edit-journey-publish-details',
@@ -18,25 +17,22 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
     MatIcon,
     FormsModule,
     NgIf,
-    FeedbackMessageComponent,
     MatFormFieldModule,
     MatSelectModule,
     HasWriteAccessDirective
   ],
   templateUrl: './edit-journey-publish-details.component.html',
-  styleUrl: './edit-journey-publish-details.component.scss'
+  styleUrl: './edit-journey-publish-details.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyPublishDetailsComponent {
   protected readonly DEFAULT_THUMBNAIL = DEFAULT_THUMBNAIL;
-  journey = input.required<Journey>();
-  savedEvent = output<Journey>({alias: 'saved'});
-  feedbackMessage = signal<FeedbackMessage>({});
 
-  constructor(
-    private router: Router,
-    private journeyService: JourneyService
-  ) {
-  }
+  private readonly router = inject(Router);
+  private readonly journeyService = inject(JourneyService);
+  private readonly notificationService = inject(NotificationService);
+
+  journey = model.required<Journey>();
 
   isBasicDetailsAvailableAndValid(): boolean {
     return this.journey().id != '' &&
@@ -65,7 +61,7 @@ export class EditJourneyPublishDetailsComponent {
 
   publish(journeyForm: NgForm) {
     console.debug('submitted form:', journeyForm);
-    this.journey().isPublished = true;
+    this.journey.update(data => ({...data, isPublished: true}));
     this.journeyService.publishJourney(this.journey())
       .subscribe({
         next: data => this.onUpdateSuccess(data),
@@ -75,7 +71,7 @@ export class EditJourneyPublishDetailsComponent {
 
   save(journeyForm: NgForm) {
     if (journeyForm.valid) {
-      this.journey().isPublished = false;
+      this.journey.update(data => ({...data, isPublished: false}));
       this.journeyService.publishJourney(this.journey())
         .subscribe({
           next: data => this.onUpdateSuccess(data),
@@ -85,18 +81,17 @@ export class EditJourneyPublishDetailsComponent {
   }
 
   onError(errorMessage: string, err: any) {
-    this.feedbackMessage.set({error: errorMessage});
+    this.notificationService.showError(errorMessage);
     console.error(err);
   }
 
   onUpdateSuccess(result: Journey) {
     const successMessage: string = result.isPublished ? 'Journey published successfully.' : 'Journey saved successfully';
-    this.feedbackMessage.set({success: successMessage});
-    this.savedEvent.emit(result);
+    this.notificationService.showSuccess(successMessage);
+    this.journey.set(result);
   }
 
   delete() {
-    this.feedbackMessage.set({loading: 'Please wait while your request processing...'});
     this.journeyService.deleteJourney(this.journey())
       .subscribe({
         next: __ => this.onDeleteSuccess(),
@@ -105,7 +100,7 @@ export class EditJourneyPublishDetailsComponent {
   }
 
   onDeleteSuccess() {
-    this.feedbackMessage.set({success: 'Journey deleted successfully'});
+    this.notificationService.showSuccess('Journey deleted successfully');
     setTimeout(() => this.router.navigate(['journey']), 1000)
   }
 

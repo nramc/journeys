@@ -1,10 +1,4 @@
-<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey">
-
-  <div class="row mb-3">
-    <div class="col-12">
-      <app-feedback-message [message]="feedbackMessage()"></app-feedback-message>
-    </div>
-  </div>
+<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey()">
 
   <div class="row geo-data-row mb-3">
     <div class="col-md-6 col-12">
@@ -21,7 +15,7 @@
     </div>
 
     <div class="col-12 col-md-6" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="formGeoDetails.geoJson" />
+      <app-world-map class="h-50" [geoJsonData]="formGeoDetails().geoJson"/>
     </div>
   </div>
 
@@ -36,3 +30,4 @@
     </div>
   </div>
 </form>
+<h1>{{journey().name}}</h1>

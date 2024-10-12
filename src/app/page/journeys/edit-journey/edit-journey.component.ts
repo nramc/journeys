@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, model, OnInit} from '@angular/core';
 import {Journey} from "../../../model/core/journey.model";
-import {switchMap} from "rxjs";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
 import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/material/stepper";
 import {EditJourneyBasicDetailsComponent} from "./edit-journey-basic-details/edit-journey-basic-details.component";
@@ -32,35 +31,15 @@ import {NgIf} from "@angular/common";
   standalone: true
 })
 export class EditJourneyComponent implements OnInit {
-  journey!: Journey;
+  private readonly route = inject(ActivatedRoute);
+  private readonly journeyService = inject(JourneyService);
+  private readonly router = inject(Router);
 
-  constructor(
-    private route: ActivatedRoute,
-    private journeyService: JourneyService,
-    private router: Router
-  ) {
-  }
+  journey = model(new Journey());
 
   ngOnInit(): void {
-    this.fetchJourney();
-  }
-
-  stepsEventHandler(event: any) {
-    this.fetchJourney();
-  }
-
-  savedEventHandler(data: Journey) {
-    this.journey = data;
-  }
-
-  fetchJourney() {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.journeyService.getJourneyById(params.get('id')!))
-    )
-      .subscribe({
-        next: data => this.journey = data,
-        error: err => console.error(err)
-      });
+    this.journeyService.getJourneyById(this.route.snapshot.params['id'])
+      .subscribe(data => this.journey.set(data));
   }
 
   viewJourney(journey: Journey) {
