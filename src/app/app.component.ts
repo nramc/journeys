@@ -1,23 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { SideNavbarComponent } from './component/side-navbar/side-navbar.component';
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {SideNavbarComponent} from './component/side-navbar/side-navbar.component';
 import {LoadingSpinnerComponent} from "./component/loading-spinner/loading-spinner.component";
+import {ThemeToggleComponent} from "./component/theme-toggle/theme-toggle.component";
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: true,
-  imports: [SideNavbarComponent, RouterOutlet, LoadingSpinnerComponent]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [SideNavbarComponent, RouterOutlet, LoadingSpinnerComponent, ThemeToggleComponent]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Journey';
-
-  ngOnInit(): void {
-    // Check for Windows OS
-    const isWindows = navigator.userAgent.toLowerCase().indexOf('win') > -1;
-    if (isWindows) {
-      document.getElementsByTagName('html')?.item(0)?.classList.add('base-fs-windows');
-    }
-  }
 }
