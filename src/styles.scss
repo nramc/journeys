@@ -73,7 +73,6 @@ $journey-theme: mat.define-theme((
 
 html, body {
   height: 100%;
-  background: rgb(250, 250, 255);
 }
 
 body {
@@ -81,8 +80,18 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.base-fs-windows {
-  font-size: 15px !important; /* Adjust as needed for Windows */
+/* Dark themes */
+body, body.light-theme {
+  --bs-body-bg-rgb: rgb(250, 250, 255);
+  --bs-body-bg: #fafaff
+}
+
+body.dark-theme {
+  --bs-body-bg-rgb: rgb(173, 181, 189);
+  --bs-body-bg: #adb5bd;
+  --bs-body-color: #eeeeee;
+  --bs-body-color-rgb: rgb(238, 238, 238);
+  --sys-surface: #adb5bd;
 }
 
 .gradient-text {
