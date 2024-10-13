@@ -1,9 +1,7 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/nramc/journeys/ci-workflow.yml?branch=main&style=flat&logoColor=ff0)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=nramc_journeys&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=nramc_journeys)
 [![Release](https://img.shields.io/github/release/nramc/journeys.svg?style=for-the-badge?logoColor=fff&style=flat)](https://github.com/nramc/journeys/releases)
-[![Contributors](https://img.shields.io/github/contributors/nramc/journeys.svg?style=for-the-badge?logoColor=fff&style=flat)](https://github.com/nramc/journeys/graphs/contributors)
-[![Issues](https://img.shields.io/github/issues/nramc/journeys.svg?style=for-the-badge?logoColor=fff&style=flat)](https://github.com/nramc/journeys/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/nramc/journeys.svg?style=for-the-badge?logoColor=fff&style=flat)](https://github.com/nramc/journeys/pulls)
-[![Stars](https://img.shields.io/github/stars/nramc/journeys.svg?style=for-the-badge?logoColor=fff&style=flat)](https://github.com/nramc/journeys/stargazers)
+[![Website](https://img.shields.io/badge/website-online-brightgreen.svg)](https://nramc.github.io/journeys/)
 [![Badge](https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=159&style=flat)](https://www.linkedin.com/in/ramachandran-nellaiyappan/)
 
 ![Journey](src/assets/logo/apple-icon-120x120.png "Journey")
@@ -15,6 +13,8 @@
 > Preserve Your Travel Memories with Narration, Geo Information, and Media
 
 <hr />
+
+[![Website](https://img.shields.io/badge/website-online-brightgreen.svg)](https://nramc.github.io/journeys/)
 
 **Journey** is a personal project designed to help users document and relive their travel experiences in a rich, immersive way. The platform allows travellers to seamlessly store memories of their trips, combining textual narration, geographic information, and multimedia elements such as photos and videos.
 
