@@ -131,6 +131,10 @@ body {
   background-image: linear-gradient(to right, #e311f1, #c733f4, #aa43f5, #8c4df3, #6b54ef, #6751e7, #644edf, #604bd7, #7440cb, #8333be, #8f23b0, #9809a2);
 }
 
+.text-shadow {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Subtle black shadow */
+}
+
 /* Map marker icons styles */
 .marker-pin {
   width: 30px;
