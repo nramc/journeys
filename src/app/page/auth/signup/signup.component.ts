@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, model, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, signal} from '@angular/core';
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
@@ -16,7 +16,8 @@ import {RegistrationService, SignupRequest} from "../../../service/registration/
     RouterLink
   ],
   templateUrl: './signup.component.html',
-  styles: ''
+  styles: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignupComponent {
   protected readonly LOGIN_PAGE_INFO = LOGIN_PAGE_INFO;
