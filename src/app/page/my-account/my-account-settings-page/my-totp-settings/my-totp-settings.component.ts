@@ -11,13 +11,15 @@ import {AuthService} from "../../../../service/auth/auth.service";
 import {Role} from "../../../../service/auth/role";
 import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
 import {ConfirmationDialogComponent} from "../../../../component/confirmation-dialog/confirmation-dialog.component";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'my-totp-settings',
   standalone: true,
   imports: [
     NgIf,
-    DisableIfNoRoleExistsDirective
+    DisableIfNoRoleExistsDirective,
+    MatTooltip
   ],
   templateUrl: './my-totp-settings.component.html',
   styleUrl: './my-totp-settings.component.scss'

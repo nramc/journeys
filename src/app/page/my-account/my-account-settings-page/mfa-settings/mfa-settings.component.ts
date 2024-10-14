@@ -7,13 +7,15 @@ import {MyAccountService} from "../../../../service/my-account/my-account.servic
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {AppUser} from "../../../../model/account/app-user";
 import {ConfirmationDialogComponent} from "../../../../component/confirmation-dialog/confirmation-dialog.component";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'my-mfa-settings',
   standalone: true,
   imports: [
     NgIf,
-    DisableIfNoRoleExistsDirective
+    DisableIfNoRoleExistsDirective,
+    MatTooltip
   ],
   templateUrl: './mfa-settings.component.html',
   styleUrl: './mfa-settings.component.scss'

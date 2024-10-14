@@ -13,6 +13,7 @@ import {MediaGalleryComponent} from "../../../component/media-gallery/media-gall
 import {ViewJourneyBasicDetailsComponent} from "./view-journey-basic-details/view-journey-basic-details.component";
 import {HasWriteAccessDirective} from "../../../directive/has-write-access.directive";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-view-journey',
@@ -29,7 +30,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     AsyncPipe,
     ViewJourneyBasicDetailsComponent,
     HasWriteAccessDirective,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatTooltip
   ],
   standalone: true
 })
