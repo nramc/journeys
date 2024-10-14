@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {LOGIN_PAGE_INFO} from "../../../model/page.info.model";
@@ -23,7 +23,8 @@ export class AccountActivationForm {
     RouterLink
   ],
   templateUrl: './account-activation.component.html',
-  styles: ''
+  styles: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountActivationComponent implements OnInit {
   protected readonly LOGIN_PAGE_INFO = LOGIN_PAGE_INFO;
