@@ -1,4 +1,4 @@
-import {Component, ElementRef, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, input} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {NgForOf} from "@angular/common";
 import {Feature} from "geojson";
@@ -11,7 +11,8 @@ import {Feature} from "geojson";
     RouterLink,
     NgForOf
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MarkerPopupComponent {
 
