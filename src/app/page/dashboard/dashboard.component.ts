@@ -5,7 +5,6 @@ import {FeatureCollection} from "geojson";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {JourneyService} from "../../service/journey/journey.service";
 import {NgIf} from "@angular/common";
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
@@ -15,8 +14,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
   imports: [
     PageHeaderComponent,
     WorldMapComponent,
-    NgIf,
-    MatProgressSpinner
+    NgIf
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush

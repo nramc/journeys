@@ -16,7 +16,6 @@ import {JourneyService} from "../../../../service/journey/journey.service";
 import {JourneyPage} from "../../../../service/journey/journey-page.type";
 import {Journey} from "../../../../model/core/journey.model";
 import {Router} from "@angular/router";
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {
   MatCell,
   MatCellDef,
@@ -40,7 +39,6 @@ import {toObservable} from "@angular/core/rxjs-interop";
   templateUrl: './journeys-list.component.html',
   styleUrl: './journeys-list.component.scss',
   imports: [
-    MatProgressSpinner,
     MatTable,
     MatSort,
     MatColumnDef,

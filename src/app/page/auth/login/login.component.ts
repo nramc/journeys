@@ -8,7 +8,6 @@ import {Credential, LoginResponse, LoginService} from "../../../service/auth/log
 import {UserContext} from "../../../service/auth/user-context";
 import {MfaOptions} from "../display-mfa-options/display-mfa-options.component";
 import {SIGNUP_PAGE_INFO} from "../../../model/page.info.model";
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {NotificationService} from "../../../service/common/notification.service";
 
 @Component({
@@ -18,7 +17,6 @@ import {NotificationService} from "../../../service/common/notification.service"
     FormsModule,
     NgIf,
     RouterLink,
-    MatProgressSpinner,
     NgOptimizedImage
   ],
   templateUrl: './login.component.html',
