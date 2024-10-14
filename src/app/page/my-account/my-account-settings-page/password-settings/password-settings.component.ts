@@ -6,6 +6,7 @@ import {Role} from "../../../../service/auth/role";
 import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormsModule} from "@angular/forms";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'my-password-settings',
@@ -14,7 +15,8 @@ import {FormsModule} from "@angular/forms";
     NgIf,
     DisableIfNoRoleExistsDirective,
     DatePipe,
-    FormsModule
+    FormsModule,
+    MatTooltip
   ],
   templateUrl: './password-settings.component.html',
   styleUrl: './password-settings.component.scss'

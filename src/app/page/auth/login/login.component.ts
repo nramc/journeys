@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
-import {FeedbackMessageComponent} from "../../../component/feedback-message/feedback-message.component";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {AuthService} from "../../../service/auth/auth.service";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -17,7 +16,6 @@ import {NotificationService} from "../../../service/common/notification.service"
   standalone: true,
   imports: [
     FormsModule,
-    FeedbackMessageComponent,
     NgIf,
     RouterLink,
     MatProgressSpinner,

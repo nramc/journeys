@@ -1,29 +1,28 @@
-import {Component, DestroyRef, inject, model, OnInit, signal} from '@angular/core';
+import {Component, DestroyRef, inject, model, OnInit} from '@angular/core';
 import {MatDialogClose, MatDialogRef} from "@angular/material/dialog";
 import {MyAccountService} from "../../../../../service/my-account/my-account.service";
 import {QrCodeData} from "../../../../../model/account/qr-code-data";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormsModule} from "@angular/forms";
 import {TotpActivation} from "../../../../../service/my-account/totp-activation";
-import {FeedbackMessageComponent} from "../../../../../component/feedback-message/feedback-message.component";
-import {FeedbackMessage} from "../../../../../component/feedback-message/feedback-message";
+import {NotificationService} from "../../../../../service/common/notification.service";
 
 @Component({
   selector: 'app-totp-activation',
   standalone: true,
   imports: [
     MatDialogClose,
-    FormsModule,
-    FeedbackMessageComponent
+    FormsModule
   ],
   templateUrl: './totp-activation.component.html',
   styleUrl: './totp-activation.component.scss'
 })
 export class TotpActivationComponent implements OnInit {
-  feedbackMessage = signal<FeedbackMessage>({});
-  private destroyRef = inject(DestroyRef);
-  dialogRef: MatDialogRef<TotpActivationComponent> = inject(MatDialogRef<TotpActivationComponent>);
-  private myAccountService = inject(MyAccountService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly dialogRef: MatDialogRef<TotpActivationComponent> = inject(MatDialogRef<TotpActivationComponent>);
+  private readonly myAccountService = inject(MyAccountService);
+  private readonly notificationService = inject(NotificationService);
+
   qrCodeData = model<QrCodeData>();
 
   ngOnInit(): void {
@@ -43,14 +42,13 @@ export class TotpActivationComponent implements OnInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: _ => this.onSuccess(),
-          error: err => this.feedbackMessage.set({error: 'Code Invalid'})
+          error: _ => this.notificationService.showError('Code Invalid')
         });
     }
   }
 
   onSuccess() {
-    console.log('2FA TOTP activated');
-    this.feedbackMessage.set({success: '2FA activated successfully'})
+    this.notificationService.showSuccess('2FA activated successfully');
     this.dialogRef.close(true);
   }
 

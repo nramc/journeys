@@ -11,6 +11,7 @@ import {
   EditJourneyPublishDetailsComponent
 } from "./edit-journey-publish-details/edit-journey-publish-details.component";
 import {NgIf} from "@angular/common";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-edit-journey',
@@ -26,7 +27,8 @@ import {NgIf} from "@angular/common";
     MatStepContent,
     EditJourneyVideosDetailsComponent,
     EditJourneyPublishDetailsComponent,
-    NgIf
+    NgIf,
+    MatTooltip
   ],
   standalone: true
 })
