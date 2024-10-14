@@ -5,7 +5,6 @@ import {QrCodeData} from "../../../../../model/account/qr-code-data";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormsModule} from "@angular/forms";
 import {TotpActivation} from "../../../../../service/my-account/totp-activation";
-import {FeedbackMessageComponent} from "../../../../../component/feedback-message/feedback-message.component";
 import {NotificationService} from "../../../../../service/common/notification.service";
 
 @Component({
@@ -13,8 +12,7 @@ import {NotificationService} from "../../../../../service/common/notification.se
   standalone: true,
   imports: [
     MatDialogClose,
-    FormsModule,
-    FeedbackMessageComponent
+    FormsModule
   ],
   templateUrl: './totp-activation.component.html',
   styleUrl: './totp-activation.component.scss'
