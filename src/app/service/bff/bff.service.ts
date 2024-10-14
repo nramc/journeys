@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, shareReplay} from "rxjs";
 import {environment} from "../../../environments/environment";
@@ -8,9 +8,7 @@ import {BffApiVersion} from "./bff-api-version.model";
   providedIn: 'root'
 })
 export class BffService {
-
-  constructor(private httpClient: HttpClient) {
-  }
+  private readonly httpClient = inject(HttpClient)
 
   getVersion(): Observable<BffApiVersion> {
     return this.httpClient.get<BffApiVersion>(environment.journeyApi + '/version', {

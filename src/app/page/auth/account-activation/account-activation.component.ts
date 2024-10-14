@@ -3,7 +3,6 @@ import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {LOGIN_PAGE_INFO} from "../../../model/page.info.model";
 import {ActivatedRoute, RouterLink} from "@angular/router";
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {BffService} from "../../../service/bff/bff.service";
 import {filter, mergeMap} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -21,8 +20,7 @@ export class AccountActivationForm {
     FormsModule,
     NgIf,
     ReactiveFormsModule,
-    RouterLink,
-    MatProgressSpinner
+    RouterLink
   ],
   templateUrl: './account-activation.component.html',
   styles: ''

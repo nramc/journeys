@@ -15,7 +15,6 @@ import {MatIcon} from "@angular/material/icon";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {SearchCriteria} from "../../model/core/search-criteria.model";
 import {FormsModule} from "@angular/forms";
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {toObservable} from "@angular/core/rxjs-interop";
 import {JourneyCardViewComponent} from "../../component/journey-card-view/journey-card-view.component";
 
@@ -42,7 +41,6 @@ export interface SearchResult {
     MatChipsModule,
     MatIcon,
     FormsModule,
-    MatProgressSpinner,
     JourneyCardViewComponent
   ],
   styleUrls: ['./gallery.component.scss']

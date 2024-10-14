@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {Observable, of} from "rxjs";
@@ -9,13 +9,8 @@ import {TimelineData} from "../../component/timeline/timeline-data.model";
   providedIn: 'root'
 })
 export class TimelineService {
-
-
-  constructor(
-    private httpClient: HttpClient,
-    private authService: AuthService
-  ) {
-  }
+  private readonly httpClient = inject(HttpClient);
+  private readonly authService = inject(AuthService);
 
   getTimelineForUpcomingJourniversaries(numberOfDays: number): Observable<TimelineData> {
     let userContext = this.authService.getCurrentUserContext();
@@ -89,7 +84,10 @@ export class TimelineService {
     if (userContext.isAuthenticated) {
       return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
         {
-          headers: {'Authorization': `Bearer ${userContext.accessToken}`},
+          headers: {
+            'Authorization': `Bearer ${userContext.accessToken}`,
+            'X-Async-Process': 'true'
+          },
           params: {
             'today': true
           }
