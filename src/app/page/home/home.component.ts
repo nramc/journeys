@@ -1,4 +1,4 @@
-import {Component, computed, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
 import {HOME_PAGE_INFO} from "../../model/page.info.model";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {AuthService} from "../../service/auth/auth.service";
@@ -25,7 +25,8 @@ import {QuickLinksComponent} from "./quick-links/quick-links.component";
     HasWriteAccessDirective,
     QuickLinksComponent
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
   protected readonly HOME_PAGE_INFO = HOME_PAGE_INFO;
