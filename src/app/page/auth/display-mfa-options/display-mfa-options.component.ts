@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Credential, SecurityAttribute} from "../../../service/auth/login.service";
 import {NgForOf} from "@angular/common";
@@ -28,7 +28,8 @@ export type MfaOptions = {
   styles: `.mfa-option {
     width: 80%;
     height: 3rem;
-  }`
+  }`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayMfaOptionsComponent {
   private destroyRef = inject(DestroyRef);

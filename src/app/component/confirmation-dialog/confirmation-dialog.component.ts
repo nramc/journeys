@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatDialogClose, MatDialogRef} from "@angular/material/dialog";
 import {NgIf} from "@angular/common";
 
@@ -10,7 +10,8 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './confirmation-dialog.component.html',
-  styles: ''
+  styles: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfirmationDialogComponent {
   dialogRef: MatDialogRef<ConfirmationDialogComponent> = inject(MatDialogRef<ConfirmationDialogComponent>);
