@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MY_ACCOUNT_PAGE_INFO} from "../../model/page.info.model";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 
@@ -9,7 +9,8 @@ import {PageHeaderComponent} from "../../component/page-header/page-header.compo
     PageHeaderComponent
   ],
   templateUrl: './my-account-page.component.html',
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyAccountPageComponent {
 

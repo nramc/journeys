@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MY_SECURITY_SETTINGS_PAGE_INFO} from "../../../model/page.info.model";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {MyTotpSettingsComponent} from "./my-totp-settings/my-totp-settings.component";
@@ -15,7 +15,8 @@ import {PasswordSettingsComponent} from "./password-settings/password-settings.c
     PasswordSettingsComponent
   ],
   templateUrl: './my-account-settings-page.component.html',
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyAccountSettingsPageComponent {
   protected readonly MY_SECURITY_SETTINGS_PAGE_INFO = MY_SECURITY_SETTINGS_PAGE_INFO;
