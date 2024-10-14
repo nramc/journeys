@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {LoadingService} from "../../service/common/loading.service";
@@ -29,7 +29,8 @@ import {toSignal} from "@angular/core/rxjs-interop";
       align-items: center;
       z-index: 1000;
     }
-  `]
+  `],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoadingSpinnerComponent {
   private readonly loadingService = inject(LoadingService);
