@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, model} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, model} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogClose, MatDialogRef} from "@angular/material/dialog";
 import {NgIf} from "@angular/common";
 import {MyAccountService} from "../../../service/my-account/my-account.service";
@@ -15,7 +15,8 @@ import {AuthService} from "../../../service/auth/auth.service";
     NgIf
   ],
   templateUrl: './totp-code-verification.component.html',
-  styleUrl: './totp-code-verification.component.scss'
+  styleUrl: './totp-code-verification.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TotpCodeVerificationComponent {
   private destroyRef = inject(DestroyRef);
