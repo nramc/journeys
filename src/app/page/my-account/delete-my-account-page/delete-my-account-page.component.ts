@@ -37,7 +37,11 @@ export class DeleteMyAccountPageComponent {
   }
 
   onSuccess() {
-    this.router.navigate(['/logout']).then(console.log);
+    this.router.navigate(['/logout'], {
+        queryParams: {'forced': 'true'}
+      }
+    )
+      .then(console.log);
   }
 
   cancel() {
