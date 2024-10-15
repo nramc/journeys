@@ -24,6 +24,7 @@ export class EmailCodeVerificationComponent {
   private authService = inject(AuthService);
   dialogRef: MatDialogRef<EmailCodeVerificationComponent> = inject(MatDialogRef<EmailCodeVerificationComponent>);
   credential: Credential = inject(MAT_DIALOG_DATA);
+
   isCodeSent = model(false);
   canSendCode = model(true);
   isCodeValid = model(true);
