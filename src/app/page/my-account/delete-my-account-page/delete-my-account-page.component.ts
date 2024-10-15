@@ -31,7 +31,7 @@ export class DeleteMyAccountPageComponent {
     this.myAccountService.deleteMyAccount()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: data => this.onSuccess(),
+        next: _ => this.onSuccess(),
         error: err => console.error(err)
       });
   }
