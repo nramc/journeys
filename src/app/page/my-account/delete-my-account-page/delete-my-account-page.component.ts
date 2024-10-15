@@ -19,13 +19,11 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 })
 export class DeleteMyAccountPageComponent {
   protected readonly DELETE_MY_ACCOUNT_PAGE_INFO = DELETE_MY_ACCOUNT_PAGE_INFO;
-  private destroyRef = inject(DestroyRef);
 
-  constructor(
-    private router: Router,
-    private myAccountService: MyAccountService
-  ) {
-  }
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
+  private readonly myAccountService = inject(MyAccountService);
+
 
   deleteAccount() {
     this.myAccountService.deleteMyAccount()
