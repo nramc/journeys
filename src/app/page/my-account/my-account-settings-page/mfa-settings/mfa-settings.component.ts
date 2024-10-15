@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, model, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, OnInit} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
 import {Role} from "../../../../service/auth/role";
@@ -18,7 +18,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatTooltip
   ],
   templateUrl: './mfa-settings.component.html',
-  styleUrl: './mfa-settings.component.scss'
+  styleUrl: './mfa-settings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MfaSettingsComponent implements OnInit {
   protected readonly Role = Role;
