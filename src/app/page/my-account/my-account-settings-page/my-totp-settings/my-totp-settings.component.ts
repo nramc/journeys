@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, model, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {TotpActivationComponent} from "./totp-activation/totp-activation.component";
 import {MyAccountService} from "../../../../service/my-account/my-account.service";
@@ -22,7 +22,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatTooltip
   ],
   templateUrl: './my-totp-settings.component.html',
-  styleUrl: './my-totp-settings.component.scss'
+  styleUrl: './my-totp-settings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyTotpSettingsComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
