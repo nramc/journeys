@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject} from '@angular/core';
 import {DELETE_MY_ACCOUNT_PAGE_INFO} from "../../../model/page.info.model";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {MatIcon} from "@angular/material/icon";
@@ -14,7 +14,8 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
     MatIcon
   ],
   templateUrl: './delete-my-account-page.component.html',
-  styleUrl: './delete-my-account-page.component.scss'
+  styleUrl: './delete-my-account-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DeleteMyAccountPageComponent {
   protected readonly DELETE_MY_ACCOUNT_PAGE_INFO = DELETE_MY_ACCOUNT_PAGE_INFO;
