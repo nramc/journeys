@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, model} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, model} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {EmailConfirmationCodeService} from "../../../service/confirmation-code/email-confirmation-code.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -14,7 +14,8 @@ import {FormsModule} from "@angular/forms";
     FormsModule
   ],
   templateUrl: './email-code-verification.component.html',
-  styleUrl: './email-code-verification.component.scss'
+  styleUrl: './email-code-verification.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmailCodeVerificationComponent {
   private destroyRef = inject(DestroyRef);
@@ -23,6 +24,7 @@ export class EmailCodeVerificationComponent {
   private authService = inject(AuthService);
   dialogRef: MatDialogRef<EmailCodeVerificationComponent> = inject(MatDialogRef<EmailCodeVerificationComponent>);
   credential: Credential = inject(MAT_DIALOG_DATA);
+
   isCodeSent = model(false);
   canSendCode = model(true);
   isCodeValid = model(true);

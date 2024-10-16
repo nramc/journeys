@@ -1,4 +1,4 @@
-import {Component, computed, input, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, input, signal, viewChild} from '@angular/core';
 import {GalleryComponent, GalleryItem, GalleryModule, ImageItem} from "ng-gallery";
 import {TimelineData, TimelineImage} from "./timeline-data.model";
 import {NgIf} from "@angular/common";
@@ -16,25 +16,26 @@ export function fnImageEntityToGalleryItem(data: TimelineImage): GalleryItem {
   standalone: true,
   imports: [GalleryModule, NgIf, MatTooltip],
   templateUrl: './timeline.component.html',
-  styleUrl: './timeline.component.scss'
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimelineComponent {
 
   timelineData = input.required<TimelineData | undefined>({alias: 'data'});
   images = computed<GalleryItem[]>(() => this.timelineData()?.images?.map(fnImageEntityToGalleryItem) ?? []);
 
-  @ViewChild(GalleryComponent) gallery!: GalleryComponent;
+  galleryComponent = viewChild.required(GalleryComponent);
 
-  isPlayerRunning: boolean = true;
+  isPlayerRunning = signal<boolean>(true);
 
   togglePlayer() {
-    if (this.isPlayerRunning) {
-      this.gallery.stop();
-      this.isPlayerRunning = false;
+    if (this.isPlayerRunning()) {
+      this.galleryComponent().stop();
+      this.isPlayerRunning.set(false);
     } else {
-      this.gallery.next();
-      this.gallery.play();
-      this.isPlayerRunning = true;
+      this.galleryComponent().next();
+      this.galleryComponent().play();
+      this.isPlayerRunning.set(true);
     }
 
   }

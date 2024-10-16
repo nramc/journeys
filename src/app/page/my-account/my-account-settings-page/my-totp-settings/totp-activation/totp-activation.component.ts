@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, model, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, OnInit} from '@angular/core';
 import {MatDialogClose, MatDialogRef} from "@angular/material/dialog";
 import {MyAccountService} from "../../../../../service/my-account/my-account.service";
 import {QrCodeData} from "../../../../../model/account/qr-code-data";
@@ -15,7 +15,8 @@ import {NotificationService} from "../../../../../service/common/notification.se
     FormsModule
   ],
   templateUrl: './totp-activation.component.html',
-  styleUrl: './totp-activation.component.scss'
+  styleUrl: './totp-activation.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TotpActivationComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);

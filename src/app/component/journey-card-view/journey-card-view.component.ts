@@ -1,4 +1,4 @@
-import {Component, inject, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
 import {DatePipe, NgIf, NgOptimizedImage} from "@angular/common";
 import {Journey} from "../../model/core/journey.model";
 import {Router} from "@angular/router";
@@ -14,7 +14,8 @@ import {HasWriteAccessDirective} from "../../directive/has-write-access.directiv
     NgIf
   ],
   templateUrl: './journey-card-view.component.html',
-  styleUrl: './journey-card-view.component.scss'
+  styleUrl: './journey-card-view.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneyCardViewComponent {
   private router = inject(Router);

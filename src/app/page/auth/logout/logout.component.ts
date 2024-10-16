@@ -1,6 +1,6 @@
-import {Component, ElementRef, inject, OnInit, viewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, viewChild} from '@angular/core';
 import {AuthService} from "../../../service/auth/auth.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
 
 @Component({
@@ -8,15 +8,23 @@ import {MatIcon} from "@angular/material/icon";
   standalone: true,
   imports: [MatIcon],
   templateUrl: './logout.component.html',
-  styleUrl: './logout.component.scss'
+  styleUrl: './logout.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LogoutComponent implements OnInit {
-  private authService: AuthService = inject(AuthService);
-  private router: Router = inject(Router);
+  private readonly authService: AuthService = inject(AuthService);
+  private readonly router: Router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
+
   logoutDialog = viewChild.required<ElementRef<HTMLDialogElement>>('logoutDialog');
 
   ngOnInit(): void {
-    this.logoutDialog().nativeElement.showModal();
+    const isForcedLogout = this.activatedRoute.snapshot.queryParams['forced'] ?? false;
+    if (isForcedLogout) {
+      this.logout();
+    } else {
+      this.logoutDialog().nativeElement.showModal();
+    }
   }
 
   logout() {

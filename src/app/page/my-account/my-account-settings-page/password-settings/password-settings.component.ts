@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, model} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, model} from '@angular/core';
 import {DatePipe, NgIf} from "@angular/common";
 import {MyAccountService} from "../../../../service/my-account/my-account.service";
 import {AppUser} from "../../../../model/account/app-user";
@@ -19,7 +19,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatTooltip
   ],
   templateUrl: './password-settings.component.html',
-  styleUrl: './password-settings.component.scss'
+  styleUrl: './password-settings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PasswordSettingsComponent {
   private destroyRef = inject(DestroyRef);

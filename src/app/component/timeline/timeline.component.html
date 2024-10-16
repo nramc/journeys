@@ -1,11 +1,15 @@
 <div class="fs-5" *ngIf="timelineData()?.heading">
   <p><span class="gradient-text me-2" [textContent]="timelineData()?.heading"></span>
-    <button *ngIf="isPlayerRunning" class="btn btn-sm btn-outline-primary" (click)="togglePlayer()" [matTooltip]="'Pause'">
-      <i class="bi bi-pause-circle"></i>
-    </button>
-    <button *ngIf="!isPlayerRunning" class="btn btn-sm btn-outline-primary" (click)="togglePlayer()" [matTooltip]="'Play'">
-      <i class="bi bi-play-circle"></i>
-    </button>
+    <ng-container *ngIf="images()?.length">
+      <button *ngIf="isPlayerRunning()" class="btn btn-sm btn-outline-primary" (click)="togglePlayer()"
+              [matTooltip]="'Pause'">
+        <i class="bi bi-pause-circle"></i>
+      </button>
+      <button *ngIf="!isPlayerRunning()" class="btn btn-sm btn-outline-primary" (click)="togglePlayer()"
+              [matTooltip]="'Play'">
+        <i class="bi bi-play-circle"></i>
+      </button>
+    </ng-container>
   </p>
 </div>
 
@@ -25,7 +29,7 @@
   </gallery>
 } @else {
   <div>
-    <p class="gradient-text">No events found for next 7 days.</p>
+    <p class="gradient-text">No events found.</p>
   </div>
 }
 

@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject} from '@angular/core';
 import {DELETE_MY_ACCOUNT_PAGE_INFO} from "../../../model/page.info.model";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {MatIcon} from "@angular/material/icon";
@@ -14,29 +14,32 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
     MatIcon
   ],
   templateUrl: './delete-my-account-page.component.html',
-  styleUrl: './delete-my-account-page.component.scss'
+  styleUrl: './delete-my-account-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DeleteMyAccountPageComponent {
   protected readonly DELETE_MY_ACCOUNT_PAGE_INFO = DELETE_MY_ACCOUNT_PAGE_INFO;
-  private destroyRef = inject(DestroyRef);
 
-  constructor(
-    private router: Router,
-    private myAccountService: MyAccountService
-  ) {
-  }
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
+  private readonly myAccountService = inject(MyAccountService);
+
 
   deleteAccount() {
     this.myAccountService.deleteMyAccount()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: data => this.onSuccess(),
+        next: _ => this.onSuccess(),
         error: err => console.error(err)
       });
   }
 
   onSuccess() {
-    this.router.navigate(['/logout']).then(console.log);
+    this.router.navigate(['/logout'], {
+        queryParams: {'forced': 'true'}
+      }
+    )
+      .then(console.log);
   }
 
   cancel() {

@@ -1,4 +1,4 @@
-import {Component, inject, model, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, model, OnInit} from '@angular/core';
 import {Journey} from "../../../model/core/journey.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
@@ -30,7 +30,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     NgIf,
     MatTooltip
   ],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
