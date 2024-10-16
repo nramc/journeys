@@ -2,9 +2,10 @@
 
 <section class="mt-2 container">
   <div class="row d-flex flex-column">
-    <div class="col" *ngIf="upcomingJourniversaries">
-      <div class="form-floating mb-2">
-        <select class="form-select ignore-highlight text-primary" id="numberOfDaysJourniversariesSelect" name="numberOfDaysJourniversariesSelect"
+    <div class="col">
+      <div class="form-floating mb-2 ">
+        <select class="form-select ignore-highlight text-primary border border-2 border-gradient-primary" id="numberOfDaysJourniversariesSelect"
+                name="numberOfDaysJourniversariesSelect"
                 aria-label="Journiversaries days" [(ngModel)]="numberOfDaysJourniversaries"
                 (change)="getDataForUpcomingJourniversaries()">
           <option value="1">Tomorrow</option>
@@ -17,9 +18,10 @@
         </select>
         <label for="numberOfDaysJourniversariesSelect">Choose interval to display Journiversaries</label>
       </div>
+      <hr class="text-primary">
     </div>
     <div class="col">
-      <app-timeline [data]="timelineData"></app-timeline>
+      <app-timeline [data]="timelineData()"></app-timeline>
     </div>
   </div>
 </section>

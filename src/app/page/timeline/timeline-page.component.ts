@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
 import {TimelineComponent} from "../../component/timeline/timeline.component";
 import {TimelineData} from "../../component/timeline/timeline-data.model";
 import {TimelineService} from "../../service/timeline/timeline.service";
@@ -18,19 +18,18 @@ import {FormsModule} from "@angular/forms";
     FormsModule
   ],
   templateUrl: './timeline-page.component.html',
-  styleUrl: './timeline-page.component.scss'
+  styleUrl: './timeline-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimelinePageComponent implements OnInit {
   protected readonly TIMELINE_PAGE_INFO = TIMELINE_PAGE_INFO;
-  timelineData: TimelineData | undefined;
-  upcomingJourniversaries: boolean = false;
-  numberOfDaysJourniversaries: number = 7;
 
-  constructor(
-    private timelineService: TimelineService,
-    private activatedRoute: ActivatedRoute
-  ) {
-  }
+  private readonly timelineService = inject(TimelineService);
+  private readonly activatedRoute = inject(ActivatedRoute);
+
+  numberOfDaysJourniversaries = signal<number>(7);
+  timelineData = signal<TimelineData | undefined>(undefined);
+
 
   ngOnInit(): void {
     let journeyId = this.activatedRoute.snapshot.queryParams['id'];
@@ -50,7 +49,6 @@ export class TimelinePageComponent implements OnInit {
     } else if (category) {
       this.getDataForCategory(category);
     } else {
-      this.upcomingJourniversaries = true;
       this.getDataForUpcomingJourniversaries();
     }
   }
@@ -58,7 +56,7 @@ export class TimelinePageComponent implements OnInit {
   getDataForJourney(journeyId: string) {
     this.timelineService.getTimelineForJourney(journeyId)
       .subscribe({
-        next: data => this.timelineData = data,
+        next: data => this.timelineData.set(data),
         error: err => console.error(err)
       });
   }
@@ -66,7 +64,7 @@ export class TimelinePageComponent implements OnInit {
   getDataForCity(city: string) {
     this.timelineService.getTimelineForCity(city)
       .subscribe({
-        next: data => this.timelineData = data,
+        next: data => this.timelineData.set(data),
         error: err => console.error(err)
       });
   }
@@ -74,7 +72,7 @@ export class TimelinePageComponent implements OnInit {
   getDataForCountry(country: string) {
     this.timelineService.getTimelineForCountry(country)
       .subscribe({
-        next: data => this.timelineData = data,
+        next: data => this.timelineData.set(data),
         error: err => console.error(err)
       });
   }
@@ -82,7 +80,7 @@ export class TimelinePageComponent implements OnInit {
   getDataForYear(year: string) {
     this.timelineService.getTimelineForYear(year)
       .subscribe({
-        next: data => this.timelineData = data,
+        next: data => this.timelineData.set(data),
         error: err => console.error(err)
       });
   }
@@ -90,15 +88,15 @@ export class TimelinePageComponent implements OnInit {
   getDataForCategory(category: string) {
     this.timelineService.getTimelineForCategory(category)
       .subscribe({
-        next: data => this.timelineData = data,
+        next: data => this.timelineData.set(data),
         error: err => console.error(err)
       });
   }
 
   getDataForUpcomingJourniversaries() {
-    this.timelineService.getTimelineForUpcomingJourniversaries(this.numberOfDaysJourniversaries)
+    this.timelineService.getTimelineForUpcomingJourniversaries(this.numberOfDaysJourniversaries())
       .subscribe({
-        next: data => this.timelineData = data,
+        next: data => this.timelineData.set(data),
         error: err => console.error(err)
       });
   }
