@@ -1,4 +1,9 @@
-import {ApplicationConfig, ErrorHandler, importProvidersFrom} from "@angular/core";
+import {
+  ApplicationConfig,
+  ErrorHandler,
+  importProvidersFrom,
+  provideExperimentalZonelessChangeDetection
+} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {NgOptimizedImage} from "@angular/common";
 import {MarkdownModule} from "ngx-markdown";
@@ -17,6 +22,7 @@ import {loadingInterceptor} from "./utility/handler/loading.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideExperimentalZonelessChangeDetection(),
     importProvidersFrom(BrowserModule, NgOptimizedImage, MarkdownModule.forRoot(), MatMenuModule, MatIconModule),
     {
       provide: LIGHTBOX_CONFIG, useValue: {
