@@ -28,7 +28,7 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
              [lightbox]="i"
              [gallery]="galleryId()">
           <img class="journey-image-thumbnail"
-               [src]="item.type == GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
+               [src]="item.type === GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
                height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"
           />
         </div>

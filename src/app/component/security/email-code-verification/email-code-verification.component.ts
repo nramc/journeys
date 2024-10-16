@@ -32,14 +32,20 @@ export class EmailCodeVerificationComponent {
   confirmCode(confirmationCode: HTMLInputElement, confirmButton: HTMLButtonElement) {
     this.isCodeValid.set(true);
     if (confirmationCode.validity.valid) {
-      confirmButton.disabled = true;
-      this.credential ? this.verifyCodeInUnauthenticatedContext(confirmationCode, confirmButton)
-        : this.verifyCodeInAuthenticatedContext(confirmationCode, confirmButton);
+      this.verifyCode(confirmButton, confirmationCode);
     } else {
       this.isCodeValid.set(false);
       console.log('invalid code')
     }
+  }
 
+  private verifyCode(confirmButton: HTMLButtonElement, confirmationCode: HTMLInputElement) {
+    confirmButton.disabled = true;
+    if (this.credential) {
+      this.verifyCodeInUnauthenticatedContext(confirmationCode, confirmButton)
+    } else {
+      this.verifyCodeInAuthenticatedContext(confirmationCode, confirmButton);
+    }
   }
 
   verifyCodeInUnauthenticatedContext(confirmationCode: HTMLInputElement, confirmButton: HTMLButtonElement) {
