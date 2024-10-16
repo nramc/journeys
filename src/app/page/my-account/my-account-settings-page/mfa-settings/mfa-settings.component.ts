@@ -10,7 +10,7 @@ import {ConfirmationDialogComponent} from "../../../../component/confirmation-di
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
-  selector: 'my-mfa-settings',
+  selector: 'app-my-mfa-settings',
   standalone: true,
   imports: [
     NgIf,

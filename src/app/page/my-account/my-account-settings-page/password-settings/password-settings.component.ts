@@ -9,7 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
-  selector: 'my-password-settings',
+  selector: 'app-my-password-settings',
   standalone: true,
   imports: [
     NgIf,
