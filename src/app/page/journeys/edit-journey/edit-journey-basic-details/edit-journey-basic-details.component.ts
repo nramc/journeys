@@ -48,7 +48,7 @@ export class EditJourneyBasicDetailsComponent {
 
   coordinates = computed<number[]>(() => this.journey().location?.coordinates ?? []);
 
-  onError(errorMessage: string, err: any) {
+  onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
     console.error(err);
   }

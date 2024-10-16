@@ -10,7 +10,7 @@ export class CustomErrorHandler implements ErrorHandler {
   constructor(private router: Router) {
   }
 
-  handleError(err: any) {
+  handleError(err: Error) {
     if (err && err instanceof HttpErrorResponse) {
       this.handleHttpError(err);
     }

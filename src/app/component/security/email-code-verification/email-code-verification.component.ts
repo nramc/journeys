@@ -75,7 +75,7 @@ export class EmailCodeVerificationComponent {
     this.dialogRef.close(true);
   }
 
-  onVerificationError(err: any, confirmButton: HTMLButtonElement) {
+  onVerificationError(err: Error, confirmButton: HTMLButtonElement) {
     console.log(err);
     this.isCodeValid.set(false);
     confirmButton.disabled = false;
@@ -91,7 +91,7 @@ export class EmailCodeVerificationComponent {
       });
   }
 
-  onSentError(err: any) {
+  onSentError(err: Error) {
     console.log(err)
     this.canSendCode.set(true);
   }

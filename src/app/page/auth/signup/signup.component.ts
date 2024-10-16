@@ -44,7 +44,7 @@ export class SignupComponent {
           error: err => this.onErrorCallback(err)
         });
     } else {
-      this.onErrorCallback();
+      this.onErrorCallback(new Error('form data invalid'));
     }
   }
 
@@ -52,7 +52,7 @@ export class SignupComponent {
     this.isSuccessful.set(true);
   }
 
-  onErrorCallback(err: any = {}) {
+  onErrorCallback(err: Error) {
     console.log('data not valid', err);
     this.isErrorOccurred.set(true);
   }

@@ -49,7 +49,7 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
     this.notificationService.showSuccess('Journey details saved successfully.');
   }
 
-  onError(errorMessage: string, err: any) {
+  onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
     console.error(err);
   }

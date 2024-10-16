@@ -69,7 +69,7 @@ export class TotpCodeVerificationComponent {
     }
   }
 
-  onError(err: any) {
+  onError(err: Error) {
     console.log(err);
     this.isCodeInvalid.set(true);
   }

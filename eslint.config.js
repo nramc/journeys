@@ -31,7 +31,14 @@ module.exports = tseslint.config(
         },
       ],
       "@typescript-eslint/no-explicit-any": ["off"],
-      "@typescript-eslint/no-unused-vars": ["off"]
+      // ignore if variable starts with _ (underscore)
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "varsIgnorePattern": "^_",
+          "argsIgnorePattern": "^_"
+        }
+      ]
     },
   },
   {
