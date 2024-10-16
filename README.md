@@ -10,8 +10,6 @@
 
 ###### Your Portal to the Past
 
-> Preserve Your Travel Memories with Narration, Geo Information, and Media
-
 <hr />
 
 [![Website](https://img.shields.io/badge/website-online-brightgreen.svg)](https://nramc.github.io/journeys/)
