@@ -77,14 +77,14 @@
 
   <div class="row mt-3">
     <div class="col-12 d-grid gap-2 d-flex justify-content-center">
-      <button type="button" class="btn btn-outline-danger" (click)="deleteJourneyDialog.showModal();" *hasWriteAccess>
+      <button type="button" class="btn btn-outline-danger" (click)="deleteJourneyDialog.showModal();" *appHasWriteAccess>
         Delete Journey
       </button>
-      <button type="button" class="btn btn-outline-primary" [disabled]="!journeyForm.form.valid" *hasWriteAccess
+      <button type="button" class="btn btn-outline-primary" [disabled]="!journeyForm.form.valid" *appHasWriteAccess
               (click)="save(journeyForm)">
         Save as Draft
       </button>
-      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid" *hasWriteAccess>
+      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid" *appHasWriteAccess>
         Publish
       </button>
 
