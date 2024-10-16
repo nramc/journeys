@@ -12,7 +12,7 @@ import {
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import 'leaflet.fullscreen';
-// @ts-ignore
+// @ts-expect-error has to be analysed later
 import {MaptilerLayer} from "@maptiler/leaflet-maptilersdk";
 import {GeocodingControl} from "@maptiler/geocoding-control/leaflet";
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
@@ -90,7 +90,7 @@ export class WorldMapComponent implements AfterViewInit {
 
     this.map = L.map(this.elementRef.nativeElement.querySelector("div.map-renderer"),
       {
-        // @ts-ignore
+        // @ts-expect-error 3rd party plugin used for fullscreen support
         fullscreenControl: true,
         forceSeparateButton: true,
         fullscreenControlOptions: {

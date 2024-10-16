@@ -14,12 +14,12 @@ export class AppUser {
     this._name = value;
   }
 
-  get username() {
-    return this._username
-  }
-
   get name(): string {
     return this._name;
+  }
+
+  get username() {
+    return this._username
   }
 
   get createdDate(): string {

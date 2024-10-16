@@ -3,11 +3,11 @@ import {AuthService} from "../service/auth/auth.service";
 import {Role} from "../service/auth/role";
 
 @Directive({
-  selector: '[disableIfNoRoleExists]',
+  selector: '[appDisableIfNoRoleExists]',
   standalone: true
 })
 export class DisableIfNoRoleExistsDirective implements OnInit {
-  roles = input.required<Role[]>({alias: 'disableIfNoRoleExists'});
+  roles = input.required<Role[]>({alias: 'appDisableIfNoRoleExists'});
 
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);

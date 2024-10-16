@@ -74,7 +74,7 @@ import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
                 </div>
                 <div class="input-group-text">
                   <button class="btn btn-sm btn-outline-secondary bi bi-calendar3 " (click)="d.toggle()"
-                          type="button"></button>
+                          type="button">&nbsp;</button>
                 </div>
               </div>
 
