@@ -118,7 +118,7 @@ export class WorldMapComponent implements AfterViewInit {
     // https://docs.maptiler.com/sdk-js/modules/geocoding/api/usage/leaflet/
     // https://docs.maptiler.com/sdk-js/modules/geocoding/api/api-reference/#event:pick
     if (this.map) {
-      let geocodingControl = new GeocodingControl({
+      const geocodingControl = new GeocodingControl({
         apiKey: environment.maptilerKey,
         class: 'text-primary',
         debounceSearch: 1000,
@@ -180,7 +180,7 @@ export class WorldMapComponent implements AfterViewInit {
   }
 
   private flyToBound() {
-    let bounds = this.geoJsonLayer?.getBounds();
+    const bounds = this.geoJsonLayer?.getBounds();
     if (bounds) {
       this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom(), paddingTopLeft: [25, 25]});
     }
@@ -189,7 +189,7 @@ export class WorldMapComponent implements AfterViewInit {
   private addGeoJsonLayer() {
 
     const getPopupComponentNativeElement = (feature: Feature) => {
-      let popupComponent = this.markerPopupViewContainerRef().createComponent(MarkerPopupComponent);
+      const popupComponent = this.markerPopupViewContainerRef().createComponent(MarkerPopupComponent);
       popupComponent.setInput('feature', feature);
       return popupComponent?.instance.elementRef.nativeElement;
     }
@@ -207,7 +207,7 @@ export class WorldMapComponent implements AfterViewInit {
           if (isPopupRequired) {
             layer.bindPopup(getPopupComponentNativeElement(feature));
           }
-          let featureName = feature.properties?.['name'];
+          const featureName = feature.properties?.['name'];
           if (featureName) {
             layer.bindTooltip(featureName);
           }

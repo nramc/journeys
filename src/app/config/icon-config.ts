@@ -108,7 +108,7 @@ export const iconDefault = L.divIcon({
   shadowSize: [41, 41]
 });
 
-export function getIcon(feature: Feature, iconType: string = 'default') {
+export function getIcon(feature: Feature, iconType = 'default') {
   if (feature?.properties?.["icon"]) {
     return getIconForType(feature?.properties?.["icon"]);
   } else if (iconType) {

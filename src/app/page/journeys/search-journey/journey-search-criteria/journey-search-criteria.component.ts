@@ -20,7 +20,7 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
 export class JourneySearchCriteriaComponent {
   searchEvent = output<string>();
 
-  q: string = '';
+  q = '';
 
   submitSearch(searchForm: NgForm) {
     if (searchForm.valid) {

@@ -50,7 +50,7 @@
             <input id="category" type="text" class="form-control" [(ngModel)]="journey().category"
                    [ngbTypeahead]="searchCategory"
                    required minlength="3" maxlength="50"
-                   [disabled]="journey().id != ''" name="category" #category="ngModel">
+                   [disabled]="journey().id !== ''" name="category" #category="ngModel">
 
             <div [hidden]="category.valid || category.pristine" class="form-text text-danger">
               <div *ngIf="category.errors?.['required']">Category is required.</div>
@@ -82,7 +82,7 @@
             <label for="iconType" class="form-label">Icon</label>
             <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
                     (ngModelChange)="refreshMapWithCoordinates()"
-                    [(ngModel)]="journey().icon" required [disabled]="journey().id != ''" name="iconType"
+                    [(ngModel)]="journey().icon" required [disabled]="journey().id !== ''" name="iconType"
                     #iconType="ngModel">
               @for (iconType of SUPPORTED_ICONS; track iconType) {
                 <option [value]="iconType">{{ iconType }}</option>
@@ -207,10 +207,10 @@
               <mat-button-toggle value="Preview">Preview</mat-button-toggle>
             </mat-button-toggle-group>
             <textarea rows="15" class="form-control" id="description" name="description" required minlength="10"
-                      maxlength="5000" #description="ngModel" [hidden]="markdownStyle() == 'Preview'"
+                      maxlength="5000" #description="ngModel" [hidden]="markdownStyle() === 'Preview'"
                       [(ngModel)]="journey().description"
                       placeholder="Detailed information about the Journey" [readOnly]="journey().id"></textarea>
-            <div [hidden]="markdownStyle() != 'Preview'" style="height: 25rem;">
+            <div [hidden]="markdownStyle() !== 'Preview'" style="height: 25rem;">
               <app-display-markdown-component
                 [title]="journey().title"
                 [markdownText]="journey().description"></app-display-markdown-component>

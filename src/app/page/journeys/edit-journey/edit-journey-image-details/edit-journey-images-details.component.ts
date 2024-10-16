@@ -85,7 +85,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
       });
   }
 
-  openUploadWidget(isMultipleUpload: boolean = true) {
+  openUploadWidget(isMultipleUpload = true) {
     // @ts-ignore
     cloudinary.createUploadWidget(
       this.getWidgetParams(this.journey(), isMultipleUpload),

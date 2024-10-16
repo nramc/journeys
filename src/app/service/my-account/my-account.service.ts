@@ -21,14 +21,14 @@ export class MyAccountService {
   }
 
   getProfileData(): Observable<AppUser> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<AppUser>(environment.journeyApi + '/my-account', {
       headers: {'Authorization': `Bearer ${userContext.accessToken}`}
     });
   }
 
   saveProfileData(profileData: AppUser) {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.post<void>(environment.journeyApi + '/my-account', profileData, {
       headers: {
         'Authorization': `Bearer ${userContext.accessToken}`,
@@ -38,7 +38,7 @@ export class MyAccountService {
   }
 
   deleteMyAccount() {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.delete<void>(environment.journeyApi + '/my-account', {
       headers: {
         'Authorization': `Bearer ${userContext.accessToken}`,
@@ -48,14 +48,14 @@ export class MyAccountService {
   }
 
   generateNewQRCode() {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<QrCodeData>(environment.journeyApi + '/my-account/securityAttribute/totp', {
       headers: {'Authorization': `Bearer ${userContext.accessToken}`}
     });
   }
 
   activateTotp(activationRequest: TotpActivation) {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.post(environment.journeyApi + '/my-account/securityAttribute/totp', activationRequest, {
       headers: {
         'Authorization': `Bearer ${userContext.accessToken}`,
@@ -65,14 +65,14 @@ export class MyAccountService {
   }
 
   getTotpStatus() {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TotpStatus>(environment.journeyApi + '/my-account/securityAttribute/totp/status', {
       headers: {'Authorization': `Bearer ${userContext.accessToken}`}
     });
   }
 
   verifyTotpCode(code: string) {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.post<TotpCodeVerification>(environment.journeyApi + '/my-account/securityAttribute/totp/verify', {
       code: code
     }, {
@@ -84,14 +84,14 @@ export class MyAccountService {
   }
 
   deactivateTotp() {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.delete(environment.journeyApi + '/my-account/securityAttribute/totp', {
       headers: {'Authorization': `Bearer ${userContext.accessToken}`}
     });
   }
 
   changeMfaStatus(status: boolean) {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.post(environment.journeyApi + '/my-account/securityAttribute/mfa', {
       status: status
     }, {
@@ -100,7 +100,7 @@ export class MyAccountService {
   }
 
   changePassword(newPassword: string) {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.post(environment.journeyApi + '/my-account/changePassword', {
       newPassword: newPassword
     }, {

@@ -12,7 +12,7 @@ export class AuthService {
   private user$: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(new UserContext());
 
   constructor() {
-    let localAuth = AuthUtils.getUserContextFromLocalStorage();
+    const localAuth = AuthUtils.getUserContextFromLocalStorage();
     if (localAuth) {
       this.setUserContext(localAuth);
     }
@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   public getUserContextForSuccessfulLogin(loginResponse: LoginResponse) {
-    let userContext = new UserContext(
+    const userContext = new UserContext(
       loginResponse.name,
       true,
       loginResponse.authorities,

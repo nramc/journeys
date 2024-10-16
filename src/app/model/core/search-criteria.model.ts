@@ -1,10 +1,10 @@
 export class SearchCriteria {
   constructor(
-    public text: string = '',
-    public city: string = '',
-    public country: string = '',
-    public category: string = '',
-    public year: string = ''
+    public text = '',
+    public city = '',
+    public country = '',
+    public category = '',
+    public year = ''
   ) {
   }
 }

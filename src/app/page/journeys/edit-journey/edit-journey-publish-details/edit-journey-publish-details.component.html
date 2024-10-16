@@ -67,7 +67,7 @@
           }
         </select>
       </div>
-      <div class="text-center" *ngIf="thumbnail.value && thumbnail.value != 'default'">
+      <div class="text-center" *ngIf="thumbnail.value && thumbnail.value !== 'default'">
         <img [src]="thumbnail.value"
              class="journey-thumbnail-img rounded border border-2 border-primary border-opacity-50 h-200-px w-200-px"
              [alt]="thumbnail.value">
@@ -102,7 +102,7 @@
         </div>
       </div>
       <div class="d-flex gap-3">
-        <button type="button" class="btn btn-outline-success" (click)="deleteJourneyDialog.close()" autofocus>No, Keep it</button>
+        <button type="button" class="btn btn-outline-success" (click)="deleteJourneyDialog.close()">No, Keep it</button>
         <button type="button" class="btn btn-outline-danger" (click)="deleteJourneyDialog.close();delete()">Yes, Delete forever</button>
       </div>
     </div>

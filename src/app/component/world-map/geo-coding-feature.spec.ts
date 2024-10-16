@@ -2,7 +2,7 @@ import {GeoCodingContext, GeoCodingFeature} from "./geo-coding-feature";
 
 describe('GeoCodingFeature', () => {
 
-  let geoCodingLocation = new GeoCodingFeature(
+  const geoCodingLocation = new GeoCodingFeature(
     'Chennai, Tamil Nadu, India',
     {type: "Point", coordinates: [80.270185880363, 13.08369403771086]},
     [
@@ -11,7 +11,7 @@ describe('GeoCodingFeature', () => {
     ]
   );
 
-  let geoCodingArea = new GeoCodingFeature(
+  const geoCodingArea = new GeoCodingFeature(
     'Chennai, Tamil Nadu, India',
     {
       type: "MultiPolygon", coordinates: [

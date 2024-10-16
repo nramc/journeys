@@ -17,7 +17,7 @@ export class StatisticsService {
   }
 
   getStatistics(): Observable<Statistics> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<Statistics>(environment.journeyApi + '/journeys/statistics',
       {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`}

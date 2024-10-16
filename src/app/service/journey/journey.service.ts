@@ -21,7 +21,7 @@ export class JourneyService {
   }
 
   createJourney(journey: Journey): Observable<Journey> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
 
     return this.httpClient.post<Journey>(
       environment.journeyApi + '/journey', journey,
@@ -57,7 +57,7 @@ export class JourneyService {
   }
 
   getAllJourneys(params: HttpParams): Observable<JourneyPage> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<JourneyPage>(environment.journeyApi + '/journeys',
       {
         params: params,
@@ -66,7 +66,7 @@ export class JourneyService {
   }
 
   getAllJourneysAsGeoJson(): Observable<FeatureCollection> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<FeatureCollection>(environment.journeyApi + '/journeys/published',
       {
         headers: {
@@ -77,14 +77,14 @@ export class JourneyService {
   }
 
   getJourneyById(id: string): Observable<Journey> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<Journey>(environment.journeyApi + '/journey/' + id, {
       headers: {'Authorization': `Bearer ${userContext.accessToken}`}
     });
   }
 
   saveJourneyBasicDetails(journey: Journey): Observable<Journey> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.put<Journey>(environment.journeyApi + '/journey/' + journey.id, journey,
       {
         headers: {
@@ -95,7 +95,7 @@ export class JourneyService {
   }
 
   saveJourneyGeoDetails(journey: Journey, geoDetails: JourneyGeoDetails): Observable<Journey> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.put<Journey>(environment.journeyApi + '/journey/' + journey.id, geoDetails,
       {
         headers: {
@@ -106,7 +106,7 @@ export class JourneyService {
   }
 
   saveJourneyImagesDetails(journey: Journey, imagesDetails: JourneyImagesDetails): Observable<Journey> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.put<Journey>(environment.journeyApi + '/journey/' + journey.id, imagesDetails,
       {
         headers: {
@@ -117,7 +117,7 @@ export class JourneyService {
   }
 
   saveJourneyVideosDetails(journey: Journey, videosDetails: JourneyVideosDetails): Observable<Journey> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.put<Journey>(environment.journeyApi + '/journey/' + journey.id, videosDetails,
       {
         headers: {
@@ -128,7 +128,7 @@ export class JourneyService {
   }
 
   publishJourney(journey: Journey): Observable<Journey> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.put<Journey>(environment.journeyApi + '/journey/' + journey.id, journey,
       {
         headers: {
@@ -139,7 +139,7 @@ export class JourneyService {
   }
 
   deleteJourney(journey: Journey) {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.delete<void>(environment.journeyApi + '/journey/' + journey.id,
       {
         headers: {

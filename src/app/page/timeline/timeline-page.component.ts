@@ -32,11 +32,11 @@ export class TimelinePageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    let journeyId = this.activatedRoute.snapshot.queryParams['id'];
-    let city = this.activatedRoute.snapshot.queryParams['city'];
-    let country = this.activatedRoute.snapshot.queryParams['country'];
-    let year = this.activatedRoute.snapshot.queryParams['year'];
-    let category = this.activatedRoute.snapshot.queryParams['category'];
+    const journeyId = this.activatedRoute.snapshot.queryParams['id'];
+    const city = this.activatedRoute.snapshot.queryParams['city'];
+    const country = this.activatedRoute.snapshot.queryParams['country'];
+    const year = this.activatedRoute.snapshot.queryParams['year'];
+    const category = this.activatedRoute.snapshot.queryParams['category'];
 
     if (journeyId) {
       this.getDataForJourney(journeyId);

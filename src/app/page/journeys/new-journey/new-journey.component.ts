@@ -50,8 +50,8 @@ export class NewJourneyComponent {
   coordinates = signal<number[]>([]);
   markdownStyle = signal<string>('Source')
 
-  successMessage: string = '';
-  errorMessage: string = '';
+  successMessage = '';
+  errorMessage = '';
 
   setSuccess(message: string) {
     this.successMessage = message;
@@ -132,7 +132,7 @@ export class NewJourneyComponent {
     const copiedValue = await navigator.clipboard.readText()
     console.debug('Value copied from clipboard:', copiedValue);
     if (copiedValue && copiedValue.split(',').length > 1) {
-      let copiedCoordinates = copiedValue.split(',');
+      const copiedCoordinates = copiedValue.split(',');
       this.coordinates.set([Number(copiedCoordinates[1]), Number(copiedCoordinates[0])]);
       this.refreshMapWithCoordinates();
     }
@@ -143,7 +143,7 @@ export class NewJourneyComponent {
     const copiedValue = await navigator.clipboard.readText()
     console.debug('Value copied from clipboard:', copiedValue);
     if (copiedValue) {
-      let copiedCoordinates = copiedValue.split(',');
+      const copiedCoordinates = copiedValue.split(',');
       this.coordinates.set([Number(copiedCoordinates[0]), Number(copiedCoordinates[1])])
       this.refreshMapWithCoordinates();
     }

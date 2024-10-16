@@ -58,7 +58,7 @@ export class ViewJourneyComponent implements OnInit {
   }
 
   getVideos(journey: Journey) {
-    let videos = new Array<string>()
+    const videos = new Array<string>()
     journey.extendedDetails?.videosDetails?.videos?.map(videoDetail => videos.push(videoDetail.videoId));
     return videos;
   }

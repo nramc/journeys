@@ -13,7 +13,7 @@ export class TimelineService {
   private readonly authService = inject(AuthService);
 
   getTimelineForUpcomingJourniversaries(numberOfDays: number): Observable<TimelineData> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
       {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`},
@@ -24,7 +24,7 @@ export class TimelineService {
   }
 
   getTimelineForJourney(journeyId: string): Observable<TimelineData> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
       {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`},
@@ -35,7 +35,7 @@ export class TimelineService {
   }
 
   getTimelineForCity(city: string): Observable<TimelineData> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
       {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`},
@@ -46,7 +46,7 @@ export class TimelineService {
   }
 
   getTimelineForCountry(country: string): Observable<TimelineData> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
       {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`},
@@ -57,7 +57,7 @@ export class TimelineService {
   }
 
   getTimelineForYear(year: string): Observable<TimelineData> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
       {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`},
@@ -68,7 +68,7 @@ export class TimelineService {
   }
 
   getTimelineForCategory(category: string): Observable<TimelineData> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
       {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`},
@@ -79,7 +79,7 @@ export class TimelineService {
   }
 
   getTimelineForToday(): Observable<TimelineData> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
 
     if (userContext.isAuthenticated) {
       return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',

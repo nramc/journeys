@@ -52,7 +52,7 @@ export class LoginComponent {
   onLoginSuccess(credential: Credential, loginResponse: LoginResponse) {
     if (loginResponse.additionalFactorRequired) {
       // redirect to a component which displays all security attributes
-      let mfaOptions: MfaOptions = {
+      const mfaOptions: MfaOptions = {
         credential: credential,
         options: loginResponse.securityAttributes
       };
@@ -62,7 +62,7 @@ export class LoginComponent {
       })
         .then(console.log);
     } else {
-      let userContext = this.authService.getUserContextForSuccessfulLogin(loginResponse);
+      const userContext = this.authService.getUserContextForSuccessfulLogin(loginResponse);
       this.onLogOnSuccess(userContext);
     }
   }
@@ -74,14 +74,14 @@ export class LoginComponent {
 
   onLogOnSuccess(_: UserContext) {
     this.notificationService.showSuccess('Login successful!');
-    let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
+    const targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
     this.router.navigateByUrl(targetUrl).then(console.log);
   }
 
   loginAsGuest() {
     this.loginService.loginAsGuest().subscribe({
       next: loginResponse => {
-        let userContext = this.authService.getUserContextForSuccessfulLogin(loginResponse);
+        const userContext = this.authService.getUserContextForSuccessfulLogin(loginResponse);
         this.onLogOnSuccess(userContext);
       },
       error: error => this.onLoginFailed(error)

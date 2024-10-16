@@ -16,7 +16,7 @@ export class AutoCompleteService {
   }
 
   getAvailableCategories(text: string): Observable<string[]> {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.get<string[]>(environment.journeyApi + '/categories',
       {
         params: {

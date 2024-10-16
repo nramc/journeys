@@ -64,7 +64,7 @@ export class MediaGalleryComponent implements OnInit {
   }
 
   private getGalleryItems(): GalleryItem[] {
-    let collections = new Array<GalleryItem>();
+    const collections = new Array<GalleryItem>();
     this.getImageItems()?.map(item => collections.push(item));
     this.getVideoItems()?.map(item => collections.push(item));
     return collections;

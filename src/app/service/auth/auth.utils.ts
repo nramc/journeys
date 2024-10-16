@@ -10,12 +10,12 @@ export default class AuthUtils {
   }
 
   static getUserContextFromLocalStorage() {
-    let content = localStorage.getItem(AuthUtils.USER_CONTEXT_KEY);
+    const content = localStorage.getItem(AuthUtils.USER_CONTEXT_KEY);
 
     if (content) {
-      let contentAsJson = JSON.parse(content);
+      const contentAsJson = JSON.parse(content);
       if (Date.now() < Date.parse(contentAsJson.expiredAt)) {
-        let userContext = new UserContext(
+        const userContext = new UserContext(
           contentAsJson.name,
           contentAsJson.isAuthenticated,
           contentAsJson.roles,

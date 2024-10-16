@@ -91,7 +91,7 @@
                   maxlength="5000" #description="ngModel"
                   [(ngModel)]="journey().description" [hidden]="markdownStyle() === 'Preview'"
                   placeholder="Detailed information about the Journey"></textarea>
-        <div [hidden]="markdownStyle() == 'Source'" style="height: 25rem;">
+        <div [hidden]="markdownStyle() === 'Source'" style="height: 25rem;">
           <app-display-markdown-component
             [title]="journey().title"
             [markdownText]="journey().description"></app-display-markdown-component>
