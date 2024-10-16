@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {
   ABOUT_PAGE_INFO,
   DASHBOARD_PAGE_INFO,
@@ -13,15 +13,16 @@ import {
 } from "../../model/page.info.model";
 import {AuthService} from "../../service/auth/auth.service";
 import {toSignal} from "@angular/core/rxjs-interop";
-import { NgOptimizedImage, NgIf } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {NgIf, NgOptimizedImage} from '@angular/common';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
-    selector: 'app-side-navbar',
-    templateUrl: './side-navbar.component.html',
-    styleUrls: ['./side-navbar.component.scss'],
-    standalone: true,
-    imports: [RouterLink, NgOptimizedImage, RouterLinkActive, NgIf]
+  selector: 'app-side-navbar',
+  templateUrl: './side-navbar.component.html',
+  styleUrls: ['./side-navbar.component.scss'],
+  standalone: true,
+  imports: [RouterLink, NgOptimizedImage, RouterLinkActive, NgIf],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SideNavbarComponent {
   protected readonly HOME_PAGE_INFO = HOME_PAGE_INFO;

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, signal, viewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit, signal, viewChild} from '@angular/core';
 import {BehaviorSubject, catchError, merge, of, startWith, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
@@ -43,7 +43,8 @@ export interface SearchResult {
     FormsModule,
     JourneyCardViewComponent
   ],
-  styleUrls: ['./gallery.component.scss']
+  styleUrls: ['./gallery.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
 // Sorting properties
