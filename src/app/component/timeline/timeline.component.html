@@ -14,9 +14,9 @@
 </div>
 
 @if (images() && images().length > 0) {
-  <gallery class="gallery" [items]="images()" [thumb]="false" [imageSize]="'contain'" [dots]="true"
+  <gallery class="gallery" [items]="images()" [thumbs]="false" [imageSize]="'contain'" [bullets]="true"
            (itemClick)="togglePlayer()"
-           [playerInterval]="3000" [loop]="true" [slidingDuration]="500" [autoPlay]="true">
+           [autoplayInterval]="3000" [loop]="true" [scrollDuration]="500" [autoplay]="true">
     <ng-container *galleryImageDef="let item;">
       <div class="text-start d-flex flex-row w-100" *ngIf="item?.args?.['title']">
         <span
