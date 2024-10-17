@@ -1,4 +1,4 @@
-import {Component, model} from '@angular/core';
+import {Component, input, model} from '@angular/core';
 import {MatChipInputEvent, MatChipsModule} from "@angular/material/chips";
 import {MatIcon} from "@angular/material/icon";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
@@ -17,6 +17,7 @@ export class TagsInputComponent {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
 
   tags = model<string[]>([]);
+  disabled = input<boolean>(false);
 
   addTag(event: MatChipInputEvent): void {
     const newTag = (event.value || '').toLowerCase().trim();
