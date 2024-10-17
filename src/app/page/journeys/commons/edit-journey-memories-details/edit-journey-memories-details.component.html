@@ -5,7 +5,7 @@
     <div class="mb-3 col-md-8 col-12">
       <label for="name" class="form-label">Name</label>
       <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="memoriesForm.name"
-             #name=ngModel
+             #name=ngModel [disabled]="isReadOnly()"
              maxlength="50" minlength="5" placeholder="Name your Journey">
       <div [hidden]="name.valid || name.pristine" class="form-text text-danger">
         <div *ngIf="name.errors?.['required']">Name is required.</div>
@@ -19,7 +19,7 @@
       <label for="journeyDate" class="form-label">Journey Date</label>
       <div class="input-group">
         <input type="text" class="form-control" id="journeyDate" name="journeyDate"
-               [(ngModel)]="memoriesForm.journeyDate"
+               [(ngModel)]="memoriesForm.journeyDate" [disabled]="isReadOnly()"
                #journeyDate="ngModel" required placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
         <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button">&nbsp;</button>
         <div [hidden]="journeyDate.valid || journeyDate.pristine" class="form-text text-danger">
@@ -31,7 +31,7 @@
     <!-- icon -->
     <div class="mb-3 col-12 col-md-2">
       <label for="iconType" class="form-label">Icon</label>
-      <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
+      <select id="iconType" class="form-select form-select-sm" aria-label="Icon" [disabled]="isReadOnly()"
               [(ngModel)]="memoriesForm.icon" required name="iconType" #iconType="ngModel">
         @for (iconType of SUPPORTED_ICONS; track iconType) {
           <option [value]="iconType">{{ iconType| titlecase }}</option>
@@ -47,21 +47,27 @@
   <div class="row">
     <!-- Tags -->
     <div class="col-12">
-      <app-tags-input [(tags)]="memoriesForm.tags"></app-tags-input>
+      <app-tags-input [(tags)]="memoriesForm.tags" [disabled]="isReadOnly()"></app-tags-input>
     </div>
   </div>
 
   <!-- Memories -->
   <div class="row">
     <div class="mb-3 mt-3 col-12">
-      <app-narration [title]="memoriesForm.name()" [(narration)]="memoriesForm.description"></app-narration>
+      <app-narration [title]="memoriesForm.name()" [(narration)]="memoriesForm.description"
+                     [disabled]="isReadOnly()" [markdownStyle]="isReadOnly() ? 'Preview' : 'Source'"></app-narration>
     </div>
   </div>
 
   <div class="row">
     <div class="col-12 d-grid gap-2 d-flex justify-content-center">
-      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid">
+      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid"
+      [hidden]="isReadOnly()">
         Save
+      </button>
+      <button type="button" class="btn btn-outline-success" (click)="enableEditMode()"
+              [hidden]="isEditable()" *appHasWriteAccess>
+        Edit
       </button>
       <button type="button" class="btn btn-outline-primary" [disabled]="!journeyForm.form.valid"
               matStepperNext>Next

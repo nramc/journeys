@@ -1,4 +1,4 @@
-import {Component, inject, input, model, signal} from '@angular/core';
+import {Component, computed, inject, model, signal} from '@angular/core';
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {NotificationService} from "../../../../service/common/notification.service";
@@ -14,6 +14,7 @@ import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 import {MatStepperModule} from "@angular/material/stepper";
 import {TagsInputComponent} from "../../../../component/tags-input/tags-input.component";
 import {NarrationComponent} from "../../../../component/narration/narration.component";
+import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 
 @Component({
   selector: 'app-edit-journey-memories-details',
@@ -29,7 +30,8 @@ import {NarrationComponent} from "../../../../component/narration/narration.comp
     NgbInputDatepicker,
     MatStepperModule,
     TagsInputComponent,
-    NarrationComponent
+    NarrationComponent,
+    HasWriteAccessDirective
   ],
   templateUrl: './edit-journey-memories-details.component.html',
   styleUrl: './edit-journey-memories-details.component.scss'
@@ -40,7 +42,9 @@ export class EditJourneyMemoriesDetailsComponent {
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
 
-  mode = input<OperationMode>(OperationMode.VIEW);
+  mode = model<OperationMode>(OperationMode.VIEW); //todo change it to VIEW
+  isEditable = computed(() => this.mode() === OperationMode.EDIT || this.mode() === OperationMode.NEW);
+  isReadOnly = computed(() => this.mode() == OperationMode.VIEW);
 
   journey = model<Journey>(new Journey());
 
@@ -48,7 +52,7 @@ export class EditJourneyMemoriesDetailsComponent {
     name: signal<string>(this.journey().name),
     journeyDate: signal<string>(this.journey().journeyDate),
     icon: signal<string>(this.journey().icon),
-    tags: signal<string[]>(this.journey().tags),
+    tags: signal<string[]>([]),
     description: signal<string>(this.journey().description)
   };
 
@@ -78,8 +82,9 @@ export class EditJourneyMemoriesDetailsComponent {
           error: err => this.onError('Unexpected error while saving data', err)
         });
     }
-
-
   }
 
+  enableEditMode() {
+    this.mode.set(OperationMode.EDIT);
+  }
 }
