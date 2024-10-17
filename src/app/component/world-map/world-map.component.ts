@@ -128,6 +128,7 @@ export class WorldMapComponent implements AfterViewInit {
       });
       this.map.addControl(geocodingControl);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.map.on("pick", (eventData: any) => this.emitGeoCodingData(new GeoCodingFeature(
         eventData['place_name'],
         eventData['geometry'],

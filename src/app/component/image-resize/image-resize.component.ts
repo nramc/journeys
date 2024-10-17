@@ -53,7 +53,7 @@ export class ImageResizeComponent {
   totalImages = signal<number>(0);
   resizedImages = signal<ImageResource[]>([]);
 
-   
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onFileChange(event: any) {
     this.isProcessing.set(true);
     const files = event.target.files;
@@ -63,7 +63,8 @@ export class ImageResizeComponent {
       for (const element of files) {
         const file = element;
         const reader = new FileReader();
-         
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         reader.onload = (e: any) => {
           const img = new Image();
           img.onload = () => {

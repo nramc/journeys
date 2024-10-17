@@ -65,6 +65,7 @@ export class DisplayMfaOptionsComponent {
       .subscribe(result => this.onCloseCallback(result));
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onCloseCallback(result: any) {
     if (result === true) {
       const targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
