@@ -12,7 +12,7 @@
     <mat-step [completed]="isBasicDetailsAvailable()">
       <ng-template matStepLabel>Memories</ng-template>
       <ng-template matStepContent>
-        <h1>app-edit-journey-basic-data</h1>
+        <app-edit-journey-memories-details [(journey)]="journey"></app-edit-journey-memories-details>
       </ng-template>
     </mat-step>
 
