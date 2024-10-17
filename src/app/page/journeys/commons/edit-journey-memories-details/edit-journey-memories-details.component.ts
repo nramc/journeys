@@ -1,4 +1,4 @@
-import {Component, computed, inject, model, signal} from '@angular/core';
+import {Component, computed, inject, model} from '@angular/core';
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {NotificationService} from "../../../../service/common/notification.service";
