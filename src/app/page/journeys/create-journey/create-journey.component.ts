@@ -1,4 +1,4 @@
-import {Component, computed, effect, signal} from '@angular/core';
+import {Component, computed, signal} from '@angular/core';
 import {MatStepperModule} from "@angular/material/stepper";
 import {NgIf} from "@angular/common";
 import {Journey} from "../../../model/core/journey.model";
@@ -16,17 +16,15 @@ import {OperationMode} from "../operation-mode";
     EditJourneyMemoriesDetailsComponent
   ],
   templateUrl: './create-journey.component.html',
-  styleUrl: './create-journey.component.scss'
+  styles: []
 })
 export class CreateJourneyComponent {
+  protected readonly OperationMode = OperationMode;
+
   journey = signal<Journey>(new Journey());
 
   isBasicDetailsAvailable = computed<boolean>(() =>
     this.journey().id !== undefined && this.journey().id !== '' && this.journey().id !== null)
 
-  constructor() {
-    effect(() => console.log('CreateJourneyComponent:', this.journey()));
-  }
 
-  protected readonly OperationMode = OperationMode;
 }

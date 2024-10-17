@@ -34,7 +34,7 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
     HasWriteAccessDirective
   ],
   templateUrl: './edit-journey-memories-details.component.html',
-  styleUrl: './edit-journey-memories-details.component.scss'
+  styles: []
 })
 export class EditJourneyMemoriesDetailsComponent {
   protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
