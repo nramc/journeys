@@ -1,0 +1,25 @@
+<div class="row">
+  <!-- Tags -->
+  <div class="col-12">
+    <input placeholder="Favorite Tags" class="form-control m-0"
+           [matChipInputFor]="chipGrid"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="true"
+           (matChipInputTokenEnd)="addTag($event)"/>
+  </div>
+
+  <div class="col-12 mt-1">
+    <mat-chip-grid #chipGrid aria-label="Tags">
+      @for (tag of tags(); track tag) {
+        <mat-chip-row [highlighted]="true" (removed)="removeTag(tag)" [editable]="false"
+                      [removable]="true">
+          <span class="text-primary">{{ tag }}</span>
+          <button matChipRemove (click)="removeTag(tag)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      }
+    </mat-chip-grid>
+  </div>
+
+</div>
