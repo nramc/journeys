@@ -62,12 +62,16 @@
   <div class="row">
     <div class="col-12 d-grid gap-2 d-flex justify-content-center">
       <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid"
-      [hidden]="isReadOnly()">
-        Save
+      [hidden]="mode() !== OperationMode.NEW">
+        Create
       </button>
       <button type="button" class="btn btn-outline-success" (click)="enableEditMode()"
-              [hidden]="isEditable()" *appHasWriteAccess>
+              [hidden]="mode() !== OperationMode.VIEW" *appHasWriteAccess>
         Edit
+      </button>
+      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid"
+              [hidden]="mode() !== OperationMode.EDIT">
+        Save
       </button>
       <button type="button" class="btn btn-outline-primary" [disabled]="journey().id === ''"
               matStepperNext>Next

@@ -43,17 +43,17 @@ export class EditJourneyMemoriesDetailsComponent {
   private readonly notificationService = inject(NotificationService);
 
   mode = model<OperationMode>(OperationMode.VIEW);
-  isEditable = computed(() => this.mode() === OperationMode.EDIT || this.mode() === OperationMode.NEW);
   isReadOnly = computed(() => this.mode() == OperationMode.VIEW);
 
   journey = model<Journey>(new Journey());
 
+  // todo delete default value
   memoriesForm = {
-    name: signal<string>(this.journey().name),
-    journeyDate: signal<string>(this.journey().journeyDate),
-    icon: signal<string>(this.journey().icon),
-    tags: signal<string[]>([]),
-    description: signal<string>(this.journey().description)
+    name: signal<string>(this.journey().name || 'created'),
+    journeyDate: signal<string>(this.journey().journeyDate || '2024-10-05'),
+    icon: signal<string>(this.journey().icon || 'default'),
+    tags: signal<string[]>(['test', 'todo']),
+    description: signal<string>(this.journey().description || '# todo refactoring')
   };
 
   onError(errorMessage: string, err: Error) {
@@ -63,6 +63,7 @@ export class EditJourneyMemoriesDetailsComponent {
 
   onUpdateSuccess(data: Journey) {
     this.journey.set(data);
+    this.mode.set(OperationMode.VIEW);
     this.notificationService.showSuccess('Journey details saved successfully.');
   }
 
@@ -76,15 +77,33 @@ export class EditJourneyMemoriesDetailsComponent {
         tags: this.memoriesForm.tags(),
         description: this.memoriesForm.description()
       }));
-      this.journeyService.createJourney(this.journey())
-        .subscribe({
-          next: data => this.onUpdateSuccess(data),
-          error: err => this.onError('Unexpected error while saving data', err)
-        });
+      if (this.mode() == OperationMode.NEW) {
+        this.createJourney();
+      } else {
+        this.updateJourney();
+      }
     }
+  }
+
+  private createJourney() {
+    this.journeyService.createJourney(this.journey())
+      .subscribe({
+        next: data => this.onUpdateSuccess(data),
+        error: err => this.onError('Unexpected error while saving data', err)
+      })
+  }
+
+  private updateJourney() {
+    this.journeyService.saveJourneyBasicDetails(this.journey())
+      .subscribe({
+        next: data => this.onUpdateSuccess(data),
+        error: err => this.onError('Unexpected error while saving data', err)
+      });
   }
 
   enableEditMode() {
     this.mode.set(OperationMode.EDIT);
   }
+
+  protected readonly OperationMode = OperationMode;
 }
