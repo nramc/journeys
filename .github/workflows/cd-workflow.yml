@@ -27,6 +27,7 @@ jobs:
 
       - run: npm ci --legacy-peer-deps
       - run: npm run ci:build --if-present
+      - run: npm run ci:lint --if-present
       - run: npm run ci:test --if-present
 
       - name: Conventional Changelog Action
