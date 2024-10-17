@@ -2,7 +2,7 @@
   <div class="row m-2">
     <div class="col-12">
       <h4><span class="gradient-text me-1">{{ journey.name }}</span>
-        <button class="btn btn-outline-primary btn-sm" type="button" *hasWriteAccess
+        <button class="btn btn-outline-primary btn-sm" type="button" *appHasWriteAccess
                 [matTooltip]="'Edit Journey'" (click)="editJourney(journey)">
           <i class="bi bi-pencil-square"></i>
         </button>

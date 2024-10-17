@@ -1,5 +1,5 @@
 <div class="m-0">
-  <a class="card bg-dark text-bg-dark text-white" (click)="viewDetails()">
+  <a class="card bg-dark text-bg-dark text-white" (click)="viewDetails()" href="#">
     <img [ngSrc]="journey().thumbnail" class="card-img" [alt]="journey().thumbnail" fill priority>
     <div class="card-img-overlay d-flex flex-column align-self-stretch card-text-wrapper">
       <h5 class="card-title ">{{ journey().name }}</h5>
@@ -28,7 +28,7 @@
         <div class="d-inline-flex gap-1 justify-content-end">
           <button type="button" class="btn btn-sm btn-success ms-1 small"
                   (click)="editDetails($event)"
-                  *hasWriteAccess>Edit
+                  *appHasWriteAccess>Edit
           </button>
           <button type="button" class="btn btn-sm btn-success ms-1 small"
                   (click)="viewInTimeline($event)">Timeline

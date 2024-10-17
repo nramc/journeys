@@ -1,23 +1,23 @@
 import {GeoJSON, Point} from "geojson";
 
-export const DEFAULT_THUMBNAIL: string = 'https://res.cloudinary.com/journeytogether/image/upload/v1712604194/journey/readonly/aeqhy3zwrwko7ba2rinr.jpg';
+export const DEFAULT_THUMBNAIL = 'https://res.cloudinary.com/journeytogether/image/upload/v1712604194/journey/readonly/aeqhy3zwrwko7ba2rinr.jpg';
 
 export class Journey {
   constructor(
-    public id: string = '',
-    public name: string = '',
-    public title: string = '',
-    public description: string = '',
-    public city: string = '',
-    public country: string = '',
-    public journeyDate: string = '',
-    public category: string = '',
+    public id = '',
+    public name = '',
+    public title = '',
+    public description = '',
+    public city = '',
+    public country = '',
+    public journeyDate = '',
+    public category = '',
     public tags: string[] = [],
     public thumbnail: string = DEFAULT_THUMBNAIL,
-    public icon: string = 'default',
+    public icon = 'default',
     public location: Point | undefined = undefined,
     public extendedDetails: JourneyExtendedDetails | undefined = new JourneyExtendedDetails(),
-    public isPublished: boolean = false,
+    public isPublished = false,
     public visibilities: string[] = []
   ) {
   }
@@ -49,11 +49,11 @@ export class JourneyImageDetail {
   constructor(
     public url: string,
     public assetId: string,
-    public publicId: string = '',
-    public title: string = '',
-    public isFavorite: boolean = false,
-    public isThumbnail: boolean = false,
-    public eventDate: string = ''
+    public publicId = '',
+    public title = '',
+    public isFavorite = false,
+    public isThumbnail = false,
+    public eventDate = ''
   ) {
   }
 }

@@ -20,8 +20,8 @@ export const canMatchWhenHasWriteAccessGuard: CanMatchFn = () => {
 };
 
 function isUserAuthenticatedElseGetLogin() {
-  let redirectUrl = inject(Router).getCurrentNavigation()?.initialUrl.toString();
-  let loginUrl = inject(Router).createUrlTree(['/login'], {
+  const redirectUrl = inject(Router).getCurrentNavigation()?.initialUrl.toString();
+  const loginUrl = inject(Router).createUrlTree(['/login'], {
     queryParams: {
       redirectUrl: redirectUrl
     }
@@ -31,7 +31,7 @@ function isUserAuthenticatedElseGetLogin() {
 }
 
 function hasWriteAccessElseAccessDenied() {
-  let accessDeniedUrl = inject(Router).createUrlTree(['/accessDenied']);
+  const accessDeniedUrl = inject(Router).createUrlTree(['/accessDenied']);
   return inject(AuthService).getUserContext()
     .pipe(map(userContext => userContext.roles
       .some(role => role == Role.MAINTAINER || role == Role.ADMINISTRATOR || role == Role.AUTHENTICATED_USER)

@@ -14,7 +14,7 @@ import {ConfirmationDialogComponent} from "../../../../component/confirmation-di
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
-  selector: 'my-totp-settings',
+  selector: 'app-my-totp-settings',
   standalone: true,
   imports: [
     NgIf,

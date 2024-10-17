@@ -37,7 +37,7 @@ export interface ImageResource {
                             [value]="(resizedImages().length/totalImages())*100"></mat-progress-bar>
         </div>
         <div class="col text-center">
-          <button (click)="downloadAll()" *ngIf="resizedImages().length == totalImages() && totalImages() > 0"
+          <button (click)="downloadAll()" *ngIf="resizedImages().length === totalImages() && totalImages() > 0"
                   class="btn btn-sm btn-outline-primary">
             Download All
           </button>
@@ -53,6 +53,7 @@ export class ImageResizeComponent {
   totalImages = signal<number>(0);
   resizedImages = signal<ImageResource[]>([]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onFileChange(event: any) {
     this.isProcessing.set(true);
     const files = event.target.files;
@@ -62,6 +63,8 @@ export class ImageResizeComponent {
       for (const element of files) {
         const file = element;
         const reader = new FileReader();
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         reader.onload = (e: any) => {
           const img = new Image();
           img.onload = () => {

@@ -52,7 +52,7 @@ export class StatisticsPanelComponent {
   }
 
   getSearchCriteria(statisticsType: StatisticsType, statisticsValue: string): SearchCriteria {
-    let criteria = new SearchCriteria();
+    const criteria = new SearchCriteria();
     switch (statisticsType) {
       case "category":
         criteria.category = statisticsValue;

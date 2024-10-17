@@ -60,7 +60,7 @@ export class EditJourneyVideosDetailsComponent implements OnInit {
     this.journey.set(result);
   }
 
-  onError(errorMessage: string, err: any) {
+  onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
     console.error(err);
   }

@@ -66,7 +66,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
     };
   }
 
-  onError(errorMessage: string, err: any) {
+  onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
     console.error(err);
   }
@@ -85,11 +85,11 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
       });
   }
 
-  openUploadWidget(isMultipleUpload: boolean = true) {
-    // @ts-ignore
+  openUploadWidget(isMultipleUpload = true) {
+    // @ts-expect-error False-Positive: 3rd party JS library not compatible with typescript type
     cloudinary.createUploadWidget(
       this.getWidgetParams(this.journey(), isMultipleUpload),
-      (error: any, result: CloudinaryUploadSuccessEvent) => {
+      (error: Error, result: CloudinaryUploadSuccessEvent) => {
         if (!error && result && result.event === "success") {
           this.addImage(result.info);
         }

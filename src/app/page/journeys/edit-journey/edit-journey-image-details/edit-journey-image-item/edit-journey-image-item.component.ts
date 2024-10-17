@@ -51,7 +51,7 @@ import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 
               <div class="form-floating mb-1">
                 <input type="text" class="form-control" id="title" name="title" placeholder="Title"
-                       [(ngModel)]="imageItem().title" [autofocus]="true">
+                       [(ngModel)]="imageItem().title">
                 <label for="title">Title</label>
               </div>
 
@@ -74,7 +74,7 @@ import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
                 </div>
                 <div class="input-group-text">
                   <button class="btn btn-sm btn-outline-secondary bi bi-calendar3 " (click)="d.toggle()"
-                          type="button"></button>
+                          type="button">&nbsp;</button>
                 </div>
               </div>
 

@@ -50,8 +50,8 @@
 
     <div class="row mb-3">
       <div class="col text-center d-flex gap-3 justify-content-center">
-        <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid" *hasWriteAccess>Save</button>
-        <button type="button" class="btn btn-primary" (click)="cancel()" *hasWriteAccess>Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid" *appHasWriteAccess>Save</button>
+        <button type="button" class="btn btn-primary" (click)="cancel()" *appHasWriteAccess>Cancel</button>
       </div>
     </div>
 

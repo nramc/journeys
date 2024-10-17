@@ -38,7 +38,7 @@ export class TotpActivationComponent implements OnInit {
   activate(totpCode: HTMLInputElement) {
     if (totpCode.validity.valid && this.qrCodeData()?.secretKey) {
       // activate totp now
-      let activationRequest: TotpActivation = {secretKey: this.qrCodeData()!.secretKey, code: totpCode.value};
+      const activationRequest: TotpActivation = {secretKey: this.qrCodeData()!.secretKey, code: totpCode.value};
       this.myAccountService.activateTotp(activationRequest)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({

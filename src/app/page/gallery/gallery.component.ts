@@ -52,7 +52,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   sortingFieldChangedEvent: BehaviorSubject<string> = new BehaviorSubject<string>("journeyDate");
   sortableDirections: SortDirection[] = ["asc", "desc"];
   sortingDirectionChangedEvent: BehaviorSubject<SortDirection> = new BehaviorSubject<SortDirection>("desc");
-  defaultPageSize: number = 10;
+  defaultPageSize = 10;
 
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;

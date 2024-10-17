@@ -67,7 +67,7 @@
           }
         </select>
       </div>
-      <div class="text-center" *ngIf="thumbnail.value && thumbnail.value != 'default'">
+      <div class="text-center" *ngIf="thumbnail.value && thumbnail.value !== 'default'">
         <img [src]="thumbnail.value"
              class="journey-thumbnail-img rounded border border-2 border-primary border-opacity-50 h-200-px w-200-px"
              [alt]="thumbnail.value">
@@ -77,14 +77,14 @@
 
   <div class="row mt-3">
     <div class="col-12 d-grid gap-2 d-flex justify-content-center">
-      <button type="button" class="btn btn-outline-danger" (click)="deleteJourneyDialog.showModal();" *hasWriteAccess>
+      <button type="button" class="btn btn-outline-danger" (click)="deleteJourneyDialog.showModal();" *appHasWriteAccess>
         Delete Journey
       </button>
-      <button type="button" class="btn btn-outline-primary" [disabled]="!journeyForm.form.valid" *hasWriteAccess
+      <button type="button" class="btn btn-outline-primary" [disabled]="!journeyForm.form.valid" *appHasWriteAccess
               (click)="save(journeyForm)">
         Save as Draft
       </button>
-      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid" *hasWriteAccess>
+      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid" *appHasWriteAccess>
         Publish
       </button>
 
@@ -102,7 +102,7 @@
         </div>
       </div>
       <div class="d-flex gap-3">
-        <button type="button" class="btn btn-outline-success" (click)="deleteJourneyDialog.close()" autofocus>No, Keep it</button>
+        <button type="button" class="btn btn-outline-success" (click)="deleteJourneyDialog.close()">No, Keep it</button>
         <button type="button" class="btn btn-outline-danger" (click)="deleteJourneyDialog.close();delete()">Yes, Delete forever</button>
       </div>
     </div>

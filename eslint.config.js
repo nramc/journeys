@@ -30,6 +30,20 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
+      "@typescript-eslint/no-explicit-any": [
+        "error", {
+          "fixToUnknown": false,
+          "ignoreRestArgs": true
+        }
+      ],
+      // ignore if variable starts with _ (underscore)
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "varsIgnorePattern": "^_",
+          "argsIgnorePattern": "^_"
+        }
+      ]
     },
   },
   {

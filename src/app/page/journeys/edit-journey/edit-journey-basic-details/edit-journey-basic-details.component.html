@@ -91,7 +91,7 @@
                   maxlength="5000" #description="ngModel"
                   [(ngModel)]="journey().description" [hidden]="markdownStyle() === 'Preview'"
                   placeholder="Detailed information about the Journey"></textarea>
-        <div [hidden]="markdownStyle() == 'Source'" style="height: 25rem;">
+        <div [hidden]="markdownStyle() === 'Source'" style="height: 25rem;">
           <app-display-markdown-component
             [title]="journey().title"
             [markdownText]="journey().description"></app-display-markdown-component>
@@ -201,7 +201,7 @@
             <input type="text" class="form-control" id="journeyDate" name="journeyDate"
                    [(ngModel)]="journey().journeyDate"
                    #journeyDate="ngModel" required placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
-            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button">&nbsp;</button>
             <div [hidden]="journeyDate.valid || journeyDate.pristine" class="form-text text-danger">
               <div *ngIf="journeyDate.errors?.['required']">Journey Date is required.</div>
             </div>

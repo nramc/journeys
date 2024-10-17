@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, inject, model} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, OnInit} from '@angular/core';
 import {DatePipe, NgIf} from "@angular/common";
 import {MyAccountService} from "../../../../service/my-account/my-account.service";
 import {AppUser} from "../../../../model/account/app-user";
@@ -9,7 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
-  selector: 'my-password-settings',
+  selector: 'app-my-password-settings',
   standalone: true,
   imports: [
     NgIf,
@@ -22,7 +22,7 @@ import {MatTooltip} from "@angular/material/tooltip";
   styleUrl: './password-settings.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PasswordSettingsComponent {
+export class PasswordSettingsComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private myAccountService = inject(MyAccountService);
 
@@ -67,7 +67,7 @@ export class PasswordSettingsComponent {
 
   isPasswordComplaint() {
     if (this.userData()?.passwordChangedAt) {
-      let numberOfMonthsSincePasswordChanged = (new Date().getFullYear())
+      const numberOfMonthsSincePasswordChanged = (new Date().getFullYear())
         - (new Date(Date.parse(this.userData()!.passwordChangedAt)).getFullYear()) * 12;
       return numberOfMonthsSincePasswordChanged <= 3
     }

@@ -48,7 +48,7 @@ export class EditJourneyBasicDetailsComponent {
 
   coordinates = computed<number[]>(() => this.journey().location?.coordinates ?? []);
 
-  onError(errorMessage: string, err: any) {
+  onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
     console.error(err);
   }
@@ -104,7 +104,7 @@ export class EditJourneyBasicDetailsComponent {
     const copiedValue = await navigator.clipboard.readText()
     console.debug('Value copied from clipboard:', copiedValue);
     if (copiedValue && copiedValue.split(',').length > 1) {
-      let copiedCoordinates = copiedValue.split(',');
+      const copiedCoordinates = copiedValue.split(',');
 
       this.journey.update(data => ({
         ...data,
@@ -122,7 +122,7 @@ export class EditJourneyBasicDetailsComponent {
     const copiedValue = await navigator.clipboard.readText()
     console.debug('Value copied from clipboard:', copiedValue);
     if (copiedValue) {
-      let copiedCoordinates = copiedValue.split(',');
+      const copiedCoordinates = copiedValue.split(',');
       this.journey.update(data => ({
         ...data,
         location: {

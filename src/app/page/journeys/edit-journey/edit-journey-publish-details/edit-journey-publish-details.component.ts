@@ -80,7 +80,7 @@ export class EditJourneyPublishDetailsComponent {
     }
   }
 
-  onError(errorMessage: string, err: any) {
+  onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
     console.error(err);
   }

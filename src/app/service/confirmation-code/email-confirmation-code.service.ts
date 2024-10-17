@@ -12,8 +12,8 @@ export class EmailConfirmationCodeService {
   private authService: AuthService = inject(AuthService);
 
   sendConfirmationCode(credential: Credential) {
-    let userContext = this.authService.getCurrentUserContext();
-    let authCredential = credential ? 'Basic ' + btoa(credential.username + ':' + credential.password)
+    const userContext = this.authService.getCurrentUserContext();
+    const authCredential = credential ? 'Basic ' + btoa(credential.username + ':' + credential.password)
       : `Bearer ${userContext.accessToken}`;
     return this.httpClient.post<void>(environment.journeyApi + '/sendEmailCode', {}, {
       headers: {
@@ -23,7 +23,7 @@ export class EmailConfirmationCodeService {
   }
 
   verifyConfirmationCode(code: string) {
-    let userContext = this.authService.getCurrentUserContext();
+    const userContext = this.authService.getCurrentUserContext();
     return this.httpClient.post<void>(environment.journeyApi + '/verifyEmailCode', {
       code: code
     }, {

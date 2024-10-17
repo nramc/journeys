@@ -7,7 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class NotificationService {
   private readonly snackBar = inject(MatSnackBar);
 
-  showSuccess(message: string, duration: number = 3000) {
+  showSuccess(message: string, duration = 3000) {
     // wrapped notification into setTimeout to trigger change detection manually since material does not support zoneless change detection yet.
     setTimeout(() => this.snackBar.open(message, 'Close', {
       duration: duration,
@@ -15,7 +15,7 @@ export class NotificationService {
     }));
   }
 
-  showError(message: string, duration: number = 3000) {
+  showError(message: string, duration = 3000) {
     // wrapped notification into setTimeout to trigger change detection manually since material does not support zoneless change detection yet.
     setTimeout(() => this.snackBar.open(message, 'Close', {
       duration: duration,

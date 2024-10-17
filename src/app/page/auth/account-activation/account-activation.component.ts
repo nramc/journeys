@@ -48,7 +48,7 @@ export class AccountActivationComponent implements OnInit {
     if (activationForm.valid) {
       this.activateAccount();
     } else {
-      this.onError("Invalid data");
+      this.onError(new Error("Invalid data"));
     }
 
   }
@@ -77,7 +77,7 @@ export class AccountActivationComponent implements OnInit {
     this.isErrorOccurred.set(false);
   }
 
-  private onError(err: any) {
+  private onError(err: Error) {
     console.log(err);
     this.isErrorOccurred.set(true);
     this.isSuccessful.set(false);

@@ -6,7 +6,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {UserContext} from "../service/auth/user-context";
 
 @Directive({
-  selector: '[hasWriteAccess]',
+  selector: '[appHasWriteAccess]',
   standalone: true,
   hostDirectives: [NgIf]
 })

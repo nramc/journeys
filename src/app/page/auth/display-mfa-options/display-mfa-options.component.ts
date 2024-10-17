@@ -12,10 +12,10 @@ import {
 } from "../../../component/security/email-code-verification/email-code-verification.component";
 import {MatIcon} from "@angular/material/icon";
 
-export type MfaOptions = {
+export interface MfaOptions {
   credential: Credential,
   options: SecurityAttribute[]
-};
+}
 
 @Component({
   selector: 'app-display-mfa-options',
@@ -65,9 +65,10 @@ export class DisplayMfaOptionsComponent {
       .subscribe(result => this.onCloseCallback(result));
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onCloseCallback(result: any) {
     if (result === true) {
-      let targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
+      const targetUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] ?? '/home';
       this.router.navigateByUrl(targetUrl).then(console.log);
     }
   }

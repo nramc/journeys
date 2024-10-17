@@ -12,7 +12,7 @@ import {
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import 'leaflet.fullscreen';
-// @ts-ignore
+// @ts-expect-error has to be analysed later
 import {MaptilerLayer} from "@maptiler/leaflet-maptilersdk";
 import {GeocodingControl} from "@maptiler/geocoding-control/leaflet";
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
@@ -90,7 +90,7 @@ export class WorldMapComponent implements AfterViewInit {
 
     this.map = L.map(this.elementRef.nativeElement.querySelector("div.map-renderer"),
       {
-        // @ts-ignore
+        // @ts-expect-error 3rd party plugin used for fullscreen support
         fullscreenControl: true,
         forceSeparateButton: true,
         fullscreenControlOptions: {
@@ -118,7 +118,7 @@ export class WorldMapComponent implements AfterViewInit {
     // https://docs.maptiler.com/sdk-js/modules/geocoding/api/usage/leaflet/
     // https://docs.maptiler.com/sdk-js/modules/geocoding/api/api-reference/#event:pick
     if (this.map) {
-      let geocodingControl = new GeocodingControl({
+      const geocodingControl = new GeocodingControl({
         apiKey: environment.maptilerKey,
         class: 'text-primary',
         debounceSearch: 1000,
@@ -128,6 +128,7 @@ export class WorldMapComponent implements AfterViewInit {
       });
       this.map.addControl(geocodingControl);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.map.on("pick", (eventData: any) => this.emitGeoCodingData(new GeoCodingFeature(
         eventData['place_name'],
         eventData['geometry'],
@@ -180,7 +181,7 @@ export class WorldMapComponent implements AfterViewInit {
   }
 
   private flyToBound() {
-    let bounds = this.geoJsonLayer?.getBounds();
+    const bounds = this.geoJsonLayer?.getBounds();
     if (bounds) {
       this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom(), paddingTopLeft: [25, 25]});
     }
@@ -189,7 +190,7 @@ export class WorldMapComponent implements AfterViewInit {
   private addGeoJsonLayer() {
 
     const getPopupComponentNativeElement = (feature: Feature) => {
-      let popupComponent = this.markerPopupViewContainerRef().createComponent(MarkerPopupComponent);
+      const popupComponent = this.markerPopupViewContainerRef().createComponent(MarkerPopupComponent);
       popupComponent.setInput('feature', feature);
       return popupComponent?.instance.elementRef.nativeElement;
     }
@@ -207,7 +208,7 @@ export class WorldMapComponent implements AfterViewInit {
           if (isPopupRequired) {
             layer.bindPopup(getPopupComponentNativeElement(feature));
           }
-          let featureName = feature.properties?.['name'];
+          const featureName = feature.properties?.['name'];
           if (featureName) {
             layer.bindTooltip(featureName);
           }
