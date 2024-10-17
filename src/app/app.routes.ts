@@ -2,7 +2,8 @@ import {Routes} from '@angular/router';
 import {
   canActivateWhenAuthenticatedGuard,
   canActivateWhenHasWriteAccessGuard,
-  canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard
+  canMatchWhenAuthenticatedGuard,
+  canMatchWhenHasWriteAccessGuard
 } from "./guard/auth.guard";
 
 export const ROUTES: Routes = [
@@ -56,7 +57,7 @@ export const ROUTES: Routes = [
       },
       {
         path: 'new',
-        loadComponent: () => import('./page/journeys/new-journey/new-journey.component').then(m => m.NewJourneyComponent),
+        loadComponent: () => import('./page/journeys/create-journey/create-journey.component').then(m => m.CreateJourneyComponent),
         title: 'New Journey',
         canActivate: [canActivateWhenAuthenticatedGuard, canActivateWhenHasWriteAccessGuard],
         canMatch: [canMatchWhenAuthenticatedGuard, canMatchWhenHasWriteAccessGuard]
