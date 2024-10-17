@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, model, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
 import {Journey} from "../../../model/core/journey.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
@@ -12,6 +12,10 @@ import {
 } from "./edit-journey-publish-details/edit-journey-publish-details.component";
 import {NgIf} from "@angular/common";
 import {MatTooltip} from "@angular/material/tooltip";
+import {OperationMode} from "../operation-mode";
+import {
+  EditJourneyMemoriesDetailsComponent
+} from "../commons/edit-journey-memories-details/edit-journey-memories-details.component";
 
 @Component({
   selector: 'app-edit-journey',
@@ -28,17 +32,20 @@ import {MatTooltip} from "@angular/material/tooltip";
     EditJourneyVideosDetailsComponent,
     EditJourneyPublishDetailsComponent,
     NgIf,
-    MatTooltip
+    MatTooltip,
+    EditJourneyMemoriesDetailsComponent
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyComponent implements OnInit {
+  protected readonly OperationMode = OperationMode;
+
   private readonly route = inject(ActivatedRoute);
   private readonly journeyService = inject(JourneyService);
   private readonly router = inject(Router);
 
-  journey = model(new Journey());
+  journey = signal(new Journey());
 
   ngOnInit(): void {
     this.journeyService.getJourneyById(this.route.snapshot.params['id'])
@@ -48,4 +55,5 @@ export class EditJourneyComponent implements OnInit {
   viewJourney(journey: Journey) {
     this.router.navigate(['/journey', journey.id, 'view']).then();
   }
+
 }

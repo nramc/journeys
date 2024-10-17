@@ -38,6 +38,7 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
 })
 export class EditJourneyMemoriesDetailsComponent {
   protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
+  protected readonly OperationMode = OperationMode;
 
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
@@ -46,15 +47,6 @@ export class EditJourneyMemoriesDetailsComponent {
   isReadOnly = computed(() => this.mode() == OperationMode.VIEW);
 
   journey = model<Journey>(new Journey());
-
-  // todo delete default value
-  memoriesForm = {
-    name: signal<string>(this.journey().name || 'created'),
-    journeyDate: signal<string>(this.journey().journeyDate || '2024-10-05'),
-    icon: signal<string>(this.journey().icon || 'default'),
-    tags: signal<string[]>(['test', 'todo']),
-    description: signal<string>(this.journey().description || '# todo refactoring')
-  };
 
   onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
@@ -69,14 +61,6 @@ export class EditJourneyMemoriesDetailsComponent {
 
   save(journeyForm: NgForm) {
     if (journeyForm.valid) {
-      this.journey.update(data => ({
-        ...data,
-        name: this.memoriesForm.name(),
-        journeyDate: this.memoriesForm.journeyDate(),
-        icon: this.memoriesForm.icon(),
-        tags: this.memoriesForm.tags(),
-        description: this.memoriesForm.description()
-      }));
       if (this.mode() == OperationMode.NEW) {
         this.createJourney();
       } else {
@@ -105,5 +89,4 @@ export class EditJourneyMemoriesDetailsComponent {
     this.mode.set(OperationMode.EDIT);
   }
 
-  protected readonly OperationMode = OperationMode;
 }

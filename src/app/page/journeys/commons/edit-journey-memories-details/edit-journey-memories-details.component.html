@@ -1,10 +1,10 @@
-<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="memoriesForm">
+<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="journey()">
 
   <div class="row">
     <!-- Name -->
     <div class="mb-3 col-md-8 col-12">
       <label for="name" class="form-label">Name</label>
-      <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="memoriesForm.name"
+      <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="journey().name"
              #name=ngModel [disabled]="isReadOnly()"
              maxlength="50" minlength="5" placeholder="Name your Journey">
       <div [hidden]="name.valid || name.pristine" class="form-text text-danger">
@@ -19,7 +19,7 @@
       <label for="journeyDate" class="form-label">Journey Date</label>
       <div class="input-group">
         <input type="text" class="form-control" id="journeyDate" name="journeyDate"
-               [(ngModel)]="memoriesForm.journeyDate" [disabled]="isReadOnly()"
+               [(ngModel)]="journey().journeyDate" [disabled]="isReadOnly()"
                #journeyDate="ngModel" required placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
         <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button">&nbsp;</button>
         <div [hidden]="journeyDate.valid || journeyDate.pristine" class="form-text text-danger">
@@ -32,7 +32,7 @@
     <div class="mb-3 col-12 col-md-2">
       <label for="iconType" class="form-label">Icon</label>
       <select id="iconType" class="form-select form-select-sm" aria-label="Icon" [disabled]="isReadOnly()"
-              [(ngModel)]="memoriesForm.icon" required name="iconType" #iconType="ngModel">
+              [(ngModel)]="journey().icon" required name="iconType" #iconType="ngModel">
         @for (iconType of SUPPORTED_ICONS; track iconType) {
           <option [value]="iconType">{{ iconType| titlecase }}</option>
         }
@@ -47,14 +47,14 @@
   <div class="row">
     <!-- Tags -->
     <div class="col-12">
-      <app-tags-input [(tags)]="memoriesForm.tags" [disabled]="isReadOnly()"></app-tags-input>
+      <app-tags-input [(tags)]="journey().tags" [disabled]="isReadOnly()"></app-tags-input>
     </div>
   </div>
 
   <!-- Memories -->
   <div class="row">
     <div class="mb-3 mt-3 col-12">
-      <app-narration [title]="memoriesForm.name()" [(narration)]="memoriesForm.description"
+      <app-narration [title]="journey().name" [(narration)]="journey().description"
                      [disabled]="isReadOnly()" [markdownStyle]="isReadOnly() ? 'Preview' : 'Source'"></app-narration>
     </div>
   </div>
