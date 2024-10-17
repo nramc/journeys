@@ -18,7 +18,8 @@ import {NgIf} from "@angular/common";
   styleUrl: './narration.component.scss'
 })
 export class NarrationComponent {
-  markdownStyle = signal<string>('Source')
+  markdownStyle = model<'Source' | 'Preview'>('Source')
+  disabled = input<boolean>(false);
 
   title = input<string>('');
   narration = model<string>('');

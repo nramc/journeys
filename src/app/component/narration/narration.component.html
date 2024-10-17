@@ -1,6 +1,6 @@
 <label for="description" class="form-label">Memories</label>
 <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style"
-                         hideSingleSelectionIndicator="true"
+                         hideSingleSelectionIndicator="true" [hidden]="disabled()"
                          class="ignore-highlight ms-2 mat-small" [(ngModel)]="markdownStyle">
   <mat-button-toggle value="Source">Edit</mat-button-toggle>
   <mat-button-toggle value="Preview">Preview</mat-button-toggle>
