@@ -1,4 +1,4 @@
-import {Component, inject, input, model, signal} from '@angular/core';
+import {Component, inject, input, model} from '@angular/core';
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {NotificationService} from "../../../../service/common/notification.service";
@@ -13,6 +13,7 @@ import {MatIcon} from "@angular/material/icon";
 import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 import {MatStepperModule} from "@angular/material/stepper";
 import {TagsInputComponent} from "../../../../component/tags-input/tags-input.component";
+import {NarrationComponent} from "../../../../component/narration/narration.component";
 
 @Component({
   selector: 'app-edit-journey-memories-details',
@@ -27,7 +28,8 @@ import {TagsInputComponent} from "../../../../component/tags-input/tags-input.co
     MatIcon,
     NgbInputDatepicker,
     MatStepperModule,
-    TagsInputComponent
+    TagsInputComponent,
+    NarrationComponent
   ],
   templateUrl: './edit-journey-memories-details.component.html',
   styleUrl: './edit-journey-memories-details.component.scss'
@@ -40,7 +42,6 @@ export class EditJourneyMemoriesDetailsComponent {
 
   mode = input<OperationMode>(OperationMode.VIEW);
 
-  markdownStyle = signal<string>('Source')
   journey = model<Journey>(new Journey())
 
   onError(errorMessage: string, err: Error) {
