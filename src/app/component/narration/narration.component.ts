@@ -1,4 +1,4 @@
-import {Component, input, model, signal} from '@angular/core';
+import {Component, input, model} from '@angular/core';
 import {DisplayMarkdownComponent} from "../display-markdown-component/display-markdown.component";
 import {FormsModule} from "@angular/forms";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
