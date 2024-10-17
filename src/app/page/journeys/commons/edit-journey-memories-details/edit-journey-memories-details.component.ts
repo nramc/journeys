@@ -42,7 +42,7 @@ export class EditJourneyMemoriesDetailsComponent {
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
 
-  mode = model<OperationMode>(OperationMode.VIEW); //todo change it to VIEW
+  mode = model<OperationMode>(OperationMode.VIEW);
   isEditable = computed(() => this.mode() === OperationMode.EDIT || this.mode() === OperationMode.NEW);
   isReadOnly = computed(() => this.mode() == OperationMode.VIEW);
 
