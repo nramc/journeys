@@ -15,7 +15,7 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './narration.component.html',
-  styleUrl: './narration.component.scss'
+  styles: []
 })
 export class NarrationComponent {
   markdownStyle = model<'Source' | 'Preview'>('Source')
