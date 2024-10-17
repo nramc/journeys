@@ -5,6 +5,7 @@ import {Journey} from "../../../model/core/journey.model";
 import {
   EditJourneyMemoriesDetailsComponent
 } from "../commons/edit-journey-memories-details/edit-journey-memories-details.component";
+import {OperationMode} from "../operation-mode";
 
 @Component({
   selector: 'app-create-journey',
@@ -27,4 +28,5 @@ export class CreateJourneyComponent {
     effect(() => console.log('CreateJourneyComponent:', this.journey()));
   }
 
+  protected readonly OperationMode = OperationMode;
 }

@@ -69,7 +69,7 @@
               [hidden]="isEditable()" *appHasWriteAccess>
         Edit
       </button>
-      <button type="button" class="btn btn-outline-primary" [disabled]="!journeyForm.form.valid"
+      <button type="button" class="btn btn-outline-primary" [disabled]="journey().id === ''"
               matStepperNext>Next
       </button>
     </div>
