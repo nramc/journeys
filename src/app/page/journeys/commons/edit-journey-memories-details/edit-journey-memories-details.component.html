@@ -1,67 +1,61 @@
-<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey()">
+<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="memoriesForm">
 
   <div class="row">
-    <div class="col-12 ">
-
-      <div class="row">
-        <!-- Name -->
-        <div class="mb-3 col-md-8 col-12">
-          <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="journey().name"
-                 #name=ngModel
-                 maxlength="50" minlength="5" placeholder="Name your Journey">
-          <div [hidden]="name.valid || name.pristine" class="form-text text-danger">
-            <div *ngIf="name.errors?.['required']">Name is required.</div>
-            <div *ngIf="name.errors?.['minlength']">Name must be at least 5 characters long.</div>
-            <div *ngIf="name.errors?.['maxlength']">Name must be at most 50 characters long.</div>
-          </div>
-        </div>
-
-        <!-- Journey Date -->
-        <div class="mb-3 col-md-2">
-          <label for="journeyDate" class="form-label">Journey Date</label>
-          <div class="input-group">
-            <input type="text" class="form-control" id="journeyDate" name="journeyDate"
-                   [(ngModel)]="journey().journeyDate"
-                   #journeyDate="ngModel" required placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
-            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button">&nbsp;</button>
-            <div [hidden]="journeyDate.valid || journeyDate.pristine" class="form-text text-danger">
-              <div *ngIf="journeyDate.errors?.['required']">Journey Date is required.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- icon -->
-        <div class="mb-3 col-12 col-md-2">
-          <label for="iconType" class="form-label">Category</label>
-          <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
-                  [(ngModel)]="journey().icon" required name="iconType" #iconType="ngModel">
-            @for (iconType of SUPPORTED_ICONS; track iconType) {
-              <option [value]="iconType">{{ iconType| titlecase }}</option>
-            }
-          </select>
-          <div [hidden]="iconType.valid || iconType.pristine" class="form-text text-danger">
-            <div *ngIf="iconType.errors?.['required']">Icon is required.</div>
-          </div>
-        </div>
-
+    <!-- Name -->
+    <div class="mb-3 col-md-8 col-12">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="memoriesForm.name"
+             #name=ngModel
+             maxlength="50" minlength="5" placeholder="Name your Journey">
+      <div [hidden]="name.valid || name.pristine" class="form-text text-danger">
+        <div *ngIf="name.errors?.['required']">Name is required.</div>
+        <div *ngIf="name.errors?.['minlength']">Name must be at least 5 characters long.</div>
+        <div *ngIf="name.errors?.['maxlength']">Name must be at most 50 characters long.</div>
       </div>
-
-      <div class="row">
-        <!-- Tags -->
-        <div class="col-12">
-          <app-tags-input [(tags)]="journey().tags"></app-tags-input>
-        </div>
-      </div>
-
-      <!-- Memories -->
-      <div class="mb-3 mt-3">
-        <app-narration [title]="journey().title" [(narration)]="journey().description"></app-narration>
-      </div>
-
-
     </div>
 
+    <!-- Journey Date -->
+    <div class="mb-3 col-md-2">
+      <label for="journeyDate" class="form-label">Journey Date</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="journeyDate" name="journeyDate"
+               [(ngModel)]="memoriesForm.journeyDate"
+               #journeyDate="ngModel" required placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
+        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button">&nbsp;</button>
+        <div [hidden]="journeyDate.valid || journeyDate.pristine" class="form-text text-danger">
+          <div *ngIf="journeyDate.errors?.['required']">Journey Date is required.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- icon -->
+    <div class="mb-3 col-12 col-md-2">
+      <label for="iconType" class="form-label">Icon</label>
+      <select id="iconType" class="form-select form-select-sm" aria-label="Icon"
+              [(ngModel)]="memoriesForm.icon" required name="iconType" #iconType="ngModel">
+        @for (iconType of SUPPORTED_ICONS; track iconType) {
+          <option [value]="iconType">{{ iconType| titlecase }}</option>
+        }
+      </select>
+      <div [hidden]="iconType.valid || iconType.pristine" class="form-text text-danger">
+        <div *ngIf="iconType.errors?.['required']">Icon is required.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <!-- Tags -->
+    <div class="col-12">
+      <app-tags-input [(tags)]="memoriesForm.tags"></app-tags-input>
+    </div>
+  </div>
+
+  <!-- Memories -->
+  <div class="row">
+    <div class="mb-3 mt-3 col-12">
+      <app-narration [title]="memoriesForm.name()" [(narration)]="memoriesForm.description"></app-narration>
+    </div>
   </div>
 
   <div class="row">

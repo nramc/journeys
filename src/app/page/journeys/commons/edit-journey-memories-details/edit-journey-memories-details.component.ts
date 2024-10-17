@@ -1,4 +1,4 @@
-import {Component, inject, input, model} from '@angular/core';
+import {Component, inject, input, model, signal} from '@angular/core';
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {NotificationService} from "../../../../service/common/notification.service";
@@ -42,24 +42,43 @@ export class EditJourneyMemoriesDetailsComponent {
 
   mode = input<OperationMode>(OperationMode.VIEW);
 
-  journey = model<Journey>(new Journey())
+  journey = model<Journey>(new Journey());
+
+  memoriesForm = {
+    name: signal<string>(this.journey().name),
+    journeyDate: signal<string>(this.journey().journeyDate),
+    icon: signal<string>(this.journey().icon),
+    tags: signal<string[]>(this.journey().tags),
+    description: signal<string>(this.journey().description)
+  };
 
   onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
     console.error(err);
   }
 
-  onUpdateSuccess(_: Journey) {
+  onUpdateSuccess(data: Journey) {
+    this.journey.set(data);
     this.notificationService.showSuccess('Journey details saved successfully.');
   }
 
   save(journeyForm: NgForm) {
-    console.debug('Submitted form data:', journeyForm);
-    this.journeyService.saveJourneyBasicDetails(this.journey())
-      .subscribe({
-        next: data => this.onUpdateSuccess(data),
-        error: err => this.onError('Unexpected error while saving data', err)
-      });
+    if (journeyForm.valid) {
+      this.journey.update(data => ({
+        ...data,
+        name: this.memoriesForm.name(),
+        journeyDate: this.memoriesForm.journeyDate(),
+        icon: this.memoriesForm.icon(),
+        tags: this.memoriesForm.tags(),
+        description: this.memoriesForm.description()
+      }));
+      this.journeyService.createJourney(this.journey())
+        .subscribe({
+          next: data => this.onUpdateSuccess(data),
+          error: err => this.onError('Unexpected error while saving data', err)
+        });
+    }
+
 
   }
 
