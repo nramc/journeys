@@ -1,4 +1,4 @@
-import {Component, computed, signal} from '@angular/core';
+import {Component, computed, effect, signal} from '@angular/core';
 import {MatStepperModule} from "@angular/material/stepper";
 import {NgIf} from "@angular/common";
 import {Journey} from "../../../model/core/journey.model";
@@ -22,5 +22,9 @@ export class CreateJourneyComponent {
 
   isBasicDetailsAvailable = computed<boolean>(() =>
     this.journey().id !== undefined && this.journey().id !== '' && this.journey().id !== null)
+
+  constructor() {
+    effect(() => console.log('CreateJourneyComponent:', this.journey()));
+  }
 
 }
