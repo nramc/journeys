@@ -27,12 +27,14 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
 
   journey = model.required<Journey>();
 
-  formGeoDetails = signal(new JourneyGeoDetails(undefined));
+  formGeoDetails = signal(new JourneyGeoDetails());
+
   geoJsonString = signal('');
 
 
   ngOnInit(): void {
-    this.formGeoDetails.set(this.journey().extendedDetails!.geoDetails ?? new JourneyGeoDetails(this.journey().location));
+    this.formGeoDetails.set(this.journey().extendedDetails!.geoDetails ?? new JourneyGeoDetails());
+
     this.geoJsonString.set(JSON.stringify(this.formGeoDetails().geoJson));
   }
 
