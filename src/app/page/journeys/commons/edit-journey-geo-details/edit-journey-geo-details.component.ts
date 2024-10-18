@@ -45,6 +45,9 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
 
   mode = model<OperationMode>(OperationMode.EDIT);
   isReadOnly = computed(() => this.mode() === OperationMode.VIEW);
+  showMapOption = signal<'Location' | 'GeoJson'>('Location');
+  geoJsonData = computed(() => this.showMapOption() == 'Location'
+    ? this.formData.location() : this.formData.geoJson());
 
   constructor() {
     effect(() => {
@@ -53,7 +56,8 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.copyToForm(this.journey().extendedDetails!.geoDetails ?? new JourneyGeoDetails())
+    this.copyToForm(this.journey().extendedDetails!.geoDetails ?? new JourneyGeoDetails());
+    this.showMapOption.set(this.formData.geoJson !== undefined ? 'GeoJson' : 'Location')
   }
 
   save(journeyForm: NgForm) {

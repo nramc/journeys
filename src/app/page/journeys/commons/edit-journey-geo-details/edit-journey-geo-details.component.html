@@ -2,7 +2,7 @@
 
   <div class="row geo-data-row mb-3">
     <div class="col-12 col-md-8" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="formData.geoJson() || formData.location()" [iconType]="journey().icon"
+      <app-world-map class="h-50" [geoJsonData]="geoJsonData()" [iconType]="journey().icon"
                      [enableGeoCoding]="true" (location)="addGeoLocation($event)"/>
     </div>
 
@@ -60,6 +60,19 @@
       <!-- GeoJson -->
       <div class="mb-3 ">
         <app-edit-geo-json [(geoJson)]="formData.geoJson"></app-edit-geo-json>
+      </div>
+
+      <div class="mb-3 text-center">
+        <label for="buttonGroupLabel" class="form-label form-control-sm">Display Map for</label>
+        <div class="btn-group" id="buttonGroupLabel" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="locationOption" id="locationOption"
+                 value="Location" [(ngModel)]="showMapOption" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="locationOption">Location</label>
+
+          <input type="radio" class="btn-check" name="geoJsonOption" id="geoJsonOption" autocomplete="off"
+                 value="GeoJson" [(ngModel)]="showMapOption">
+          <label class="btn btn-outline-primary" for="geoJsonOption">GeoJson</label>
+        </div>
       </div>
 
     </div>
