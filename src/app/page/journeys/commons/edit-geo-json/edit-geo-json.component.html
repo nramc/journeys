@@ -17,6 +17,19 @@
       <div class="mb-3">
         <button type="button" class="w-100 btn btn-sm btn-primary" (click)="rawGeoJsonDialog.close()">Save</button>
       </div>
+      <div class="mb-1">
+        @if (isGeoJsonValid()) {
+          <p class="text-success d-inline-flex align-items-center align-content-center gap-2">
+            <mat-icon>check_circle</mat-icon>
+            <span>GeoJson valid</span>
+          </p>
+        } @else {
+          <p class="text-danger d-inline-flex align-items-center align-content-center gap-2">
+            <mat-icon>cancel</mat-icon>
+            <span>GeoJson is not valid</span>
+          </p>
+        }
+      </div>
 
     </div>
 
