@@ -1,22 +1,64 @@
 <form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey()">
 
   <div class="row geo-data-row mb-3">
-    <div class="col-md-6 col-12">
-      <div>
-        <label for="geojson" class="form-label">
-          <span>Tip:</span>
-          <a class="geojson-tip me-2" href="https://geojson.io/" target="_blank">GeoJson Creator</a>
-        </label>
-        <textarea class="form-control geojson-field" rows="10" [(ngModel)]="geoJsonString" (change)="reloadMap()"
-                  id="geojson" name="geojson" required>
-          {{journey().extendedDetails?.geoDetails?.geoJson | json}}
-        </textarea>
-      </div>
+    <div class="col-12 col-md-8" style="position: relative; min-height: 25vh">
+      <app-world-map class="h-50" [geoJsonData]="formData.location()"/>
     </div>
 
-    <div class="col-12 col-md-6" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="formGeoDetails().geoJson"/>
+    <div class="col-12 col-md-4 d-flex flex-column">
+
+      <div class="mb-3">
+        <app-edit-geo-location [(location)]="formData.location"></app-edit-geo-location>
+      </div>
+
+      <!-- Title -->
+      <div class="mb-3 ">
+        <label for="title" class="form-label">Title</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="title" name="title"
+                 [(ngModel)]="formData.title" [disabled]="isReadOnly()"
+                 #title="ngModel" required maxlength="100" minlength="10" placeholder="Title">
+        </div>
+        <div [hidden]="title.valid || title.pristine" class="form-text text-danger">
+          <div *ngIf="title.errors?.['required']">Title is required.</div>
+          <div *ngIf="title.errors?.['minlength']">Title must be at least 10 characters long.</div>
+          <div *ngIf="title.errors?.['maxlength']">Title must be at most 100 characters long.</div>
+        </div>
+      </div>
+
+      <!-- City -->
+      <div class="mb-3 ">
+        <label for="title" class="form-label">City</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="city" name="city"
+                 [(ngModel)]="formData.city" [disabled]="isReadOnly()"
+                 #city="ngModel" required minlength="3" maxlength="50" placeholder="City or Region">
+        </div>
+        <div [hidden]="city.valid || city.pristine" class="form-text text-danger">
+          <div *ngIf="city.errors?.['required']">City is required.</div>
+          <div *ngIf="city.errors?.['minlength']">City must be at least 3 characters long.</div>
+          <div *ngIf="city.errors?.['maxlength']">City must be at most 50 characters long.</div>
+        </div>
+      </div>
+
+      <!-- Country -->
+      <div class="mb-3 ">
+        <label for="title" class="form-label">Country</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="country" name="country"
+                 [(ngModel)]="formData.country" [disabled]="isReadOnly()"
+                 #country="ngModel" required minlength="3" maxlength="50" placeholder="Country">
+        </div>
+        <div [hidden]="country.valid || country.pristine" class="form-text text-danger">
+          <div *ngIf="country.errors?.['required']">Country is required.</div>
+          <div *ngIf="country.errors?.['minlength']">Country must be at least 3 characters long.</div>
+          <div *ngIf="country.errors?.['maxlength']">Country must be at most 50 characters long.</div>
+        </div>
+      </div>
+
+
     </div>
+
   </div>
 
   <div class="row">

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, model, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, effect, inject, model, OnInit, signal} from '@angular/core';
 import {Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
@@ -6,6 +6,10 @@ import {WorldMapComponent} from "../../../../component/world-map/world-map.compo
 import {MatStepperNext} from "@angular/material/stepper";
 import {JsonPipe, NgIf} from "@angular/common";
 import {NotificationService} from "../../../../service/common/notification.service";
+import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
+import {OperationMode} from "../../operation-mode";
+import {EditGeoLocationComponent} from "../edit-geo-location/edit-geo-location.component";
+import {Point} from "geojson";
 
 @Component({
   selector: 'app-edit-journey-geo-details',
@@ -16,7 +20,9 @@ import {NotificationService} from "../../../../service/common/notification.servi
     WorldMapComponent,
     MatStepperNext,
     NgIf,
-    JsonPipe
+    JsonPipe,
+    NgbInputDatepicker,
+    EditGeoLocationComponent
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -27,20 +33,34 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
 
   journey = model.required<Journey>();
 
-  formGeoDetails = signal(new JourneyGeoDetails());
+  // todo formGeoDetails
+  formData = {
+    location: signal<Point | undefined>(undefined),
+    title: signal<string>(''),
+    city: signal<string>(''),
+    country: signal<string>(''),
+  }
+
+  mode = model<OperationMode>(OperationMode.EDIT);
+  isReadOnly = computed(() => this.mode() === OperationMode.VIEW);
 
   geoJsonString = signal('');
 
+  constructor() {
+    effect(() => {
+      console.log('data:', this.formData.location());
+    });
+  }
 
   ngOnInit(): void {
-    this.formGeoDetails.set(this.journey().extendedDetails!.geoDetails ?? new JourneyGeoDetails());
+    this.copyToForm(this.journey().extendedDetails!.geoDetails ?? new JourneyGeoDetails())
 
-    this.geoJsonString.set(JSON.stringify(this.formGeoDetails().geoJson));
+    //this.geoJsonString.set(JSON.stringify(this.formGeoDetails().geoJson));
   }
 
   save(journeyForm: NgForm) {
     console.debug('submitted form:', journeyForm);
-    this.journeyService.saveJourneyGeoDetails(this.journey(), this.formGeoDetails())
+    this.journeyService.saveJourneyGeoDetails(this.journey(), this.copyDataFromForm())
       .subscribe({
         next: data => this.onUpdateSuccess(data),
         error: err => this.onError('Unexpected error while saving geo data', err)
@@ -56,10 +76,21 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
     console.error(err);
   }
 
-  reloadMap() {
-    if (this.geoJsonString()) {
-      this.formGeoDetails.update(data => ({...data, geoJson: JSON.parse(this.geoJsonString())}));
-    }
+  private copyToForm(data: JourneyGeoDetails) {
+    this.formData.location.set(data.location);
+    this.formData.title.set(data.title);
+    this.formData.city.set(data.city);
+    this.formData.country.set(data.country);
+  }
+
+  private copyDataFromForm() {
+    return new JourneyGeoDetails(
+      this.formData.title(),
+      this.formData.city(),
+      this.formData.country(),
+      this.formData.location(),
+      this.formData.location() // todo change to GeoJson
+    );
   }
 
 }

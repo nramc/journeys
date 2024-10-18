@@ -1,6 +1,6 @@
 <div class="input-group mb-3">
   <input type="number" class="form-control" placeholder="long" aria-label="Longitude" matTooltip="Longitude"
-         id="longitude" name="longitude" [(ngModel)]="location().coordinates[0]" [disabled]="disabled()"
+         id="longitude" name="longitude" [(ngModel)]="_location().coordinates[0]" [disabled]="disabled()"
          required min="-180.0" max="180.0" #longitude="ngModel" (change)="fireChangeEvent()">
   <button class="btn btn-primary input-group-text dropdown-toggle" data-bs-toggle="dropdown"
           aria-expanded="false" [disabled]="disabled()" matTooltip="Paste Options">
@@ -8,18 +8,18 @@
   </button>
   <ul class="dropdown-menu">
     <li>
-      <button type="button" class="dropdown-item" (click)="copyCoordinatesFromClipboard()">
+      <button type="button" class="dropdown-item" (click)="pasteClipboardCoordinates()">
         Clipboard
       </button>
     </li>
     <li>
-      <button type="button" class="dropdown-item" (click)="copyCoordinatesFromGoogleMap()">
+      <button type="button" class="dropdown-item" (click)="pasteClipboardGoogleCoordinates()">
         Clipboard (Copied from Google Map)
       </button>
     </li>
   </ul>
   <input type="number" class="form-control" placeholder="lat" aria-label="Latitude" matTooltip="Latitude"
-         id="latitude" name="latitude" [(ngModel)]="location().coordinates[1]" [disabled]="disabled()"
+         id="latitude" name="latitude" [(ngModel)]="_location().coordinates[1]" [disabled]="disabled()"
          required min="-90.0" max="90.0" #latitude="ngModel" (change)="fireChangeEvent()">
 </div>
 <div class="form-text text-danger">
