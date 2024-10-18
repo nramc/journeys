@@ -14,7 +14,7 @@
                   id="geojson"
                   name="geojson"></textarea>
       </div>
-      <div class="mb-3">
+      <div class="mb-1">
         <button type="button" class="w-100 btn btn-sm btn-primary" (click)="rawGeoJsonDialog.close()">Save</button>
       </div>
       <div class="mb-1">
@@ -29,6 +29,16 @@
             <span>GeoJson is not valid</span>
           </p>
         }
+      </div>
+
+      <div class="mb-1 d-flex flex-column">
+        <p>
+          Tip:
+          <a href="https://geojson.io/" target="_blank"
+             class="d-inline-flex align-content-center align-items-center justify-content-center">
+            <span>Create GeoJSON</span>
+            <mat-icon>open_in_new</mat-icon>
+          </a></p>
       </div>
 
     </div>
