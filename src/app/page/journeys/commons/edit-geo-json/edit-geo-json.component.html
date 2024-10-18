@@ -1,0 +1,22 @@
+<section>
+  <button type="button" class="btn btn-primary btn-sm w-100" (click)="rawGeoJsonDialog.showModal()">
+    Raw GeoJSON Data
+  </button>
+  <dialog #rawGeoJsonDialog class="w-50 h-75">
+    <div class="d-flex flex-column">
+      <div class="mb-1">
+        <h4 class="border-gradient-primary gradient-text">Geo Json</h4>
+      </div>
+      <div class="mb-1">
+        <textarea class="form-control geojson-field" rows="20" [(ngModel)]="geoJson" id="geojson"
+                  name="geojson"></textarea>
+      </div>
+      <div class="mb-3">
+        <button type="button" class="w-100 btn btn-sm btn-primary" (click)="rawGeoJsonDialog.close()">Save</button>
+      </div>
+
+    </div>
+
+  </dialog>
+
+</section>
