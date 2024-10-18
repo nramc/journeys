@@ -21,7 +21,7 @@
           <div class="row d-flex flex-row m-0">
             <div class="col-12" style="position: relative; height: 80vh; margin: inherit">
               <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location"
-                             [iconType]="journey.icon"></app-world-map>
+                             [iconType]="journey.extendedDetails?.geoDetails?.category ?? journey.icon"></app-world-map>
             </div>
           </div>
         </mat-tab>
