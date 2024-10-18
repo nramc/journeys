@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, computed, effect, inject, model, OnI
 import {Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
-import {WorldMapComponent} from "../../../../component/world-map/world-map.component";
+import {GeoCodingLocationData, WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {MatStepperNext} from "@angular/material/stepper";
 import {JsonPipe, NgIf} from "@angular/common";
 import {NotificationService} from "../../../../service/common/notification.service";
@@ -93,4 +93,10 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
     );
   }
 
+  addGeoLocation(geoCodingData: GeoCodingLocationData) {
+    this.formData.location.set(geoCodingData.location);
+    this.formData.title.set(geoCodingData.name);
+    this.formData.city.set(geoCodingData.state);
+    this.formData.country.set(geoCodingData.country);
+  }
 }

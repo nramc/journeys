@@ -1,4 +1,4 @@
-<div class="input-group mb-3">
+<div class="input-group">
   <input type="number" class="form-control" placeholder="long" aria-label="Longitude" matTooltip="Longitude"
          id="longitude" name="longitude" [(ngModel)]="_location().coordinates[0]" [disabled]="disabled()"
          required min="-180.0" max="180.0" #longitude="ngModel" (change)="fireChangeEvent()">

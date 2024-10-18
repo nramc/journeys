@@ -4,6 +4,8 @@ import {NgIf} from "@angular/common";
 import {Point} from "geojson";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatIcon} from "@angular/material/icon";
+import {toObservable} from "@angular/core/rxjs-interop";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-edit-geo-location',
@@ -23,6 +25,16 @@ export class EditGeoLocationComponent {
   location = model<Point | undefined>();
   _location = signal<Point>({type: "Point", coordinates: []});
   disabled = model<boolean>(false);
+
+  location$ = toObservable(this.location)
+    .pipe(filter(location => location?.coordinates != null && location.coordinates.length == 2));
+
+  constructor() {
+    this.location$.subscribe(newData => {
+      console.log(newData);
+      this._location.update(data => ({...data, coordinates: newData!.coordinates}))
+    })
+  }
 
   pasteClipboardCoordinates() {
     navigator.clipboard.readText().then(copiedValue => {
