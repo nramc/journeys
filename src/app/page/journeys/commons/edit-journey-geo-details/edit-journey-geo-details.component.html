@@ -2,9 +2,8 @@
 
   <div class="row geo-data-row mb-3">
     <div class="col-12 col-md-8" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="formData.location()" [iconType]="journey().icon"
+      <app-world-map class="h-50" [geoJsonData]="formData.geoJson() || formData.location()" [iconType]="journey().icon"
                      [enableGeoCoding]="true" (location)="addGeoLocation($event)"/>
-
     </div>
 
     <div class="col-12 col-md-4 d-flex flex-column">
@@ -58,6 +57,10 @@
         </div>
       </div>
 
+      <!-- GeoJson -->
+      <div class="mb-3 ">
+        <app-edit-geo-json [(geoJson)]="formData.geoJson"></app-edit-geo-json>
+      </div>
 
     </div>
 

@@ -9,7 +9,8 @@ import {NotificationService} from "../../../../service/common/notification.servi
 import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 import {OperationMode} from "../../operation-mode";
 import {EditGeoLocationComponent} from "../edit-geo-location/edit-geo-location.component";
-import {Point} from "geojson";
+import {GeoJSON, Point} from "geojson";
+import {EditGeoJsonComponent} from "../edit-geo-json/edit-geo-json.component";
 
 @Component({
   selector: 'app-edit-journey-geo-details',
@@ -22,7 +23,8 @@ import {Point} from "geojson";
     NgIf,
     JsonPipe,
     NgbInputDatepicker,
-    EditGeoLocationComponent
+    EditGeoLocationComponent,
+    EditGeoJsonComponent
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -33,18 +35,16 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
 
   journey = model.required<Journey>();
 
-  // todo formGeoDetails
   formData = {
     location: signal<Point | undefined>(undefined),
     title: signal<string>(''),
     city: signal<string>(''),
     country: signal<string>(''),
+    geoJson: signal<GeoJSON | undefined>(undefined)
   }
 
   mode = model<OperationMode>(OperationMode.EDIT);
   isReadOnly = computed(() => this.mode() === OperationMode.VIEW);
-
-  geoJsonString = signal('');
 
   constructor() {
     effect(() => {
@@ -54,8 +54,6 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.copyToForm(this.journey().extendedDetails!.geoDetails ?? new JourneyGeoDetails())
-
-    //this.geoJsonString.set(JSON.stringify(this.formGeoDetails().geoJson));
   }
 
   save(journeyForm: NgForm) {
@@ -81,6 +79,7 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
     this.formData.title.set(data.title);
     this.formData.city.set(data.city);
     this.formData.country.set(data.country);
+    this.formData.geoJson.set(data.geoJson)
   }
 
   private copyDataFromForm() {
@@ -89,7 +88,7 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
       this.formData.city(),
       this.formData.country(),
       this.formData.location(),
-      this.formData.location() // todo change to GeoJson
+      this.formData.geoJson() || this.formData.location()
     );
   }
 
