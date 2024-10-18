@@ -37,6 +37,7 @@ export class JourneyGeoDetails {
     public title: string = '',
     public city: string = '',
     public country: string = '',
+    public category: string = '',
     public location: Point | undefined = undefined,
     public geoJson: GeoJSON | undefined = undefined) {
   }

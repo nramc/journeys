@@ -11,6 +11,7 @@ import {OperationMode} from "../../operation-mode";
 import {EditGeoLocationComponent} from "../edit-geo-location/edit-geo-location.component";
 import {GeoJSON, Point} from "geojson";
 import {EditGeoJsonComponent} from "../edit-geo-json/edit-geo-json.component";
+import {SUPPORTED_ICONS} from "../../../../config/icon-config";
 
 @Component({
   selector: 'app-edit-journey-geo-details',
@@ -30,6 +31,8 @@ import {EditGeoJsonComponent} from "../edit-geo-json/edit-geo-json.component";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
+  protected readonly CATEGORIES = SUPPORTED_ICONS;
+
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
 
@@ -40,6 +43,7 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
     title: signal<string>(''),
     city: signal<string>(''),
     country: signal<string>(''),
+    category: signal<string>('default'),
     geoJson: signal<GeoJSON | undefined>(undefined)
   }
 
@@ -83,7 +87,8 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
     this.formData.title.set(data.title);
     this.formData.city.set(data.city);
     this.formData.country.set(data.country);
-    this.formData.geoJson.set(data.geoJson)
+    this.formData.category.set(data.category || 'default');
+    this.formData.geoJson.set(data.geoJson);
   }
 
   private copyDataFromForm() {
@@ -91,6 +96,7 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
       this.formData.title(),
       this.formData.city(),
       this.formData.country(),
+      this.formData.category(),
       this.formData.location(),
       this.formData.geoJson() || this.formData.location()
     );

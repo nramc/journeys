@@ -2,7 +2,7 @@
 
   <div class="row geo-data-row mb-3">
     <div class="col-12 col-md-8" style="position: relative; min-height: 25vh">
-      <app-world-map class="h-50" [geoJsonData]="geoJsonData()" [iconType]="journey().icon"
+      <app-world-map class="h-50" [geoJsonData]="geoJsonData()" [iconType]="formData.category()"
                      [enableGeoCoding]="true" (location)="addGeoLocation($event)"/>
     </div>
 
@@ -54,6 +54,21 @@
           <div *ngIf="country.errors?.['required']">Country is required.</div>
           <div *ngIf="country.errors?.['minlength']">Country must be at least 3 characters long.</div>
           <div *ngIf="country.errors?.['maxlength']">Country must be at most 50 characters long.</div>
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select id="category" class="form-select form-select-sm" aria-label="Category"
+                [(ngModel)]="formData.category" required [disabled]="isReadOnly()" name="category"
+                #category="ngModel">
+          @for (category of CATEGORIES; track category) {
+            <option [value]="category">{{ category }}</option>
+          }
+        </select>
+        <div [hidden]="category.valid || category.pristine" class="form-text text-danger">
+          <div *ngIf="category.errors?.['required']">Category is required.</div>
         </div>
       </div>
 
