@@ -24,12 +24,6 @@ export class EditGeoLocationComponent {
   _location = signal<Point>({type: "Point", coordinates: []});
   disabled = model<boolean>(false);
 
-  constructor() {
-
-  }
-
-  // todo fire change event
-
   pasteClipboardCoordinates() {
     navigator.clipboard.readText().then(copiedValue => {
       console.debug('Value copied from clipboard:', copiedValue);
@@ -62,7 +56,7 @@ export class EditGeoLocationComponent {
 
   fireChangeEvent() {
     if (this._location().coordinates.filter(value => value !== null).length == 2) {
-      this.location.update(data => ({type: "Point", coordinates: this._location().coordinates}));
+      this.location.update(_ => ({type: "Point", coordinates: this._location().coordinates}));
       console.log('fireChangeEvent:', this.location())
     }
 
