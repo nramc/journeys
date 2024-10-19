@@ -4,7 +4,7 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
 import {Observable, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe, DatePipe, NgIf} from "@angular/common";
 import {VIEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 import {MatTab, MatTabGroup, MatTabLabel} from "@angular/material/tabs";
 import {MatIcon} from "@angular/material/icon";
@@ -14,6 +14,7 @@ import {ViewJourneyBasicDetailsComponent} from "./view-journey-basic-details/vie
 import {HasWriteAccessDirective} from "../../../directive/has-write-access.directive";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatTooltip} from "@angular/material/tooltip";
+import {ViewJourneyHeaderComponent} from "./view-journey-header/view-journey-header.component";
 
 @Component({
   selector: 'app-view-journey',
@@ -31,7 +32,9 @@ import {MatTooltip} from "@angular/material/tooltip";
     ViewJourneyBasicDetailsComponent,
     HasWriteAccessDirective,
     MatButtonToggleModule,
-    MatTooltip
+    MatTooltip,
+    DatePipe,
+    ViewJourneyHeaderComponent
   ],
   standalone: true
 })
@@ -63,7 +66,4 @@ export class ViewJourneyComponent implements OnInit {
     return videos;
   }
 
-  editJourney(journey: Journey) {
-    this.router.navigate(['/journey', journey.id, 'edit']).then();
-  }
 }

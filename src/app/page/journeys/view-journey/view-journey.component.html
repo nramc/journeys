@@ -1,12 +1,7 @@
 <section *ngIf="journey$ | async as journey" class="mt-3 mb-2">
   <div class="row m-2">
     <div class="col-12">
-      <h4><span class="gradient-text me-1">{{ journey.name }}</span>
-        <button class="btn btn-outline-primary btn-sm" type="button" *appHasWriteAccess
-                [matTooltip]="'Edit Journey'" (click)="editJourney(journey)">
-          <i class="bi bi-pencil-square"></i>
-        </button>
-      </h4>
+      <app-view-journey-header [journey]="journey"></app-view-journey-header>
     </div>
   </div>
   <div class="row">
@@ -20,7 +15,7 @@
           </ng-template>
           <div class="row d-flex flex-column m-0">
             <div class="col-12">
-              <h6 class="gradient-text text-center">{{journey.extendedDetails?.geoDetails?.title}}</h6>
+              <h6 class="gradient-text text-center">{{ journey.extendedDetails?.geoDetails?.title }}</h6>
             </div>
             <div class="col-12" style="position: relative; height: 80vh; margin: inherit">
               <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location"
