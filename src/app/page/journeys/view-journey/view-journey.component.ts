@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Journey, JourneyImagesDetails} from "../../../model/core/journey.model";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {ActivatedRoute, ParamMap} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
 import {Observable, switchMap} from "rxjs";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {AsyncPipe, DatePipe, NgIf} from "@angular/common";
-import {VIEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 import {MatTab, MatTabGroup, MatTabLabel} from "@angular/material/tabs";
 import {MatIcon} from "@angular/material/icon";
 import {WorldMapComponent} from "../../../component/world-map/world-map.component";
@@ -39,13 +38,11 @@ import {ViewJourneyHeaderComponent} from "./view-journey-header/view-journey-hea
   standalone: true
 })
 export class ViewJourneyComponent implements OnInit {
-  protected readonly VIEW_JOURNEY_PAGE_INFO = VIEW_JOURNEY_PAGE_INFO;
   journey$: Observable<Journey> | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private journeyService: JourneyService,
-    private router: Router
   ) {
   }
 
