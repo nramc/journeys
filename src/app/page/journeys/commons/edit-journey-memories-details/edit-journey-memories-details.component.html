@@ -15,7 +15,7 @@
     </div>
 
     <!-- Journey Date -->
-    <div class="mb-3 col-md-2">
+    <div class="mb-3 col-md-4 col-12">
       <label for="journeyDate" class="form-label">Journey Date</label>
       <div class="input-group">
         <input type="text" class="form-control" id="journeyDate" name="journeyDate"
@@ -25,20 +25,6 @@
         <div [hidden]="journeyDate.valid || journeyDate.pristine" class="form-text text-danger">
           <div *ngIf="journeyDate.errors?.['required']">Journey Date is required.</div>
         </div>
-      </div>
-    </div>
-
-    <!-- icon -->
-    <div class="mb-3 col-12 col-md-2">
-      <label for="iconType" class="form-label">Icon</label>
-      <select id="iconType" class="form-select form-select-sm" aria-label="Icon" [disabled]="isReadOnly()"
-              [(ngModel)]="journey().icon" required name="iconType" #iconType="ngModel">
-        @for (iconType of SUPPORTED_ICONS; track iconType) {
-          <option [value]="iconType">{{ iconType| titlecase }}</option>
-        }
-      </select>
-      <div [hidden]="iconType.valid || iconType.pristine" class="form-text text-danger">
-        <div *ngIf="iconType.errors?.['required']">Icon is required.</div>
       </div>
     </div>
 

@@ -5,7 +5,6 @@ import {NotificationService} from "../../../../service/common/notification.servi
 import {OperationMode} from "../../operation-mode";
 import {MatChipsModule} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
-import {SUPPORTED_ICONS} from "../../../../config/icon-config";
 import {NgIf, TitleCasePipe} from "@angular/common";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {DisplayMarkdownComponent} from "../../../../component/display-markdown-component/display-markdown.component";
@@ -37,7 +36,6 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
   styles: []
 })
 export class EditJourneyMemoriesDetailsComponent {
-  protected readonly SUPPORTED_ICONS = SUPPORTED_ICONS;
   protected readonly OperationMode = OperationMode;
 
   private readonly journeyService = inject(JourneyService);
