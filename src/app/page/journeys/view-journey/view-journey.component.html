@@ -18,7 +18,10 @@
             <mat-icon class="me-1">map</mat-icon>
             Geo
           </ng-template>
-          <div class="row d-flex flex-row m-0">
+          <div class="row d-flex flex-column m-0">
+            <div class="col-12">
+              <h6 class="gradient-text text-center">{{journey.extendedDetails?.geoDetails?.title}}</h6>
+            </div>
             <div class="col-12" style="position: relative; height: 80vh; margin: inherit">
               <app-world-map [geoJsonData]="journey.extendedDetails?.geoDetails?.geoJson || journey.location"
                              [iconType]="journey.extendedDetails?.geoDetails?.category ?? journey.icon"></app-world-map>
