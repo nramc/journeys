@@ -1,5 +1,6 @@
 <div class="m-0">
-  <a class="card bg-dark text-bg-dark text-white" (click)="viewDetails()" href="#">
+  <a class="card bg-dark text-bg-dark text-white" (click)="viewDetails()" (keyup.enter)="viewDetails()"
+  tabindex="0">
     <img [ngSrc]="journey().thumbnail" class="card-img" [alt]="journey().thumbnail" fill priority>
     <div class="card-img-overlay d-flex flex-column align-self-stretch card-text-wrapper">
       <h5 class="card-title ">{{ journey().name }}</h5>
@@ -15,22 +16,22 @@
           <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50">
             <small>{{ journey().journeyDate | date:"dd.MM.YYYY" }}</small>
           </p>
-          <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50">
+          <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50" *ngIf="journey().city">
             <small>{{ journey().city }}</small>
           </p>
-          <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50">
+          <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50" *ngIf="journey().country">
             <small>{{ journey().country }}</small>
           </p>
-          <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50">
+          <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50" *ngIf="journey().country">
             <small>{{ journey().category }}</small>
           </p>
         </div>
         <div class="d-inline-flex gap-1 justify-content-end">
-          <button type="button" class="btn btn-sm btn-success ms-1 small"
+          <button type="button" class="btn btn-sm btn-primary ms-1 small"
                   (click)="editDetails($event)"
                   *appHasWriteAccess>Edit
           </button>
-          <button type="button" class="btn btn-sm btn-success ms-1 small"
+          <button type="button" class="btn btn-sm btn-primary ms-1 small"
                   (click)="viewInTimeline($event)">Timeline
           </button>
         </div>

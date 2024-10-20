@@ -1,0 +1,48 @@
+<section>
+  <button type="button" class="btn btn-primary btn-sm w-100" (click)="rawGeoJsonDialog.showModal()">
+    Raw GeoJSON Data
+  </button>
+  <dialog #rawGeoJsonDialog class="w-50 h-75">
+    <button class="btn btn-close float-end" type="button" (click)="rawGeoJsonDialog.close()">&nbsp;</button>
+    <div class="d-flex flex-column">
+      <div class="mb-1">
+        <h4 class="border-gradient-primary gradient-text">Geo Json</h4>
+      </div>
+      <div class="mb-1">
+        <textarea class="form-control geojson-field" rows="20"
+                  [value]="geoJsonString()" (input)="onGeoJsonChange($event)"
+                  id="geojson"
+                  name="geojson"></textarea>
+      </div>
+      <div class="mb-1">
+        <button type="button" class="w-100 btn btn-sm btn-primary" (click)="rawGeoJsonDialog.close()">Save</button>
+      </div>
+      <div class="mb-1">
+        @if (isGeoJsonValid()) {
+          <p class="text-success d-inline-flex align-items-center align-content-center gap-2">
+            <mat-icon>check_circle</mat-icon>
+            <span>GeoJson valid</span>
+          </p>
+        } @else {
+          <p class="text-danger d-inline-flex align-items-center align-content-center gap-2">
+            <mat-icon>cancel</mat-icon>
+            <span>GeoJson is not valid</span>
+          </p>
+        }
+      </div>
+
+      <div class="mb-1 d-flex flex-column">
+        <p>
+          Tip:
+          <a href="https://geojson.io/" target="_blank"
+             class="d-inline-flex align-content-center align-items-center justify-content-center">
+            <span>Create GeoJSON</span>
+            <mat-icon>open_in_new</mat-icon>
+          </a></p>
+      </div>
+
+    </div>
+
+  </dialog>
+
+</section>

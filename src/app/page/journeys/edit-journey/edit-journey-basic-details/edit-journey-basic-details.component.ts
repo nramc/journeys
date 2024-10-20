@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, inject, model, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, input, model, signal} from '@angular/core';
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
@@ -15,6 +15,7 @@ import {SUPPORTED_ICONS} from "../../../../config/icon-config";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {DisplayMarkdownComponent} from "../../../../component/display-markdown-component/display-markdown.component";
 import {NotificationService} from "../../../../service/common/notification.service";
+import {OperationMode} from "../../operation-mode";
 
 @Component({
   selector: 'app-edit-journey-basic-data',
@@ -42,6 +43,8 @@ export class EditJourneyBasicDetailsComponent {
   private readonly journeyService = inject(JourneyService);
   private readonly autoCompleteService = inject(AutoCompleteService);
   private readonly notificationService = inject(NotificationService);
+
+  mode = input<OperationMode>(OperationMode.VIEW);
 
   markdownStyle = signal<string>('Source')
   journey = model<Journey>(new Journey());

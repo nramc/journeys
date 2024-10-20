@@ -11,8 +11,8 @@
   <div class="card-group gap-2 show ps-2" [id]="header()">
     @for (statistic of data().sort(comparatorFn); track statistic.name; let index = $index) {
 
-      <a class="text-decoration-none card border border-primary border-1 rounded-2" [ngClass]="'card-' + index"
-         (click)="gotoGallery(type(),statistic.name)" href="#">
+      <button class="text-decoration-none card border border-primary border-1 rounded-2" [ngClass]="'card-' + index"
+         (click)="gotoGallery(type(),statistic.name)" (keyup.enter)="gotoGallery(type(),statistic.name)">
         <div class="card-statistics p-4">
           <div class="mb-4 d-inline-flex justify-content-around w-100">
             <h5 class="card-title gradient-text mb-0">{{ statistic.name }}</h5>
@@ -34,7 +34,7 @@
                             [value]="getPercentage(statistic.count, totalCount())"></mat-progress-bar>
 
         </div>
-      </a>
+      </button>
 
     }
   </div>

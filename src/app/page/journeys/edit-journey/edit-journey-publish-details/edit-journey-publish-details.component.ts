@@ -37,14 +37,9 @@ export class EditJourneyPublishDetailsComponent {
   isBasicDetailsAvailableAndValid(): boolean {
     return this.journey().id != '' &&
       this.journey().name != '' &&
-      this.journey().title != '' &&
       this.journey().description != '' &&
-      this.journey().city != '' &&
-      this.journey().country != '' &&
       this.journey().journeyDate != '' &&
-      this.journey().category != '' &&
-      this.journey().tags?.length > 0 &&
-      this.journey().location != undefined
+      this.journey().tags?.length > 0
   }
 
   isGeoJsonAvailable() {

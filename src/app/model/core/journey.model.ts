@@ -25,7 +25,7 @@ export class Journey {
 
 export class JourneyExtendedDetails {
   constructor(
-    public geoDetails: JourneyGeoDetails | undefined = new JourneyGeoDetails(undefined),
+    public geoDetails: JourneyGeoDetails | undefined = new JourneyGeoDetails(),
     public imagesDetails: JourneyImagesDetails | undefined = new JourneyImagesDetails(),
     public videosDetails: JourneyVideosDetails | undefined = new JourneyVideosDetails()
   ) {
@@ -34,7 +34,12 @@ export class JourneyExtendedDetails {
 
 export class JourneyGeoDetails {
   constructor(
-    public geoJson: GeoJSON | undefined) {
+    public title = '',
+    public city = '',
+    public country = '',
+    public category = '',
+    public location: Point | undefined = undefined,
+    public geoJson: GeoJSON | undefined = undefined) {
   }
 }
 
