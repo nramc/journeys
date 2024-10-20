@@ -34,10 +34,10 @@ export class JourneyExtendedDetails {
 
 export class JourneyGeoDetails {
   constructor(
-    public title: string = '',
-    public city: string = '',
-    public country: string = '',
-    public category: string = '',
+    public title = '',
+    public city = '',
+    public country = '',
+    public category = '',
     public location: Point | undefined = undefined,
     public geoJson: GeoJSON | undefined = undefined) {
   }

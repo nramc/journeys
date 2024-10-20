@@ -3,13 +3,13 @@
     Raw GeoJSON Data
   </button>
   <dialog #rawGeoJsonDialog class="w-50 h-75">
-    <button class="btn btn-close float-end" type="button" (click)="rawGeoJsonDialog.close()"></button>
+    <button class="btn btn-close float-end" type="button" (click)="rawGeoJsonDialog.close()">&nbsp;</button>
     <div class="d-flex flex-column">
       <div class="mb-1">
         <h4 class="border-gradient-primary gradient-text">Geo Json</h4>
       </div>
       <div class="mb-1">
-        <textarea class="form-control geojson-field" rows="20" autofocus
+        <textarea class="form-control geojson-field" rows="20"
                   [value]="geoJsonString()" (input)="onGeoJsonChange($event)"
                   id="geojson"
                   name="geojson"></textarea>

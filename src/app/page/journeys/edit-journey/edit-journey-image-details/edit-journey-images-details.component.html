@@ -4,7 +4,8 @@
     <div class="col-12">
       <div class="d-flex mb-3 flex-wrap">
         @for (imageDetail of this.formImageDetails().images; track imageDetail.assetId; let i = $index) {
-          <a class="m-2 image-thumbnail-wrapper" (click)="openImageItem(imageDetail)">
+          <a class="m-2 image-thumbnail-wrapper" (click)="openImageItem(imageDetail)" tabindex="0"
+             (keyup.enter)="openImageItem(imageDetail)">
             <img
               [src]="imageDetail.url"
               alt="thumbnail"
