@@ -37,7 +37,7 @@ export class EditJourneyImagesDetailsComponent implements OnInit {
   imageItemDialog = viewChild.required<ElementRef<HTMLDialogElement>>('imageItemDetailDialog');
 
   ngOnInit(): void {
-    this.formImageDetails.set(this.journey().extendedDetails?.imagesDetails ?? new JourneyImagesDetails());
+    this.formImageDetails.set(this.journey().imagesDetails ?? new JourneyImagesDetails());
   }
 
   private addImage(info: CloudinaryUploadSuccessInfo) {
