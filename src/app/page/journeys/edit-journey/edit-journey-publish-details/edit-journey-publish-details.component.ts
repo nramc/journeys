@@ -43,15 +43,15 @@ export class EditJourneyPublishDetailsComponent {
   }
 
   isGeoJsonAvailable() {
-    return this.journey().extendedDetails?.geoDetails?.geoJson != null;
+    return this.journey().geoDetails?.geoJson != null;
   }
 
   isImagesDetailsAvailable() {
-    return this.journey().extendedDetails?.imagesDetails?.images?.length ?? -1 > 0;
+    return this.journey().imagesDetails?.images?.length ?? -1 > 0;
   }
 
   isVideosDetailsAvailable() {
-    return this.journey().extendedDetails?.videosDetails?.videos?.length ?? -1 > 0
+    return this.journey().videosDetails?.videos?.length ?? -1 > 0
   }
 
   publish(journeyForm: NgForm) {

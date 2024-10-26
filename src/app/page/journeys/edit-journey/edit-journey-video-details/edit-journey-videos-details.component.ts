@@ -28,7 +28,7 @@ export class EditJourneyVideosDetailsComponent implements OnInit {
   formVideosDetails = signal(new JourneyVideosDetails());
 
   ngOnInit(): void {
-    this.formVideosDetails.set(this.journey().extendedDetails?.videosDetails ?? new JourneyVideosDetails());
+    this.formVideosDetails.set(this.journey().videosDetails ?? new JourneyVideosDetails());
   }
 
   addVideo(videoId: string) {

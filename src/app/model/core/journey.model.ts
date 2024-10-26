@@ -16,18 +16,11 @@ export class Journey {
     public thumbnail: string = DEFAULT_THUMBNAIL,
     public icon = 'default',
     public location: Point | undefined = undefined,
-    public extendedDetails: JourneyExtendedDetails | undefined = new JourneyExtendedDetails(),
-    public isPublished = false,
-    public visibilities: string[] = []
-  ) {
-  }
-}
-
-export class JourneyExtendedDetails {
-  constructor(
     public geoDetails: JourneyGeoDetails | undefined = new JourneyGeoDetails(),
     public imagesDetails: JourneyImagesDetails | undefined = new JourneyImagesDetails(),
-    public videosDetails: JourneyVideosDetails | undefined = new JourneyVideosDetails()
+    public videosDetails: JourneyVideosDetails | undefined = new JourneyVideosDetails(),
+    public isPublished = false,
+    public visibilities: string[] = []
   ) {
   }
 }

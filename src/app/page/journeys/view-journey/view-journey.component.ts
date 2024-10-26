@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Journey, JourneyImagesDetails} from "../../../model/core/journey.model";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
@@ -38,13 +38,11 @@ import {ViewJourneyHeaderComponent} from "./view-journey-header/view-journey-hea
   standalone: true
 })
 export class ViewJourneyComponent implements OnInit {
+  private readonly route = inject(ActivatedRoute);
+  private readonly journeyService = inject(JourneyService);
+
   journey$: Observable<Journey> | undefined;
 
-  constructor(
-    private route: ActivatedRoute,
-    private journeyService: JourneyService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.journey$ = this.route.paramMap.pipe(
@@ -54,12 +52,12 @@ export class ViewJourneyComponent implements OnInit {
 
 
   getImages(journey: Journey): JourneyImagesDetails {
-    return journey.extendedDetails?.imagesDetails ?? new JourneyImagesDetails();
+    return journey.imagesDetails ?? new JourneyImagesDetails();
   }
 
   getVideos(journey: Journey) {
     const videos = new Array<string>()
-    journey.extendedDetails?.videosDetails?.videos?.map(videoDetail => videos.push(videoDetail.videoId));
+    journey.videosDetails?.videos?.map(videoDetail => videos.push(videoDetail.videoId));
     return videos;
   }
 

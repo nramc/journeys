@@ -60,7 +60,7 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.copyToForm(this.journey().extendedDetails!.geoDetails ?? new JourneyGeoDetails());
+    this.copyToForm(this.journey().geoDetails ?? new JourneyGeoDetails());
   }
 
   save(journeyForm: NgForm) {
