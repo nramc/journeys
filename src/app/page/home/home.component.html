@@ -19,7 +19,10 @@
   </div>
 </section>
 
-<app-quick-links class="ms-3" *ngIf="isUserAuthenticated()"></app-quick-links>
+<section class="ms-3" *ngIf="isUserAuthenticated()">
+  <app-quick-links></app-quick-links>
+</section>
+
 
 <!-- Today timeline data -->
 <section class="container" *ngIf="timelineData() && timelineData()?.images?.length">
