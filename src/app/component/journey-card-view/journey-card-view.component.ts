@@ -18,7 +18,7 @@ import {HasWriteAccessDirective} from "../../directive/has-write-access.directiv
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneyCardViewComponent {
-  private router = inject(Router);
+  private readonly router = inject(Router);
   journey = input.required<Journey>();
 
   viewDetails() {
