@@ -27,7 +27,7 @@
 
       <div class="d-inline-flex gap-2 mt-4">
         <button class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
-        <button class="btn btn-primary" (click)="sendCode()" [disabled]="!canSendCode()" cdkFocusInitial>Send
+        <button type="button" class="btn btn-primary" (click)="sendCode()" [disabled]="!canSendCode()" cdkFocusInitial>Send
         </button>
         <button class="btn btn-primary" (click)="confirmCode(confirmationCode, confirmButton)" #confirmButton
                 [disabled]="codeForm.invalid">Confirm</button>
