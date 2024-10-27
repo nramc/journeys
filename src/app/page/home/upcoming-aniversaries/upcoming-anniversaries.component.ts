@@ -10,9 +10,11 @@ import {JourneyCardViewComponent} from "../../../component/journey-card-view/jou
   ],
   template: `
     <h4 class="gradient-text">Upcoming Anniversaries</h4>
-    @for (journey of journeys(); track journey.id) {
-      <app-journey-card-view [journey]="journey"></app-journey-card-view>
-    }
+    <div class="d-flex flex-column flex-md-row overflow-scroll">
+      @for (journey of journeys(); track journey.id) {
+        <app-journey-card-view [journey]="journey"></app-journey-card-view>
+      }
+    </div>
   `,
   styles: []
 })
