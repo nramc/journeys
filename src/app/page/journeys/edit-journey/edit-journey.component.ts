@@ -37,13 +37,18 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyComponent implements OnInit {
-  protected readonly OperationMode = OperationMode;
-
   private readonly route = inject(ActivatedRoute);
   private readonly journeyService = inject(JourneyService);
   private readonly router = inject(Router);
 
   journey = signal(new Journey());
+  mode = signal(OperationMode.EDIT);
+
+constructor() {
+  if (this.router.getCurrentNavigation()?.extras.state) {
+    this.mode.set(this.router.getCurrentNavigation()?.extras.state?.['mode'] as OperationMode ?? OperationMode.EDIT)
+  }
+}
 
   ngOnInit(): void {
     this.journeyService.getJourneyById(this.route.snapshot.params['id'])

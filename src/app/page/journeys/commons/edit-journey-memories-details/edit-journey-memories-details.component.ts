@@ -57,7 +57,11 @@ export class EditJourneyMemoriesDetailsComponent {
     this.journey.set(data);
 
     if (this.mode() === OperationMode.NEW) {
-      this.router.navigate(['/journey', this.journey().id, 'view']).then();
+      this.router.navigate(['/journey', this.journey().id, 'edit'], {
+        state: {
+          mode: OperationMode.VIEW
+        }
+      }).then();
     }
     this.mode.set(OperationMode.VIEW);
     this.notificationService.showSuccess('Journey details saved successfully.');
