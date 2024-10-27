@@ -23,6 +23,11 @@ export interface SearchResult {
   data: Journey[];
 }
 
+export interface SortableHeader {
+  label: string,
+  key: string
+}
+
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
@@ -48,8 +53,17 @@ export interface SearchResult {
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
 // Sorting properties
-  sortableFields: string[] = ["journeyDate", "name", "title", "city", "country", "category", "location"];
-  sortingFieldChangedEvent: BehaviorSubject<string> = new BehaviorSubject<string>("journeyDate");
+  sortableFields: SortableHeader[] = [
+    {label: 'Journey Date', key: 'journeyDate'},
+    {label: 'Journey Name', key: 'name'},
+    {label: "Geo Title", key: 'geoDetails.title'},
+    {label: "City", key: 'geoDetails.city'},
+    {label: "Country", key: 'geoDetails.country'},
+    {label: "Category", key: 'geoDetails.category'},
+    {label: "Geo Location", key: 'geoDetails.location'}
+  ];
+  sortingFieldChangedEvent: BehaviorSubject<SortableHeader> = new BehaviorSubject<SortableHeader>(
+    {label: "Journey Date", key: 'journeyDate'});
   sortableDirections: SortDirection[] = ["asc", "desc"];
   sortingDirectionChangedEvent: BehaviorSubject<SortDirection> = new BehaviorSubject<SortDirection>("desc");
   defaultPageSize = 10;
@@ -64,7 +78,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   searchResult = signal<SearchResult>({totalElements: 0, data: []});
 
   constructor(
-    private journeyService: JourneyService,
+    private readonly journeyService: JourneyService,
     router: Router) {
 
     if (router.getCurrentNavigation()?.extras.state) {
@@ -80,7 +94,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
         switchMap(() => {
           return this.journeyService.findJourneyByQuery(
             this.searchCriteria,
-            this.sortingFieldChangedEvent.getValue(),
+            this.sortingFieldChangedEvent.getValue().key,
             this.sortingDirectionChangedEvent.getValue(),
             this.paginator().pageIndex,
             this.paginator().pageSize,

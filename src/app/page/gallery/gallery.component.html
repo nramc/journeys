@@ -93,11 +93,12 @@
 
       <div ngbDropdown class="d-inline-block me-1">
         <button type="button" class="btn btn-outline-primary btn-sm" id="dropdownSortingField" ngbDropdownToggle>
-          {{ sortingFieldChangedEvent.getValue() | titlecase }}
+          {{ sortingFieldChangedEvent.getValue().label | titlecase }}
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownSortingField">
           @for (sortHeader of sortableFields; track sortHeader) {
-            <button ngbDropdownItem (click)="sortingFieldChangedEvent.next(sortHeader)">{{ sortHeader | titlecase }}
+            <button ngbDropdownItem
+                    (click)="sortingFieldChangedEvent.next(sortHeader)">{{ sortHeader.label | titlecase }}
             </button>
           }
         </div>
