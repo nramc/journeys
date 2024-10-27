@@ -16,7 +16,7 @@
     <mat-step [completed]="journey().id">
       <ng-template matStepLabel>Memories</ng-template>
       <ng-template matStepContent>
-        <app-edit-journey-memories-details [(journey)]="journey" [mode]="OperationMode.EDIT"></app-edit-journey-memories-details>
+        <app-edit-journey-memories-details [(journey)]="journey" [mode]="mode()"></app-edit-journey-memories-details>
       </ng-template>
     </mat-step>
 
