@@ -14,6 +14,7 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {TagsInputComponent} from "../../../../component/tags-input/tags-input.component";
 import {NarrationComponent} from "../../../../component/narration/narration.component";
 import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-edit-journey-memories-details',
@@ -40,6 +41,7 @@ export class EditJourneyMemoriesDetailsComponent {
 
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
+  private readonly router = inject(Router);
 
   mode = model<OperationMode>(OperationMode.VIEW);
   isReadOnly = computed(() => this.mode() == OperationMode.VIEW);
@@ -53,6 +55,10 @@ export class EditJourneyMemoriesDetailsComponent {
 
   onUpdateSuccess(data: Journey) {
     this.journey.set(data);
+
+    if (this.mode() === OperationMode.NEW) {
+      this.router.navigate(['/journey', this.journey().id, 'view']).then();
+    }
     this.mode.set(OperationMode.VIEW);
     this.notificationService.showSuccess('Journey details saved successfully.');
   }

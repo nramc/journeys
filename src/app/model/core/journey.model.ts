@@ -6,16 +6,10 @@ export class Journey {
   constructor(
     public id = '',
     public name = '',
-    public title = '',
     public description = '',
-    public city = '',
-    public country = '',
     public journeyDate = '',
-    public category = '',
     public tags: string[] = [],
     public thumbnail: string = DEFAULT_THUMBNAIL,
-    public icon = 'default',
-    public location: Point | undefined = undefined,
     public geoDetails: JourneyGeoDetails | undefined = new JourneyGeoDetails(),
     public imagesDetails: JourneyImagesDetails | undefined = new JourneyImagesDetails(),
     public videosDetails: JourneyVideosDetails | undefined = new JourneyVideosDetails(),
@@ -30,7 +24,7 @@ export class JourneyGeoDetails {
     public title = '',
     public city = '',
     public country = '',
-    public category = '',
+    public category = 'default',
     public location: Point | undefined = undefined,
     public geoJson: GeoJSON | undefined = undefined) {
   }
