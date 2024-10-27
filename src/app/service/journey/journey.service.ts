@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Journey, JourneyGeoDetails, JourneyImagesDetails, JourneyVideosDetails} from "../../model/core/journey.model";
 import {environment} from "../../../environments/environment";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {JourneyPage} from "./journey-page.type";
 import {FeatureCollection} from "geojson";
 import {SortDirection} from "@angular/material/sort";
@@ -63,6 +63,14 @@ export class JourneyService {
         params: params,
         headers: {'Authorization': `Bearer ${userContext.accessToken}`}
       });
+  }
+
+  getUpcomingAnniversary(): Observable<Journey[]> {
+    const userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<Journey[]>(environment.journeyApi + '/journeys/upcomingAnniversary',
+      {
+        headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+      }).pipe(map(result => result.sort((a, b) => Date.parse(a.journeyDate) - Date.parse(b.journeyDate))));
   }
 
   getAllJourneysAsGeoJson(): Observable<FeatureCollection> {

@@ -6,11 +6,12 @@ import {AsyncPipe, NgIf} from "@angular/common";
 import {environment} from "../../../environments/environment";
 import {BffService} from "../../service/bff/bff.service";
 import {RouterLink} from "@angular/router";
-import {TimelineService} from "../../service/timeline/timeline.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {TimelineComponent} from "../../component/timeline/timeline.component";
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 import {QuickLinksComponent} from "./quick-links/quick-links.component";
+import {JourneyService} from "../../service/journey/journey.service";
+import {UpcomingAnniversariesComponent} from "./upcoming-aniversaries/upcoming-anniversaries.component";
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ import {QuickLinksComponent} from "./quick-links/quick-links.component";
     TimelineComponent,
     RouterLink,
     HasWriteAccessDirective,
-    QuickLinksComponent
+    QuickLinksComponent,
+    UpcomingAnniversariesComponent
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -31,15 +33,16 @@ import {QuickLinksComponent} from "./quick-links/quick-links.component";
 export class HomeComponent {
   protected readonly HOME_PAGE_INFO = HOME_PAGE_INFO;
 
-  protected authService = inject(AuthService);
-  private bffService = inject(BffService);
-  private timelineService = inject(TimelineService);
+  protected readonly authService = inject(AuthService);
+  private readonly bffService = inject(BffService);
+  private readonly journeyService = inject(JourneyService);
+
 
   appVersion = environment.version;
   userData = toSignal(this.authService.getUserContext());
   isUserAuthenticated = computed(() => this.userData()?.isAuthenticated)
   bffApiVersion = toSignal(this.bffService.getVersion());
-  timelineData = toSignal(this.timelineService.getTimelineForToday());
+  upcomingJourniversaries = toSignal(this.journeyService.getUpcomingAnniversary());
 
 }
 

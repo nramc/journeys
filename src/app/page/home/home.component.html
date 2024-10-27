@@ -25,12 +25,8 @@
 
 
 <!-- Today timeline data -->
-<section class="container" *ngIf="timelineData() && timelineData()?.images?.length">
-  <div class="row">
-    <div class="col-12 d-flex flex-column justify-content-start">
-      <app-timeline [data]="timelineData()"></app-timeline>
-    </div>
-  </div>
+<section *ngIf="upcomingJourniversaries()">
+  <app-upcoming-anniversaries [journeys]="upcomingJourniversaries() ?? []"></app-upcoming-anniversaries>
 </section>
 
 <section class="container footer-section">
