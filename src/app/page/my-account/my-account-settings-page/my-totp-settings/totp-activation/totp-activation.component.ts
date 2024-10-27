@@ -6,13 +6,15 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormsModule} from "@angular/forms";
 import {TotpActivation} from "../../../../../service/my-account/totp-activation";
 import {NotificationService} from "../../../../../service/common/notification.service";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-totp-activation',
   standalone: true,
   imports: [
     MatDialogClose,
-    FormsModule
+    FormsModule,
+    MatProgressSpinner
   ],
   templateUrl: './totp-activation.component.html',
   styleUrl: './totp-activation.component.scss',

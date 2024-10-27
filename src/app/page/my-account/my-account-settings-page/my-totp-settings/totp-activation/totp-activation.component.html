@@ -40,9 +40,13 @@
             <li>Choose the option to scan a QR code.</li>
             <li>Use your phone’s camera to scan the QR code displayed below.</li>
           </ol>
-          <div class="qr-code-section text-center">
-            <img id="qrCode" width="200px" height="200px" alt="QR"
-                 [src]="'data:image/png;base64,' + qrCodeData()?.data">
+          <div class="qr-code-section text-center d-flex align-content-center align-items-center justify-content-center">
+            @if(qrCodeData()) {
+              <img id="qrCode" width="200px" height="200px" alt="QR"
+                   [src]="'data:image/png;base64,' + qrCodeData()?.data">
+            } @else {
+              <mat-spinner diameter="25"></mat-spinner>
+            }
           </div>
           <div class="secret-key-section text-center">
             <p class="fw-bold text-primary small">Or enter code manually: <span

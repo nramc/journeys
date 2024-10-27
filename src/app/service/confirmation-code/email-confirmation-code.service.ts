@@ -8,8 +8,8 @@ import {Credential} from "../auth/login.service";
   providedIn: 'root'
 })
 export class EmailConfirmationCodeService {
-  private httpClient: HttpClient = inject(HttpClient);
-  private authService: AuthService = inject(AuthService);
+  private readonly httpClient: HttpClient = inject(HttpClient);
+  private readonly authService: AuthService = inject(AuthService);
 
   sendConfirmationCode(credential: Credential) {
     const userContext = this.authService.getCurrentUserContext();
