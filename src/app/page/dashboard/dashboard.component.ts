@@ -26,7 +26,6 @@ export class DashboardComponent {
 
   featureCollection = toSignal(this.journeyService.getAllJourneysAsGeoJson());
   totalJourneys = computed(() => this.featureCollection()?.features.length);
-  totalPlaces = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'location'));
   totalCountry = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'country'))
   totalCity = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'city'))
 
