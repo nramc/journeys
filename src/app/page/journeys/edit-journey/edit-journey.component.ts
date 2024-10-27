@@ -3,7 +3,6 @@ import {Journey} from "../../../model/core/journey.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
 import {MatStep, MatStepContent, MatStepLabel, MatStepper} from "@angular/material/stepper";
-import {EditJourneyBasicDetailsComponent} from "./edit-journey-basic-details/edit-journey-basic-details.component";
 import {EditJourneyGeoDetailsComponent} from "../commons/edit-journey-geo-details/edit-journey-geo-details.component";
 import {EditJourneyImagesDetailsComponent} from "./edit-journey-image-details/edit-journey-images-details.component";
 import {EditJourneyVideosDetailsComponent} from "./edit-journey-video-details/edit-journey-videos-details.component";
@@ -24,7 +23,6 @@ import {
   imports: [
     MatStepper,
     MatStep,
-    EditJourneyBasicDetailsComponent,
     EditJourneyGeoDetailsComponent,
     EditJourneyImagesDetailsComponent,
     MatStepLabel,

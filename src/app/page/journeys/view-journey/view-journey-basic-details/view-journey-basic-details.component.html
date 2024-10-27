@@ -1,6 +1,6 @@
 <div class="row mt-3 mb-2">
   <div class="col-12 min-vh-50">
-    <app-display-markdown-component [title]="journey().title" [markdownText]="journey().description"></app-display-markdown-component>
+    <app-display-markdown-component [title]="journey().geoDetails?.title ?? ''" [markdownText]="journey().description"></app-display-markdown-component>
   </div>
 </div>
 
