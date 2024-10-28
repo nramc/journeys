@@ -9,6 +9,9 @@ import {UserContext} from "../../../service/auth/user-context";
 import {MfaOptions} from "../display-mfa-options/display-mfa-options.component";
 import {SIGNUP_PAGE_INFO} from "../../../model/page.info.model";
 import {NotificationService} from "../../../service/common/notification.service";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {BffService} from "../../../service/bff/bff.service";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +20,8 @@ import {NotificationService} from "../../../service/common/notification.service"
     FormsModule,
     NgIf,
     RouterLink,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatProgressSpinner
   ],
   templateUrl: './login.component.html',
   styles: [],
@@ -34,6 +38,7 @@ export class LoginComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly notificationService = inject(NotificationService);
 
+  isServiceAvailable = toSignal(inject(BffService).getVersion(), {initialValue: null});
   form = signal<Credential>({username: '', password: ''});
 
   login(loginForm: NgForm) {

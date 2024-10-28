@@ -1,8 +1,14 @@
-import {Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Journey, JourneyGeoDetails, JourneyImagesDetails, JourneyVideosDetails} from "../../model/core/journey.model";
+import {
+  compareFnByJourneyDateDescending,
+  Journey,
+  JourneyGeoDetails,
+  JourneyImagesDetails,
+  JourneyVideosDetails
+} from "../../model/core/journey.model";
 import {environment} from "../../../environments/environment";
-import {map, Observable} from "rxjs";
+import {map, Observable, of} from "rxjs";
 import {JourneyPage} from "./journey-page.type";
 import {FeatureCollection} from "geojson";
 import {SortDirection} from "@angular/material/sort";
@@ -14,11 +20,8 @@ import {SearchCriteria} from "../../model/core/search-criteria.model";
   providedIn: 'root'
 })
 export class JourneyService {
-  constructor(
-    private httpClient: HttpClient,
-    private authService: AuthService
-  ) {
-  }
+  private readonly httpClient = inject(HttpClient);
+  private readonly authService = inject(AuthService);
 
   createJourney(journey: Journey): Observable<Journey> {
     const userContext = this.authService.getCurrentUserContext();
@@ -67,10 +70,15 @@ export class JourneyService {
 
   getUpcomingAnniversary(): Observable<Journey[]> {
     const userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<Journey[]>(environment.journeyApi + '/journeys/upcomingAnniversary',
-      {
-        headers: {'Authorization': `Bearer ${userContext.accessToken}`}
-      }).pipe(map(result => result.sort((a, b) => Date.parse(a.journeyDate) - Date.parse(b.journeyDate))));
+    if (userContext.isAuthenticated) {
+      return this.httpClient.get<Journey[]>(environment.journeyApi + '/journeys/upcomingAnniversary',
+        {
+          headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+        }).pipe(map((result: Journey[]) => [...result].sort(compareFnByJourneyDateDescending)));
+    } else {
+      return of();
+    }
+
   }
 
   getAllJourneysAsGeoJson(): Observable<FeatureCollection> {

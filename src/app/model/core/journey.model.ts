@@ -3,6 +3,8 @@ import {GeoJSON, Point} from "geojson";
 export const DEFAULT_THUMBNAIL = 'https://res.cloudinary.com/journeytogether/image/upload/v1712604194/journey/readonly/aeqhy3zwrwko7ba2rinr.jpg';
 export const DEFAULT_CATEGORY = 'default';
 
+export const compareFnByJourneyDateDescending = (a: Journey, b: Journey) => Date.parse(a.journeyDate) - Date.parse(b.journeyDate);
+
 export class Journey {
   constructor(
     public id = '',

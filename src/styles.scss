@@ -355,6 +355,17 @@ gallery-image img {
   box-shadow: 0 0 8px white;
 }
 
+.mask-with-spinner {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(52, 89, 230, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 // Customize mat styles
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background: rgba(0, 0, 0, 0) !important;
