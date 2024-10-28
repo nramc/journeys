@@ -1,8 +1,9 @@
 import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
 import {DatePipe, NgIf, NgOptimizedImage} from "@angular/common";
-import {Journey} from "../../model/core/journey.model";
 import {Router} from "@angular/router";
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
+import {JourneyData} from "./journey.data";
+import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL, Journey} from "../../model/core/journey.model";
 
 @Component({
   selector: 'app-journey-card-view',
@@ -19,15 +20,19 @@ import {HasWriteAccessDirective} from "../../directive/has-write-access.directiv
 })
 export class JourneyCardViewComponent {
   private readonly router = inject(Router);
-  journey = input.required<Journey>();
+
+  journeyData = input.required<JourneyData, Journey>({
+    alias: 'journey',
+    transform: (value: JourneyData | Journey) => this.transformJourney(value)
+  });
 
   viewDetails() {
-    this.router.navigate(['/journey', this.journey().id, 'view']).then(console.log);
+    this.router.navigate(['/journey', this.journeyData().id, 'view']).then(console.log);
   }
 
   editDetails($event: MouseEvent) {
     $event.stopPropagation();
-    this.router.navigate(['/journey', this.journey().id, 'edit']).then(console.log);
+    this.router.navigate(['/journey', this.journeyData().id, 'edit']).then(console.log);
     return false;
   }
 
@@ -35,9 +40,27 @@ export class JourneyCardViewComponent {
     $event.stopPropagation();
     this.router.navigate(['/timeline'], {
       queryParams: {
-        'id': this.journey().id
+        'id': this.journeyData().id
       }
     }).then(console.log);
     return false;
   }
+
+  transformJourney(value: Journey | JourneyData): JourneyData {
+    if (value.hasOwnProperty('geoDetails') || value instanceof Journey) {
+      const journeyValue = value as Journey;
+      return new JourneyData(
+        journeyValue.id,
+        journeyValue.name,
+        journeyValue.geoDetails?.title,
+        journeyValue.geoDetails?.category ?? DEFAULT_CATEGORY,
+        journeyValue.journeyDate,
+        journeyValue.tags,
+        journeyValue.thumbnail ?? DEFAULT_THUMBNAIL
+      );
+    } else {
+      return value;
+    }
+  }
+
 }
