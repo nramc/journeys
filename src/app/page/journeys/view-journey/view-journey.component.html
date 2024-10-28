@@ -19,7 +19,7 @@
             </div>
             <div class="col-12" style="position: relative; height: 80vh; margin: inherit">
               <app-world-map [geoJsonData]="journey.geoDetails?.geoJson || journey.geoDetails?.location"
-                             [iconType]="journey.geoDetails?.category ?? 'default'"></app-world-map>
+                             [iconType]="journey.geoDetails?.category ?? DEFAULT_CATEGORY"></app-world-map>
             </div>
           </div>
         </mat-tab>
