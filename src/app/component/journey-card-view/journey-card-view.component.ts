@@ -47,7 +47,7 @@ export class JourneyCardViewComponent {
   }
 
   transformJourney(value: JourneyData | Journey): JourneyData {
-    if (value.hasOwnProperty('geoDetails') || value instanceof Journey) {
+    if (Object.hasOwn(value, 'geoDetails') || value instanceof Journey) {
       const journeyValue = value as Journey;
       return new JourneyData(
         journeyValue.id,
