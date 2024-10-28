@@ -56,7 +56,7 @@ export interface GeoCodingAreaData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WorldMapComponent implements AfterViewInit {
-  private elementRef: ElementRef = inject(ElementRef);
+  private readonly elementRef: ElementRef = inject(ElementRef);
   private map: L.Map | undefined;
   private geoJsonLayer: L.GeoJSON | undefined;
 

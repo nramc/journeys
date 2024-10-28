@@ -21,7 +21,7 @@ import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL, Journey} from "../../model/core/jou
 export class JourneyCardViewComponent {
   private readonly router = inject(Router);
 
-  journeyData = input.required<JourneyData, Journey>({
+  journeyData = input.required<JourneyData, JourneyData | Journey>({
     alias: 'journey',
     transform: (value: JourneyData | Journey) => this.transformJourney(value)
   });
@@ -46,7 +46,7 @@ export class JourneyCardViewComponent {
     return false;
   }
 
-  transformJourney(value: Journey | JourneyData): JourneyData {
+  transformJourney(value: JourneyData | Journey): JourneyData {
     if (value.hasOwnProperty('geoDetails') || value instanceof Journey) {
       const journeyValue = value as Journey;
       return new JourneyData(

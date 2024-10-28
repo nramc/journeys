@@ -68,6 +68,10 @@ $journey-theme: mat.define-theme((
 @import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
 @import "scss/zephyr/bootswatch";
 
+/* Leaflet style customization */
+.leaflet-popup-content {
+  width: auto !important;
+}
 
 /* Application specific global styles */
 
