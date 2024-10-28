@@ -3,9 +3,9 @@
   tabindex="0">
     <img [ngSrc]="journey().thumbnail" class="card-img" [alt]="journey().thumbnail" fill priority>
     <div class="card-img-overlay d-flex flex-column align-self-stretch card-text-wrapper">
-      <h5 class="card-title ">{{ journey().name }}</h5>
-      <p class="card-text">{{ journey().geoDetails?.title }}</p>
-      <p class="card-text">
+      <h5 class="card-title highlight-text-with-shadow">{{ journey().name }}</h5>
+      <p class="card-text highlight-text-with-shadow">{{ journey().geoDetails?.title }}</p>
+      <p class="card-text overflow-hidden d-inline-flex">
         @for (tag of journey().tags; track tag) {
           <span
             class="badge bg-dark bg-opacity-25 border-dark rounded-pill border me-1 fw-normal">{{ tag }}</span>
@@ -15,15 +15,6 @@
         <div class="d-inline-flex gap-1">
           <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50">
             <small>{{ journey().journeyDate | date:"dd.MM.YYYY" }}</small>
-          </p>
-          <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50" *ngIf="journey().geoDetails?.city">
-            <small>{{ journey().geoDetails?.city }}</small>
-          </p>
-          <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50" *ngIf="journey().geoDetails?.country">
-            <small>{{ journey().geoDetails?.country }}</small>
-          </p>
-          <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50" *ngIf="journey().geoDetails?.country">
-            <small>{{ journey().geoDetails?.category }}</small>
           </p>
         </div>
         <div class="d-inline-flex gap-1 justify-content-end">
