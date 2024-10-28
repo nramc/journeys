@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {Journey, JourneyImagesDetails} from "../../../model/core/journey.model";
+import {DEFAULT_CATEGORY, Journey, JourneyImagesDetails} from "../../../model/core/journey.model";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
 import {Observable, switchMap} from "rxjs";
@@ -61,4 +61,5 @@ export class ViewJourneyComponent implements OnInit {
     return videos;
   }
 
+  protected readonly DEFAULT_CATEGORY = DEFAULT_CATEGORY;
 }

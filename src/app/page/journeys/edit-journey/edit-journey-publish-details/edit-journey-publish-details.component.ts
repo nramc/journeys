@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, model} from '@angular/core';
-import {DEFAULT_THUMBNAIL, Journey} from "../../../../model/core/journey.model";
+import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL, Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule, NgForm} from "@angular/forms";
@@ -99,4 +99,5 @@ export class EditJourneyPublishDetailsComponent {
     setTimeout(() => this.router.navigate(['journey']), 1000)
   }
 
+  protected readonly DEFAULT_CATEGORY = DEFAULT_CATEGORY;
 }

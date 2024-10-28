@@ -25,7 +25,7 @@ export class JourneyGeoDetails {
     public title = '',
     public city = '',
     public country = '',
-    public category = 'default',
+    public category = DEFAULT_CATEGORY,
     public location: Point | undefined = undefined,
     public geoJson: GeoJSON | undefined = undefined) {
   }

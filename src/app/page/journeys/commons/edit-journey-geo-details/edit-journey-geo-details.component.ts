@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, computed, effect, inject, model, OnInit, signal} from '@angular/core';
-import {Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
+import {DEFAULT_CATEGORY, Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
 import {GeoCodingLocationData, WorldMapComponent} from "../../../../component/world-map/world-map.component";
@@ -43,7 +43,7 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
     title: signal<string>(''),
     city: signal<string>(''),
     country: signal<string>(''),
-    category: signal<string>('default'),
+    category: signal<string>(DEFAULT_CATEGORY),
     geoJson: signal<GeoJSON | undefined>(undefined)
   }
 
@@ -86,7 +86,7 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
     this.formData.title.set(data.title);
     this.formData.city.set(data.city);
     this.formData.country.set(data.country);
-    this.formData.category.set(data.category || 'default');
+    this.formData.category.set(data.category || DEFAULT_CATEGORY);
     this.formData.geoJson.set(data.geoJson);
   }
 
