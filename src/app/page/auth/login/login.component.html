@@ -5,6 +5,9 @@
 
       <div class="card login-card border border-2 border-primary border-opacity-50"
            style="border-radius: 1rem;">
+        <div class="mask-with-spinner" *ngIf="!isServiceAvailable()">
+          <mat-spinner></mat-spinner>
+        </div>
         <div class="card-body p-5 text-center">
           <img ngSrc="assets/icon/security/user-profile.png" alt="Journey" width="120" height="120" priority />
           <form (ngSubmit)="login(loginForm)" #loginForm="ngForm">
