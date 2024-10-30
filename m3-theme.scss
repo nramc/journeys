@@ -4,6 +4,8 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
+@import "./src/scss/variables";
+
 // Note: Color palettes are generated from primary: #3459E6
 $_palettes: (
   primary: (
@@ -168,4 +170,16 @@ $dark-theme: mat.define-theme((
   @include mat.all-component-themes($light-theme);
   @include mat.system-level-colors($light-theme);
   @include mat.system-level-typography($light-theme);
+}
+
+.navbar {
+  background: $primary;
+}
+
+.dark-theme .navbar {
+  background: rgb(17, 19, 27);
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+  background: mat.get-theme-color($light-theme, 'primary', 40);
 }
