@@ -173,7 +173,7 @@ $dark-theme: mat.define-theme((
 }
 
 .navbar {
-  background: $primary;
+  background: mat.get-theme-color($light-theme, 'primary', 35);
 }
 
 .dark-theme .navbar {
