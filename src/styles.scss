@@ -1,11 +1,6 @@
 @use '@angular/material' as mat;
-
-mat.$theme-legacy-inspection-api-compatibility: false
-
-;
-mat.$theme-ignore-duplication-warnings: true
-
-;
+@use "m3-theme";
+mat.$theme-ignore-duplication-warnings: true;
 
 
 /* Application specific variables */
@@ -13,51 +8,6 @@ mat.$theme-ignore-duplication-warnings: true
 
 /* ng-gallery dependencies */
 @import '@angular/cdk/overlay-prebuilt.css';
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat.core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$journey-primary: mat.m2-define-palette($app-blue-theme);
-$journey-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$journey-warn: mat.m2-define-palette(mat.$m2-red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$journey-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$blue-palette,
-    tertiary: mat.$magenta-palette,
-    use-system-variables: true
-  ),
-  typography: (
-    use-system-variables: true
-  ),
-  density: (
-    scale: 0,
-  )
-));
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-:root {
-  @include mat.all-component-themes($journey-theme);
-  @include mat.system-level-colors($journey-theme);
-  @include mat.system-level-typography($journey-theme);
-}
-
 
 /* Overriding any library/framework Variables */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
@@ -73,7 +23,33 @@ $journey-theme: mat.define-theme((
   width: auto !important;
 }
 
-/* Application specific global styles */
+/* Application theming */
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+html {
+  @include mat.all-component-themes(m3-theme.$light-theme);
+  @include mat.system-level-colors(m3-theme.$light-theme);
+  @include mat.system-level-typography(m3-theme.$light-theme);
+}
+
+.dark-theme {
+  @include m3-theme.create-dark-theme();
+}
+
+.light-theme {
+  @include m3-theme.create-light-theme();
+}
 
 html, body {
   height: 100%;
@@ -84,24 +60,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-/* Dark themes */
-body, body.light-theme {
-  --bs-body-bg-rgb: rgb(250, 250, 255);
-  --bs-body-bg: #fafaff
-}
-
-body.dark-theme {
-  --bs-body-bg-rgb: rgb(173, 181, 189);
-  --bs-body-bg: #adb5bd;
-  --bs-body-color: #eeeeee;
-  --bs-tertiary-bg: #adb5bd;
-  --bs-body-color-rgb: rgb(238, 238, 238);
-  --sys-surface: #adb5bd;
-  --mat-app-surface: #adb5bd;
-  --mat-stepper-container-color: #adb5bd;
-  --mat-table-background-color: #adb5bd;
-
-}
+/* Application specific global styles */
 
 .gradient-text {
   background: $primary;
@@ -200,6 +159,7 @@ body.dark-theme {
 .highlight-on-hover:hover {
   box-shadow: 0 0 .25rem .25rem rgba(0, 0, 255, 0.35);
 }
+
 .highlight-text-with-shadow {
   text-shadow: 1px 2px 10px blue;
 }
