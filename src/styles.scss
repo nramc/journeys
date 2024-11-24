@@ -2,6 +2,9 @@
 @use "m3-theme";
 mat.$theme-ignore-duplication-warnings: true;
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Application specific variables */
 @import "scss/variables";
