@@ -1,0 +1,42 @@
+.main-nav-container {
+  height: 100%;
+  position: relative;
+
+  .main-nav-sidebar {
+    height: 100%;
+    width: 280px;
+
+    .app-brand-section {
+      padding: 1rem;
+      border-bottom: 1px solid #ccc;
+
+      .brand-logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2px solid #007bff;
+      }
+
+      .app-tagline {
+        color: gray;
+      }
+    }
+  }
+
+  mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  mat-nav-list {
+    a {
+      display: flex;
+      align-items: center;
+
+      mat-icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}

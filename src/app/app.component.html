@@ -1,15 +1,29 @@
-<div class="container-fluid align-content-center">
-  <div class="row min-vh-100 app-content-wrapper">
-    <div class="col-md-2 side-navbar-wrapper p-0">
-      <app-side-navbar></app-side-navbar>
-    </div>
-    <div class="col-md-10 mb-2">
-      <app-theme-toggle />
-      <router-outlet></router-outlet>
-    </div>
+<mat-toolbar color="primary" class="toolbar">
+  <!-- App Brand Section -->
+  <div class="app-brand-section">
+    <a [routerLink]="HOME_PAGE_INFO.path" class="app-brand">
+      <img src="assets/logo/journey-logo-180x180.png" alt="Logo" class="brand-logo"/>
+    </a>
+    <a [routerLink]="HOME_PAGE_INFO.path" class="app-name">
+      <h1 class="app-title">Journey</h1>
+      <h6 class="app-tagline">Your Portal to the Past</h6>
+    </a>
+    <button mat-icon-button (click)="navigationMenu.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
   </div>
 
-  <app-loading-spinner></app-loading-spinner>
+</mat-toolbar>
+<mat-sidenav-container class="app-container">
+  <mat-sidenav #navigationMenu mode="side" position="start" opened>
+    <app-navigation-menu></app-navigation-menu>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-theme-toggle/>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
-</div>
+<app-loading-spinner></app-loading-spinner>
+
 
