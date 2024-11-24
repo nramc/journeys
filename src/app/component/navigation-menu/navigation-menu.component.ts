@@ -12,13 +12,12 @@ import {
     TOOLS_PAGE_INFO
 } from "../../model/page.info.model";
 import {MatSidenavModule} from "@angular/material/sidenav";
-import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatMenuModule} from "@angular/material/menu";
 import {NgIf} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatIconButton} from "@angular/material/button";
 import {AuthService} from "../../service/auth/auth.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 
@@ -26,7 +25,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
     selector: 'app-navigation-menu',
     standalone: true,
     imports: [
-        MatSidenavModule, RouterLink, MatIconModule, MatListModule, RouterLinkActive, MatMenuModule, NgIf, MatToolbarModule, MatIconButton, RouterOutlet
+        MatSidenavModule, RouterLink, MatIconModule, MatListModule, RouterLinkActive, MatMenuModule, NgIf, MatToolbarModule
     ],
     templateUrl: './navigation-menu.component.html',
     styleUrl: './navigation-menu.component.scss'

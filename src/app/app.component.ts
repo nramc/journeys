@@ -8,14 +8,13 @@ import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatToolbar} from "@angular/material/toolbar";
 import {HOME_PAGE_INFO} from "./model/page.info.model";
-import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [RouterOutlet, LoadingSpinnerComponent, ThemeToggleComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, MatIcon, MatIconButton, MatToolbar, RouterLink, NgOptimizedImage],
+  imports: [RouterOutlet, LoadingSpinnerComponent, ThemeToggleComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, MatIcon, MatIconButton, MatToolbar, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
