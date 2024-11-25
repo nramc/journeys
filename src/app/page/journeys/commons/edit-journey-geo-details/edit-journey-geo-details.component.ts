@@ -4,9 +4,8 @@ import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
 import {GeoCodingLocationData, WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {MatStepperNext} from "@angular/material/stepper";
-import {JsonPipe, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {NotificationService} from "../../../../service/common/notification.service";
-import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 import {OperationMode} from "../../operation-mode";
 import {EditGeoLocationComponent} from "../edit-geo-location/edit-geo-location.component";
 import {GeoJSON, Point} from "geojson";
@@ -22,8 +21,6 @@ import {SUPPORTED_ICONS} from "../../../../config/icon-config";
     WorldMapComponent,
     MatStepperNext,
     NgIf,
-    JsonPipe,
-    NgbInputDatepicker,
     EditGeoLocationComponent,
     EditGeoJsonComponent
   ],

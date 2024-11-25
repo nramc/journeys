@@ -10,8 +10,6 @@ import {MarkdownModule} from "ngx-markdown";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
 import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
-import {NgbDateAdapter} from "@ng-bootstrap/ng-bootstrap";
-import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {CustomErrorHandler} from "./utility/handler/error.handler";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {provideAnimations} from "@angular/platform-browser/animations";
@@ -30,7 +28,6 @@ export const appConfig: ApplicationConfig = {
         keyboardShortcuts: true
       } as LightboxConfig
     },
-    {provide: NgbDateAdapter, useClass: JourneyDateAdapter},
     {provide: ErrorHandler, useClass: CustomErrorHandler},
     provideHttpClient(withInterceptors([loadingInterceptor])),
     provideAnimations(),

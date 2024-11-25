@@ -5,15 +5,11 @@ import {NotificationService} from "../../../../service/common/notification.servi
 import {OperationMode} from "../../operation-mode";
 import {MatChipsModule} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
-import {NgIf, TitleCasePipe} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {DisplayMarkdownComponent} from "../../../../component/display-markdown-component/display-markdown.component";
-import {MatIcon} from "@angular/material/icon";
-import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 import {MatStepperModule} from "@angular/material/stepper";
 import {TagsInputComponent} from "../../../../component/tags-input/tags-input.component";
 import {NarrationComponent} from "../../../../component/narration/narration.component";
-import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 import {Router} from "@angular/router";
 
 @Component({
@@ -22,16 +18,11 @@ import {Router} from "@angular/router";
   imports: [
     FormsModule,
     NgIf,
-    TitleCasePipe,
     MatButtonToggleModule,
-    DisplayMarkdownComponent,
     MatChipsModule,
-    MatIcon,
-    NgbInputDatepicker,
     MatStepperModule,
     TagsInputComponent,
-    NarrationComponent,
-    HasWriteAccessDirective
+    NarrationComponent
   ],
   templateUrl: './edit-journey-memories-details.component.html',
   styles: []

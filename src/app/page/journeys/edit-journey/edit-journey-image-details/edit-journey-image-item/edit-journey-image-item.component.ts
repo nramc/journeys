@@ -1,17 +1,12 @@
 import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
 import {JourneyImageDetail} from "../../../../../model/core/journey.model";
 import {FormsModule} from "@angular/forms";
-import {NgIf, NgOptimizedImage} from "@angular/common";
-import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-edit-journey-image-item',
   standalone: true,
   imports: [
-    FormsModule,
-    NgIf,
-    NgbInputDatepicker,
-    NgOptimizedImage
+    FormsModule
   ],
   template: `
     <div class="container">
@@ -69,12 +64,13 @@ import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
                   <input type="text" class="form-control form-control-sm ignore-highlight" id="eventDate"
                          name="eventDate"
                          [(ngModel)]="imageItem().eventDate"
-                         placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
+                         placeholder="yyyy-mm-dd" ngbDatepicker>
                   <label for="eventDate">Event Date</label>
                 </div>
                 <div class="input-group-text">
-                  <button class="btn btn-sm btn-outline-secondary bi bi-calendar3 " (click)="d.toggle()"
-                          type="button">&nbsp;</button>
+                  <button class="btn btn-sm btn-outline-secondary bi bi-calendar3 "
+                          type="button">&nbsp;
+                  </button>
                 </div>
               </div>
 

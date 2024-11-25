@@ -16,11 +16,6 @@ mat.$theme-ignore-duplication-warnings: true;
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 @import 'node_modules/@maptiler/geocoding-control/style.css';
 
-/* Bootstrap theme customization */
-@import "node_modules/bootstrap/scss/bootstrap";
-@import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
-@import "scss/zephyr/bootswatch";
-
 /* Leaflet style customization */
 .leaflet-popup-content {
   width: auto !important;
@@ -336,9 +331,11 @@ gallery-image img {
 
 
 // Application specific media queries
-/* For medium and large screens */
+/* For medium and large screens fixme */
+/*
 @include media-breakpoint-up(md) {
   .w-md-75 {
     width: 75% !important;
   }
 }
+*/

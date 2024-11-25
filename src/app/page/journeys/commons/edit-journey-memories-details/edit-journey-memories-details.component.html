@@ -18,10 +18,11 @@
     <div class="mb-3 col-md-4 col-12">
       <label for="journeyDate" class="form-label">Journey Date</label>
       <div class="input-group">
+        <!--              fixme migrate ngbDatepicker to material ui date picker-->
         <input type="text" class="form-control" id="journeyDate" name="journeyDate"
                [(ngModel)]="journey().journeyDate" [disabled]="isReadOnly()"
-               #journeyDate="ngModel" required placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker">
-        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button">&nbsp;</button>
+               #journeyDate="ngModel" required placeholder="yyyy-mm-dd" ngbDatepicker>
+        <button class="btn btn-outline-secondary bi bi-calendar3" type="button">&nbsp;</button>
         <div [hidden]="journeyDate.valid || journeyDate.pristine" class="form-text text-danger">
           <div *ngIf="journeyDate.errors?.['required']">Journey Date is required.</div>
         </div>
@@ -48,7 +49,7 @@
   <div class="row">
     <div class="col-12 d-grid gap-2 d-flex justify-content-center">
       <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid"
-      [hidden]="mode() !== OperationMode.NEW">
+              [hidden]="mode() !== OperationMode.NEW">
         Create
       </button>
       <button type="button" class="btn btn-outline-success" (click)="enableEditMode()"

@@ -1,12 +1,14 @@
-@import "bootswatch/dist/zephyr/variables";
-
-@import 'node_modules/bootstrap/scss/functions';
-@import 'node_modules/bootstrap/scss/variables';
-@import 'node_modules/bootstrap/scss/mixins';
 
 /* Application variables */
 
 $appName: 'Journey';
+
+$dark: black;
+$light: whitesmoke;
+$primary: red;
+$indigo: blue;
+$pink: pink;
+$primary-bg-subtle: darkblue;
 
 $app-blue-theme: (
     50: #e7ebfc,

@@ -1,15 +1,12 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit, signal, viewChild} from '@angular/core';
 import {BehaviorSubject, catchError, merge, of, startWith, switchMap} from "rxjs";
-import {PageHeaderComponent} from "../../component/page-header/page-header.component";
-import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
+import {TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
 import {JourneyPage} from "../../service/journey/journey-page.type";
 import {MatPaginator} from "@angular/material/paginator";
 import {Journey} from "../../model/core/journey.model";
 import {Router} from "@angular/router";
-import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 import {SortDirection} from "@angular/material/sort";
-import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 import {MatChipInputEvent, MatChipsModule} from "@angular/material/chips";
 import {MatIcon} from "@angular/material/icon";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
@@ -33,16 +30,9 @@ export interface SortableHeader {
   templateUrl: './gallery.component.html',
   standalone: true,
   imports: [
-    PageHeaderComponent,
-    NgForOf,
-    NgIf,
     MatPaginator,
-    NgOptimizedImage,
-    DatePipe,
-    NgbDropdownModule,
     TitleCasePipe,
     UpperCasePipe,
-    HasWriteAccessDirective,
     MatChipsModule,
     MatIcon,
     FormsModule,
