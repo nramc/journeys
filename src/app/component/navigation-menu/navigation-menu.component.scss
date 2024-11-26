@@ -1,8 +1,7 @@
 @use 'variables' as variable;
 
 mat-nav-list {
-  a.active {
-    border: 2px solid variable.$primary;
-    border-collapse: separate;
+  a.active * {
+    color: variable.$primary !important;
   }
 }
