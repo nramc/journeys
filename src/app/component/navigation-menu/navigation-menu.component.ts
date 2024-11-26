@@ -16,7 +16,7 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatMenuModule} from "@angular/material/menu";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {AuthService} from "../../service/auth/auth.service";
 import {toSignal} from "@angular/core/rxjs-interop";
@@ -24,9 +24,9 @@ import {toSignal} from "@angular/core/rxjs-interop";
 @Component({
     selector: 'app-navigation-menu',
     standalone: true,
-    imports: [
-        MatSidenavModule, RouterLink, MatIconModule, MatListModule, RouterLinkActive, MatMenuModule, NgIf, MatToolbarModule
-    ],
+  imports: [
+    MatSidenavModule, RouterLink, MatIconModule, MatListModule, RouterLinkActive, MatMenuModule, NgIf, MatToolbarModule, NgClass
+  ],
     templateUrl: './navigation-menu.component.html',
     styleUrl: './navigation-menu.component.scss'
 })
