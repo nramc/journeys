@@ -12,7 +12,43 @@
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-  <app-theme-toggle/>
+  <div class="inline-flex">
+    <!-- Dropdown (My Account) -->
+    <mat-menu #accountMenu="matMenu">
+      <button mat-menu-item routerLink="/my-account/profile">
+        <div class="flex items-center space-x-2">
+          <mat-icon>person</mat-icon>
+          <span>My Profile</span>
+        </div>
+      </button>
+      <button mat-menu-item routerLink="/my-account/securitySettings">
+        <div class="flex items-center space-x-2">
+          <mat-icon>settings</mat-icon>
+          <span>Security Settings</span>
+        </div>
+      </button>
+      <button mat-menu-item routerLink="/my-account/delete">
+        <div class="flex items-center space-x-2">
+          <mat-icon>delete</mat-icon>
+          <span>Delete Account</span>
+        </div>
+      </button>
+      <button mat-menu-item [routerLink]="LOGOUT_PAGE_INFO.path">
+        <div class="flex items-center space-x-2">
+          <mat-icon>power_settings_new</mat-icon>
+          <span>{{ LOGOUT_PAGE_INFO.name }}</span>
+        </div>
+      </button>
+    </mat-menu>
+
+    <button mat-list-item [matMenuTriggerFor]="accountMenu" *ngIf="isUserAuthenticated()">
+      <div class="flex items-center space-x-2">
+        <mat-icon matTooltip="My Account">account_circle</mat-icon>
+      </div>
+    </button>
+    <app-theme-toggle/>
+  </div>
+
 
 </mat-toolbar>
 <mat-sidenav-container class="app-container">
