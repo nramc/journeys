@@ -41,7 +41,7 @@ html {
   @include mat.system-level-typography(m3-theme.$light-theme);
 }
 
-.dark-theme {
+.dark {
   @include m3-theme.create-dark-theme();
 }
 

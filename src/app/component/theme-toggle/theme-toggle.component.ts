@@ -33,12 +33,12 @@ export class ThemeToggleComponent {
 
   constructor() {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    document.body.classList.toggle('dark-theme', prefersDark.matches);
+    document.body.classList.toggle('dark', prefersDark.matches);
     this.isDarkMode.set(prefersDark.matches);
   }
 
   toggleTheme() {
     this.isDarkMode.update(value => !value);
-    document.body.classList.toggle('dark-theme');
+    document.body.classList.toggle('dark');
   }
 }

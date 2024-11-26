@@ -136,6 +136,7 @@ $_rest: (
 );
 $_primary: map.merge(map.get($_palettes, primary), $_rest);
 $_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
+$_white: map.merge(map.get($_palettes, neutral-variant), $_rest);
 
 $light-theme: mat.define-theme((
   color: (
@@ -151,7 +152,7 @@ $light-theme: mat.define-theme((
 $dark-theme: mat.define-theme((
   color: (
     theme-type: dark,
-    primary: $_primary,
+    primary: $_white,
     tertiary: $_tertiary,
     use-system-variables: true,
   ),
@@ -176,7 +177,7 @@ $dark-theme: mat.define-theme((
   background: mat.get-theme-color($light-theme, 'primary', 35);
 }
 
-.dark-theme .navbar {
+.dark .navbar {
   background: rgb(17, 19, 27);
 }
 
