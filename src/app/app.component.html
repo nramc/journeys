@@ -1,6 +1,6 @@
-<mat-toolbar color="primary" class="toolbar">
+<mat-toolbar color="primary" class="toolbar flex justify-between align-middle">
   <!-- App Brand Section -->
-  <div class="app-brand-section">
+  <div class="app-brand-section flex justify-between align-bottom">
     <a [routerLink]="HOME_PAGE_INFO.path" class="app-brand">
       <img src="assets/logo/journey-logo-180x180.png" alt="Logo" class="brand-logo"/>
     </a>
@@ -12,6 +12,7 @@
       <mat-icon>menu</mat-icon>
     </button>
   </div>
+  <app-theme-toggle/>
 
 </mat-toolbar>
 <mat-sidenav-container class="app-container">
@@ -19,7 +20,6 @@
     <app-navigation-menu></app-navigation-menu>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-theme-toggle/>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
