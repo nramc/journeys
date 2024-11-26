@@ -1,11 +1,11 @@
 <mat-toolbar color="primary" class="toolbar flex justify-between align-middle">
   <!-- App Brand Section -->
-  <div class="app-brand-section flex justify-between align-bottom">
+  <div class="app-brand-section flex justify-between align-bottom p-2">
     <a [routerLink]="HOME_PAGE_INFO.path" class="app-brand">
       <img src="assets/logo/journey-logo-180x180.png" alt="Logo" class="brand-logo"/>
     </a>
     <a [routerLink]="HOME_PAGE_INFO.path" class="app-name">
-      <h1 class="app-title">Journey</h1>
+      <h1 class="app-title text-primary font-bold">Journey</h1>
       <h6 class="app-tagline">Your Portal to the Past</h6>
     </a>
     <button mat-icon-button (click)="navigationMenu.toggle()">
