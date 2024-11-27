@@ -1,8 +1,8 @@
 <app-toolbar (toggleNavigation)="navigationMenu.toggle()"></app-toolbar>
 
 <mat-sidenav-container class="app-container">
-  <mat-sidenav #navigationMenu mode="side" position="start" opened>
-    <app-navigation-menu></app-navigation-menu>
+  <mat-sidenav #navigationMenu [mode]="isMobile() ? 'over' : 'side'" position="start" [opened]="!isMobile()">
+    <app-navigation-menu (navigationLinkClick)="isMobile() && navigationMenu.toggle()"></app-navigation-menu>
   </mat-sidenav>
   <mat-sidenav-content class="max-sm:mt-3 ms-3 me-3 mb-3">
     <router-outlet></router-outlet>

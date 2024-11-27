@@ -1,6 +1,6 @@
 <!-- Side Navigation -->
 <!-- Navigation Links -->
-<mat-nav-list>
+<mat-nav-list (click)="navigationLinkClick.emit()" (keydown.enter)="navigationLinkClick.emit()">
   <!-- Static Links -->
   <a mat-list-item [routerLink]="HOME_PAGE_INFO.path" routerLinkActive="active" class="flex items-center">
     <div class="flex items-center space-x-2">
