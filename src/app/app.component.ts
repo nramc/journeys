@@ -14,13 +14,14 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {AuthService} from "./service/auth/auth.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {MatTooltip} from "@angular/material/tooltip";
+import {ToolbarComponent} from "./component/toolbar/toolbar.component";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [RouterOutlet, LoadingSpinnerComponent, ThemeToggleComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, MatIcon, MatIconButton, MatToolbar, RouterLink, MatListItem, NgIf, MatMenu, MatMenuItem, MatMenuTrigger, MatTooltip],
+  imports: [RouterOutlet, LoadingSpinnerComponent, ThemeToggleComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, MatIcon, MatIconButton, MatToolbar, RouterLink, MatListItem, NgIf, MatMenu, MatMenuItem, MatMenuTrigger, MatTooltip, ToolbarComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {

@@ -1,0 +1,51 @@
+<mat-toolbar color="primary" class="toolbar flex justify-between align-middle">
+  <!-- App Brand Section -->
+  <div class="app-brand-section flex justify-between align-bottom p-2">
+    <a [routerLink]="HOME_PAGE_INFO.path" class="app-brand">
+      <img src="assets/logo/journey-logo-180x180.png" alt="Journey" class="brand-logo"/>
+    </a>
+    <a [routerLink]="HOME_PAGE_INFO.path" class="app-name">
+      <h1 class="app-title text-primary font-bold">Journey</h1>
+      <h6 class="app-tagline">Your Portal to the Past</h6>
+    </a>
+    <button mat-icon-button (click)="toggleNavigation.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div class="inline-flex">
+    <!-- Dropdown (My Account) -->
+    <mat-menu #accountMenu="matMenu">
+      <button mat-menu-item routerLink="/my-account/profile">
+        <div class="flex items-center space-x-2">
+          <mat-icon>person</mat-icon>
+          <span>My Profile</span>
+        </div>
+      </button>
+      <button mat-menu-item routerLink="/my-account/securitySettings">
+        <div class="flex items-center space-x-2">
+          <mat-icon>settings</mat-icon>
+          <span>Security Settings</span>
+        </div>
+      </button>
+      <button mat-menu-item routerLink="/my-account/delete">
+        <div class="flex items-center space-x-2">
+          <mat-icon>delete</mat-icon>
+          <span>Delete Account</span>
+        </div>
+      </button>
+      <button mat-menu-item [routerLink]="LOGOUT_PAGE_INFO.path">
+        <div class="flex items-center space-x-2">
+          <mat-icon>power_settings_new</mat-icon>
+          <span>{{ LOGOUT_PAGE_INFO.name }}</span>
+        </div>
+      </button>
+    </mat-menu>
+
+    <button mat-list-item [matMenuTriggerFor]="accountMenu" *ngIf="isUserAuthenticated()">
+      <div class="flex items-center space-x-2">
+        <mat-icon matTooltip="My Account">account_circle</mat-icon>
+      </div>
+    </button>
+    <app-theme-toggle/>
+  </div>
+</mat-toolbar>
