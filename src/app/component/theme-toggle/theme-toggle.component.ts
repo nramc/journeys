@@ -14,7 +14,7 @@ import {MatTooltip} from "@angular/material/tooltip";
   template: `
     <button mat-icon-button (click)="toggleTheme()"
             [matTooltip]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
-      <mat-icon class="text-primary">
+      <mat-icon class="text-primary dark:text-primary-dark">
         {{ isDarkMode() ? 'dark_mode' : 'light_mode' }}
       </mat-icon>
     </button>
