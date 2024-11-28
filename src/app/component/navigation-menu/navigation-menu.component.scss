@@ -1,7 +1,0 @@
-@use 'variables' as variable;
-
-mat-nav-list {
-  a.active * {
-    color: variable.$primary !important;
-  }
-}

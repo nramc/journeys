@@ -28,7 +28,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
     MatSidenavModule, RouterLink, MatIconModule, MatListModule, RouterLinkActive, MatMenuModule, NgIf, MatToolbarModule
   ],
   templateUrl: './navigation-menu.component.html',
-  styleUrl: './navigation-menu.component.scss'
+  styles: []
 })
 export class NavigationMenuComponent {
 

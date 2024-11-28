@@ -13,7 +13,7 @@ module.exports = {
           dark: '#e2e2ed'
         },
         secondary: '#952eab',
-        danger: '#dc3545',
+        danger: '#E63457',
         success: '#198754',
         warning: '#ffc107',
       }
