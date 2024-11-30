@@ -33,19 +33,18 @@
           <span>Delete Account</span>
         </div>
       </button>
-      <button mat-menu-item [routerLink]="LOGOUT_PAGE_INFO.path">
-        <div class="flex items-center space-x-2">
-          <mat-icon>power_settings_new</mat-icon>
-          <span>{{ LOGOUT_PAGE_INFO.name }}</span>
-        </div>
-      </button>
     </mat-menu>
 
-    <button mat-list-item [matMenuTriggerFor]="accountMenu" *ngIf="isUserAuthenticated()">
-      <div class="flex items-center space-x-2">
-        <mat-icon matTooltip="My Account">account_circle</mat-icon>
-      </div>
-    </button>
-    <app-theme-toggle/>
+    <div class="inline-flex gap-2">
+      <app-theme-toggle class="contents"/>
+      <button [matMenuTriggerFor]="accountMenu" *ngIf="isUserAuthenticated()">
+        <mat-icon matTooltip="My Account" class="text-primary">account_circle</mat-icon>
+      </button>
+
+      <button [routerLink]="LOGOUT_PAGE_INFO.path">
+        <mat-icon matTooltip="Logout" class="text-primary">power_settings_new</mat-icon>
+      </button>
+    </div>
+
   </div>
 </mat-toolbar>
