@@ -60,6 +60,12 @@ body {
 
 /* Application specific global styles */
 
+p, section {
+  margin: .5rem 0 .5rem 0;
+}
+
+
+// to redefined
 .gradient-text {
   background: $primary;
   background: linear-gradient(to right, $indigo 1%, $primary 25%);
@@ -330,12 +336,3 @@ gallery-image img {
 }
 
 
-// Application specific media queries
-/* For medium and large screens fixme */
-/*
-@include media-breakpoint-up(md) {
-  .w-md-75 {
-    width: 75% !important;
-  }
-}
-*/

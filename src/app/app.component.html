@@ -1,17 +1,15 @@
-<div class="app-container">
-  <app-toolbar (toggleNavigation)="navigationMenu.toggle()" class="border-4 border-b-primary"></app-toolbar>
+<div class="app-container h-screen flex flex-col">
+  <app-toolbar (toggleNavigation)="navigationMenu.toggle()" class="border-b-4 border-b-primary"></app-toolbar>
 
-  <mat-sidenav-container class="flex-grow">
-    <mat-sidenav #navigationMenu [mode]="isMobile() ? 'over' : 'side'" position="start" [opened]="!isMobile()"
-                 class="h-full">
+  <mat-sidenav-container class="flex-grow h-full contents">
+    <mat-sidenav #navigationMenu [mode]="isMobile() ? 'over' : 'side'" position="start" [opened]="!isMobile()">
       <app-navigation-menu (navigationLinkClick)="isMobile() && navigationMenu.toggle()"></app-navigation-menu>
     </mat-sidenav>
-    <mat-sidenav-content class="max-sm:mt-3 flex-grow p-4">
-      <router-outlet></router-outlet>
+    <mat-sidenav-content class="max-sm:mt-3 flex-grow p-4 mb-auto">
+      <router-outlet class="contents"></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 
   <app-loading-spinner></app-loading-spinner>
-
 
 </div>

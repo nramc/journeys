@@ -1,57 +1,58 @@
-<app-page-header [pageInfo]="HOME_PAGE_INFO"></app-page-header>
+<div class="flex flex-col container h-full">
+  <header>
+    <app-page-header [pageInfo]="HOME_PAGE_INFO"></app-page-header>
+  </header>
 
-<section class="ms-3 d-flex" *ngIf="userData() as userContext">
-  <div class="row">
-    <div class="col-12 text-primary" *ngIf="userContext.isAuthenticated">
-      <p>Welcome <strong class="gradient-text">{{ userContext.name }}</strong>..!,</p>
-      <p class="small" *appHasWriteAccess>
-        Never lose track of a travel memory again.
-        <a routerLink="/journey/new" role="link" class="">
-          Create Journey to store your trips, photos, and stories - forever!
-          <i class="bi bi-arrow-right-circle-fill"></i></a>
-      </p>
-      <p class="text-primary small">
-        Don't miss out! Relive the magic - See Upcoming
-        <a routerLink="/timeline" role="link" class="">Journiversaries (Journey + Anniversaries)
-          <i class="bi bi-arrow-right-circle-fill"></i></a>
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="ms-3" *ngIf="isUserAuthenticated()">
-  <app-quick-links></app-quick-links>
-</section>
-
-
-<!-- Today timeline data -->
-<section class="ms-3 mt-3 mb-3" *ngIf="upcomingJourniversaries()">
-  <app-upcoming-anniversaries [journeys]="upcomingJourniversaries() ?? []"></app-upcoming-anniversaries>
-</section>
-
-<section class="container footer-section">
-  <div class="row" *ngIf="!bffApiVersion()">
-    <div class="col-12 text-center m-1">
-      <div class="spinner-border text-primary">
-        <span class="visually-hidden text-primary">Loading...</span>
+  <main class="mb-auto">
+    <section class="flex" *ngIf="userData() as userContext">
+      <div class="text-primary dark:text-primary-dark" *ngIf="userContext.isAuthenticated">
+        <p>Welcome <strong>{{ userContext.name }}</strong>..!,</p>
+        <p class="small" *appHasWriteAccess>
+          Never lose track of a travel memory again.
+          <a routerLink="/journey/new" class="italic font-bold inline-flex">
+            <span>Create Journey to store your trips, photos, and stories - forever!</span>
+            <mat-icon class="ms-1">arrow_forward</mat-icon>
+          </a>
+        </p>
+        <p class="text-primary small">
+          Don't miss out! Relive the magic - See Upcoming
+          <a routerLink="/timeline" role="link" class="italic font-bold inline-flex">
+            <span>Journiversaries (Journey + Anniversaries)</span>
+            <mat-icon class="ms-1">arrow_forward</mat-icon>
+          </a>
+        </p>
       </div>
-      <p class="text-primary">Warming up the chrono-engine!</p>
-      <p class="text-primary small">
-        Our backend server is revving up for some temporal displacement magic.
-      </p>
-      <p class="text-primary small">Just a minute or two more, and it'll be ready to go!</p>
-      <p class="text-primary small">
-        In the meantime, feel free to explore other pages in the space-time continuum.
-      </p>
-    </div>
-  </div>
+    </section>
 
-  <footer
-    class="fixed-bottom m-auto text-primary text-center align-items-center justify-content-center align-content-center">
-    <span class="text-light-emphasis ms-2 small"><small>GUI : v{{ appVersion }}</small></span>
-    <span class="text-light-emphasis ms-2 small"><small>BFF : {{ bffApiVersion()?.version }}</small></span>
+    <section class="" *ngIf="isUserAuthenticated()">
+      <app-quick-links></app-quick-links>
+    </section>
+
+
+    <!-- Today timeline data -->
+    <section class="mt-3 mb-3" *ngIf="upcomingJourniversaries()">
+      <app-upcoming-anniversaries [journeys]="upcomingJourniversaries() ?? []"></app-upcoming-anniversaries>
+    </section>
+
+    <section class="footer-section">
+      <div class="text-center m-1" *ngIf="!bffApiVersion()">
+        <div class="spinner-border text-primary">
+          <span class="visually-hidden text-primary">Loading...</span>
+        </div>
+        <p class="text-primary">Warming up the chrono-engine!</p>
+        <p class="text-primary small">
+          Our backend server is revving up for some temporal displacement magic.
+        </p>
+        <p class="text-primary small">Just a minute or two more, and it'll be ready to go!</p>
+        <p class="text-primary small">
+          In the meantime, feel free to explore other pages in the space-time continuum.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="flex justify-center w-full">
+    <span class="font-thin text-xs">GUI : v{{ appVersion }}  | BFF : {{ bffApiVersion()?.version }}</span>
   </footer>
-</section>
 
-
-
+</div>
