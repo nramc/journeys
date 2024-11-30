@@ -5,7 +5,7 @@
 
   <main class="mb-auto">
     <section class="flex" *ngIf="userData() as userContext">
-      <div class="text-primary dark:text-primary-dark" *ngIf="userContext.isAuthenticated">
+      <div class="text-primary" *ngIf="userContext.isAuthenticated">
         <p>Welcome <strong>{{ userContext.name }}</strong>..!,</p>
         <p class="small" *appHasWriteAccess>
           Never lose track of a travel memory again.

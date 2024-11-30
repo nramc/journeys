@@ -64,15 +64,14 @@ p, section {
   margin: .5rem 0 .5rem 0;
 }
 
-
-// to redefined
-.gradient-text {
-  background: $primary;
-  background: linear-gradient(to right, $indigo 1%, $primary 25%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
+h1, h2, h3, h4, h5, h6 {
+  @apply text-primary-light dark:text-primary-dark font-bold;
 }
+
+.text-primary {
+  @apply text-primary-light dark:text-primary-dark;
+}
+
 
 .border-gradient-primary {
   border-image-slice: 1 !important;
