@@ -12,6 +12,7 @@ import {JourneyService} from "../../service/journey/journey.service";
 import {UpcomingAnniversariesComponent} from "./upcoming-aniversaries/upcoming-anniversaries.component";
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 import {MatIcon} from "@angular/material/icon";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,8 @@ import {MatIcon} from "@angular/material/icon";
     QuickLinksComponent,
     UpcomingAnniversariesComponent,
     HasWriteAccessDirective,
-    MatIcon
+    MatIcon,
+    MatProgressSpinner
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -41,7 +43,8 @@ export class HomeComponent {
   userData = toSignal(this.authService.getUserContext());
   isUserAuthenticated = computed(() => this.userData()?.isAuthenticated)
   bffApiVersion = toSignal(this.bffService.getVersion());
-  upcomingJourniversaries = toSignal(this.journeyService.getUpcomingAnniversary());
+  upcomingJourniversaries = toSignal(this.journeyService.getUpcomingAnniversary(),
+    {initialValue: []});
 
 }
 
