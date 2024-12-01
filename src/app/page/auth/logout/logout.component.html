@@ -6,12 +6,12 @@
       </div>
       <h2 class="text-danger">Logout</h2>
       <div class="mt-2">
-        <p class="text-danger">Are you sure you want to logout ?</p>
+        <p class="text-primary">Are you sure you want to logout ?</p>
       </div>
     </div>
     <div class="inline-flex gap-3">
-      <button class="bg-danger text-white p-3 border-0" (click)="home()">No, Stay</button>
-      <button mat-flat-button class="bg-success" (click)="logout()">Yes, Logout</button>
+      <button mat-button (click)="home()">No, Stay</button>
+      <button mat-button (click)="logout()">Yes, Logout</button>
     </div>
   </div>
 </dialog>
