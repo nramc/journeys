@@ -41,7 +41,7 @@
         <mat-icon matTooltip="My Account" class="text-primary">account_circle</mat-icon>
       </button>
 
-      <button [routerLink]="LOGOUT_PAGE_INFO.path">
+      <button [routerLink]="LOGOUT_PAGE_INFO.path" *ngIf="isUserAuthenticated()">
         <mat-icon matTooltip="Logout" class="text-primary">power_settings_new</mat-icon>
       </button>
     </div>
