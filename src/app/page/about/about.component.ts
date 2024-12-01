@@ -1,15 +1,17 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {ABOUT_PAGE_INFO} from "../../model/page.info.model";
 import {NgOptimizedImage} from "@angular/common";
 import {Router} from "@angular/router";
+import {MatButton, MatFabAnchor, MatMiniFabAnchor, MatMiniFabButton} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-about',
   standalone: true,
   imports: [
-    PageHeaderComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatButton, MatCardModule, MatIcon, MatMiniFabButton, MatFabAnchor, MatMiniFabAnchor
   ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
