@@ -292,12 +292,11 @@ gallery-image img {
   font-size: 1rem;
   font-weight: bolder;
 
-  background-color: white;
-  color: green;
-  border-radius: 50%; /* Make it circular */
-  display: inline-block;
-  border: 2px solid white;
-  box-shadow: 0 0 8px white;
+  background-color: #4caf50; /* Green background */
+  color: #ffffff;           /* White text */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure content is spaced */
 }
 
 .error-snackbar .mat-mdc-snackbar-surface {
@@ -305,17 +304,21 @@ gallery-image img {
 }
 
 .error-snackbar .mat-mdc-snackbar-surface::before {
-  content: '\274C'; /* Heavy Check Mark */
+  content: '\274C';
   margin-left: 1rem;
   transition: transform 0.3s ease;
   font-size: 0.9rem;
 
   background-color: white;
-  color: green;
   border-radius: 50%; /* Make it circular */
-  display: inline-block;
   border: 2px solid white;
   box-shadow: 0 0 8px white;
+
+  color: #ffffff;           /* White text */
+  font-weight: bold;        /* Bold text */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure content is spaced */
 }
 
 .mask-with-spinner {

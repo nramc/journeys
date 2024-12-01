@@ -43,6 +43,10 @@ export class LoginComponent {
   isServiceAvailable = toSignal(inject(BffService).getVersion(), {initialValue: null});
   form = signal<Credential>({username: '', password: ''});
 
+  constructor() {
+    this.notificationService.showError("Success message..!")
+  }
+
   login(loginForm: NgForm) {
     if (loginForm.valid) {
       this.loginService.login(this.form())
