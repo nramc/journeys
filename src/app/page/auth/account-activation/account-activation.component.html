@@ -1,78 +1,78 @@
-<div class="h-100 d-flex justify-content-center align-items-center">
-
-  <section class="p-3 p-md-4 p-xl-5 col-md-6">
-    <div class="card border-primary shadow-lg">
-      <div class="card-header gradient-bg text-light fs-4">Account Activation</div>
-      <div class="card-body p-3 p-md-4 p-xl-5">
-
+<div class="h-full flex items-center justify-center">
+  <section class="p-6 w-full max-w-2xl">
+    <div class="border border-blue-500 rounded-lg shadow-lg">
+      <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-xl font-semibold p-4 rounded-t-lg">
+        Account Activation
+      </div>
+      <div class="p-6">
+        <!-- Success Message -->
+        <div class="p-4 border-2 border-green-500 bg-green-50 text-green-700 text-center rounded-lg shadow-md"
+             *ngIf="isSuccessful()">
+          <div class="text-lg font-bold mb-2">Account activated successfully!</div>
+          <p>Please <a [routerLink]="LOGIN_PAGE_INFO.path" class="text-blue-500 underline">Sign In</a> with your
+            credentials and start your journey with us.</p>
+        </div>
+        <!-- Error Message -->
         <div
-          class="card-title small p-2 border border-success border-2 shadow-lg rounded-2 bg-transparent text-success text-center"
-          *ngIf="isSuccessful()">
-          <div class="fs-6 mb-2 fw-bold">Account activated successfully!</div>
-          <p class="fs-6">Please <a [routerLink]="LOGIN_PAGE_INFO.path">SignIn</a> with your credentials and start your
-            Journey with us.</p>
+          class="p-4 border-2 border-red-500 bg-red-50 text-red-700 rounded-lg shadow-md"
+          *ngIf="isErrorOccurred()">
+          Activation failed. Please check and correct data. If the issue still persists, try again later.
         </div>
-        <div *ngIf="isErrorOccurred()">
-          <p class="text-danger p-2 border border-danger border-2 shadow-lg rounded-1 bg-transparent">Activation failed.
-            Please check and correct data. If issue still persists, then
-            please try again later.</p>
-        </div>
-        <form (ngSubmit)="activate(activationForm)" #activationForm="ngForm">
-          <div class="row gy-3 gy-md-2 overflow-hidden">
 
-            <div class="col-12">
-              <div class="form-floating mb-3">
-                <input type="email" class="form-control form-control-sm" id="username" name="username"
-                       placeholder="Email Address" autocomplete="off" #username="ngModel"
-                       [(ngModel)]="accountActivationForm.username" [disabled]="isSuccessful()"
-                       required minlength="8" maxlength="50" email>
-                <label for="username">Email Address</label>
-                <div *ngIf="username.invalid && (username.dirty || activationForm.submitted)"
-                     class="form-text text-danger">
-                  <div *ngIf="username.errors?.['required']">Email Address is required.</div>
-                  <div *ngIf="username.errors?.['maxlength']">Email Address must be at most 50 characters long.</div>
-                  <div *ngIf="username.errors?.['minlength'] && !username.errors?.['email']">
-                    Email Address must have at least 8 characters long.
-                  </div>
-                  <div *ngIf="username.errors?.['email'] && !username.errors?.['email']">Email Address invalid.</div>
-                </div>
+        <!-- Activation Form -->
+        <form (ngSubmit)="activate(activationForm)" #activationForm="ngForm" class="space-y-4 mt-6">
+          <!-- Email Address -->
+          <div>
+            <label for="username" class="block text-sm font-medium text-gray-700">Email Address</label>
+            <input type="email" id="username" name="username"
+                   [(ngModel)]="accountActivationForm.username" #username="ngModel" [disabled]="isSuccessful()"
+                   required minlength="8" maxlength="50" email
+                   class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                   placeholder="Email Address" autocomplete="off"/>
+            <div *ngIf="username.invalid && (username.dirty || activationForm.submitted)"
+                 class="text-red-500 text-sm mt-1">
+              <div *ngIf="username.errors?.['required']">Email Address is required.</div>
+              <div *ngIf="username.errors?.['maxlength']">Email Address must be at most 50 characters long.</div>
+              <div *ngIf="username.errors?.['minlength'] && !username.errors?.['email']">Email Address must have at
+                least 8 characters.
               </div>
+              <div *ngIf="username.errors?.['email'] && !username.errors?.['email']">Invalid Email Address.</div>
             </div>
+          </div>
 
-            <div class="col-12">
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control form-control-sm" id="emailToken" name="emailToken"
-                       placeholder="Email Token" autocomplete="off" #emailToken="ngModel"
-                       [(ngModel)]="accountActivationForm.emailToken" [disabled]="isSuccessful()"
-                       required>
-                <label for="emailToken">Token</label>
-                <div *ngIf="emailToken.invalid && (emailToken.dirty || activationForm.submitted)"
-                     class="form-text text-danger">
-                  <div *ngIf="emailToken.errors?.['required']">Token is required.</div>
-                </div>
-              </div>
+          <!-- Token -->
+          <div>
+            <label for="emailToken" class="block text-sm font-medium text-gray-700">Token</label>
+            <input type="text" id="emailToken" name="emailToken"
+                   [(ngModel)]="accountActivationForm.emailToken" #emailToken="ngModel" [disabled]="isSuccessful()"
+                   required
+                   class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                   placeholder="Token" autocomplete="off"/>
+            <div *ngIf="emailToken.invalid && (emailToken.dirty || activationForm.submitted)"
+                 class="text-red-500 text-sm mt-1">
+              <div *ngIf="emailToken.errors?.['required']">Token is required.</div>
             </div>
+          </div>
 
-            <div class="col-12">
-              <div class="d-grid">
-                <button class="btn btn-primary" type="submit" [disabled]="isSuccessful()">Activate</button>
-              </div>
-            </div>
+          <!-- Submit Button -->
+          <div>
+            <button type="submit" [disabled]="isSuccessful()"
+                    class="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50">
+              Activate
+            </button>
           </div>
         </form>
-        <div class="row">
-          <div class="col-12">
-            <hr class="mt-5 mb-4 text-primary">
-            <p class="m-0 text-center text-primary small">Already have an account?
-              <a [routerLink]="LOGIN_PAGE_INFO.path" class="fw-bold">Sign in</a>
-            </p>
-          </div>
-        </div>
 
+        <!-- Sign-In Link -->
+        <div class="mt-6">
+          <hr class="border-t-2 border-blue-500 my-4">
+          <p class="text-center text-gray-600">
+            Already have an account?
+            <a [routerLink]="LOGIN_PAGE_INFO.path" class="text-blue-600 font-bold">Sign in</a>
+          </p>
+        </div>
       </div>
     </div>
-
   </section>
-
-
 </div>
+
