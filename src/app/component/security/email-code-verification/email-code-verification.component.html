@@ -1,42 +1,49 @@
-<form #codeForm="ngForm" (submit)="confirmCode(confirmationCode, confirmButton)">
-  <div class="card">
-    <div class="card-header bg-primary text-light">
-      Email Code Confirmation Required
-    </div>
-    <div class="card-body">
-      <div class="card-text">
-        <p>To complete verification, please follow these steps:</p>
+<form #codeForm="ngForm" (submit)="confirmCode(confirmationCode, confirmButton)" class="space-y-6">
+  <mat-card>
+    <mat-card-header class="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-xl font-semibold !p-4 rounded-t-lg">
+      <mat-card-title>Email Code Confirmation Required</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="text-primary">
+      <p>To complete verification, please follow below steps:</p>
+      <ol class="list-decimal list-inside text-base mb-4">
+        <li>Click the <code class="px-1 rounded font-bold italic text-sm">Send</code> button to receive a verification code in your
+          registered email.
+        </li>
+        <li>Check your email for the verification code.</li>
+        <li>Enter the code in the field below and click "Confirm" to complete the verification.</li>
+      </ol>
 
-        <ol>
-          <li>Click the <code>Send</code> button to receive a verification code in your registered
-            email
-          <li>Check your email for the verification code</li>
-          <li>Enter the code in the field below and click "Confirm" to complete the verification</li>
-        </ol>
+      <mat-form-field appearance="fill" class="w-full ignore-highlight">
+        <mat-label>Code</mat-label>
+        <input
+          matInput
+          type="text"
+          inputmode="numeric"
+          id="confirmationCode"
+          name="confirmationCode"
+          required
+          pattern="[0-9]{6,6}"
+          maxlength="6"
+          autocomplete="off"
+          ngModel
+          #confirmationCode
+          class="ignore-highlight"
+        />
+      </mat-form-field>
+      <p *ngIf="!isCodeValid()" class="text-red-500 text-sm text-center mt-2">
+        Code invalid. Please enter a valid code.
+      </p>
 
-        <div class="input-group">
-          <span class="input-group-text">Code</span>
-          <input type="text" class="form-control" id="confirmationCode" name="confirmationCode" required pattern="[0-9]{6,6}" maxlength="6" min="6" #confirmationCode
-                 autocomplete="off" ngModel>
-        </div>
-        <div class="form-text text-danger text-center" [hidden]="isCodeValid()">
-          Code invalid. Please enter valid code.
-        </div>
-
+      <div class="flex space-x-4 mt-6 justify-center">
+        <button mat-raised-button type="button" mat-dialog-close="false">Cancel</button>
+        <button mat-raised-button type="button" (click)="sendCode()" [disabled]="!canSendCode()">Send</button>
+        <button mat-raised-button type="submit" #confirmButton>Confirm</button>
       </div>
-
-      <div class="d-inline-flex gap-2 mt-4">
-        <button class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="sendCode()" [disabled]="!canSendCode()" cdkFocusInitial>Send
-        </button>
-        <button class="btn btn-primary" (click)="confirmCode(confirmationCode, confirmButton)" #confirmButton
-                [disabled]="codeForm.invalid">Confirm</button>
-      </div>
-      <div class="mt-2">
-        <p [hidden]="!isCodeSent()" class="text-success small fw-bold">Code has been sent successfully to register email. If you haven't received, click Sent
-          button again after 60 seconds.</p>
-      </div>
-    </div>
-  </div>
-
+      <p *ngIf="isCodeSent()" class="text-green-600 text-sm font-bold mt-4">
+        Code has been sent successfully to the registered email. If you haven't received it, click Send again after 60
+        seconds.
+      </p>
+    </mat-card-content>
+  </mat-card>
 </form>
+

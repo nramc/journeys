@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Credential, SecurityAttribute} from "../../../service/auth/login.service";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {
   TotpCodeVerificationComponent
 } from "../../../component/security/totp-code-verification/totp-code-verification.component";
@@ -11,6 +11,7 @@ import {
   EmailCodeVerificationComponent
 } from "../../../component/security/email-code-verification/email-code-verification.component";
 import {MatIcon} from "@angular/material/icon";
+import {MatButton} from "@angular/material/button";
 
 export interface MfaOptions {
   credential: Credential,
@@ -22,7 +23,9 @@ export interface MfaOptions {
   standalone: true,
   imports: [
     NgForOf,
-    MatIcon
+    MatIcon,
+    MatButton,
+    NgIf
   ],
   templateUrl: './display-mfa-options.component.html',
   styles: `.mfa-option {
@@ -32,13 +35,13 @@ export interface MfaOptions {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayMfaOptionsComponent {
-  private destroyRef = inject(DestroyRef);
+  private readonly destroyRef = inject(DestroyRef);
   mfaOptions: MfaOptions | undefined;
 
   constructor(
-    private router: Router,
-    private dialog: MatDialog,
-    private activatedRoute: ActivatedRoute
+    private readonly router: Router,
+    private readonly dialog: MatDialog,
+    private readonly activatedRoute: ActivatedRoute
   ) {
     this.mfaOptions = this.router.getCurrentNavigation()?.extras?.state as MfaOptions;
   }
