@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Credential, SecurityAttribute} from "../../../service/auth/login.service";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {
   TotpCodeVerificationComponent
 } from "../../../component/security/totp-code-verification/totp-code-verification.component";
@@ -22,7 +22,6 @@ export interface MfaOptions {
   selector: 'app-display-mfa-options',
   standalone: true,
   imports: [
-    NgForOf,
     MatIcon,
     MatButton,
     NgIf
