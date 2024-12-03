@@ -1,16 +1,15 @@
-<div class="card">
-  <div class="card-header bg-primary text-light">
-    Confirmation Required
-  </div>
-  <div class="card-body">
-    <div class="card-text">
-      <p class="text-primary">Are you sure you want to proceed with this action?</p>
-      <p class="small fw-bold text-primary">This action cannot be undone.</p>
-    </div>
-
-    <div class="d-inline-flex gap-2 mt-4">
-      <button class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
-      <button class="btn btn-primary" (click)="confirmAction()">Confirm</button>
-    </div>
-  </div>
-</div>
+<mat-card class="confirmation-card shadow-lg rounded-xl border border-gray-200">
+  <mat-card-header>
+    <mat-card-title class="text-primary">Confirmation Required</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="text-primary">Are you sure you want to proceed with this action?</p>
+    <p class="text-sm text-red-600 font-medium mt-2">
+      This action <strong>cannot be undone</strong>.
+    </p>
+  </mat-card-content>
+  <mat-card-actions align="end" class="actions py-4">
+    <button mat-stroked-button type="button" mat-dialog-close="false">Cancel</button>
+    <button mat-flat-button type="button" (click)="confirmAction()">Confirm</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,13 +1,15 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatDialogClose, MatDialogRef} from "@angular/material/dialog";
-import {NgIf} from "@angular/common";
+import {MatButton} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
 
 @Component({
   selector: 'app-confirmation-dialog',
   standalone: true,
   imports: [
     MatDialogClose,
-    NgIf
+    MatButton,
+    MatCardModule
   ],
   templateUrl: './confirmation-dialog.component.html',
   styles: '',
