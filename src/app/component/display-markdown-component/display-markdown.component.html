@@ -1,8 +1,13 @@
-<div class="card border border-gradient-primary h-100 overflow-scroll">
-  <h5 class="card-header gradient-text border-0" >{{ title() }}</h5>
-  <div class="card-body">
-    <div class="card-text gradient-text">
+<mat-card class="h-full overflow-auto border border-blue-500 shadow-xl rounded-lg" appearance="outlined">
+
+  <mat-card-header class="p-6 bg-gradient-to-r from-blue-600 to-indigo-400 text-white rounded-t-lg">
+    <mat-card-title class="text-2xl font-bold tracking-wide">
+      {{ title() }}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="p-6 space-y-4 ">
+    <div class="text-primary leading-relaxed">
       <markdown [data]="markdownText()"></markdown>
     </div>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>

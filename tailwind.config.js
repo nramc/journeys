@@ -16,6 +16,12 @@ module.exports = {
         danger: '#E63457',
         success: '#198754',
         warning: '#ffc107',
+      },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(to right, #3459E6, #d53a9d)', // Customize colors
+      },
+      textColor: {
+        transparent: 'transparent',
       }
     },
   },

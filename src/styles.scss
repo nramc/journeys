@@ -72,6 +72,11 @@ h1, h2, h3, h4, h5, h6 {
   @apply text-primary-light dark:text-primary-dark;
 }
 
+.gradient-text {
+  @apply bg-gradient-primary bg-clip-text text-transparent;
+}
+
+// to be verified
 
 .border-gradient-primary {
   border-image-slice: 1 !important;
