@@ -6,7 +6,7 @@
 
     <mat-card-content class="p-4 flex flex-col justify-between h-full  backdrop-blur-sm">
       <div>
-        <h5 class="text-lg font-semibold text-stroke-white !text-blue-500">{{ journeyData().name }}</h5>
+        <h5 class="text-lg font-semibold text-stroke-white !text-appBlue">{{ journeyData().name }}</h5>
         <p class="text-sm font-bold">{{ journeyData().title }}</p>
         <div class="flex flex-wrap gap-2 mt-2">
           @for (tag of journeyData().tags; track tag) {

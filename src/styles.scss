@@ -19,6 +19,7 @@ mat.$theme-ignore-duplication-warnings: true;
 /* Leaflet style customization */
 .leaflet-popup-content {
   margin: 0;
+  width: auto !important;
 }
 .leaflet-popup-content-wrapper {
   padding: 0;

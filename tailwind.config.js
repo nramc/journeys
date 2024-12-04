@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        appBlue: '#3459E6',
         primary: {
           DEFAULT: '#3459E6',
           light: '#3459E6',
