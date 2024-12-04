@@ -18,7 +18,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 /* Leaflet style customization */
 .leaflet-popup-content {
-  width: auto !important;
+  margin: 0;
+}
+.leaflet-popup-content-wrapper {
+  padding: 0;
 }
 
 /* Application theming */
@@ -75,6 +78,15 @@ h1, h2, h3, h4, h5, h6 {
 .gradient-text {
   @apply bg-gradient-primary bg-clip-text text-transparent;
 }
+
+.text-stroke-white {
+  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+}
+
+.text-stroke-blue {
+  text-shadow: -1px -1px 0 #3459E6, 1px -1px 0 #3459E6, -1px 1px 0 #3459E6, 1px 1px 0 #3459E6;
+}
+
 
 // to be verified
 

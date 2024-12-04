@@ -1,35 +1,36 @@
 <div class="m-0">
-  <a class="card bg-dark text-bg-dark text-white highlight-on-hover border-primary" (click)="viewDetails()"
-     (keyup.enter)="viewDetails()"
-     tabindex="0">
-    <img [ngSrc]="journeyData().thumbnail" class="card-img" [alt]="journeyData().thumbnail" fill priority>
-    <div class="card-img-overlay d-flex flex-column align-self-stretch card-text-wrapper">
-      <h5 class="card-title highlight-text-with-shadow">{{ journeyData().name }}</h5>
-      <p class="card-text highlight-text-with-shadow">{{ journeyData().title }}</p>
-      <p class="card-text overflow-hidden d-inline-flex">
-        @for (tag of journeyData().tags; track tag) {
-          <span
-            class="badge bg-dark bg-opacity-25 border-dark rounded-pill border me-1 fw-normal">{{ tag }}</span>
-        }
-      </p>
-      <div class="d-flex footer-wrapper mt-auto flex-nowrap flex-column flex-md-row justify-content-between">
-        <div class="d-inline-flex gap-1">
-          <p class="small border border-light border-1 rounded-2 ps-1 pe-1 border-opacity-50">
-            <small>{{ journeyData().journeyDate | date:"dd.MM.YYYY" }}</small>
-          </p>
-        </div>
-        <div class="d-inline-flex gap-1 justify-content-end">
-          <button type="button" class="btn btn-sm btn-primary ms-1 small"
-                  (click)="editDetails($event)"
-                  *appHasWriteAccess>Edit
-          </button>
-          <button type="button" class="btn btn-sm btn-primary ms-1 small"
-                  (click)="viewInTimeline($event)">Timeline
-          </button>
+  <mat-card (click)="viewDetails()" (keydown.enter)="viewDetails()"
+            class="text-white border border-blue-500 hover:shadow-lg cursor-pointer"
+            tabindex="0"
+            [style]="'background-image: url('+journeyData().thumbnail+ ');background-size: cover;background-repeat: no-repeat;'">
+
+    <mat-card-content class="p-4 flex flex-col justify-between h-full  backdrop-blur-sm">
+      <div>
+        <h5 class="text-lg font-semibold text-stroke-white !text-blue-500">{{ journeyData().name }}</h5>
+        <p class="text-sm font-bold">{{ journeyData().title }}</p>
+        <div class="flex flex-wrap gap-2 mt-2">
+          @for (tag of journeyData().tags; track tag) {
+            <span
+              class="badge border border-gray-500 bg-gray-700 rounded-full text-gray-300 px-2 py-1 text-xs">
+              {{ tag }}
+            </span>
+          }
         </div>
       </div>
 
-    </div>
-  </a>
+      <div class="flex items-center justify-between mt-4">
+        <span *ngIf="journeyData().journeyDate">
+          <small
+            class="text-xs border border-gray-500 rounded-lg px-2 py-1">{{ journeyData().journeyDate | date:"dd.MM.YYYY" }}</small>
+        </span>
+        <div class="flex gap-2 justify-end">
+          <button mat-raised-button class="text-xs py-1 px-3" (click)="editDetails($event)" *appHasWriteAccess>Edit
+          </button>
+          <button mat-raised-button class="text-xs py-1 px-3" (click)="viewInTimeline($event)">Timeline</button>
+        </div>
 
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
+
