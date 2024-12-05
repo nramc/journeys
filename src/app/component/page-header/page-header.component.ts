@@ -3,7 +3,11 @@ import {PageInfo} from "../../model/page.info.model";
 
 @Component({
   selector: 'app-page-header',
-  templateUrl: './page-header.component.html',
+  template: `
+    <div class="max-sm:text-center">
+      <h3 class="page-title text-primary">{{ pageInfo().title }}</h3>
+    </div>
+  `,
   styles: `
     .page-title {
       font-size: 1.5rem;
