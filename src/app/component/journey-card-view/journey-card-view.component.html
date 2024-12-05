@@ -17,20 +17,20 @@
           }
         </div>
       </div>
-
-      <div class="flex items-center justify-between mt-4">
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="flex items-center justify-between w-full">
         <span *ngIf="journeyData().journeyDate">
           <small
-            class="text-xs border border-gray-500 rounded-lg px-2 py-1">{{ journeyData().journeyDate | date:"dd.MM.YYYY" }}</small>
+            class="text-xs border border-white rounded-lg px-2 py-1">{{ journeyData().journeyDate | date:"dd.MM.YYYY" }}</small>
         </span>
         <div class="flex gap-2 justify-end">
           <button mat-raised-button class="text-xs py-1 px-3" (click)="editDetails($event)" *appHasWriteAccess>Edit
           </button>
           <button mat-raised-button class="text-xs py-1 px-3" (click)="viewInTimeline($event)">Timeline</button>
         </div>
-
       </div>
-    </mat-card-content>
+    </mat-card-actions>
   </mat-card>
 </div>
 
