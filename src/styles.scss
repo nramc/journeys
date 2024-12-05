@@ -248,8 +248,8 @@ gallery-image img {
   }
 }
 
-.mdc-tab--active {
-  background: $primary-bg-subtle !important;
+.mdc-tab--active * {
+  color: $primary !important;
   transition: background-color 1s ease;
 }
 
