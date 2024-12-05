@@ -3,6 +3,8 @@ import {GalleryComponent, GalleryItem, GalleryModule, ImageItem} from "ng-galler
 import {TimelineData, TimelineImage} from "./timeline-data.model";
 import {NgIf} from "@angular/common";
 import {MatTooltip} from "@angular/material/tooltip";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 export function fnImageEntityToGalleryItem(data: TimelineImage): GalleryItem {
   return new ImageItem({
@@ -14,7 +16,7 @@ export function fnImageEntityToGalleryItem(data: TimelineImage): GalleryItem {
 @Component({
   selector: 'app-timeline',
   standalone: true,
-  imports: [GalleryModule, NgIf, MatTooltip],
+  imports: [GalleryModule, NgIf, MatTooltip, MatIconModule, MatButtonModule],
   templateUrl: './timeline.component.html',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush

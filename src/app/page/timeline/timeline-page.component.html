@@ -1,27 +1,28 @@
-<app-page-header [pageInfo]="TIMELINE_PAGE_INFO"></app-page-header>
+<header>
+  <app-page-header [pageInfo]="TIMELINE_PAGE_INFO"></app-page-header>
+</header>
 
-<section class="mt-2 container">
-  <div class="row d-flex flex-column">
-    <div class="col">
-      <div class="form-floating mb-2 ">
-        <select class="form-select ignore-highlight text-primary border border-2 border-gradient-primary" id="numberOfDaysJourniversariesSelect"
-                name="numberOfDaysJourniversariesSelect"
-                aria-label="Journiversaries days" [(ngModel)]="numberOfDaysJourniversaries"
-                (change)="getDataForUpcomingJourniversaries()">
-          <option value="1">Tomorrow</option>
-          <option value="7">Next One Week</option>
-          <option value="14">Next Two Week</option>
-          <option value="21">Next Three Week</option>
-          <option value="30">Next One Month</option>
-          <option value="60">Next Two Months</option>
-          <option value="90">Next Three Months</option>
-        </select>
-        <label for="numberOfDaysJourniversariesSelect">Choose interval to display Journiversaries</label>
-      </div>
-      <hr class="text-primary">
-    </div>
-    <div class="col">
-      <app-timeline [data]="timelineData()"></app-timeline>
-    </div>
-  </div>
-</section>
+<main>
+  <section class="mt-2 container flex flex-col">
+    <mat-form-field class="ignore-highlight"
+                    appearance="fill">
+      <mat-label>Choose interval to display Journiversaries</mat-label>
+      <mat-select [(ngModel)]="numberOfDaysJourniversaries" (change)="getDataForUpcomingJourniversaries()"
+                  class="ignore-highlight !outline-offset-0 !border-0">
+        <mat-option [value]="1">Tomorrow</mat-option>
+        <mat-option [value]="7">Next One Week</mat-option>
+        <mat-option [value]="14">Next Two Week</mat-option>
+        <mat-option [value]="21">Next Three Week</mat-option>
+        <mat-option [value]="30">Next One Month</mat-option>
+        <mat-option [value]="60">Next Two Months</mat-option>
+        <mat-option [value]="90">Next Three Months</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </section>
+
+  <section class="flex flex-col">
+    <app-timeline [data]="timelineData()"></app-timeline>
+  </section>
+
+</main>
+
