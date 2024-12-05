@@ -1,5 +1,6 @@
 <mat-card>
-  <mat-card-header class="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-xl font-semibold !p-4 rounded-t-lg">
+  <mat-card-header
+    class="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-xl font-semibold !p-4 rounded-t-lg">
     <mat-card-title>TOTP Code Verification</mat-card-title>
   </mat-card-header>
   <mat-card-content>
@@ -10,18 +11,10 @@
 
     <mat-form-field appearance="fill" class="w-full ignore-highlight">
       <mat-label>Code</mat-label>
-      <input
-        matInput
-        inputmode="numeric"
-        id="confirmationCode"
-        type="text"
-        required
-        pattern="[0-9]{6,6}"
-        maxlength="6"
-        autocomplete="off"
-        #confirmationCode
-        class="ignore-highlight"
-        ngModel
+      <input matInput inputmode="numeric" id="confirmationCode" type="text"
+             class="ignore-highlight"
+             required pattern="[0-9]{6,6}" maxlength="6" autocomplete="off"
+             #confirmationCode ngModel
       />
     </mat-form-field>
     <p class="text-red-500 text-sm text-center mb-4" *ngIf="isCodeInvalid()">
