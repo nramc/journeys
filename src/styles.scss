@@ -93,6 +93,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+// Angular Material Style Customization
+.mat-mdc-chip-set .mdc-evolution-chip-set__chips {
+  margin: 0 !important;
+}
+
 // to be verified
 
 .border-gradient-primary {
