@@ -4,17 +4,15 @@ import {WorldMapComponent} from "../../component/world-map/world-map.component";
 import {FeatureCollection} from "geojson";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {JourneyService} from "../../service/journey/journey.service";
-import {NgIf} from "@angular/common";
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  styles: [],
   imports: [
     PageHeaderComponent,
-    WorldMapComponent,
-    NgIf
+    WorldMapComponent
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush

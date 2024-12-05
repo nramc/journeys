@@ -1,6 +1,9 @@
 @use '@angular/material' as mat;
 @use "m3-theme";
-mat.$theme-ignore-duplication-warnings: true;
+
+mat.$theme-ignore-duplication-warnings: true
+
+;
 
 @tailwind base;
 @tailwind components;
@@ -21,6 +24,7 @@ mat.$theme-ignore-duplication-warnings: true;
   margin: 0;
   width: auto !important;
 }
+
 .leaflet-popup-content-wrapper {
   padding: 0;
 }
@@ -147,13 +151,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .marker-icon-wrapper:hover .marker-pin {
-  transition: color 1s ease;
-  background: $pink;
+  scale: 1.3;
 }
 
 .marker-icon-wrapper:hover i {
-  transition: color 1s ease;
-  color: $pink !important;
+  scale: 1.3;
+  transition: color 0.5s ease;
+  color: red;
 }
 
 // to draw white circle
@@ -311,7 +315,7 @@ gallery-image img {
   font-weight: bolder;
 
   background-color: #4caf50; /* Green background */
-  color: #ffffff;           /* White text */
+  color: #ffffff; /* White text */
   display: flex;
   align-items: center;
   justify-content: space-between; /* Ensure content is spaced */
@@ -332,8 +336,8 @@ gallery-image img {
   border: 2px solid white;
   box-shadow: 0 0 8px white;
 
-  color: #ffffff;           /* White text */
-  font-weight: bold;        /* Bold text */
+  color: #ffffff; /* White text */
+  font-weight: bold; /* Bold text */
   display: flex;
   align-items: center;
   justify-content: space-between; /* Ensure content is spaced */
