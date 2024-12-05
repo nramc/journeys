@@ -21,7 +21,7 @@ export interface ImageResource {
     <section class="container mx-auto">
       <h2 class="text-lg text-primary font-semibold p-4 ps-0 mb-4">Reduce Image Size</h2>
       <div class="flex flex-col md:flex-row gap-4">
-        <div class="w-full md:w-1/3">
+        <div class="md:w-1/3 block w-full text-sm mr-4 py-2 px-4 rounded-lg border-collapse hover:bg-white">
           <input
             type="file"
             (change)="onFileChange($event)"
@@ -30,6 +30,7 @@ export interface ImageResource {
             class="w-full border text-primary px-4 py-2 rounded"
           />
         </div>
+
 
         <div class="w-full md:w-1/3 text-center" *ngIf="totalImages() > 0">
           <p class="text-blue-500">

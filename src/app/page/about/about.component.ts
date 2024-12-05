@@ -6,13 +6,14 @@ import {MatAnchor, MatButton, MatMiniFabAnchor} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 
 @Component({
   selector: 'app-about',
   standalone: true,
   imports: [
     NgOptimizedImage,
-    MatButton, MatCardModule, MatIcon, MatMiniFabAnchor, FaIconComponent, MatAnchor
+    MatButton, MatCardModule, MatIcon, MatMiniFabAnchor, FaIconComponent, MatAnchor, PageHeaderComponent
   ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
