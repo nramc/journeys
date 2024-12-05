@@ -1,9 +1,14 @@
-<app-page-header [pageInfo]="STATISTICS_PAGE_INFO"></app-page-header>
+<header>
+  <app-page-header [pageInfo]="STATISTICS_PAGE_INFO"></app-page-header>
+</header>
 
-@if (statistics()) {
-  <app-statistics-panel [data]="statistics()!.years" type="year" header="Years" [expand]="true"></app-statistics-panel>
-  <app-statistics-panel [data]="statistics()!.countries" type="country" header="Countries"></app-statistics-panel>
-  <app-statistics-panel [data]="statistics()!.cities" type="city" header="Cities"></app-statistics-panel>
-  <app-statistics-panel [data]="statistics()!.categories" type="category" header="Categories"></app-statistics-panel>
-}
+<main>
+  @if (statistics()) {
+    <app-statistics-panel [data]="statistics()!.years" type="year" header="Years"
+                          [expand]="true"></app-statistics-panel>
+    <app-statistics-panel [data]="statistics()!.countries" type="country" header="Countries"></app-statistics-panel>
+    <app-statistics-panel [data]="statistics()!.cities" type="city" header="Cities"></app-statistics-panel>
+    <app-statistics-panel [data]="statistics()!.categories" type="category" header="Categories"></app-statistics-panel>
+  }
+</main>
 
