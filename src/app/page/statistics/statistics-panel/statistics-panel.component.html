@@ -1,43 +1,50 @@
-<section class="mt-3 p-2 rounded-2 d-flex flex-column">
-  <legend class="gradient-bg rounded-2 border border-primary">
-    <a
-      class="text-decoration-none text-light ps-2 w-100 fs-5 d-flex toggle-link d-inline-flex align-items-center justify-content-between"
-      data-bs-toggle="collapse" [href]="'#' + header()"
-      aria-expanded="true">
-      {{ header() }}
-    </a>
-  </legend>
-
-  <div class="card-group gap-2 show ps-2" [id]="header()">
-    @for (statistic of data().sort(comparatorFn); track statistic.name; let index = $index) {
-
-      <a class="text-decoration-none card border border-primary border-1 rounded-2 highlight-on-hover" [ngClass]="'card-' + index"
-         (click)="gotoGallery(type(),statistic.name)" (keyup.enter)="gotoGallery(type(),statistic.name)" tabindex="0">
-        <div class="card-statistics p-4">
-          <div class="mb-4 d-inline-flex justify-content-around w-100">
-            <h5 class="card-title gradient-text mb-0">{{ statistic.name }}</h5>
-            <button class="btn btn-sm btn-primary" (click)="gotoTimeline(type(),statistic.name, $event)">
-              <i class="bi bi-clock-history"></i>
-            </button>
-          </div>
-          <div class="row align-items-center mb-2 d-flex">
-            <div class="col-8">
-              <h2 class="d-flex align-items-center mb-0 gradient-text">
-                {{ statistic.count }}
-              </h2>
-            </div>
-            <div class="col-4 text-right gradient-text">
-              <span>{{ getPercentage(statistic.count, totalCount()) }}%</span>
-            </div>
-          </div>
-          <mat-progress-bar mode="determinate"
-                            [value]="getPercentage(statistic.count, totalCount())"></mat-progress-bar>
-
+<section class="mt-3 p-2 rounded-lg flex flex-col">
+  <mat-expansion-panel [expanded]="expand()">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="bg-gradient-to-r from-appBlue to-blue-500 rounded-lg border border-primary">
+        <div class="text-decoration-none text-white px-3 py-2 w-full text-lg flex justify-between items-center">
+          {{ header() }}
         </div>
-      </a>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-    }
-  </div>
+    <div class="gap-4 p-2 show flex flex-wrap justify-start">
+      @for (statistic of data().sort(comparatorFn); track statistic.name; let index = $index) {
+        <!-- Material Card -->
+        <mat-card
+          class="w-72 shadow-md hover:shadow-lg transition-shadow duration-300 border border-primary rounded-lg">
+          <!-- Card Header -->
+          <mat-card-header>
+            <div mat-card-avatar class="bg-gradient-to-r from-appBlue to-white rounded-full"></div>
+            <mat-card-title>
+              <h5 class="text-lg font-bold">{{ statistic.name }}</h5>
+            </mat-card-title>
+          </mat-card-header>
+
+          <!-- Card Content -->
+          <mat-card-content>
+            <div class="flex justify-between items-center">
+              <h2 class="text-2xl font-bold text-primary">{{ statistic.count }}</h2>
+              <span class="text-sm font-medium text-primary">{{ getPercentage(statistic.count, totalCount()) }}%</span>
+            </div>
+            <mat-progress-bar mode="determinate" [value]="getPercentage(statistic.count, totalCount())"
+                              class="mt-2 text-primary"></mat-progress-bar>
+          </mat-card-content>
+          <mat-card-actions class="inline-flex justify-end">
+            <button mat-icon-button aria-label="Timeline" matTooltip="Timeline"
+                    (click)="gotoTimeline(type(), statistic.name, $event)">
+              <mat-icon class="text-primary">history</mat-icon>
+            </button>
+            <button mat-icon-button aria-label="Gallery" matTooltip="Gallery"
+                    (click)="gotoGallery(type(), statistic.name)">
+              <mat-icon class="text-primary">photo_library</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  </mat-expansion-panel>
 
 </section>
+
 

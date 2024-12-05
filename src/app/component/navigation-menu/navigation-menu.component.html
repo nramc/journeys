@@ -12,7 +12,7 @@
   <a mat-list-item *ngIf="isUserAuthenticated()" [routerLink]="DASHBOARD_PAGE_INFO.path"
      routerLinkActive="active">
     <div class="flex items-center space-x-2">
-      <mat-icon>dashboard</mat-icon>
+      <mat-icon>grid_view</mat-icon>
       <span>{{ DASHBOARD_PAGE_INFO.name }}</span>
     </div>
   </a>
@@ -20,7 +20,7 @@
   <a mat-list-item *ngIf="isUserAuthenticated()" [routerLink]="GALLERY_PAGE_INFO.path"
      routerLinkActive="active">
     <div class="flex items-center space-x-2">
-      <mat-icon>grid_view</mat-icon>
+      <mat-icon>photo_library</mat-icon>
       <span>{{ GALLERY_PAGE_INFO.name }}</span>
     </div>
   </a>
@@ -28,7 +28,7 @@
   <a mat-list-item *ngIf="isUserAuthenticated()" [routerLink]="JOURNEY_SEARCH_PAGE_INFO.path"
      routerLinkActive="active">
     <div class="flex items-center space-x-2">
-      <mat-icon>search</mat-icon>
+      <mat-icon>auto_stories</mat-icon>
       <span>{{ JOURNEY_SEARCH_PAGE_INFO.name }}</span>
     </div>
   </a>
