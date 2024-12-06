@@ -1,47 +1,65 @@
-<section class="mt-3">
-  <div class="row m-2">
-    <div class="col-12">
-      <h4><span class="gradient-text me-1">{{ journey().name || 'Created for testing' }}</span></h4>
-    </div>
-  </div>
+<header>
+  <app-page-header [pageInfo]="NEW_JOURNEY_PAGE_INFO"></app-page-header>
+</header>
 
+<main>
+  <!-- Journey Title -->
+  <section class="mb-4">
+    <h4 class="text-xl font-bold gradient-text">{{ journey().name }}</h4>
+  </section>
 
-  <mat-stepper orientation="horizontal" linear="linear">
+  <section>
+    <!-- Angular Material Stepper -->
+    <mat-stepper orientation="horizontal" linear="linear" class="mat-stepper-label-position-below">
+      <!-- Memories Step -->
+      <mat-step [completed]="isBasicDetailsAvailable()">
+        <ng-template matStepLabel>Memories</ng-template>
+        <ng-template matStepContent>
+          <app-edit-journey-memories-details
+            [(journey)]="journey" [mode]="OperationMode.NEW"></app-edit-journey-memories-details>
+        </ng-template>
+      </mat-step>
 
-    <mat-step [completed]="isBasicDetailsAvailable()">
-      <ng-template matStepLabel>Memories</ng-template>
-      <ng-template matStepContent>
-        <app-edit-journey-memories-details [(journey)]="journey" [mode]="OperationMode.NEW"></app-edit-journey-memories-details>
-      </ng-template>
-    </mat-step>
+      <!-- Geography Step -->
+      <mat-step>
+        <ng-template matStepLabel>Geography</ng-template>
+        <ng-template matStepContent>
+          <h1 class="text-gray-800 text-lg font-medium">
+            app-edit-journey-geo-details
+          </h1>
+        </ng-template>
+      </mat-step>
 
-    <mat-step>
-      <ng-template matStepLabel>Geography</ng-template>
-      <ng-template matStepContent>
-        <h1>app-edit-journey-geo-details</h1>
-      </ng-template>
-    </mat-step>
+      <!-- Images Step -->
+      <mat-step>
+        <ng-template matStepLabel>Images</ng-template>
+        <ng-template matStepContent>
+          <h1 class="text-gray-800 text-lg font-medium">
+            app-edit-journey-images-details
+          </h1>
+        </ng-template>
+      </mat-step>
 
-    <mat-step>
-      <ng-template matStepLabel>Images</ng-template>
-      <ng-template matStepContent>
-        <h1>app-edit-journey-images-details</h1>
-      </ng-template>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Videos</ng-template>
-      <ng-template matStepContent>
-        <h1>app-edit-journey-videos-details</h1>
-      </ng-template>
-    </mat-step>
+      <!-- Videos Step -->
+      <mat-step>
+        <ng-template matStepLabel>Videos</ng-template>
+        <ng-template matStepContent>
+          <h1 class="text-gray-800 text-lg font-medium">
+            app-edit-journey-videos-details
+          </h1>
+        </ng-template>
+      </mat-step>
 
-    <mat-step>
-      <ng-template matStepLabel>Publish</ng-template>
-      <ng-template matStepContent>
-        <h1>app-edit-journey-publish-details</h1>
-      </ng-template>
-    </mat-step>
+      <!-- Publish Step -->
+      <mat-step>
+        <ng-template matStepLabel>Publish</ng-template>
+        <ng-template matStepContent>
+          <h1 class="text-gray-800 text-lg font-medium">
+            app-edit-journey-publish-details
+          </h1>
+        </ng-template>
+      </mat-step>
+    </mat-stepper>
+  </section>
 
-  </mat-stepper>
-
-</section>
+</main>

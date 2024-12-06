@@ -6,6 +6,8 @@ import {
   EditJourneyMemoriesDetailsComponent
 } from "../commons/edit-journey-memories-details/edit-journey-memories-details.component";
 import {OperationMode} from "../operation-mode";
+import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
+import {NEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 
 @Component({
   selector: 'app-create-journey',
@@ -13,7 +15,8 @@ import {OperationMode} from "../operation-mode";
   imports: [
     MatStepperModule,
     NgIf,
-    EditJourneyMemoriesDetailsComponent
+    EditJourneyMemoriesDetailsComponent,
+    PageHeaderComponent
   ],
   templateUrl: './create-journey.component.html',
   styles: []
@@ -27,4 +30,5 @@ export class CreateJourneyComponent {
     this.journey().id !== undefined && this.journey().id !== '' && this.journey().id !== null)
 
 
+  protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
 }
