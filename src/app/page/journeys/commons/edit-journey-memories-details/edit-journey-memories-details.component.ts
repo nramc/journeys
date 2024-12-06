@@ -1,11 +1,11 @@
-import {Component, computed, inject, model} from '@angular/core';
+import {Component, computed, inject, model, signal} from '@angular/core';
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {NotificationService} from "../../../../service/common/notification.service";
 import {OperationMode} from "../../operation-mode";
 import {MatChipsModule} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatStepperModule} from "@angular/material/stepper";
 import {TagsInputComponent} from "../../../../component/tags-input/tags-input.component";
@@ -37,7 +37,8 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
     HasWriteAccessDirective
   ],
   templateUrl: './edit-journey-memories-details.component.html',
-  styles: []
+  styles: [],
+  providers: [DatePipe]
 })
 export class EditJourneyMemoriesDetailsComponent {
   protected readonly OperationMode = OperationMode;
@@ -45,11 +46,13 @@ export class EditJourneyMemoriesDetailsComponent {
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
   private readonly router = inject(Router);
+  private readonly datePipe = inject(DatePipe);
 
   mode = model<OperationMode>(OperationMode.VIEW);
   isReadOnly = computed(() => this.mode() == OperationMode.VIEW);
 
   journey = model<Journey>(new Journey());
+  journeyDate = signal(new Date());
 
   onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
@@ -72,6 +75,7 @@ export class EditJourneyMemoriesDetailsComponent {
 
   save(journeyForm: NgForm) {
     if (journeyForm.valid) {
+      this.journey.update(data => ({...data, journeyDate: this.datePipe.transform(this.journeyDate(), 'yyyy-MM-dd')!}));
       if (this.mode() == OperationMode.NEW) {
         this.createJourney();
       } else {
