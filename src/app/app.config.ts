@@ -16,20 +16,7 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideRouter, withComponentInputBinding, withInMemoryScrolling, withViewTransitions} from "@angular/router";
 import {ROUTES} from "./app.routes";
 import {loadingInterceptor} from "./utility/handler/loading.interceptor";
-import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDateFormats} from "@angular/material/core";
-
-
-export const CUSTOM_DATE_FORMATS: MatDateFormats = {
-  parse: {
-    dateInput: 'yyyy-MM-dd',
-  },
-  display: {
-    dateInput: 'yyyy-MM-dd',
-    monthYearLabel: 'MMM yyyy',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM yyyy',
-  },
-};
+import {MAT_DATE_LOCALE} from "@angular/material/core";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -49,7 +36,6 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withInMemoryScrolling({scrollPositionRestoration: "enabled", anchorScrolling: "enabled"})
     ),
-    {provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS},
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
   ]
 }
