@@ -1,22 +1,30 @@
-<label for="description" class="form-label">Memories</label>
-<mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style"
-                         hideSingleSelectionIndicator="true" [hidden]="disabled()"
-                         class="ignore-highlight ms-2 mat-small" [(ngModel)]="markdownStyle">
-  <mat-button-toggle value="Source">Edit</mat-button-toggle>
-  <mat-button-toggle value="Preview">Preview</mat-button-toggle>
-</mat-button-toggle-group>
+<div class="space-y-4">
+  <!-- Memories Label -->
+  <div class="inline-flex gap-2 justify-center align-middle content-center items-center">
+    <label for="description" class="text-sm font-semibold">Memories</label>
+    <!-- Markdown Style Toggle -->
+    <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style" hideSingleSelectionIndicator="true"
+                             [hidden]="disabled()" class="ignore-highlight" [(ngModel)]="markdownStyle">
+      <mat-button-toggle value="Source" class="text-sm">Edit</mat-button-toggle>
+      <mat-button-toggle value="Preview" class="text-sm">Preview</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
 
-<textarea rows="15" class="form-control vh-50" id="description" name="description" required minlength="10"
-          maxlength="5000" #description="ngModel"
-          [(ngModel)]="narration" [hidden]="markdownStyle() === 'Preview'"
-          placeholder="Detailed information about the Journey"></textarea>
-<div [hidden]="markdownStyle() === 'Source'" style="height: 25rem;">
-  <app-display-markdown-component
-    [title]="title()"
-    [markdownText]="narration()"></app-display-markdown-component>
-</div>
-<div [hidden]="description.valid || description.pristine" class="form-text text-danger">
-  <div *ngIf="description.errors?.['required']">Memories is required.</div>
-  <div *ngIf="description.errors?.['minlength']">Memories must be at least 10 characters long.</div>
-  <div *ngIf="description.errors?.['maxlength']">Memories must be at most 5000 characters long.</div>
+  <!-- Textarea for Memories -->
+  <textarea rows="15" id="description" name="description" placeholder="Detailed information about the Journey"
+            class="w-full p-4 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required minlength="10" maxlength="5000"
+            #description="ngModel" [(ngModel)]="narration" [hidden]="markdownStyle() === 'Preview'"></textarea>
+
+  <!-- Display Markdown Preview -->
+  <div [hidden]="markdownStyle() === 'Source'" class="h-96 overflow-auto">
+    <app-display-markdown-component [title]="title()" [markdownText]="narration()"></app-display-markdown-component>
+  </div>
+
+  <!-- Validation Error Messages -->
+  <div [hidden]="description.valid || description.pristine" class="text-red-500 text-sm mt-2">
+    <div *ngIf="description.errors?.['required']">Memories is required.</div>
+    <div *ngIf="description.errors?.['minlength']">Memories must be at least 10 characters long.</div>
+    <div *ngIf="description.errors?.['maxlength']">Memories must be at most 5000 characters long.</div>
+  </div>
 </div>
