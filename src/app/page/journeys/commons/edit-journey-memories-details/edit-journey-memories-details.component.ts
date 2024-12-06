@@ -11,6 +11,12 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {TagsInputComponent} from "../../../../component/tags-input/tags-input.component";
 import {NarrationComponent} from "../../../../component/narration/narration.component";
 import {Router} from "@angular/router";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatButtonModule} from "@angular/material/button";
+import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 
 @Component({
   selector: 'app-edit-journey-memories-details',
@@ -22,7 +28,13 @@ import {Router} from "@angular/router";
     MatChipsModule,
     MatStepperModule,
     TagsInputComponent,
-    NarrationComponent
+    NarrationComponent,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    HasWriteAccessDirective
   ],
   templateUrl: './edit-journey-memories-details.component.html',
   styles: []
