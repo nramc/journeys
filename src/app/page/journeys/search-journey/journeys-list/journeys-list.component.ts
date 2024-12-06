@@ -8,60 +8,41 @@ import {
   signal,
   viewChild
 } from '@angular/core';
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort, MatSortHeader, SortDirection} from "@angular/material/sort";
+import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
+import {MatSort, MatSortModule, SortDirection} from "@angular/material/sort";
 import {HttpParams} from "@angular/common/http";
 import {merge, Observable, startWith, switchMap} from "rxjs";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {JourneyPage} from "../../../../service/journey/journey-page.type";
 import {Journey} from "../../../../model/core/journey.model";
 import {Router} from "@angular/router";
-import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderCellDef,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow,
-  MatRowDef,
-  MatTable
-} from "@angular/material/table";
+import {MatTableModule} from "@angular/material/table";
 import {DatePipe} from "@angular/common";
-import {MatIcon} from "@angular/material/icon";
-import {MatButton} from "@angular/material/button";
-import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 import {toObservable} from "@angular/core/rxjs-interop";
+import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-journeys-list',
   templateUrl: './journeys-list.component.html',
   styleUrl: './journeys-list.component.scss',
   imports: [
-    MatTable,
-    MatSort,
-    MatColumnDef,
-    MatHeaderCell,
-    MatSortHeader,
     DatePipe,
-    MatCell,
-    MatCellDef,
-    MatHeaderCellDef,
-    MatIcon,
-    MatButton,
-    MatHeaderRow,
-    MatRow,
-    MatHeaderRowDef,
-    MatRowDef,
-    MatPaginator,
-    HasWriteAccessDirective
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    HasWriteAccessDirective,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltip
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneysListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['createdDate', 'id', 'name', 'category', 'journeyDate', 'published', 'action'];
+  displayedColumns: string[] = ['createdDate', 'name', 'category', 'journeyDate', 'published', 'action'];
 
   paginator = viewChild.required(MatPaginator);
   sort = viewChild.required(MatSort);

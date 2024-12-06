@@ -1,9 +1,13 @@
-<section class="container mt-2 d-flex flex-column flex-fill justify-content-center">
-  <app-journey-search-criteria (searchEvent)="queryString.set($event)"></app-journey-search-criteria>
+<header>
+  <app-page-header [pageInfo]="JOURNEY_SEARCH_PAGE_INFO"></app-page-header>
+</header>
 
-  <app-journeys-list [criteria]="queryString()"></app-journeys-list>
+<main>
+  <section class="container mt-2 flex flex-col flex-grow justify-center">
+    <app-journey-search-criteria (searchEvent)="queryString.set($event)"></app-journey-search-criteria>
 
-</section>
+    <app-journeys-list [criteria]="queryString()"></app-journeys-list>
 
+  </section>
 
-
+</main>

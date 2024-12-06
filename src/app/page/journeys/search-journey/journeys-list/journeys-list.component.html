@@ -1,99 +1,88 @@
-<div class="mat-elevation-z8 m-3">
-
-  <div class="data-table-container">
-
+<div class="mat-elevation-z8 bg-white dark:bg-gray-400 rounded-lg shadow-md overflow-auto">
+  <div class="data-table-container p-4">
     <table mat-table [dataSource]="data().content" matSort matSortActive="createdDate" matSortDisableClear
-           matSortDirection="desc" [fixedLayout]="true" [trackBy]="trackJourney" aria-describedby="Available Journeys">
-
-      <!-- Created Date -->
+           matSortDirection="desc" [fixedLayout]="true" [trackBy]="trackJourney" aria-describedby="Available Journeys"
+           class="w-full">
+      <!-- Created Date Column -->
       <ng-container matColumnDef="createdDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
-          <p class="text-capitalize">Created</p>
+          <p class="font-medium">Created</p>
         </th>
         <td mat-cell *matCellDef="let row">
-          <p>{{ row.createdDate | date:"dd.MM.YYYY" }}</p>
+          <p class="font-normal text-sm">{{ row.createdDate | date: 'dd.MM.YYYY' }}</p>
         </td>
       </ng-container>
 
-      <!-- Number Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          <p class="text-capitalize">#ID</p>
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <p>{{ row.id }}</p>
-        </td>
-      </ng-container>
-
-      <!-- State Column -->
+      <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          <p class="text-capitalize">Name</p>
+          <p class="font-medium">Name</p>
         </th>
         <td mat-cell *matCellDef="let row">
-          <p>{{ row.name }}</p>
+          <p class="font-normal text-sm">{{ row.name }}</p>
         </td>
       </ng-container>
 
       <!-- Category Column -->
       <ng-container matColumnDef="category">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          <p class="text-capitalize">Category</p>
+          <p class="font-medium">Category</p>
         </th>
         <td mat-cell *matCellDef="let row">
-          <p>{{ row.category }}</p>
+          <p class="font-normal text-sm">{{ row.category }}</p>
         </td>
       </ng-container>
 
-      <!-- Journey Column -->
+      <!-- Journey Date Column -->
       <ng-container matColumnDef="journeyDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          <p class="text-capitalize">Journey Date</p>
+          <p class="font-medium">Journey Date</p>
         </th>
         <td mat-cell *matCellDef="let row">
-          <p>{{ row.journeyDate | date:"dd.MM.YYYY" }}</p>
+          <p class="font-normal text-sm">{{ row.journeyDate | date: 'dd.MM.YYYY' }}</p>
         </td>
       </ng-container>
 
       <!-- Published Column -->
       <ng-container matColumnDef="published">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          <p class="text-capitalize">Published</p>
+          <p class="font-medium">Published ?</p>
         </th>
         <td mat-cell *matCellDef="let row" class="text-center">
           @if (row.isPublished) {
-            <i class="bi bi-check-circle-fill text-success fs-6"></i>
+            <mat-icon class="text-green-600">check_circle</mat-icon>
           } @else {
-            <i class="bi bi-dash-circle-fill text-warning fs-6"></i>
+            <mat-icon class="text-yellow-500">remove_circle</mat-icon>
           }
-
         </td>
       </ng-container>
 
       <!-- Action Column -->
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>
-          <p class="text-capitalize">Action</p>
+          <p class="font-medium text-center">Action</p>
         </th>
         <td mat-cell *matCellDef="let row" class="text-center">
-          <div class="d-inline-flex">
-            <button class="m-1 btn btn-outline-primary btn-sm" (click)="viewJourney(row)">
-              <i class="bi bi-eye-fill pe-1"></i>View
+          <div class="flex gap-2 justify-center">
+            <button mat-icon-button (click)="viewJourney(row)" matTooltip="View">
+              <mat-icon class="text-primary">visibility</mat-icon>
             </button>
-            <button type="button" class="m-1 btn btn-outline-primary btn-sm" (click)="editJourney(row)" *appHasWriteAccess>
-              <i class="bi bi-pencil pe-1"></i>
-              Edit
+            <button mat-icon-button *appHasWriteAccess (click)="editJourney(row)" matTooltip="Edit">
+              <mat-icon class="text-primary">edit</mat-icon>
             </button>
           </div>
         </td>
       </ng-container>
 
-      <tr class="text-primary journey-header-row" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr class="journey-data-row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <!-- Table Rows -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-primary hover:bg-opacity-10"></tr>
     </table>
   </div>
 
-  <mat-paginator class="text-primary fw-medium pt-3" showFirstLastButtons [length]="resultsLength()" [pageSize]="10"
+  <!-- Paginator -->
+  <mat-paginator class="w-full overflow-auto text-primary fw-medium pt-3" showFirstLastButtons
+                 [length]="resultsLength()" [pageSize]="10"
                  [pageSizeOptions]="[5, 10, 20, 30]"
-                 color="primary" aria-label="Select page"></mat-paginator>
+                 aria-label="Select page"></mat-paginator>
 </div>
