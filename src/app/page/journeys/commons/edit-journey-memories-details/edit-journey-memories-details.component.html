@@ -21,8 +21,9 @@
     <div>
       <mat-form-field class="w-full" appearance="outline">
         <mat-label>Journey Date</mat-label>
-        <input matInput [matDatepicker]="picker" required placeholder="dd/mm/yyyy"
-               [(ngModel)]="journey().journeyDate" #journeyDate=ngModel [disabled]="isReadOnly()">
+        <input matInput [matDatepicker]="picker" required placeholder="dd/mm/yyyy" (dateChange)="journeyDateChangeEvent($event)"
+               [(ngModel)]="journeyDateTimestamp" #journeyDate=ngModel [disabled]="isReadOnly()"
+        name="journeyDate">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error [hidden]="journeyDate.valid || journeyDate.pristine">

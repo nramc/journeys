@@ -1,4 +1,4 @@
-import {Component, computed, inject, model, signal} from '@angular/core';
+import {ChangeDetectorRef, Component, computed, inject, model, signal} from '@angular/core';
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {NotificationService} from "../../../../service/common/notification.service";
@@ -13,9 +13,10 @@ import {NarrationComponent} from "../../../../component/narration/narration.comp
 import {Router} from "@angular/router";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatDatepickerInputEvent, MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
+import {toObservable} from "@angular/core/rxjs-interop";
 import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 
 @Component({
@@ -52,7 +53,11 @@ export class EditJourneyMemoriesDetailsComponent {
   isReadOnly = computed(() => this.mode() == OperationMode.VIEW);
 
   journey = model<Journey>(new Journey());
-  journeyDate = signal(new Date());
+  journeyDateTimestamp = signal(new Date());
+
+  constructor() {
+    toObservable(this.journey).subscribe(value => this.journeyDateTimestamp.set(new Date(value.journeyDate)))
+  }
 
   onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
@@ -75,7 +80,6 @@ export class EditJourneyMemoriesDetailsComponent {
 
   save(journeyForm: NgForm) {
     if (journeyForm.valid) {
-      this.journey.update(data => ({...data, journeyDate: this.datePipe.transform(this.journeyDate(), 'yyyy-MM-dd')!}));
       if (this.mode() == OperationMode.NEW) {
         this.createJourney();
       } else {
@@ -104,4 +108,7 @@ export class EditJourneyMemoriesDetailsComponent {
     this.mode.set(OperationMode.EDIT);
   }
 
+  journeyDateChangeEvent(event: MatDatepickerInputEvent<Date>) {
+    this.journey.update(data => ({...data, journeyDate: this.datePipe.transform(event.value, 'yyyy-MM-dd')!}));
+  }
 }
