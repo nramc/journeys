@@ -15,6 +15,8 @@ import {OperationMode} from "../operation-mode";
 import {
   EditJourneyMemoriesDetailsComponent
 } from "../commons/edit-journey-memories-details/edit-journey-memories-details.component";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-edit-journey',
@@ -31,7 +33,9 @@ import {
     EditJourneyPublishDetailsComponent,
     NgIf,
     MatTooltip,
-    EditJourneyMemoriesDetailsComponent
+    EditJourneyMemoriesDetailsComponent,
+    MatButtonModule,
+    MatIconModule
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
