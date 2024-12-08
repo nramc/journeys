@@ -2,16 +2,22 @@ import {Component, computed, model, signal} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {GeoJSON} from "geojson";
 import {MatIcon} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-edit-geo-json',
   standalone: true,
   imports: [
     FormsModule,
-    MatIcon
+    MatIcon,
+    MatButtonModule,
+    MatInputModule,
+    NgIf
   ],
   templateUrl: './edit-geo-json.component.html',
-  styleUrl: './edit-geo-json.component.scss'
+  styles: []
 })
 export class EditGeoJsonComponent {
   geoJson = model<GeoJSON | undefined>(undefined)
