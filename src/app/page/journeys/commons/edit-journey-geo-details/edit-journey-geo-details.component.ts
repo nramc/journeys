@@ -1,28 +1,39 @@
-import {ChangeDetectionStrategy, Component, computed, effect, inject, model, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, model, OnInit, signal} from '@angular/core';
 import {DEFAULT_CATEGORY, Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
 import {GeoCodingLocationData, WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {MatStepperNext} from "@angular/material/stepper";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {NotificationService} from "../../../../service/common/notification.service";
 import {OperationMode} from "../../operation-mode";
 import {EditGeoLocationComponent} from "../edit-geo-location/edit-geo-location.component";
 import {GeoJSON, Point} from "geojson";
 import {EditGeoJsonComponent} from "../edit-geo-json/edit-geo-json.component";
 import {SUPPORTED_ICONS} from "../../../../config/icon-config";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-edit-journey-geo-details',
   templateUrl: './edit-journey-geo-details.component.html',
-  styleUrl: './edit-journey-geo-details.component.scss',
+  styles: [],
   imports: [
     FormsModule,
     WorldMapComponent,
     MatStepperNext,
     NgIf,
     EditGeoLocationComponent,
-    EditGeoJsonComponent
+    EditGeoJsonComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatButtonModule,
+    NgForOf
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -49,12 +60,6 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   showMapOption = signal<'Location' | 'GeoJson'>('Location');
   geoJsonData = computed(() => this.showMapOption() == 'Location'
     ? this.formData.location() : this.formData.geoJson());
-
-  constructor() {
-    effect(() => {
-      console.log('data:', this.formData.location());
-    });
-  }
 
   ngOnInit(): void {
     this.copyToForm(this.journey().geoDetails ?? new JourneyGeoDetails());

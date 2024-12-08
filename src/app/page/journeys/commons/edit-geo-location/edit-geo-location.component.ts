@@ -3,9 +3,13 @@ import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {Point} from "geojson";
 import {MatTooltip} from "@angular/material/tooltip";
-import {MatIcon} from "@angular/material/icon";
+import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {toObservable} from "@angular/core/rxjs-interop";
 import {filter} from "rxjs";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-edit-geo-location',
@@ -14,7 +18,12 @@ import {filter} from "rxjs";
     FormsModule,
     NgIf,
     MatTooltip,
-    MatIcon
+    MatIcon,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './edit-geo-location.component.html',
   styleUrl: './edit-geo-location.component.scss',
