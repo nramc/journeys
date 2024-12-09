@@ -6,7 +6,7 @@
 
   <div class="bg-cover bg-no-repeat bg-center p-6 rounded-lg" [style.background-image]="'url(' + imageItem().url + ')'">
 
-    <div class="backdrop-blur-lg flex flex-col md:flex-row justify-evenly items-center rounded-lg p-4">
+    <div class="backdrop-blur-3xl flex flex-col md:flex-row justify-evenly items-center rounded-lg p-4">
 
       <!-- Image Thumbnail -->
       <div class="text-center mb-4 md:mb-0 md:w-1/3">
@@ -19,51 +19,57 @@
         <form class="space-y-4">
 
           <!-- Image URL -->
-          <div>
-            <label for="imageUrl" class="block text-sm font-medium text-primary">Image URL</label>
-            <input type="text" id="imageUrl" class="form-input rounded-lg w-full bg-gray-200 cursor-not-allowed"
-                   [(ngModel)]="imageItem().url" readonly disabled/>
-          </div>
+          <mat-form-field appearance="outline" class="w-full ignore-highlight">
+            <mat-label>Image URL</mat-label>
+            <input matInput type="text" id="imageUrl" name="imageUrl"
+                   class="ignore-highlight rounded-lg w-full bg-gray-200 cursor-not-allowed"
+                   [(ngModel)]="imageItem().url" readonly/>
+          </mat-form-field>
+
           <!-- Asset ID -->
-          <div>
-            <label for="imageId" class="block text-sm font-medium text-primary">Asset ID</label>
-            <input type="text" id="imageId" class="form-input rounded-lg w-full bg-gray-200 cursor-not-allowed"
-                   [(ngModel)]="imageItem().assetId" readonly disabled/>
-          </div>
+          <mat-form-field appearance="outline" class="w-full ignore-highlight">
+            <mat-label>Asset ID</mat-label>
+            <input matInput type="text" id="imageId" name="imageId"
+                   class="ignore-highlight rounded-lg w-full bg-gray-200 cursor-not-allowed"
+                   [(ngModel)]="imageItem().assetId" readonly/>
+          </mat-form-field>
+
           <!-- Public ID -->
-          <div>
-            <label for="publicId" class="block text-sm font-medium text-primary">Public ID</label>
-            <input type="text" id="publicId" class="form-input rounded-lg w-full bg-gray-200 cursor-not-allowed"
-                   [(ngModel)]="imageItem().publicId" readonly disabled/>
-          </div>
+          <mat-form-field appearance="outline" class="w-full ignore-highlight">
+            <mat-label>Public ID</mat-label>
+            <input matInput type="text" id="publicId" name="publicId"
+                   class="ignore-highlight rounded-lg w-full bg-gray-200 cursor-not-allowed"
+                   [(ngModel)]="imageItem().publicId" readonly/>
+          </mat-form-field>
           <!-- Title -->
-          <div>
-            <label for="title" class="block text-sm font-medium text-primary">Title</label>
-            <input type="text" id="title" class="form-input rounded-lg w-full" [(ngModel)]="imageItem().title"/>
-          </div>
+          <mat-form-field appearance="outline" class="w-full ignore-highlight">
+            <mat-label>Title</mat-label>
+            <input matInput type="text" id="title" name="title" class="ignore-highlight rounded-lg w-full"
+                   [(ngModel)]="imageItem().title"/>
+          </mat-form-field>
+
           <!-- Favorite Checkbox -->
           <div class="flex items-center">
-            <input type="checkbox" id="favoriteFlag" class="form-checkbox text-primary"
-                   [(ngModel)]="imageItem().isFavorite"/>
-            <label for="favoriteFlag" class="ml-2 text-sm text-primary">Make it my favorite</label>
+            <mat-checkbox id="favoriteFlag" name="favoriteFlag" class="ignore-highlight"
+                          [(ngModel)]="imageItem().isFavorite">Make it my favorite
+            </mat-checkbox>
           </div>
           <!-- Event Date -->
-          <div>
-            <label for="eventDate" class="block text-sm font-medium text-primary">Event Date</label>
-            <div class="relative">
-              <input type="date" id="eventDate" class="form-input rounded-lg w-full" [(ngModel)]="imageItem().eventDate"
-                     placeholder="yyyy-mm-dd"/>
-            </div>
-          </div>
+          <mat-form-field class="ignore-highlight w-full" appearance="outline">
+            <mat-label>Event Date</mat-label>
+            <input matInput type="date" id="eventDate" name="eventDate" class="ignore-highlight rounded-lg w-full"
+                   [(ngModel)]="imageItem().eventDate"
+                   placeholder="dd-mm-yyyy"/>
+          </mat-form-field>
           <!-- Thumbnail Checkbox -->
           <div class="flex items-center">
-            <input type="checkbox" id="thumbnailFlag" class="form-checkbox text-primary"
-                   [(ngModel)]="imageItem().isThumbnail"/>
-            <label for="thumbnailFlag" class="ml-2 text-sm text-primary">Make it a thumbnail</label>
+            <mat-checkbox id="thumbnailFlag" name="thumbnailFlag" class="ignore-highlight"
+                          [(ngModel)]="imageItem().isThumbnail">Make it a thumbnail
+            </mat-checkbox>
           </div>
 
           <!-- Action Buttons -->
-          <div class="flex justify-center space-x-2 rounded-lg bg-black bg-opacity-25 p-2">
+          <div class="flex justify-center space-x-2 rounded-lg">
             <button mat-flat-button type="button" (click)="save.emit(imageItem())">Save</button>
             <button mat-flat-button type="button" (click)="remove.emit(imageItem())">Remove</button>
             <button mat-flat-button type="button" (click)="cancel.emit(imageItem())">Cancel</button>
