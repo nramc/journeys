@@ -4,12 +4,13 @@ import {JourneyService} from "../../../../service/journey/journey.service";
 import {environment} from "../../../../../environments/environment";
 import {CloudinaryUploadSuccessEvent, CloudinaryUploadSuccessInfo} from "../../../../model/upload-success-event.type";
 import {FormsModule} from "@angular/forms";
-import {NgClass, NgIf} from "@angular/common";
-import {MatBadge} from "@angular/material/badge";
+import {NgIf} from "@angular/common";
 import {MatStepperNext} from "@angular/material/stepper";
 import {EditJourneyImageItemComponent} from "./edit-journey-image-item/edit-journey-image-item.component";
 import {RouterLink} from "@angular/router";
 import {NotificationService} from "../../../../service/common/notification.service";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-edit-journey-images-details',
@@ -18,9 +19,9 @@ import {NotificationService} from "../../../../service/common/notification.servi
   imports: [
     FormsModule,
     NgIf,
-    MatBadge,
+    MatButtonModule,
     MatStepperNext,
-    NgClass,
+    MatIconModule,
     RouterLink,
     EditJourneyImageItemComponent
   ],
