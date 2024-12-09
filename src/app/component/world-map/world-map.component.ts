@@ -39,8 +39,8 @@ L.Marker.prototype.options.icon = iconDefault;
 export interface GeoCodingLocationData {
   name: string;
   location: Point;
-  state: string;
-  country: string;
+  state: string | undefined;
+  country: string | undefined;
 }
 
 export interface GeoCodingAreaData {
@@ -129,26 +129,28 @@ export class WorldMapComponent implements AfterViewInit {
       this.map.addControl(geocodingControl);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.map.on("pick", (eventData: any) => this.emitGeoCodingData(new GeoCodingFeature(
-        eventData['place_name'],
-        eventData['geometry'],
-        eventData['context']
-      )));
+      geocodingControl.on("pick", (eventData: any) => {
+        this.emitGeoCodingData(new GeoCodingFeature(
+          eventData.feature['place_name'],
+          eventData.feature['geometry'],
+          eventData.feature['context']
+        ))
+      });
     }
   }
 
   private emitGeoCodingData(geoCodingFeatures: GeoCodingFeature) {
     if (geoCodingFeatures.location != null) {
       this.location.emit({
-        name: geoCodingFeatures.name ?? '',
+        name: geoCodingFeatures.name,
         location: geoCodingFeatures.location,
-        state: geoCodingFeatures.state ?? '',
-        country: geoCodingFeatures.country ?? ''
+        state: geoCodingFeatures.state,
+        country: geoCodingFeatures.country
       });
     } else if (geoCodingFeatures.area != null) {
       this.area.emit({
         area: geoCodingFeatures.area,
-        name: geoCodingFeatures.name ?? ''
+        name: geoCodingFeatures.name
       })
     } else {
       console.log('No Area and location detected:', geoCodingFeatures);

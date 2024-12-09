@@ -104,9 +104,9 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   }
 
   addGeoLocation(geoCodingData: GeoCodingLocationData) {
-    this.formData.location.set(geoCodingData.location);
-    this.formData.title.set(geoCodingData.name);
-    this.formData.city.set(geoCodingData.state);
-    this.formData.country.set(geoCodingData.country);
+    this.formData.location.update(currentValue => geoCodingData.location ?? currentValue);
+    this.formData.title.update(currentValue => geoCodingData.name ?? currentValue);
+    this.formData.city.update(currentValue => geoCodingData.state ?? currentValue);
+    this.formData.country.update(currentValue => geoCodingData.country ?? currentValue);
   }
 }
