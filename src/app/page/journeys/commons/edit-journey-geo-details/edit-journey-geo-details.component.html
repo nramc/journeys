@@ -1,92 +1,93 @@
-<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="journey()">
-  <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
+<main>
+  <form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="journey()">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
 
-    <!-- Map Section -->
-    <div class="col-span-12 md:col-span-8 relative min-h-[25vh]">
-      <app-world-map class="h-1/2" [geoJsonData]="geoJsonData()" [iconType]="formData.category()"
-                     [enableGeoCoding]="true" (location)="addGeoLocation($event)">
-      </app-world-map>
-    </div>
-
-
-    <!-- Form Section -->
-    <div class="col-span-12 md:col-span-4 flex flex-col space-y-4">
-
-      <!-- Edit Geo Location -->
-      <div>
-        <app-edit-geo-location [(location)]="formData.location"></app-edit-geo-location>
+      <!-- Map Section -->
+      <div class="col-span-12 md:col-span-8 relative min-h-[25vh]">
+        <app-world-map class="h-1/2" [geoJsonData]="geoJsonData()" [iconType]="formData.category()"
+                       [enableGeoCoding]="true" (location)="addGeoLocation($event)">
+        </app-world-map>
       </div>
 
-      <!-- Title Input -->
-      <mat-form-field class="w-full">
-        <mat-label>Title</mat-label>
-        <input matInput id="title" name="title" [(ngModel)]="formData.title"
-               [disabled]="isReadOnly()" #title="ngModel" required maxlength="100" minlength="10"
-               placeholder="Title" class="ignore-highlight">
-        <mat-error [hidden]="title.valid || title.pristine">
-          <div *ngIf="title.errors?.['required']">Title is required.</div>
-          <div *ngIf="title.errors?.['minlength']">Title must be at least 10 characters long.</div>
-          <div *ngIf="title.errors?.['maxlength']">Title must be at most 100 characters long.</div>
-        </mat-error>
-      </mat-form-field>
 
-      <!-- City Input -->
-      <mat-form-field class="w-full">
-        <mat-label>City</mat-label>
-        <input matInput id="city" name="city" [(ngModel)]="formData.city"
-               [disabled]="isReadOnly()" #city="ngModel" required minlength="3" maxlength="50"
-               placeholder="City or Region" class="ignore-highlight">
-        <mat-error [hidden]="city.valid || city.pristine">
-          <div *ngIf="city.errors?.['required']">City is required.</div>
-          <div *ngIf="city.errors?.['minlength']">City must be at least 3 characters long.</div>
-          <div *ngIf="city.errors?.['maxlength']">City must be at most 50 characters long.</div>
-        </mat-error>
-      </mat-form-field>
+      <!-- Form Section -->
+      <div class="col-span-12 md:col-span-4 flex flex-col space-y-4">
 
-      <!-- Country Input -->
-      <mat-form-field class="w-full">
-        <mat-label>Country</mat-label>
-        <input matInput id="country" name="country" [(ngModel)]="formData.country"
-               [disabled]="isReadOnly()" #country="ngModel" required minlength="3" maxlength="50"
-               placeholder="Country" class="ignore-highlight">
-        <mat-error [hidden]="country.valid || country.pristine">
-          <div *ngIf="country.errors?.['required']">Country is required.</div>
-          <div *ngIf="country.errors?.['minlength']">Country must be at least 3 characters long.</div>
-          <div *ngIf="country.errors?.['maxlength']">Country must be at most 50 characters long.</div>
-        </mat-error>
-      </mat-form-field>
+        <!-- Edit Geo Location -->
+        <div>
+          <app-edit-geo-location [(location)]="formData.location"></app-edit-geo-location>
+        </div>
 
-      <!-- Category Dropdown -->
-      <mat-form-field class="w-full">
-        <mat-label>Category</mat-label>
-        <mat-select [(ngModel)]="formData.category" name="category" required [disabled]="isReadOnly()" #category="ngModel">
-          <mat-option *ngFor="let category of CATEGORIES" [value]="category">{{ category }}</mat-option>
-        </mat-select>
-        <mat-error [hidden]="category.valid || category.pristine">
-          <div *ngIf="category.errors?.['required']">Category is required.</div>
-        </mat-error>
-      </mat-form-field>
+        <!-- Title Input -->
+        <mat-form-field class="w-full">
+          <mat-label>Title</mat-label>
+          <input matInput id="title" name="title" [(ngModel)]="formData.title"
+                 [disabled]="isReadOnly()" #title="ngModel" required maxlength="100" minlength="10"
+                 placeholder="Title" class="ignore-highlight">
+          <mat-error [hidden]="title.valid || title.pristine">
+            <div *ngIf="title.errors?.['required']">Title is required.</div>
+            <div *ngIf="title.errors?.['minlength']">Title must be at least 10 characters long.</div>
+            <div *ngIf="title.errors?.['maxlength']">Title must be at most 100 characters long.</div>
+          </mat-error>
+        </mat-form-field>
 
-      <!-- GeoJson -->
-      <div>
-        <app-edit-geo-json [(geoJson)]="formData.geoJson"></app-edit-geo-json>
+        <!-- City Input -->
+        <mat-form-field class="w-full">
+          <mat-label>City</mat-label>
+          <input matInput id="city" name="city" [(ngModel)]="formData.city"
+                 [disabled]="isReadOnly()" #city="ngModel" required minlength="3" maxlength="50"
+                 placeholder="City or Region" class="ignore-highlight">
+          <mat-error [hidden]="city.valid || city.pristine">
+            <div *ngIf="city.errors?.['required']">City is required.</div>
+            <div *ngIf="city.errors?.['minlength']">City must be at least 3 characters long.</div>
+            <div *ngIf="city.errors?.['maxlength']">City must be at most 50 characters long.</div>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Country Input -->
+        <mat-form-field class="w-full">
+          <mat-label>Country</mat-label>
+          <input matInput id="country" name="country" [(ngModel)]="formData.country"
+                 [disabled]="isReadOnly()" #country="ngModel" required minlength="3" maxlength="50"
+                 placeholder="Country" class="ignore-highlight">
+          <mat-error [hidden]="country.valid || country.pristine">
+            <div *ngIf="country.errors?.['required']">Country is required.</div>
+            <div *ngIf="country.errors?.['minlength']">Country must be at least 3 characters long.</div>
+            <div *ngIf="country.errors?.['maxlength']">Country must be at most 50 characters long.</div>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Category Dropdown -->
+        <mat-form-field class="w-full">
+          <mat-label>Category</mat-label>
+          <mat-select [(ngModel)]="formData.category" name="category" required [disabled]="isReadOnly()"
+                      #category="ngModel">
+            <mat-option *ngFor="let category of CATEGORIES" [value]="category">{{ category }}</mat-option>
+          </mat-select>
+          <mat-error [hidden]="category.valid || category.pristine">
+            <div *ngIf="category.errors?.['required']">Category is required.</div>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- GeoJson -->
+        <div>
+          <app-edit-geo-json [(geoJson)]="formData.geoJson"></app-edit-geo-json>
+        </div>
+
+        <!-- Radio Buttons for Map Options -->
+        <mat-radio-group [(ngModel)]="showMapOption" class="flex justify-center space-x-4 ignore-highlight"
+                         name="mapOptions">
+          <mat-radio-button value="Location">Location</mat-radio-button>
+          <mat-radio-button value="GeoJson">GeoJson</mat-radio-button>
+        </mat-radio-group>
       </div>
-
-      <!-- Radio Buttons for Map Options -->
-      <mat-radio-group [(ngModel)]="showMapOption" class="flex justify-center space-x-4 ignore-highlight" name="mapOptions">
-        <mat-radio-button value="Location">Location</mat-radio-button>
-        <mat-radio-button value="GeoJson">GeoJson</mat-radio-button>
-      </mat-radio-group>
     </div>
-  </div>
 
-  <!-- Action Buttons -->
-  <div class="flex justify-center space-x-4 mt-6">
-    <button mat-raised-button color="primary" type="submit" [disabled]="!journeyForm.form.valid">
-      Save
-    </button>
-    <button mat-raised-button color="accent" type="button" [disabled]="!journeyForm.form.valid" matStepperNext>
-      Next
-    </button>
-  </div>
-</form>
+    <!-- Action Buttons -->
+    <div class="flex justify-center space-x-4 mt-6">
+      <button mat-flat-button type="submit" [disabled]="!journeyForm.form.valid">Save</button>
+      <button mat-stroked-button type="button" [disabled]="!journeyForm.form.valid" matStepperNext>Next</button>
+    </div>
+  </form>
+
+</main>
