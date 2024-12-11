@@ -11,6 +11,7 @@ import {NotificationService} from "../../../../service/common/notification.servi
 import {JourneyCardViewComponent} from "../../../../component/journey-card-view/journey-card-view.component";
 import {MatCardModule} from "@angular/material/card";
 import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-edit-journey-publish-details',
@@ -24,7 +25,8 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
     NgForOf,
     JourneyCardViewComponent,
     MatCardModule,
-    HasWriteAccessDirective
+    HasWriteAccessDirective,
+    MatButton
   ],
   templateUrl: './edit-journey-publish-details.component.html',
   styles: [],

@@ -18,7 +18,7 @@
     </div>
 
     <!-- Journey Details Section -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="rounded-lg shadow-md p-4">
         <ul class="space-y-2">
           <li class="flex items-center justify-between">Basic Details
@@ -41,7 +41,7 @@
       </div>
 
       <!-- Thumbnail Selection Section -->
-      <div class="col-span-2 rounded-lg shadow-md p-4">
+      <div class="flex flex-col rounded-lg shadow-md p-4">
         <div class="mb-4">
           <mat-form-field appearance="outline" class="w-full ignore-highlight">
             <mat-label>Thumbnail</mat-label>
@@ -55,36 +55,35 @@
           </mat-form-field>
         </div>
 
-        <app-journey-card-view [journey]="journey()"></app-journey-card-view>
-
+        <div class="mb-4">
+          <app-journey-card-view [journey]="journey()"></app-journey-card-view>
+        </div>
       </div>
+
     </div>
 
     <!-- Action Buttons -->
     <div class="flex justify-center gap-4 mt-6">
-      <button type="button" class="btn btn-outline-danger" (click)="deleteJourneyDialog.showModal();"
-              *appHasWriteAccess>
+      <button mat-stroked-button type="button" (click)="deleteJourneyDialog.showModal();" *appHasWriteAccess>
         Delete Journey
       </button>
-      <button type="button" class="btn btn-outline-primary" [disabled]="!journeyForm.form.valid" *appHasWriteAccess
+      <button mat-stroked-button type="button" [disabled]="!journeyForm.form.valid" *appHasWriteAccess
               (click)="save(journeyForm)">
         Save as Draft
       </button>
-      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid" *appHasWriteAccess>
+      <button mat-flat-button type="submit" [disabled]="!journeyForm.form.valid" *appHasWriteAccess>
         Publish
       </button>
     </div>
 
     <!-- Delete Journey Modal -->
-    <dialog id="deleteJourneyDialog" #deleteJourneyDialog class="border-0 rounded-lg p-4">
+    <dialog id="deleteJourneyDialog" #deleteJourneyDialog class="border-0 rounded-lg p-4 mx-auto">
       <div class="text-center">
         <mat-icon class="fs-3 text-danger">delete_forever</mat-icon>
         <p class="text-danger mt-2">Are you sure you want to delete the journey?</p>
         <div class="mt-4 flex justify-center gap-4">
-          <button type="button" class="btn btn-outline-success" (click)="deleteJourneyDialog.close()">No, Keep it
-          </button>
-          <button type="button" class="btn btn-outline-danger" (click)="deleteJourneyDialog.close(); delete()">Yes,
-            Delete forever
+          <button mat-stroked-button type="button" (click)="deleteJourneyDialog.close()">No, Keep it</button>
+          <button mat-stroked-button type="button" (click)="deleteJourneyDialog.close(); delete()">Yes, Delete forever
           </button>
         </div>
       </div>
