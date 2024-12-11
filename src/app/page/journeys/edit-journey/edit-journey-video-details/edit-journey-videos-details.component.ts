@@ -25,7 +25,7 @@ import {MatInputModule} from "@angular/material/input";
     NgOptimizedImage
   ],
   templateUrl: './edit-journey-videos-details.component.html',
-  styleUrl: './edit-journey-videos-details.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyVideosDetailsComponent implements OnInit {
