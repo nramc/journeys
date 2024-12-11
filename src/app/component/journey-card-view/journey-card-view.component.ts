@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
-import {DatePipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 import {JourneyData} from "./journey.data";
 import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL, Journey} from "../../model/core/journey.model";
@@ -12,12 +12,10 @@ import {HasWriteAccessDirective} from "../../directive/has-write-access.directiv
   standalone: true,
   imports: [
     DatePipe,
-    NgOptimizedImage,
     MatCardModule,
     MatButtonModule,
-    NgForOf,
-    HasWriteAccessDirective,
-    NgIf
+    NgIf,
+    HasWriteAccessDirective
   ],
   templateUrl: './journey-card-view.component.html',
   styleUrl: './journey-card-view.component.scss',
