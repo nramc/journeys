@@ -1,14 +1,16 @@
-import {ChangeDetectionStrategy, Component, inject, model} from '@angular/core';
-import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL, Journey} from "../../../../model/core/journey.model";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, model} from '@angular/core';
+import {DEFAULT_THUMBNAIL, Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule, NgForm} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {Router} from "@angular/router";
-import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 import {NotificationService} from "../../../../service/common/notification.service";
+import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
+import {JourneyCardViewComponent} from "../../../../component/journey-card-view/journey-card-view.component";
+import {MatCardModule} from "@angular/material/card";
 
 @Component({
   selector: 'app-edit-journey-publish-details',
@@ -19,10 +21,13 @@ import {NotificationService} from "../../../../service/common/notification.servi
     NgIf,
     MatFormFieldModule,
     MatSelectModule,
-    HasWriteAccessDirective
+    HasWriteAccessDirective,
+    NgForOf,
+    JourneyCardViewComponent,
+    MatCardModule
   ],
   templateUrl: './edit-journey-publish-details.component.html',
-  styleUrl: './edit-journey-publish-details.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyPublishDetailsComponent {
@@ -31,6 +36,7 @@ export class EditJourneyPublishDetailsComponent {
   private readonly router = inject(Router);
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
+  protected readonly cdr = inject(ChangeDetectorRef);
 
   journey = model.required<Journey>();
 
@@ -99,5 +105,4 @@ export class EditJourneyPublishDetailsComponent {
     setTimeout(() => this.router.navigate(['journey']), 1000)
   }
 
-  protected readonly DEFAULT_CATEGORY = DEFAULT_CATEGORY;
 }
