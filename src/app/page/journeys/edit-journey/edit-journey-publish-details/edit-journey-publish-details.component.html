@@ -46,7 +46,7 @@
           <mat-form-field appearance="outline" class="w-full ignore-highlight">
             <mat-label>Thumbnail</mat-label>
             <mat-select id="thumbnail" name="thumbnail" [(ngModel)]="journey().thumbnail" ngModel
-                        class="ignore-highlight">
+                        class="ignore-highlight" (selectionChange)="onThumbnailChangedEvent()">
               <mat-option [value]="DEFAULT_THUMBNAIL">Default</mat-option>
               <mat-option *ngFor="let imageDetail of journey().imagesDetails?.images" [value]="imageDetail.url">
                 {{ imageDetail.assetId }}
