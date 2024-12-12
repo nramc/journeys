@@ -235,7 +235,7 @@ gallery-image img {
 }
 
 .mdc-tab--active * {
-  color: $primary !important;
+  @apply text-primary;
   transition: background-color 1s ease;
 }
 
