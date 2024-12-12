@@ -1,17 +1,19 @@
-<section>
-  <h2>Quick Links</h2>
-  <div class="flex max-sm:flex-col flex-row max-sm:content-center max-sm:items-center gap-2">
+<section class="my-6">
+  <!-- Section Title -->
+  <h2 class="text-xl font-bold mb-4">Quick Links</h2>
 
-    <a mat-fab extended [routerLink]="NEW_JOURNEY_PAGE_INFO.path">
+  <!-- Quick Links Container -->
+  <div class="flex flex-row flex-wrap gap-4 justify-start max-sm:flex-col max-sm:items-center">
+    <!-- Create New Journey Button -->
+    <a mat-fab extended color="primary" [routerLink]="NEW_JOURNEY_PAGE_INFO.path" class="flex items-center gap-2">
       <mat-icon>add_circle</mat-icon>
-      Create New Journey
+      <span>Create New Journey</span>
     </a>
 
-    <a mat-fab extended [routerLink]="TIMELINE_PAGE_INFO.path">
+    <!-- Journiversaries Button -->
+    <a mat-fab extended color="accent" [routerLink]="TIMELINE_PAGE_INFO.path" class="flex items-center gap-2">
       <mat-icon>circle_notifications</mat-icon>
-      Journiversaries
+      <span>Journiversaries</span>
     </a>
-
   </div>
-
 </section>
