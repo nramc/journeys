@@ -1,13 +1,18 @@
-<div class="row mt-3 mb-2">
-  <div class="col-12 min-vh-50">
-    <app-display-markdown-component [title]="journey().geoDetails?.title ?? ''" [markdownText]="journey().description"></app-display-markdown-component>
+<div class="mt-4">
+  <!-- Markdown Component -->
+  <div class="min-h-[50vh]">
+    <app-display-markdown-component
+      [title]="journey().geoDetails?.title ?? ''"
+      [markdownText]="journey().description">
+    </app-display-markdown-component>
   </div>
-</div>
 
-<div class="row mt-2">
-  <div class="col-12 d-flex flex-wrap justify-content-start">
-    @for(tag of journey().tags; track tag) {
-      <span class="badge text-primary border border-primary me-1">{{ tag }}</span>
+  <!-- Tags Section -->
+  <div class="mt-4 flex flex-wrap gap-2">
+    @for (tag of journey().tags; track tag) {
+      <span class="badge rounded-full border border-primary text-primary px-3 py-1 shadow-sm">
+        {{ tag }}
+      </span>
     }
   </div>
 </div>

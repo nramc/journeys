@@ -1,62 +1,65 @@
-<section *ngIf="journey$ | async as journey" class="mt-3 mb-2">
-  <div class="row m-2">
-    <div class="col-12">
-      <app-view-journey-header [journey]="journey"></app-view-journey-header>
+<section *ngIf="journey()" class="mt-6 mb-4">
+  <!-- Journey Header -->
+  <div class="grid grid-cols-1 gap-4 items-center">
+    <div class="col-span-1">
+      <app-view-journey-header [journey]="journey()"></app-view-journey-header>
     </div>
   </div>
-  <div class="row">
-    <div class="col ms-1">
-      <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
 
-        <mat-tab bodyClass="mt-2">
-          <ng-template mat-tab-label>
-            <mat-icon class="me-1">map</mat-icon>
-            Geo
-          </ng-template>
-          <div class="row d-flex flex-column m-0">
-            <div class="col-12">
-              <h6 class="gradient-text text-center">{{ journey.geoDetails?.title }}</h6>
-            </div>
-            <div class="col-12" style="position: relative; height: 80vh; margin: inherit">
-              <app-world-map [geoJsonData]="journey.geoDetails?.geoJson || journey.geoDetails?.location"
-                             [iconType]="journey.geoDetails?.category ?? DEFAULT_CATEGORY"></app-world-map>
-            </div>
+
+  <!-- Tab Group -->
+  <div class="mt-6">
+    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start" class="shadow-md rounded-lg">
+      <!-- Geo Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>map</mat-icon>
+          <span class="ml-1">Geo</span>
+        </ng-template>
+        <div class="p-4">
+          <h6 class="text-lg font-bold text-center gradient-text">{{ journey().geoDetails?.title }}</h6>
+          <div class="relative h-[50vh] md:h-[80vh] rounded-lg overflow-hidden mt-4">
+            <app-world-map
+              [geoJsonData]="journey().geoDetails?.geoJson || journey().geoDetails?.location"
+              [iconType]="journey().geoDetails?.category ?? DEFAULT_CATEGORY">
+            </app-world-map>
           </div>
-        </mat-tab>
+        </div>
+      </mat-tab>
 
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon class="me-1">bookmark_heart</mat-icon>
-            Memories
-          </ng-template>
-          <div class="row d-flex flex-row m-0">
-            <div class="col-12">
-              <app-view-journey-basic-details [journey]="journey"></app-view-journey-basic-details>
-            </div>
-          </div>
-        </mat-tab>
+      <!-- Memories Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>bookmark_heart</mat-icon>
+          <span class="ml-1">Memories</span>
+        </ng-template>
+        <div class="p-4">
+          <app-view-journey-basic-details [journey]="journey()"></app-view-journey-basic-details>
+        </div>
+      </mat-tab>
 
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon class="me-1">photo_library</mat-icon>
-            Images
-          </ng-template>
-          <app-media-gallery galleryId="imageGallery" [images]="getImages(journey)" [videos]=""></app-media-gallery>
-        </mat-tab>
+      <!-- Images Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>photo_library</mat-icon>
+          <span class="ml-1">Images</span>
+        </ng-template>
+        <div class="p-4">
+          <app-media-gallery galleryId="imageGallery" [images]="getImages(journey())" [videos]="[]"></app-media-gallery>
+        </div>
+      </mat-tab>
 
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon class="me-1">video_library</mat-icon>
-            Videos
-          </ng-template>
-          <app-media-gallery galleryId="videoGallery" [videos]="getVideos(journey)"></app-media-gallery>
-        </mat-tab>
+      <!-- Videos Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>video_library</mat-icon>
+          <span class="ml-1">Videos</span>
+        </ng-template>
+        <div class="p-4">
+          <app-media-gallery galleryId="videoGallery" [videos]="getVideos(journey())"></app-media-gallery>
+        </div>
+      </mat-tab>
 
-
-      </mat-tab-group>
-    </div>
-
+    </mat-tab-group>
   </div>
-
 </section>
-
