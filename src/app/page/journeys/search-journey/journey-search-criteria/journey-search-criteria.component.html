@@ -2,14 +2,8 @@
   <!-- Search Input -->
   <mat-form-field class="w-full ignore-highlight" appearance="outline">
     <input placeholder="Use * for wildcard search" class="ignore-highlight" aria-label="Query" id="query" name="query"
-           matInput ngModel [(ngModel)]="q"
-    />
-    <button
-      mat-icon-button
-      matSuffix
-      type="submit"
-      aria-label="Search"
-    >
+           matInput ngModel [(ngModel)]="q"/>
+    <button mat-icon-button matSuffix type="submit" aria-label="Search">
       <mat-icon>search</mat-icon>
     </button>
   </mat-form-field>
