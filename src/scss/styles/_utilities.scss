@@ -1,0 +1,28 @@
+main:not(.not-content-wrapper), .content-wrapper {
+  @apply mt-3 p-4 shadow rounded-lg bg-white dark:bg-gray-800 container;
+}
+
+
+p, section, h1, h2, h3, h4, h5, h6 {
+  margin: .5rem 0 .5rem 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply text-primary-light dark:text-primary-dark font-bold;
+}
+
+.text-primary {
+  @apply text-primary-light dark:text-primary-dark;
+}
+
+.gradient-text {
+  @apply bg-gradient-primary bg-clip-text text-transparent;
+}
+
+.text-stroke-white {
+  text-shadow: -1px -1px 0 whitesmoke, 1px -1px 0 whitesmoke, -1px 1px 0 whitesmoke, 1px 1px 0 whitesmoke;
+}
+
+.text-stroke-blue {
+  text-shadow: -1px -1px 0 #3459E6, 1px -1px 0 #3459E6, -1px 1px 0 #3459E6, 1px 1px 0 #3459E6;
+}
