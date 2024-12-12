@@ -16,6 +16,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-edit-journey-geo-details',
@@ -33,7 +34,8 @@ import {MatButtonModule} from "@angular/material/button";
     MatSelectModule,
     MatRadioModule,
     MatButtonModule,
-    NgForOf
+    NgForOf,
+    MatIconModule
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -105,7 +107,8 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
 
   addGeoLocation(geoCodingData: GeoCodingLocationData) {
     this.formData.location.update(currentValue => geoCodingData.location ?? currentValue);
-    this.formData.title.update(currentValue => geoCodingData.name ?? currentValue);
+    this.formData.geoJson.update(currentValue => geoCodingData.location ?? currentValue);
+    this.formData.title.update(currentValue => currentValue || geoCodingData.name);
     this.formData.city.update(currentValue => geoCodingData.state ?? currentValue);
     this.formData.country.update(currentValue => geoCodingData.country ?? currentValue);
   }
