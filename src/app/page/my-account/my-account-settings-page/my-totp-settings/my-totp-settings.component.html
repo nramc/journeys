@@ -27,11 +27,11 @@
 
   <!-- Deactivation & Testing Section -->
   <div *ngIf="isTotpActive()" class="flex gap-4 mt-4">
-    <button mat-stroked-button type="button" (click)="confirmTotpDeactivation()"
+    <button mat-button type="button" (click)="confirmTotpDeactivation()"
             [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">
       Deactivate
     </button>
-    <button mat-raised-button type="button" (click)="testCode()"
+    <button mat-stroked-button type="button" (click)="testCode()"
             [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">
       Test
     </button>

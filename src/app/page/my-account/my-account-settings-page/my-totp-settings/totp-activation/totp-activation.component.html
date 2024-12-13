@@ -1,90 +1,95 @@
-<div class="card pb-4">
-  <div class="card-header bg-primary text-light">
+<div class="card border rounded-lg shadow-md pb-4">
+  <!-- Card Header -->
+  <div class="card-header text-lg fw-bold p-5 bg-primary-text">
     Two-Factor Authentication (2FA) - TOTP Activation
   </div>
+
+  <!-- Card Body -->
   <div class="card-body">
-    <div class="card-text">
-      <div class="step step-1">
-        <div class="d-flex flex-column">
-          <a class="col-12 gradient-bg-light p-2 fs-6 text-decoration-none" data-bs-toggle="collapse"
-             href="#collapseStep1" aria-expanded="true"
-             aria-controls="collapseStep1">Step 1: Install an Authenticator App
-          </a>
-        </div>
-        <div id="collapseStep1" class="collapse show">
-          <p>To use 2FA, you will need an authenticator app installed on your mobile device. If you don’t already have
-            one, you can download one of these apps:
-          </p>
-          <ol class="small">
-            <li><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en"
-                   target="_blank">Google Authenticator (iOS and Android)</a></li>
-            <li><a href="https://www.microsoft.com/en-us/security/mobile-authenticator-app" target="_blank">Microsoft
-              Authenticator (iOS and Android)</a></li>
-            <li><a href="https://authy.com/download/" target="_blank">Authy (iOS and Android)</a></li>
-          </ol>
-        </div>
+    <!-- Step 1: Install Authenticator App -->
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Step 1: Install an Authenticator App
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>
+        To use 2FA, you will need an authenticator app installed on your mobile device. If you don’t already have one,
+        download one of these apps:
+      </p>
+      <ol class="text-sm">
+        <li>
+          <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en"
+             target="_blank" class="text-primary font-bold underline">Google Authenticator (iOS and Android)</a>
+        </li>
+        <li>
+          <a href="https://www.microsoft.com/en-us/security/mobile-authenticator-app" target="_blank"
+             class="text-primary font-bold underline">Microsoft Authenticator (iOS and Android)</a>
+        </li>
+        <li>
+          <a href="https://authy.com/download/" target="_blank" class="text-primary font-bold underline">
+            Authy (iOS and Android)</a>
+        </li>
+      </ol>
+    </mat-expansion-panel>
 
+    <!-- Step 2: Scan the QR Code -->
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Step 2: Scan the QR Code
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ol class="text-sm">
+        <li>Open your authenticator app.</li>
+        <li>Tap the "+" icon to add a new account.</li>
+        <li>Select the option to scan a QR code.</li>
+        <li>Scan the QR code displayed below using your app.</li>
+      </ol>
+      <div class="qr-code-section flex justify-center items-center mt-4">
+        @if (qrCodeData()) {
+          <img id="qrCode" [src]="'data:image/png;base64,' + qrCodeData()?.data" alt="QR Code"
+               class="w-48 h-48">
+        } @else {
+          <mat-spinner diameter="40"></mat-spinner>
+        }
+      </div>
+      <div class="secret-key-section text-center mt-4">
+        <p class="font-medium text-primary text-sm">
+          Or enter the key manually: <strong>{{ qrCodeData()?.secretKey }}</strong>
+        </p>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Step 3: Enter the Verification Code -->
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Step 3: Confirm the Verification Code
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ol class="text-sm">
+        <li>After scanning the QR code, your authenticator app will generate a 6-digit verification code.</li>
+        <li>Enter the 6-digit code in the field below to activate 2FA.</li>
+        <li>Click the "Activate" button to complete the process.</li>
+        <li>You’ll receive a confirmation message once 2FA is successfully activated.</li>
+      </ol>
+      <div class="mt-3">
+        <mat-form-field class="w-full">
+          <mat-label>Code</mat-label>
+          <input matInput type="text" inputmode="number" class="ignore-highlight rounded-lg w-full" id="totpCode" name="totpCode"
+                 aria-label="6 Digit TOTP Code" aria-describedby="totpCodeLabel" autocomplete="off"
+                 ngModel #totpCode="ngModel" required pattern="[0-9]{6}" maxlength="6">
+          <mat-error *ngIf="totpCode.invalid && totpCode.touched">
+            <p>Enter a valid 6-digit code.</p>
+          </mat-error>
+        </mat-form-field>
       </div>
 
-      <div class="step step-2">
-        <div class="d-flex flex-column">
-          <a class="col-12 gradient-bg-light p-2 fs-6 text-decoration-none" data-bs-toggle="collapse"
-             href="#collapseStep2" aria-expanded="true"
-             aria-controls="collapseStep2">Step 2: Scan the QR Code
-          </a>
-        </div>
-        <div id="collapseStep2" class="collapse show">
-          <ol>
-            <li>Open your authenticator app.</li>
-            <li>Select the option to add a new account. This is usually done by tapping the "+" icon.</li>
-            <li>Choose the option to scan a QR code.</li>
-            <li>Use your phone’s camera to scan the QR code displayed below.</li>
-          </ol>
-          <div class="qr-code-section text-center d-flex align-content-center align-items-center justify-content-center">
-            @if(qrCodeData()) {
-              <img id="qrCode" width="200px" height="200px" alt="QR"
-                   [src]="'data:image/png;base64,' + qrCodeData()?.data">
-            } @else {
-              <mat-spinner diameter="25"></mat-spinner>
-            }
-          </div>
-          <div class="secret-key-section text-center">
-            <p class="fw-bold text-primary small">Or enter code manually: <span
-              [textContent]="qrCodeData()?.secretKey"></span></p>
-          </div>
-        </div>
+      <div class="flex gap-4 mt-4 justify-end">
+        <button mat-flat-button type="button" (click)="activate(totpCode)">Activate</button>
+        <button mat-stroked-button type="button" (click)="cancelActivation()">Cancel</button>
       </div>
-
-      <div class="step step-3">
-        <div class="d-flex flex-column">
-          <a class="col-12 gradient-bg-light p-2 fs-6 text-decoration-none" data-bs-toggle="collapse"
-             href="#collapseStep3" aria-expanded="true"
-             aria-controls="collapseStep3">Step 3: Enter the Verification Code
-          </a>
-        </div>
-        <div id="collapseStep3" class="collapse show">
-          <ol>
-            <li>After scanning the QR code, your authenticator app will display a 6-digit verification code.</li>
-            <li>Enter the 6-digit code into the field below to verify and activate 2FA on your account.</li>
-            <li>After entering the verification code, click on the "Activate" button below.</li>
-            <li>You will see a confirmation message once 2FA is successfully activated.</li>
-          </ol>
-
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="totpCodeLabel">Code</span>
-            <input type="text" class="form-control" aria-label="6 Digit TOTP Code" aria-describedby="totpCodeLabel"
-                   id="totpCode" name="totpCode" ngModel #totpCode required pattern="[0-9]{6,6}" maxlength="6" min="6">
-          </div>
-
-          <div class="d-inline-flex gap-2">
-            <button type="button" class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="activate(totpCode)">Activate</button>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
+    </mat-expansion-panel>
   </div>
-
 </div>
