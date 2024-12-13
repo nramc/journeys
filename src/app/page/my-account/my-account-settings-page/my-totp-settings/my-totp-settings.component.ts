@@ -11,7 +11,9 @@ import {AuthService} from "../../../../service/auth/auth.service";
 import {Role} from "../../../../service/auth/role";
 import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
 import {ConfirmationDialogComponent} from "../../../../component/confirmation-dialog/confirmation-dialog.component";
-import {MatTooltip} from "@angular/material/tooltip";
+import {MatTooltip, MatTooltipModule} from "@angular/material/tooltip";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-my-totp-settings',
@@ -19,10 +21,12 @@ import {MatTooltip} from "@angular/material/tooltip";
   imports: [
     NgIf,
     DisableIfNoRoleExistsDirective,
-    MatTooltip
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './my-totp-settings.component.html',
-  styleUrl: './my-totp-settings.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyTotpSettingsComponent implements OnInit {
