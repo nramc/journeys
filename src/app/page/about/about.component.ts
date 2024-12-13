@@ -2,10 +2,9 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ABOUT_PAGE_INFO} from "../../model/page.info.model";
 import {NgOptimizedImage} from "@angular/common";
 import {Router} from "@angular/router";
-import {MatAnchor, MatButton, MatMiniFabAnchor} from "@angular/material/button";
+import {MatAnchor, MatButton} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 
 @Component({
@@ -13,7 +12,7 @@ import {PageHeaderComponent} from "../../component/page-header/page-header.compo
   standalone: true,
   imports: [
     NgOptimizedImage,
-    MatButton, MatCardModule, MatIcon, MatMiniFabAnchor, FaIconComponent, MatAnchor, PageHeaderComponent
+    MatButton, MatCardModule, MatIcon, MatAnchor, PageHeaderComponent
   ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
