@@ -34,7 +34,7 @@ export class ViewJourneyComponent {
   private readonly journeyService = inject(JourneyService);
 
   journey = toSignal(this.journeyService.getJourneyById(this.route.snapshot.params['id']), {
-    initialValue: new Journey()
+    initialValue: null
   });
 
   getImages(journey: Journey): JourneyImagesDetails {

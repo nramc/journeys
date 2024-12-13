@@ -1,8 +1,8 @@
-<section *ngIf="journey()" class="mt-6 mb-4">
+<section *ngIf="journey() as journey" class="mt-6 mb-4">
   <!-- Journey Header -->
   <div class="grid grid-cols-1 gap-4 items-center">
     <div class="col-span-1">
-      <app-view-journey-header [journey]="journey()"></app-view-journey-header>
+      <app-view-journey-header [journey]="journey"></app-view-journey-header>
     </div>
   </div>
 
@@ -17,11 +17,11 @@
           <span class="ml-1">Geo</span>
         </ng-template>
         <div class="p-4">
-          <h6 class="text-lg font-bold text-center gradient-text">{{ journey().geoDetails?.title }}</h6>
+          <h6 class="text-lg font-bold text-center gradient-text">{{ journey.geoDetails?.title }}</h6>
           <div class="relative h-[50vh] md:h-[80vh] rounded-lg overflow-hidden mt-4">
             <app-world-map
-              [geoJsonData]="journey().geoDetails?.geoJson || journey().geoDetails?.location"
-              [iconType]="journey().geoDetails?.category ?? DEFAULT_CATEGORY">
+              [geoJsonData]="journey.geoDetails?.geoJson || journey.geoDetails?.location"
+              [iconType]="journey.geoDetails?.category ?? DEFAULT_CATEGORY">
             </app-world-map>
           </div>
         </div>
@@ -34,7 +34,7 @@
           <span class="ml-1">Memories</span>
         </ng-template>
         <div class="p-4">
-          <app-view-journey-basic-details [journey]="journey()"></app-view-journey-basic-details>
+          <app-view-journey-basic-details [journey]="journey"></app-view-journey-basic-details>
         </div>
       </mat-tab>
 
@@ -45,7 +45,7 @@
           <span class="ml-1">Images</span>
         </ng-template>
         <div class="p-4">
-          <app-media-gallery galleryId="imageGallery" [images]="getImages(journey())" [videos]="[]"></app-media-gallery>
+          <app-media-gallery galleryId="imageGallery" [images]="getImages(journey)" [videos]="[]"></app-media-gallery>
         </div>
       </mat-tab>
 
@@ -56,7 +56,7 @@
           <span class="ml-1">Videos</span>
         </ng-template>
         <div class="p-4">
-          <app-media-gallery galleryId="videoGallery" [videos]="getVideos(journey())"></app-media-gallery>
+          <app-media-gallery galleryId="videoGallery" [videos]="getVideos(journey)"></app-media-gallery>
         </div>
       </mat-tab>
 
