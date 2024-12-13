@@ -21,7 +21,7 @@ import {MatIconModule} from "@angular/material/icon";
 @Component({
   selector: 'app-edit-journey',
   templateUrl: './edit-journey.component.html',
-  styleUrl: './edit-journey.component.scss',
+  styles: [],
   imports: [
     MatStepper,
     MatStep,
