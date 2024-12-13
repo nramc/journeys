@@ -1,60 +1,49 @@
 <app-page-header [pageInfo]="MY_PROFILE_PAGE_INFO"></app-page-header>
 
+<section class="container mx-auto mt-6">
+  <form #profileForm="ngForm" *ngIf="myProfileData()" class="w-full max-w-4xl space-y-6" (submit)="save(profileForm)">
+    <!-- Username -->
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput id="username" name="username" type="text" [value]="myProfileData().username" readonly>
+    </mat-form-field>
 
-<section class="container d-flex justify-content-start">
-  <form #profileForm="ngForm" *ngIf="myProfileData()" class="col-12 col-lg-8" (submit)="save(profileForm)">
-    <div class="row mb-3">
-      <label for="username" class="col-sm-2 col-form-label text-primary">Username</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="username" [value]="myProfileData()!.username" disabled>
-      </div>
+    <!-- Account Active -->
+    <div>
+      <h3 class="text-sm font-medium text-primary">Status:</h3>
+      <mat-checkbox id="isAccountActive" name="isAccountActive" [checked]="myProfileData()!.enabled" disabled>
+        Active
+      </mat-checkbox>
     </div>
-    <div class="row mb-3">
-      <div class="col-sm-10 offset-sm-2">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="isAccountActive" name="isAccountActive"
-                 [checked]="myProfileData()!.enabled" disabled>
-          <label class="form-check-label text-primary" for="isAccountActive">
-            Active
-          </label>
-        </div>
-      </div>
-    </div>
-    <fieldset class="row mb-3">
-      <legend class="col-form-label col-sm-2 pt-0 text-primary">Role(s)</legend>
-      <div class="col-sm-10 text-primary">
-        <div class="form-check" *ngFor="let roleName of myProfileData()?.roles">
-          <input class="form-check-input" type="checkbox" name="roleName" id="roleName" checked disabled>
-          <label class="form-check-label" for="roleName">
-            {{ roleName }}
-          </label>
-        </div>
-      </div>
-    </fieldset>
-    <div class="row mb-3">
-      <label for="createdDate" class="col-sm-2 col-form-label text-primary">Created</label>
-      <div class="col-sm-10">
-        <input type="datetime-local" class="form-control" id="createdDate" name="createdDate"
-               [value]="myProfileData()!.createdDate" disabled readonly>
+
+    <!-- Roles -->
+    <div>
+      <h3 class="text-sm font-medium text-primary">Role(s)</h3>
+      <div *ngFor="let roleName of myProfileData()?.roles" class="pl-4">
+        <mat-checkbox [checked]="true" disabled>{{ roleName }}</mat-checkbox>
       </div>
     </div>
 
-    <!--  Editable fields  -->
-    <div class="row mb-3">
-      <label for="name" class="col-sm-2 col-form-label text-primary">Name</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="myProfileData()!.name" required
-               [disabled]="!hasAccess()">
-      </div>
+    <!-- Created Date -->
+    <mat-form-field class="w-full">
+      <mat-label class="font-bold text-primary">Created</mat-label>
+      <input matInput id="createdDate" type="datetime-local" [value]="myProfileData()!.createdDate" disabled>
+    </mat-form-field>
+
+    <!-- Editable Fields -->
+    <mat-form-field class="w-full">
+      <mat-label  class="font-bold text-primary">Name</mat-label>
+      <input matInput id="name" name="name" [(ngModel)]="myProfileData()!.name" required [readOnly]="!hasAccess()">
+    </mat-form-field>
+
+    <!-- Actions -->
+    <div class="flex justify-center gap-4">
+      <button mat-flat-button color="primary" type="submit" [disabled]="!profileForm.valid" *appHasWriteAccess>
+        Save
+      </button>
+      <button mat-raised-button color="warn" type="button" (click)="cancel()" *appHasWriteAccess>
+        Cancel
+      </button>
     </div>
-
-    <div class="row mb-3">
-      <div class="col text-center d-flex gap-3 justify-content-center">
-        <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid" *appHasWriteAccess>Save</button>
-        <button type="button" class="btn btn-primary" (click)="cancel()" *appHasWriteAccess>Cancel</button>
-      </div>
-    </div>
-
-
   </form>
 </section>

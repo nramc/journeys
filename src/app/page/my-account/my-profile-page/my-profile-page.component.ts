@@ -6,11 +6,15 @@ import {MY_PROFILE_PAGE_INFO} from "../../../model/page.info.model";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {FormsModule, NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
-import {DisableIfNoRoleExistsDirective} from "../../../directive/disable-if-no-role-exists.directive";
 import {AuthService} from "../../../service/auth/auth.service";
 import {Role} from "../../../service/auth/role";
-import {HasWriteAccessDirective} from "../../../directive/has-write-access.directive";
 import {NotificationService} from "../../../service/common/notification.service";
+import {HasWriteAccessDirective} from "../../../directive/has-write-access.directive";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {AppUser} from "../../../model/account/app-user";
 
 @Component({
   selector: 'app-my-profile-page',
@@ -20,8 +24,11 @@ import {NotificationService} from "../../../service/common/notification.service"
     NgIf,
     FormsModule,
     NgForOf,
-    DisableIfNoRoleExistsDirective,
-    HasWriteAccessDirective
+    HasWriteAccessDirective,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
   templateUrl: './my-profile-page.component.html',
   styles: [],
@@ -36,12 +43,14 @@ export class MyProfilePageComponent {
   private readonly router = inject(Router);
   protected readonly authService = inject(AuthService);
 
-  myProfileData = toSignal(this.myAccountService.getProfileData());
+  myProfileData = toSignal(this.myAccountService.getProfileData(), {
+    initialValue: new AppUser('', '', '', '', false, [], false)
+  });
   hasAccess = computed(() => this.authService.hasAnyRole([Role.AUTHENTICATED_USER]));
 
   save(profileForm: NgForm) {
     if (profileForm.valid && profileForm.dirty) {
-      this.myAccountService.saveProfileData(this.myProfileData()!).subscribe(
+      this.myAccountService.saveProfileData(this.myProfileData()).subscribe(
         {next: _ => this.onSuccessCallback(), error: _ => this.onErrorCallback()}
       );
     }
