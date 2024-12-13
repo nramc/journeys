@@ -1,27 +1,29 @@
-<div class="card">
-  <div class="card-header bg-primary text-light">
-    Two-Factor Authentication
-  </div>
-  <div class="card-body">
-    <div class="card-title text-primary">TOTP Code Verification</div>
-    <div class="card-text">
-      <p>Your security is our top priority. To ensure your account remains protected, please complete the two-factor
-        authentication process by entering the 6-digit code from your authenticator app.</p>
+<mat-card>
+  <mat-card-header
+    class="bg-primary-text text-xl font-semibold !p-4 rounded-t-lg mb-2">
+    <mat-card-title>TOTP Code Verification</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="text-primary mb-6">
+      Your security is our top priority. To ensure your account remains protected, please complete the two-factor
+      authentication process by entering the 6-digit code from your authenticator app.
+    </p>
 
-      <div class="input-group">
-        <span class="input-group-text">Code</span>
-        <input type="text" class="form-control" required pattern="[0-9]{6,6}" maxlength="6" min="6" #confirmationCode
-        autocomplete="off">
-      </div>
-      <div class="form-text text-danger text-center" *ngIf="isCodeInvalid()">
-        Code invalid. Please enter valid code.
-      </div>
+    <mat-form-field appearance="fill" class="w-full ignore-highlight">
+      <mat-label>Code</mat-label>
+      <input matInput inputmode="numeric" id="confirmationCode" type="text"
+             class="ignore-highlight"
+             required pattern="[0-9]{6,6}" maxlength="6" autocomplete="off"
+             #confirmationCode ngModel
+      />
+    </mat-form-field>
+    <p class="text-red-500 text-sm text-center mb-4" *ngIf="isCodeInvalid()">
+      Code invalid. Please enter a valid code.
+    </p>
 
+    <div class="flex space-x-4 mt-4 justify-center">
+      <button mat-raised-button type="button" mat-dialog-close="false">Cancel</button>
+      <button mat-raised-button type="button" (click)="confirmCode(confirmationCode)">Confirm</button>
     </div>
-
-    <div class="d-inline-flex gap-2 mt-4">
-      <button class="btn btn-outline-danger" mat-dialog-close="false">Cancel</button>
-      <button class="btn btn-primary" (click)="confirmCode(confirmationCode)">Confirm</button>
-    </div>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>

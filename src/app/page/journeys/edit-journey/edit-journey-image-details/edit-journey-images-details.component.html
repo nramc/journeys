@@ -1,49 +1,61 @@
-<form (ngSubmit)="save()" *ngIf="this.journey()">
+<main>
+  <form (ngSubmit)="save()" *ngIf="this.journey()">
 
-  <div class="row">
-    <div class="col-12">
-      <div class="d-flex mb-3 flex-wrap">
-        @for (imageDetail of this.formImageDetails().images; track imageDetail.assetId; let i = $index) {
-          <a class="m-2 image-thumbnail-wrapper" (click)="openImageItem(imageDetail)" tabindex="0"
-             (keyup.enter)="openImageItem(imageDetail)">
-            <img
-              [src]="imageDetail.url"
-              alt="thumbnail"
-              [title]="imageDetail.assetId"
-              class="img-thumbnail rounded border border-2 border-opacity-75 h-60-px w-90-px"
-              [ngClass]="{'border-success': imageDetail.isThumbnail, 'border-primary': !imageDetail.isThumbnail}"
-            />
-          </a>
-        }
-      </div>
+    <!-- Image Gallery -->
+    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 mb-4">
+      @for (imageDetail of this.formImageDetails().images; track imageDetail.assetId; let i = $index) {
+        <div
+          class="relative group cursor-pointer border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg focus-within:ring focus-within:ring-offset-2"
+          [class.border-success]="imageDetail.isThumbnail"
+          [class.border-primary]="!imageDetail.isThumbnail"
+          (click)="openImageItem(imageDetail)"
+          (keydown.enter)="openImageItem(imageDetail)"
+          tabindex="-1">
+          <!-- Thumbnail Image -->
+          <img [src]="imageDetail.url" loading="lazy" alt="Thumbnail" title="{{ imageDetail.assetId }}"
+               class="h-24 w-full object-contain"/>
+          <!-- Selected Marker -->
+          <div
+            *ngIf="imageDetail.isThumbnail"
+            class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-center justify-center text-white font-bold text-sm">
+            Selected
+          </div>
+        </div>
+      }
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-12 d-grid gap-2 d-flex justify-content-center align-items-end">
 
-      <button type="button" class="btn btn-outline-primary" (click)="openUploadWidget(true)">
-        <i class="bi bi-folder-plus"></i><span class="ms-2">Upload Image(s)</span>
+    <!-- Buttons -->
+    <div class="flex flex-col md:flex-row items-center justify-center content-center gap-4">
+
+      <button mat-fab extended type="button" (click)="openUploadWidget(true)">
+        <mat-icon>drive_folder_upload</mat-icon>
+        Upload Image(s)
       </button>
-      <button type="button" class="btn btn-outline-primary" (click)="openUploadWidget(false)">
-        <i class="bi bi-file-earmark-binary"></i><span class="ms-2">Upload Image</span>
+
+      <button mat-fab extended type="button" (click)="openUploadWidget(false)">
+        <mat-icon>upload_file</mat-icon>
+        Upload Image
       </button>
-      <button type="button" class="btn btn-outline-primary"
-              [disabled]="!journey().imagesDetails?.images"
-              matStepperNext>Next
-      </button>
-      <a role="link" class="text-decoration-none" routerLink="/tools" target="_blank">Reduce Image Size<i
-        class="bi bi-box-arrow-up-right ms-1"></i></a>
+
+      <button mat-stroked-button type="button" matStepperNext>Next</button>
+
+      <a class="text-primary flex flex-row justify-center" routerLink="/tools" target="_blank">
+        <span class="hover:underline">Reduce Image Size</span>
+        <mat-icon>open_in_new</mat-icon>
+      </a>
     </div>
-  </div>
+  </form>
 
-</form>
+  <!-- Image Item Detail Dialog -->
+  <dialog #imageItemDetailDialog class="w-full md:w-3/4 p-4 rounded-lg border shadow-lg dark:bg-black">
+    <app-edit-journey-image-item
+      [imageItem]="imageItemDetail()"
+      (save)="saveImageItemDetail($event)"
+      (remove)="deleteImageItemDetail($event)"
+      (cancel)="imageItemDialog().nativeElement.close()">
+    </app-edit-journey-image-item>
+  </dialog>
 
-<dialog #imageItemDetailDialog class="w-100 w-md-75 border border-2 border-gradient-primary">
-  <app-edit-journey-image-item [imageItem]="imageItemDetail()"
-                               (save)="saveImageItemDetail($event)"
-                               (remove)="deleteImageItemDetail($event)"
-                               (cancel)="imageItemDialog().nativeElement.close()"
-  />
-</dialog>
 
+</main>

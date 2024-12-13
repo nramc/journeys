@@ -1,32 +1,42 @@
 <section *ngIf="isLoadingCompleted()"
-         class="container d-flex flex-column mt-2 pt-2 pb-3 border border-opacity-50 rounded-2 shadow border-primary">
-  <div class="col d-inline-flex">
-    <h4 class="gradient-text">Authenticator TOTP</h4>
-    <div class="status-badge text-nowrap">
+         class="container mx-auto mt-4 p-6 border border-opacity-50 rounded-lg shadow-lg border-primary flex flex-col">
+
+  <!-- Header with Status -->
+  <div class="flex items-center justify-between mb-4">
+    <h4 class="text-primary text-lg font-bold">Authenticator TOTP</h4>
+    <div>
       @if (isTotpActive()) {
-        <span class="text-success p-1 small ms-1 me-1" [matTooltip]="'Activated'"><i
-          class="bi bi-check-circle-fill"></i></span>
+        <span class="text-success flex items-center gap-1 text-sm" matTooltip="Activated">
+          <mat-icon>check_circle</mat-icon> Activated
+        </span>
       } @else {
-        <span class="text-danger p-1 small ms-1 me-1" [matTooltip]="'Not Activated'"><i
-          class="bi bi-exclamation-octagon-fill"></i></span>
+        <span class="text-danger flex items-center gap-1 text-sm" matTooltip="Not Activated">
+          <mat-icon>error</mat-icon> Not Activated
+        </span>
       }
     </div>
   </div>
 
-  <div class="activation col" *ngIf="!isTotpActive()">
-    <button type="button" class="btn btn-success" (click)="setupTotp()"
-            [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Activate
+  <!-- Activation Section -->
+  <div *ngIf="!isTotpActive()" class="flex justify-start">
+    <button mat-flat-button type="button" (click)="setupTotp()"
+            [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">
+      Activate
     </button>
   </div>
 
-  <div class="deactivation col d-inline-flex gap-2" *ngIf="isTotpActive()">
-    <button type="button" class="btn btn-outline-danger" (click)="confirmTotpDeactivation()"
-            [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Deactivate
+  <!-- Deactivation & Testing Section -->
+  <div *ngIf="isTotpActive()" class="flex gap-4 mt-4">
+    <button mat-button type="button" (click)="confirmTotpDeactivation()"
+            [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">
+      Deactivate
     </button>
-    <button type="button" class="btn btn-outline-primary" (click)="testCode()"
-            [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Test
+    <button mat-stroked-button type="button" (click)="testCode()"
+            [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">
+      Test
     </button>
   </div>
 
 </section>
+
 

@@ -5,16 +5,20 @@ import {MatIcon} from "@angular/material/icon";
 import {Router} from "@angular/router";
 import {MyAccountService} from "../../../service/my-account/my-account.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {MatListModule} from "@angular/material/list";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-delete-my-account-page',
   standalone: true,
   imports: [
     PageHeaderComponent,
-    MatIcon
+    MatIcon,
+    MatListModule,
+    MatButtonModule
   ],
   templateUrl: './delete-my-account-page.component.html',
-  styleUrl: './delete-my-account-page.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DeleteMyAccountPageComponent {

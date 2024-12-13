@@ -5,8 +5,12 @@ import {AppUser} from "../../../../model/account/app-user";
 import {Role} from "../../../../service/auth/role";
 import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NgModel} from "@angular/forms";
 import {MatTooltip} from "@angular/material/tooltip";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
 
 @Component({
   selector: 'app-my-password-settings',
@@ -16,10 +20,14 @@ import {MatTooltip} from "@angular/material/tooltip";
     DisableIfNoRoleExistsDirective,
     DatePipe,
     FormsModule,
-    MatTooltip
+    MatTooltip,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule
   ],
   templateUrl: './password-settings.component.html',
-  styleUrl: './password-settings.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PasswordSettingsComponent implements OnInit {
@@ -49,8 +57,8 @@ export class PasswordSettingsComponent implements OnInit {
       });
   }
 
-  savePassword(newPassword: HTMLInputElement) {
-    if (newPassword.validity.valid) {
+  savePassword(newPassword: NgModel) {
+    if (newPassword.valid) {
       this.myAccountService.changePassword(newPassword.value)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({

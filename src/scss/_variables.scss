@@ -1,24 +1,26 @@
-@import "bootswatch/dist/zephyr/variables";
-
-@import 'node_modules/bootstrap/scss/functions';
-@import 'node_modules/bootstrap/scss/variables';
-@import 'node_modules/bootstrap/scss/mixins';
-
 /* Application variables */
 
 $appName: 'Journey';
 
+$dark: black;
+$light: whitesmoke;
+$primary: #3459E6;
+$primary-light: #c2cdf8;
+$indigo: blue;
+$pink: pink;
+$primary-bg-subtle: darkblue;
+
 $app-blue-theme: (
-    50: #e7ebfc,
-   100: #c2cdf8,
-   200: #9aacf3,
-   300: #718bee,
-   400: #5272ea,
-   500: #3459e6,
-   600: #2f51e3,
-   700: #2748df,
-   800: #213edb,
-   900: #152ed5,
+  50: #e7ebfc,
+  100: #c2cdf8,
+  200: #9aacf3,
+  300: #718bee,
+  400: #5272ea,
+  500: #3459e6,
+  600: #2f51e3,
+  700: #2748df,
+  800: #213edb,
+  900: #152ed5,
   A100: #ffffff,
   A200: #d2d7ff,
   A400: #9fa9ff,

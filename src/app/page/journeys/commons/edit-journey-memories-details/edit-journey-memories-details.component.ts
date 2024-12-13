@@ -1,20 +1,23 @@
-import {Component, computed, inject, model} from '@angular/core';
+import {Component, computed, inject, model, signal} from '@angular/core';
 import {Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {NotificationService} from "../../../../service/common/notification.service";
 import {OperationMode} from "../../operation-mode";
 import {MatChipsModule} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
-import {NgIf, TitleCasePipe} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {DisplayMarkdownComponent} from "../../../../component/display-markdown-component/display-markdown.component";
-import {MatIcon} from "@angular/material/icon";
-import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 import {MatStepperModule} from "@angular/material/stepper";
 import {TagsInputComponent} from "../../../../component/tags-input/tags-input.component";
 import {NarrationComponent} from "../../../../component/narration/narration.component";
-import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 import {Router} from "@angular/router";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDatepickerInputEvent, MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatButtonModule} from "@angular/material/button";
+import {toObservable} from "@angular/core/rxjs-interop";
+import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 
 @Component({
   selector: 'app-edit-journey-memories-details',
@@ -22,19 +25,21 @@ import {Router} from "@angular/router";
   imports: [
     FormsModule,
     NgIf,
-    TitleCasePipe,
     MatButtonToggleModule,
-    DisplayMarkdownComponent,
     MatChipsModule,
-    MatIcon,
-    NgbInputDatepicker,
     MatStepperModule,
     TagsInputComponent,
     NarrationComponent,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
     HasWriteAccessDirective
   ],
   templateUrl: './edit-journey-memories-details.component.html',
-  styles: []
+  styles: [],
+  providers: [DatePipe]
 })
 export class EditJourneyMemoriesDetailsComponent {
   protected readonly OperationMode = OperationMode;
@@ -42,11 +47,17 @@ export class EditJourneyMemoriesDetailsComponent {
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
   private readonly router = inject(Router);
+  private readonly datePipe = inject(DatePipe);
 
   mode = model<OperationMode>(OperationMode.VIEW);
   isReadOnly = computed(() => this.mode() == OperationMode.VIEW);
 
   journey = model<Journey>(new Journey());
+  journeyDateTimestamp = signal(new Date());
+
+  constructor() {
+    toObservable(this.journey).subscribe(value => this.journeyDateTimestamp.set(new Date(value.journeyDate)))
+  }
 
   onError(errorMessage: string, err: Error) {
     this.notificationService.showError(errorMessage);
@@ -97,4 +108,7 @@ export class EditJourneyMemoriesDetailsComponent {
     this.mode.set(OperationMode.EDIT);
   }
 
+  journeyDateChangeEvent(event: MatDatepickerInputEvent<Date>) {
+    this.journey.update(data => ({...data, journeyDate: this.datePipe.transform(event.value, 'yyyy-MM-dd')!}));
+  }
 }

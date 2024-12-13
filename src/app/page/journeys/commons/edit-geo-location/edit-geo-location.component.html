@@ -1,36 +1,39 @@
-<div class="input-group">
-  <input type="number" class="form-control" placeholder="long" aria-label="Longitude" matTooltip="Longitude"
-         id="longitude" name="longitude" [(ngModel)]="_location().coordinates[0]" [disabled]="disabled()"
-         required min="-180.0" max="180.0" #longitude="ngModel" (change)="fireChangeEvent()">
-  <button class="btn btn-primary input-group-text dropdown-toggle" data-bs-toggle="dropdown"
-          aria-expanded="false" [disabled]="disabled()" matTooltip="Paste Options">
+<div class="flex items-center space-x-4 mt-2">
+  <!-- Longitude Input -->
+  <mat-form-field appearance="outline" class="w-1/2">
+    <mat-label>Longitude</mat-label>
+    <input matInput type="number" placeholder="Longitude" aria-label="Longitude"
+           [(ngModel)]="_location().coordinates[0]" [disabled]="disabled()"
+           required min="-180" max="180" #longitude="ngModel" (change)="fireChangeEvent()">
+    <mat-error *ngIf="longitude.errors?.['required']">Longitude is required.</mat-error>
+    <mat-error *ngIf="longitude.errors?.['min'] || longitude.errors?.['max']">
+      Longitude must be between -180.0 and 180.0.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Latitude Input -->
+  <mat-form-field appearance="outline" class="w-1/2">
+    <mat-label>Latitude</mat-label>
+    <input matInput type="number" placeholder="Latitude" aria-label="Latitude"
+           [(ngModel)]="_location().coordinates[1]" [disabled]="disabled()"
+           required min="-90" max="90" #latitude="ngModel" (change)="fireChangeEvent()">
+    <mat-error *ngIf="latitude.errors?.['required']">Latitude is required.</mat-error>
+    <mat-error *ngIf="latitude.errors?.['min'] || latitude.errors?.['max']">
+      Latitude must be between -90.0 and 90.0.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Paste Options Button -->
+  <button mat-icon-button [matMenuTriggerFor]="pasteMenu" [disabled]="disabled()" matTooltip="Paste Options"
+          type="button">
     <mat-icon>content_paste_go</mat-icon>
   </button>
-  <ul class="dropdown-menu">
-    <li>
-      <button type="button" class="dropdown-item" (click)="pasteClipboardCoordinates()">
-        Clipboard
-      </button>
-    </li>
-    <li>
-      <button type="button" class="dropdown-item" (click)="pasteClipboardGoogleCoordinates()">
-        Clipboard (Copied from Google Map)
-      </button>
-    </li>
-  </ul>
-  <input type="number" class="form-control" placeholder="lat" aria-label="Latitude" matTooltip="Latitude"
-         id="latitude" name="latitude" [(ngModel)]="_location().coordinates[1]" [disabled]="disabled()"
-         required min="-90.0" max="90.0" #latitude="ngModel" (change)="fireChangeEvent()">
-</div>
-<div class="form-text text-danger">
-  <div [hidden]="longitude.valid || longitude.pristine">
-    <div *ngIf="longitude.errors?.['required']">Longitude is required.</div>
-    <div *ngIf="longitude.errors?.['min']">Longitude must be between -180.0 to 180.0.</div>
-    <div *ngIf="longitude.errors?.['max']">Longitude must be between -180.0 to 180.0.</div>
-  </div>
-  <div [hidden]="latitude.valid || latitude.pristine">
-    <div *ngIf="latitude.errors?.['required']">Latitude is required.</div>
-    <div *ngIf="latitude.errors?.['min']">Latitude must be between -90.0 to 90.0.</div>
-    <div *ngIf="latitude.errors?.['max']">Latitude must be between -9 0.0 to 90.0.</div>
-  </div>
+  <mat-menu #pasteMenu="matMenu">
+    <button mat-menu-item (click)="pasteClipboardCoordinates()">
+      Clipboard
+    </button>
+    <button mat-menu-item (click)="pasteClipboardGoogleCoordinates()">
+      Clipboard (Copied from Google Map)
+    </button>
+  </mat-menu>
 </div>

@@ -1,6 +1,4 @@
 import {ChangeDetectionStrategy, Component, computed, ElementRef, input} from '@angular/core';
-import {RouterLink} from "@angular/router";
-import {NgForOf} from "@angular/common";
 import {Feature} from "geojson";
 import {JourneyData} from "../journey-card-view/journey.data";
 import {JourneyCardViewComponent} from "../journey-card-view/journey-card-view.component";
@@ -8,15 +6,13 @@ import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL} from "../../model/core/journey.mode
 
 @Component({
   selector: 'app-marker-popup',
-  templateUrl: './marker-popup.component.html',
+  template: '<app-journey-card-view [journey]="journeyData()"></app-journey-card-view>',
   styles: `
-  ::ng-deep .leaflet-popup-content {
-    min-width: 15rem !important;
-  }
+    ::ng-deep .leaflet-popup-content {
+      min-width: 15rem !important;
+    }
   `,
   imports: [
-    RouterLink,
-    NgForOf,
     JourneyCardViewComponent
   ],
   standalone: true,

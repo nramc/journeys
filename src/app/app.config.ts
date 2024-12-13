@@ -10,15 +10,13 @@ import {MarkdownModule} from "ngx-markdown";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
 import {LIGHTBOX_CONFIG, LightboxConfig} from "ng-gallery/lightbox";
-import {NgbDateAdapter} from "@ng-bootstrap/ng-bootstrap";
-import {JourneyDateAdapter} from "./utility/adopter/journey-date-adapter";
 import {CustomErrorHandler} from "./utility/handler/error.handler";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideRouter, withComponentInputBinding, withInMemoryScrolling, withViewTransitions} from "@angular/router";
 import {ROUTES} from "./app.routes";
 import {loadingInterceptor} from "./utility/handler/loading.interceptor";
-
+import {MAT_DATE_LOCALE} from "@angular/material/core";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,13 +28,14 @@ export const appConfig: ApplicationConfig = {
         keyboardShortcuts: true
       } as LightboxConfig
     },
-    {provide: NgbDateAdapter, useClass: JourneyDateAdapter},
     {provide: ErrorHandler, useClass: CustomErrorHandler},
     provideHttpClient(withInterceptors([loadingInterceptor])),
     provideAnimations(),
     provideRouter(ROUTES,
       withComponentInputBinding(),
       withViewTransitions(),
-      withInMemoryScrolling({scrollPositionRestoration: "enabled", anchorScrolling: "enabled"}))
+      withInMemoryScrolling({scrollPositionRestoration: "enabled", anchorScrolling: "enabled"})
+    ),
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
   ]
 }

@@ -1,223 +1,201 @@
-<section class="ms-3 mt-3 mb-3 pt-2 pb-2 gap-1 gap-md-0 d-flex flex-column-reverse flex-md-row justify-content-start">
-  <div>
-    <h4 class="gradient-text">About Us</h4>
-    <h1 class="gradient-text">Your one-stop shop for documenting, cherishing, and reliving your adventures.</h1>
-    <p class="text-primary fs-6 mt-4">
-      Have you ever tried explaining about hilarious moments happened at your trip to your kids, partner years
-      later,
-      only to realise the details are fuzzy?
-    </p>
-    <p class="text-primary fs-6">
-      Travel creates lasting memories for the whole family, but capturing those precious moments can be a challenge.
-      Never forget a travel detail again!
-    </p>
+<header>
+  <app-page-header [pageInfo]="ABOUT_PAGE_INFO"></app-page-header>
+</header>
+<main>
+  <section
+    class="mt-3 mb-3 pt-2 pb-2 gap-1 md:gap-0 flex flex-col-reverse md:flex-row justify-between">
+    <div>
+      <h1 class="text-primary">Your one-stop shop for documenting, cherishing, and reliving your adventures.</h1>
+      <p class="text-primary text-sm mt-4">
+        Have you ever tried explaining about hilarious moments happened at your trip to your kids, partner years
+        later, only to realise the details are fuzzy?
+      </p>
+      <p class="text-primary text-sm">
+        Travel creates lasting memories for the whole family, but capturing those precious moments can be a challenge.
+        Never forget a travel detail again!
+      </p>
 
-    <p class="text-primary fs-5">
-          <span
-            class="gradient-text fw-bold fs-6">Journey, your one-stop shop for creating a shared travel legacy!</span>
-    </p>
-    <p class="text-primary fs-6">
-      This user-friendly app lets everyone in the family contribute photos, stories, and funny anecdotes, building a
-      beautiful and hilarious record of your adventures together.
-    </p>
+      <p class="text-primary text-sm">
+        Journey, your one-stop shop for creating a shared travel legacy!
+      </p>
+      <p class="text-primary text-sm">
+        This user-friendly app lets everyone in the family contribute photos, stories, and funny anecdotes, building a
+        beautiful and hilarious record of your adventures together.
+      </p>
 
-    <h6 class="text-primary">
-      Don't let your travel memories fade away. Signup today and start preserving your adventures for a lifetime!
-    </h6>
+      <h6 class="text-primary text-sm">
+        Don't let your travel memories fade away. Signup today and start preserving your adventures for a lifetime!
+      </h6>
 
-    <div class="d-inline-flex w-100 justify-content-between align-content-end align-items-end">
-      <div>
-        <button type="button" class="btn btn-primary mt-2" (click)="signup()">Signup Today</button>
+      <div class="flex w-full justify-between max-sm:flex-col">
+        <div>
+          <button type="button" mat-flat-button class="mt-2 mb-2 " (click)="signup()">Signup Today</button>
+        </div>
+        <div class="ms-1 text-center text-primary font-bold text-sm flex max-sm:flex-col flex-row">
+          <span class="text-primary">Do you have any suggestion or feedback?</span>
+          <a class="ms-0 md:ms-1 underline" href="https://github.com/nramc/journeys/issues" target="_blank">Create
+            ticket
+            on GitHub.</a>
+        </div>
       </div>
-      <div class="ms-1 text-center text-primary fw-bold small d-flex flex-column flex-lg-row">
-        <span class="gradient-text">Do you have any suggestion or feedback?</span>
-        <a class="ms-0 ms-md-1" href="https://github.com/nramc/journeys/issues">Create ticket on GitHub.</a>
-      </div>
+
+    </div>
+    <div class="text-center flex flex-col justify-center content-center items-center">
+      <img ngSrc="assets/logo/journey-logo-192x192.png" height="192" width="192" alt="Journey" priority
+           class="">
+      <h1 class="text-primary">Journey</h1>
+      <h6 class="text-primary text-xs">Your Portal to the Past</h6>
     </div>
 
-  </div>
-  <div class="col-md-4 text-center d-flex flex-column justify-content-center align-content-center align-items-center">
-    <img ngSrc="assets/logo/journey-logo-192x192.png" height="192" width="192" alt="Journey" priority
-         class="">
-    <h1 class="gradient-text">Journey</h1>
-    <h6 class="gradient-text">Your Portal to the Past</h6>
-  </div>
+  </section>
 
-</section>
+  <section class="mb-3 features">
+    <h2 class="text-primary text-lg font-bold mb-4">Features</h2>
+    <div class="flex flex-wrap gap-2 max-sm:justify-center">
 
-<section class="ms-md-3 mb-3">
-  <legend class="gradient-text">Features</legend>
-  <div class="card-group flex-wrap gap-2 text-center d-flex justify-content-center justify-content-md-start">
+      <mat-card class="text-primary max-sm:w-full border !border-primary" appearance="outlined">
+        <mat-card-header class="justify-between">
+          <mat-card-title>Preserve Memories</mat-card-title>
+          <mat-icon>folder_special</mat-icon>
+        </mat-card-header>
+        <mat-card-content class="text-sm text-center">
+          Our memories naturally fade over time. Recording your trips with photos, videos, journals, or even just
+          detailed
+          notes helps you remember the sights, sounds, smells, and emotions you experience while traveling.
+        </mat-card-content>
+      </mat-card>
 
-    <div class="card border border-2 shadow-lg rounded-5 border-opacity-50 border-primary">
-      <div class="mt-1 mb-1 text-center">
-        <i class="bi bi-gem fs-1 text-success"></i>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title gradient-text text-center">Preserve Memories</h5>
-        <p class="card-text text-primary small">
-          Our memories naturally fade over time. Recording your trips with photos, videos, journals, or
-          even just detailed notes helps you remember the sights, sounds, smells, and emotions you experience while
-          traveling.
-        </p>
-      </div>
-    </div>
-
-    <div class="card border border-2 shadow-lg rounded-5 border-opacity-50 border-primary">
-      <div class="mt-1 mb-1 text-center">
-        <i class="bi bi-heart-pulse-fill fs-1 text-success"></i>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title gradient-text text-center">Relive the Experience</h5>
-        <p class="card-text text-primary small">
+      <mat-card class="text-primary max-sm:w-full !border-primary" appearance="outlined">
+        <mat-card-header class="justify-between">
+          <mat-card-title>Relive the Experience</mat-card-title>
+          <mat-icon>event_repeat</mat-icon>
+        </mat-card-header>
+        <mat-card-content class="text-sm text-center">
           Looking back at your travel records allows you to relive the joy and wonder of your trip.
           This can be a great way to de-stress and bring back positive feelings.
-        </p>
-      </div>
-    </div>
+        </mat-card-content>
+      </mat-card>
 
-    <div class="card border border-2 shadow-lg rounded-5 border-opacity-50 border-primary">
-      <div class="mt-1 mb-1 text-center">
-        <i class="bi bi-graph-up-arrow fs-1 text-success"></i>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title gradient-text text-center">Personal Growth</h5>
-        <p class="card-text text-primary small">
+      <mat-card class="text-primary max-sm:w-full !border-primary" appearance="outlined">
+        <mat-card-header class="justify-between">
+          <mat-card-title>Personal Growth</mat-card-title>
+          <mat-icon>health_and_safety</mat-icon>
+        </mat-card-header>
+        <mat-card-content class="text-sm text-center">
           Traveling can be a transformative experience. Recording your trips allows you to reflect on your
           experiences, the new cultures you encountered, and how travel has shaped you as a person.
-        </p>
-      </div>
-    </div>
+        </mat-card-content>
+      </mat-card>
 
-    <div class="card border border-2 shadow-lg rounded-5 border-opacity-50 border-primary">
-      <div class="mt-1 mb-1 text-center">
-        <i class="bi bi-box2-heart-fill fs-1 text-success"></i>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title gradient-text text-center">Record Special Moments</h5>
-        <p class="card-text text-primary small">
-          Journey can be a place to document all the special moments you share as a couple on your
-          travels - romantic dinners, sunsets on the beach, overcoming a challenge together.
-        </p>
-      </div>
-    </div>
+      <mat-card class="text-primary max-sm:w-full !border-primary" appearance="outlined">
+        <mat-card-header class="justify-between">
+          <mat-card-title>Record Special Moments</mat-card-title>
+          <mat-icon>stars</mat-icon>
+        </mat-card-header>
+        <mat-card-content class="text-sm text-center">
+          Journey can be a place to document all the special moments you share as a couple on your travels - romantic
+          dinners, sunsets on the beach, overcoming a challenge together.
+        </mat-card-content>
+      </mat-card>
 
-    <div class="card border border-2 shadow-lg rounded-5 border-opacity-50 border-primary">
-      <div class="mt-1 mb-1 text-center">
-        <i class="bi bi-chat-square-heart fs-1 text-success"></i>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title gradient-text text-center">A Window to Your Hearts</h5>
-        <p class="card-text text-primary small">
+      <mat-card class="text-primary max-sm:w-full !border-primary" appearance="outlined">
+        <mat-card-header class="justify-between">
+          <mat-card-title>A Window to Your Hearts</mat-card-title>
+          <mat-icon>volunteer_activism</mat-icon>
+        </mat-card-header>
+        <mat-card-content class="text-sm text-center">
           Journey becomes a window into your hearts, a place where you can express your love and appreciation for each
           other in a way that transcends words.
           A photo of a breathtaking landscape you witnessed together, a note expressing gratitude for their presence, or
           a silly video that captures your shared sense of humor
           - these elements in Journey paint a vivid picture of the love you share.
-        </p>
-      </div>
+        </mat-card-content>
+      </mat-card>
+
     </div>
+  </section>
 
-    <p></p>
+  <section class="mb-3">
+    <h2 class="text-primary text-lg font-bold mb-4">Contributors</h2>
+    <div class="flex justify-start gap-2 max-sm:flex-col">
 
-  </div>
-</section>
+      <mat-card appearance="raised">
+        <mat-card-header>
+          <mat-card-title-group class="gap-1">
+            <mat-card-title class="text-primary">Sakunthala Devi Muthusamy</mat-card-title>
+            <mat-card-subtitle><span class="text-primary text-sm">Geo Specialist, Maintainer</span></mat-card-subtitle>
+            <img mat-card-lg-image ngSrc="https://avatars.githubusercontent.com/u/121899092?v=4" height="310"
+                 width="310"
+                 class="!rounded-full" alt="profile-pic">
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-actions class="gap-2">
+          <a mat-button href="https://github.com/ImSakunthala" target="_blank">GitHub</a>
+          <a mat-button href="https://www.linkedin.com/in/sakunthala-devi-muthusamy-834799147/"
+             target="_blank">LinkedIn</a>
+          <a mat-button href="mailto:sakunthaladevi.muthusamy@gmail.com" target="_blank">E-Mail</a>
+          <a mat-button href="https://x.com/ImSakunthala" target="_blank">X (Twitter)</a>
+        </mat-card-actions>
+      </mat-card>
 
-<section class="ms-md-3">
-  <legend class="gradient-text">Contributors</legend>
-  <div class="card-group justify-content-start gap-2">
-    <div class="card mb-3 border-primary border border-2 shadow-lg rounded-5 border-opacity-50"
-         style="max-width: 540px;">
-      <div class="row g-0">
-        <div class="col-4">
-          <div class="rounded-circle border d-flex justify-content-center align-items-center shadow-sm">
-            <img ngSrc="https://avatars.githubusercontent.com/u/121899092?v=4" height="310" width="310"
-                 class="img-fluid rounded-circle"
-                 alt="profile-pic">
-          </div>
+      <mat-card appearance="raised">
+        <mat-card-header>
+          <mat-card-title-group class="gap-1">
+            <mat-card-title class="text-primary">Ramachandran Nellaiyappan</mat-card-title>
+            <mat-card-subtitle><span class="text-primary text-sm">Senior Developer, Maintainer</span></mat-card-subtitle>
+            <img mat-card-lg-image ngSrc="https://avatars.githubusercontent.com/u/35756750" height="310" width="310"
+                 class="!rounded-full" alt="profile-pic">
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-actions>
 
-        </div>
-        <div class="col-8">
-          <div class="card-body">
-            <h5 class="card-title gradient-text">Sakunthala Devi Muthusamy</h5>
-            <p class="card-text text-primary">Geo Specialist, Maintainer</p>
-            <ul class="social mb-0 list-inline mt-3 d-flex justify-content-start gap-2">
-              <li class="list-inline-item"><a href="https://x.com/ImSakunthala" class="social-link"><i
-                class="bi bi-twitter-x"></i></a></li>
-              <li class="list-inline-item"><a href="https://www.linkedin.com/in/sakunthala-devi-muthusamy-834799147/"
-                                              class="social-link"><i class="bi bi-linkedin"></i></a></li>
-              <li class="list-inline-item"><a href="mailto:sakunthaladevi.muthusamy@gmail.com" class="social-link"><i
-                class="bi bi-envelope-fill"></i></a></li>
-              <li class="list-inline-item"><a href="https://github.com/ImSakunthala" class="social-link">
-                <i class="bi bi-github"></i>
-              </a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+          <a mat-button href="https://github.com/nramc" target="_blank">GitHub</a>
+          <a mat-button href="https://www.linkedin.com/in/ramachandran-nellaiyappan/" target="_blank">LinkedIn</a>
+          <a mat-button href="mailto:ramachandrannellai@gmail.com" target="_blank">E-Mail</a>
+          <a mat-button href="https://x.com/ram_n_74" target="_blank">X (Twitter)</a>
+        </mat-card-actions>
+      </mat-card>
     </div>
+  </section>
 
-    <div class="card mb-3 border-primary border border-2 shadow-lg rounded-5 border-opacity-50"
-         style="max-width: 540px;">
-      <div class="row g-0">
-        <div class="col-4">
-          <div class="rounded-circle d-flex justify-content-center align-items-center shadow-lg">
-            <img ngSrc="https://avatars.githubusercontent.com/u/35756750" height="310" width="310"
-                 class="img-fluid rounded-circle"
-                 alt="profile-pic">
-          </div>
-        </div>
-        <div class="col-8">
-          <div class="card-body">
-            <h5 class="card-title gradient-text">Ramachandran Nellaiyappan</h5>
-            <p class="card-text text-primary">Senior Developer, Maintainer</p>
-            <ul class="social mb-0 list-inline mt-3 d-flex justify-content-start gap-2">
-              <li class="list-inline-item"><a href="https://x.com/ram_n_74" class="social-link"><i
-                class="bi bi-twitter-x"></i></a></li>
-              <li class="list-inline-item"><a href="https://www.linkedin.com/in/ramachandran-nellaiyappan/"
-                                              class="social-link"><i class="bi bi-linkedin"></i></a></li>
-              <li class="list-inline-item"><a href="mailto:ramachandrannellai@gmail.com" class="social-link"><i
-                class="bi bi-envelope-fill"></i></a></li>
-              <li class="list-inline-item"><a href="https://github.com/nramc" class="social-link">
-                <i class="bi bi-github"></i>
-              </a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <section class="mb-3">
+    <h2 class="text-primary text-lg font-bold mb-4">Acknowledgement</h2>
+    <p class="text-primary">Our Sincere thanks to below free/open source communities and organisation for making every
+      developer's life much easier by providing such a nice libraries and frameworks.</p>
+    <ul class="text-primary text-sm list-disc ps-4">
+      <li><a href="https://www.openstreetmap.org" class="font-bold underline">Open Street Map</a>: Open Source Map
+        Provider
+      </li>
+      <li><a href="https://leafletjs.com" class="font-bold underline">Leaflet</a>: Open Source Map based JavaScript
+        Library
+      </li>
+      <li><a href="https://angular.dev" class="font-bold underline">Angular</a>: Open Source TypeScript based Frontend
+        Web
+        Framework
+      </li>
+      <li><a href="https://material.angular.io" class="font-bold underline">Angular Material</a>: Open Source UI
+        Components for Angular Application
+      </li>
+      <li><a href="https://cloudinary.com" class="font-bold underline">Cloudinary</a>: Cloud based Image and Video CDN
+      </li>
+      <li><a href="https://github.com/MurhafSousli/ngx-gallery/wiki" class="font-bold underline">Ng-Gallery</a>:
+        Typescript library for displaying
+        images and videos in gallery view
+      </li>
+      <li><a href="https://www.google.com/maps" class="font-bold underline">Google Map</a>: Inspiration behind the
+        Journey
+      </li>
+      <li><a href="https://www.google.com/maps" class="font-bold underline">YouTube</a>: Video Sharing Platform</li>
+    </ul>
 
-<section class="ms-md-3">
-  <legend class="gradient-text">Acknowledgement</legend>
-  <p class="text-primary">Our Sincere thanks to below free/open source communities and organisation for making every
-    developer's life much easier by providing such a nice libraries and frameworks.</p>
-  <ul class="text-primary small">
-    <li><a href="https://www.openstreetmap.org">Open Street Map</a>: Open Source Map Provider</li>
-    <li><a href="https://leafletjs.com">Leaflet</a>: Open Source Map based JavaScript Library</li>
-    <li><a href="https://angular.dev">Angular</a>: Open Source TypeScript based Frontend Web Framework</li>
-    <li><a href="https://getbootstrap.com">Bootstrap CSS</a>: Open Source CSS Framework for styling</li>
-    <li><a href="https://material.angular.io">Angular Material</a>: Open Source UI Components for Angular Application
-    </li>
-    <li><a href="https://ng-bootstrap.github.io">Angular Powered Bootstrap</a>: Open Source Bootstrap UI Components for
-      Angular Application
-    </li>
-    <li><a href="https://cloudinary.com">Cloudinary</a>: Cloud based Image and Video CDN</li>
-    <li><a href="https://github.com/MurhafSousli/ngx-gallery/wiki">Ng-Gallery</a>: Typescript library for displaying
-      images and videos in gallery view
-    </li>
-
-    <li><a href="https://www.google.com/maps">Google Map</a>: Inspiration behind the Journey</li>
-    <li><a href="https://www.google.com/maps">YouTube</a>: Video Sharing Platform</li>
-  </ul>
-
-</section>
+  </section>
 
 
-<section class="footer ms-md-3">
-  <p class="text-primary">
-    With <span class="gradient-text fw-bolder">Journeys</span>, your travel memories become a treasure trove of
-    inspiration and planning for future escapades.
-  </p>
-</section>
+  <section class="footer mb-3">
+    <p class="text-primary">
+      With <span class="font-bold">Journeys</span>, your travel memories become a treasure trove of
+      inspiration and planning for future escapades.
+    </p>
+  </section>
+
+</main>

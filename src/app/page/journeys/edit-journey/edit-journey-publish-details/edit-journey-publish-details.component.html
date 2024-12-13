@@ -1,115 +1,99 @@
-<form (ngSubmit)="publish(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey()">
+<main>
+  <form (ngSubmit)="publish(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey()" class="space-y-6">
 
-  <div class="row">
-    <div class="col-12">
-      <mat-form-field class="w-100 ignore-highlight" color="primary">
+    <!-- Visibility Section -->
+    <div class="grid grid-cols-1 gap-4">
+      <mat-form-field appearance="outline" class="w-full" color="primary">
         <mat-label>Visibility</mat-label>
-        <mat-select id="visibilities" name="visibilities" class="ignore-highlight"
-                    [(ngModel)]="journey().visibilities" multiple required #visibilities="ngModel">
+        <mat-select id="visibilities" name="visibilities" [(ngModel)]="journey().visibilities" multiple required
+                    #visibilities="ngModel">
           <mat-option value="MYSELF" [disabled]="true">MYSELF</mat-option>
           <mat-option value="ADMINISTRATOR">ADMINISTRATOR</mat-option>
           <mat-option value="MAINTAINER">MAINTAINER</mat-option>
           <mat-option value="AUTHENTICATED_USER">AUTHENTICATED_USER</mat-option>
           <mat-option value="GUEST">GUEST</mat-option>
         </mat-select>
-        @if (visibilities.hasError('required')) {
-          <mat-error>Please choose visibility</mat-error>
-        }
+        <mat-error *ngIf="visibilities.hasError('required')">Please choose visibility</mat-error>
       </mat-form-field>
-
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12 col-md-4">
-      <ul class="list-group">
-
-        <li class="list-group-item list-group-item-action">Basic Details
-          @if (isBasicDetailsAvailableAndValid()) {
-            <mat-icon color="primary" class="float-end text-success">check_circle</mat-icon>
-          } @else {
-            <mat-icon color="warn" class="float-end">cancel</mat-icon>
-          }
-        </li>
-        <li class="list-group-item list-group-item-action">Geo Details
-          @if (isGeoJsonAvailable()) {
-            <mat-icon color="primary" class="float-end text-success">check_circle</mat-icon>
-          } @else {
-            <mat-icon color="warn" class="float-end">cancel</mat-icon>
-          }
-        </li>
-        <li class="list-group-item list-group-item-action">Images Details
-          @if (isImagesDetailsAvailable()) {
-            <mat-icon color="primary" class="float-end text-success">check_circle</mat-icon>
-          } @else {
-            <mat-icon color="warn" class="float-end">cancel</mat-icon>
-          }
-        </li>
-        <li class="list-group-item list-group-item-action">Videos Details
-          @if (isVideosDetailsAvailable()) {
-            <mat-icon color="primary" class="float-end text-success">check_circle</mat-icon>
-          } @else {
-            <mat-icon color="warn" class="float-end">cancel</mat-icon>
-          }
-        </li>
-
-      </ul>
     </div>
 
-    <div class="col-12 col-md-8 mt-2 mt-md-0">
-      <div class="input-group mb-3">
-        <label class="input-group-text" for="thumbnail">Thumbnail</label>
-        <select class="form-select" id="thumbnail" name="thumbnail" [(ngModel)]="journey().thumbnail"
-                #thumbnail="ngModel">
-          <option [value]="DEFAULT_THUMBNAIL">Default</option>
-          @for (imageDetail of this.journey().imagesDetails?.images; track imageDetail.assetId; let i = $index) {
-            <option [value]="imageDetail.url">{{ imageDetail.assetId }}</option>
-          }
-        </select>
+    <!-- Journey Preview Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="md:col-span-2 pb-3 border-b-2 border-primary">
+        <h1 class="text-lg text-primary font-semibold">Journey Preview</h1>
       </div>
-      <div class="text-center" *ngIf="thumbnail.value && thumbnail.value !== 'default'">
-        <img [src]="thumbnail.value"
-             class="journey-thumbnail-img rounded border border-2 border-primary border-opacity-50 h-200-px w-200-px"
-             [alt]="thumbnail.value">
-      </div>
-    </div>
-  </div>
 
-  <div class="row mt-3">
-    <div class="col-12 d-grid gap-2 d-flex justify-content-center">
-      <button type="button" class="btn btn-outline-danger" (click)="deleteJourneyDialog.showModal();"
-              *appHasWriteAccess>
+
+      <div class="rounded-lg shadow-md p-4">
+        <ul class="space-y-2">
+          <li class="flex items-center justify-between">Basic Details
+            <mat-icon *ngIf="isBasicDetailsAvailableAndValid()" class="text-success">check_circle</mat-icon>
+            <mat-icon *ngIf="!isBasicDetailsAvailableAndValid()" class="text-danger">cancel</mat-icon>
+          </li>
+          <li class="flex items-center justify-between">Geo Details
+            <mat-icon *ngIf="isGeoJsonAvailable()" class="text-success">check_circle</mat-icon>
+            <mat-icon *ngIf="!isGeoJsonAvailable()" class="text-danger">cancel</mat-icon>
+          </li>
+          <li class="flex items-center justify-between">Images Details
+            <mat-icon *ngIf="isImagesDetailsAvailable()" class="text-success">check_circle</mat-icon>
+            <mat-icon *ngIf="!isImagesDetailsAvailable()" class="text-danger">cancel</mat-icon>
+          </li>
+          <li class="flex items-center justify-between">Videos Details
+            <mat-icon *ngIf="isVideosDetailsAvailable()" class="text-success">check_circle</mat-icon>
+            <mat-icon *ngIf="!isVideosDetailsAvailable()" class="text-danger">cancel</mat-icon>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Thumbnail Selection Section -->
+      <div class="flex flex-col rounded-lg shadow-md p-4">
+        <div class="mb-4">
+          <mat-form-field appearance="outline" class="w-full ignore-highlight">
+            <mat-label>Thumbnail</mat-label>
+            <mat-select id="thumbnail" name="thumbnail" [(ngModel)]="journey().thumbnail" ngModel
+                        class="ignore-highlight" (selectionChange)="onThumbnailChangedEvent()">
+              <mat-option [value]="DEFAULT_THUMBNAIL">Default</mat-option>
+              <mat-option *ngFor="let imageDetail of journey().imagesDetails?.images" [value]="imageDetail.url">
+                {{ imageDetail.assetId }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="mb-4">
+          <app-journey-card-view [journey]="journey()"></app-journey-card-view>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-center gap-4 mt-6">
+      <button mat-stroked-button type="button" (click)="deleteJourneyDialog.showModal();" *appHasWriteAccess>
         Delete Journey
       </button>
-      <button type="button" class="btn btn-outline-primary" [disabled]="!journeyForm.form.valid" *appHasWriteAccess
+      <button mat-stroked-button type="button" [disabled]="!journeyForm.form.valid" *appHasWriteAccess
               (click)="save(journeyForm)">
         Save as Draft
       </button>
-      <button type="submit" class="btn btn-outline-success" [disabled]="!journeyForm.form.valid" *appHasWriteAccess>
+      <button mat-flat-button type="submit" [disabled]="!journeyForm.form.valid" *appHasWriteAccess>
         Publish
       </button>
-
     </div>
-  </div>
 
-  <dialog id="deleteJourneyDialog" #deleteJourneyDialog class="border-0 rounded rounded-3">
-    <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
-      <div class="d-flex flex-column justify-content-center align-items-center">
-        <div class="p-3">
-          <mat-icon class="fs-3 text-danger">delete_forever</mat-icon>
-        </div>
-        <div class="mt-2">
-          <p class="text-danger">Are you sure you want to delete the journey ?</p>
+    <!-- Delete Journey Modal -->
+    <dialog id="deleteJourneyDialog" #deleteJourneyDialog class="border-0 rounded-lg p-4 mx-auto">
+      <div class="text-center">
+        <mat-icon class="fs-3 text-danger">delete_forever</mat-icon>
+        <p class="text-danger mt-2">Are you sure you want to delete the journey?</p>
+        <div class="mt-4 flex justify-center gap-4">
+          <button mat-stroked-button type="button" (click)="deleteJourneyDialog.close()">No, Keep it</button>
+          <button mat-stroked-button type="button" (click)="deleteJourneyDialog.close(); delete()">Yes, Delete forever
+          </button>
         </div>
       </div>
-      <div class="d-flex gap-3">
-        <button type="button" class="btn btn-outline-success" (click)="deleteJourneyDialog.close()">No, Keep it</button>
-        <button type="button" class="btn btn-outline-danger" (click)="deleteJourneyDialog.close();delete()">Yes, Delete
-          forever
-        </button>
-      </div>
-    </div>
-  </dialog>
+    </dialog>
 
+  </form>
 
-</form>
+</main>

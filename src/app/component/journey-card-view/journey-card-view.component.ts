@@ -1,18 +1,21 @@
 import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
-import {DatePipe, NgIf, NgOptimizedImage} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
-import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 import {JourneyData} from "./journey.data";
 import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL, Journey} from "../../model/core/journey.model";
+import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from "@angular/material/button";
+import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 
 @Component({
   selector: 'app-journey-card-view',
   standalone: true,
   imports: [
     DatePipe,
-    NgOptimizedImage,
-    HasWriteAccessDirective,
-    NgIf
+    MatCardModule,
+    MatButtonModule,
+    NgIf,
+    HasWriteAccessDirective
   ],
   templateUrl: './journey-card-view.component.html',
   styleUrl: './journey-card-view.component.scss',

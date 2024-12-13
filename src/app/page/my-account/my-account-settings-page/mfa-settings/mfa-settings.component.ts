@@ -8,6 +8,8 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {AppUser} from "../../../../model/account/app-user";
 import {ConfirmationDialogComponent} from "../../../../component/confirmation-dialog/confirmation-dialog.component";
 import {MatTooltip} from "@angular/material/tooltip";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-my-mfa-settings',
@@ -15,17 +17,19 @@ import {MatTooltip} from "@angular/material/tooltip";
   imports: [
     NgIf,
     DisableIfNoRoleExistsDirective,
-    MatTooltip
+    MatTooltip,
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './mfa-settings.component.html',
-  styleUrl: './mfa-settings.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MfaSettingsComponent implements OnInit {
   protected readonly Role = Role;
-  private destroyRef = inject(DestroyRef);
+  private readonly destroyRef = inject(DestroyRef);
   readonly dialog = inject(MatDialog);
-  private myAccountService = inject(MyAccountService);
+  private readonly myAccountService = inject(MyAccountService);
 
   userData = model<AppUser>();
   isErrorOccurred = model(true);

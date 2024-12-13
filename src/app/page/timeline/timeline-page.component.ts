@@ -5,8 +5,9 @@ import {TimelineService} from "../../service/timeline/timeline.service";
 import {ActivatedRoute} from "@angular/router";
 import {TIMELINE_PAGE_INFO} from "../../model/page.info.model";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
-import {NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
 
 @Component({
   selector: 'app-timeline-page',
@@ -14,8 +15,9 @@ import {FormsModule} from "@angular/forms";
   imports: [
     TimelineComponent,
     PageHeaderComponent,
-    NgIf,
-    FormsModule
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   templateUrl: './timeline-page.component.html',
   styleUrl: './timeline-page.component.scss',

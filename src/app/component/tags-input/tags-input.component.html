@@ -1,25 +1,32 @@
-<div class="row">
-  <!-- Tags -->
-  <div class="col-12">
-    <input placeholder="Favorite Tags" class="form-control m-0" [disabled]="disabled()"
-           [matChipInputFor]="chipGrid"
-           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-           [matChipInputAddOnBlur]="true"
-           (matChipInputTokenEnd)="addTag($event)"/>
+<div>
+  <!-- Tags Input -->
+  <div class="w-full">
+    <mat-form-field class="w-full" appearance="outline">
+      <input matInput placeholder="Favorite Tags"
+             [disabled]="disabled()" [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="addTag($event)"
+             class="w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </mat-form-field>
   </div>
 
-  <div class="col-12 mt-1">
-    <mat-chip-grid #chipGrid aria-label="Tags">
+  <!-- Tags Display (Chip Grid) -->
+  <div class="w-full">
+    <mat-chip-grid #chipGrid aria-label="Tags" class="flex flex-wrap gap-2">
       @for (tag of tags(); track tag) {
-        <mat-chip-row [highlighted]="true" (removed)="removeTag(tag)" [editable]="!disabled()"
-                      [removable]="!disabled()">
-          <span class="text-primary">{{ tag }}</span>
-          <button matChipRemove (click)="removeTag(tag)" [disabled]="disabled()">
+        <mat-chip-row [highlighted]="true" (removed)="removeTag(tag)" [editable]="!disabled()" [removable]="!disabled()"
+                      class="bg-indigo-100 text-indigo-700 border rounded-full px-4 py-2 shadow-sm flex items-center">
+          <span>{{ tag }}</span>
+          <button matChipRemove (click)="removeTag(tag)" [disabled]="disabled()"
+                  class="ml-2 text-red-500 hover:text-red-700">
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip-row>
       }
-    </mat-chip-grid>
-  </div>
 
+    </mat-chip-grid>
+
+  </div>
 </div>
+
+

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, input, model, OnInit, viewChild} from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {LIGHTBOX_CONFIG, LightboxConfig, LightboxModule} from "ng-gallery/lightbox";
 import {Gallery, GalleryImageDef, GalleryItem, GalleryItemTypes} from "ng-gallery";
 import {GalleryConfig} from "ng-gallery/lib/models/config.model";
@@ -9,7 +9,7 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
 @Component({
   selector: 'app-media-gallery',
   standalone: true,
-  imports: [CommonModule, LightboxModule, NgOptimizedImage, MatTooltipModule],
+  imports: [CommonModule, LightboxModule, MatTooltipModule],
   providers: [
     {
       provide: LIGHTBOX_CONFIG,
@@ -22,9 +22,9 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
     }
   ],
   template: `
-    <div class="row row-cols-auto mt-2 me-0 justify-content-center">
+    <div class="flex flex-wrap flex-grow mt-2 me-0 justify-center">
       @for (item of items(); let i = $index; track item.data?.src) {
-        <div class="col mb-1 text-center"
+        <div class="mb-1 text-center"
              [lightbox]="i"
              [gallery]="galleryId()">
           <img class="journey-image-thumbnail"
@@ -32,10 +32,14 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
                height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"
           />
         </div>
+      } @empty {
+        <p class="text-gray-500 italic">
+          No media available for this journey.
+        </p>
       }
     </div>
     <ng-container *galleryImageDef="let itemData; active as active">
-      <div class="h-100 w-100 text-end d-flex flex-column justify-content-end">
+      <div class="h-full w-full text-end flex flex-col justify-end">
         <p class="text-center">{{ itemData?.args?.['title'] }}</p>
       </div>
     </ng-container>

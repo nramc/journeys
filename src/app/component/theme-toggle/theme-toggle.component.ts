@@ -19,13 +19,7 @@ import {MatTooltip} from "@angular/material/tooltip";
       </mat-icon>
     </button>
   `,
-  styles: `
-    button {
-      top: 0;
-      right: 0;
-      float: right;
-    }
-  `,
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThemeToggleComponent {
@@ -33,12 +27,12 @@ export class ThemeToggleComponent {
 
   constructor() {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    document.body.classList.toggle('dark-theme', prefersDark.matches);
+    document.body.classList.toggle('dark', prefersDark.matches);
     this.isDarkMode.set(prefersDark.matches);
   }
 
   toggleTheme() {
     this.isDarkMode.update(value => !value);
-    document.body.classList.toggle('dark-theme');
+    document.body.classList.toggle('dark');
   }
 }

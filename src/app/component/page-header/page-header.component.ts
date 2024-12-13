@@ -1,11 +1,20 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {PageInfo} from "../../model/page.info.model";
-import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-page-header',
-  templateUrl: './page-header.component.html',
-  imports: [NgIf],
+  template: `
+    <div class="max-sm:text-center">
+      <h3 class="page-title text-primary">{{ pageInfo().title }}</h3>
+    </div>
+  `,
+  styles: `
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }`,
+  imports: [],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,15 +1,18 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {ABOUT_PAGE_INFO} from "../../model/page.info.model";
 import {NgOptimizedImage} from "@angular/common";
 import {Router} from "@angular/router";
+import {MatAnchor, MatButton} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
+import {MatIcon} from "@angular/material/icon";
+import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 
 @Component({
   selector: 'app-about',
   standalone: true,
   imports: [
-    PageHeaderComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatButton, MatCardModule, MatIcon, MatAnchor, PageHeaderComponent
   ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
@@ -18,7 +21,7 @@ import {Router} from "@angular/router";
 export class AboutComponent {
   protected readonly ABOUT_PAGE_INFO = ABOUT_PAGE_INFO;
 
-  constructor(private router: Router) {
+  constructor(private readonly router: Router) {
   }
 
   signup() {

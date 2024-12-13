@@ -1,16 +1,17 @@
-<div class="fs-5" *ngIf="timelineData()?.heading">
-  <p><span class="gradient-text me-2" [textContent]="timelineData()?.heading"></span>
-    <ng-container *ngIf="images()?.length">
-      <button *ngIf="isPlayerRunning()" class="btn btn-sm btn-outline-primary" (click)="togglePlayer()"
-              [matTooltip]="'Pause'">
-        <i class="bi bi-pause-circle"></i>
-      </button>
-      <button *ngIf="!isPlayerRunning()" class="btn btn-sm btn-outline-primary" (click)="togglePlayer()"
-              [matTooltip]="'Play'">
-        <i class="bi bi-play-circle"></i>
-      </button>
-    </ng-container>
-  </p>
+<div *ngIf="timelineData()?.heading" class="inline-flex mb-2">
+  <h2 class="gradient-text me-2">{{ timelineData()?.heading }}</h2>
+  <ng-container *ngIf="images()?.length">
+
+    <button mat-icon-button *ngIf="isPlayerRunning()" (click)="togglePlayer()"
+            aria-label="Pause timeline" matTooltip="Pause">
+      <mat-icon class="text-danger">pause_circle</mat-icon>
+    </button>
+
+    <button mat-icon-button *ngIf="!isPlayerRunning()" (click)="togglePlayer()"
+            aria-label="Pause timeline" matTooltip="Play">
+      <mat-icon class="text-success">play_circle</mat-icon>
+    </button>
+  </ng-container>
 </div>
 
 @if (images() && images().length > 0) {
@@ -18,18 +19,18 @@
            (itemClick)="togglePlayer()"
            [autoplayInterval]="3000" [loop]="true" [scrollDuration]="500" [autoplay]="true">
     <ng-container *galleryImageDef="let item;">
-      <div class="text-start d-flex flex-row w-100" *ngIf="item?.args?.['title']">
+      <div class="w-full text-start flex flex-row" *ngIf="item?.args?.['title']">
         <span
-          class="text-light me-2 fs-5 bg-dark bg-opacity-50 m-2 border border-2 border-light ps-2 pe-2 rounded-2">{{ item?.args?.['title'] }}</span>
+          class="me-2 m-2 border-2 ps-2 pe-2 bg-black bg-opacity-25">{{ item?.args?.['title'] }}</span>
       </div>
-      <div class="h-100 w-100 text-end d-flex flex-column justify-content-end mb-2 fs-5">
-        <p class="text-center bg-light bg-opacity-25">{{ item?.args?.['caption'] }}</p>
+      <div class="h-full w-full text-end flex flex-col justify-end p-2 mb-4">
+        <p class="text-center bg-black bg-opacity-20">{{ item?.args?.['caption'] }}</p>
       </div>
     </ng-container>
   </gallery>
 } @else {
   <div>
-    <p class="gradient-text">No events found.</p>
+    <p class="text-primary">No events found.</p>
   </div>
 }
 

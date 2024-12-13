@@ -1,9 +1,8 @@
 import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import JSZip from "jszip";
 import {saveAs} from 'file-saver';
-import {MatProgressBar} from "@angular/material/progress-bar";
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 
 export interface ImageResource {
@@ -15,35 +14,53 @@ export interface ImageResource {
   selector: 'app-image-resize',
   standalone: true,
   imports: [
-    NgForOf,
-    MatProgressBar,
-    MatProgressSpinner,
-    NgIf
+    NgIf,
+    MatFormFieldModule
   ],
   template: `
-    <section class="container">
-      <legend class="gradient-text fs-5">Reduce Image Size</legend>
-      <div class="d-flex flex-row">
-        <div class="col">
-          <input type="file" (change)="onFileChange($event)" multiple placeholder="Choose files resize"
-                 class="form-control text-primary border border-primary"/>
+    <section class="container mx-auto">
+      <h2 class="text-lg text-primary font-semibold p-4 ps-0 mb-4">Reduce Image Size</h2>
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="md:w-1/3 block w-full text-sm mr-4 py-2 px-4 rounded-lg border-collapse hover:bg-white">
+          <input
+            type="file"
+            (change)="onFileChange($event)"
+            multiple
+            placeholder="Choose files resize"
+            class="w-full border text-primary px-4 py-2 rounded"
+          />
         </div>
-        <div class="col text-center" *ngIf="totalImages() > 0">
-          <p class="text-primary">Resized Images: {{ resizedImages().length }}
-            <span
-              *ngIf="totalImages() - resizedImages().length > 0">Remaining: {{ totalImages() - resizedImages().length }}</span>
+
+
+        <div class="w-full md:w-1/3 text-center" *ngIf="totalImages() > 0">
+          <p class="text-blue-500">
+            Resized Images: {{ resizedImages().length }}
+            <span *ngIf="totalImages() - resizedImages().length > 0">
+          Remaining: {{ totalImages() - resizedImages().length }}
+        </span>
           </p>
-          <mat-progress-bar *ngIf="isProcessing" mode="determinate"
-                            [value]="(resizedImages().length/totalImages())*100"></mat-progress-bar>
+          <div *ngIf="isProcessing">
+            <progress
+              class="w-full h-2 rounded bg-gray-200"
+              [value]="(resizedImages().length / totalImages()) * 100"
+              max="100"
+            ></progress>
+          </div>
         </div>
-        <div class="col text-center">
-          <button (click)="downloadAll()" *ngIf="resizedImages().length === totalImages() && totalImages() > 0"
-                  class="btn btn-sm btn-outline-primary">
+
+        <div class="w-full md:w-1/3 text-center">
+          <button
+            (click)="downloadAll()"
+            *ngIf="resizedImages().length === totalImages() && totalImages() > 0"
+            class="px-4 py-2 border border-blue-500 text-blue-500 rounded hover:bg-blue-500 hover:text-white"
+          >
             Download All
           </button>
         </div>
       </div>
     </section>
+
+
   `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush

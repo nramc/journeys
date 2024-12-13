@@ -1,15 +1,12 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit, signal, viewChild} from '@angular/core';
 import {BehaviorSubject, catchError, merge, of, startWith, switchMap} from "rxjs";
-import {PageHeaderComponent} from "../../component/page-header/page-header.component";
-import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
+import {TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
 import {JourneyPage} from "../../service/journey/journey-page.type";
 import {MatPaginator} from "@angular/material/paginator";
 import {Journey} from "../../model/core/journey.model";
 import {Router} from "@angular/router";
-import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 import {SortDirection} from "@angular/material/sort";
-import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 import {MatChipInputEvent, MatChipsModule} from "@angular/material/chips";
 import {MatIcon} from "@angular/material/icon";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
@@ -17,6 +14,13 @@ import {SearchCriteria} from "../../model/core/search-criteria.model";
 import {FormsModule} from "@angular/forms";
 import {toObservable} from "@angular/core/rxjs-interop";
 import {JourneyCardViewComponent} from "../../component/journey-card-view/journey-card-view.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatButton} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+import {PageHeaderComponent} from "../../component/page-header/page-header.component";
+import {GALLERY_PAGE_INFO} from "../../model/page.info.model";
 
 export interface SearchResult {
   totalElements: number;
@@ -33,20 +37,19 @@ export interface SortableHeader {
   templateUrl: './gallery.component.html',
   standalone: true,
   imports: [
-    PageHeaderComponent,
-    NgForOf,
-    NgIf,
     MatPaginator,
-    NgOptimizedImage,
-    DatePipe,
-    NgbDropdownModule,
     TitleCasePipe,
     UpperCasePipe,
-    HasWriteAccessDirective,
     MatChipsModule,
     MatIcon,
     FormsModule,
-    JourneyCardViewComponent
+    JourneyCardViewComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatExpansionModule,
+    MatButton,
+    MatMenuModule,
+    PageHeaderComponent
   ],
   styleUrls: ['./gallery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -136,4 +139,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   removeTag(tag: string): void {
     this.tags.update(values => values.filter(value => value !== tag));
   }
+
+  protected readonly GALLERY_PAGE_INFO = GALLERY_PAGE_INFO;
 }

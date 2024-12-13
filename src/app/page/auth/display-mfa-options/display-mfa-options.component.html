@@ -1,31 +1,27 @@
-<section class="container m-auto h-100 w-100 mt-4">
-
-  <div class="d-flex flex-column justify-content-center align-items-center align-content-between m-auto">
+<section class="container mx-auto h-full w-full mt-4">
+  <div class="flex flex-col items-center justify-center space-y-4">
     <div class="p-2">
-      <h5 class="gradient-text">Select Multi-factor Authentication Type to verify your identity</h5>
+      <h5 class="text-lg font-bold text-primary">
+        Select Multi-factor Authentication Type to verify your identity
+      </h5>
     </div>
 
-    @if (mfaOptions?.options?.includes('TOTP')) {
-      <div class="mfa-option m-2">
-        <button
-          class="btn btn-outline-primary fw-bold p-2 w-100 h-100 round rounded-5 d-flex align-items-center justify-content-center"
-          (click)="continueWithTotpVerification()">
-          Using Mobile Authenticator
-          <mat-icon>screen_lock_portrait</mat-icon>
-        </button>
-      </div>
-    }
-    @if (mfaOptions?.options?.includes('EMAIL_ADDRESS')) {
-      <div class="mfa-option m-2">
-        <button
-          class="btn btn-outline-primary fw-bold p-2 w-100 h-100 round rounded-5 d-flex align-items-center justify-content-center"
-          (click)="continueWithEmailCodeVerification()">
-          Using Email Code
-          <mat-icon class="ms-2">mail_lock</mat-icon>
-        </button>
-      </div>
-    }
+    <div *ngIf="!mfaOptions?.options?.includes('TOTP')" class="w-full px-4 text-center">
+      <button mat-flat-button type="button"
+        class="flex items-center justify-center md:w-1/2 w-full p-3 text-sm font-bold rounded-full"
+        (click)="continueWithTotpVerification()">
+        Using Mobile Authenticator
+        <mat-icon class="ml-2">screen_lock_portrait</mat-icon>
+      </button>
+    </div>
 
+    <div *ngIf="mfaOptions?.options?.includes('EMAIL_ADDRESS')" class="w-full px-4 text-center">
+      <button mat-flat-button type="button"
+        class="flex items-center justify-center md:w-1/2 w-full p-3 text-sm font-bold rounded-full"
+        (click)="continueWithEmailCodeVerification()">
+        Using Email Code
+        <mat-icon class="ml-2">mail_lock</mat-icon>
+      </button>
+    </div>
   </div>
-
 </section>

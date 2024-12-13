@@ -5,23 +5,33 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {Credential, LoginService} from "../../../service/auth/login.service";
 import {AuthService} from "../../../service/auth/auth.service";
 import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
+import {MatButton} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatCardModule} from "@angular/material/card";
+import {MatInput} from "@angular/material/input";
 
 @Component({
   selector: 'app-email-code-verification',
   standalone: true,
   imports: [
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    NgIf,
+    MatButton,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInput
   ],
   templateUrl: './email-code-verification.component.html',
-  styleUrl: './email-code-verification.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmailCodeVerificationComponent {
-  private destroyRef = inject(DestroyRef);
-  private emailConfirmationCodeService = inject(EmailConfirmationCodeService);
-  private loginService = inject(LoginService);
-  private authService = inject(AuthService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly emailConfirmationCodeService = inject(EmailConfirmationCodeService);
+  private readonly loginService = inject(LoginService);
+  private readonly authService = inject(AuthService);
   dialogRef: MatDialogRef<EmailCodeVerificationComponent> = inject(MatDialogRef<EmailCodeVerificationComponent>);
   credential: Credential = inject(MAT_DIALOG_DATA);
 
@@ -29,17 +39,16 @@ export class EmailCodeVerificationComponent {
   canSendCode = model(true);
   isCodeValid = model(true);
 
-  confirmCode(confirmationCode: HTMLInputElement, confirmButton: HTMLButtonElement) {
+  confirmCode(confirmationCode: HTMLInputElement, confirmButton: MatButton) {
     this.isCodeValid.set(true);
     if (confirmationCode.validity.valid) {
       this.verifyCode(confirmButton, confirmationCode);
     } else {
       this.isCodeValid.set(false);
-      console.log('invalid code')
     }
   }
 
-  private verifyCode(confirmButton: HTMLButtonElement, confirmationCode: HTMLInputElement) {
+  private verifyCode(confirmButton: MatButton, confirmationCode: HTMLInputElement) {
     confirmButton.disabled = true;
     if (this.credential) {
       this.verifyCodeInUnauthenticatedContext(confirmationCode, confirmButton)
@@ -48,7 +57,7 @@ export class EmailCodeVerificationComponent {
     }
   }
 
-  verifyCodeInUnauthenticatedContext(confirmationCode: HTMLInputElement, confirmButton: HTMLButtonElement) {
+  verifyCodeInUnauthenticatedContext(confirmationCode: HTMLInputElement, confirmButton: MatButton) {
     this.loginService.mfa(confirmationCode.value, "EMAIL_ADDRESS", this.credential)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -60,7 +69,7 @@ export class EmailCodeVerificationComponent {
       });
   }
 
-  verifyCodeInAuthenticatedContext(confirmationCode: HTMLInputElement, confirmButton: HTMLButtonElement) {
+  verifyCodeInAuthenticatedContext(confirmationCode: HTMLInputElement, confirmButton: MatButton) {
     this.emailConfirmationCodeService.verifyConfirmationCode(confirmationCode.value)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -69,13 +78,13 @@ export class EmailCodeVerificationComponent {
       })
   }
 
-  onVerificationSuccess(confirmButton: HTMLButtonElement) {
+  onVerificationSuccess(confirmButton: MatButton) {
     confirmButton.disabled = true;
     console.log('code verified successfully')
     this.dialogRef.close(true);
   }
 
-  onVerificationError(err: Error, confirmButton: HTMLButtonElement) {
+  onVerificationError(err: Error, confirmButton: MatButton) {
     console.log(err);
     this.isCodeValid.set(false);
     confirmButton.disabled = false;

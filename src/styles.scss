@@ -1,7 +1,16 @@
 @use '@angular/material' as mat;
 @use "m3-theme";
-mat.$theme-ignore-duplication-warnings: true;
 
+/* Application specific styles */
+@use "./scss/styles/utilities";
+
+mat.$theme-ignore-duplication-warnings: true
+
+;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Application specific variables */
 @import "scss/variables";
@@ -13,14 +22,14 @@ mat.$theme-ignore-duplication-warnings: true;
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 @import 'node_modules/@maptiler/geocoding-control/style.css';
 
-/* Bootstrap theme customization */
-@import "node_modules/bootstrap/scss/bootstrap";
-@import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
-@import "scss/zephyr/bootswatch";
-
 /* Leaflet style customization */
 .leaflet-popup-content {
+  margin: 0;
   width: auto !important;
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 0;
 }
 
 /* Application theming */
@@ -43,7 +52,7 @@ html {
   @include mat.system-level-typography(m3-theme.$light-theme);
 }
 
-.dark-theme {
+.dark {
   @include m3-theme.create-dark-theme();
 }
 
@@ -60,15 +69,13 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-/* Application specific global styles */
 
-.gradient-text {
-  background: $primary;
-  background: linear-gradient(to right, $indigo 1%, $primary 25%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
+// Angular Material Style Customization
+.mat-mdc-chip-set .mdc-evolution-chip-set__chips {
+  margin: 0 !important;
 }
+
+// to be verified
 
 .border-gradient-primary {
   border-image-slice: 1 !important;
@@ -126,13 +133,13 @@ body {
 }
 
 .marker-icon-wrapper:hover .marker-pin {
-  transition: color 1s ease;
-  background: $pink;
+  scale: 1.3;
 }
 
 .marker-icon-wrapper:hover i {
-  transition: color 1s ease;
-  color: $pink !important;
+  scale: 1.3;
+  transition: color 0.5s ease;
+  color: red;
 }
 
 // to draw white circle
@@ -227,8 +234,8 @@ gallery-image img {
   }
 }
 
-.mdc-tab--active {
-  background: $primary-bg-subtle !important;
+.mdc-tab--active * {
+  @apply text-primary;
   transition: background-color 1s ease;
 }
 
@@ -289,12 +296,11 @@ gallery-image img {
   font-size: 1rem;
   font-weight: bolder;
 
-  background-color: white;
-  color: green;
-  border-radius: 50%; /* Make it circular */
-  display: inline-block;
-  border: 2px solid white;
-  box-shadow: 0 0 8px white;
+  background-color: #4caf50; /* Green background */
+  color: #ffffff; /* White text */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure content is spaced */
 }
 
 .error-snackbar .mat-mdc-snackbar-surface {
@@ -302,17 +308,21 @@ gallery-image img {
 }
 
 .error-snackbar .mat-mdc-snackbar-surface::before {
-  content: '\274C'; /* Heavy Check Mark */
+  content: '\274C';
   margin-left: 1rem;
   transition: transform 0.3s ease;
   font-size: 0.9rem;
 
   background-color: white;
-  color: green;
   border-radius: 50%; /* Make it circular */
-  display: inline-block;
   border: 2px solid white;
   box-shadow: 0 0 8px white;
+
+  color: #ffffff; /* White text */
+  font-weight: bold; /* Bold text */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure content is spaced */
 }
 
 .mask-with-spinner {
@@ -331,11 +341,7 @@ gallery-image img {
   background: rgba(0, 0, 0, 0) !important;
 }
 
-
-// Application specific media queries
-/* For medium and large screens */
-@include media-breakpoint-up(md) {
-  .w-md-75 {
-    width: 75% !important;
-  }
+// Workaround to fix Material and Tailwind CSS style conflict for material form field's mat-label element's border-right issue
+.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__notch {
+  border-right: none !important;
 }

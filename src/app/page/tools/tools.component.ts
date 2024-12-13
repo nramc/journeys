@@ -11,7 +11,7 @@ import {PageHeaderComponent} from "../../component/page-header/page-header.compo
     PageHeaderComponent
   ],
   templateUrl: './tools.component.html',
-  styleUrl: './tools.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolsComponent {

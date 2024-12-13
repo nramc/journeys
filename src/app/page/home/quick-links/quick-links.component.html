@@ -1,26 +1,19 @@
-<section>
-  <h4 class="gradient-text">Quick Links</h4>
-  <div
-    class="d-flex flex-column flex-md-row gap-md-2 gap-2
-    justify-content-center justify-content-md-start align-content-center align-items-center">
-    <div class="col-12 col-md-4">
-      <a [routerLink]="NEW_JOURNEY_PAGE_INFO.path"
-         class="w-100 btn btn-outline-primary p-0 border border-2 border-primary rounded-2 text-decoration-none
-          d-inline-flex align-content-center align-items-center">
-        <span class="p-1 text-bg-primary"><mat-icon>add_circle</mat-icon></span>
-        <span class="ps-1 pe-2">Create New Journey</span>
-      </a>
-    </div>
+<section class="my-3">
+  <!-- Section Title -->
+  <h2 class="text-xl font-bold mb-4">Quick Links</h2>
 
-    <div class="col-12 col-md-4">
-      <a [routerLink]="TIMELINE_PAGE_INFO.path"
-         class="w-100 btn btn-outline-primary p-0 border border-2 border-primary rounded-2 text-decoration-none
-          d-inline-flex align-content-center align-items-center">
-        <span class="p-1 text-bg-primary"><mat-icon>circle_notifications</mat-icon></span>
-        <span class="ps-1 pe-2">Upcoming Journey</span>
-      </a>
-    </div>
+  <!-- Quick Links Container -->
+  <div class="flex flex-row flex-wrap gap-4 justify-start max-sm:flex-col max-sm:items-center">
+    <!-- Create New Journey Button -->
+    <a mat-fab extended color="primary" [routerLink]="NEW_JOURNEY_PAGE_INFO.path" class="flex items-center gap-2">
+      <mat-icon>add_location_alt</mat-icon>
+      <span>Create New Journey</span>
+    </a>
 
+    <!-- Journiversaries Button -->
+    <a mat-fab extended color="accent" [routerLink]="TIMELINE_PAGE_INFO.path" class="flex items-center gap-2">
+      <mat-icon>person_pin_circle</mat-icon>
+      <span>Journiversaries</span>
+    </a>
   </div>
-
 </section>

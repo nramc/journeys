@@ -1,38 +1,9 @@
 @import "src/scss/variables";
 
-.sorting {
-  background: rgb(248, 249, 250);
-  background: linear-gradient(90deg, rgba(66, 70, 215, 0.65) 1%, rgba(248, 249, 250, 0.1) 80%);
-  font-weight: normal;
-  font-size: 0.9em !important;
-  vertical-align: center;
-  text-align: center;
-  align-items: center;
-  justify-content: center !important;
-  display: flex;
-  color: black;
-}
-
 .paginator {
-  background: rgb(248, 249, 250);
-  background: linear-gradient(90deg, rgba(248, 249, 250, 0.5) 1%, rgba(66, 70, 215, 0.65) 45%);
-  font-weight: normal;
-  font-size: 0.9em !important;
-  vertical-align: center;
   text-align: center;
   align-items: center;
   justify-content: center !important;
   display: flex;
-  color: black;
-}
-
-.mat-mdc-select {
-  color: whitesmoke !important;
-}
-
-@include media-breakpoint-down(sm) {
-  .sorting {
-    background: rgb(248, 249, 250);
-    background: linear-gradient(90deg, rgba(248, 249, 250, 0.5) 1%, rgba(66, 70, 215, 0.65) 45%);
-  }
+  font-weight: 500;
 }

@@ -1,0 +1,26 @@
+.app-brand-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
+
+  .app-brand {
+    padding: 0 1rem 0 1rem;
+    text-decoration: none;
+  }
+
+  .app-name {
+    text-decoration: none;
+  }
+
+  .brand-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+
+  .app-tagline {
+    font-size: 0.9rem;
+    color: gray;
+  }
+}

@@ -12,6 +12,7 @@ import {NotificationService} from "../../../service/common/notification.service"
 import {toSignal} from "@angular/core/rxjs-interop";
 import {BffService} from "../../../service/bff/bff.service";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     NgIf,
     RouterLink,
     NgOptimizedImage,
-    MatProgressSpinner
+    MatProgressSpinner,
+    MatButton
   ],
   templateUrl: './login.component.html',
   styles: [],

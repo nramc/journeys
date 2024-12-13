@@ -9,12 +9,18 @@ import {JourneyCardViewComponent} from "../../../component/journey-card-view/jou
     JourneyCardViewComponent
   ],
   template: `
-    <h4 class="gradient-text">Upcoming Anniversaries</h4>
-    <div class="d-flex flex-column flex-md-row overflow-scroll">
-      @for (journey of journeys(); track journey.id) {
-        <app-journey-card-view [journey]="journey"></app-journey-card-view>
-      }
+    <div class="mt-6">
+      <!-- Section Title -->
+      <h2 class="text-gradient text-xl font-semibold mb-4">Upcoming Anniversaries</h2>
+
+      <!-- Journey Cards Container -->
+      <div class="flex flex-col md:flex-row gap-4 overflow-x-auto pb-2">
+        @for (journey of journeys(); track journey.id) {
+          <app-journey-card-view [journey]="journey"></app-journey-card-view>
+        }
+      </div>
     </div>
+
   `,
   styles: []
 })

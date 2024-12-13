@@ -1,15 +1,6 @@
-.image-thumbnail-wrapper {
-  position: relative;
-  cursor: pointer;
+.group:hover img {
+  transform: scale(1.1);
 }
-
-.btn-image-remove {
-  position: absolute;
-  right: 0;
-  border: none;
-  background: transparent;
-}
-
-.img-thumbnail{
-  object-fit: fill;
+img {
+  transition: transform 0.3s ease;
 }

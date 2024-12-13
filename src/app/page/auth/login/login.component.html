@@ -1,56 +1,62 @@
-<div class="container h-100 mt-3 mt-md-0">
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="mask-with-spinner" *ngIf="!isServiceAvailable()">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img class="mx-auto h-10 w-auto" ngSrc="assets/logo/journey-logo-64x64.png" alt="Journey" height="64" width="64">
+    <h2 class="text-primary text-center text-2xl/9 font-bold tracking-tight">Sign in to your account</h2>
+  </div>
 
-  <div class="row d-flex justify-content-center align-items-center h-100 m-auto">
-    <div class="col-12 col-md-6 mt-sm-0">
-
-      <div class="card login-card border border-2 border-primary border-opacity-50"
-           style="border-radius: 1rem;">
-        <div class="mask-with-spinner" *ngIf="!isServiceAvailable()">
-          <mat-spinner></mat-spinner>
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form class="space-y-6" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="username" class="block text-sm/6 font-medium">Email address</label>
+          <div class="text-xs">
+            <a class="text-primary ms-2 hover:underline font-bold" [routerLink]="SIGNUP_PAGE_INFO.path" tabindex="-1">Don't
+              have an account?</a>
+          </div>
         </div>
-        <div class="card-body p-5 text-center">
-          <img ngSrc="assets/icon/security/user-profile.png" alt="Journey" width="120" height="120" priority />
-          <form (ngSubmit)="login(loginForm)" #loginForm="ngForm">
-            <h2 class="fw-bold mb-2 text-primary">Login</h2>
-            <p class="text-primary mb-5">Please Identify Yourself.!</p>
-
-            <div class="form-outline mb-2">
-              <input type="email" id="username" name="username" class="form-control form-control-lg" required
-                     placeholder="Username"
-                     [(ngModel)]="form().username" autocomplete="username" #username="ngModel" maxlength="50"/>
-              <label class="form-label small" for="username">Don't have an account?
-                <a class=" ms-2" [routerLink]="SIGNUP_PAGE_INFO.path" tabindex="-1">Sign Up</a></label>
-              <div [hidden]="username.valid || username.pristine" class="form-text text-danger">
-                <div *ngIf="username.errors?.['required']">Username is required.</div>
-                <div *ngIf="username.errors?.['maxlength']">Username must be at most 50 characters long.</div>
-              </div>
-            </div>
-
-            <div class="form-outline mb-4">
-              <input type="password" id="password" name="password" class="form-control form-control-lg"
-                     [(ngModel)]="form().password" required #password="ngModel" maxlength="50" placeholder="Password"
-                     autocomplete="current-password"/>
-              <label class="form-label small" for="password">Forgot Password?
-                <a class=" ms-2" [href]="forgotPasswordAssistanceUrl" target="_blank" tabindex="-1">Contact
-                  Us</a></label>
-              <div [hidden]="password.valid || password.pristine" class="form-text text-danger">
-                <div *ngIf="password.errors?.['required']">Password is required.</div>
-                <div *ngIf="password.errors?.['maxlength']">Password must be at most 50 characters long.</div>
-              </div>
-            </div>
-
-            <div class="d-flex flex-column gap-1">
-              <button class="btn btn-primary btn-lg" type="submit"
-                      [disabled]="!loginForm.form.valid || loginForm.submitted">Submit
-              </button>
-              <small class="text-dark">or</small>
-              <button class="btn btn-success btn-lg" type="button" (click)="loginAsGuest()">Explore as Guest</button>
-            </div>
-
-          </form>
-
+        <div class="mt-2">
+          <input type="email" name="username" id="username" required placeholder="Username"
+                 [(ngModel)]="form().username" autocomplete="username" #username="ngModel" maxlength="50"
+                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+        </div>
+        <div *ngIf="username.invalid && (username.dirty || loginForm.submitted)" class="text-sm text-danger">
+          <div *ngIf="username.errors?.['required']">Username is required.</div>
+          <div *ngIf="username.errors?.['maxlength']">Username must be at most 50 characters long.</div>
         </div>
       </div>
-    </div>
+
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="password" class="block text-sm/6 font-medium">Password</label>
+          <div class="text-xs">
+            <a class="text-primary font-bold ms-2 hover:underline" [href]="forgotPasswordAssistanceUrl" target="_blank"
+               tabindex="-1">Forgot Password?</a>
+          </div>
+        </div>
+        <div class="mt-2">
+          <input type="password" name="password" id="password"
+                 [(ngModel)]="form().password" required #password="ngModel" maxlength="50" placeholder="Password"
+                 autocomplete="current-password"
+                 class="w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+        </div>
+        <div *ngIf="password.invalid && (password.dirty || loginForm.submitted)" class="text-sm text-danger">
+          <div *ngIf="password.errors?.['required']">Password is required.</div>
+          <div *ngIf="password.errors?.['maxlength']">Password must be at most 50 characters long.</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1 text-center">
+        <button mat-flat-button type="submit">Sign In</button>
+
+        <small class="text-dark">or</small>
+        <button mat-stroked-button type="button" (click)="loginAsGuest()">Explore as Guest</button>
+      </div>
+
+    </form>
+
   </div>
 </div>
+

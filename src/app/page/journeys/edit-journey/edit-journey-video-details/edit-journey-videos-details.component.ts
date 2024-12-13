@@ -5,6 +5,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {MatStepperNext} from "@angular/material/stepper";
 import {NotificationService} from "../../../../service/common/notification.service";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
 
 @Component({
   selector: 'app-edit-journey-videos-details',
@@ -14,10 +18,14 @@ import {NotificationService} from "../../../../service/common/notification.servi
     NgIf,
     ReactiveFormsModule,
     MatStepperNext,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
     NgOptimizedImage
   ],
   templateUrl: './edit-journey-videos-details.component.html',
-  styleUrl: './edit-journey-videos-details.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyVideosDetailsComponent implements OnInit {

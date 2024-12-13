@@ -6,29 +6,40 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {TotpCodeVerification} from "../../../service/my-account/totp-code-verification";
 import {Credential, LoginService} from "../../../service/auth/login.service";
 import {AuthService} from "../../../service/auth/auth.service";
+import {MatCardModule} from "@angular/material/card";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatButton} from "@angular/material/button";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-totp-code-verification',
   standalone: true,
   imports: [
     MatDialogClose,
-    NgIf
+    NgIf,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInput,
+    MatButton,
+    FormsModule
   ],
   templateUrl: './totp-code-verification.component.html',
-  styleUrl: './totp-code-verification.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TotpCodeVerificationComponent {
-  private destroyRef = inject(DestroyRef);
-  private myAccountService = inject(MyAccountService);
-  private loginService = inject(LoginService);
-  private authService = inject(AuthService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly myAccountService = inject(MyAccountService);
+  private readonly loginService = inject(LoginService);
+  private readonly authService = inject(AuthService);
   dialogRef: MatDialogRef<TotpCodeVerificationComponent> = inject(MatDialogRef<TotpCodeVerificationComponent>);
   credential: Credential = inject(MAT_DIALOG_DATA);
 
   isCodeInvalid = model<boolean>(false);
 
   confirmCode(confirmationCode: HTMLInputElement) {
+    this.isCodeInvalid.set(false);
     if (confirmationCode.validity.valid) {
       if (this.credential) {
         this.verifyCodeInUnauthenticatedContext(confirmationCode.value, this.credential);
@@ -36,7 +47,7 @@ export class TotpCodeVerificationComponent {
         this.verifyCodeInAuthenticatedContext(confirmationCode.value);
       }
     } else {
-      console.log('Code invalid');
+      this.isCodeInvalid.set(true);
     }
   }
 

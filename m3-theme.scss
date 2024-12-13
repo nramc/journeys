@@ -4,7 +4,7 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
-@import "./src/scss/variables";
+@use "./src/scss/variables" as appVariable;
 
 // Note: Color palettes are generated from primary: #3459E6
 $_palettes: (
@@ -136,6 +136,7 @@ $_rest: (
 );
 $_primary: map.merge(map.get($_palettes, primary), $_rest);
 $_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
+$_white: map.merge(map.get($_palettes, neutral-variant), $_rest);
 
 $light-theme: mat.define-theme((
   color: (
@@ -151,7 +152,7 @@ $light-theme: mat.define-theme((
 $dark-theme: mat.define-theme((
   color: (
     theme-type: dark,
-    primary: $_primary,
+    primary: $_white,
     tertiary: $_tertiary,
     use-system-variables: true,
   ),
@@ -172,14 +173,19 @@ $dark-theme: mat.define-theme((
   @include mat.system-level-typography($light-theme);
 }
 
-.navbar {
-  background: mat.get-theme-color($light-theme, 'primary', 35);
+.mat-mdc-nav-list .mat-mdc-list-item.active {
+  background-color: mat.get-theme-color($light-theme, 'primary', 90);
+
+  span {
+    color: appVariable.$primary;
+    font-weight: 500;
+  }
 }
 
-.dark-theme .navbar {
-  background: rgb(17, 19, 27);
-}
+.dark .mat-mdc-nav-list .mat-mdc-list-item.active {
+  background-color: mat.get-theme-color($dark-theme, 'neutral', 25);
 
-.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
-  background: mat.get-theme-color($light-theme, 'primary', 40);
+  span {
+    color: mat.get-theme-color($dark-theme, 'primary', 90);
+  }
 }

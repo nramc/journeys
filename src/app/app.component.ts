@@ -1,17 +1,26 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {SideNavbarComponent} from './component/side-navbar/side-navbar.component';
 import {LoadingSpinnerComponent} from "./component/loading-spinner/loading-spinner.component";
-import {ThemeToggleComponent} from "./component/theme-toggle/theme-toggle.component";
+import {NavigationMenuComponent} from "./component/navigation-menu/navigation-menu.component";
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
+import {ToolbarComponent} from "./component/toolbar/toolbar.component";
+import {BreakpointObserver} from "@angular/cdk/layout";
+import {map} from "rxjs";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [SideNavbarComponent, RouterOutlet, LoadingSpinnerComponent, ThemeToggleComponent],
+  imports: [RouterOutlet, LoadingSpinnerComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, ToolbarComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   title = 'Journey';
+  private readonly observer = inject(BreakpointObserver);
+  isMobile = toSignal(
+    this.observer.observe(['(max-width: 768px)']).pipe(map((res) => res.matches)),
+    {initialValue: false}
+  );
 }

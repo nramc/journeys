@@ -1,10 +1,11 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, signal} from '@angular/core';
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {LOGIN_PAGE_INFO} from "../../../model/page.info.model";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {RegistrationService, SignupRequest} from "../../../service/registration/registration.service";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +14,9 @@ import {RegistrationService, SignupRequest} from "../../../service/registration/
     FormsModule,
     NgIf,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    MatButton,
+    NgOptimizedImage
   ],
   templateUrl: './signup.component.html',
   styles: '',
@@ -43,17 +46,16 @@ export class SignupComponent {
           next: _ => this.onSuccessCallback(),
           error: err => this.onErrorCallback(err)
         });
-    } else {
-      this.onErrorCallback(new Error('form data invalid'));
     }
   }
 
   onSuccessCallback() {
     this.isSuccessful.set(true);
+    this.isErrorOccurred.set(false);
   }
 
   onErrorCallback(err: Error) {
-    console.log('data not valid', err);
+    console.log('error:', err);
     this.isErrorOccurred.set(true);
   }
 }

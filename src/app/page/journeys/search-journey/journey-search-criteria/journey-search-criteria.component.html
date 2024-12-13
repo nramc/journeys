@@ -1,26 +1,15 @@
-<form class="ignore-proactive-error" (submit)="submitSearch(searchForm)" #searchForm="ngForm">
-
-  <div class="row mb-3" *appHasWriteAccess>
-    <div class="col-12">
-      <div class="d-grid gap-2">
-        <a type="button" class="btn btn-primary" routerLink="/journey/new">
-          New Journey<i class="bi bi-pin-map-fill fs-6 text-success ms-3"></i>
-        </a>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <div class="input-group mb-3 col-12">
-        <input type="text" class="form-control border border-2 border-primary" aria-label="Query" aria-describedby="queryLabel"
-               placeholder="Use * for wildcard search" id="query" name="query" ngModel [(ngModel)]="q">
-        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
-      </div>
-    </div>
-  </div>
-
+<form class="ignore-highlight flex flex-row gap-4" (submit)="submitSearch(searchForm)" #searchForm="ngForm">
+  <!-- Search Input -->
+  <mat-form-field class="w-full ignore-highlight" appearance="outline">
+    <input placeholder="Use * for wildcard search" class="ignore-highlight" aria-label="Query" id="query" name="query"
+           matInput ngModel [(ngModel)]="q"/>
+    <button mat-icon-button matSuffix type="submit" aria-label="Search">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+  <!-- New Journey Button -->
+  <button mat-fab extended routerLink="/journey/new">
+    <mat-icon class="text-primary">location_on</mat-icon>
+    New
+  </button>
 </form>
-

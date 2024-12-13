@@ -1,9 +1,14 @@
 import {ChangeDetectionStrategy, Component, computed, inject, input} from '@angular/core';
 import {StatisticsKeyValue} from "../../../service/statistics/statistics.type";
-import {NgClass, NgForOf} from "@angular/common";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {Router} from "@angular/router";
 import {SearchCriteria} from "../../../model/core/search-criteria.model";
+import {MatCardModule} from "@angular/material/card";
+import {MatRippleModule} from "@angular/material/core";
+import {MatIconModule} from "@angular/material/icon";
+import {MatIconButton} from "@angular/material/button";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatTooltip} from "@angular/material/tooltip";
 
 type StatisticsType = 'category' | 'year' | 'city' | 'country';
 
@@ -11,17 +16,22 @@ type StatisticsType = 'category' | 'year' | 'city' | 'country';
   selector: 'app-statistics-panel',
   standalone: true,
   imports: [
-    NgForOf,
     MatProgressBar,
-    NgClass
+    MatCardModule,
+    MatRippleModule,
+    MatIconModule,
+    MatIconButton,
+    MatExpansionModule,
+    MatTooltip
   ],
   templateUrl: './statistics-panel.component.html',
-  styleUrl: './statistics-panel.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticsPanelComponent {
   private readonly router = inject(Router);
 
+  expand = input(false);
   data = input.required<StatisticsKeyValue[]>();
   header = input.required<string>();
   type = input.required<StatisticsType>();

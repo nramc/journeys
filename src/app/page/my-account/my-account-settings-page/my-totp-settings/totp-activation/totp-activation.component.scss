@@ -1,8 +1,8 @@
-.card-text {
+.card-body {
   max-height: 90vh;
   overflow: scroll;
 }
 
-.step {
+mat-expansion-panel {
   margin: 0.5rem 0 0.5rem 0;
 }
