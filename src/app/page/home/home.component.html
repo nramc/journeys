@@ -5,24 +5,24 @@
 
   <main class="mb-auto">
 
-    <section class="flex flex-col sm:flex-row sm:items-center sm:gap-6 mt-3" *ngIf="userData() as userContext">
+    <section class="flex flex-col sm:flex-row sm:items-center sm:gap-6 content-wrapper" *ngIf="userData() as userContext">
       <!-- Welcome Message -->
       <div class="text-primary" *ngIf="userContext.isAuthenticated">
-        <p class="text-xl font-semibold">
+        <p class="text-xl font-semibold pb-2">
           Welcome <strong>{{ userContext.name }}</strong>!
         </p>
 
         <!-- Create Journey Section -->
-        <p class="text-sm" *appHasWriteAccess>
+        <p class="text-sm py-1" *appHasWriteAccess>
           Never lose track of a travel memory again.
-          <a routerLink="/journey/new" class="text-primary hover:text-blue-600 flex items-center gap-2 font-bold italic">
+          <a routerLink="/journey/new" class="text-primary flex items-center gap-2 font-bold italic">
             <span>Create Journey to store your trips, photos, and stories - forever!</span>
             <mat-icon class="ms-1">arrow_forward</mat-icon>
           </a>
         </p>
 
         <!-- Journiversaries Section -->
-        <p class="text-sm">
+        <p class="text-sm py-1">
           Don't miss out! Relive the magic - See Upcoming
           <a routerLink="/timeline" class="text-primary hover:text-blue-600 flex items-center gap-2 font-bold italic">
             <span>Journiversaries (Journey + Anniversaries)</span>
@@ -32,7 +32,7 @@
       </div>
     </section>
 
-    <section *ngIf="isUserAuthenticated()">
+    <section *ngIf="isUserAuthenticated()" class="content-wrapper">
       <app-quick-links></app-quick-links>
     </section>
 
