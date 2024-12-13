@@ -55,6 +55,7 @@ export class SignupComponent {
   }
 
   onErrorCallback(err: Error) {
+    console.log('error:', err);
     this.isErrorOccurred.set(true);
   }
 }

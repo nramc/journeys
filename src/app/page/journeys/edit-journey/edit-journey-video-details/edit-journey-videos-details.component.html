@@ -7,7 +7,7 @@
         <input matInput #videoInput placeholder="Enter YouTube Video ID"/>
         <button mat-flat-button matSuffix type="button"
                 (click)="addVideo(videoInput.value); videoInput.value=''"
-                [disabled]="videoInput.value==''">
+                [disabled]="videoInput.value === ''">
           Upload
         </button>
       </mat-form-field>

@@ -9,7 +9,8 @@
           [class.border-success]="imageDetail.isThumbnail"
           [class.border-primary]="!imageDetail.isThumbnail"
           (click)="openImageItem(imageDetail)"
-          (keydown.enter)="openImageItem(imageDetail)">
+          (keydown.enter)="openImageItem(imageDetail)"
+          tabindex="-1">
           <!-- Thumbnail Image -->
           <img [src]="imageDetail.url" loading="lazy" alt="Thumbnail" title="{{ imageDetail.assetId }}"
                class="h-24 w-full object-contain"/>
