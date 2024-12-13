@@ -32,6 +32,10 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
                height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"
           />
         </div>
+      } @empty {
+        <p class="text-gray-500 italic">
+          No media available for this journey.
+        </p>
       }
     </div>
     <ng-container *galleryImageDef="let itemData; active as active">
