@@ -2,7 +2,7 @@
 @use "m3-theme";
 
 /* Application specific styles */
-@use "styles/utilities";
+@use "./scss/styles/utilities";
 
 mat.$theme-ignore-duplication-warnings: true
 
