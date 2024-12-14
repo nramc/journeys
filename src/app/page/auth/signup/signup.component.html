@@ -21,7 +21,7 @@
                placeholder="Lorem ipsum" [(ngModel)]="form().name" #name="ngModel"
                class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-lg focus:ring-blue-500 focus:border-blue-500"
                required maxlength="50" minlength="3"
-               [disabled]="isSuccessful()">
+               [readOnly]="isSuccessful()">
 
         <div *ngIf="name.invalid && (name.dirty || signupForm.submitted)" class="form-text text-danger">
           <div *ngIf="name.errors?.['required']">Name is required.</div>
@@ -33,7 +33,7 @@
       <div>
         <label for="username" class="block text-sm font-medium">Email Address</label>
         <input type="email" id="username" name="username" placeholder="email@example.com" autocomplete="username"
-               #username="ngModel" [(ngModel)]="form().username" [disabled]="isSuccessful()"
+               #username="ngModel" [(ngModel)]="form().username" [readOnly]="isSuccessful()"
                class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-lg focus:ring-blue-500 focus:border-blue-500"
                required minlength="8" maxlength="50" email>
         <div *ngIf="username.invalid && (username.dirty || signupForm.submitted)" class="form-text text-danger">
@@ -49,7 +49,7 @@
       <div>
         <label for="password" class="block text-sm font-medium">Password</label>
         <input type="password" id="password" name="password" placeholder="@yngyg3VLi5hC" autocomplete="new-password"
-               #password="ngModel" [(ngModel)]="form().password" [disabled]="isSuccessful()"
+               #password="ngModel" [(ngModel)]="form().password" [readOnly]="isSuccessful()"
                class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-lg focus:ring-blue-500 focus:border-blue-500"
                required min="8" maxlength="50"
                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,50}$">
