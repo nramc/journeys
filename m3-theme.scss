@@ -161,31 +161,42 @@ $dark-theme: mat.define-theme((
   ),
 ));
 
+@mixin apply-theme($theme) {
+  @include mat.all-component-themes($theme);
+  @include mat.system-level-colors($theme);
+}
+
 @mixin create-dark-theme() {
-  @include mat.all-component-themes($dark-theme);
-  @include mat.system-level-colors($dark-theme);
-  @include mat.system-level-typography($dark-theme);
+  @include apply-theme($dark-theme);
 }
 
 @mixin create-light-theme() {
-  @include mat.all-component-themes($light-theme);
-  @include mat.system-level-colors($light-theme);
-  @include mat.system-level-typography($light-theme);
+  @include apply-theme($light-theme);
 }
 
-.mat-mdc-nav-list .mat-mdc-list-item.active {
-  background-color: mat.get-theme-color($light-theme, 'primary', 90);
+@mixin active-list-item-styles($theme, $bg, $text) {
+  background-color: mat.get-theme-color($theme, $bg, 90);
 
   span {
-    color: appVariable.$primary;
+    color: mat.get-theme-color($theme, $text, 40);
     font-weight: 500;
   }
 }
 
-.dark .mat-mdc-nav-list .mat-mdc-list-item.active {
-  background-color: mat.get-theme-color($dark-theme, 'neutral', 25);
+/* Apply Themes */
+html {
+  @include apply-theme($light-theme);
+}
 
-  span {
-    color: mat.get-theme-color($dark-theme, 'primary', 90);
-  }
+.dark {
+  @include apply-theme($dark-theme);
+}
+
+/* Active List Item Styles */
+.mat-mdc-nav-list .mat-mdc-list-item.active {
+  @include active-list-item-styles($light-theme, 'primary', 'primary');
+}
+
+.dark .mat-mdc-nav-list .mat-mdc-list-item.active {
+  @include active-list-item-styles($dark-theme, 'neutral', 'primary');
 }
