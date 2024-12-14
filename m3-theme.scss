@@ -160,7 +160,7 @@ $dark-theme: mat.define-theme((
 ));
 
 @mixin apply-theme($theme) {
-  @include mat.all-component-themes($theme);
+  @include mat.all-component-colors($theme);
   @include mat.system-level-colors($theme);
   @include mat.system-level-typography($theme);
 }

@@ -34,7 +34,9 @@
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 html {
-  @include m3-theme.create-light-theme();
+  @include mat.all-component-themes(m3-theme.$light-theme);
+  @include mat.system-level-colors(m3-theme.$light-theme);
+  @include mat.system-level-typography(m3-theme.$light-theme);
 }
 
 .dark {
