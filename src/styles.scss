@@ -1,30 +1,22 @@
 @use '@angular/material' as mat;
 @use "m3-theme";
 
+/* External framework and libraries styles */
+/* ng-gallery dependencies */
+@use '@angular/cdk/overlay-prebuilt.css';
+@use 'node_modules/@maptiler/geocoding-control/style.css';
+
 /* Application specific styles */
+@use "scss/variables";
 @use "./scss/styles/utilities";
 @use "./scss/styles/base_styles";
 @use "./scss/styles/material-styles";
 @use "./scss/styles/leaflet-styles";
 
-mat.$theme-ignore-duplication-warnings: true
-
-;
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Application specific variables */
-@import "scss/variables";
-
-/* ng-gallery dependencies */
-@import '@angular/cdk/overlay-prebuilt.css';
-
-/* Overriding any library/framework Variables */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
-@import 'node_modules/@maptiler/geocoding-control/style.css';
-
 
 
 /* Application theming */
@@ -42,17 +34,11 @@ mat.$theme-ignore-duplication-warnings: true
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 html {
-  @include mat.all-component-themes(m3-theme.$light-theme);
-  @include mat.system-level-colors(m3-theme.$light-theme);
-  @include mat.system-level-typography(m3-theme.$light-theme);
+  @include m3-theme.create-light-theme();
 }
 
 .dark {
   @include m3-theme.create-dark-theme();
-}
-
-.light-theme {
-  @include m3-theme.create-light-theme();
 }
 
 html, body {
