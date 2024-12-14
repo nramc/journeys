@@ -1,13 +1,14 @@
 import {ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, viewChild} from '@angular/core';
 import {AuthService} from "../../../service/auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {MatIcon} from "@angular/material/icon";
-import {MatButton} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
 
 @Component({
   selector: 'app-logout',
   standalone: true,
-  imports: [MatIcon, MatButton],
+  imports: [MatIconModule, MatButtonModule, MatCardModule],
   templateUrl: './logout.component.html',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
