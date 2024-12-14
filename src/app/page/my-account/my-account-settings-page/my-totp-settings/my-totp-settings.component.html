@@ -19,10 +19,12 @@
 
   <!-- Activation Section -->
   <div *ngIf="!isTotpActive()" class="flex justify-start">
-    <button mat-flat-button type="button" (click)="setupTotp()"
-            [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">
+    <button mat-flat-button type="button" (click)="setupTotp()" *ngIf="authService.hasAuthenticatedRole()">
       Activate
     </button>
+    <div *ngIf="!authService.hasAuthenticatedRole()">
+      <p class="text-sm text-primary italic">You do have access to activate/deactivate TOTP for the account.</p>
+    </div>
   </div>
 
   <!-- Deactivation & Testing Section -->

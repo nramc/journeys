@@ -10,6 +10,7 @@ import {ConfirmationDialogComponent} from "../../../../component/confirmation-di
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {AuthService} from "../../../../service/auth/auth.service";
 
 @Component({
   selector: 'app-my-mfa-settings',
@@ -30,6 +31,7 @@ export class MfaSettingsComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   readonly dialog = inject(MatDialog);
   private readonly myAccountService = inject(MyAccountService);
+  protected readonly authService = inject(AuthService);
 
   userData = model<AppUser>();
   isErrorOccurred = model(true);

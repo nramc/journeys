@@ -3,6 +3,7 @@ import {UserContext} from "./user-context";
 import {BehaviorSubject, map} from "rxjs";
 import {LoginResponse} from "./login.service";
 import AuthUtils from "./auth.utils";
+import {Role} from "./role";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class AuthService {
 
   hasAnyRole(roles: string[] = []): boolean {
     return this.getCurrentUserContext().roles.some(role => roles.indexOf(role) != -1);
+  }
+
+  hasAuthenticatedRole(): boolean {
+    return this.getCurrentUserContext().roles.some(role => role === Role.AUTHENTICATED_USER);
   }
 
 
