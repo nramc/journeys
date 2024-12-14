@@ -31,9 +31,12 @@
 
   <!-- Activation Button -->
   <div class="flex flex-col" *ngIf="!userData()?.mfaEnabled">
-    <button mat-flat-button type="button" class="w-max" (click)="enableMfa()"
-            [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Activate
+    <button mat-flat-button type="button" class="w-max" (click)="enableMfa()" *ngIf="authService.hasAuthenticatedRole()">
+      Activate
     </button>
+    <div *ngIf="!authService.hasAuthenticatedRole()">
+      <p class="text-sm text-primary italic">You do have access to activate/deactivate Multi-Factor authentication for the account.</p>
+    </div>
     <p *ngIf="isErrorOccurred()" class="text-danger text-sm font-bold mt-2">
       Unable to activate MFA. Please check prerequisite conditions before activating MFA.
     </p>

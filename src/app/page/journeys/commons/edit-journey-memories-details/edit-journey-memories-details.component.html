@@ -6,7 +6,7 @@
       <mat-form-field class="w-full" appearance="outline">
         <mat-label>Journey Name</mat-label>
         <input matInput type="text" id="name" name="name" placeholder="Name your Journey"
-               [(ngModel)]="journey().name" #name=ngModel [disabled]="isReadOnly()"
+               [(ngModel)]="journey().name" #name=ngModel [readOnly]="isReadOnly()"
                maxlength="50" minlength="5" required
                class="mt-1 w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
         <mat-error [hidden]="name.valid || name.pristine">
@@ -22,7 +22,7 @@
       <mat-form-field class="w-full" appearance="outline">
         <mat-label>Journey Date</mat-label>
         <input matInput [matDatepicker]="picker" required placeholder="dd/mm/yyyy" (dateChange)="journeyDateChangeEvent($event)"
-               [(ngModel)]="journeyDateTimestamp" #journeyDate=ngModel [disabled]="isReadOnly()"
+               [(ngModel)]="journeyDateTimestamp" #journeyDate=ngModel [readOnly]="isReadOnly()"
         name="journeyDate">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>

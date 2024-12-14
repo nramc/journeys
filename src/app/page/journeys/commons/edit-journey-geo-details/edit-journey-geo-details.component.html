@@ -22,7 +22,7 @@
         <mat-form-field class="w-full">
           <mat-label>Title</mat-label>
           <input matInput id="title" name="title" [(ngModel)]="formData.title"
-                 [disabled]="isReadOnly()" #title="ngModel" required maxlength="100" minlength="10"
+                 [readOnly]="isReadOnly()" #title="ngModel" required maxlength="100" minlength="10"
                  placeholder="Title">
 
           <button type="button" mat-icon-button matSuffix (click)="formData.title.set('')">
@@ -40,7 +40,7 @@
         <mat-form-field class="w-full">
           <mat-label>City</mat-label>
           <input matInput id="city" name="city" [(ngModel)]="formData.city"
-                 [disabled]="isReadOnly()" #city="ngModel" required minlength="3" maxlength="50"
+                 [readOnly]="isReadOnly()" #city="ngModel" required minlength="3" maxlength="50"
                  placeholder="City or Region">
           <mat-error [hidden]="city.valid || city.pristine">
             <div *ngIf="city.errors?.['required']">City is required.</div>
@@ -53,7 +53,7 @@
         <mat-form-field class="w-full">
           <mat-label>Country</mat-label>
           <input matInput id="country" name="country" [(ngModel)]="formData.country"
-                 [disabled]="isReadOnly()" #country="ngModel" required minlength="3" maxlength="50"
+                 [readOnly]="isReadOnly()" #country="ngModel" required minlength="3" maxlength="50"
                  placeholder="Country">
           <mat-error [hidden]="country.valid || country.pristine">
             <div *ngIf="country.errors?.['required']">Country is required.</div>

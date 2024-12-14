@@ -25,7 +25,7 @@
           <div>
             <label for="username" class="block text-sm font-medium text-gray-700">Email Address</label>
             <input type="email" id="username" name="username"
-                   [(ngModel)]="accountActivationForm.username" #username="ngModel" [disabled]="isSuccessful()"
+                   [(ngModel)]="accountActivationForm.username" #username="ngModel" [readOnly]="isSuccessful()"
                    required minlength="8" maxlength="50" email
                    class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
                    placeholder="Email Address" autocomplete="off"/>
@@ -44,7 +44,7 @@
           <div>
             <label for="emailToken" class="block text-sm font-medium text-gray-700">Token</label>
             <input type="text" id="emailToken" name="emailToken"
-                   [(ngModel)]="accountActivationForm.emailToken" #emailToken="ngModel" [disabled]="isSuccessful()"
+                   [(ngModel)]="accountActivationForm.emailToken" #emailToken="ngModel" [readOnly]="isSuccessful()"
                    required
                    class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
                    placeholder="Token" autocomplete="off"/>

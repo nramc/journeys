@@ -3,7 +3,6 @@ import {DatePipe, NgIf} from "@angular/common";
 import {MyAccountService} from "../../../../service/my-account/my-account.service";
 import {AppUser} from "../../../../model/account/app-user";
 import {Role} from "../../../../service/auth/role";
-import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormsModule, NgModel} from "@angular/forms";
 import {MatTooltip} from "@angular/material/tooltip";
@@ -11,13 +10,13 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
+import {AuthService} from "../../../../service/auth/auth.service";
 
 @Component({
   selector: 'app-my-password-settings',
   standalone: true,
   imports: [
     NgIf,
-    DisableIfNoRoleExistsDirective,
     DatePipe,
     FormsModule,
     MatTooltip,
@@ -31,8 +30,9 @@ import {MatInputModule} from "@angular/material/input";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PasswordSettingsComponent implements OnInit {
-  private destroyRef = inject(DestroyRef);
-  private myAccountService = inject(MyAccountService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly myAccountService = inject(MyAccountService);
+  protected readonly authService = inject(AuthService);
 
   userData = model<AppUser>();
   isErrorOccurred = model(true);
