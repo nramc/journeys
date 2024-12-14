@@ -3,7 +3,6 @@ import {DatePipe, NgIf} from "@angular/common";
 import {MyAccountService} from "../../../../service/my-account/my-account.service";
 import {AppUser} from "../../../../model/account/app-user";
 import {Role} from "../../../../service/auth/role";
-import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormsModule, NgModel} from "@angular/forms";
 import {MatTooltip} from "@angular/material/tooltip";
@@ -18,7 +17,6 @@ import {AuthService} from "../../../../service/auth/auth.service";
   standalone: true,
   imports: [
     NgIf,
-    DisableIfNoRoleExistsDirective,
     DatePipe,
     FormsModule,
     MatTooltip,
