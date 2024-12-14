@@ -113,7 +113,7 @@
 
   <section class="container flex gap-2 items-center justify-center flex-wrap">
     @for (journey of searchResult().data; track journey.id) {
-      <app-journey-card-view [journey]="journey"></app-journey-card-view>
+      <app-journey-card-view [journey]="journey" class="max-sm:w-full"></app-journey-card-view>
     }
   </section>
 
