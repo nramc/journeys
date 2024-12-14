@@ -20,52 +20,52 @@
         <form class="space-y-4">
 
           <!-- Image URL -->
-          <mat-form-field appearance="outline" class="w-full ignore-highlight">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>Image URL</mat-label>
             <input matInput type="text" id="imageUrl" name="imageUrl"
-                   class="ignore-highlight rounded-lg w-full bg-gray-200 cursor-not-allowed"
+                   class="rounded-lg w-full bg-gray-200 cursor-not-allowed"
                    [(ngModel)]="imageItem().url" readonly/>
           </mat-form-field>
 
           <!-- Asset ID -->
-          <mat-form-field appearance="outline" class="w-full ignore-highlight">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>Asset ID</mat-label>
             <input matInput type="text" id="imageId" name="imageId"
-                   class="ignore-highlight rounded-lg w-full bg-gray-200 cursor-not-allowed"
+                   class="rounded-lg w-full bg-gray-200 cursor-not-allowed"
                    [(ngModel)]="imageItem().assetId" readonly/>
           </mat-form-field>
 
           <!-- Public ID -->
-          <mat-form-field appearance="outline" class="w-full ignore-highlight">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>Public ID</mat-label>
             <input matInput type="text" id="publicId" name="publicId"
-                   class="ignore-highlight rounded-lg w-full bg-gray-200 cursor-not-allowed"
+                   class="rounded-lg w-full bg-gray-200 cursor-not-allowed"
                    [(ngModel)]="imageItem().publicId" readonly/>
           </mat-form-field>
           <!-- Title -->
-          <mat-form-field appearance="outline" class="w-full ignore-highlight">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>Title</mat-label>
-            <input matInput type="text" id="title" name="title" class="ignore-highlight rounded-lg w-full"
+            <input matInput type="text" id="title" name="title" class="rounded-lg w-full"
                    [(ngModel)]="imageItem().title"/>
           </mat-form-field>
 
           <!-- Favorite Checkbox -->
           <div class="flex items-center">
-            <mat-checkbox id="favoriteFlag" name="favoriteFlag" class="ignore-highlight"
+            <mat-checkbox id="favoriteFlag" name="favoriteFlag"
                           [(ngModel)]="imageItem().isFavorite">Make it my favorite
             </mat-checkbox>
           </div>
           <!-- Event Date -->
-          <mat-form-field class="ignore-highlight w-full" appearance="outline">
+          <mat-form-field class="w-full" appearance="outline">
             <mat-label>Event Date</mat-label>
-            <input matInput type="date" id="eventDate" name="eventDate" class="ignore-highlight rounded-lg w-full"
+            <input matInput type="date" id="eventDate" name="eventDate" class="rounded-lg w-full"
                    [(ngModel)]="imageItem().eventDate"
                    placeholder="dd-mm-yyyy"/>
           </mat-form-field>
           <!-- Thumbnail Checkbox -->
           <div class="flex items-center">
-            <mat-checkbox id="thumbnailFlag" name="thumbnailFlag" class="ignore-highlight"
-                          [(ngModel)]="imageItem().isThumbnail">Make it a thumbnail
+            <mat-checkbox id="thumbnailFlag" name="thumbnailFlag" [(ngModel)]="imageItem().isThumbnail">Make it a
+              thumbnail
             </mat-checkbox>
           </div>
 

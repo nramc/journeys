@@ -15,12 +15,12 @@
         <li>Enter the code in the field below and click "Confirm" to complete the verification.</li>
       </ol>
 
-      <mat-form-field appearance="fill" class="w-full ignore-highlight">
+      <mat-form-field appearance="fill" class="w-full">
         <mat-label>Code</mat-label>
         <input matInput type="text" inputmode="numeric" id="confirmationCode" name="confirmationCode"
                required pattern="[0-9]{6,6}" maxlength="6"
                ngModel #confirmationCode
-               class="ignore-highlight" autocomplete="off"
+               class="" autocomplete="off"
         />
       </mat-form-field>
       <p *ngIf="!isCodeValid()" class="text-red-500 text-sm text-center mt-2">

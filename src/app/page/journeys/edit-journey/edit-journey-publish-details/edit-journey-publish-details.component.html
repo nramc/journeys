@@ -48,10 +48,10 @@
       <!-- Thumbnail Selection Section -->
       <div class="flex flex-col rounded-lg shadow-md p-4">
         <div class="mb-4">
-          <mat-form-field appearance="outline" class="w-full ignore-highlight">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>Thumbnail</mat-label>
             <mat-select id="thumbnail" name="thumbnail" [(ngModel)]="journey().thumbnail" ngModel
-                        class="ignore-highlight" (selectionChange)="onThumbnailChangedEvent()">
+                        (selectionChange)="onThumbnailChangedEvent()">
               <mat-option [value]="DEFAULT_THUMBNAIL">Default</mat-option>
               <mat-option *ngFor="let imageDetail of journey().imagesDetails?.images" [value]="imageDetail.url">
                 {{ imageDetail.assetId }}

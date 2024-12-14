@@ -3,6 +3,7 @@
 
 /* Application specific styles */
 @use "./scss/styles/utilities";
+@use "./scss/styles/ng-customization";
 
 mat.$theme-ignore-duplication-warnings: true
 
@@ -170,15 +171,6 @@ body {
 .highlight-text-with-shadow {
   text-shadow: 1px 2px 10px blue;
 }
-
-.ng-touched.ng-valid:not(form):not(.ignore-highlight) {
-  border-left: 5px solid #42A948; /* green */
-}
-
-.ng-touched.ng-invalid:not(form):not(.ignore-highlight) {
-  border-left: 5px solid #a94442; /* red */
-}
-
 
 gallery-image img {
   animation: 12s autoplay infinite ease-in-out;

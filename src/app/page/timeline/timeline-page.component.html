@@ -4,11 +4,10 @@
 
 <main>
   <section class="mt-2 container flex flex-col">
-    <mat-form-field class="ignore-highlight"
-                    appearance="fill">
+    <mat-form-field appearance="fill">
       <mat-label>Choose interval to display Journiversaries</mat-label>
       <mat-select [(ngModel)]="numberOfDaysJourniversaries" (change)="getDataForUpcomingJourniversaries()"
-                  class="ignore-highlight !outline-offset-0 !border-0">
+                  class="!outline-offset-0 !border-0">
         <mat-option [value]="1">Tomorrow</mat-option>
         <mat-option [value]="7">Next One Week</mat-option>
         <mat-option [value]="14">Next Two Week</mat-option>

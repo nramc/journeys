@@ -4,7 +4,7 @@
     <label for="description" class="text-sm font-semibold">Memories</label>
     <!-- Markdown Style Toggle -->
     <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style" hideSingleSelectionIndicator="true"
-                             *ngIf="!disabled()" class="ignore-highlight" [(ngModel)]="markdownStyle">
+                             *ngIf="!disabled()" [(ngModel)]="markdownStyle">
       <mat-button-toggle value="Source" class="text-sm">Edit</mat-button-toggle>
       <mat-button-toggle value="Preview" class="text-sm">Preview</mat-button-toggle>
     </mat-button-toggle-group>
