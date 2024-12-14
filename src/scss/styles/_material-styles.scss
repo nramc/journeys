@@ -1,0 +1,52 @@
+// Angular Material Style Customization
+
+/* chip styles */
+.mat-mdc-chip-set .mdc-evolution-chip-set__chips {
+  margin: 0 !important;
+}
+
+/* tab styles */
+.mdc-tab--active * {
+  @apply text-primary;
+  transition: background-color 1s ease;
+}
+
+/* snackbar styles */
+.success-snackbar .mat-mdc-snackbar-surface {
+  background-color: #4caf50 !important; /* Green for success */
+}
+.success-snackbar .mat-mdc-snackbar-surface::before {
+  content: '\2713'; /* Heavy Check Mark */
+  margin-left: 1rem;
+  transition: transform 0.3s ease;
+  font-size: 1rem;
+  font-weight: bolder;
+  background-color: #4caf50; /* Green background */
+  color: #ffffff; /* White text */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure content is spaced */
+}
+.error-snackbar .mat-mdc-snackbar-surface {
+  background-color: #f44336 !important; /* Red for error */
+}
+.error-snackbar .mat-mdc-snackbar-surface::before {
+  content: '\274C';
+  margin-left: 1rem;
+  transition: transform 0.3s ease;
+  font-size: 0.9rem;
+  background-color: white;
+  border-radius: 50%; /* Make it circular */
+  border: 2px solid white;
+  box-shadow: 0 0 8px white;
+  color: #ffffff; /* White text */
+  font-weight: bold; /* Bold text */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure content is spaced */
+}
+
+// Workaround to fix Material and Tailwind CSS style conflict for material form field's mat-label element's border-right issue
+.mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__notch {
+  border-right: none !important;
+}

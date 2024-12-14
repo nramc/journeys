@@ -26,7 +26,17 @@ import {MatButton} from "@angular/material/button";
     MatButton
   ],
   templateUrl: './login.component.html',
-  styles: [],
+  styles: `
+    .mask-with-spinner {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(52, 89, 230, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
