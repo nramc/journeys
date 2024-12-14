@@ -9,10 +9,10 @@
       authentication process by entering the 6-digit code from your authenticator app.
     </p>
 
-    <mat-form-field appearance="fill" class="w-full ignore-highlight">
+    <mat-form-field appearance="fill" class="w-full">
       <mat-label>Code</mat-label>
       <input matInput inputmode="numeric" id="confirmationCode" type="text"
-             class="ignore-highlight"
+             class=""
              required pattern="[0-9]{6,6}" maxlength="6" autocomplete="off"
              #confirmationCode ngModel
       />

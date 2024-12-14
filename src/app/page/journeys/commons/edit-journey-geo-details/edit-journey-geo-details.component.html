@@ -23,7 +23,7 @@
           <mat-label>Title</mat-label>
           <input matInput id="title" name="title" [(ngModel)]="formData.title"
                  [disabled]="isReadOnly()" #title="ngModel" required maxlength="100" minlength="10"
-                 placeholder="Title" class="ignore-highlight">
+                 placeholder="Title">
 
           <button type="button" mat-icon-button matSuffix (click)="formData.title.set('')">
             <mat-icon>clear</mat-icon>
@@ -41,7 +41,7 @@
           <mat-label>City</mat-label>
           <input matInput id="city" name="city" [(ngModel)]="formData.city"
                  [disabled]="isReadOnly()" #city="ngModel" required minlength="3" maxlength="50"
-                 placeholder="City or Region" class="ignore-highlight">
+                 placeholder="City or Region">
           <mat-error [hidden]="city.valid || city.pristine">
             <div *ngIf="city.errors?.['required']">City is required.</div>
             <div *ngIf="city.errors?.['minlength']">City must be at least 3 characters long.</div>
@@ -54,7 +54,7 @@
           <mat-label>Country</mat-label>
           <input matInput id="country" name="country" [(ngModel)]="formData.country"
                  [disabled]="isReadOnly()" #country="ngModel" required minlength="3" maxlength="50"
-                 placeholder="Country" class="ignore-highlight">
+                 placeholder="Country">
           <mat-error [hidden]="country.valid || country.pristine">
             <div *ngIf="country.errors?.['required']">Country is required.</div>
             <div *ngIf="country.errors?.['minlength']">Country must be at least 3 characters long.</div>
@@ -80,7 +80,7 @@
         </div>
 
         <!-- Radio Buttons for Map Options -->
-        <mat-radio-group [(ngModel)]="showMapOption" class="flex justify-center space-x-4 ignore-highlight"
+        <mat-radio-group [(ngModel)]="showMapOption" class="flex justify-center space-x-4"
                          name="mapOptions">
           <mat-radio-button value="Location">Location</mat-radio-button>
           <mat-radio-button value="GeoJson">GeoJson</mat-radio-button>

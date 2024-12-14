@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables" as appVariables;
 
 .map-container {
   height: 100%;
@@ -6,7 +6,7 @@
 }
 
 .map-frame {
-  border: 2px solid $primary;
+  border: 2px solid appVariables.$primary;
   height: 100%;
   position: relative;
 }

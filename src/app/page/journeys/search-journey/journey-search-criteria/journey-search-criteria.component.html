@@ -1,7 +1,7 @@
-<form class="ignore-highlight flex flex-row gap-4" (submit)="submitSearch(searchForm)" #searchForm="ngForm">
+<form class="flex flex-row gap-4" (submit)="submitSearch(searchForm)" #searchForm="ngForm">
   <!-- Search Input -->
-  <mat-form-field class="w-full ignore-highlight" appearance="outline">
-    <input placeholder="Use * for wildcard search" class="ignore-highlight" aria-label="Query" id="query" name="query"
+  <mat-form-field class="w-full" appearance="outline">
+    <input placeholder="Use * for wildcard search" aria-label="Query" id="query" name="query"
            matInput ngModel [(ngModel)]="q"/>
     <button mat-icon-button matSuffix type="submit" aria-label="Search">
       <mat-icon>search</mat-icon>

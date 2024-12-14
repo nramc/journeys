@@ -77,7 +77,7 @@
       <div class="mt-3">
         <mat-form-field class="w-full">
           <mat-label>Code</mat-label>
-          <input matInput type="text" inputmode="number" class="ignore-highlight rounded-lg w-full" id="totpCode" name="totpCode"
+          <input matInput type="text" inputmode="number" class="rounded-lg w-full" id="totpCode" name="totpCode"
                  aria-label="6 Digit TOTP Code" aria-describedby="totpCodeLabel" autocomplete="off"
                  ngModel #totpCode="ngModel" required pattern="[0-9]{6}" maxlength="6">
           <mat-error *ngIf="totpCode.invalid && totpCode.touched">
