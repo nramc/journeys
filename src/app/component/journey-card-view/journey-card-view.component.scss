@@ -1,17 +1,3 @@
-@import "src/scss/variables";
-
-mat-card {
-  width: 25rem;
-  height: 15rem;
-  cursor: pointer;
-}
-
-.card-img {
-  opacity: 75%;
-  width: 100%;
-  height: 100%;
-}
-
 mat-card-content {
   background: rgba(52, 89, 230, 0.1)
 }
