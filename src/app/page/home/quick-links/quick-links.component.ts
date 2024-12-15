@@ -7,17 +7,16 @@ import {AuthService} from "../../../service/auth/auth.service";
 import {NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-quick-links',
-  standalone: true,
-  imports: [
-    MatIcon,
-    RouterLink,
-    MatFabAnchor,
-    NgIf
-  ],
-  templateUrl: './quick-links.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-quick-links',
+    imports: [
+        MatIcon,
+        RouterLink,
+        MatFabAnchor,
+        NgIf
+    ],
+    templateUrl: './quick-links.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuickLinksComponent {
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;

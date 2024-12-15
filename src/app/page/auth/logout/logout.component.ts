@@ -6,12 +6,11 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 
 @Component({
-  selector: 'app-logout',
-  standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatCardModule],
-  templateUrl: './logout.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-logout',
+    imports: [MatIconModule, MatButtonModule, MatCardModule],
+    templateUrl: './logout.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LogoutComponent implements OnInit {
   private readonly authService: AuthService = inject(AuthService);

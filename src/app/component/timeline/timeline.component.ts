@@ -14,12 +14,11 @@ export function fnImageEntityToGalleryItem(data: TimelineImage): GalleryItem {
 }
 
 @Component({
-  selector: 'app-timeline',
-  standalone: true,
-  imports: [GalleryModule, NgIf, MatTooltip, MatIconModule, MatButtonModule],
-  templateUrl: './timeline.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-timeline',
+    imports: [GalleryModule, NgIf, MatTooltip, MatIconModule, MatButtonModule],
+    templateUrl: './timeline.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimelineComponent {
 

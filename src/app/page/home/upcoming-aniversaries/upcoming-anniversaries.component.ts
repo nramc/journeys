@@ -3,12 +3,11 @@ import {Journey} from "../../../model/core/journey.model";
 import {JourneyCardViewComponent} from "../../../component/journey-card-view/journey-card-view.component";
 
 @Component({
-  selector: 'app-upcoming-anniversaries',
-  standalone: true,
-  imports: [
-    JourneyCardViewComponent
-  ],
-  template: `
+    selector: 'app-upcoming-anniversaries',
+    imports: [
+        JourneyCardViewComponent
+    ],
+    template: `
     <div class="mt-6">
       <!-- Section Title -->
       <h2 class="text-gradient text-xl font-semibold mb-4">Upcoming Anniversaries</h2>
@@ -22,7 +21,7 @@ import {JourneyCardViewComponent} from "../../../component/journey-card-view/jou
     </div>
 
   `,
-  styles: []
+    styles: []
 })
 export class UpcomingAnniversariesComponent {
   journeys = input.required<Journey[]>();

@@ -5,17 +5,16 @@ import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-to
 import {NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-narration',
-  standalone: true,
-  imports: [
-    DisplayMarkdownComponent,
-    FormsModule,
-    MatButtonToggle,
-    MatButtonToggleGroup,
-    NgIf
-  ],
-  templateUrl: './narration.component.html',
-  styles: []
+    selector: 'app-narration',
+    imports: [
+        DisplayMarkdownComponent,
+        FormsModule,
+        MatButtonToggle,
+        MatButtonToggleGroup,
+        NgIf
+    ],
+    templateUrl: './narration.component.html',
+    styles: []
 })
 export class NarrationComponent {
   markdownStyle = model<'Source' | 'Preview'>('Source')

@@ -25,21 +25,20 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
-  selector: 'app-journeys-list',
-  templateUrl: './journeys-list.component.html',
-  styleUrl: './journeys-list.component.scss',
-  imports: [
-    DatePipe,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    HasWriteAccessDirective,
-    MatIconModule,
-    MatButtonModule,
-    MatTooltip
-  ],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-journeys-list',
+    templateUrl: './journeys-list.component.html',
+    styleUrl: './journeys-list.component.scss',
+    imports: [
+        DatePipe,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        HasWriteAccessDirective,
+        MatIconModule,
+        MatButtonModule,
+        MatTooltip
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneysListComponent implements AfterViewInit {
   displayedColumns: string[] = ['createdDate', 'name', 'category', 'journeyDate', 'published', 'action'];

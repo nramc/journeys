@@ -11,13 +11,12 @@ export interface ImageResource {
 }
 
 @Component({
-  selector: 'app-image-resize',
-  standalone: true,
-  imports: [
-    NgIf,
-    MatFormFieldModule
-  ],
-  template: `
+    selector: 'app-image-resize',
+    imports: [
+        NgIf,
+        MatFormFieldModule
+    ],
+    template: `
     <section class="container mx-auto">
       <h2 class="text-lg text-primary font-semibold p-4 ps-0 mb-4">Reduce Image Size</h2>
       <div class="flex flex-col md:flex-row gap-4">
@@ -62,8 +61,8 @@ export interface ImageResource {
 
 
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImageResizeComponent {
   protected isProcessing = signal(false);

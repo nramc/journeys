@@ -13,21 +13,20 @@ import {MatInputModule} from "@angular/material/input";
 import {AuthService} from "../../../../service/auth/auth.service";
 
 @Component({
-  selector: 'app-my-password-settings',
-  standalone: true,
-  imports: [
-    NgIf,
-    DatePipe,
-    FormsModule,
-    MatTooltip,
-    MatFormFieldModule,
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule
-  ],
-  templateUrl: './password-settings.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-my-password-settings',
+    imports: [
+        NgIf,
+        DatePipe,
+        FormsModule,
+        MatTooltip,
+        MatFormFieldModule,
+        MatIconModule,
+        MatButtonModule,
+        MatInputModule
+    ],
+    templateUrl: './password-settings.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PasswordSettingsComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);

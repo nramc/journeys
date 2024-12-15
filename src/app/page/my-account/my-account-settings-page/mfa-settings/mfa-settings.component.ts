@@ -13,18 +13,17 @@ import {MatButtonModule} from "@angular/material/button";
 import {AuthService} from "../../../../service/auth/auth.service";
 
 @Component({
-  selector: 'app-my-mfa-settings',
-  standalone: true,
-  imports: [
-    NgIf,
-    DisableIfNoRoleExistsDirective,
-    MatTooltip,
-    MatIconModule,
-    MatButtonModule
-  ],
-  templateUrl: './mfa-settings.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-my-mfa-settings',
+    imports: [
+        NgIf,
+        DisableIfNoRoleExistsDirective,
+        MatTooltip,
+        MatIconModule,
+        MatButtonModule
+    ],
+    templateUrl: './mfa-settings.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MfaSettingsComponent implements OnInit {
   protected readonly Role = Role;

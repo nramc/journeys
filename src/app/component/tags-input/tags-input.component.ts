@@ -7,17 +7,16 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 
 @Component({
-  selector: 'app-tags-input',
-  standalone: true,
-  imports: [
-    MatChipsModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule
-  ],
-  templateUrl: './tags-input.component.html',
-  styles: []
+    selector: 'app-tags-input',
+    imports: [
+        MatChipsModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule
+    ],
+    templateUrl: './tags-input.component.html',
+    styles: []
 })
 export class TagsInputComponent {
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;

@@ -20,26 +20,25 @@ import {toObservable} from "@angular/core/rxjs-interop";
 import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
 
 @Component({
-  selector: 'app-edit-journey-memories-details',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    MatButtonToggleModule,
-    MatChipsModule,
-    MatStepperModule,
-    TagsInputComponent,
-    NarrationComponent,
-    MatInputModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatButtonModule,
-    HasWriteAccessDirective
-  ],
-  templateUrl: './edit-journey-memories-details.component.html',
-  styles: [],
-  providers: [DatePipe]
+    selector: 'app-edit-journey-memories-details',
+    imports: [
+        FormsModule,
+        NgIf,
+        MatButtonToggleModule,
+        MatChipsModule,
+        MatStepperModule,
+        TagsInputComponent,
+        NarrationComponent,
+        MatInputModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatButtonModule,
+        HasWriteAccessDirective
+    ],
+    templateUrl: './edit-journey-memories-details.component.html',
+    styles: [],
+    providers: [DatePipe]
 })
 export class EditJourneyMemoriesDetailsComponent {
   protected readonly OperationMode = OperationMode;

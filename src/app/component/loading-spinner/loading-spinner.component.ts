@@ -5,18 +5,17 @@ import {LoadingService} from "../../service/common/loading.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'app-loading-spinner',
-  standalone: true,
-  imports: [
-    NgIf,
-    MatProgressSpinner
-  ],
-  template: `
+    selector: 'app-loading-spinner',
+    imports: [
+        NgIf,
+        MatProgressSpinner
+    ],
+    template: `
     <div *ngIf="isLoading()" class="spinner-overlay">
       <mat-spinner></mat-spinner>
     </div>
   `,
-  styles: [`
+    styles: [`
     .spinner-overlay {
       position: fixed;
       top: 0;
@@ -31,7 +30,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
       z-index: 1000;
     }
   `],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoadingSpinnerComponent {
   private readonly loadingService = inject(LoadingService);

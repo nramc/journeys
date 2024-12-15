@@ -15,21 +15,20 @@ import {MatIcon} from "@angular/material/icon";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styles: [],
-  imports: [
-    PageHeaderComponent,
-    NgIf,
-    RouterLink,
-    QuickLinksComponent,
-    UpcomingAnniversariesComponent,
-    HasWriteAccessDirective,
-    MatIcon,
-    MatProgressSpinner
-  ],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styles: [],
+    imports: [
+        PageHeaderComponent,
+        NgIf,
+        RouterLink,
+        QuickLinksComponent,
+        UpcomingAnniversariesComponent,
+        HasWriteAccessDirective,
+        MatIcon,
+        MatProgressSpinner
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
   protected readonly HOME_PAGE_INFO = HOME_PAGE_INFO;

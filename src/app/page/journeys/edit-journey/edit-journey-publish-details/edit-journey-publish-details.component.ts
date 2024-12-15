@@ -14,23 +14,22 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
 import {MatButton} from "@angular/material/button";
 
 @Component({
-  selector: 'app-edit-journey-publish-details',
-  standalone: true,
-  imports: [
-    MatIcon,
-    FormsModule,
-    NgIf,
-    MatFormFieldModule,
-    MatSelectModule,
-    NgForOf,
-    JourneyCardViewComponent,
-    MatCardModule,
-    HasWriteAccessDirective,
-    MatButton
-  ],
-  templateUrl: './edit-journey-publish-details.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-edit-journey-publish-details',
+    imports: [
+        MatIcon,
+        FormsModule,
+        NgIf,
+        MatFormFieldModule,
+        MatSelectModule,
+        NgForOf,
+        JourneyCardViewComponent,
+        MatCardModule,
+        HasWriteAccessDirective,
+        MatButton
+    ],
+    templateUrl: './edit-journey-publish-details.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyPublishDetailsComponent {
   protected readonly DEFAULT_THUMBNAIL = DEFAULT_THUMBNAIL;

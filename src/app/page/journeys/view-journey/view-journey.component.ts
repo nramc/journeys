@@ -13,21 +13,20 @@ import {ViewJourneyHeaderComponent} from "./view-journey-header/view-journey-hea
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'app-view-journey',
-  templateUrl: './view-journey.component.html',
-  imports: [
-    NgIf,
-    MatTabGroup,
-    MatTab,
-    MatIcon,
-    MatTabLabel,
-    WorldMapComponent,
-    MediaGalleryComponent,
-    ViewJourneyBasicDetailsComponent,
-    MatButtonToggleModule,
-    ViewJourneyHeaderComponent
-  ],
-  standalone: true
+    selector: 'app-view-journey',
+    templateUrl: './view-journey.component.html',
+    imports: [
+        NgIf,
+        MatTabGroup,
+        MatTab,
+        MatIcon,
+        MatTabLabel,
+        WorldMapComponent,
+        MediaGalleryComponent,
+        ViewJourneyBasicDetailsComponent,
+        MatButtonToggleModule,
+        ViewJourneyHeaderComponent
+    ]
 })
 export class ViewJourneyComponent {
   private readonly route = inject(ActivatedRoute);

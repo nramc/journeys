@@ -33,26 +33,25 @@ export interface SortableHeader {
 }
 
 @Component({
-  selector: 'app-gallery',
-  templateUrl: './gallery.component.html',
-  standalone: true,
-  imports: [
-    MatPaginator,
-    TitleCasePipe,
-    UpperCasePipe,
-    MatChipsModule,
-    MatIcon,
-    FormsModule,
-    JourneyCardViewComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatExpansionModule,
-    MatButton,
-    MatMenuModule,
-    PageHeaderComponent
-  ],
-  styleUrls: ['./gallery.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-gallery',
+    templateUrl: './gallery.component.html',
+    imports: [
+        MatPaginator,
+        TitleCasePipe,
+        UpperCasePipe,
+        MatChipsModule,
+        MatIcon,
+        FormsModule,
+        JourneyCardViewComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatExpansionModule,
+        MatButton,
+        MatMenuModule,
+        PageHeaderComponent
+    ],
+    styleUrls: ['./gallery.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
 // Sorting properties

@@ -10,18 +10,17 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 
 @Component({
-  selector: 'app-timeline-page',
-  standalone: true,
-  imports: [
-    TimelineComponent,
-    PageHeaderComponent,
-    FormsModule,
-    MatFormFieldModule,
-    MatSelectModule
-  ],
-  templateUrl: './timeline-page.component.html',
-  styleUrl: './timeline-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-timeline-page',
+    imports: [
+        TimelineComponent,
+        PageHeaderComponent,
+        FormsModule,
+        MatFormFieldModule,
+        MatSelectModule
+    ],
+    templateUrl: './timeline-page.component.html',
+    styleUrl: './timeline-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimelinePageComponent implements OnInit {
   protected readonly TIMELINE_PAGE_INFO = TIMELINE_PAGE_INFO;

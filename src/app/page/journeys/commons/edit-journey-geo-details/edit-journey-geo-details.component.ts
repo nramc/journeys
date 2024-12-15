@@ -19,26 +19,25 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 
 @Component({
-  selector: 'app-edit-journey-geo-details',
-  templateUrl: './edit-journey-geo-details.component.html',
-  styles: [],
-  imports: [
-    FormsModule,
-    WorldMapComponent,
-    MatStepperNext,
-    NgIf,
-    EditGeoLocationComponent,
-    EditGeoJsonComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatButtonModule,
-    NgForOf,
-    MatIconModule
-  ],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-edit-journey-geo-details',
+    templateUrl: './edit-journey-geo-details.component.html',
+    styles: [],
+    imports: [
+        FormsModule,
+        WorldMapComponent,
+        MatStepperNext,
+        NgIf,
+        EditGeoLocationComponent,
+        EditGeoJsonComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatButtonModule,
+        NgForOf,
+        MatIconModule
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
   protected readonly CATEGORIES = SUPPORTED_ICONS;

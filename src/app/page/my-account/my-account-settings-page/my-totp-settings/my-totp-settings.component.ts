@@ -16,18 +16,17 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 
 @Component({
-  selector: 'app-my-totp-settings',
-  standalone: true,
-  imports: [
-    NgIf,
-    DisableIfNoRoleExistsDirective,
-    MatTooltipModule,
-    MatIconModule,
-    MatButtonModule
-  ],
-  templateUrl: './my-totp-settings.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-my-totp-settings',
+    imports: [
+        NgIf,
+        DisableIfNoRoleExistsDirective,
+        MatTooltipModule,
+        MatIconModule,
+        MatButtonModule
+    ],
+    templateUrl: './my-totp-settings.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyTotpSettingsComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);

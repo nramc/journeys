@@ -8,17 +8,16 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 
 @Component({
-  selector: 'app-view-journey-header',
-  standalone: true,
-  imports: [
-    DatePipe,
-    MatTooltip,
-    HasWriteAccessDirective,
-    MatIconModule,
-    MatButtonModule,
-    NgIf
-  ],
-  template: `
+    selector: 'app-view-journey-header',
+    imports: [
+        DatePipe,
+        MatTooltip,
+        HasWriteAccessDirective,
+        MatIconModule,
+        MatButtonModule,
+        NgIf
+    ],
+    template: `
     <h4 class="flex flex-col md:flex-row items-center gap-4">
       <!-- Journey Date -->
       <span class="text-sm text-primary border-2 border-gradient-primary badge rounded-md px-2 py-1">
@@ -41,7 +40,7 @@ import {MatButtonModule} from "@angular/material/button";
       </span>
     </h4>
   `,
-  styles: []
+    styles: []
 })
 export class ViewJourneyHeaderComponent {
   private readonly router = inject(Router);

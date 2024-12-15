@@ -5,18 +5,17 @@ import {JourneyCardViewComponent} from "../journey-card-view/journey-card-view.c
 import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL} from "../../model/core/journey.model";
 
 @Component({
-  selector: 'app-marker-popup',
-  template: '<app-journey-card-view [journey]="journeyData()"></app-journey-card-view>',
-  styles: `
+    selector: 'app-marker-popup',
+    template: '<app-journey-card-view [journey]="journeyData()"></app-journey-card-view>',
+    styles: `
     ::ng-deep .leaflet-popup-content {
       min-width: 15rem !important;
     }
   `,
-  imports: [
-    JourneyCardViewComponent
-  ],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    imports: [
+        JourneyCardViewComponent
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MarkerPopupComponent {
 

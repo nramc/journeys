@@ -19,19 +19,18 @@ export interface MfaOptions {
 }
 
 @Component({
-  selector: 'app-display-mfa-options',
-  standalone: true,
-  imports: [
-    MatIcon,
-    MatButton,
-    NgIf
-  ],
-  templateUrl: './display-mfa-options.component.html',
-  styles: `.mfa-option {
+    selector: 'app-display-mfa-options',
+    imports: [
+        MatIcon,
+        MatButton,
+        NgIf
+    ],
+    templateUrl: './display-mfa-options.component.html',
+    styles: `.mfa-option {
     width: 80%;
     height: 3rem;
   }`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayMfaOptionsComponent {
   private readonly destroyRef = inject(DestroyRef);

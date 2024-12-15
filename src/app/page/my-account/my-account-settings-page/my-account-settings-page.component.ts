@@ -6,17 +6,16 @@ import {MfaSettingsComponent} from "./mfa-settings/mfa-settings.component";
 import {PasswordSettingsComponent} from "./password-settings/password-settings.component";
 
 @Component({
-  selector: 'app-my-account-settings-page',
-  standalone: true,
-  imports: [
-    PageHeaderComponent,
-    MyTotpSettingsComponent,
-    MfaSettingsComponent,
-    PasswordSettingsComponent
-  ],
-  templateUrl: './my-account-settings-page.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-my-account-settings-page',
+    imports: [
+        PageHeaderComponent,
+        MyTotpSettingsComponent,
+        MfaSettingsComponent,
+        PasswordSettingsComponent
+    ],
+    templateUrl: './my-account-settings-page.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyAccountSettingsPageComponent {
   protected readonly MY_SECURITY_SETTINGS_PAGE_INFO = MY_SECURITY_SETTINGS_PAGE_INFO;

@@ -2,7 +2,6 @@ import {Component, inject, output} from '@angular/core';
 import {HOME_PAGE_INFO, LOGOUT_PAGE_INFO} from "../../model/page.info.model";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
-import {MatListItem} from "@angular/material/list";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatTooltip} from "@angular/material/tooltip";
@@ -14,11 +13,9 @@ import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-toolbar',
-  standalone: true,
   imports: [
     MatIcon,
     MatIconButton,
-    MatListItem,
     MatMenu,
     MatMenuItem,
     MatToolbar,

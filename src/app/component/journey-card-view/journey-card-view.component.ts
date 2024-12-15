@@ -8,18 +8,17 @@ import {MatButtonModule} from "@angular/material/button";
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 
 @Component({
-  selector: 'app-journey-card-view',
-  standalone: true,
-  imports: [
-    DatePipe,
-    MatCardModule,
-    MatButtonModule,
-    NgIf,
-    HasWriteAccessDirective
-  ],
-  templateUrl: './journey-card-view.component.html',
-  styleUrl: './journey-card-view.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-journey-card-view',
+    imports: [
+        DatePipe,
+        MatCardModule,
+        MatButtonModule,
+        NgIf,
+        HasWriteAccessDirective
+    ],
+    templateUrl: './journey-card-view.component.html',
+    styleUrl: './journey-card-view.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneyCardViewComponent {
   private readonly router = inject(Router);
