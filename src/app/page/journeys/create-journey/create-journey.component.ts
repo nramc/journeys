@@ -1,6 +1,5 @@
 import {Component, computed, signal} from '@angular/core';
 import {MatStepperModule} from "@angular/material/stepper";
-import {NgIf} from "@angular/common";
 import {Journey} from "../../../model/core/journey.model";
 import {
   EditJourneyMemoriesDetailsComponent
@@ -10,15 +9,14 @@ import {PageHeaderComponent} from "../../../component/page-header/page-header.co
 import {NEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 
 @Component({
-    selector: 'app-create-journey',
-    imports: [
-        MatStepperModule,
-        NgIf,
-        EditJourneyMemoriesDetailsComponent,
-        PageHeaderComponent
-    ],
-    templateUrl: './create-journey.component.html',
-    styles: []
+  selector: 'app-create-journey',
+  imports: [
+    MatStepperModule,
+    EditJourneyMemoriesDetailsComponent,
+    PageHeaderComponent
+  ],
+  templateUrl: './create-journey.component.html',
+  styles: []
 })
 export class CreateJourneyComponent {
   protected readonly OperationMode = OperationMode;
