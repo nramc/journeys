@@ -1,81 +1,134 @@
 <section class="m-0 h-full flex justify-center items-center">
-  <div class="w-full max-w-md p-8 space-y-6 rounded-lg shadow-lg border border-primary">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img class="mx-auto h-10 w-auto" ngSrc="assets/logo/journey-logo-64x64.png" alt="Journey" height="64" width="64">
-      <h2 class="text-2xl font-bold text-center text-primary">Registration</h2>
-    </div>
-
-    <form (ngSubmit)="signup(signupForm)" #signupForm="ngForm" class="space-y-4 w-full">
-      <div class="text-sm p-2 border-success border-2 shadow-lg rounded-md bg-transparent text-success"
-           *ngIf="isSuccessful()">
-        <div class="mb-2 font-bold text-center">Registration Successful!</div>
-        <p>We've sent an activation email to your email address. Please check and click the activation link to
-          complete your registration.</p>
+  <!-- Container for Two Sections -->
+  <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 items-center rounded-lg shadow-lg border border-primary">
+    <!-- Left Section: Form -->
+    <mat-card class="p-8 space-y-6">
+      <div class="sm:mx-auto sm:w-full sm:max-w-sm text-center">
+        <img class="mx-auto h-16 w-16" src="assets/logo/journey-logo-64x64.png" alt="Journey">
+        <h2 class="text-2xl font-bold text-primary mt-4">Registration</h2>
       </div>
-      <div *ngIf="isErrorOccurred()">
-        <p class="bg-danger text-white rounded-lg p-2">Sorry, Unexpected error occurred. Please try again later.</p>
-      </div>
-      <div>
-        <label for="name" class="block text-sm font-medium">Name</label>
-        <input type="text" id="name" name="name"
-               placeholder="Lorem ipsum" [(ngModel)]="form().name" #name="ngModel"
-               class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-lg focus:ring-blue-500 focus:border-blue-500"
-               required maxlength="50" minlength="3"
-               [readOnly]="isSuccessful()">
+      <form (ngSubmit)="signup(signupForm)" #signupForm="ngForm" class="space-y-4">
 
-        <div *ngIf="name.invalid && (name.dirty || signupForm.submitted)" class="form-text text-danger">
-          <div *ngIf="name.errors?.['required']">Name is required.</div>
-          <div *ngIf="name.errors?.['maxlength']">Name must be at most 50 characters long.</div>
-          <div *ngIf="name.errors?.['minlength']">Name must be at least 3 characters long.</div>
+        <div *ngIf="isSuccessful()"
+             class="text-sm p-2 border-success border-2 shadow-lg rounded-md bg-transparent text-success">
+          <div class="mb-2 font-bold text-center">Registration Successful!</div>
+          <p>We've sent an activation email to your email address. Please check and click the activation link to
+            complete your registration.</p>
         </div>
-      </div>
 
-      <div>
-        <label for="username" class="block text-sm font-medium">Email Address</label>
-        <input type="email" id="username" name="username" placeholder="email@example.com" autocomplete="username"
-               #username="ngModel" [(ngModel)]="form().username" [readOnly]="isSuccessful()"
-               class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-lg focus:ring-blue-500 focus:border-blue-500"
-               required minlength="8" maxlength="50" email>
-        <div *ngIf="username.invalid && (username.dirty || signupForm.submitted)" class="form-text text-danger">
-          <div *ngIf="username.errors?.['required']">Email Address is required.</div>
-          <div *ngIf="username.errors?.['maxlength']">Email Address must be at most 50 characters long.</div>
-          <div *ngIf="username.errors?.['minlength'] && !username.errors?.['email']">
-            Email Address must have at least 8 characters long.
-          </div>
-          <div *ngIf="username.errors?.['email']">Email Address invalid.</div>
+        <!-- Error Message -->
+        <div *ngIf="isErrorOccurred()" class="bg-danger text-white rounded-lg p-2">
+          Sorry, an unexpected error occurred. Please try again later.
         </div>
-      </div>
 
-      <div>
-        <label for="password" class="block text-sm font-medium">Password</label>
-        <input type="password" id="password" name="password" placeholder="@yngyg3VLi5hC" autocomplete="new-password"
-               #password="ngModel" [(ngModel)]="form().password" [readOnly]="isSuccessful()"
-               class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-lg focus:ring-blue-500 focus:border-blue-500"
-               required min="8" maxlength="50"
-               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,50}$">
+        <!-- Name Field -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Name</mat-label>
+          <input matInput name="name" placeholder="Lorem ipsum" autocomplete="name"
+                 [(ngModel)]="form().name" #name="ngModel" [readOnly]="isSuccessful()"
+                 required maxlength="50" minlength="3">
 
-        <div *ngIf="password.invalid && (password.dirty || signupForm.submitted)" class="form-text text-danger">
-          <div *ngIf="password.errors?.['required']">Password is required.</div>
-          <div *ngIf="password.errors?.['maxlength']">Password must be at most 50 characters long.</div>
-          <div *ngIf="password.errors?.['minlength']">Password must have at least 8 characters long.</div>
-          <div *ngIf="password.errors?.['pattern']">
-            Valid Password should contain at least one lowercase, one upper case alphabets, at least
-            one digit, one special character and contains length from 8 to 50.
-          </div>
+          <mat-error *ngIf="name.invalid && (name.dirty || signupForm.submitted)">
+            <div *ngIf="name.errors?.['required']">Name is required.</div>
+            <div *ngIf="name.errors?.['maxlength']">Name must be at most 50 characters long.</div>
+            <div *ngIf="name.errors?.['minlength']">Name must be at least 3 characters long.</div>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Email Field -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Email Address</mat-label>
+          <input matInput type="email" name="username" placeholder="email@example.com" autocomplete="username"
+                 [(ngModel)]="form().username" #username="ngModel" [readOnly]="isSuccessful()"
+                 required minlength="8" maxlength="50" email>
+          <mat-error *ngIf="username.invalid && (username.dirty || signupForm.submitted)" class="form-text text-danger">
+            <div *ngIf="username.errors?.['required']">Email Address is required.</div>
+            <div *ngIf="username.errors?.['maxlength']">Email Address must be at most 50 characters long.</div>
+            <div *ngIf="username.errors?.['minlength'] && !username.errors?.['email']">
+              Email Address must have at least 8 characters long.
+            </div>
+            <div *ngIf="username.errors?.['email']">Email Address invalid.</div>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Password Field -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="showPassword() ? 'text' : 'password'" id="password" name="password"
+                 autocomplete="new-password" placeholder="@yngyg3VLi5hC"
+                 [(ngModel)]="form().password" #password="ngModel" [readOnly]="isSuccessful()"
+                 required min="8" maxlength="50"
+                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,50}$">
+          <button mat-icon-button type="button" matSuffix
+                  (click)="togglePasswordVisibility()">
+            <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="password.invalid && (password.dirty || signupForm.submitted)" class="form-text text-danger">
+            <div *ngIf="password.errors?.['required']">Password is required.</div>
+            <div *ngIf="password.errors?.['maxlength']">Password must be at most 50 characters long.</div>
+            <div *ngIf="password.errors?.['minlength']">Password must have at least 8 characters long.</div>
+            <div *ngIf="password.errors?.['pattern']">
+              Valid Password should contain at least one lowercase, one upper case alphabets, at least
+              one digit, one special character and contains length from 8 to 50.
+            </div>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="text-center">
+          <button mat-flat-button color="primary" type="submit" class="w-full" [disabled]="isSuccessful()">Sign Up
+          </button>
         </div>
-      </div>
+      </form>
 
-      <div class="flex flex-col gap-1 text-center">
-        <button mat-flat-button type="submit" [disabled]="isSuccessful()">Sign up</button>
-      </div>
-    </form>
+      <mat-card-footer>
+        <div class="flex justify-center">
+          <p class="m-0 text-center text-primary text-sm">Already have an account?
+            <a [routerLink]="LOGIN_PAGE_INFO.path" class="font-bold underline">Sign in</a>
+          </p>
+        </div>
+      </mat-card-footer>
+    </mat-card>
 
-    <div class="flex justify-center">
-      <p class="m-0 text-center text-primary text-sm">Already have an account?
-        <a [routerLink]="LOGIN_PAGE_INFO.path" class="font-bold underline">Sign in</a>
-      </p>
+    <!-- Right Section: Full Background Image with Text Content -->
+    <div
+      class="hidden lg:flex flex-col justify-center items-start p-8 space-y-6 relative bg-cover bg-center h-full w-full"
+      style="background-image: url('assets/image/world-map-light-theme.jpg');">
+      <!-- Background Overlay -->
+      <div class="absolute inset-0 bg-primary bg-opacity-60"></div>
+
+      <!-- Foreground Text Content -->
+      <div class="relative text-white space-y-4">
+        <div class="text-3xl font-bold border-5">
+          <blockquote class="relative bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md p-8 mx-4 my-8 text-gray-700">
+            <!-- Left Quote -->
+            <div class="absolute top-4 left-4 text-indigo-500 text-5xl font-serif leading-none select-none">
+              &ldquo;
+            </div>
+
+            <!-- Main Content -->
+            <div class="text-center space-y-4">
+              <h1 class="text-3xl font-bold text-indigo-700">Map Your Adventures.</h1>
+              <h1 class="text-2xl font-medium text-gray-600">Relive Your Stories.</h1>
+            </div>
+
+            <!-- Right Quote -->
+            <div class="absolute bottom-4 right-4 text-indigo-500 text-5xl font-serif leading-none select-none">
+              &rdquo;
+            </div>
+          </blockquote>
+
+        </div>
+        <p class="text-lg">
+          Plan, record, and relive your journeys with our platform.
+        </p>
+        <ul class="list-disc list-inside space-y-2">
+          <li>Save travel locations with geo-details.</li>
+          <li>Upload photos, videos, and stories.</li>
+          <li>Track your trips on interactive maps.</li>
+          <li>Share your adventures with friends.</li>
+        </ul>
+      </div>
     </div>
 
   </div>
-
 </section>

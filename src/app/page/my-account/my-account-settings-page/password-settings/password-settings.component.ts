@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, OnInit, signal} from '@angular/core';
 import {DatePipe, NgIf} from "@angular/common";
 import {MyAccountService} from "../../../../service/my-account/my-account.service";
 import {AppUser} from "../../../../model/account/app-user";
@@ -37,6 +37,7 @@ export class PasswordSettingsComponent implements OnInit {
   userData = model<AppUser>();
   isErrorOccurred = model(true);
   editMode = model(false);
+  showPassword = signal(false);
 
   protected readonly Role = Role;
 
@@ -80,5 +81,9 @@ export class PasswordSettingsComponent implements OnInit {
       return numberOfMonthsSincePasswordChanged <= 3
     }
     return false;
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword.update(value => !value);
   }
 }

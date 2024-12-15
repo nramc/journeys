@@ -10,7 +10,7 @@ import {Role} from "./role";
 })
 export class AuthService {
   private user: UserContext = new UserContext();
-  private user$: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(new UserContext());
+  private readonly user$: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(new UserContext());
 
   constructor() {
     const localAuth = AuthUtils.getUserContextFromLocalStorage();
