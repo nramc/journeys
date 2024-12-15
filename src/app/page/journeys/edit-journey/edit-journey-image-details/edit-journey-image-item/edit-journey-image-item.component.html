@@ -71,8 +71,8 @@
 
           <!-- Action Buttons -->
           <div class="flex justify-center space-x-2 rounded-lg">
-            <button mat-flat-button type="button" (click)="save.emit(imageItem())">Save</button>
-            <button mat-flat-button type="button" (click)="remove.emit(imageItem())">Remove</button>
+            <button mat-flat-button type="button" class="!bg-success !text-white" (click)="save.emit(imageItem())">Save</button>
+            <button mat-flat-button type="button" class="!bg-danger !text-white"  (click)="remove.emit(imageItem())">Remove</button>
             <button mat-stroked-button type="button" (click)="cancel.emit(imageItem())">Cancel</button>
           </div>
 
