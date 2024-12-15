@@ -1,11 +1,15 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, signal} from '@angular/core';
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {LOGIN_PAGE_INFO} from "../../../model/page.info.model";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {RegistrationService, SignupRequest} from "../../../service/registration/registration.service";
-import {MatButton} from "@angular/material/button";
+import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatCardModule} from "@angular/material/card";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-signup',
@@ -15,8 +19,11 @@ import {MatButton} from "@angular/material/button";
     NgIf,
     ReactiveFormsModule,
     RouterLink,
-    MatButton,
-    NgOptimizedImage
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatIcon
   ],
   templateUrl: './signup.component.html',
   styles: '',
@@ -27,6 +34,8 @@ export class SignupComponent {
 
   destroyRef = inject(DestroyRef);
   registrationService = inject(RegistrationService);
+
+  showPassword = signal(false);
 
   form = signal<SignupRequest>({
     username: '',
@@ -57,5 +66,9 @@ export class SignupComponent {
   onErrorCallback(err: Error) {
     console.log('error:', err);
     this.isErrorOccurred.set(true);
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword.update(value => !value);
   }
 }
