@@ -51,7 +51,7 @@ export interface GeoCodingAreaData {
 @Component({
   selector: 'app-world-map',
   templateUrl: './world-map.component.html',
-  styleUrls: ['./world-map.component.scss'],
+  styles: [],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
