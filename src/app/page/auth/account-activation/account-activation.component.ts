@@ -14,17 +14,16 @@ export class AccountActivationForm {
 }
 
 @Component({
-  selector: 'app-account-activation',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    ReactiveFormsModule,
-    RouterLink
-  ],
-  templateUrl: './account-activation.component.html',
-  styles: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-account-activation',
+    imports: [
+        FormsModule,
+        NgIf,
+        ReactiveFormsModule,
+        RouterLink
+    ],
+    templateUrl: './account-activation.component.html',
+    styles: '',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountActivationComponent implements OnInit {
   protected readonly LOGIN_PAGE_INFO = LOGIN_PAGE_INFO;

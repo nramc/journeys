@@ -17,22 +17,21 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {AppUser} from "../../../model/account/app-user";
 
 @Component({
-  selector: 'app-my-profile-page',
-  standalone: true,
-  imports: [
-    PageHeaderComponent,
-    NgIf,
-    FormsModule,
-    NgForOf,
-    HasWriteAccessDirective,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule
-  ],
-  templateUrl: './my-profile-page.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-my-profile-page',
+    imports: [
+        PageHeaderComponent,
+        NgIf,
+        FormsModule,
+        NgForOf,
+        HasWriteAccessDirective,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCheckboxModule
+    ],
+    templateUrl: './my-profile-page.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyProfilePageComponent {
   protected readonly MY_PROFILE_PAGE_INFO = MY_PROFILE_PAGE_INFO;

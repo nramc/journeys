@@ -13,20 +13,19 @@ import {MatButton} from "@angular/material/button";
 import {FormsModule} from "@angular/forms";
 
 @Component({
-  selector: 'app-totp-code-verification',
-  standalone: true,
-  imports: [
-    MatDialogClose,
-    NgIf,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInput,
-    MatButton,
-    FormsModule
-  ],
-  templateUrl: './totp-code-verification.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-totp-code-verification',
+    imports: [
+        MatDialogClose,
+        NgIf,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInput,
+        MatButton,
+        FormsModule
+    ],
+    templateUrl: './totp-code-verification.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TotpCodeVerificationComponent {
   private readonly destroyRef = inject(DestroyRef);

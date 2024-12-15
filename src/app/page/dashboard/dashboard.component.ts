@@ -7,15 +7,14 @@ import {JourneyService} from "../../service/journey/journey.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styles: [],
-  imports: [
-    PageHeaderComponent,
-    WorldMapComponent
-  ],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styles: [],
+    imports: [
+        PageHeaderComponent,
+        WorldMapComponent
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent {
   protected readonly DASHBOARD_PAGE_INFO = DASHBOARD_PAGE_INFO;

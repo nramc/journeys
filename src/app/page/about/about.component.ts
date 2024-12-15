@@ -8,15 +8,14 @@ import {MatIcon} from "@angular/material/icon";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 
 @Component({
-  selector: 'app-about',
-  standalone: true,
-  imports: [
-    NgOptimizedImage,
-    MatButton, MatCardModule, MatIcon, MatAnchor, PageHeaderComponent
-  ],
-  templateUrl: './about.component.html',
-  styleUrl: './about.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-about',
+    imports: [
+        NgOptimizedImage,
+        MatButton, MatCardModule, MatIcon, MatAnchor, PageHeaderComponent
+    ],
+    templateUrl: './about.component.html',
+    styleUrl: './about.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutComponent {
   protected readonly ABOUT_PAGE_INFO = ABOUT_PAGE_INFO;

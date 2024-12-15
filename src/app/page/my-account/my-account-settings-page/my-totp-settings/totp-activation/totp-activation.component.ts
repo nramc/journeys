@@ -13,20 +13,19 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 
 @Component({
-  selector: 'app-totp-activation',
-  standalone: true,
-  imports: [
-    FormsModule,
-    MatProgressSpinnerModule,
-    MatExpansionModule,
-    MatButtonModule,
-    NgIf,
-    MatFormFieldModule,
-    MatInputModule
-  ],
-  templateUrl: './totp-activation.component.html',
-  styleUrl: './totp-activation.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-totp-activation',
+    imports: [
+        FormsModule,
+        MatProgressSpinnerModule,
+        MatExpansionModule,
+        MatButtonModule,
+        NgIf,
+        MatFormFieldModule,
+        MatInputModule
+    ],
+    templateUrl: './totp-activation.component.html',
+    styleUrl: './totp-activation.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TotpActivationComponent {
   private readonly destroyRef = inject(DestroyRef);

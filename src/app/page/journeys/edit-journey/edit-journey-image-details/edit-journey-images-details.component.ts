@@ -13,20 +13,19 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 
 @Component({
-  selector: 'app-edit-journey-images-details',
-  templateUrl: './edit-journey-images-details.component.html',
-  styleUrl: './edit-journey-images-details.component.scss',
-  imports: [
-    FormsModule,
-    NgIf,
-    MatButtonModule,
-    MatStepperNext,
-    MatIconModule,
-    RouterLink,
-    EditJourneyImageItemComponent
-  ],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-edit-journey-images-details',
+    templateUrl: './edit-journey-images-details.component.html',
+    styleUrl: './edit-journey-images-details.component.scss',
+    imports: [
+        FormsModule,
+        NgIf,
+        MatButtonModule,
+        MatStepperNext,
+        MatIconModule,
+        RouterLink,
+        EditJourneyImageItemComponent
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyImagesDetailsComponent implements OnInit {
   private readonly notificationService = inject(NotificationService);

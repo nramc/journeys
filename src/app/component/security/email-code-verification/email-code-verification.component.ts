@@ -12,20 +12,19 @@ import {MatCardModule} from "@angular/material/card";
 import {MatInput} from "@angular/material/input";
 
 @Component({
-  selector: 'app-email-code-verification',
-  standalone: true,
-  imports: [
-    MatDialogModule,
-    FormsModule,
-    NgIf,
-    MatButton,
-    MatFormFieldModule,
-    MatCardModule,
-    MatInput
-  ],
-  templateUrl: './email-code-verification.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-email-code-verification',
+    imports: [
+        MatDialogModule,
+        FormsModule,
+        NgIf,
+        MatButton,
+        MatFormFieldModule,
+        MatCardModule,
+        MatInput
+    ],
+    templateUrl: './email-code-verification.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmailCodeVerificationComponent {
   private readonly destroyRef = inject(DestroyRef);

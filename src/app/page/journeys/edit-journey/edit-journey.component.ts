@@ -19,26 +19,25 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 
 @Component({
-  selector: 'app-edit-journey',
-  templateUrl: './edit-journey.component.html',
-  styles: [],
-  imports: [
-    MatStepper,
-    MatStep,
-    EditJourneyGeoDetailsComponent,
-    EditJourneyImagesDetailsComponent,
-    MatStepLabel,
-    MatStepContent,
-    EditJourneyVideosDetailsComponent,
-    EditJourneyPublishDetailsComponent,
-    NgIf,
-    MatTooltip,
-    EditJourneyMemoriesDetailsComponent,
-    MatButtonModule,
-    MatIconModule
-  ],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-edit-journey',
+    templateUrl: './edit-journey.component.html',
+    styles: [],
+    imports: [
+        MatStepper,
+        MatStep,
+        EditJourneyGeoDetailsComponent,
+        EditJourneyImagesDetailsComponent,
+        MatStepLabel,
+        MatStepContent,
+        EditJourneyVideosDetailsComponent,
+        EditJourneyPublishDetailsComponent,
+        NgIf,
+        MatTooltip,
+        EditJourneyMemoriesDetailsComponent,
+        MatButtonModule,
+        MatIconModule
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);

@@ -13,20 +13,19 @@ import {MatTooltip} from "@angular/material/tooltip";
 type StatisticsType = 'category' | 'year' | 'city' | 'country';
 
 @Component({
-  selector: 'app-statistics-panel',
-  standalone: true,
-  imports: [
-    MatProgressBar,
-    MatCardModule,
-    MatRippleModule,
-    MatIconModule,
-    MatIconButton,
-    MatExpansionModule,
-    MatTooltip
-  ],
-  templateUrl: './statistics-panel.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-statistics-panel',
+    imports: [
+        MatProgressBar,
+        MatCardModule,
+        MatRippleModule,
+        MatIconModule,
+        MatIconButton,
+        MatExpansionModule,
+        MatTooltip
+    ],
+    templateUrl: './statistics-panel.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticsPanelComponent {
   private readonly router = inject(Router);
@@ -37,7 +36,7 @@ export class StatisticsPanelComponent {
   type = input.required<StatisticsType>();
   totalCount = computed(() => this.data()
     .map(keyValue => keyValue.count)
-    .reduce((previousValue, currentValue) => previousValue + currentValue));
+    .reduce((previousValue, currentValue) => previousValue + currentValue, 0));
 
   comparatorFn(a: StatisticsKeyValue, b: StatisticsKeyValue) {
     return a.name.toLowerCase().localeCompare(b.name.toLowerCase());

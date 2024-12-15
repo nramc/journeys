@@ -22,13 +22,12 @@ import {AuthService} from "../../service/auth/auth.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'app-navigation-menu',
-  standalone: true,
-  imports: [
-    MatSidenavModule, RouterLink, MatIconModule, MatListModule, RouterLinkActive, MatMenuModule, NgIf, MatToolbarModule
-  ],
-  templateUrl: './navigation-menu.component.html',
-  styles: []
+    selector: 'app-navigation-menu',
+    imports: [
+        MatSidenavModule, RouterLink, MatIconModule, MatListModule, RouterLinkActive, MatMenuModule, NgIf, MatToolbarModule
+    ],
+    templateUrl: './navigation-menu.component.html',
+    styles: []
 })
 export class NavigationMenuComponent {
 

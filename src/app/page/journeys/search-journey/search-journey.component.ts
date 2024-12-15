@@ -5,16 +5,15 @@ import {JourneysListComponent} from "./journeys-list/journeys-list.component";
 import {JOURNEY_SEARCH_PAGE_INFO} from "../../../model/page.info.model";
 
 @Component({
-  selector: 'app-search-journey',
-  templateUrl: './search-journey.component.html',
-  styles: [],
-  imports: [
-    PageHeaderComponent,
-    JourneySearchCriteriaComponent,
-    JourneysListComponent
-  ],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-search-journey',
+    templateUrl: './search-journey.component.html',
+    styles: [],
+    imports: [
+        PageHeaderComponent,
+        JourneySearchCriteriaComponent,
+        JourneysListComponent
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchJourneyComponent {
   queryString = signal<string>('');

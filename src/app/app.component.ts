@@ -9,12 +9,11 @@ import {map} from "rxjs";
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [RouterOutlet, LoadingSpinnerComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, ToolbarComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    imports: [RouterOutlet, LoadingSpinnerComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, ToolbarComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   title = 'Journey';

@@ -7,19 +7,18 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 
 @Component({
-  selector: 'app-journey-search-criteria',
-  templateUrl: './journey-search-criteria.component.html',
-  styles: [],
-  imports: [
-    FormsModule,
-    RouterLink,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInput
-  ],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-journey-search-criteria',
+    templateUrl: './journey-search-criteria.component.html',
+    styles: [],
+    imports: [
+        FormsModule,
+        RouterLink,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInput
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneySearchCriteriaComponent {
   searchEvent = output<string>();

@@ -8,17 +8,16 @@ import {StatisticsPanelComponent} from "./statistics-panel/statistics-panel.comp
 import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'app-statistics',
-  standalone: true,
-  imports: [
-    PageHeaderComponent,
-    AsyncPipe,
-    NgIf,
-    StatisticsPanelComponent
-  ],
-  templateUrl: './statistics.component.html',
-  styles: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-statistics',
+    imports: [
+        PageHeaderComponent,
+        AsyncPipe,
+        NgIf,
+        StatisticsPanelComponent
+    ],
+    templateUrl: './statistics.component.html',
+    styles: '',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticsComponent {
   protected readonly STATISTICS_PAGE_INFO = STATISTICS_PAGE_INFO;

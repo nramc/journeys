@@ -9,17 +9,16 @@ import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 
 @Component({
-  selector: 'app-delete-my-account-page',
-  standalone: true,
-  imports: [
-    PageHeaderComponent,
-    MatIcon,
-    MatListModule,
-    MatButtonModule
-  ],
-  templateUrl: './delete-my-account-page.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-delete-my-account-page',
+    imports: [
+        PageHeaderComponent,
+        MatIcon,
+        MatListModule,
+        MatButtonModule
+    ],
+    templateUrl: './delete-my-account-page.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DeleteMyAccountPageComponent {
   protected readonly DELETE_MY_ACCOUNT_PAGE_INFO = DELETE_MY_ACCOUNT_PAGE_INFO;

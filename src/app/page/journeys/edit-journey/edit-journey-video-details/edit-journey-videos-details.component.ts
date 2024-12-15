@@ -11,22 +11,21 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 
 @Component({
-  selector: 'app-edit-journey-videos-details',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    ReactiveFormsModule,
-    MatStepperNext,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    NgOptimizedImage
-  ],
-  templateUrl: './edit-journey-videos-details.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-edit-journey-videos-details',
+    imports: [
+        FormsModule,
+        NgIf,
+        ReactiveFormsModule,
+        MatStepperNext,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        NgOptimizedImage
+    ],
+    templateUrl: './edit-journey-videos-details.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyVideosDetailsComponent implements OnInit {
   private readonly journeyService = inject(JourneyService);

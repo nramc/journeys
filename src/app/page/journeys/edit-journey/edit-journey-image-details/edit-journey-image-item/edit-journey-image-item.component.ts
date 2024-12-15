@@ -9,20 +9,19 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCheckbox} from "@angular/material/checkbox";
 
 @Component({
-  selector: 'app-edit-journey-image-item',
-  standalone: true,
-  imports: [
-    FormsModule,
-    MatIconModule,
-    MatButtonModule,
-    NgIf,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckbox
-  ],
-  templateUrl: 'edit-journey-image-item.component.html',
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-edit-journey-image-item',
+    imports: [
+        FormsModule,
+        MatIconModule,
+        MatButtonModule,
+        NgIf,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckbox
+    ],
+    templateUrl: 'edit-journey-image-item.component.html',
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyImageItemComponent {
   imageItem = model<JourneyImageDetail>(new JourneyImageDetail("", ""));

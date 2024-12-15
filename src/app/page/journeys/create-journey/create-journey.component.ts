@@ -10,16 +10,15 @@ import {PageHeaderComponent} from "../../../component/page-header/page-header.co
 import {NEW_JOURNEY_PAGE_INFO} from "../../../model/page.info.model";
 
 @Component({
-  selector: 'app-create-journey',
-  standalone: true,
-  imports: [
-    MatStepperModule,
-    NgIf,
-    EditJourneyMemoriesDetailsComponent,
-    PageHeaderComponent
-  ],
-  templateUrl: './create-journey.component.html',
-  styles: []
+    selector: 'app-create-journey',
+    imports: [
+        MatStepperModule,
+        NgIf,
+        EditJourneyMemoriesDetailsComponent,
+        PageHeaderComponent
+    ],
+    templateUrl: './create-journey.component.html',
+    styles: []
 })
 export class CreateJourneyComponent {
   protected readonly OperationMode = OperationMode;

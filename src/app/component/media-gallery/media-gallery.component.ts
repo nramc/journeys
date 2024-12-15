@@ -7,21 +7,20 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {JourneyImagesDetails} from "../../model/core/journey.model";
 
 @Component({
-  selector: 'app-media-gallery',
-  standalone: true,
-  imports: [CommonModule, LightboxModule, MatTooltipModule],
-  providers: [
-    {
-      provide: LIGHTBOX_CONFIG,
-      useValue: {
-        keyboardShortcuts: true,
-        startAnimationTime: 1000,
-        exitAnimationTime: 1000,
-        panelClass: 'fullscreen'
-      } as LightboxConfig
-    }
-  ],
-  template: `
+    selector: 'app-media-gallery',
+    imports: [CommonModule, LightboxModule, MatTooltipModule],
+    providers: [
+        {
+            provide: LIGHTBOX_CONFIG,
+            useValue: {
+                keyboardShortcuts: true,
+                startAnimationTime: 1000,
+                exitAnimationTime: 1000,
+                panelClass: 'fullscreen'
+            } as LightboxConfig
+        }
+    ],
+    template: `
     <div class="flex flex-wrap flex-grow mt-2 me-0 justify-center">
       @for (item of items(); let i = $index; track item.data?.src) {
         <div class="mb-1 text-center"
@@ -44,8 +43,8 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
       </div>
     </ng-container>
   `,
-  styles: ['.journey-image-thumbnail{object-fit: fill}'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: ['.journey-image-thumbnail{object-fit: fill}'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaGalleryComponent implements OnInit {
   protected readonly GalleryItemTypes = GalleryItemTypes;

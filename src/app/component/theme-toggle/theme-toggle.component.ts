@@ -4,14 +4,13 @@ import {MatIconButton} from "@angular/material/button";
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
-  selector: 'app-theme-toggle',
-  standalone: true,
-  imports: [
-    MatIconModule,
-    MatIconButton,
-    MatTooltip
-  ],
-  template: `
+    selector: 'app-theme-toggle',
+    imports: [
+        MatIconModule,
+        MatIconButton,
+        MatTooltip
+    ],
+    template: `
     <button mat-icon-button (click)="toggleTheme()"
             [matTooltip]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
       <mat-icon class="text-primary">
@@ -19,8 +18,8 @@ import {MatTooltip} from "@angular/material/tooltip";
       </mat-icon>
     </button>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThemeToggleComponent {
   isDarkMode = signal<boolean>(false);

@@ -12,22 +12,21 @@ import {MatCardModule} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 
 @Component({
-  selector: 'app-signup',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    ReactiveFormsModule,
-    RouterLink,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatIcon
-  ],
-  templateUrl: './signup.component.html',
-  styles: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-signup',
+    imports: [
+        FormsModule,
+        NgIf,
+        ReactiveFormsModule,
+        RouterLink,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        MatIcon
+    ],
+    templateUrl: './signup.component.html',
+    styles: '',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignupComponent {
   protected readonly LOGIN_PAGE_INFO = LOGIN_PAGE_INFO;

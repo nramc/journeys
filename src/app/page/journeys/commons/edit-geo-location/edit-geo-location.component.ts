@@ -12,22 +12,21 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 
 @Component({
-  selector: 'app-edit-geo-location',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    MatTooltip,
-    MatIcon,
-    MatFormFieldModule,
-    MatInputModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule
-  ],
-  templateUrl: './edit-geo-location.component.html',
-  styleUrl: './edit-geo-location.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-edit-geo-location',
+    imports: [
+        FormsModule,
+        NgIf,
+        MatTooltip,
+        MatIcon,
+        MatFormFieldModule,
+        MatInputModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule
+    ],
+    templateUrl: './edit-geo-location.component.html',
+    styleUrl: './edit-geo-location.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditGeoLocationComponent {
 
