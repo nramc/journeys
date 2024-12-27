@@ -8,11 +8,11 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <div class="gap-4 p-2 show flex flex-wrap justify-start">
+    <div class="gap-4 p-2 show grid grid-cols-3 max-sm:grid-cols-1 max-md:grid-cols-2">
       @for (statistic of data().sort(comparatorFn); track statistic.name; let index = $index) {
         <!-- Material Card -->
         <mat-card
-          class="w-72 shadow-md hover:shadow-lg transition-shadow duration-300 border border-primary rounded-lg">
+          class="shadow-md hover:shadow-lg transition-shadow duration-300 border border-primary rounded-lg">
           <!-- Card Header -->
           <mat-card-header>
             <div mat-card-avatar class="bg-gradient-to-r from-appBlue to-white rounded-full"></div>
