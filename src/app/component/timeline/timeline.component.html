@@ -1,5 +1,5 @@
-<div *ngIf="timelineData()?.heading" class="inline-flex mb-2">
-  <h2 class="gradient-text me-2">{{ timelineData()?.heading }}</h2>
+<div *ngIf="data()?.heading" class="inline-flex mb-2">
+  <h2 class="gradient-text me-2">{{ data()?.heading }}</h2>
   <ng-container *ngIf="images()?.length">
 
     <button mat-icon-button *ngIf="isPlayerRunning()" (click)="togglePlayer()"

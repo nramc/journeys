@@ -51,9 +51,9 @@
   <dialog #imageItemDetailDialog class="w-full md:w-3/4 p-4 rounded-lg border shadow-lg dark:bg-black">
     <app-edit-journey-image-item
       [imageItem]="imageItemDetail()"
-      (save)="saveImageItemDetail($event)"
-      (remove)="deleteImageItemDetail($event)"
-      (cancel)="imageItemDialog().nativeElement.close()">
+      (saveItem)="saveImageItemDetail($event)"
+      (removeItem)="deleteImageItemDetail($event)"
+      (cancelItem)="imageItemDialog().nativeElement.close()">
     </app-edit-journey-image-item>
   </dialog>
 

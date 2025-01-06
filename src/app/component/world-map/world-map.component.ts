@@ -60,7 +60,7 @@ export class WorldMapComponent implements AfterViewInit {
   private map: L.Map | undefined;
   private geoJsonLayer: L.GeoJSON | undefined;
 
-  geoJson = input<GeoJsonObject | undefined>(undefined, {alias: 'geoJsonData'});
+  geoJsonData = input<GeoJsonObject | undefined>(undefined);
   markerPopupViewContainerRef = viewChild.required('markerPopupViewContainer', {read: ViewContainerRef});
   enablePopup = input<boolean>(false);
   zoomIn = input<number>(4);
@@ -73,11 +73,11 @@ export class WorldMapComponent implements AfterViewInit {
   area = output<GeoCodingAreaData>();
 
   constructor() {
-    merge(toObservable(this.geoJson), toObservable(this.iconType))
+    merge(toObservable(this.geoJsonData), toObservable(this.iconType))
       .pipe(takeUntilDestroyed())
       .subscribe({
         next: _ => {
-          this.addGeoJsonData(this.geoJson())
+          this.addGeoJsonData(this.geoJsonData())
         }
       })
   }
@@ -200,7 +200,7 @@ export class WorldMapComponent implements AfterViewInit {
     if (this.map) {
 
       const isPopupRequired = this.enablePopup();
-      this.geoJsonLayer = L.geoJSON(this.geoJson(), {
+      this.geoJsonLayer = L.geoJSON(this.geoJsonData(), {
         pointToLayer: (feature, latlng) => {
           return L.marker(latlng, {
             icon: getIcon(feature, this.iconType())

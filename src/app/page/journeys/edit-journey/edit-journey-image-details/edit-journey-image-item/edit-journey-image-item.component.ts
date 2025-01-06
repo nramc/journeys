@@ -25,8 +25,8 @@ import {MatCheckbox} from "@angular/material/checkbox";
 })
 export class EditJourneyImageItemComponent {
   imageItem = model<JourneyImageDetail>(new JourneyImageDetail("", ""));
-  save = output<JourneyImageDetail>();
-  cancel = output<JourneyImageDetail>();
-  remove = output<JourneyImageDetail>();
+  saveItem = output<JourneyImageDetail>();
+  cancelItem = output<JourneyImageDetail>();
+  removeItem = output<JourneyImageDetail>();
 
 }

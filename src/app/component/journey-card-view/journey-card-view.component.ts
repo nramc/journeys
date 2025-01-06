@@ -23,18 +23,17 @@ import {HasWriteAccessDirective} from "../../directive/has-write-access.directiv
 export class JourneyCardViewComponent {
   private readonly router = inject(Router);
 
-  journeyData = input.required<JourneyData, JourneyData | Journey>({
-    alias: 'journey',
+  journey = input.required<JourneyData, JourneyData | Journey>({
     transform: (value: JourneyData | Journey) => this.transformJourney(value)
   });
 
   viewDetails() {
-    this.router.navigate(['/journey', this.journeyData().id, 'view']).then(console.log);
+    this.router.navigate(['/journey', this.journey().id, 'view']).then(console.log);
   }
 
   editDetails($event: MouseEvent) {
     $event.stopPropagation();
-    this.router.navigate(['/journey', this.journeyData().id, 'edit']).then(console.log);
+    this.router.navigate(['/journey', this.journey().id, 'edit']).then(console.log);
     return false;
   }
 
@@ -42,7 +41,7 @@ export class JourneyCardViewComponent {
     $event.stopPropagation();
     this.router.navigate(['/timeline'], {
       queryParams: {
-        'id': this.journeyData().id
+        'id': this.journey().id
       }
     }).then(console.log);
     return false;

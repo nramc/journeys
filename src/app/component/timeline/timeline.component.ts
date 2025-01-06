@@ -22,8 +22,8 @@ export function fnImageEntityToGalleryItem(data: TimelineImage): GalleryItem {
 })
 export class TimelineComponent {
 
-  timelineData = input.required<TimelineData | undefined>({alias: 'data'});
-  images = computed<GalleryItem[]>(() => this.timelineData()?.images?.map(fnImageEntityToGalleryItem) ?? []);
+  data = input.required<TimelineData | undefined>();
+  images = computed<GalleryItem[]>(() => this.data()?.images?.map(fnImageEntityToGalleryItem) ?? []);
 
   galleryComponent = viewChild.required(GalleryComponent);
 
