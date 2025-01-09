@@ -2,7 +2,6 @@ main:not(.not-content-wrapper), .content-wrapper {
   @apply mt-3 p-4 shadow rounded-lg bg-white dark:bg-gray-800 container;
 }
 
-
 p, section, h1, h2, h3, h4, h5, h6 {
   margin: .5rem 0 .5rem 0;
 }

@@ -13,21 +13,23 @@ import {UpcomingAnniversariesComponent} from "./upcoming-aniversaries/upcoming-a
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 import {MatIcon} from "@angular/material/icon";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {ThirukkuralWidgetComponent} from "../../component/thirukkural/thirukkural-widget.component";
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styles: [],
-    imports: [
-        PageHeaderComponent,
-        NgIf,
-        RouterLink,
-        QuickLinksComponent,
-        UpcomingAnniversariesComponent,
-        HasWriteAccessDirective,
-        MatIcon,
-        MatProgressSpinner
-    ],
+  imports: [
+    PageHeaderComponent,
+    NgIf,
+    RouterLink,
+    QuickLinksComponent,
+    UpcomingAnniversariesComponent,
+    HasWriteAccessDirective,
+    MatIcon,
+    MatProgressSpinner,
+    ThirukkuralWidgetComponent
+  ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
