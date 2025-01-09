@@ -5,44 +5,50 @@
 
   <main class="mb-auto">
 
-    <section class="flex flex-col sm:flex-row sm:items-center sm:gap-6 content-wrapper" *ngIf="userData() as userContext">
-      <!-- Welcome Message -->
-      <div class="text-primary" *ngIf="userContext.isAuthenticated">
-        <p class="text-xl font-semibold pb-2">
-          Welcome <strong>{{ userContext.name }}</strong>!
-        </p>
+    <ng-container *ngIf="userData() as userContext">
+      <section class="flex flex-col sm:flex-row sm:items-center sm:gap-6 content-wrapper" *ngIf="userContext.isAuthenticated">
+        <!-- Welcome Message -->
+        <div class="text-primary">
+          <p class="text-xl font-semibold pb-2">
+            Welcome <strong>{{ userContext.name }}</strong>!
+          </p>
 
-        <!-- Create Journey Section -->
-        <p class="text-sm py-1" *appHasWriteAccess>
-          Never lose track of a travel memory again.
-          <a routerLink="/journey/new" class="text-primary flex items-center gap-2 font-bold italic">
-            <span>Create Journey to store your trips, photos, and stories - forever!</span>
-            <mat-icon class="ms-1">arrow_forward</mat-icon>
-          </a>
-        </p>
+          <!-- Create Journey Section -->
+          <p class="text-sm py-1" *appHasWriteAccess>
+            Never lose track of a travel memory again.
+            <a routerLink="/journey/new" class="text-primary flex items-center gap-2 font-bold italic">
+              <span>Create Journey to store your trips, photos, and stories - forever!</span>
+              <mat-icon class="ms-1">arrow_forward</mat-icon>
+            </a>
+          </p>
 
-        <!-- Journiversaries Section -->
-        <p class="text-sm py-1">
-          Don't miss out! Relive the magic - See Upcoming
-          <a routerLink="/timeline" class="text-primary hover:text-blue-600 flex items-center gap-2 font-bold italic">
-            <span>Journiversaries (Journey + Anniversaries)</span>
-            <mat-icon class="ms-1">arrow_forward</mat-icon>
-          </a>
-        </p>
-      </div>
-    </section>
+          <!-- Journiversaries Section -->
+          <p class="text-sm py-1">
+            Don't miss out! Relive the magic - See Upcoming
+            <a routerLink="/timeline" class="text-primary hover:text-blue-600 flex items-center gap-2 font-bold italic">
+              <span>Journiversaries (Journey + Anniversaries)</span>
+              <mat-icon class="ms-1">arrow_forward</mat-icon>
+            </a>
+          </p>
+        </div>
+      </section>
+    </ng-container>
 
     <section *ngIf="isUserAuthenticated()" class="content-wrapper">
       <app-quick-links></app-quick-links>
     </section>
 
+    <!-- Thirukkural widget -->
+    <section class="content-wrapper">
+      <app-thirukkural-widget/>
+    </section>
 
     <!-- Today timeline data -->
     <section class="mt-3 mb-3 content-wrapper" *ngIf="upcomingJourniversaries().length  > 0">
       <app-upcoming-anniversaries [journeys]="upcomingJourniversaries()"></app-upcoming-anniversaries>
     </section>
 
-    <section class="footer-section" *ngIf="!bffApiVersion()">
+    <section class="footer-section content-wrapper" *ngIf="!bffApiVersion()">
       <div class="flex flex-col justify-center content-center items-center m-1 gap-1">
         <div class="inline-flex gap-2">
           <mat-spinner diameter="25"></mat-spinner>
@@ -51,7 +57,8 @@
         <div class="text-primary">Warming up the chrono-engine!</div>
         <div class="text-primary small">Our backend server is revving up for some temporal displacement magic.</div>
         <div class="text-primary small">Just a minute or two more, and it'll be ready to go!</div>
-        <div class="text-primary small">In the meantime, feel free to explore other pages in the space-time continuum.</div>
+        <div class="text-primary small">In the meantime, feel free to explore other pages in the space-time continuum.
+        </div>
       </div>
     </section>
   </main>

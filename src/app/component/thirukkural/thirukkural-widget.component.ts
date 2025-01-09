@@ -8,12 +8,12 @@ import {MatIconModule} from "@angular/material/icon";
 
 
 @Component({
-  selector: 'app-thirukkural',
+  selector: 'app-thirukkural-widget',
   imports: [MatCardModule, MatButtonModule, NgIf, MatIconModule],
-  templateUrl: './thirukkural.component.html',
+  templateUrl: './thirukkural-widget.component.html',
   styles: []
 })
-export class ThirukkuralComponent {
+export class ThirukkuralWidgetComponent {
   private readonly DEFAULT_KURAL: Thirukkural = {
     "chapter": "கடவுள் வாழ்த்து",
     "kural": [
