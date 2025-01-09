@@ -3,5 +3,5 @@ export interface Thirukkural {
   kural: string[],
   number: number,
   section: string,
-  meaning: { [name: string]: string }
+  meaning: Record<string, string>
 }
