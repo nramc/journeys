@@ -1,4 +1,4 @@
-.content-wrapper {
+main:not(.not-content-wrapper), .content-wrapper {
   @apply mt-3 p-4 shadow rounded-lg bg-white dark:bg-gray-800 container;
 }
 

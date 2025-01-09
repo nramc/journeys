@@ -6,7 +6,8 @@
   <main class="mb-auto">
 
     <ng-container *ngIf="userData() as userContext">
-      <section class="flex flex-col sm:flex-row sm:items-center sm:gap-6 content-wrapper" *ngIf="userContext.isAuthenticated">
+      <section class="flex flex-col sm:flex-row sm:items-center sm:gap-6 content-wrapper"
+               *ngIf="userContext.isAuthenticated">
         <!-- Welcome Message -->
         <div class="text-primary">
           <p class="text-xl font-semibold pb-2">
@@ -39,7 +40,7 @@
     </section>
 
     <!-- Thirukkural widget -->
-    <section class="content-wrapper">
+    <section>
       <app-thirukkural-widget/>
     </section>
 
