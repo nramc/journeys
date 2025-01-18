@@ -46,7 +46,12 @@
   justify-content: space-between; /* Ensure content is spaced */
 }
 
+.mat-mdc-snack-bar-action {
+  color: darkslategray !important;
+}
+
 // Workaround to fix Material and Tailwind CSS style conflict for material form field's mat-label element's border-right issue
 .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__notch {
   border-right: none !important;
 }
+
