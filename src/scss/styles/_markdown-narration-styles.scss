@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+
+.markdown-container {
+  font-family: "Roboto", sans-serif;
+  @apply leading-relaxed;
+
+  h1, h2, h3, h4, h5, h6, p, section {
+    margin: 0.5rem 0 0.5rem 0;
+  }
+
+  h1 {
+    @apply text-[1.2rem] font-bold text-primary;
+  }
+
+  h2 {
+    @apply text-[1.18rem] font-semibold text-primary;
+  }
+
+  h3 {
+    @apply text-[1.16rem] font-medium text-primary;
+  }
+
+  h4 {
+    @apply text-[1.14rem] font-medium text-primary;
+  }
+
+  h5 {
+    @apply text-[1.12rem] font-medium text-primary;
+  }
+
+  h6 {
+    @apply text-base font-normal text-primary;
+  }
+
+  ol {
+    @apply list-decimal p-4;
+  }
+
+  ul {
+    @apply list-disc p-4;
+  }
+
+}
