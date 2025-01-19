@@ -27,7 +27,7 @@
     "@angular/router": "19.0.4",
     "@cloudinary/ng": "2.1.1",
     "@cloudinary/url-gen": "1.21.0",
-    "@maptiler/geocoding-control": "2.0.1",
+    "@maptiler/geocoding-control": "2.1.4",
     "@maptiler/leaflet-maptilersdk": "2.0.0",
     "@popperjs/core": "2.11.8",
     "@types/geojson": "7946.0.15",
