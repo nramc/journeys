@@ -32,7 +32,7 @@
     "@popperjs/core": "2.11.8",
     "@types/geojson": "7946.0.15",
     "file-saver": "2.0.5",
-    "highlight.js": "11.10.0",
+    "highlight.js": "11.11.1",
     "jszip": "3.10.1",
     "leaflet": "1.9.4",
     "leaflet.fullscreen": "3.0.2",
