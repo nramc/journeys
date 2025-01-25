@@ -4,7 +4,7 @@
     "config:recommended"
   ],
   "rangeStrategy": "pin",
-  "automerge": true,
+  "automerge": false,
   "automergeStrategy": "fast-forward",
   "automergeType": "pr",
   "platformAutomerge": true,
