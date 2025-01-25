@@ -5,7 +5,7 @@ import {PageInfo} from "../../model/page.info.model";
     selector: 'app-page-header',
     template: `
     <div class="max-sm:text-center">
-      <h3 class="page-title text-primary">{{ pageInfo().title }}</h3>
+      <h3 class="page-title">{{ pageInfo().title }}</h3>
     </div>
   `,
     styles: `
