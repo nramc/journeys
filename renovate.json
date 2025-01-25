@@ -4,5 +4,9 @@
     "config:recommended"
   ],
   "rangeStrategy": "pin",
-  "automerge": true
+  "automerge": true,
+  "automergeStrategy": "fast-forward",
+  "automergeType": "pr",
+  "platformAutomerge": true,
+  "platform": "github"
 }
