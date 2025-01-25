@@ -3,5 +3,6 @@
   "extends": [
     "config:recommended"
   ],
-  "rangeStrategy": "pin"
+  "rangeStrategy": "pin",
+  "automerge": true
 }
