@@ -21,7 +21,7 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
         }
     ],
     template: `
-    <div class="flex flex-wrap flex-grow mt-2 me-0 justify-center">
+    <div class="flex flex-wrap grow mt-2 me-0 justify-center">
       @for (item of items(); let i = $index; track item.data?.src) {
         <div class="mb-1 text-center"
              [lightbox]="i"
