@@ -15,7 +15,9 @@
 @use "./scss/styles/markdown-narration-styles";
 
 @use "tailwindcss";
+/* sonar-disable-next-line css:S4662 */
 @config "../tailwind.config.js";
+
 
 /* Application theming */
 
