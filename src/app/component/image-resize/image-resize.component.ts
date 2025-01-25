@@ -40,7 +40,7 @@ export interface ImageResource {
           </p>
           <div *ngIf="isProcessing">
             <progress
-              class="w-full h-2 rounded bg-gray-200"
+              class="w-full h-2 rounded-sm bg-gray-200"
               [value]="(resizedImages().length / totalImages()) * 100"
               max="100"
             ></progress>
@@ -51,7 +51,7 @@ export interface ImageResource {
           <button
             (click)="downloadAll()"
             *ngIf="resizedImages().length === totalImages() && totalImages() > 0"
-            class="px-4 py-2 border border-blue-500 text-blue-500 rounded hover:bg-blue-500 hover:text-white"
+            class="px-4 py-2 border border-blue-500 text-blue-500 rounded-sm hover:bg-blue-500 hover:text-white"
           >
             Download All
           </button>
