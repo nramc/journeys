@@ -14,10 +14,9 @@
 @use "./scss/styles/leaflet-styles";
 @use "./scss/styles/markdown-narration-styles";
 
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@use "tailwindcss";
+/* sonar-disable-next-line css:S4662 */
+@config "../tailwind.config.js";
 
 
 /* Application theming */

@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
 import {HOME_PAGE_INFO} from "../../model/page.info.model";
-import {PageHeaderComponent} from "../../component/page-header/page-header.component";
 import {AuthService} from "../../service/auth/auth.service";
 import {NgIf} from "@angular/common";
 import {environment} from "../../../environments/environment";
@@ -16,11 +15,10 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {ThirukkuralWidgetComponent} from "../../component/thirukkural/thirukkural-widget.component";
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styles: [],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styles: [],
   imports: [
-    PageHeaderComponent,
     NgIf,
     RouterLink,
     QuickLinksComponent,
@@ -30,7 +28,7 @@ import {ThirukkuralWidgetComponent} from "../../component/thirukkural/thirukkura
     MatProgressSpinner,
     ThirukkuralWidgetComponent
   ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
   protected readonly HOME_PAGE_INFO = HOME_PAGE_INFO;

@@ -3,7 +3,7 @@
 </header>
 
 <main>
-  <section class="container mt-2 flex flex-col flex-grow justify-center">
+  <section class="container mt-2 flex flex-col grow justify-center">
     <app-journey-search-criteria (searchEvent)="queryString.set($event)"></app-journey-search-criteria>
 
     <app-journeys-list [criteria]="queryString()"></app-journeys-list>
