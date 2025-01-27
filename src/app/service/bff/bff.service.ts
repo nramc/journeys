@@ -17,7 +17,7 @@ export class BffService {
         'X-Async-Process': 'true'
       }
     })
-      .pipe(shareReplay(1), tap(data => this._isAvailable = true));
+      .pipe(shareReplay(1), tap(_ => this._isAvailable = true));
   }
 
   isAvailable(): Observable<boolean> {
