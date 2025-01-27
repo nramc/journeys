@@ -1,37 +1,36 @@
-import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatTooltip} from "@angular/material/tooltip";
+import {ThemeService} from "../../service/theme/theme.service";
 
 @Component({
-    selector: 'app-theme-toggle',
-    imports: [
-        MatIconModule,
-        MatIconButton,
-        MatTooltip
-    ],
-    template: `
+  selector: 'app-theme-toggle',
+  imports: [
+    MatIconModule,
+    MatIconButton,
+    MatTooltip
+  ],
+  template: `
     <button mat-icon-button (click)="toggleTheme()"
-            [matTooltip]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
+            [matTooltip]="this.themeService.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
       <mat-icon class="text-primary">
-        {{ isDarkMode() ? 'dark_mode' : 'light_mode' }}
+        {{ this.themeService.isDarkMode() ? 'dark_mode' : 'light_mode' }}
       </mat-icon>
     </button>
   `,
-    styles: [],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThemeToggleComponent {
-  isDarkMode = signal<boolean>(false);
+  themeService = inject(ThemeService);
 
   constructor() {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    document.body.classList.toggle('dark', prefersDark.matches);
-    this.isDarkMode.set(prefersDark.matches);
+    document.body.classList.toggle('dark', this.themeService.isDarkMode());
   }
 
   toggleTheme() {
-    this.isDarkMode.update(value => !value);
+    this.themeService.toggle();
     document.body.classList.toggle('dark');
   }
 }

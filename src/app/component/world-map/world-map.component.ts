@@ -22,6 +22,8 @@ import {environment} from "../../../environments/environment";
 import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
 import {GeoCodingFeature} from "./geo-coding-feature";
 import {merge} from "rxjs";
+import {ThemeService} from "../../service/theme/theme.service";
+
 
 
 const iconDefault = L.icon({
@@ -59,6 +61,8 @@ export class WorldMapComponent implements AfterViewInit {
   private readonly elementRef: ElementRef = inject(ElementRef);
   private map: L.Map | undefined;
   private geoJsonLayer: L.GeoJSON | undefined;
+
+  themeService = inject(ThemeService);
 
   geoJsonData = input<GeoJsonObject | undefined>(undefined);
   markerPopupViewContainerRef = viewChild.required('markerPopupViewContainer', {read: ViewContainerRef});
@@ -103,6 +107,7 @@ export class WorldMapComponent implements AfterViewInit {
     L.control.scale().addTo(this.map);
     new MaptilerLayer({
       apiKey: environment.maptilerKey,
+      style: this.themeService.isDarkMode() ? `https://api.maptiler.com/maps/d5592658-7af1-476b-bb9d-483a28703d79/style.json?key=${environment.maptilerKey}` : ''
     }).addTo(this.map);
 
     if (this.enableGeoCoding()) {

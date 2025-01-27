@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
-import {HOME_PAGE_INFO} from "../../model/page.info.model";
 import {AuthService} from "../../service/auth/auth.service";
 import {NgIf} from "@angular/common";
 import {environment} from "../../../environments/environment";
@@ -31,13 +30,9 @@ import {ThirukkuralWidgetComponent} from "../../component/thirukkural/thirukkura
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
-  protected readonly HOME_PAGE_INFO = HOME_PAGE_INFO;
-
   protected readonly authService = inject(AuthService);
   private readonly bffService = inject(BffService);
   private readonly journeyService = inject(JourneyService);
-
-
   appVersion = environment.version;
   userData = toSignal(this.authService.getUserContext());
   isUserAuthenticated = computed(() => this.userData()?.isAuthenticated)
