@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, shareReplay} from "rxjs";
+import {map, Observable, shareReplay, tap} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {BffApiVersion} from "./bff-api-version.model";
 
@@ -9,6 +9,7 @@ import {BffApiVersion} from "./bff-api-version.model";
 })
 export class BffService {
   private readonly httpClient = inject(HttpClient)
+  private _isAvailable = false;
 
   getVersion(): Observable<BffApiVersion> {
     return this.httpClient.get<BffApiVersion>(environment.journeyApi + '/version', {
@@ -16,6 +17,16 @@ export class BffService {
         'X-Async-Process': 'true'
       }
     })
-      .pipe(shareReplay(1));
+      .pipe(shareReplay(1), tap(data => this._isAvailable = true));
   }
+
+  isAvailable(): Observable<boolean> {
+    return this.getVersion().pipe(map(data => data?.version != null));
+  }
+
+  isAvailableNow(): boolean {
+    return this._isAvailable;
+  }
+
+
 }
