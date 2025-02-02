@@ -1,5 +1,5 @@
 <main>
-  <form (ngSubmit)="publish(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey()" class="space-y-6">
+  <form (ngSubmit)="publish(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey()" class="flex flex-col gap-2">
 
     <!-- Visibility Section -->
     <div class="grid grid-cols-1 gap-4">
@@ -19,28 +19,28 @@
 
     <!-- Journey Preview Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="md:col-span-2 pb-3 border-b-2 border-primary">
-        <h1 class="text-lg text-primary font-semibold">Journey Preview</h1>
+      <div class="md:col-span-2 pb-3 border-b-2">
+        <span class="text-lg font-semibold text-current">Journey Preview</span>
       </div>
 
 
       <div class="rounded-lg shadow-md p-4">
-        <ul class="space-y-2">
+        <ul class="flex flex-col gap-2">
           <li class="flex items-center justify-between">Basic Details
-            <mat-icon *ngIf="isBasicDetailsAvailableAndValid()" class="text-success">check_circle</mat-icon>
-            <mat-icon *ngIf="!isBasicDetailsAvailableAndValid()" class="text-danger">cancel</mat-icon>
+            <mat-icon *ngIf="isBasicDetailsAvailableAndValid()" class="text-success!">check_circle</mat-icon>
+            <mat-icon *ngIf="!isBasicDetailsAvailableAndValid()" class="text-danger!">cancel</mat-icon>
           </li>
           <li class="flex items-center justify-between">Geo Details
-            <mat-icon *ngIf="isGeoJsonAvailable()" class="text-success">check_circle</mat-icon>
-            <mat-icon *ngIf="!isGeoJsonAvailable()" class="text-danger">cancel</mat-icon>
+            <mat-icon *ngIf="isGeoJsonAvailable()" class="text-success!">check_circle</mat-icon>
+            <mat-icon *ngIf="!isGeoJsonAvailable()" class="text-danger!">cancel</mat-icon>
           </li>
           <li class="flex items-center justify-between">Images Details
-            <mat-icon *ngIf="isImagesDetailsAvailable()" class="text-success">check_circle</mat-icon>
-            <mat-icon *ngIf="!isImagesDetailsAvailable()" class="text-danger">cancel</mat-icon>
+            <mat-icon *ngIf="isImagesDetailsAvailable()" class="text-success!">check_circle</mat-icon>
+            <mat-icon *ngIf="!isImagesDetailsAvailable()" class="text-danger!">cancel</mat-icon>
           </li>
           <li class="flex items-center justify-between">Videos Details
-            <mat-icon *ngIf="isVideosDetailsAvailable()" class="text-success">check_circle</mat-icon>
-            <mat-icon *ngIf="!isVideosDetailsAvailable()" class="text-danger">cancel</mat-icon>
+            <mat-icon *ngIf="isVideosDetailsAvailable()" class="text-success!">check_circle</mat-icon>
+            <mat-icon *ngIf="!isVideosDetailsAvailable()" class="text-danger!">cancel</mat-icon>
           </li>
         </ul>
       </div>
@@ -68,13 +68,13 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="flex justify-center gap-4 mt-6">
+    <div class="flex justify-center gap-2 mt-6">
       <button mat-stroked-button type="button" (click)="deleteJourneyDialog.showModal();" *appHasWriteAccess>
-        Delete Journey
+        Delete
       </button>
       <button mat-stroked-button type="button" [disabled]="!journeyForm.form.valid" *appHasWriteAccess
               (click)="save(journeyForm)">
-        Save as Draft
+        Draft
       </button>
       <button mat-flat-button type="submit" [disabled]="!journeyForm.form.valid" *appHasWriteAccess>
         Publish
@@ -86,7 +86,7 @@
       <div class="text-center">
         <mat-icon class="fs-3 text-danger">delete_forever</mat-icon>
         <p class="text-danger mt-2">Are you sure you want to delete the journey?</p>
-        <div class="mt-4 flex justify-center gap-4">
+        <div class="mt-4 flex justify-center gap-2">
           <button mat-stroked-button type="button" (click)="deleteJourneyDialog.close()">No, Keep it</button>
           <button mat-stroked-button type="button" (click)="deleteJourneyDialog.close(); delete()">Yes, Delete forever
           </button>

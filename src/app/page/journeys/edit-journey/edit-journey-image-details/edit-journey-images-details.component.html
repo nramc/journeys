@@ -26,7 +26,7 @@
 
 
     <!-- Buttons -->
-    <div class="flex flex-col md:flex-row items-center justify-center content-center gap-4">
+    <div class="flex flex-col md:flex-row items-center justify-center content-center gap-2">
 
       <button mat-fab extended type="button" (click)="openUploadWidget(true)">
         <mat-icon>drive_folder_upload</mat-icon>
@@ -48,7 +48,7 @@
   </form>
 
   <!-- Image Item Detail Dialog -->
-  <dialog #imageItemDetailDialog class="w-full md:w-3/4 p-4 rounded-lg border shadow-lg dark:bg-black">
+  <dialog #imageItemDetailDialog class="w-full md:w-3/4 p-4 rounded-lg border shadow-lg dark:bg-black mx-auto">
     <app-edit-journey-image-item
       [imageItem]="imageItemDetail()"
       (saveItem)="saveImageItemDetail($event)"

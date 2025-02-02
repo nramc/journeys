@@ -4,7 +4,7 @@
 
 <main>
   <section class="container mx-auto mt-6">
-    <form #profileForm="ngForm" *ngIf="myProfileData()" class="w-full max-w-4xl space-y-6" (submit)="save(profileForm)">
+    <form #profileForm="ngForm" *ngIf="myProfileData()" class="w-full max-w-4xl flex flex-col gap-2" (submit)="save(profileForm)">
       <!-- Username -->
       <mat-form-field class="w-full" appearance="outline">
         <mat-label>Username</mat-label>
@@ -40,7 +40,7 @@
       </mat-form-field>
 
       <!-- Actions -->
-      <div class="flex justify-center gap-4">
+      <div class="flex justify-center gap-2">
         <button mat-flat-button color="primary" type="submit" [disabled]="!profileForm.valid" *appHasWriteAccess>
           Save
         </button>

@@ -1,4 +1,4 @@
-<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="journey()" class="content-wrapper space-y-6">
+<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="journey()" class="content-wrapper flex flex-col gap-2">
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <!-- Name -->
@@ -44,7 +44,7 @@
                    [disabled]="isReadOnly()" [markdownStyle]="isReadOnly() ? 'Preview' : 'Source'"></app-narration>
   </div>
 
-  <div class="flex flex-wrap justify-center gap-4 mt-4">
+  <div class="flex flex-wrap justify-center gap-2 mt-4">
     <!-- Create Button -->
     <button mat-raised-button type="submit" class="px-6 py-2" [disabled]="!journeyForm.form.valid"
             [hidden]="mode() !== OperationMode.NEW">
