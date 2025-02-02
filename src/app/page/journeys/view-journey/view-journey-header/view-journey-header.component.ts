@@ -29,8 +29,8 @@ import {MatButtonModule} from "@angular/material/button";
         <span class="text-lg font-semibold text-center">{{ journey().name }}</span>
 
         <!-- Published/Not Published Icon -->
-        <mat-icon *ngIf="journey().isPublished" class="text-success !overflow-visible" matTooltip="Published">check_circle</mat-icon>
-        <mat-icon *ngIf="!journey().isPublished" class="text-warning !overflow-visible"
+        <mat-icon *ngIf="journey().isPublished" class="text-success! !overflow-visible" matTooltip="Published">check_circle</mat-icon>
+        <mat-icon *ngIf="!journey().isPublished" class="text-warning! !overflow-visible"
                   matTooltip="Not Published">remove_circle</mat-icon>
 
         <!-- Edit Journey Button -->
