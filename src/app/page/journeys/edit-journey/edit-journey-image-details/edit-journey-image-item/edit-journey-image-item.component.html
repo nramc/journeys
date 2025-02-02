@@ -70,7 +70,7 @@
           </div>
 
           <!-- Action Buttons -->
-          <div class="flex justify-center space-x-2 rounded-lg">
+          <div class="flex justify-center gap-2 rounded-lg">
             <button mat-flat-button type="button" class="!bg-success !text-white" (click)="saveItem.emit(imageItem())">Save</button>
             <button mat-flat-button type="button" class="!bg-danger !text-white"  (click)="removeItem.emit(imageItem())">Remove</button>
             <button mat-stroked-button type="button" (click)="cancelItem.emit(imageItem())">Cancel</button>
