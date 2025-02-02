@@ -6,7 +6,7 @@
   <section class="mt-2 container flex flex-col">
     <mat-form-field appearance="fill">
       <mat-label>Choose interval to display Journiversaries</mat-label>
-      <mat-select [(ngModel)]="numberOfDaysJourniversaries" (change)="getDataForUpcomingJourniversaries()"
+      <mat-select [(ngModel)]="numberOfDaysJourniversaries" (selectionChange)="getDataForUpcomingJourniversaries()"
                   class="!outline-offset-0 !border-0">
         <mat-option [value]="1">Tomorrow</mat-option>
         <mat-option [value]="7">Next One Week</mat-option>
