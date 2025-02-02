@@ -7,11 +7,17 @@
       <div>
         <h5 class="text-lg font-semibold mb-2"><span class="text-white">{{ journey().name }}</span></h5>
         <p class="text-sm font-medium text-gray-200 mb-4">{{ journey().title }}</p>
-        <div class="flex flex-wrap gap-2">
-          @for (tag of journey().tags; track tag) {
+        <div class="flex gap-2 overflow-hidden w-full">
+          @for (tag of journey().tags.slice(0, 3); track tag) {
             <span
               class="badge border border-gray-300 bg-gray-800 text-gray-200 rounded-full px-3 py-1 text-xs shadow-sm hover:bg-gray-700 hover:border-gray-500 transition-all">
             {{ tag }}
+          </span>
+          }
+          @if (journey().tags.length > 3) {
+            <span
+              class="badge border border-gray-300 bg-gray-800 text-gray-200 rounded-full px-3 py-1 text-xs shadow-sm hover:bg-gray-700 hover:border-gray-500 transition-all">
+            ...
           </span>
           }
         </div>
