@@ -7,10 +7,10 @@ p, section, h1, h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @apply text-primary-light dark:text-primary-dark font-bold;
+  @apply text-primary-light dark:text-primary-dark;
 }
 
 a {
-  @apply text-primary-light font-bold;
+  @apply text-primary-light;
 }
 
