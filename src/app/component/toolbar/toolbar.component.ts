@@ -5,7 +5,7 @@ import {MatIconButton} from "@angular/material/button";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatTooltip} from "@angular/material/tooltip";
-import {NgIf} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ThemeToggleComponent} from "../theme-toggle/theme-toggle.component";
 import {AuthService} from "../../service/auth/auth.service";
@@ -23,7 +23,8 @@ import {toSignal} from "@angular/core/rxjs-interop";
     NgIf,
     RouterLink,
     ThemeToggleComponent,
-    MatMenuTrigger
+    MatMenuTrigger,
+    NgOptimizedImage
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss'

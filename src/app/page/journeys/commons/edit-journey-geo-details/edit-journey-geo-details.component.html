@@ -11,7 +11,7 @@
 
 
       <!-- Form Section -->
-      <div class="col-span-12 md:col-span-4 flex flex-col space-y-4">
+      <div class="col-span-12 md:col-span-4 flex flex-col gap-2">
 
         <!-- Edit Geo Location -->
         <div>
@@ -80,7 +80,7 @@
         </div>
 
         <!-- Radio Buttons for Map Options -->
-        <mat-radio-group [(ngModel)]="showMapOption" class="flex justify-center space-x-4"
+        <mat-radio-group [(ngModel)]="showMapOption" class="flex justify-center gap-2"
                          name="mapOptions">
           <mat-radio-button value="Location">Location</mat-radio-button>
           <mat-radio-button value="GeoJson">GeoJson</mat-radio-button>
@@ -89,7 +89,7 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="flex justify-center space-x-4 mt-6">
+    <div class="flex justify-center gap-2 mt-6">
       <button mat-flat-button type="submit" [disabled]="!journeyForm.form.valid">Save</button>
       <button mat-stroked-button type="button" [disabled]="!journeyForm.form.valid" matStepperNext>Next</button>
     </div>

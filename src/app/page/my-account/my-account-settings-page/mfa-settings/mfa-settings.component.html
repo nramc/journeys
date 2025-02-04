@@ -44,7 +44,7 @@
 
   <!-- Deactivation Section -->
   <div class="flex flex-col" *ngIf="userData()?.mfaEnabled">
-    <div class="flex gap-4">
+    <div class="flex gap-2">
       <button mat-button type="button" class="w-max" (click)="confirmMfaDeactivation()"
               [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">Deactivate
       </button>

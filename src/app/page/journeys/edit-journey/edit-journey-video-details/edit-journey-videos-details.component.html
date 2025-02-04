@@ -1,5 +1,5 @@
 <main class="rounded-lg shadow-lg">
-  <form *ngIf="this.journey()" class="container mx-auto p-6 space-y-6">
+  <form *ngIf="this.journey()" class="container mx-auto p-6 flex flex-col gap-2">
     <!-- Add Video Input -->
     <div>
       <mat-form-field appearance="outline" class="w-full">
@@ -25,7 +25,7 @@
             <button mat-icon-button aria-label="Remove Video"
                     (click)="removeVideoAndSaveJourney(videoDetail)"
                     class="absolute float-right !z-10 !p-0">
-              <mat-icon class="bg-white rounded-full text-red-600 shadow-md hover:bg-red-50 top-[-5px] right-[-10px]">
+              <mat-icon class="bg-white rounded-full text-red-400! shadow-md hover:text-red-600! top-[-5px] right-[-10px]">
                 do_not_disturb_on
               </mat-icon>
             </button>

@@ -1,11 +1,11 @@
 <mat-toolbar color="primary" class="toolbar flex justify-between align-middle">
   <!-- App Brand Section -->
-  <div class="app-brand-section flex justify-between align-bottom p-2">
+  <div class="app-brand-section flex justify-between align-bottom">
     <button mat-icon-button (click)="toggleNavigation.emit()">
       <mat-icon>menu</mat-icon>
     </button>
     <a [routerLink]="HOME_PAGE_INFO.path" class="app-brand">
-      <img src="assets/logo/journey-logo-180x180.png" alt="Journey" class="brand-logo"/>
+      <img ngSrc="assets/logo/journey-logo-180x180.png" alt="Journey" class="brand-logo" height="180" width="180" priority/>
     </a>
     <a [routerLink]="HOME_PAGE_INFO.path" class="app-name">
       <h1 class="app-title text-primary dark:text-primary-dark">Journey</h1>
@@ -16,19 +16,19 @@
     <!-- Dropdown (My Account) -->
     <mat-menu #accountMenu="matMenu">
       <button mat-menu-item routerLink="/my-account/profile">
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center">
           <mat-icon>person</mat-icon>
           <span>My Profile</span>
         </div>
       </button>
       <button mat-menu-item routerLink="/my-account/securitySettings">
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center">
           <mat-icon>settings</mat-icon>
           <span>Security Settings</span>
         </div>
       </button>
       <button mat-menu-item routerLink="/my-account/delete">
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center">
           <mat-icon>delete</mat-icon>
           <span>Delete Account</span>
         </div>

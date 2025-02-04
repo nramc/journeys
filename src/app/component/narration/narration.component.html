@@ -1,6 +1,6 @@
-<div class="space-y-4">
+<div class="flex gap-2 flex-col">
   <!-- Memories Label -->
-  <div class="inline-flex gap-2 justify-center align-middle content-center items-center">
+  <div class="inline-flex gap-2 align-middle content-center items-center">
     <label for="description" class="text-sm font-semibold">Memories</label>
     <!-- Markdown Style Toggle -->
     <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style" hideSingleSelectionIndicator="true"
@@ -12,7 +12,7 @@
 
   <!-- Textarea for Memories -->
   <textarea rows="15" id="description" name="description" placeholder="Detailed information about the Journey"
-            class="w-full p-4 border-2 rounded-md focus:outline-hidden focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800"
+            class="w-full p-4 border rounded-md focus:outline-hidden focus:ring focus:ring-indigo-500 dark:bg-gray-800"
             required minlength="10" maxlength="5000"
             #description="ngModel" [(ngModel)]="narration" [hidden]="markdownStyle() === 'Preview'"></textarea>
 

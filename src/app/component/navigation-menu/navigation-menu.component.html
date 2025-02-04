@@ -3,7 +3,7 @@
 <mat-nav-list (click)="navigationLinkClick.emit()" (keydown.enter)="navigationLinkClick.emit()">
   <!-- Static Links -->
   <a mat-list-item [routerLink]="HOME_PAGE_INFO.path" routerLinkActive="active" class="flex items-center">
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center gap-2">
       <mat-icon>home</mat-icon>
       <span>{{ HOME_PAGE_INFO.name }}</span>
     </div>
@@ -11,7 +11,7 @@
 
   <a mat-list-item *ngIf="isUserAuthenticated()" [routerLink]="DASHBOARD_PAGE_INFO.path"
      routerLinkActive="active">
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center gap-2">
       <mat-icon>grid_view</mat-icon>
       <span>{{ DASHBOARD_PAGE_INFO.name }}</span>
     </div>
@@ -19,7 +19,7 @@
 
   <a mat-list-item *ngIf="isUserAuthenticated()" [routerLink]="GALLERY_PAGE_INFO.path"
      routerLinkActive="active">
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center gap-2">
       <mat-icon>photo_library</mat-icon>
       <span>{{ GALLERY_PAGE_INFO.name }}</span>
     </div>
@@ -27,7 +27,7 @@
 
   <a mat-list-item *ngIf="isUserAuthenticated()" [routerLink]="JOURNEY_SEARCH_PAGE_INFO.path"
      routerLinkActive="active">
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center gap-2">
       <mat-icon>place</mat-icon>
       <span>{{ JOURNEY_SEARCH_PAGE_INFO.name }}</span>
     </div>
@@ -35,7 +35,7 @@
 
   <a mat-list-item *ngIf="isUserAuthenticated()" [routerLink]="STATISTICS_PAGE_INFO.path"
      routerLinkActive="active">
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center gap-2">
       <mat-icon>bar_chart</mat-icon>
       <span>{{ STATISTICS_PAGE_INFO.name }}</span>
     </div>
@@ -43,7 +43,7 @@
 
   <a mat-list-item *ngIf="isUserAuthenticated()" [routerLink]="TIMELINE_PAGE_INFO.path"
      routerLinkActive="active">
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center gap-2">
       <mat-icon>history</mat-icon>
       <span>{{ TIMELINE_PAGE_INFO.name }}</span>
     </div>
@@ -51,14 +51,14 @@
 
   <!-- General Links -->
   <a mat-list-item [routerLink]="TOOLS_PAGE_INFO.path" routerLinkActive="active">
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center gap-2">
       <mat-icon>build</mat-icon>
       <span>{{ TOOLS_PAGE_INFO.name }}</span>
     </div>
   </a>
 
   <a mat-list-item [routerLink]="ABOUT_PAGE_INFO.path" routerLinkActive="active">
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center gap-2">
       <mat-icon>info</mat-icon>
       <span>{{ ABOUT_PAGE_INFO.name }}</span>
     </div>
@@ -66,7 +66,7 @@
 
   <a mat-list-item *ngIf="!isUserAuthenticated()" [routerLink]="LOGIN_PAGE_INFO.path"
      routerLinkActive="active">
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center gap-2">
       <mat-icon>lock</mat-icon>
       <span>{{ LOGIN_PAGE_INFO.name }}</span>
     </div>

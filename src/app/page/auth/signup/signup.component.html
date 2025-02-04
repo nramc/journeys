@@ -2,12 +2,12 @@
   <!-- Container for Two Sections -->
   <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 items-center rounded-lg shadow-lg border border-primary">
     <!-- Left Section: Form -->
-    <mat-card class="p-8 space-y-6">
+    <mat-card class="p-8 flex flex-col gap-6">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm text-center">
-        <img class="mx-auto h-16 w-16" src="assets/logo/journey-logo-64x64.png" alt="Journey">
+        <img class="mx-auto h-16 w-16" ngSrc="assets/logo/journey-logo-64x64.png" alt="Journey" height="64" width="64">
         <h2 class="text-2xl font-bold text-primary mt-4">Registration</h2>
       </div>
-      <form (ngSubmit)="signup(signupForm)" #signupForm="ngForm" class="space-y-4">
+      <form (ngSubmit)="signup(signupForm)" #signupForm="ngForm" class="flex flex-col gap-4">
 
         <div *ngIf="isSuccessful()"
              class="text-sm p-2 border-success border-2 shadow-lg rounded-md bg-transparent text-success">
@@ -24,7 +24,7 @@
         <!-- Name Field -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Name</mat-label>
-          <input matInput name="name" placeholder="Lorem ipsum" autocomplete="name"
+          <input matInput name="name" type="text" placeholder="Lorem ipsum" autocomplete="name"
                  [(ngModel)]="form().name" #name="ngModel" [readOnly]="isSuccessful()"
                  required maxlength="50" minlength="3">
 
@@ -54,7 +54,7 @@
         <!-- Password Field -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Password</mat-label>
-          <input matInput [type]="showPassword() ? 'text' : 'password'" id="password" name="password"
+          <input matInput type="password" [type]="showPassword() ? 'text' : 'password'" id="password" name="password"
                  autocomplete="new-password" placeholder="@yngyg3VLi5hC"
                  [(ngModel)]="form().password" #password="ngModel" [readOnly]="isSuccessful()"
                  required min="8" maxlength="50"
@@ -91,14 +91,14 @@
 
     <!-- Right Section: Full Background Image with Text Content -->
     <div
-      class="hidden lg:flex flex-col justify-center items-start p-8 space-y-6 relative bg-cover bg-center h-full w-full"
+      class="hidden lg:flex flex-col justify-center items-center p-8 gap-6 relative bg-cover bg-center h-full w-full"
       style="background-image: url('assets/image/world-map-light-theme.jpg');">
       <!-- Background Overlay -->
-      <div class="absolute inset-0 bg-primary bg-black/25"></div>
+      <div class="absolute inset-0 bg-blue-700/25"></div>
 
       <!-- Foreground Text Content -->
-      <div class="relative text-white space-y-4">
-        <div class="text-3xl font-bold border-5">
+      <div class="relative text-white flex flex-col gap-4">
+        <div class="text-3xl font-bold border-5 border-gradient-primary">
           <blockquote class="relative bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md p-8 mx-4 my-8 text-gray-700">
             <!-- Left Quote -->
             <div class="absolute top-4 left-4 text-indigo-500 text-5xl font-serif leading-none select-none">
@@ -106,7 +106,7 @@
             </div>
 
             <!-- Main Content -->
-            <div class="text-center space-y-4">
+            <div class="text-center flex flex-col gap-4">
               <h1 class="text-3xl font-bold text-indigo-700">Map Your Adventures.</h1>
               <h1 class="text-2xl font-medium text-gray-600">Relive Your Stories.</h1>
             </div>
@@ -118,15 +118,17 @@
           </blockquote>
 
         </div>
-        <p class="text-lg">
-          Plan, record, and relive your journeys with our platform.
-        </p>
-        <ul class="list-disc list-inside space-y-2">
-          <li>Save travel locations with geo-details.</li>
-          <li>Upload photos, videos, and stories.</li>
-          <li>Track your trips on interactive maps.</li>
-          <li>Share your adventures with friends.</li>
-        </ul>
+        <div class="flex flex-col gap-2 bg-blue-700/75 p-4">
+          <p class="text-lg">
+            Plan, record, and relive your journeys with our platform.
+          </p>
+          <ul class="list-disc list-inside flex flex-col gap-2">
+            <li>Save travel locations with geo-details.</li>
+            <li>Upload photos, videos, and stories.</li>
+            <li>Track your trips on interactive maps.</li>
+            <li>Share your adventures with friends.</li>
+          </ul>
+        </div>
       </div>
     </div>
 

@@ -1,0 +1,10 @@
+.journey-edit-stepper {
+  .mat-horizontal-stepper-header {
+    @apply max-sm:flex-col;
+  }
+  .mat-stepper-horizontal-line {
+    @apply max-sm:border-none;
+  }
+}
+
+

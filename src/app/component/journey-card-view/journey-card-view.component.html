@@ -1,13 +1,13 @@
 <div class="m-0 w-full">
   <mat-card (click)="viewDetails()" (keydown.enter)="viewDetails()"
-            class="text-white border border-primary cursor-pointer relative overflow-hidden hover:shadow-lg hover:shadow-primary w-full md:w-[25rem] h-[15rem]"
+            class="text-white border border-primary cursor-pointer relative overflow-hidden hover:shadow-lg hover:shadow-primary w-full max-w-[75vw] md:w-[25rem] h-[15rem]"
             [style]="'background-image: url('+journey().thumbnail+ '); background-size: cover; background-repeat: no-repeat;'">
     <div class="absolute inset-0 bg-black/25"></div>
     <mat-card-content class="relative p-4 flex flex-col sm:flex-col md:flex-row justify-between h-full">
       <div>
         <h5 class="text-lg font-semibold mb-2"><span class="text-white">{{ journey().name }}</span></h5>
         <p class="text-sm font-medium text-gray-200 mb-4">{{ journey().title }}</p>
-        <div class="flex flex-wrap gap-2">
+        <div class="flex gap-2 overflow-hidden w-full">
           @for (tag of journey().tags; track tag) {
             <span
               class="badge border border-gray-300 bg-gray-800 text-gray-200 rounded-full px-3 py-1 text-xs shadow-sm hover:bg-gray-700 hover:border-gray-500 transition-all">
