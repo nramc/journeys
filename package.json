@@ -36,7 +36,7 @@
     "highlight.js": "11.11.1",
     "jszip": "3.10.1",
     "leaflet": "1.9.4",
-    "leaflet.fullscreen": "3.0.2",
+    "leaflet.fullscreen": "4.0.0",
     "marked": "15.0.7",
     "ng-gallery": "12.0.0",
     "ngx-markdown": "19.1.1",
