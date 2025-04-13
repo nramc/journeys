@@ -7,7 +7,7 @@ import {Role} from "./role";
   providedIn: 'root'
 })
 export class LoginService {
-  private httpClient = inject(HttpClient);
+  private readonly httpClient = inject(HttpClient);
 
   login(credential: Credential) {
     return this.httpClient.post<LoginResponse>(environment.journeyApi + '/login', {
