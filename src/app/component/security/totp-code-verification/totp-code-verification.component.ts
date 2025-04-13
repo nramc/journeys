@@ -37,20 +37,21 @@ export class TotpCodeVerificationComponent {
 
   isCodeInvalid = model<boolean>(false);
 
-  confirmCode(confirmationCode: HTMLInputElement) {
+  confirmCode(confirmationCode: HTMLInputElement, confirmButton: MatButton) {
     this.isCodeInvalid.set(false);
     if (confirmationCode.validity.valid) {
+      confirmButton.disabled = true;
       if (this.credential) {
-        this.verifyCodeInUnauthenticatedContext(confirmationCode.value, this.credential);
+        this.verifyCodeInUnauthenticatedContext(confirmationCode.value, this.credential, confirmButton);
       } else {
-        this.verifyCodeInAuthenticatedContext(confirmationCode.value);
+        this.verifyCodeInAuthenticatedContext(confirmationCode.value, confirmButton);
       }
     } else {
       this.isCodeInvalid.set(true);
     }
   }
 
-  verifyCodeInUnauthenticatedContext(confirmationCode: string, credential: Credential) {
+  verifyCodeInUnauthenticatedContext(confirmationCode: string, credential: Credential, confirmButton: MatButton) {
     this.loginService.mfa(confirmationCode, "TOTP", credential)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -58,16 +59,16 @@ export class TotpCodeVerificationComponent {
           this.authService.getUserContextForSuccessfulLogin(loginResponse);
           this.dialogRef.close(true);
         },
-        error: err => this.onError(err)
+        error: err => this.onError(err, confirmButton)
       });
   }
 
-  verifyCodeInAuthenticatedContext(confirmationCode: string) {
+  verifyCodeInAuthenticatedContext(confirmationCode: string, confirmButton: MatButton) {
     this.myAccountService.verifyTotpCode(confirmationCode)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: data => this.onSuccess(data),
-        error: err => this.onError(err)
+        error: err => this.onError(err, confirmButton)
       });
   }
 
@@ -79,7 +80,8 @@ export class TotpCodeVerificationComponent {
     }
   }
 
-  onError(err: Error) {
+  onError(err: Error, confirmButton: MatButton) {
+    confirmButton.disabled = false;
     console.log(err);
     this.isCodeInvalid.set(true);
   }

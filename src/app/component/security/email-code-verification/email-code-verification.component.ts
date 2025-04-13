@@ -57,6 +57,7 @@ export class EmailCodeVerificationComponent {
   }
 
   verifyCodeInUnauthenticatedContext(confirmationCode: HTMLInputElement, confirmButton: MatButton) {
+    confirmButton.disabled = true;
     this.loginService.mfa(confirmationCode.value, "EMAIL_ADDRESS", this.credential)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
