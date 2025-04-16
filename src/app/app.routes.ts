@@ -147,6 +147,15 @@ export const ROUTES: Routes = [
     title: "Tools"
   },
   {
+    path: 'user-manual',
+    children: [
+      {
+        path: '', title: 'User Manual',
+        loadComponent: () => import('./user-manual/user-manual-overview.component').then(m => m.UserManualOverviewComponent)
+      }
+    ]
+  },
+  {
     path: 'aboutUs',
     loadComponent: () => import('./page/about/about.component').then(m => m.AboutComponent),
     title: "About"

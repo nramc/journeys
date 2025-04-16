@@ -80,6 +80,13 @@ export const TOOLS_PAGE_INFO: PageInfo = {
   path: "/tools"
 };
 
+export const USER_MANUAL_PAGE_INFO: PageInfo = {
+  name: "User Manual",
+  title: "User Manual",
+  description: "",
+  path: "/user-manual"
+};
+
 export const ABOUT_PAGE_INFO: PageInfo = {
   name: "About Us",
   title: "About Us",
