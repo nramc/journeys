@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {CalendarOptions, EventInput, EventSourceInput} from "@fullcalendar/core";
 import rrulePlugin from "@fullcalendar/rrule";
+import multiMonthPlugin from '@fullcalendar/multimonth'
 import dayGridPlugin from "@fullcalendar/daygrid";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import {CommonModule} from "@angular/common";
@@ -39,11 +40,11 @@ export class JourneyCalendarViewComponent {
     headerToolbar: {
       right: 'today prev,next',
       center: 'title',
-      left: 'dayGridMonth,dayGridWeek,dayGridDay'
+      left: 'multiMonthYear,dayGridMonth,dayGridWeek,dayGridDay'
     },
     height: 'auto',
-    initialView: 'dayGridMonth',
-    plugins: [rrulePlugin, dayGridPlugin],
+    initialView: 'multiMonthYear',
+    plugins: [rrulePlugin, multiMonthPlugin, dayGridPlugin],
     editable: false,
     eventDisplay: 'block',
     events: this.journeys,
