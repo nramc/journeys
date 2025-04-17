@@ -7,6 +7,7 @@
   }
 }
 
+// Customize full calendar styles
 .fc-event {
   cursor: pointer;
   background-color: #2E7D32 !important;
@@ -14,4 +15,7 @@
   color: white !important;
 }
 
+.fc .fc-toolbar {
+  @apply max-sm:flex-col;
+}
 

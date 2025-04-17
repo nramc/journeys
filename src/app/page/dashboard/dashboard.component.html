@@ -18,8 +18,29 @@
     </div>
   </section>
 
-  <section class="relative" style="height: 70vh;">
-    <app-world-map [geoJsonData]="featureCollection()" [enablePopup]="true"></app-world-map>
+  <section class="flex mb-2 gap-2 flex-wrap justify-center content-center">
+    <mat-button-toggle-group name="viewType" aria-label="View Type" hideSingleSelectionIndicator="true"
+                             [(ngModel)]="viewType">
+      <mat-button-toggle value="map" matTooltip="switch to Map view">
+        <mat-icon>map</mat-icon>
+        Map
+      </mat-button-toggle>
+      <mat-button-toggle value="calendar" matTooltip="switch to Calendar view">
+        <mat-icon>calendar_month</mat-icon>
+        Calendar
+      </mat-button-toggle>
+    </mat-button-toggle-group>
   </section>
+
+  @if (viewType() == 'calendar') {
+    <section class="border-2 border-primary p-4">
+      <app-journey-calendar-view></app-journey-calendar-view>
+    </section>
+  } @else {
+    <section class="relative" style="height: 70vh;">
+      <app-world-map [geoJsonData]="featureCollection()" [enablePopup]="true"></app-world-map>
+    </section>
+  }
+
 
 </main>
