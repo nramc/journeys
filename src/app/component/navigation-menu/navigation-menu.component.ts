@@ -1,6 +1,6 @@
 import {Component, inject, output} from '@angular/core';
 import {
-  ABOUT_PAGE_INFO,
+  ABOUT_PAGE_INFO, CALENDAR_PAGE_INFO,
   DASHBOARD_PAGE_INFO,
   GALLERY_PAGE_INFO,
   HOME_PAGE_INFO,
@@ -35,6 +35,7 @@ export class NavigationMenuComponent {
   protected readonly DASHBOARD_PAGE_INFO = DASHBOARD_PAGE_INFO;
   protected readonly GALLERY_PAGE_INFO = GALLERY_PAGE_INFO;
   protected readonly JOURNEY_SEARCH_PAGE_INFO = JOURNEY_SEARCH_PAGE_INFO;
+  protected readonly CALENDAR_PAGE_INFO = CALENDAR_PAGE_INFO;
   protected readonly STATISTICS_PAGE_INFO = STATISTICS_PAGE_INFO;
   protected readonly TIMELINE_PAGE_INFO = TIMELINE_PAGE_INFO;
   protected readonly TOOLS_PAGE_INFO = TOOLS_PAGE_INFO;

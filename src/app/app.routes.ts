@@ -128,6 +128,13 @@ export const ROUTES: Routes = [
     canMatch: [canMatchWhenAuthenticatedGuard]
   },
   {
+    path: 'calendar',
+    loadComponent: () => import('./page/calendar/calendar.component').then(m => m.CalendarComponent),
+    title: "Calendar",
+    canActivate: [canActivateWhenAuthenticatedGuard],
+    canMatch: [canMatchWhenAuthenticatedGuard]
+  },
+  {
     path: 'statistics',
     loadComponent: () => import('./page/statistics/statistics.component').then(m => m.StatisticsComponent),
     title: "Statistics",

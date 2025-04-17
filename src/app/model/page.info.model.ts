@@ -60,6 +60,12 @@ export const GALLERY_PAGE_INFO: PageInfo = {
   description: "",
   path: "/gallery"
 };
+export const CALENDAR_PAGE_INFO: PageInfo = {
+  name: "Calendar",
+  title: "Caledar",
+  description: "",
+  path: "/calendar"
+};
 export const STATISTICS_PAGE_INFO: PageInfo = {
   name: "Statistics",
   title: "Statistics",

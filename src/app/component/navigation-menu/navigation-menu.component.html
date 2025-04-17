@@ -33,6 +33,14 @@
     </div>
   </a>
 
+  <a mat-list-item *ngIf="isUserAuthenticated()" [routerLink]="CALENDAR_PAGE_INFO.path"
+     routerLinkActive="active">
+    <div class="flex items-center gap-2">
+      <mat-icon>calendar_month</mat-icon>
+      <span>{{ CALENDAR_PAGE_INFO.name }}</span>
+    </div>
+  </a>
+
   <a mat-list-item *ngIf="isUserAuthenticated()" [routerLink]="STATISTICS_PAGE_INFO.path"
      routerLinkActive="active">
     <div class="flex items-center gap-2">
