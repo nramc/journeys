@@ -20,7 +20,16 @@ export class UserManualOverviewComponent {
     },
     height: 'auto',
     initialView: 'dayGridMonth',
-    plugins: [dayGridPlugin]
+    plugins: [dayGridPlugin],
+    editable: false,
+    events:[],
+    defaultAllDay:true,
+    navLinks: true,
+    navLinkDayClick: function(date, jsEvent) {
+      console.log('day', date.toISOString());
+    }
   };
+
+  // todo: Date & Time	https://fullcalendar.io/docs
 
 }
