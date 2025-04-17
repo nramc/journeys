@@ -32,6 +32,7 @@ export class UserManualOverviewComponent {
       title: 'Another Journey which has length maximum of 50 characters',
       url: 'https://www.google.com',
       start: '2025-04-17',
+      ...this.defaultEventProperties
     }
   ];
   calendarOptions: CalendarOptions = {
@@ -51,6 +52,9 @@ export class UserManualOverviewComponent {
     navLinkDayClick: function (date, jsEvent) {
       console.log('day', date.toISOString());
     },
+    eventDidMount: info => {
+      info.el.setAttribute('title', info.event.title);
+    }
   };
 
   // todo: Date & Time	https://fullcalendar.io/docs
