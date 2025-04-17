@@ -41,12 +41,6 @@ export const NEW_JOURNEY_PAGE_INFO: PageInfo = {
   description: "",
   path: "/journey/new"
 };
-export const VIEW_JOURNEY_PAGE_INFO: PageInfo = {
-  name: "ViewJourney",
-  title: "View Journey",
-  description: "",
-  path: "/journey/{id}/view"
-};
 
 export const DASHBOARD_PAGE_INFO: PageInfo = {
   name: "Dashboard",
@@ -60,6 +54,7 @@ export const GALLERY_PAGE_INFO: PageInfo = {
   description: "",
   path: "/gallery"
 };
+
 export const STATISTICS_PAGE_INFO: PageInfo = {
   name: "Statistics",
   title: "Statistics",
@@ -78,6 +73,13 @@ export const TOOLS_PAGE_INFO: PageInfo = {
   title: "Tools",
   description: "",
   path: "/tools"
+};
+
+export const USER_MANUAL_PAGE_INFO: PageInfo = {
+  name: "User Manual",
+  title: "User Manual",
+  description: "",
+  path: "/user-manual"
 };
 
 export const ABOUT_PAGE_INFO: PageInfo = {
