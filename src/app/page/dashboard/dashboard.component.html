@@ -2,35 +2,39 @@
   <app-page-header [pageInfo]="DASHBOARD_PAGE_INFO"></app-page-header>
 </header>
 <main class="container">
-  <section class="flex mb-2 gap-2 flex-wrap justify-center content-center">
 
-    <div class="text-center border-primary border-2 rounded-sm rounded-2 p-2" style="min-width: 75px;">
-      <span class="fs-6 gradient-text text-primary fw-bold">Journeys</span>
-      <div class="small gradient-text text-primary fw-bold">{{ totalJourneys() }}</div>
-    </div>
-    <div class="text-center border-primary border-2 rounded-sm rounded-2 p-2" style="min-width: 75px;">
-      <span class="fs-6 gradient-text text-primary fw-bold">Country</span>
-      <div class="small gradient-text text-primary fw-bold">{{ totalCountry() }}</div>
-    </div>
-    <div class="text-center border-primary border-2 rounded-sm rounded-2 p-2" style="min-width: 75px;">
-      <span class="fs-6 gradient-text text-primary fw-bold">City</span>
-      <div class="small gradient-text text-primary fw-bold">{{ totalCity() }}</div>
-    </div>
-  </section>
+  <div class="flex max-sm:flex-col gap-2 justify-evenly content-center">
 
-  <section class="flex mb-2 gap-2 flex-wrap justify-center content-center">
-    <mat-button-toggle-group name="viewType" aria-label="View Type" hideSingleSelectionIndicator="true"
-                             [(ngModel)]="viewType">
-      <mat-button-toggle value="map" matTooltip="switch to Map view">
-        <mat-icon>map</mat-icon>
-        Map
-      </mat-button-toggle>
-      <mat-button-toggle value="calendar" matTooltip="switch to Calendar view">
-        <mat-icon>calendar_month</mat-icon>
-        Calendar
-      </mat-button-toggle>
-    </mat-button-toggle-group>
-  </section>
+    <div class="flex mb-2 gap-2 flex-wrap justify-center content-center">
+      <div class="text-center border-primary border-2 rounded-sm rounded-2 p-2" style="min-width: 75px;">
+        <span class="fs-6 gradient-text text-primary fw-bold">Journeys</span>
+        <div class="small gradient-text text-primary fw-bold">{{ totalJourneys() }}</div>
+      </div>
+      <div class="text-center border-primary border-2 rounded-sm rounded-2 p-2" style="min-width: 75px;">
+        <span class="fs-6 gradient-text text-primary fw-bold">Country</span>
+        <div class="small gradient-text text-primary fw-bold">{{ totalCountry() }}</div>
+      </div>
+      <div class="text-center border-primary border-2 rounded-sm rounded-2 p-2" style="min-width: 75px;">
+        <span class="fs-6 gradient-text text-primary fw-bold">City</span>
+        <div class="small gradient-text text-primary fw-bold">{{ totalCity() }}</div>
+      </div>
+    </div>
+
+    <div class="flex mb-2 gap-2 flex-wrap justify-center content-center">
+      <mat-button-toggle-group name="viewType" aria-label="View Type" hideSingleSelectionIndicator="true"
+                               [(ngModel)]="viewType">
+        <mat-button-toggle value="map" matTooltip="switch to Map view">
+          <mat-icon>map</mat-icon>
+          Map
+        </mat-button-toggle>
+        <mat-button-toggle value="calendar" matTooltip="switch to Calendar view">
+          <mat-icon>calendar_month</mat-icon>
+          Calendar
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+  </div>
 
   @if (viewType() == 'calendar') {
     <section class="border-2 border-primary p-4">
