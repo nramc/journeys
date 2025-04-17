@@ -41,12 +41,6 @@ export const NEW_JOURNEY_PAGE_INFO: PageInfo = {
   description: "",
   path: "/journey/new"
 };
-export const VIEW_JOURNEY_PAGE_INFO: PageInfo = {
-  name: "ViewJourney",
-  title: "View Journey",
-  description: "",
-  path: "/journey/{id}/view"
-};
 
 export const DASHBOARD_PAGE_INFO: PageInfo = {
   name: "Dashboard",
@@ -60,12 +54,7 @@ export const GALLERY_PAGE_INFO: PageInfo = {
   description: "",
   path: "/gallery"
 };
-export const CALENDAR_PAGE_INFO: PageInfo = {
-  name: "Calendar",
-  title: "Caledar",
-  description: "",
-  path: "/calendar"
-};
+
 export const STATISTICS_PAGE_INFO: PageInfo = {
   name: "Statistics",
   title: "Statistics",

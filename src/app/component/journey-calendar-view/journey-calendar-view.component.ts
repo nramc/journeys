@@ -44,7 +44,7 @@ export class JourneyCalendarViewComponent {
     events: this.journeys(),
     defaultAllDay: true,
     navLinks: true,
-    navLinkDayClick: function (date, jsEvent) {
+    navLinkDayClick: function (date) {
       console.log('day', date.toISOString());
     },
     eventDidMount: info => {
