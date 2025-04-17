@@ -9,15 +9,18 @@ import {JourneyService} from "../../service/journey/journey.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {FeatureCollection} from "geojson";
 import {map} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-journey-calendar-view',
   imports: [CommonModule, FullCalendarModule],
-  templateUrl: './journey-calendar-view.component.html',
-  styleUrl: './journey-calendar-view.component.scss'
+  template: `
+    <full-calendar [options]="calendarOptions" [events]="journeys()"></full-calendar>`,
+  styles: []
 })
 export class JourneyCalendarViewComponent {
   private readonly journeyService = inject(JourneyService);
+  private readonly router = inject(Router);
   defaultEventProperties: EventInput = {
     rrule: {
       freq: 'yearly',
@@ -38,7 +41,7 @@ export class JourneyCalendarViewComponent {
     plugins: [rrulePlugin, multiMonthPlugin, dayGridPlugin],
     editable: false,
     eventDisplay: 'block',
-    events: [],
+    events: this.journeys(),
     defaultAllDay: true,
     navLinks: true,
     navLinkDayClick: function (date, jsEvent) {
@@ -46,14 +49,16 @@ export class JourneyCalendarViewComponent {
     },
     eventDidMount: info => {
       info.el.setAttribute('title', info.event.title);
+    },
+    eventClick: info => {
+      this.router.navigate(['/journey', info.event.id, 'view']).then(console.log);
     }
   };
 
   private toEventData(featureCollection: FeatureCollection) {
     return featureCollection?.features.map(feature => ({
-      id: feature.properties?.['id'],
+      id: feature.id,
       title: feature.properties?.['name'],
-      url: feature.properties?.['thumbnail'],
       start: feature.properties?.['journeyDate'],
       ...this.defaultEventProperties
     })) as EventSourceInput;
