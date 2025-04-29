@@ -1,6 +1,11 @@
 <div class="flex flex-col container h-full">
 
   <main class="mb-auto">
+    @if (!isUserAuthenticated()) {
+      <app-anonymous-welcome-message/>
+    }
+
+
 
     <ng-container *ngIf="userData() as userContext">
       <section class="flex flex-col sm:flex-row sm:items-center sm:gap-6"
