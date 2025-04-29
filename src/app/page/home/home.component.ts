@@ -12,6 +12,8 @@ import {HasWriteAccessDirective} from "../../directive/has-write-access.directiv
 import {MatIcon} from "@angular/material/icon";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {ThirukkuralWidgetComponent} from "../../component/thirukkural/thirukkural-widget.component";
+import {MatButtonModule} from "@angular/material/button";
+import {AnonymousWelcomeMessageComponent} from "./anonymous-welcome-message/anonymous-welcome-message.component";
 
 @Component({
   selector: 'app-home',
@@ -25,7 +27,9 @@ import {ThirukkuralWidgetComponent} from "../../component/thirukkural/thirukkura
     HasWriteAccessDirective,
     MatIcon,
     MatProgressSpinner,
-    ThirukkuralWidgetComponent
+    ThirukkuralWidgetComponent,
+    MatButtonModule,
+    AnonymousWelcomeMessageComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

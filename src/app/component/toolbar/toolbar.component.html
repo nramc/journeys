@@ -35,13 +35,16 @@
       </button>
     </mat-menu>
 
-    <div class="inline-flex gap-2">
+    <div class="inline-flex">
+      <button mat-icon-button routerLink="/login" *ngIf="!isUserAuthenticated()">
+        <mat-icon matTooltip="Login" class="text-primary">account_circle</mat-icon>
+      </button>
       <app-theme-toggle class="contents"/>
-      <button [matMenuTriggerFor]="accountMenu" *ngIf="isUserAuthenticated()">
+      <button mat-icon-button [matMenuTriggerFor]="accountMenu" *ngIf="isUserAuthenticated()">
         <mat-icon matTooltip="My Account" class="text-primary">account_circle</mat-icon>
       </button>
 
-      <button [routerLink]="LOGOUT_PAGE_INFO.path" *ngIf="isUserAuthenticated()">
+      <button mat-icon-button [routerLink]="LOGOUT_PAGE_INFO.path" *ngIf="isUserAuthenticated()">
         <mat-icon matTooltip="Logout" class="text-primary">power_settings_new</mat-icon>
       </button>
     </div>

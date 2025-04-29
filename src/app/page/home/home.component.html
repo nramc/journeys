@@ -1,6 +1,11 @@
 <div class="flex flex-col container h-full">
 
   <main class="mb-auto">
+    @if (!isUserAuthenticated()) {
+      <app-anonymous-welcome-message/>
+    }
+
+
 
     <ng-container *ngIf="userData() as userContext">
       <section class="flex flex-col sm:flex-row sm:items-center sm:gap-6"
@@ -36,11 +41,6 @@
       <app-quick-links></app-quick-links>
     </section>
 
-    <!-- Thirukkural widget -->
-    <section>
-      <app-thirukkural-widget/>
-    </section>
-
     <!-- Today timeline data -->
     <section class="mt-3 mb-3 feature-content" *ngIf="upcomingJourniversaries().length  > 0">
       <app-upcoming-anniversaries [journeys]="upcomingJourniversaries()"></app-upcoming-anniversaries>
@@ -58,6 +58,11 @@
         <div class="text-primary small">In the meantime, feel free to explore other pages in the space-time continuum.
         </div>
       </div>
+    </section>
+
+    <!-- Thirukkural widget -->
+    <section>
+      <app-thirukkural-widget/>
     </section>
   </main>
 
