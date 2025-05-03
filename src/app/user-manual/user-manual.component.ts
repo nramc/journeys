@@ -3,6 +3,7 @@ import {USER_MANUAL_PAGE_INFO} from "../model/page.info.model";
 import {PageHeaderComponent} from "../component/page-header/page-header.component";
 import {ManualGettingStartedComponent} from "./manual-getting-started/manual-getting-started.component";
 import {ManualUserOnboardingComponent} from "./manual-user-onboarding/manual-user-onboarding.component";
+import {ManualJourneyManagerComponent} from "./manual-journey-manager/manual-journey-manager.component";
 
 
 @Component({
@@ -10,7 +11,8 @@ import {ManualUserOnboardingComponent} from "./manual-user-onboarding/manual-use
   imports: [
     PageHeaderComponent,
     ManualGettingStartedComponent,
-    ManualUserOnboardingComponent
+    ManualUserOnboardingComponent,
+    ManualJourneyManagerComponent
   ],
   templateUrl: './user-manual.component.html',
   styles: []
