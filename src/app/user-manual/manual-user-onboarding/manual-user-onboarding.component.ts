@@ -1,13 +1,8 @@
-import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
-import {NgOptimizedImage} from "@angular/common";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-manual-user-onboarding',
-  imports: [
-    RouterLink,
-    NgOptimizedImage
-  ],
+  imports: [],
   templateUrl: './manual-user-onboarding.component.html',
   styles: []
 })
