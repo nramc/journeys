@@ -1,0 +1,30 @@
+<section>
+  <h2 class="text-lg font-bold mb-4">Statistics</h2>
+  <p class="mb-4">
+    The Statistics page provides an overview of the number of Journeys you have created.
+    This information is displayed in a simple and easy-to-read format to help you track your progress.
+  </p>
+  <p>
+    The statistics page can be accessed by clicking on the <a routerLink="/statistics">Statistics</a> link in the left
+    sidebar of the application.
+  </p>
+  <p class="mb-4">
+    The statistics are divided into following sections, Each section displays the total number of items in that
+    category.
+  </p>
+  <ul class="list-disc list-inside mb-4">
+    <li>Years</li>
+    <li>Countries</li>
+    <li>Cities</li>
+    <li>Categories</li>
+  </ul>
+
+  <p class="mb-4">
+    This is the example of the statistics page:
+    <img src="assets/manual/statistics-manual-01.png" alt="Thumbnail" class="thumbnail mt-4" tabindex="-1"
+         (click)="thumbnailClicked.emit('assets/manual/statistics-manual-01.png')"
+         (keydown.enter)="thumbnailClicked.emit('assets/manual/statistics-manual-01.png')"/>
+  </p>
+
+  <br/>
+</section>

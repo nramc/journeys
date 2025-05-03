@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, viewChild} from '@angular/core';
 import {USER_MANUAL_PAGE_INFO} from "../model/page.info.model";
 import {PageHeaderComponent} from "../component/page-header/page-header.component";
 import {ManualGettingStartedComponent} from "./manual-getting-started/manual-getting-started.component";
@@ -6,6 +6,7 @@ import {ManualUserOnboardingComponent} from "./manual-user-onboarding/manual-use
 import {ManualJourneyManagerComponent} from "./manual-journey-manager/manual-journey-manager.component";
 import {ManualIntroductionComponent} from "./manual-introduction/manual-introduction.component";
 import {ManualToolsComponent} from "./manual-tools/manual-tools.component";
+import {ManualStatisticsComponent} from "./manual-statistics/manual-statistics.component";
 
 
 @Component({
@@ -16,16 +17,25 @@ import {ManualToolsComponent} from "./manual-tools/manual-tools.component";
     ManualUserOnboardingComponent,
     ManualJourneyManagerComponent,
     ManualIntroductionComponent,
-    ManualToolsComponent
+    ManualToolsComponent,
+    ManualStatisticsComponent
   ],
   templateUrl: './user-manual.component.html',
-  styles: []
+  styleUrl: './user-manual.component.scss',
 })
 export class UserManualComponent {
   protected readonly USER_MANUAL_PAGE_INFO = USER_MANUAL_PAGE_INFO;
+  imageDialog = viewChild.required<ElementRef<HTMLDialogElement>>('imageDialog');
 
   scrollTo(id: string): void {
     document.getElementById(id)?.scrollIntoView({behavior: 'smooth'});
+  }
+
+  showDialog(imagUrl: string) {
+    const dialogElement = this.imageDialog().nativeElement;
+    const imageElement = dialogElement.querySelector('img') as HTMLImageElement;
+    imageElement.src = imagUrl;
+    dialogElement.showModal();
   }
 
 }

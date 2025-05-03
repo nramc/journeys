@@ -20,6 +20,9 @@
                  class="text-blue-500 hover:underline">User Onboarding</a></li>
           <li><a (click)="scrollTo('journey-manager')" (keydown.enter)="scrollTo('journey-manager')" tabindex="0"
                  class="text-blue-500 hover:underline">Journey Manager</a></li>
+          <li><a (click)="scrollTo('statistics')" (keydown.enter)="scrollTo('statistics')" tabindex="0"
+                 class="text-blue-500 hover:underline">Statistics</a></li>
+
           <li><a (click)="scrollTo('tools')" (keydown.enter)="scrollTo('tools')" tabindex="0"
                  class="text-blue-500 hover:underline">Tools</a></li>
         </ul>
@@ -36,9 +39,18 @@
 
     <app-manual-journey-manager id="journey-manager"/>
 
+    <app-manual-statistics (thumbnailClicked)="showDialog($event)" id="statistics"/>
+
     <app-manual-tools id="tools"/>
 
   </main>
+
+  <dialog #imageDialog id="imageDialog" (click)="imageDialog.close()" (keydown.escape)="imageDialog.close()"
+          tabindex="-1">
+    <div class="dialog-content">
+      <img src="assets/logo/journey-logo-1920×1080.png" alt="Journey" class="full-screen-image"/>
+    </div>
+  </dialog>
 
 </div>
 
