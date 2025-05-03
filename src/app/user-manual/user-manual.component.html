@@ -1,0 +1,41 @@
+<app-page-header [pageInfo]="USER_MANUAL_PAGE_INFO"/>
+
+<div class="flex flex-col container h-full">
+  <main class="mb-auto" (scroll)="onWindowScroll()">
+    {{showScrollTop()}}
+    <section class="table-of-contents mb-4">
+      <h2 class="text-lg font-bold mb-4">Table of Contents</h2>
+      <nav>
+        <ul class="list-disc pl-5">
+          <li><a (click)="scrollTo('what-is-journey')" class="text-blue-500 hover:underline">What is Journey?</a></li>
+          <li><a (click)="scrollTo('getting-started')" class="text-blue-500 hover:underline">Getting Started</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <p class="h-full">
+      Welcome to the <strong>Journey User Manual</strong>!
+      This guide is designed to help you navigate and make the most of your experience with our platform.
+    </p>
+    <h2 id="what-is-journey" class="h-full">What is Journey ?</h2>
+    <p class="h-full">
+      Journey is a platform that allows you to <strong>create, manage, and share</strong> your travel experiences.
+      Whether you're planning a trip, documenting your adventures, or reminiscing about past journeys,
+      Journey provides the tools you need to capture and share your memories.
+    </p>
+    {{showScrollTop()}}
+    <h2 id="getting-started">Getting Started</h2>
+    <p>
+      To get started with Journey, follow these simple steps:
+    </p>
+
+  </main>
+  @if (showScrollTop()) {
+    <button class="scroll-to-top" title="Scroll to Top"
+            (click)="scrollToTop()">↑
+    </button>
+  }
+
+{{showScrollTop()}}
+</div>
+

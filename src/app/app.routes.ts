@@ -151,7 +151,7 @@ export const ROUTES: Routes = [
     children: [
       {
         path: '', title: 'User Manual',
-        loadComponent: () => import('./user-manual/user-manual-overview.component').then(m => m.UserManualOverviewComponent)
+        loadComponent: () => import('./user-manual/user-manual.component').then(m => m.UserManualComponent)
       }
     ]
   },
