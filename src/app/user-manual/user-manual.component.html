@@ -45,7 +45,8 @@
 
   </main>
 
-  <dialog #imageDialog id="imageDialog" onclick="this.close()">
+  <dialog #imageDialog id="imageDialog" (click)="imageDialog.close()" (keydown.escape)="imageDialog.close()"
+          tabindex="-1">
     <div class="dialog-content">
       <img src="assets/logo/journey-logo-1920×1080.png" alt="Journey" class="full-screen-image"/>
     </div>
