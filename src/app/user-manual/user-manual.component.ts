@@ -5,6 +5,7 @@ import {ManualGettingStartedComponent} from "./manual-getting-started/manual-get
 import {ManualUserOnboardingComponent} from "./manual-user-onboarding/manual-user-onboarding.component";
 import {ManualJourneyManagerComponent} from "./manual-journey-manager/manual-journey-manager.component";
 import {ManualIntroductionComponent} from "./manual-introduction/manual-introduction.component";
+import {ManualToolsComponent} from "./manual-tools/manual-tools.component";
 
 
 @Component({
@@ -14,7 +15,8 @@ import {ManualIntroductionComponent} from "./manual-introduction/manual-introduc
     ManualGettingStartedComponent,
     ManualUserOnboardingComponent,
     ManualJourneyManagerComponent,
-    ManualIntroductionComponent
+    ManualIntroductionComponent,
+    ManualToolsComponent
   ],
   templateUrl: './user-manual.component.html',
   styles: []
