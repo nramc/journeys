@@ -20,6 +20,9 @@
                  class="text-blue-500 hover:underline">User Onboarding</a></li>
           <li><a (click)="scrollTo('journey-manager')" (keydown.enter)="scrollTo('journey-manager')" tabindex="0"
                  class="text-blue-500 hover:underline">Journey Manager</a></li>
+          <li><a (click)="scrollTo('statistics')" (keydown.enter)="scrollTo('statistics')" tabindex="0"
+                 class="text-blue-500 hover:underline">Statistics</a></li>
+
           <li><a (click)="scrollTo('tools')" (keydown.enter)="scrollTo('tools')" tabindex="0"
                  class="text-blue-500 hover:underline">Tools</a></li>
         </ul>
@@ -35,6 +38,8 @@
     <app-manual-user-onboarding id="user-onboarding"/>
 
     <app-manual-journey-manager id="journey-manager"/>
+
+    <app-manual-statistics id="statistics"/>
 
     <app-manual-tools id="tools"/>
 
