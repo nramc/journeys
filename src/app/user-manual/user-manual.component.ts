@@ -2,13 +2,15 @@ import {Component} from '@angular/core';
 import {USER_MANUAL_PAGE_INFO} from "../model/page.info.model";
 import {PageHeaderComponent} from "../component/page-header/page-header.component";
 import {ManualGettingStartedComponent} from "./manual-getting-started/manual-getting-started.component";
+import {ManualUserOnboardingComponent} from "./manual-user-onboarding/manual-user-onboarding.component";
 
 
 @Component({
   selector: 'app-user-manual-overview',
   imports: [
     PageHeaderComponent,
-    ManualGettingStartedComponent
+    ManualGettingStartedComponent,
+    ManualUserOnboardingComponent
   ],
   templateUrl: './user-manual.component.html',
   styles: []
