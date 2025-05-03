@@ -12,11 +12,13 @@
       <h2 class="text-lg font-bold mb-4">Table of Contents</h2>
       <nav>
         <ul class="list-disc pl-5">
-          <li><a (click)="scrollTo('what-is-journey')" (keydown.enter)="scrollTo('what-is-journey')" tabindex="0"
-                 class="text-blue-500 hover:underline">What is Journey?</a></li>
+          <li><a (click)="scrollTo('introduction')" (keydown.enter)="scrollTo('introduction')" tabindex="0"
+                 class="text-blue-500 hover:underline pointer">Introduction</a></li>
           <li><a (click)="scrollTo('getting-started')" (keydown.enter)="scrollTo('getting-started')" tabindex="0"
                  class="text-blue-500 hover:underline">Getting Started</a></li>
           <li><a (click)="scrollTo('user-onboarding')" (keydown.enter)="scrollTo('user-onboarding')" tabindex="0"
+                 class="text-blue-500 hover:underline">User Onboarding</a></li>
+          <li><a (click)="scrollTo('journey-manager')" (keydown.enter)="scrollTo('journey-manager')" tabindex="0"
                  class="text-blue-500 hover:underline">User Onboarding</a></li>
         </ul>
       </nav>
@@ -24,11 +26,13 @@
 
     <br/>
 
-    <app-manual-getting-started/>
+    <app-manual-introduction id="introduction"/>
 
-    <app-manual-user-onboarding/>
+    <app-manual-getting-started id="getting-started"/>
 
-    <app-manual-journey-manager/>
+    <app-manual-user-onboarding id="user-onboarding"/>
+
+    <app-manual-journey-manager id="journey-manager"/>
 
   </main>
 

@@ -4,6 +4,7 @@ import {PageHeaderComponent} from "../component/page-header/page-header.componen
 import {ManualGettingStartedComponent} from "./manual-getting-started/manual-getting-started.component";
 import {ManualUserOnboardingComponent} from "./manual-user-onboarding/manual-user-onboarding.component";
 import {ManualJourneyManagerComponent} from "./manual-journey-manager/manual-journey-manager.component";
+import {ManualIntroductionComponent} from "./manual-introduction/manual-introduction.component";
 
 
 @Component({
@@ -12,7 +13,8 @@ import {ManualJourneyManagerComponent} from "./manual-journey-manager/manual-jou
     PageHeaderComponent,
     ManualGettingStartedComponent,
     ManualUserOnboardingComponent,
-    ManualJourneyManagerComponent
+    ManualJourneyManagerComponent,
+    ManualIntroductionComponent
   ],
   templateUrl: './user-manual.component.html',
   styles: []
