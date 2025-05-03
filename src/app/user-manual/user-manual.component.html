@@ -1,7 +1,12 @@
 <app-page-header [pageInfo]="USER_MANUAL_PAGE_INFO"/>
 
-<div class="flex flex-col container h-full">
+<div class="flex flex-col container h-full text-pretty">
   <main class="mb-auto">
+
+    <p class="mb-4">
+      Welcome to the <strong>Journey User Manual</strong>!
+      This guide is designed to help you navigate and make the most of your experience with our platform.
+    </p>
 
     <section class="table-of-contents mb-4">
       <h2 class="text-lg font-bold mb-4">Table of Contents</h2>
@@ -13,20 +18,9 @@
       </nav>
     </section>
 
-    <p>
-      Welcome to the <strong>Journey User Manual</strong>!
-      This guide is designed to help you navigate and make the most of your experience with our platform.
-    </p>
-    <h2 id="what-is-journey">What is Journey ?</h2>
-    <p>
-      Journey is a platform that allows you to <strong>create, manage, and share</strong> your travel experiences.
-      Whether you're planning a trip, documenting your adventures, or reminiscing about past journeys,
-      Journey provides the tools you need to capture and share your memories.
-    </p>
-    <h2 id="getting-started">Getting Started</h2>
-    <p>
-      To get started with Journey, follow these simple steps:
-    </p>
+    <br/>
+
+    <app-manual-getting-started/>
 
   </main>
 
