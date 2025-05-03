@@ -39,11 +39,17 @@
 
     <app-manual-journey-manager id="journey-manager"/>
 
-    <app-manual-statistics id="statistics"/>
+    <app-manual-statistics (thumbnailClicked)="showDialog($event)" id="statistics"/>
 
     <app-manual-tools id="tools"/>
 
   </main>
+
+  <dialog #imageDialog id="imageDialog" onclick="this.close()">
+    <div class="dialog-content">
+      <img src="assets/logo/journey-logo-1920×1080.png" alt="Journey" class="full-screen-image"/>
+    </div>
+  </dialog>
 
 </div>
 

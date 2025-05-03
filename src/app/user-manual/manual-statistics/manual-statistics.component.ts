@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, output} from '@angular/core';
 import {RouterLink} from "@angular/router";
 
 @Component({
@@ -10,5 +10,6 @@ import {RouterLink} from "@angular/router";
   styles: []
 })
 export class ManualStatisticsComponent {
+  thumbnailClicked = output<string>()
 
 }
