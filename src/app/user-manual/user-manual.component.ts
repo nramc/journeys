@@ -32,8 +32,8 @@ export class UserManualComponent {
   }
 
   showDialog(imagUrl: string) {
-    let dialogElement = this.imageDialog().nativeElement;
-    let imageElement = dialogElement.querySelector('img') as HTMLImageElement;
+    const dialogElement = this.imageDialog().nativeElement;
+    const imageElement = dialogElement.querySelector('img') as HTMLImageElement;
     imageElement.src = imagUrl;
     dialogElement.showModal();
   }
