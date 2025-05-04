@@ -10,22 +10,23 @@
   "platformAutomerge": true,
   "packageRules": [
     {
-      "matchPackagePatterns": [
-        ".*eslint.*"
-      ],
       "enabled": true,
       "automerge": true,
       "automergeType": "pr",
-      "automergeStrategy": "auto"
+      "automergeStrategy": "auto",
+      "matchPackageNames": [
+        "/.*eslint.*/"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        ".*karma.*", ".*jasmine.*"
-      ],
       "enabled": true,
       "automerge": true,
       "automergeType": "pr",
-      "automergeStrategy": "auto"
+      "automergeStrategy": "auto",
+      "matchPackageNames": [
+        "/.*karma.*/",
+        "/.*jasmine.*/"
+      ]
     }
   ]
 }
