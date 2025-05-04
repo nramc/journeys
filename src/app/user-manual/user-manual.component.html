@@ -21,14 +21,15 @@
           <li><a (click)="scrollTo('journey-manager')" (keydown.enter)="scrollTo('journey-manager')" tabindex="0"
                  class="text-blue-500 hover:underline hover:cursor-pointer">Journey Manager</a></li>
           <li><a (click)="scrollTo('dashboard')" (keydown.enter)="scrollTo('dashboard')" tabindex="0"
-                  class="text-blue-500 hover:underline hover:cursor-pointer">Dashboard</a></li>
+                 class="text-blue-500 hover:underline hover:cursor-pointer">Dashboard</a></li>
           <li><a (click)="scrollTo('gallery')" (keydown.enter)="scrollTo('gallery')" tabindex="0"
                  class="text-blue-500 hover:underline hover:cursor-pointer">Gallery</a></li>
           <li><a (click)="scrollTo('statistics')" (keydown.enter)="scrollTo('statistics')" tabindex="0"
                  class="text-blue-500 hover:underline hover:cursor-pointer">Statistics</a></li>
-
           <li><a (click)="scrollTo('tools')" (keydown.enter)="scrollTo('tools')" tabindex="0"
                  class="text-blue-500 hover:underline hover:cursor-pointer">Tools</a></li>
+          <li><a (click)="scrollTo('daily-inspiration')" (keydown.enter)="scrollTo('daily-inspiration')" tabindex="0"
+                 class="text-blue-500 hover:underline hover:cursor-pointer">Daily Inspiration</a></li>
         </ul>
       </nav>
     </section>
@@ -45,11 +46,13 @@
 
     <app-manual-dashboard id="dashboard"/>
 
-    <app-manual-gallery id="gallery" />
+    <app-manual-gallery id="gallery"/>
 
     <app-manual-statistics (thumbnailClicked)="showDialog($event)" id="statistics"/>
 
     <app-manual-tools id="tools"/>
+
+    <app-manual-daily-inspiration id="daily-inspiration"/>
 
   </main>
 
