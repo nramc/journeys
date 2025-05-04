@@ -18,6 +18,15 @@
       "automerge": true,
       "automergeType": "pr",
       "automergeStrategy": "auto"
+    },
+    {
+      "matchPackagePatterns": [
+        ".*karma.*", ".*jasmine.*"
+      ],
+      "enabled": true,
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "auto"
     }
   ]
 }
