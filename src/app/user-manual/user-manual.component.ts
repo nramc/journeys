@@ -7,6 +7,7 @@ import {ManualJourneyManagerComponent} from "./manual-journey-manager/manual-jou
 import {ManualIntroductionComponent} from "./manual-introduction/manual-introduction.component";
 import {ManualToolsComponent} from "./manual-tools/manual-tools.component";
 import {ManualStatisticsComponent} from "./manual-statistics/manual-statistics.component";
+import {ManualGalleryComponent} from "./manual-gallery/manual-gallery.component";
 
 
 @Component({
@@ -18,7 +19,8 @@ import {ManualStatisticsComponent} from "./manual-statistics/manual-statistics.c
     ManualJourneyManagerComponent,
     ManualIntroductionComponent,
     ManualToolsComponent,
-    ManualStatisticsComponent
+    ManualStatisticsComponent,
+    ManualGalleryComponent
   ],
   templateUrl: './user-manual.component.html',
   styleUrl: './user-manual.component.scss',
