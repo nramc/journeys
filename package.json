@@ -64,7 +64,7 @@
     "angular-cli-ghpages": "2.0.3",
     "angular-eslint": "19.3.0",
     "autoprefixer": "10.4.21",
-    "eslint": "9.25.1",
+    "eslint": "9.26.0",
     "jasmine-core": "5.7.1",
     "karma": "6.4.4",
     "karma-chrome-launcher": "3.2.0",
