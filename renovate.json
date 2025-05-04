@@ -8,7 +8,6 @@
   "automergeStrategy": "fast-forward",
   "automergeType": "pr",
   "platformAutomerge": true,
-  "platform": "github",
   "packageRules": [
     {
       "matchPackagePatterns": [
