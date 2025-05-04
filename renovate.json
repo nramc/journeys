@@ -8,5 +8,16 @@
   "automergeStrategy": "fast-forward",
   "automergeType": "pr",
   "platformAutomerge": true,
-  "platform": "github"
+  "platform": "github",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        ".*eslint.*"
+      ],
+      "enabled": true,
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "auto"
+    }
+  ]
 }
