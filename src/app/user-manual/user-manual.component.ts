@@ -8,6 +8,7 @@ import {ManualIntroductionComponent} from "./manual-introduction/manual-introduc
 import {ManualToolsComponent} from "./manual-tools/manual-tools.component";
 import {ManualStatisticsComponent} from "./manual-statistics/manual-statistics.component";
 import {ManualGalleryComponent} from "./manual-gallery/manual-gallery.component";
+import {ManualDashboardComponent} from "./manual-dashboard/manual-dashboard.component";
 
 
 @Component({
@@ -20,7 +21,8 @@ import {ManualGalleryComponent} from "./manual-gallery/manual-gallery.component"
     ManualIntroductionComponent,
     ManualToolsComponent,
     ManualStatisticsComponent,
-    ManualGalleryComponent
+    ManualGalleryComponent,
+    ManualDashboardComponent
   ],
   templateUrl: './user-manual.component.html',
   styleUrl: './user-manual.component.scss',
