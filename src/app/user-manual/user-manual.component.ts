@@ -10,6 +10,7 @@ import {ManualStatisticsComponent} from "./manual-statistics/manual-statistics.c
 import {ManualGalleryComponent} from "./manual-gallery/manual-gallery.component";
 import {ManualDashboardComponent} from "./manual-dashboard/manual-dashboard.component";
 import {ManualDailyInspirationComponent} from "./manual-daily-inspiration/manual-daily-inspiration.component";
+import {ScrollToTopComponent} from "../component/scroll-to-top/scroll-to-top.component";
 
 
 @Component({
@@ -24,7 +25,8 @@ import {ManualDailyInspirationComponent} from "./manual-daily-inspiration/manual
     ManualStatisticsComponent,
     ManualGalleryComponent,
     ManualDashboardComponent,
-    ManualDailyInspirationComponent
+    ManualDailyInspirationComponent,
+    ScrollToTopComponent
   ],
   templateUrl: './user-manual.component.html',
   styleUrl: './user-manual.component.scss',
