@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit, signal, viewChild} from '@angular/core';
-import {BehaviorSubject, catchError, merge, of, startWith, switchMap} from "rxjs";
+import {BehaviorSubject, catchError, merge, of, shareReplay, startWith, switchMap} from "rxjs";
 import {TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
 import {JourneyPage} from "../../service/journey/journey-page.type";
@@ -33,25 +33,25 @@ export interface SortableHeader {
 }
 
 @Component({
-    selector: 'app-gallery',
-    templateUrl: './gallery.component.html',
-    imports: [
-        MatPaginator,
-        TitleCasePipe,
-        UpperCasePipe,
-        MatChipsModule,
-        MatIcon,
-        FormsModule,
-        JourneyCardViewComponent,
-        MatFormFieldModule,
-        MatInputModule,
-        MatExpansionModule,
-        MatButton,
-        MatMenuModule,
-        PageHeaderComponent
-    ],
-    styleUrls: ['./gallery.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-gallery',
+  templateUrl: './gallery.component.html',
+  imports: [
+    MatPaginator,
+    TitleCasePipe,
+    UpperCasePipe,
+    MatChipsModule,
+    MatIcon,
+    FormsModule,
+    JourneyCardViewComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatExpansionModule,
+    MatButton,
+    MatMenuModule,
+    PageHeaderComponent
+  ],
+  styleUrls: ['./gallery.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
 // Sorting properties
@@ -72,7 +72,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
-  searchCriteria: SearchCriteria = new SearchCriteria();
+  searchCriteria = signal(new SearchCriteria());
 
   paginator = viewChild.required(MatPaginator);
   tags = signal<string[]>([]);
@@ -84,25 +84,29 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     router: Router) {
 
     if (router.getCurrentNavigation()?.extras.state) {
-      this.searchCriteria = router.getCurrentNavigation()?.extras.state as SearchCriteria;
+      this.searchCriteria.set(router.getCurrentNavigation()?.extras.state as SearchCriteria);
     }
 
   }
 
   ngAfterViewInit(): void {
+    this.search();
+  }
+
+  protected search() {
     merge(this.paginator().page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsObservable)
       .pipe(
         startWith(),
         switchMap(() => {
           return this.journeyService.findJourneyByQuery(
-            this.searchCriteria,
+            this.searchCriteria(),
             this.sortingFieldChangedEvent.getValue().key,
             this.sortingDirectionChangedEvent.getValue(),
             this.paginator().pageIndex,
             this.paginator().pageSize,
             true,
             this.tags()
-          ).pipe(catchError(() => of(null)));
+          ).pipe(shareReplay(1), catchError(() => of(null)));
         }),
       ).subscribe(data => this.onSuccess(data));
   }
@@ -116,7 +120,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.journeyService.findJourneyByQuery(
-      this.searchCriteria,
+      this.searchCriteria(),
       'journeyDate',
       'desc',
       0,

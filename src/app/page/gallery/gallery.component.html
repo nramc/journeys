@@ -15,25 +15,25 @@
         <!-- Category -->
         <mat-form-field appearance="outline" class="w-full">
           <input matInput type="text" id="categoryInput" placeholder="Category"
-                 [(ngModel)]="searchCriteria.category">
+                 [(ngModel)]="searchCriteria().category" (change)="search()">
         </mat-form-field>
 
         <!-- City -->
         <mat-form-field appearance="outline" class="w-full">
           <input matInput type="text" id="cityInput" placeholder="City"
-                 [(ngModel)]="searchCriteria.city">
+                 [(ngModel)]="searchCriteria().city" (change)="search()">
         </mat-form-field>
 
         <!-- Country -->
         <mat-form-field appearance="outline" class="w-full">
           <input matInput type="text" id="countryInput" placeholder="Country"
-                 [(ngModel)]="searchCriteria.country">
+                 [(ngModel)]="searchCriteria().country" (change)="search()">
         </mat-form-field>
 
         <!-- Year -->
         <mat-form-field appearance="outline" class="w-full">
           <input matInput type="text" id="yearInput" placeholder="Year"
-                 [(ngModel)]="searchCriteria.year">
+                 [(ngModel)]="searchCriteria().year" (change)="search()">
         </mat-form-field>
       </div>
 
