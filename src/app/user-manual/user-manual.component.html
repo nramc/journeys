@@ -26,6 +26,8 @@
                  class="text-blue-500 hover:underline hover:cursor-pointer">Gallery</a></li>
           <li><a (click)="scrollTo('statistics')" (keydown.enter)="scrollTo('statistics')" tabindex="0"
                  class="text-blue-500 hover:underline hover:cursor-pointer">Statistics</a></li>
+          <li><a (click)="scrollTo('my-account')" (keydown.enter)="scrollTo('my-account')" tabindex="0"
+                  class="text-blue-500 hover:underline hover:cursor-pointer">My Account</a></li>
           <li><a (click)="scrollTo('tools')" (keydown.enter)="scrollTo('tools')" tabindex="0"
                  class="text-blue-500 hover:underline hover:cursor-pointer">Tools</a></li>
           <li><a (click)="scrollTo('daily-inspiration')" (keydown.enter)="scrollTo('daily-inspiration')" tabindex="0"
@@ -49,6 +51,8 @@
     <app-manual-gallery id="gallery"/>
 
     <app-manual-statistics (thumbnailClicked)="showDialog($event)" id="statistics"/>
+
+    <app-manual-my-account id="my-account"/>
 
     <app-manual-tools id="tools"/>
 
