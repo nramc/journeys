@@ -34,7 +34,7 @@
     "@fullcalendar/multimonth": "6.1.17",
     "@fullcalendar/rrule": "6.1.17",
     "@maptiler/geocoding-control": "2.1.6",
-    "@maptiler/leaflet-maptilersdk": "4.0.3",
+    "@maptiler/leaflet-maptilersdk": "4.1.0",
     "@popperjs/core": "2.11.8",
     "@tailwindcss/postcss": "4.1.7",
     "@types/geojson": "7946.0.16",
