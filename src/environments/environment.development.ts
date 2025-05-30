@@ -2,7 +2,7 @@ import packageJson from "../../package.json";
 
 export const environment = {
   production: true,
-  journeyApi: "http://localhost:8080/rest",
+  journeyApi: "https://localhost:8080/rest",
 
   cloudName: "journeytogether",
   cloudinaryPreset: "journey",

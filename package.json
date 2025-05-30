@@ -33,6 +33,7 @@
     "@fullcalendar/interaction": "6.1.17",
     "@fullcalendar/multimonth": "6.1.17",
     "@fullcalendar/rrule": "6.1.17",
+    "@github/webauthn-json": "^2.1.1",
     "@maptiler/geocoding-control": "2.1.6",
     "@maptiler/leaflet-maptilersdk": "4.0.3",
     "@popperjs/core": "2.11.8",
