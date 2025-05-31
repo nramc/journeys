@@ -15,8 +15,8 @@ import {TotpCodeVerification} from "./totp-code-verification";
 export class MyAccountService {
 
   constructor(
-    private httpClient: HttpClient,
-    private authService: AuthService
+    private readonly httpClient: HttpClient,
+    private readonly authService: AuthService
   ) {
   }
 
