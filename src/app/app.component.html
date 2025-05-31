@@ -6,14 +6,6 @@
       <app-navigation-menu (navigationLinkClick)="isMobile() && navigationMenu.toggle()"></app-navigation-menu>
     </mat-sidenav>
     <mat-sidenav-content class="max-sm:mt-3 grow p-4 mb-auto">
-      <div>
-        <h1>Passkeys Example</h1>
-        <input [(ngModel)]="username" placeholder="Username" />
-        <br />
-        <button (click)="registerStart()">Register</button>
-        <br />
-        <button (click)="loginStart()">Login</button>
-      </div>
       <router-outlet class="contents"></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
