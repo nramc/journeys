@@ -1,0 +1,32 @@
+<section
+  class="container mx-auto mt-4 p-6 border border-black/50 dark:border-white/50 rounded-lg shadow-lg flex flex-col">
+
+  <!-- Header with Status -->
+  <div class="flex items-center justify-between mb-4">
+    <h4 class="text-primary text-lg font-bold">Passkey</h4>
+    <div>
+      @if (isPasskeyActivated()) {
+        <span class="text-success flex items-center gap-1 text-sm" matTooltip="Activated">
+          <mat-icon>check_circle</mat-icon> Activated
+        </span>
+      } @else {
+        <span class="text-danger flex items-center gap-1 text-sm" matTooltip="Not Activated">
+          <mat-icon>error</mat-icon> Not Activated
+        </span>
+      }
+    </div>
+  </div>
+
+  <!-- Activation Section -->
+  <div class="flex justify-start">
+    <button mat-flat-button type="button" (click)="registerNewPasskey()" *ngIf="authService.hasAuthenticatedRole()">
+      Register New Passkey
+    </button>
+  </div>
+
+
+  <div *ngIf="!authService.hasAuthenticatedRole()">
+    <p class="text-sm text-primary italic">You do have access to register Passkey for the account.</p>
+  </div>
+
+</section>
