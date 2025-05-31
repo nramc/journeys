@@ -2,12 +2,14 @@ import {inject, Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Role} from "./role";
+import {MyPasskeysService} from "../my-account/my-passkeys.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   private readonly httpClient = inject(HttpClient);
+  private readonly passkeyService = inject(MyPasskeysService);
 
   login(credential: Credential) {
     return this.httpClient.post<LoginResponse>(environment.journeyApi + '/login', {
@@ -41,6 +43,10 @@ export class LoginService {
         'Content-Type': 'application/json'
       }
     });
+  }
+
+  loginWithPasskey(username: string) {
+    return this.passkeyService.login(username);
   }
 
 }

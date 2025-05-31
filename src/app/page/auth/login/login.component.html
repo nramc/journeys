@@ -19,7 +19,7 @@
         </div>
         <div class="mt-2">
           <input type="email" name="username" id="username" required placeholder="Username"
-                 [(ngModel)]="form().username" autocomplete="username" #username="ngModel" maxlength="50"
+                 [(ngModel)]="form().username" autocomplete="username webauthn" #username="ngModel" maxlength="50"
                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
         </div>
         <div *ngIf="username.invalid && (username.dirty || loginForm.submitted)" class="text-sm text-danger">
@@ -39,7 +39,7 @@
         <div class="mt-2">
           <input type="password" name="password" id="password"
                  [(ngModel)]="form().password" required #password="ngModel" maxlength="50" placeholder="Password"
-                 autocomplete="current-password"
+                 autocomplete="current-password webauthn"
                  class="w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
         </div>
         <div *ngIf="password.invalid && (password.dirty || loginForm.submitted)" class="text-sm text-danger">
@@ -51,6 +51,8 @@
       <div class="flex flex-col gap-1 text-center">
         <button mat-flat-button type="submit">Sign In</button>
 
+        <small class="text-dark">or</small>
+        <button mat-stroked-button type="button" (click)="loginWithPasskey(username.value)">Sign in with Passkey</button>
         <small class="text-dark">or</small>
         <button mat-stroked-button type="button" (click)="loginAsGuest()">Explore as Guest</button>
       </div>

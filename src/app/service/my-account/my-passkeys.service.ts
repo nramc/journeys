@@ -9,6 +9,7 @@ import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {v4 as uuidv4} from 'uuid';
 import {environment} from "../../../environments/environment";
+import {LoginResponse} from "../auth/login.service";
 
 
 @Injectable({
@@ -46,7 +47,7 @@ export class MyPasskeysService {
       tap(optionsResponse => console.log('Authentication options received:', optionsResponse)),
       switchMap((optionsResponse) => from(webauthnJson.get({publicKey: optionsResponse}))),
       tap(assertion => console.log('Assertion object:', assertion)),
-      switchMap((assertion) => this.http.post(`${environment.journeyBaseUrl}/webauthn/authenticate/finish`, assertion))
+      switchMap((assertion) => this.http.post<LoginResponse>(`${environment.journeyBaseUrl}/webauthn/authenticate/finish`, assertion))
     );
   }
 }
