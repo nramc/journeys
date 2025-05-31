@@ -24,13 +24,13 @@ export class MyPasskeysService {
     const headers = {headers: {'Authorization': `Bearer ${userContext.accessToken}`}};
 
     return this.http.post<PublicKeyCredentialCreationOptionsJSON>(
-      `${environment.journeyApi}/webauthn/register/start`, {flowID: uuidv4()}, headers)
+      `${environment.journeyBaseUrl}/webauthn/register/start`, {flowID: uuidv4()}, headers)
       .pipe(
         tap(res => console.log('Credential options received:', res)),
         switchMap((credentialCreateOptions) =>
           from(webauthnJson.create({publicKey: credentialCreateOptions})).pipe(
             tap(attestation => console.log('Attestation object:', attestation)),
-            switchMap((attestation) => this.http.post<boolean>(`${environment.journeyApi}/webauthn/register/finish`, attestation, headers))
+            switchMap((attestation) => this.http.post<boolean>(`${environment.journeyBaseUrl}/webauthn/register/finish`, attestation, headers))
           )
         )
       );
@@ -39,14 +39,14 @@ export class MyPasskeysService {
   login(username: string) {
 
     return this.http.post<PublicKeyCredentialRequestOptionsJSON>(
-      `${environment.journeyApi}/webauthn/authenticate/start`,
+      `${environment.journeyBaseUrl}/webauthn/authenticate/start`,
       {username: username},
       {params: {username: username}}
     ).pipe(
       tap(optionsResponse => console.log('Authentication options received:', optionsResponse)),
       switchMap((optionsResponse) => from(webauthnJson.get({publicKey: optionsResponse}))),
       tap(assertion => console.log('Assertion object:', assertion)),
-      switchMap((assertion) => this.http.post(`${environment.journeyApi}/webauthn/authenticate/finish`, assertion))
+      switchMap((assertion) => this.http.post(`${environment.journeyBaseUrl}/webauthn/authenticate/finish`, assertion))
     );
   }
 }
