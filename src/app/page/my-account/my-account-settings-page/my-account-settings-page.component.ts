@@ -4,15 +4,17 @@ import {PageHeaderComponent} from "../../../component/page-header/page-header.co
 import {MyTotpSettingsComponent} from "./my-totp-settings/my-totp-settings.component";
 import {MfaSettingsComponent} from "./mfa-settings/mfa-settings.component";
 import {PasswordSettingsComponent} from "./password-settings/password-settings.component";
+import {MyPasskeySettingsComponent} from "./my-passkey-settings/my-passkey-settings.component";
 
 @Component({
     selector: 'app-my-account-settings-page',
-    imports: [
-        PageHeaderComponent,
-        MyTotpSettingsComponent,
-        MfaSettingsComponent,
-        PasswordSettingsComponent
-    ],
+  imports: [
+    PageHeaderComponent,
+    MyTotpSettingsComponent,
+    MfaSettingsComponent,
+    PasswordSettingsComponent,
+    MyPasskeySettingsComponent
+  ],
     templateUrl: './my-account-settings-page.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
