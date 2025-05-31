@@ -1,10 +1,8 @@
 import {inject, Injectable} from '@angular/core';
-import {
-  PublicKeyCredentialCreationOptionsJSON,
-  PublicKeyCredentialRequestOptionsJSON
-} from "@github/webauthn-json/src/webauthn-json/basic/json";
+import {PublicKeyCredentialCreationOptionsJSON} from "@github/webauthn-json/src/webauthn-json/basic/json";
 import {from, switchMap, tap} from "rxjs";
 import * as webauthnJson from "@github/webauthn-json";
+import {CredentialRequestOptionsJSON} from "@github/webauthn-json";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {v4 as uuidv4} from 'uuid';
@@ -39,13 +37,13 @@ export class MyPasskeysService {
 
   login(username: string) {
 
-    return this.http.post<PublicKeyCredentialRequestOptionsJSON>(
+    return this.http.post<CredentialRequestOptionsJSON>(
       `${environment.journeyBaseUrl}/webauthn/authenticate/start`,
       {username: username},
       {params: {username: username}}
     ).pipe(
       tap(optionsResponse => console.log('Authentication options received:', optionsResponse)),
-      switchMap((optionsResponse) => from(webauthnJson.get({publicKey: optionsResponse}))),
+      switchMap((optionsResponse) => from(webauthnJson.get(optionsResponse))),
       tap(assertion => console.log('Assertion object:', assertion)),
       switchMap((assertion) => this.http.post<LoginResponse>(`${environment.journeyBaseUrl}/webauthn/authenticate/finish`, assertion))
     );
