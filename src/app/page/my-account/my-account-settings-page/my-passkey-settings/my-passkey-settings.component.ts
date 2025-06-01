@@ -8,14 +8,15 @@ import {CredentialInfo, MyPasskeysService} from "../../../../service/my-account/
 import {NotificationService} from "../../../../service/common/notification.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {BehaviorSubject} from "rxjs";
+import {MatAccordion, MatExpansionModule} from "@angular/material/expansion";
 
 @Component({
   selector: 'app-my-passkey-settings',
   imports: [
-    MatIconModule, MatTooltipModule, MatButton, NgIf, DatePipe
+    MatIconModule, MatTooltipModule, MatButton, NgIf, DatePipe, MatAccordion, MatExpansionModule
   ],
   templateUrl: './my-passkey-settings.component.html',
-  styleUrl: './my-passkey-settings.component.scss'
+  styles: []
 })
 export class MyPasskeySettingsComponent {
   authService = inject(AuthService);
@@ -30,6 +31,7 @@ export class MyPasskeySettingsComponent {
   constructor() {
     this.list();
   }
+
   list() {
     this.passkeyService.list().subscribe({
       next: (credentials: CredentialInfo[]) => {
