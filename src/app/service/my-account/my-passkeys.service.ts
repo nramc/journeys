@@ -10,6 +10,11 @@ import {environment} from "../../../environments/environment";
 import {LoginResponse} from "../auth/login.service";
 
 
+export interface CredentialInfo {
+  credentialId: string;
+  userHandle: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +22,29 @@ export class MyPasskeysService {
   private readonly http: HttpClient = inject(HttpClient);
   private readonly authService: AuthService = inject(AuthService);
 
+  list() {
+    const userContext = this.authService.getCurrentUserContext();
+    const headers = {headers: {'Authorization': `Bearer ${userContext.accessToken}`}};
+
+    return this.http.get<CredentialInfo[]>(
+      `${environment.journeyBaseUrl}/webauthn/credentials`, headers
+    ).pipe(
+      tap(credentials => console.log('Credentials retrieved:', credentials))
+    );
+  }
+
+  remove(id: string) {
+    const userContext = this.authService.getCurrentUserContext();
+    const options = {
+      headers: {'Authorization': `Bearer ${userContext.accessToken}`},
+      params: {credentialId: id}
+    };
+
+    return this.http.delete<boolean>(`${environment.journeyBaseUrl}/webauthn/credentials`, options)
+      .pipe(
+        tap(success => console.log('Credential removed:', success))
+      );
+  }
 
   register() {
     const userContext = this.authService.getCurrentUserContext();

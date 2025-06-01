@@ -5,7 +5,7 @@
   <div class="flex items-center justify-between mb-4">
     <h4 class="text-primary text-lg font-bold">Passkey</h4>
     <div>
-      @if (isPasskeyActivated()) {
+      @if (isPasskeyExists()) {
         <span class="text-success flex items-center gap-1 text-sm" matTooltip="Activated">
           <mat-icon>check_circle</mat-icon> Activated
         </span>
@@ -22,6 +22,22 @@
     <button mat-flat-button type="button" (click)="registerNewPasskey()" *ngIf="authService.hasAuthenticatedRole()">
       Register New Passkey
     </button>
+  </div>
+
+  <!-- List of Passkeys -->
+  <div *ngIf="isPasskeyExists()" class="mt-4">
+    <h5 class="text-md font-semibold mb-2">Registered Passkeys</h5>
+    <ul class="list-disc pl-5">
+      @for (passkey of registeredPasskeys(); track passkey.credentialId) {
+        <li class="mb-2">
+          <span class="font-mono">{{ passkey.credentialId }}</span>
+          <span class="font-mono">{{ passkey.userHandle }}</span>
+          <button mat-button type="button" (click)="removePasskey(passkey.credentialId)" class="text-red-600 ml-2">
+            Remove
+          </button>
+        </li>
+      }
+    </ul>
   </div>
 
 
