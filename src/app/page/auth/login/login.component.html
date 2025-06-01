@@ -8,55 +8,73 @@
   </div>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="flex flex-col gap-4" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
-      <div>
+    <form class="flex flex-col gap-5" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
+
+      <!-- Passkey Button -->
+      <button mat-flat-button type="button"
+              class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 border border-gray-300 transition"
+              (click)="loginWithPasskey(username.value)">
+        <mat-icon class="text-xl">fingerprint</mat-icon>
+        Sign in with Passkey
+      </button>
+
+      <!-- Email Input -->
+      <div class="space-y-1.5">
         <div class="flex items-center justify-between">
-          <label for="username" class="block text-sm/6 font-medium">Email address</label>
-          <div class="text-xs">
-            <a class="text-primary ms-2 hover:underline font-bold" [routerLink]="SIGNUP_PAGE_INFO.path" tabindex="-1">Don't
-              have an account?</a>
-          </div>
+          <label for="username" class="text-sm font-medium">Email address</label>
+          <a class="text-xs text-primary font-semibold hover:underline" [routerLink]="SIGNUP_PAGE_INFO.path"
+             tabindex="-1">
+            Don’t have an account?
+          </a>
         </div>
-        <div class="mt-2">
-          <input type="email" name="username" id="username" required placeholder="Username"
-                 [(ngModel)]="form().username" autocomplete="username" #username="ngModel" maxlength="50"
-                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-        </div>
+        <input type="email" name="username" id="username" required
+               placeholder="you@example.com" [(ngModel)]="form().username"
+               autocomplete="username webauthn" #username="ngModel" maxlength="50"
+               class="w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 dark:bg-gray-900 dark:text-white"
+        />
         <div *ngIf="username.invalid && (username.dirty || loginForm.submitted)" class="text-sm text-danger">
           <div *ngIf="username.errors?.['required']">Username is required.</div>
-          <div *ngIf="username.errors?.['maxlength']">Username must be at most 50 characters long.</div>
+          <div *ngIf="username.errors?.['maxlength']">Max 50 characters.</div>
         </div>
       </div>
 
-      <div>
+      <!-- Password Input -->
+      <div class="space-y-1.5">
         <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm/6 font-medium">Password</label>
-          <div class="text-xs">
-            <a class="text-primary font-bold ms-2 hover:underline" [href]="forgotPasswordAssistanceUrl" target="_blank"
-               tabindex="-1">Forgot Password?</a>
-          </div>
+          <label for="password" class="text-sm font-medium">Password</label>
+          <a class="text-xs text-primary font-semibold hover:underline"
+             [href]="forgotPasswordAssistanceUrl" target="_blank" tabindex="-1">
+            Forgot Password?
+          </a>
         </div>
-        <div class="mt-2">
-          <input type="password" name="password" id="password"
-                 [(ngModel)]="form().password" required #password="ngModel" maxlength="50" placeholder="Password"
-                 autocomplete="current-password"
-                 class="w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-        </div>
+        <input type="password" name="password" id="password"
+               required placeholder="••••••••" [(ngModel)]="form().password" autocomplete="current-password webauthn"
+               #password="ngModel" maxlength="50"
+               class="w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 dark:bg-gray-900 dark:text-white"
+        />
         <div *ngIf="password.invalid && (password.dirty || loginForm.submitted)" class="text-sm text-danger">
           <div *ngIf="password.errors?.['required']">Password is required.</div>
-          <div *ngIf="password.errors?.['maxlength']">Password must be at most 50 characters long.</div>
+          <div *ngIf="password.errors?.['maxlength']">Max 50 characters.</div>
         </div>
       </div>
 
-      <div class="flex flex-col gap-1 text-center">
-        <button mat-flat-button type="submit">Sign In</button>
+      <!-- Submit & Guest Buttons -->
+      <div class="flex flex-col items-center gap-2 text-center pt-2">
+        <button mat-flat-button type="submit" color="primary" class="w-full font-semibold">
+          Sign In
+        </button>
+        <small class="text-gray-500 dark:text-gray-400">or</small>
+        <button mat-stroked-button type="button"
+          class="w-full flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium border border-indigo-400 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-500 dark:text-indigo-300 dark:hover:bg-indigo-900 transition"
+          (click)="loginAsGuest()">
+          <mat-icon class="text-lg">travel_explore</mat-icon>
+          Explore as Guest
+          <span class="ml-2 text-xs text-green-600 font-semibold">No signup needed</span>
+        </button>
 
-        <small class="text-dark">or</small>
-        <button mat-stroked-button type="button" (click)="loginAsGuest()">Explore as Guest</button>
       </div>
-
     </form>
-
   </div>
+
 </div>
 

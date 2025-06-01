@@ -12,20 +12,22 @@ import {NotificationService} from "../../../service/common/notification.service"
 import {toSignal} from "@angular/core/rxjs-interop";
 import {BffService} from "../../../service/bff/bff.service";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {MatButton} from "@angular/material/button";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
-    selector: 'app-login',
-    imports: [
-        FormsModule,
-        NgIf,
-        RouterLink,
-        NgOptimizedImage,
-        MatProgressSpinner,
-        MatButton
-    ],
-    templateUrl: './login.component.html',
-    styles: `
+  selector: 'app-login',
+  imports: [
+    FormsModule,
+    NgIf,
+    RouterLink,
+    NgOptimizedImage,
+    MatProgressSpinner,
+    MatButtonModule,
+    MatIconModule
+  ],
+  templateUrl: './login.component.html',
+  styles: `
     .mask-with-spinner {
       position: absolute;
       height: 100%;
@@ -36,7 +38,7 @@ import {MatButton} from "@angular/material/button";
       align-items: center;
       z-index: 1000;
     }`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
   protected readonly SIGNUP_PAGE_INFO = SIGNUP_PAGE_INFO;
@@ -104,4 +106,13 @@ export class LoginComponent {
     });
   }
 
+  loginWithPasskey(username: string) {
+    this.loginService.loginWithPasskey(username).subscribe({
+      next: loginResponse => {
+        const userContext = this.authService.getUserContextForSuccessfulLogin(loginResponse);
+        this.onLogOnSuccess(userContext);
+      },
+      error: error => this.onLoginFailed(error)
+    });
+  }
 }
