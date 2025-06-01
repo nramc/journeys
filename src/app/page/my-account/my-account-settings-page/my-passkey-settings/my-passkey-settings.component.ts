@@ -2,7 +2,7 @@ import {Component, computed, inject} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatButton} from "@angular/material/button";
-import {NgIf} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {AuthService} from "../../../../service/auth/auth.service";
 import {CredentialInfo, MyPasskeysService} from "../../../../service/my-account/my-passkeys.service";
 import {NotificationService} from "../../../../service/common/notification.service";
@@ -12,7 +12,7 @@ import {BehaviorSubject} from "rxjs";
 @Component({
   selector: 'app-my-passkey-settings',
   imports: [
-    MatIconModule, MatTooltipModule, MatButton, NgIf
+    MatIconModule, MatTooltipModule, MatButton, NgIf, DatePipe
   ],
   templateUrl: './my-passkey-settings.component.html',
   styleUrl: './my-passkey-settings.component.scss'

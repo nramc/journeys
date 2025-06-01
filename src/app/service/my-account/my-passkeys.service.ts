@@ -13,6 +13,8 @@ import {LoginResponse} from "../auth/login.service";
 export interface CredentialInfo {
   credentialId: string;
   userHandle: string;
+  name: string;
+  createdAt: Date;
 }
 
 @Injectable({
