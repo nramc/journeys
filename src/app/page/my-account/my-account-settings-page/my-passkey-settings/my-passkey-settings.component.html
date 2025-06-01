@@ -38,7 +38,7 @@
       <tbody class="divide-y divide-gray-100 dark:divide-gray-700 bg-white dark:bg-gray-900">
         @for (passkey of registeredPasskeys(); track passkey.credentialId) {
           <tr>
-            <td class="px-4 py-2 font-mono text-sm text-gray-900 dark:text-gray-200">{{ passkey.name }}</td>
+            <td class="px-4 py-2 font-mono text-sm text-gray-900 dark:text-gray-200">{{ passkey.deviceInfo }}</td>
             <td class="px-4 py-2 font-mono text-sm text-gray-500 dark:text-gray-400">{{ passkey.createdAt | date:'long' }}</td>
             <td class="px-4 py-2 text-right">
               <button mat-button type="button" (click)="removePasskey(passkey.credentialId)"

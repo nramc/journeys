@@ -15,6 +15,7 @@ export interface CredentialInfo {
   userHandle: string;
   name: string;
   createdAt: Date;
+  deviceInfo: string;
 }
 
 @Injectable({
