@@ -9,6 +9,12 @@
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <form class="flex flex-col gap-4" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
+      <button mat-flat-button type="button"
+              class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+              (click)="loginWithPasskey(username.value)">
+        <mat-icon class="text-xl">fingerprint</mat-icon>
+        Sign in with Passkey
+      </button>
       <div>
         <div class="flex items-center justify-between">
           <label for="username" class="block text-sm/6 font-medium">Email address</label>
@@ -49,10 +55,7 @@
       </div>
 
       <div class="flex flex-col gap-1 text-center">
-        <button mat-flat-button type="submit">Sign In</button>
-
-        <small class="text-dark">or</small>
-        <button mat-stroked-button type="button" (click)="loginWithPasskey(username.value)">Sign in with Passkey</button>
+        <button mat-stroked-button type="submit">Sign In</button>
         <small class="text-dark">or</small>
         <button mat-stroked-button type="button" (click)="loginAsGuest()">Explore as Guest</button>
       </div>
