@@ -12,7 +12,6 @@ import {
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import 'leaflet.fullscreen';
-// @ts-expect-error has to be analysed later
 import {MaptilerLayer} from "@maptiler/leaflet-maptilersdk";
 import {GeocodingControl} from "@maptiler/geocoding-control/leaflet";
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
@@ -23,7 +22,6 @@ import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
 import {GeoCodingFeature} from "./geo-coding-feature";
 import {merge} from "rxjs";
 import {ThemeService} from "../../service/theme/theme.service";
-
 
 
 const iconDefault = L.icon({

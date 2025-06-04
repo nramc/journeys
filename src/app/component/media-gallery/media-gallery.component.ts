@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, input, model, OnInit, viewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LIGHTBOX_CONFIG, LightboxConfig, LightboxModule} from "ng-gallery/lightbox";
-import {Gallery, GalleryImageDef, GalleryItem, GalleryItemTypes} from "ng-gallery";
-import {GalleryConfig} from "ng-gallery/lib/models/config.model";
+import {Gallery, GalleryConfig, GalleryImageDef, GalleryItem, GalleryItemTypes} from "ng-gallery";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {JourneyImagesDetails} from "../../model/core/journey.model";
 
