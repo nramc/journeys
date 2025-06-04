@@ -10,23 +10,9 @@
   "platformAutomerge": true,
   "packageRules": [
     {
-      "enabled": true,
+      "matchUpdateTypes": ["patch", "minor"],
       "automerge": true,
-      "automergeType": "pr",
-      "automergeStrategy": "auto",
-      "matchPackageNames": [
-        "/.*eslint.*/"
-      ]
-    },
-    {
-      "enabled": true,
-      "automerge": true,
-      "automergeType": "pr",
-      "automergeStrategy": "auto",
-      "matchPackageNames": [
-        "/.*karma.*/",
-        "/.*jasmine.*/"
-      ]
+      "automergeType": "pr"
     }
   ]
 }
