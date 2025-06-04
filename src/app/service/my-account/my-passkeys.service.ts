@@ -1,8 +1,7 @@
 import {inject, Injectable} from '@angular/core';
-import {CredentialCreationOptionsJSON} from "@github/webauthn-json/src/webauthn-json/basic/json";
 import {from, switchMap, tap} from "rxjs";
 import * as webauthnJson from "@github/webauthn-json";
-import {CredentialRequestOptionsJSON} from "@github/webauthn-json";
+import {CredentialCreationOptionsJSON, CredentialRequestOptionsJSON} from "@github/webauthn-json";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {v4 as uuidv4} from 'uuid';

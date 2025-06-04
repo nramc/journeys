@@ -1,9 +1,4 @@
-import {
-  ApplicationConfig,
-  ErrorHandler,
-  importProvidersFrom,
-  provideExperimentalZonelessChangeDetection
-} from "@angular/core";
+import {ApplicationConfig, ErrorHandler, importProvidersFrom, provideZonelessChangeDetection} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {NgOptimizedImage} from "@angular/common";
 import {MarkdownModule} from "ngx-markdown";
@@ -20,7 +15,7 @@ import {MAT_DATE_LOCALE} from "@angular/material/core";
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     importProvidersFrom(BrowserModule, NgOptimizedImage, MarkdownModule.forRoot(), MatMenuModule, MatIconModule),
     {
       provide: LIGHTBOX_CONFIG, useValue: {
