@@ -10,7 +10,7 @@
     "ci:build": "ng build",
     "ci:lint": "ng lint",
     "ci:test1": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
-    "ci:deploy": "ng deploy --base-href=/ --dir=dist/journey/browser --build-target=journey:build:production --repo=https://github.com/nramc/journeys.git --name=nramc --email=ramachandrannellai@gmail.com",
+    "ci:deploy": "ng deploy --base-href=/ --cname=journey.codewithram.dev --dir=dist/journey/browser --build-target=journey:build:production --repo=https://github.com/nramc/journeys.git --name=nramc --email=ramachandrannellai@gmail.com",
     "lint": "ng lint"
   },
   "private": true,
