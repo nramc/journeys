@@ -3,11 +3,15 @@
   <mat-card-header class="!p-4 bg-gradient-to-r from-blue-600 to-indigo-400 text-white rounded-t-lg">
     <mat-card-title class="text-2xl font-bold tracking-wide">
       {{ title() }}
+      <button type="button" mat-icon-button aria-label="Read aloud"
+              class="read-button" (click)="readContent()">
+        <mat-icon>volume_up</mat-icon>
+      </button>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <div class="text-primary leading-relaxed">
-      <markdown [data]="markdownText()" class="markdown-container"></markdown>
+      <markdown [data]="markdownText()" class="markdown-container" #markdownComponent></markdown>
     </div>
   </mat-card-content>
 </mat-card>
