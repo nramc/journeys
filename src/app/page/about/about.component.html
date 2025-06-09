@@ -3,9 +3,17 @@
 </header>
 <main>
   <section
-    class="mt-3 mb-3 pt-2 pb-2 gap-1 md:gap-0 flex flex-col-reverse md:flex-row justify-between">
+    class="mt-3 mb-3 pt-2 pb-2 gap-1 md:gap-0 flex justify-center items-center">
     <div>
       <h1 class="text-primary">Your one-stop shop for documenting, cherishing, and reliving your adventures.</h1>
+
+      <div class="flex max-sm:flex-col flex-row gap-4 items-center justify-center">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/1PECA_wra80?si=hg_8jiAf0yRmst8l"
+                title="YouTube video player" class="max-sm:mx-auto max-sm:w-full sm:w-[560px] sm:h-[315px]"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+
       <p class="text-primary text-sm mt-4">
         Have you ever tried explaining about hilarious moments happened at your trip to your kids, partner years
         later, only to realise the details are fuzzy?
@@ -40,13 +48,6 @@
       </div>
 
     </div>
-    <div class="text-center flex flex-col justify-center content-center items-center">
-      <img ngSrc="assets/logo/journey-logo-192x192.png" height="192" width="192" alt="Journey" priority
-           class="">
-      <h1 class="text-primary">Journey</h1>
-      <h6 class="text-primary text-xs">Your Portal to the Past</h6>
-    </div>
-
   </section>
 
   <section class="mb-3 features">
@@ -142,7 +143,8 @@
         <mat-card-header>
           <mat-card-title-group class="gap-1">
             <mat-card-title class="text-primary">Ramachandran Nellaiyappan</mat-card-title>
-            <mat-card-subtitle><span class="text-primary text-sm">Senior Developer, Maintainer</span></mat-card-subtitle>
+            <mat-card-subtitle><span class="text-primary text-sm">Senior Developer, Maintainer</span>
+            </mat-card-subtitle>
             <img mat-card-lg-image ngSrc="https://avatars.githubusercontent.com/u/35756750" height="310" width="310"
                  class="!rounded-full" alt="profile-pic">
           </mat-card-title-group>
