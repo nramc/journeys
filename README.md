@@ -11,8 +11,11 @@
 <hr />
 
 [![Website](https://img.shields.io/badge/website-online-brightgreen.svg)](https://nramc.github.io/journeys/)
+[![YouTube](https://img.shields.io/badge/Watch-Demo-red?logo=youtube)](https://www.youtube.com/watch?v=1PECA_wra80)
 
-[![Watch the video](https://img.youtube.com/vi/1PECA_wra80/maxresdefault.jpg)](https://www.youtube.com/watch?v=1PECA_wra80)
+[![Watch on YouTube](https://img.youtube.com/vi/1PECA_wra80/hqdefault.jpg)](https://www.youtube.com/watch?v=1PECA_wra80 "Watch on YouTube")
+
+👉 Click the image above to watch a short demo of this project on YouTube.
 
 **Journey** is a personal project designed to help users document and relive their travel experiences in a rich, immersive way. The platform allows travellers to seamlessly store memories of their trips, combining textual narration, geographic information, and multimedia elements such as photos and videos.
 
