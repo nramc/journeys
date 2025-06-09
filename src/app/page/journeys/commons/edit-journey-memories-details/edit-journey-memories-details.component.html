@@ -8,7 +8,7 @@
         <input matInput type="text" id="name" name="name" placeholder="Name your Journey"
                [(ngModel)]="journey().name" #name=ngModel [readOnly]="isReadOnly()"
                maxlength="50" minlength="5" required
-               class="mt-1 w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+               class="mt-1 w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500">
         <mat-error [hidden]="name.valid || name.pristine">
           <div *ngIf="name.errors?.['required']">Name is required.</div>
           <div *ngIf="name.errors?.['minlength']">Name must be at least 5 characters long.</div>
