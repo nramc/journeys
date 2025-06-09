@@ -4,8 +4,6 @@
 [![Website](https://img.shields.io/badge/website-online-brightgreen.svg)](https://nramc.github.io/journeys/)
 [![Badge](https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=159&style=flat)](https://www.linkedin.com/in/ramachandran-nellaiyappan/)
 
-![Journey](src/assets/logo/apple-icon-120x120.png "Journey")
-
 # Journeys
 
 ###### Your Portal to the Past
@@ -13,6 +11,8 @@
 <hr />
 
 [![Website](https://img.shields.io/badge/website-online-brightgreen.svg)](https://nramc.github.io/journeys/)
+
+[![Watch the video](https://img.youtube.com/vi/1PECA_wra80/maxresdefault.jpg)](https://www.youtube.com/watch?v=1PECA_wra80)
 
 **Journey** is a personal project designed to help users document and relive their travel experiences in a rich, immersive way. The platform allows travellers to seamlessly store memories of their trips, combining textual narration, geographic information, and multimedia elements such as photos and videos.
 
