@@ -2,8 +2,8 @@ import packageJson from "../../package.json";
 
 export const environment = {
   production: true,
-  journeyBaseUrl: "https://api.journey.codewithram.dev",
-  journeyApi: "https://api.journey.codewithram.dev/rest",
+  journeyBaseUrl: "https://journey-api.codewithram.dev",
+  journeyApi: "https://journey-api.codewithram.dev/rest",
 
   cloudName: "journeytogether",
   cloudinaryPreset: "journey-prod",
