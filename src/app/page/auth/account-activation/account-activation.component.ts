@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
 import {LOGIN_PAGE_INFO} from "../../../model/page.info.model";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {BffService} from "../../../service/bff/bff.service";
@@ -14,16 +13,15 @@ export class AccountActivationForm {
 }
 
 @Component({
-    selector: 'app-account-activation',
-    imports: [
-        FormsModule,
-        NgIf,
-        ReactiveFormsModule,
-        RouterLink
-    ],
-    templateUrl: './account-activation.component.html',
-    styles: '',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-account-activation',
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink
+  ],
+  templateUrl: './account-activation.component.html',
+  styles: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountActivationComponent implements OnInit {
   protected readonly LOGIN_PAGE_INFO = LOGIN_PAGE_INFO;
@@ -36,7 +34,9 @@ export class AccountActivationComponent implements OnInit {
   isSuccessful = signal<boolean>(false);
   isErrorOccurred = signal<boolean>(false);
 
-  constructor(route: ActivatedRoute) {
+  constructor() {
+    const route = inject(ActivatedRoute);
+
     this.accountActivationForm = new AccountActivationForm(
       route.snapshot.queryParamMap.get('identifier'),
       route.snapshot.queryParamMap.get('token')
