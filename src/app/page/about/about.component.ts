@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {ABOUT_PAGE_INFO} from "../../model/page.info.model";
 import {NgOptimizedImage} from "@angular/common";
 import {Router} from "@angular/router";
@@ -20,8 +20,7 @@ import {PageHeaderComponent} from "../../component/page-header/page-header.compo
 export class AboutComponent {
   protected readonly ABOUT_PAGE_INFO = ABOUT_PAGE_INFO;
 
-  constructor(private readonly router: Router) {
-  }
+  private readonly router = inject(Router);
 
   signup() {
     this.router.navigate(['/signup']).then(console.log);

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
@@ -13,12 +13,8 @@ import {TotpCodeVerification} from "./totp-code-verification";
   providedIn: 'root'
 })
 export class MyAccountService {
-
-  constructor(
-    private readonly httpClient: HttpClient,
-    private readonly authService: AuthService
-  ) {
-  }
+  private readonly httpClient = inject(HttpClient);
+  private readonly authService = inject(AuthService);
 
   getProfileData(): Observable<AppUser> {
     const userContext = this.authService.getCurrentUserContext();
