@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, ElementRef, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, ElementRef, inject, input} from '@angular/core';
 import {Feature} from "geojson";
 import {JourneyData} from "../journey-card-view/journey.data";
 import {JourneyCardViewComponent} from "../journey-card-view/journey-card-view.component";
@@ -32,8 +32,8 @@ export class MarkerPopupComponent {
 
   elementRef: ElementRef;
 
-  constructor(myElement: ElementRef) {
-    this.elementRef = myElement;
+  constructor() {
+    this.elementRef = inject(ElementRef);
   }
 
 

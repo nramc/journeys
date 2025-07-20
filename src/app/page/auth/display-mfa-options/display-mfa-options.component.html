@@ -6,22 +6,27 @@
       </h5>
     </div>
 
-    <div *ngIf="mfaOptions?.options?.includes('TOTP')" class="w-full px-4 text-center">
-      <button mat-flat-button type="button"
-        class="flex items-center justify-center md:w-1/2 w-full p-3 text-sm font-bold rounded-full"
-        (click)="continueWithTotpVerification()">
-        Using Mobile Authenticator
-        <mat-icon class="ml-2">screen_lock_portrait</mat-icon>
-      </button>
-    </div>
+    @if (mfaOptions?.options?.includes('TOTP')) {
+      <div class="w-full px-4 text-center">
+        <button mat-flat-button type="button"
+                class="flex items-center justify-center md:w-1/2 w-full p-3 text-sm font-bold rounded-full"
+                (click)="continueWithTotpVerification()">
+          Using Mobile Authenticator
+          <mat-icon class="ml-2">screen_lock_portrait</mat-icon>
+        </button>
+      </div>
+    }
 
-    <div *ngIf="mfaOptions?.options?.includes('EMAIL_ADDRESS')" class="w-full px-4 text-center">
-      <button mat-flat-button type="button"
-        class="flex items-center justify-center md:w-1/2 w-full p-3 text-sm font-bold rounded-full"
-        (click)="continueWithEmailCodeVerification()">
-        Using Email Code
-        <mat-icon class="ml-2">mail_lock</mat-icon>
-      </button>
-    </div>
+    @if (mfaOptions?.options?.includes('EMAIL_ADDRESS')) {
+      <div class="w-full px-4 text-center">
+        <button mat-flat-button type="button"
+                class="flex items-center justify-center md:w-1/2 w-full p-3 text-sm font-bold rounded-full"
+                (click)="continueWithEmailCodeVerification()">
+          Using Email Code
+          <mat-icon class="ml-2">mail_lock</mat-icon>
+        </button>
+      </div>
+    }
+    
   </div>
 </section>

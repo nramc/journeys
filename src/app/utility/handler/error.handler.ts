@@ -1,5 +1,5 @@
-import {ErrorHandler, Injectable} from "@angular/core";
-import { HttpErrorResponse } from "@angular/common/http";
+import {ErrorHandler, inject, Injectable} from "@angular/core";
+import {HttpErrorResponse} from "@angular/common/http";
 import {throwError} from "rxjs";
 import {Router} from "@angular/router";
 
@@ -7,15 +7,13 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class CustomErrorHandler implements ErrorHandler {
-  constructor(private router: Router) {
-  }
+  private readonly router = inject(Router);
 
   handleError(err: Error) {
     if (err && err instanceof HttpErrorResponse) {
       this.handleHttpError(err);
     }
     return throwError(() => err)
-
   }
 
 

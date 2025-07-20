@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit, signal, viewChild} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, signal, viewChild, inject } from '@angular/core';
 import {BehaviorSubject, catchError, merge, of, shareReplay, startWith, switchMap} from "rxjs";
 import {TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
@@ -54,6 +54,8 @@ export interface SortableHeader {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
+  private readonly journeyService = inject(JourneyService);
+
 // Sorting properties
   sortableFields: SortableHeader[] = [
     {label: 'Journey Date', key: 'journeyDate'},
@@ -79,9 +81,9 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   tagsObservable = toObservable(this.tags);
   searchResult = signal<SearchResult>({totalElements: 0, data: []});
 
-  constructor(
-    private readonly journeyService: JourneyService,
-    router: Router) {
+  constructor() {
+    const router = inject(Router);
+
 
     if (router.getCurrentNavigation()?.extras.state) {
       this.searchCriteria.set(router.getCurrentNavigation()?.extras.state as SearchCriteria);

@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Credential, SecurityAttribute} from "../../../service/auth/login.service";
-import {NgIf} from "@angular/common";
 import {
   TotpCodeVerificationComponent
 } from "../../../component/security/totp-code-verification/totp-code-verification.component";
@@ -19,28 +18,27 @@ export interface MfaOptions {
 }
 
 @Component({
-    selector: 'app-display-mfa-options',
-    imports: [
-        MatIcon,
-        MatButton,
-        NgIf
-    ],
-    templateUrl: './display-mfa-options.component.html',
-    styles: `.mfa-option {
+  selector: 'app-display-mfa-options',
+  imports: [
+    MatIcon,
+    MatButton
+  ],
+  templateUrl: './display-mfa-options.component.html',
+  styles: `.mfa-option {
     width: 80%;
     height: 3rem;
   }`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayMfaOptionsComponent {
+  private readonly router = inject(Router);
+  private readonly dialog = inject(MatDialog);
+  private readonly activatedRoute = inject(ActivatedRoute);
+
   private readonly destroyRef = inject(DestroyRef);
   mfaOptions: MfaOptions | undefined;
 
-  constructor(
-    private readonly router: Router,
-    private readonly dialog: MatDialog,
-    private readonly activatedRoute: ActivatedRoute
-  ) {
+  constructor() {
     this.mfaOptions = this.router.getCurrentNavigation()?.extras?.state as MfaOptions;
   }
 

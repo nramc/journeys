@@ -6,18 +6,21 @@
       </div>
       <div class="p-6">
         <!-- Success Message -->
-        <div class="p-4 border-2 border-green-500 bg-green-50 text-green-700 text-center rounded-lg shadow-md"
-             *ngIf="isSuccessful()">
-          <div class="text-lg font-bold mb-2">Account activated successfully!</div>
-          <p>Please <a [routerLink]="LOGIN_PAGE_INFO.path" class="text-blue-500 underline">Sign In</a> with your
-            credentials and start your journey with us.</p>
-        </div>
+        @if (isSuccessful()) {
+          <div class="p-4 border-2 border-green-500 bg-green-50 text-green-700 text-center rounded-lg shadow-md">
+            <div class="text-lg font-bold mb-2">Account activated successfully!</div>
+            <p>Please <a [routerLink]="LOGIN_PAGE_INFO.path" class="text-blue-500 underline">Sign In</a> with your
+              credentials and start your journey with us.</p>
+          </div>
+        }
+
         <!-- Error Message -->
-        <div
-          class="p-4 border-2 border-red-500 bg-red-50 text-red-700 rounded-lg shadow-md"
-          *ngIf="isErrorOccurred()">
-          Activation failed. Please check and correct data. If the issue still persists, try again later.
-        </div>
+        @if (isErrorOccurred()) {
+          <div
+            class="p-4 border-2 border-red-500 bg-red-50 text-red-700 rounded-lg shadow-md">
+            Activation failed. Please check and correct data. If the issue still persists, try again later.
+          </div>
+        }
 
         <!-- Activation Form -->
         <form (ngSubmit)="activate(activationForm)" #activationForm="ngForm" class="flex flex-col gap-2 mt-6">
@@ -29,15 +32,22 @@
                    required minlength="8" maxlength="50" email
                    class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                    placeholder="Email Address" autocomplete="off"/>
-            <div *ngIf="username.invalid && (username.dirty || activationForm.submitted)"
-                 class="text-red-500 text-sm mt-1">
-              <div *ngIf="username.errors?.['required']">Email Address is required.</div>
-              <div *ngIf="username.errors?.['maxlength']">Email Address must be at most 50 characters long.</div>
-              <div *ngIf="username.errors?.['minlength'] && !username.errors?.['email']">Email Address must have at
-                least 8 characters.
+            @if (username.invalid && (username.dirty || activationForm.submitted)) {
+              <div class="text-red-500 text-sm mt-1">
+                @if (username.errors?.['required']) {
+                  <div>Email Address is required.</div>
+                }
+                @if (username.errors?.['maxlength']) {
+                  <div>Email Address must be at most 50 characters long.</div>
+                }
+                @if (username.errors?.['minlength'] && !username.errors?.['email']) {
+                  <div>Email Address must have at least 8 characters.</div>
+                }
+                @if (username.errors?.['email'] && !username.errors?.['email']) {
+                  <div>Invalid Email Address.</div>
+                }
               </div>
-              <div *ngIf="username.errors?.['email'] && !username.errors?.['email']">Invalid Email Address.</div>
-            </div>
+            }
           </div>
 
           <!-- Token -->
@@ -48,10 +58,13 @@
                    required
                    class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                    placeholder="Token" autocomplete="off"/>
-            <div *ngIf="emailToken.invalid && (emailToken.dirty || activationForm.submitted)"
-                 class="text-red-500 text-sm mt-1">
-              <div *ngIf="emailToken.errors?.['required']">Token is required.</div>
-            </div>
+            @if (emailToken.invalid && (emailToken.dirty || activationForm.submitted)) {
+              <div class="text-red-500 text-sm mt-1">
+                @if (emailToken.errors?.['required']) {
+                  <div>Token is required.</div>
+                }
+              </div>
+            }
           </div>
 
           <!-- Submit Button -->
