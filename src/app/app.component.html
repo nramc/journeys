@@ -2,10 +2,16 @@
   <app-toolbar (toggleNavigation)="navigationMenu.toggle()" class="border-b-4 border-b-primary"></app-toolbar>
 
   <mat-sidenav-container class="grow h-full contents">
-    <mat-sidenav #navigationMenu [mode]="isMobile() ? 'over' : 'side'" position="start" [opened]="!isMobile()">
-      <app-navigation-menu (navigationLinkClick)="isMobile() && navigationMenu.toggle()"></app-navigation-menu>
+    <mat-sidenav #navigationMenu [mode]="isMobile() ? 'over' : 'push'" position="start">
+      <app-navigation-menu (navigationLinkClick)="navigationMenu.toggle()"></app-navigation-menu>
     </mat-sidenav>
-    <mat-sidenav-content class="max-sm:mt-3 grow p-4 mb-auto">
+
+    <mat-sidenav id="navMenuWithoutLabel" [opened]="!navigationMenu.opened && !isMobile()" mode="side" position="start"
+                 class="max-sm:hidden">
+      <app-navigation-menu [showLabel]="false"></app-navigation-menu>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="max-sm:mt-3 max-sm:ms-0 ms-14 grow p-4 mb-auto">
       <router-outlet class="contents"></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

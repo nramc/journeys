@@ -174,19 +174,23 @@ $dark-theme: mat.define-theme((
 }
 
 @mixin active-list-item-styles($theme, $bg, $text) {
-  background-color: mat.get-theme-color($theme, $bg, 90);
-
+  color: mat.get-theme-color($theme, $text, 40);
   span {
-    color: mat.get-theme-color($theme, $text, 40);
     font-weight: 500;
   }
 }
 
 /* Active List Item Styles */
-.mat-mdc-nav-list .mat-mdc-list-item.active {
+.mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item .active,
+.mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item .active mat-icon{
   @include active-list-item-styles($light-theme, 'primary', 'primary');
 }
 
-.dark .mat-mdc-nav-list .mat-mdc-list-item.active {
+.dark .mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item .active,
+.dark .mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item .active mat-icon{
   @include active-list-item-styles($dark-theme, 'neutral', 'primary');
+}
+
+.mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item a {
+  color: mat.get-theme-color($light-theme, 'neutral', 40);
 }

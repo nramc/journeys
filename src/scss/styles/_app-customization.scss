@@ -19,3 +19,7 @@
   @apply max-sm:flex-col;
 }
 
+#navMenuWithoutLabel {
+  @apply max-sm:hidden;
+  width: 3.5em;
+}
