@@ -34,7 +34,7 @@
     <app-navigation-menu-item [pageInfo]="ABOUT" [showLabel]="showLabel()"></app-navigation-menu-item>
   </mat-list-item>
 
-  <mat-list-item>
+  <mat-list-item *ngIf="!isUserAuthenticated()">
     <app-navigation-menu-item [pageInfo]="LOGIN" [showLabel]="showLabel()"></app-navigation-menu-item>
   </mat-list-item>
 
