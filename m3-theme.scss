@@ -173,24 +173,36 @@ $dark-theme: mat.define-theme((
   @include apply-theme($light-theme);
 }
 
-@mixin active-list-item-styles($theme, $bg, $text) {
-  color: mat.get-theme-color($theme, $text, 40);
+/* Active List Item Styles */
+.mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item .active {
+  mat-icon {
+    color: mat.get-theme-color($light-theme, 'primary', 40);
+  }
+
   span {
     font-weight: 500;
+    color: mat.get-theme-color($light-theme, 'primary', 40);
   }
 }
 
-/* Active List Item Styles */
-.mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item .active,
-.mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item .active mat-icon{
-  @include active-list-item-styles($light-theme, 'primary', 'primary');
-}
+.dark .mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item .active {
+  background-color: mat.get-theme-color($dark-theme, 'neutral', 90);
 
-.dark .mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item .active,
-.dark .mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item .active mat-icon{
-  @include active-list-item-styles($dark-theme, 'neutral', 'primary');
+  mat-icon {
+    color: mat.get-theme-color($dark-theme, 'primary', 90);
+  }
+
+  span {
+    font-weight: 500;
+    color: mat.get-theme-color($dark-theme, 'primary', 90);
+  }
+
 }
 
 .mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item a {
   color: mat.get-theme-color($light-theme, 'neutral', 40);
+}
+
+.dark .mat-mdc-nav-list .mat-mdc-list-item app-navigation-menu-item a {
+  color: mat.get-theme-color($dark-theme, 'neutral', 40);
 }
