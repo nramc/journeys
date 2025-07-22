@@ -25,42 +25,45 @@
   </div>
 
   <!-- List of Passkeys -->
-  <div *ngIf="isPasskeyExists()" class="mt-4">
-
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <h5 class="text-md font-semibold mb-2">Registered Passkeys</h5>
-        </mat-expansion-panel-header>
-        <ng-template matExpansionPanelContent>
-          <table class="min-w-full divide-y divide-gray-200 border rounded-lg overflow-hidden">
-            <thead class="bg-gray-50 dark:bg-gray-800">
-            <tr>
-              <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Name</th>
-              <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Registered At</th>
-              <th class="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Action</th>
-            </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100 dark:divide-gray-700 bg-white dark:bg-gray-900">
-              @for (passkey of registeredPasskeys(); track passkey.credentialId) {
-                <tr>
-                  <td class="px-4 py-2 font-mono text-sm text-gray-900 dark:text-gray-200">{{ passkey.deviceInfo }}</td>
-                  <td
-                    class="px-4 py-2 font-mono text-sm text-gray-500 dark:text-gray-400">{{ passkey.createdAt | date:'long' }}
-                  </td>
-                  <td class="px-4 py-2 text-right">
-                    <button mat-button type="button" (click)="removePasskey(passkey.credentialId)"
-                            class="text-red-600 hover:text-red-800 text-sm font-medium">Remove
-                    </button>
-                  </td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </ng-template>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
+  @if (isPasskeyExists()) {
+    <div class="mt-4">
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <h5 class="text-md font-semibold mb-2">Registered Passkeys</h5>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <table class="min-w-full divide-y divide-gray-200 border rounded-lg overflow-hidden">
+              <thead class="bg-gray-50 dark:bg-gray-800">
+              <tr>
+                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Name</th>
+                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Registered At
+                </th>
+                <th class="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Action</th>
+              </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 dark:divide-gray-700 bg-white dark:bg-gray-900">
+                @for (passkey of registeredPasskeys(); track passkey.credentialId) {
+                  <tr>
+                    <td class="px-4 py-2 font-mono text-sm text-gray-900 dark:text-gray-200">{{ passkey.deviceInfo }}
+                    </td>
+                    <td
+                      class="px-4 py-2 font-mono text-sm text-gray-500 dark:text-gray-400">{{ passkey.createdAt | date:'long' }}
+                    </td>
+                    <td class="px-4 py-2 text-right">
+                      <button mat-button type="button" (click)="removePasskey(passkey.credentialId)"
+                              class="text-red-600 hover:text-red-800 text-sm font-medium">Remove
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </ng-template>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  }
 
   @if (!authService.hasAuthenticatedRole()) {
     <div>
