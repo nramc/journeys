@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, model, signal} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
+
 import {Point} from "geojson";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatIcon, MatIconModule} from "@angular/material/icon";
@@ -14,16 +14,15 @@ import {MatButtonModule} from "@angular/material/button";
 @Component({
     selector: 'app-edit-geo-location',
     imports: [
-        FormsModule,
-        NgIf,
-        MatTooltip,
-        MatIcon,
-        MatFormFieldModule,
-        MatInputModule,
-        MatMenuModule,
-        MatIconModule,
-        MatButtonModule
-    ],
+    FormsModule,
+    MatTooltip,
+    MatIcon,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
+],
     templateUrl: './edit-geo-location.component.html',
     styleUrl: './edit-geo-location.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
