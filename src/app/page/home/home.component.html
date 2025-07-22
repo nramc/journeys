@@ -39,23 +39,13 @@
     </section>
 
     <!-- Today timeline data -->
-    <section class="mt-3 mb-3 feature-content" *ngIf="upcomingJourniversaries().length  > 0">
-      <app-upcoming-anniversaries [journeys]="upcomingJourniversaries()"></app-upcoming-anniversaries>
-    </section>
+    @if (upcomingJourniversaries().length > 0) {
+      <section class="mt-3 mb-3 feature-content">
+        <app-upcoming-anniversaries [journeys]="upcomingJourniversaries()"></app-upcoming-anniversaries>
+      </section>
+    }
 
-    <section class="footer-section content-wrapper" *ngIf="!bffApiVersion()">
-      <div class="flex flex-col justify-center content-center items-center m-1 gap-1">
-        <div class="inline-flex gap-2">
-          <mat-spinner diameter="25"></mat-spinner>
-          <span class="text-primary">Loading...</span>
-        </div>
-        <div class="text-primary">Warming up the chrono-engine!</div>
-        <div class="text-primary small">Our backend server is revving up for some temporal displacement magic.</div>
-        <div class="text-primary small">Just a minute or two more, and it'll be ready to go!</div>
-        <div class="text-primary small">In the meantime, feel free to explore other pages in the space-time continuum.
-        </div>
-      </div>
-    </section>
+    <app-bff-api-loading-indicator></app-bff-api-loading-indicator>
 
     <!-- Thirukkural widget -->
     <section>
