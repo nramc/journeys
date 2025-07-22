@@ -8,35 +8,39 @@
       <p>To complete verification, please follow below steps:</p>
       <ol class="list-decimal list-inside text-base mb-4">
         <li>Click the <code class="px-1 rounded-sm font-bold italic text-sm">Send</code> button to receive a verification
-          code in your
-          registered email.
-        </li>
-        <li>Check your email for the verification code.</li>
-        <li>Enter the code in the field below and click "Confirm" to complete the verification.</li>
-      </ol>
+        code in your
+        registered email.
+      </li>
+      <li>Check your email for the verification code.</li>
+      <li>Enter the code in the field below and click "Confirm" to complete the verification.</li>
+    </ol>
 
-      <mat-form-field appearance="fill" class="w-full">
-        <mat-label>Code</mat-label>
-        <input matInput type="text" inputmode="numeric" id="confirmationCode" name="confirmationCode"
-               required pattern="[0-9]{6,6}" maxlength="6"
-               ngModel #confirmationCode
-               class="" autocomplete="off"
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Code</mat-label>
+      <input matInput type="text" inputmode="numeric" id="confirmationCode" name="confirmationCode"
+        required pattern="[0-9]{6,6}" maxlength="6"
+        ngModel #confirmationCode
+        class="" autocomplete="off"
         />
-      </mat-form-field>
-      <p *ngIf="!isCodeValid()" class="text-red-500 text-sm text-center mt-2">
+    </mat-form-field>
+    @if (!isCodeValid()) {
+      <p class="text-red-500 text-sm text-center mt-2">
         Code invalid. Please enter a valid code.
       </p>
+    }
 
-      <div class="flex gap-2 mt-6 justify-center">
-        <button mat-raised-button type="button" mat-dialog-close="false">Cancel</button>
-        <button mat-raised-button type="button" (click)="sendCode()" [disabled]="!canSendCode()">Send</button>
-        <button mat-raised-button type="submit" #confirmButton>Confirm</button>
-      </div>
-      <p *ngIf="isCodeSent()" class="text-green-600 text-sm font-bold mt-4">
+    <div class="flex gap-2 mt-6 justify-center">
+      <button mat-raised-button type="button" mat-dialog-close="false">Cancel</button>
+      <button mat-raised-button type="button" (click)="sendCode()" [disabled]="!canSendCode()">Send</button>
+      <button mat-raised-button type="submit" #confirmButton>Confirm</button>
+    </div>
+    @if (isCodeSent()) {
+      <p class="text-green-600 text-sm font-bold mt-4">
         Code has been sent successfully to the registered email. If you haven't received it, click Send again after 60
         seconds.
       </p>
-    </mat-card-content>
-  </mat-card>
+    }
+  </mat-card-content>
+</mat-card>
 </form>
 

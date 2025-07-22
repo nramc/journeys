@@ -1,7 +1,9 @@
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="mask-with-spinner" *ngIf="!isServiceAvailable()">
-    <mat-spinner></mat-spinner>
-  </div>
+  @if (!isServiceAvailable()) {
+    <div class="mask-with-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <img class="mx-auto h-10 w-auto" ngSrc="assets/logo/journey-logo-64x64.png" alt="Journey" height="64" width="64">
     <h2 class="text-primary text-center text-2xl/9 font-bold tracking-tight">Sign in to your account</h2>
@@ -12,8 +14,8 @@
 
       <!-- Passkey Button -->
       <button mat-flat-button type="button"
-              class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 border border-gray-300 transition"
-              (click)="loginWithPasskey(username.value)">
+        class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 border border-gray-300 transition"
+        (click)="loginWithPasskey(username.value)">
         <mat-icon class="text-xl">fingerprint</mat-icon>
         Sign in with Passkey
       </button>
@@ -23,19 +25,25 @@
         <div class="flex items-center justify-between">
           <label for="username" class="text-sm font-medium">Email address</label>
           <a class="text-xs text-primary font-semibold hover:underline" [routerLink]="SIGNUP_PAGE_INFO.path"
-             tabindex="-1">
+            tabindex="-1">
             Don’t have an account?
           </a>
         </div>
         <input type="email" name="username" id="username" required
-               placeholder="you@example.com" [(ngModel)]="form().username"
-               autocomplete="username webauthn" #username="ngModel" maxlength="50"
-               class="w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 dark:bg-gray-900 dark:text-white"
-        />
-        <div *ngIf="username.invalid && (username.dirty || loginForm.submitted)" class="text-sm text-danger">
-          <div *ngIf="username.errors?.['required']">Username is required.</div>
-          <div *ngIf="username.errors?.['maxlength']">Max 50 characters.</div>
-        </div>
+          placeholder="you@example.com" [(ngModel)]="form().username"
+          autocomplete="username webauthn" #username="ngModel" maxlength="50"
+          class="w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 dark:bg-gray-900 dark:text-white"
+          />
+        @if (username.invalid && (username.dirty || loginForm.submitted)) {
+          <div class="text-sm text-danger">
+            @if (username.errors?.['required']) {
+              <div>Username is required.</div>
+            }
+            @if (username.errors?.['maxlength']) {
+              <div>Max 50 characters.</div>
+            }
+          </div>
+        }
       </div>
 
       <!-- Password Input -->
@@ -43,19 +51,25 @@
         <div class="flex items-center justify-between">
           <label for="password" class="text-sm font-medium">Password</label>
           <a class="text-xs text-primary font-semibold hover:underline"
-             [href]="forgotPasswordAssistanceUrl" target="_blank" tabindex="-1">
+            [href]="forgotPasswordAssistanceUrl" target="_blank" tabindex="-1">
             Forgot Password?
           </a>
         </div>
         <input type="password" name="password" id="password"
-               required placeholder="••••••••" [(ngModel)]="form().password" autocomplete="current-password webauthn"
-               #password="ngModel" maxlength="50"
-               class="w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 dark:bg-gray-900 dark:text-white"
-        />
-        <div *ngIf="password.invalid && (password.dirty || loginForm.submitted)" class="text-sm text-danger">
-          <div *ngIf="password.errors?.['required']">Password is required.</div>
-          <div *ngIf="password.errors?.['maxlength']">Max 50 characters.</div>
-        </div>
+          required placeholder="••••••••" [(ngModel)]="form().password" autocomplete="current-password webauthn"
+          #password="ngModel" maxlength="50"
+          class="w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 dark:bg-gray-900 dark:text-white"
+          />
+        @if (password.invalid && (password.dirty || loginForm.submitted)) {
+          <div class="text-sm text-danger">
+            @if (password.errors?.['required']) {
+              <div>Password is required.</div>
+            }
+            @if (password.errors?.['maxlength']) {
+              <div>Max 50 characters.</div>
+            }
+          </div>
+        }
       </div>
 
       <!-- Submit & Guest Buttons -->

@@ -4,17 +4,16 @@ import {GeoJSON} from "geojson";
 import {MatIcon} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
-import {NgIf} from "@angular/common";
+
 
 @Component({
     selector: 'app-edit-geo-json',
     imports: [
-        FormsModule,
-        MatIcon,
-        MatButtonModule,
-        MatInputModule,
-        NgIf
-    ],
+    FormsModule,
+    MatIcon,
+    MatButtonModule,
+    MatInputModule
+],
     templateUrl: './edit-geo-json.component.html',
     styles: []
 })

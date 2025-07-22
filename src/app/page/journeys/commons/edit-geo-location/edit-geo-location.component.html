@@ -5,10 +5,14 @@
     <input matInput type="number" placeholder="Longitude" aria-label="Longitude"
            [(ngModel)]="_location().coordinates[0]" [readOnly]="disabled()"
            required min="-180" max="180" #longitude="ngModel" (change)="fireChangeEvent()">
-    <mat-error *ngIf="longitude.errors?.['required']">Longitude is required.</mat-error>
-    <mat-error *ngIf="longitude.errors?.['min'] || longitude.errors?.['max']">
-      Longitude must be between -180.0 and 180.0.
-    </mat-error>
+    @if (longitude.errors?.['required']) {
+      <mat-error>Longitude is required.</mat-error>
+    }
+    @if (longitude.errors?.['min'] || longitude.errors?.['max']) {
+      <mat-error>
+        Longitude must be between -180.0 and 180.0.
+      </mat-error>
+    }
   </mat-form-field>
 
   <!-- Latitude Input -->
@@ -17,10 +21,14 @@
     <input matInput type="number" placeholder="Latitude" aria-label="Latitude"
            [(ngModel)]="_location().coordinates[1]" [readOnly]="disabled()"
            required min="-90" max="90" #latitude="ngModel" (change)="fireChangeEvent()">
-    <mat-error *ngIf="latitude.errors?.['required']">Latitude is required.</mat-error>
-    <mat-error *ngIf="latitude.errors?.['min'] || latitude.errors?.['max']">
-      Latitude must be between -90.0 and 90.0.
-    </mat-error>
+    @if (latitude.errors?.['required']) {
+      <mat-error>Latitude is required.</mat-error>
+    }
+    @if (latitude.errors?.['min'] || latitude.errors?.['max']) {
+      <mat-error>
+        Latitude must be between -90.0 and 90.0.
+      </mat-error>
+    }
   </mat-form-field>
 
   <!-- Paste Options Button -->

@@ -1,44 +1,50 @@
-<section *ngIf="isLoadingCompleted()"
-         class="container mx-auto mt-4 p-6 border border-black/50 dark:border-white/50 rounded-lg shadow-lg flex flex-col">
-
-  <!-- Header with Status -->
-  <div class="flex items-center justify-between mb-4">
-    <h4 class="text-primary text-lg font-bold">Authenticator TOTP</h4>
-    <div>
-      @if (isTotpActive()) {
-        <span class="text-success flex items-center gap-1 text-sm" matTooltip="Activated">
-          <mat-icon>check_circle</mat-icon> Activated
-        </span>
-      } @else {
-        <span class="text-danger flex items-center gap-1 text-sm" matTooltip="Not Activated">
-          <mat-icon>error</mat-icon> Not Activated
-        </span>
-      }
+@if (isLoadingCompleted()) {
+  <section
+    class="container mx-auto mt-4 p-6 border border-black/50 dark:border-white/50 rounded-lg shadow-lg flex flex-col">
+    <!-- Header with Status -->
+    <div class="flex items-center justify-between mb-4">
+      <h4 class="text-primary text-lg font-bold">Authenticator TOTP</h4>
+      <div>
+        @if (isTotpActive()) {
+          <span class="text-success flex items-center gap-1 text-sm" matTooltip="Activated">
+            <mat-icon>check_circle</mat-icon> Activated
+          </span>
+        } @else {
+          <span class="text-danger flex items-center gap-1 text-sm" matTooltip="Not Activated">
+            <mat-icon>error</mat-icon> Not Activated
+          </span>
+        }
+      </div>
     </div>
-  </div>
-
-  <!-- Activation Section -->
-  <div *ngIf="!isTotpActive()" class="flex justify-start">
-    <button mat-flat-button type="button" (click)="setupTotp()" *ngIf="authService.hasAuthenticatedRole()">
-      Activate
-    </button>
-    <div *ngIf="!authService.hasAuthenticatedRole()">
-      <p class="text-sm text-primary italic">You do have access to activate/deactivate TOTP for the account.</p>
-    </div>
-  </div>
-
-  <!-- Deactivation & Testing Section -->
-  <div *ngIf="isTotpActive()" class="flex gap-2 mt-4">
-    <button mat-button type="button" (click)="confirmTotpDeactivation()"
-            [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">
-      Deactivate
-    </button>
-    <button mat-stroked-button type="button" (click)="testCode()"
-            [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">
-      Test
-    </button>
-  </div>
-
-</section>
+    <!-- Activation Section -->
+    @if (!isTotpActive()) {
+      <div class="flex justify-start">
+        @if (authService.hasAuthenticatedRole()) {
+          <button mat-flat-button type="button" (click)="setupTotp()">
+            Activate
+          </button>
+        }
+        @if (!authService.hasAuthenticatedRole()) {
+          <div>
+            <p class="text-sm text-primary italic">You do have access to activate/deactivate TOTP for the account.</p>
+          </div>
+        }
+      </div>
+    }
+    <!-- Deactivation & Testing Section -->
+    @if (isTotpActive()) {
+      <div class="flex gap-2 mt-4">
+        <button mat-button type="button" (click)="confirmTotpDeactivation()"
+                [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">
+          Deactivate
+        </button>
+        <button mat-stroked-button type="button" (click)="testCode()"
+                [appDisableIfNoRoleExists]="[Role.AUTHENTICATED_USER]">
+          Test
+        </button>
+      </div>
+    }
+  </section>
+}
 
 

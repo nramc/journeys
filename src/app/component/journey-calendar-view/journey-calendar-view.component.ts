@@ -4,7 +4,7 @@ import rrulePlugin from "@fullcalendar/rrule";
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import dayGridPlugin from "@fullcalendar/daygrid";
 import {FullCalendarModule} from "@fullcalendar/angular";
-import {CommonModule} from "@angular/common";
+
 import {JourneyService} from "../../service/journey/journey.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {FeatureCollection} from "geojson";
@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-journey-calendar-view',
-    imports: [CommonModule, FullCalendarModule],
+    imports: [FullCalendarModule],
     template: `
         <full-calendar [options]="calendarOptions" [events]="journeys()"></full-calendar>`,
     styles: []

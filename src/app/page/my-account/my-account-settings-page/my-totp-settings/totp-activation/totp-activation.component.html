@@ -80,9 +80,11 @@
           <input matInput type="text" inputmode="number" class="rounded-lg w-full" id="totpCode" name="totpCode"
                  aria-label="6 Digit TOTP Code" aria-describedby="totpCodeLabel" autocomplete="off"
                  ngModel #totpCode="ngModel" required pattern="[0-9]{6}" maxlength="6">
-          <mat-error *ngIf="totpCode.invalid && totpCode.touched">
-            <p>Enter a valid 6-digit code.</p>
-          </mat-error>
+          @if (totpCode.invalid && totpCode.touched) {
+            <mat-error>
+              <p>Enter a valid 6-digit code.</p>
+            </mat-error>
+          }
         </mat-form-field>
       </div>
 

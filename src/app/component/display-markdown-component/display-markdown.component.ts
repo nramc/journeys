@@ -27,7 +27,7 @@ export class DisplayMarkdownComponent {
     const text = (element.innerText ?? element.textContent) ?? '';
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'en-US';
-    utterance.rate = 0.65;
+    utterance.rate = 0.75;
     utterance.pitch = 0;
     window.speechSynthesis.speak(utterance);
   }

@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, model, OnInit, signal} from 
 import {Journey, JourneyVideoDetail, JourneyVideosDetails} from 'src/app/model/core/journey.model';
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import { NgOptimizedImage } from "@angular/common";
 import {MatStepperNext} from "@angular/material/stepper";
 import {NotificationService} from "../../../../service/common/notification.service";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -13,16 +13,15 @@ import {MatInputModule} from "@angular/material/input";
 @Component({
     selector: 'app-edit-journey-videos-details',
     imports: [
-        FormsModule,
-        NgIf,
-        ReactiveFormsModule,
-        MatStepperNext,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        NgOptimizedImage
-    ],
+    FormsModule,
+    ReactiveFormsModule,
+    MatStepperNext,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    NgOptimizedImage
+],
     templateUrl: './edit-journey-videos-details.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush

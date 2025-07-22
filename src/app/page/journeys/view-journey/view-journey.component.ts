@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {DEFAULT_CATEGORY, Journey, JourneyImagesDetails} from "../../../model/core/journey.model";
 import {ActivatedRoute} from "@angular/router";
 import {JourneyService} from "../../../service/journey/journey.service";
-import {NgIf} from "@angular/common";
+
 import {MatTab, MatTabGroup, MatTabLabel} from "@angular/material/tabs";
 import {MatIcon} from "@angular/material/icon";
 import {WorldMapComponent} from "../../../component/world-map/world-map.component";
@@ -16,17 +16,16 @@ import {toSignal} from "@angular/core/rxjs-interop";
     selector: 'app-view-journey',
     templateUrl: './view-journey.component.html',
     imports: [
-        NgIf,
-        MatTabGroup,
-        MatTab,
-        MatIcon,
-        MatTabLabel,
-        WorldMapComponent,
-        MediaGalleryComponent,
-        ViewJourneyBasicDetailsComponent,
-        MatButtonToggleModule,
-        ViewJourneyHeaderComponent
-    ]
+    MatTabGroup,
+    MatTab,
+    MatIcon,
+    MatTabLabel,
+    WorldMapComponent,
+    MediaGalleryComponent,
+    ViewJourneyBasicDetailsComponent,
+    MatButtonToggleModule,
+    ViewJourneyHeaderComponent
+]
 })
 export class ViewJourneyComponent {
   private readonly route = inject(ActivatedRoute);

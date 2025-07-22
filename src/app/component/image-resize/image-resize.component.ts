@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
-import {NgIf} from "@angular/common";
+
 import JSZip from "jszip";
 import {saveAs} from 'file-saver';
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -13,9 +13,8 @@ export interface ImageResource {
 @Component({
     selector: 'app-image-resize',
     imports: [
-        NgIf,
-        MatFormFieldModule
-    ],
+    MatFormFieldModule
+],
     template: `
     <section class="container mx-auto">
       <h2 class="text-lg text-primary font-semibold p-4 ps-0 mb-4">Reduce Image Size</h2>
@@ -27,40 +26,47 @@ export interface ImageResource {
             multiple
             placeholder="Choose files resize"
             class="w-full border text-primary px-4 py-2 rounded"
-          />
+            />
         </div>
 
 
-        <div class="w-full md:w-1/3 text-center" *ngIf="totalImages() > 0">
-          <p class="text-blue-500">
-            Resized Images: {{ resizedImages().length }}
-            <span *ngIf="totalImages() - resizedImages().length > 0">
-          Remaining: {{ totalImages() - resizedImages().length }}
-        </span>
-          </p>
-          <div *ngIf="isProcessing">
-            <progress
-              class="w-full h-2 rounded-sm bg-gray-200"
-              [value]="(resizedImages().length / totalImages()) * 100"
-              max="100"
-            ></progress>
+        @if (totalImages() > 0) {
+          <div class="w-full md:w-1/3 text-center">
+            <p class="text-blue-500">
+              Resized Images: {{ resizedImages().length }}
+              @if (totalImages() - resizedImages().length > 0) {
+                <span>
+                  Remaining: {{ totalImages() - resizedImages().length }}
+                </span>
+              }
+            </p>
+            @if (isProcessing()) {
+              <div>
+                <progress
+                  class="w-full h-2 rounded-sm bg-gray-200"
+                  [value]="(resizedImages().length / totalImages()) * 100"
+                  max="100"
+                ></progress>
+              </div>
+            }
           </div>
-        </div>
+        }
 
         <div class="w-full md:w-1/3 text-center">
-          <button
-            (click)="downloadAll()"
-            *ngIf="resizedImages().length === totalImages() && totalImages() > 0"
-            class="px-4 py-2 border border-blue-500 text-blue-500 rounded-sm hover:bg-blue-500 hover:text-white"
-          >
-            Download All
-          </button>
+          @if (resizedImages().length === totalImages() && totalImages() > 0) {
+            <button
+              (click)="downloadAll()"
+              class="px-4 py-2 border border-blue-500 text-blue-500 rounded-sm hover:bg-blue-500 hover:text-white"
+              >
+              Download All
+            </button>
+          }
         </div>
       </div>
     </section>
 
 
-  `,
+    `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
 })

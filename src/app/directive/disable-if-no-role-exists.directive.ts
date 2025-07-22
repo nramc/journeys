@@ -9,9 +9,9 @@ import {Role} from "../service/auth/role";
 export class DisableIfNoRoleExistsDirective implements OnInit {
   roles = input.required<Role[]>({alias: 'appDisableIfNoRoleExists'});
 
-  private el = inject(ElementRef);
-  private renderer = inject(Renderer2);
-  private authService = inject(AuthService);
+  private readonly el = inject(ElementRef);
+  private readonly renderer = inject(Renderer2);
+  private readonly authService = inject(AuthService);
 
   ngOnInit(): void {
     this.checkRoleAndDisableIfRequired();

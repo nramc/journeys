@@ -8,21 +8,20 @@ import {NotificationService} from "../../../../../service/common/notification.se
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatButtonModule} from "@angular/material/button";
-import {NgIf} from "@angular/common";
+
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 
 @Component({
     selector: 'app-totp-activation',
     imports: [
-        FormsModule,
-        MatProgressSpinnerModule,
-        MatExpansionModule,
-        MatButtonModule,
-        NgIf,
-        MatFormFieldModule,
-        MatInputModule
-    ],
+    FormsModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
+],
     templateUrl: './totp-activation.component.html',
     styleUrl: './totp-activation.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush

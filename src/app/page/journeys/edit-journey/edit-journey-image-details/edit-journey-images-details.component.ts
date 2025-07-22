@@ -4,7 +4,7 @@ import {JourneyService} from "../../../../service/journey/journey.service";
 import {environment} from "../../../../../environments/environment";
 import {CloudinaryUploadSuccessEvent, CloudinaryUploadSuccessInfo} from "../../../../model/upload-success-event.type";
 import {FormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
+
 import {MatStepperNext} from "@angular/material/stepper";
 import {EditJourneyImageItemComponent} from "./edit-journey-image-item/edit-journey-image-item.component";
 import {RouterLink} from "@angular/router";
@@ -17,14 +17,13 @@ import {MatIconModule} from "@angular/material/icon";
     templateUrl: './edit-journey-images-details.component.html',
     styleUrl: './edit-journey-images-details.component.scss',
     imports: [
-        FormsModule,
-        NgIf,
-        MatButtonModule,
-        MatStepperNext,
-        MatIconModule,
-        RouterLink,
-        EditJourneyImageItemComponent
-    ],
+    FormsModule,
+    MatButtonModule,
+    MatStepperNext,
+    MatIconModule,
+    RouterLink,
+    EditJourneyImageItemComponent
+],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyImagesDetailsComponent implements OnInit {

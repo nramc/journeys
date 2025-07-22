@@ -1,57 +1,55 @@
 <main class="rounded-lg shadow-lg">
-  <form *ngIf="this.journey()" class="container mx-auto p-6 flex flex-col gap-2">
-    <!-- Add Video Input -->
-    <div>
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>YouTube Video ID</mat-label>
-        <input matInput #videoInput placeholder="Enter YouTube Video ID"/>
-        <button mat-flat-button matSuffix type="button"
-                (click)="addVideo(videoInput.value); videoInput.value=''"
-                [disabled]="videoInput.value === ''">
-          Upload
-        </button>
-      </mat-form-field>
-    </div>
-
-    <!-- Video Thumbnails -->
-    <div>
-      <h3 class="text-lg font-semibold text-gray-700 mb-4">Video List</h3>
-      <div class="flex flex-wrap gap-4">
-        <!-- Video Items -->
-        @for (videoDetail of formVideosDetails().videos; track videoDetail.videoId; let i = $index) {
-
-          <div class="relative w-48 h-48">
-            <!-- Remove Button -->
-            <button mat-icon-button aria-label="Remove Video"
-                    (click)="removeVideoAndSaveJourney(videoDetail)"
-                    class="absolute float-right !z-10 !p-0">
-              <mat-icon class="bg-white rounded-full text-red-400! shadow-md hover:text-red-600! top-[-5px] right-[-10px]">
-                do_not_disturb_on
-              </mat-icon>
-            </button>
-
-            <!-- Video Thumbnail -->
-            <img
-              [ngSrc]="'https://img.youtube.com/vi/' + videoDetail.videoId + '/0.jpg'"
-              [alt]="videoDetail.videoId"
-              [title]="videoDetail.videoId"
-              class="rounded-lg border border-gray-300 shadow-sm w-full h-full object-fill" fill/>
-          </div>
-        }
-
-        <!-- No Videos Placeholder -->
-        @if (!formVideosDetails().videos.length) {
-          <p class="text-gray-500 italic">
-            No videos available for this journey.
-          </p>
-        }
+  @if (this.journey()) {
+    <form class="container mx-auto p-6 flex flex-col gap-2">
+      <!-- Add Video Input -->
+      <div>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>YouTube Video ID</mat-label>
+          <input matInput #videoInput placeholder="Enter YouTube Video ID"/>
+          <button mat-flat-button matSuffix type="button"
+                  (click)="addVideo(videoInput.value); videoInput.value=''"
+                  [disabled]="videoInput.value === ''">
+            Upload
+          </button>
+        </mat-form-field>
       </div>
-    </div>
-
-    <!-- Next Button -->
-    <div class="text-center">
-      <button mat-stroked-button type="button" matStepperNext>Next</button>
-    </div>
-  </form>
+      <!-- Video Thumbnails -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Video List</h3>
+        <div class="flex flex-wrap gap-4">
+          <!-- Video Items -->
+          @for (videoDetail of formVideosDetails().videos; track videoDetail.videoId; let i = $index) {
+            <div class="relative w-48 h-48">
+              <!-- Remove Button -->
+              <button mat-icon-button aria-label="Remove Video"
+                      (click)="removeVideoAndSaveJourney(videoDetail)"
+                      class="absolute float-right !z-10 !p-0">
+                <mat-icon
+                  class="bg-white rounded-full text-red-400! shadow-md hover:text-red-600! top-[-5px] right-[-10px]">
+                  do_not_disturb_on
+                </mat-icon>
+              </button>
+              <!-- Video Thumbnail -->
+              <img
+                [ngSrc]="'https://img.youtube.com/vi/' + videoDetail.videoId + '/0.jpg'"
+                [alt]="videoDetail.videoId"
+                [title]="videoDetail.videoId"
+                class="rounded-lg border border-gray-300 shadow-sm w-full h-full object-fill" fill/>
+            </div>
+          }
+          <!-- No Videos Placeholder -->
+          @if (!formVideosDetails().videos.length) {
+            <p class="text-gray-500 italic">
+              No videos available for this journey.
+            </p>
+          }
+        </div>
+      </div>
+      <!-- Next Button -->
+      <div class="text-center">
+        <button mat-stroked-button type="button" matStepperNext>Next</button>
+      </div>
+    </form>
+  }
 
 </main>

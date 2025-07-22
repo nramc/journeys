@@ -1,0 +1,14 @@
+<a [routerLink]="pageInfo().path" routerLinkActive="active" class="mb-2">
+  @if (showLabel()) {
+    <div class="flex items-center gap-2">
+      <mat-icon>{{ pageInfo().icon }}</mat-icon>
+      <span>{{ pageInfo().name }}</span>
+    </div>
+  } @else {
+    <div class="flex items-center flex-col">
+      <mat-icon>{{ pageInfo().icon }}</mat-icon>
+      <span
+        class="text-[0.6rem] text-center truncate w-full overflow-hidden text-ellipsis whitespace-nowrap">{{ pageInfo().name }}</span>
+    </div>
+  }
+</a>

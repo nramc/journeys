@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import { NgOptimizedImage } from "@angular/common";
 import {AuthService} from "../../../service/auth/auth.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -19,13 +19,12 @@ import {MatIconModule} from "@angular/material/icon";
   selector: 'app-login',
   imports: [
     FormsModule,
-    NgIf,
     RouterLink,
     NgOptimizedImage,
     MatProgressSpinner,
     MatButtonModule,
     MatIconModule
-  ],
+],
   templateUrl: './login.component.html',
   styles: `
     .mask-with-spinner {

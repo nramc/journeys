@@ -8,13 +8,14 @@ import {BreakpointObserver} from "@angular/cdk/layout";
 import {map} from "rxjs";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {FormsModule} from "@angular/forms";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, LoadingSpinnerComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, ToolbarComponent, FormsModule],
+  imports: [RouterOutlet, LoadingSpinnerComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, ToolbarComponent, FormsModule, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {

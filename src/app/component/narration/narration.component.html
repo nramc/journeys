@@ -3,18 +3,20 @@
   <div class="inline-flex gap-2 align-middle content-center items-center">
     <label for="description" class="text-sm font-semibold">Memories</label>
     <!-- Markdown Style Toggle -->
-    <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style" hideSingleSelectionIndicator="true"
-                             *ngIf="!disabled()" [(ngModel)]="markdownStyle">
-      <mat-button-toggle value="Source" class="text-sm">Edit</mat-button-toggle>
-      <mat-button-toggle value="Preview" class="text-sm">Preview</mat-button-toggle>
-    </mat-button-toggle-group>
+    @if (!disabled()) {
+      <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style" hideSingleSelectionIndicator="true"
+        [(ngModel)]="markdownStyle">
+        <mat-button-toggle value="Source" class="text-sm">Edit</mat-button-toggle>
+        <mat-button-toggle value="Preview" class="text-sm">Preview</mat-button-toggle>
+      </mat-button-toggle-group>
+    }
   </div>
 
   <!-- Textarea for Memories -->
   <textarea rows="15" id="description" name="description" placeholder="Detailed information about the Journey"
-            class="w-full p-4 border rounded-md focus:outline-hidden focus:ring focus:ring-indigo-500 dark:bg-gray-800"
-            required minlength="10" maxlength="5000"
-            #description="ngModel" [(ngModel)]="narration" [hidden]="markdownStyle() === 'Preview'"></textarea>
+    class="w-full p-4 border rounded-md focus:outline-hidden focus:ring focus:ring-indigo-500 dark:bg-gray-800"
+    required minlength="10" maxlength="5000"
+  #description="ngModel" [(ngModel)]="narration" [hidden]="markdownStyle() === 'Preview'"></textarea>
 
   <!-- Display Markdown Preview -->
   <div [hidden]="markdownStyle() === 'Source'" class="h-96 overflow-auto">
@@ -23,8 +25,14 @@
 
   <!-- Validation Error Messages -->
   <div [hidden]="description.valid || description.pristine" class="text-red-500 text-sm mt-2">
-    <div *ngIf="description.errors?.['required']">Memories is required.</div>
-    <div *ngIf="description.errors?.['minlength']">Memories must be at least 10 characters long.</div>
-    <div *ngIf="description.errors?.['maxlength']">Memories must be at most 5000 characters long.</div>
+    @if (description.errors?.['required']) {
+      <div>Memories is required.</div>
+    }
+    @if (description.errors?.['minlength']) {
+      <div>Memories must be at least 10 characters long.</div>
+    }
+    @if (description.errors?.['maxlength']) {
+      <div>Memories must be at most 5000 characters long.</div>
+    }
   </div>
 </div>

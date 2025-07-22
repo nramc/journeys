@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
 import {MyAccountService} from "../../../service/my-account/my-account.service";
 import {toSignal} from "@angular/core/rxjs-interop";
-import {NgForOf, NgIf} from "@angular/common";
+
 import {MY_PROFILE_PAGE_INFO} from "../../../model/page.info.model";
 import {PageHeaderComponent} from "../../../component/page-header/page-header.component";
 import {FormsModule, NgForm} from "@angular/forms";
@@ -19,16 +19,14 @@ import {AppUser} from "../../../model/account/app-user";
 @Component({
     selector: 'app-my-profile-page',
     imports: [
-        PageHeaderComponent,
-        NgIf,
-        FormsModule,
-        NgForOf,
-        HasWriteAccessDirective,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCheckboxModule
-    ],
+    PageHeaderComponent,
+    FormsModule,
+    HasWriteAccessDirective,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule
+],
     templateUrl: './my-profile-page.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush

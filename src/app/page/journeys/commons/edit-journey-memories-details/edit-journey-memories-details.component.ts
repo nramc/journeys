@@ -5,7 +5,7 @@ import {NotificationService} from "../../../../service/common/notification.servi
 import {OperationMode} from "../../operation-mode";
 import {MatChipsModule} from "@angular/material/chips";
 import {FormsModule, NgForm} from "@angular/forms";
-import {DatePipe, NgIf} from "@angular/common";
+import { DatePipe } from "@angular/common";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatStepperModule} from "@angular/material/stepper";
 import {TagsInputComponent} from "../../../../component/tags-input/tags-input.component";
@@ -22,20 +22,19 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
 @Component({
     selector: 'app-edit-journey-memories-details',
     imports: [
-        FormsModule,
-        NgIf,
-        MatButtonToggleModule,
-        MatChipsModule,
-        MatStepperModule,
-        TagsInputComponent,
-        NarrationComponent,
-        MatInputModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatButtonModule,
-        HasWriteAccessDirective
-    ],
+    FormsModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatStepperModule,
+    TagsInputComponent,
+    NarrationComponent,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    HasWriteAccessDirective
+],
     templateUrl: './edit-journey-memories-details.component.html',
     styles: [],
     providers: [DatePipe]

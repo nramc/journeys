@@ -9,7 +9,7 @@ import {EditJourneyVideosDetailsComponent} from "./edit-journey-video-details/ed
 import {
   EditJourneyPublishDetailsComponent
 } from "./edit-journey-publish-details/edit-journey-publish-details.component";
-import {NgIf} from "@angular/common";
+
 import {MatTooltip} from "@angular/material/tooltip";
 import {OperationMode} from "../operation-mode";
 import {
@@ -23,20 +23,19 @@ import {MatIconModule} from "@angular/material/icon";
     templateUrl: './edit-journey.component.html',
     styles: [],
     imports: [
-        MatStepper,
-        MatStep,
-        EditJourneyGeoDetailsComponent,
-        EditJourneyImagesDetailsComponent,
-        MatStepLabel,
-        MatStepContent,
-        EditJourneyVideosDetailsComponent,
-        EditJourneyPublishDetailsComponent,
-        NgIf,
-        MatTooltip,
-        EditJourneyMemoriesDetailsComponent,
-        MatButtonModule,
-        MatIconModule
-    ],
+    MatStepper,
+    MatStep,
+    EditJourneyGeoDetailsComponent,
+    EditJourneyImagesDetailsComponent,
+    MatStepLabel,
+    MatStepContent,
+    EditJourneyVideosDetailsComponent,
+    EditJourneyPublishDetailsComponent,
+    MatTooltip,
+    EditJourneyMemoriesDetailsComponent,
+    MatButtonModule,
+    MatIconModule
+],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyComponent implements OnInit {

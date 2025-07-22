@@ -19,3 +19,11 @@
   @apply max-sm:flex-col;
 }
 
+#navMenuWithoutLabel {
+  @apply max-sm:hidden;
+  width: 4.5em;
+}
+
+.mdc-list-item {
+  padding: 0.2rem 0.5rem !important;
+}

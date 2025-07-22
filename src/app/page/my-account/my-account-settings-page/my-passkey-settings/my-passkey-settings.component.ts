@@ -2,19 +2,26 @@ import {Component, computed, inject} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatButton} from "@angular/material/button";
-import {DatePipe, NgIf} from "@angular/common";
+import { DatePipe } from "@angular/common";
 import {AuthService} from "../../../../service/auth/auth.service";
 import {CredentialInfo, MyPasskeysService} from "../../../../service/my-account/my-passkeys.service";
 import {NotificationService} from "../../../../service/common/notification.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {BehaviorSubject} from "rxjs";
 import {MatAccordion, MatExpansionModule} from "@angular/material/expansion";
+import {HasAuthenticatedDirective} from "../../../../directive/has-authenticated.directive";
 
 @Component({
   selector: 'app-my-passkey-settings',
   imports: [
-    MatIconModule, MatTooltipModule, MatButton, NgIf, DatePipe, MatAccordion, MatExpansionModule
-  ],
+    MatIconModule,
+    MatTooltipModule,
+    MatButton,
+    DatePipe,
+    MatAccordion,
+    MatExpansionModule,
+    HasAuthenticatedDirective
+],
   templateUrl: './my-passkey-settings.component.html',
   styles: []
 })

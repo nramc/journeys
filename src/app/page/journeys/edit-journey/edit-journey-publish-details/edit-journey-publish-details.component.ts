@@ -3,7 +3,7 @@ import {DEFAULT_THUMBNAIL, Journey} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule, NgForm} from "@angular/forms";
-import {NgForOf, NgIf} from "@angular/common";
+
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {Router} from "@angular/router";
@@ -16,17 +16,15 @@ import {MatButton} from "@angular/material/button";
 @Component({
     selector: 'app-edit-journey-publish-details',
     imports: [
-        MatIcon,
-        FormsModule,
-        NgIf,
-        MatFormFieldModule,
-        MatSelectModule,
-        NgForOf,
-        JourneyCardViewComponent,
-        MatCardModule,
-        HasWriteAccessDirective,
-        MatButton
-    ],
+    MatIcon,
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    JourneyCardViewComponent,
+    MatCardModule,
+    HasWriteAccessDirective,
+    MatButton
+],
     templateUrl: './edit-journey-publish-details.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush

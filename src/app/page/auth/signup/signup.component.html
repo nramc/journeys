@@ -9,69 +9,101 @@
       </div>
       <form (ngSubmit)="signup(signupForm)" #signupForm="ngForm" class="flex flex-col gap-4">
 
-        <div *ngIf="isSuccessful()"
-             class="text-sm p-2 border-success border-2 shadow-lg rounded-md bg-transparent text-success">
-          <div class="mb-2 font-bold text-center">Registration Successful!</div>
-          <p>We've sent an activation email to your email address. Please check and click the activation link to
+        @if (isSuccessful()) {
+          <div
+            class="text-sm p-2 border-success border-2 shadow-lg rounded-md bg-transparent text-success">
+            <div class="mb-2 font-bold text-center">Registration Successful!</div>
+            <p>We've sent an activation email to your email address. Please check and click the activation link to
             complete your registration.</p>
-        </div>
+          </div>
+        }
 
         <!-- Error Message -->
-        <div *ngIf="isErrorOccurred()" class="bg-danger text-white rounded-lg p-2">
-          Sorry, an unexpected error occurred. Please try again later.
-        </div>
+        @if (isErrorOccurred()) {
+          <div class="bg-danger text-white rounded-lg p-2">
+            Sorry, an unexpected error occurred. Please try again later.
+          </div>
+        }
 
         <!-- Name Field -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Name</mat-label>
           <input matInput name="name" type="text" placeholder="Lorem ipsum" autocomplete="name"
-                 [(ngModel)]="form().name" #name="ngModel" [readOnly]="isSuccessful()"
-                 required maxlength="50" minlength="3">
+            [(ngModel)]="form().name" #name="ngModel" [readOnly]="isSuccessful()"
+            required maxlength="50" minlength="3">
 
-          <mat-error *ngIf="name.invalid && (name.dirty || signupForm.submitted)">
-            <div *ngIf="name.errors?.['required']">Name is required.</div>
-            <div *ngIf="name.errors?.['maxlength']">Name must be at most 50 characters long.</div>
-            <div *ngIf="name.errors?.['minlength']">Name must be at least 3 characters long.</div>
-          </mat-error>
+          @if (name.invalid && (name.dirty || signupForm.submitted)) {
+            <mat-error>
+              @if (name.errors?.['required']) {
+                <div>Name is required.</div>
+              }
+              @if (name.errors?.['maxlength']) {
+                <div>Name must be at most 50 characters long.</div>
+              }
+              @if (name.errors?.['minlength']) {
+                <div>Name must be at least 3 characters long.</div>
+              }
+            </mat-error>
+          }
         </mat-form-field>
 
         <!-- Email Field -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Email Address</mat-label>
           <input matInput type="email" name="username" placeholder="email@example.com" autocomplete="username"
-                 [(ngModel)]="form().username" #username="ngModel" [readOnly]="isSuccessful()"
-                 required minlength="8" maxlength="50" email>
-          <mat-error *ngIf="username.invalid && (username.dirty || signupForm.submitted)" class="form-text text-danger">
-            <div *ngIf="username.errors?.['required']">Email Address is required.</div>
-            <div *ngIf="username.errors?.['maxlength']">Email Address must be at most 50 characters long.</div>
-            <div *ngIf="username.errors?.['minlength'] && !username.errors?.['email']">
-              Email Address must have at least 8 characters long.
-            </div>
-            <div *ngIf="username.errors?.['email']">Email Address invalid.</div>
-          </mat-error>
+            [(ngModel)]="form().username" #username="ngModel" [readOnly]="isSuccessful()"
+            required minlength="8" maxlength="50" email>
+          @if (username.invalid && (username.dirty || signupForm.submitted)) {
+            <mat-error class="form-text text-danger">
+              @if (username.errors?.['required']) {
+                <div>Email Address is required.</div>
+              }
+              @if (username.errors?.['maxlength']) {
+                <div>Email Address must be at most 50 characters long.</div>
+              }
+              @if (username.errors?.['minlength'] && !username.errors?.['email']) {
+                <div>
+                  Email Address must have at least 8 characters long.
+                </div>
+              }
+              @if (username.errors?.['email']) {
+                <div>Email Address invalid.</div>
+              }
+            </mat-error>
+          }
         </mat-form-field>
 
         <!-- Password Field -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Password</mat-label>
           <input matInput type="password" [type]="showPassword() ? 'text' : 'password'" id="password" name="password"
-                 autocomplete="new-password" placeholder="@yngyg3VLi5hC"
-                 [(ngModel)]="form().password" #password="ngModel" [readOnly]="isSuccessful()"
-                 required min="8" maxlength="50"
-                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,50}$">
+            autocomplete="new-password" placeholder="@yngyg3VLi5hC"
+            [(ngModel)]="form().password" #password="ngModel" [readOnly]="isSuccessful()"
+            required min="8" maxlength="50"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,50}$">
           <button mat-icon-button type="button" matSuffix
-                  (click)="togglePasswordVisibility()">
+            (click)="togglePasswordVisibility()">
             <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
-          <mat-error *ngIf="password.invalid && (password.dirty || signupForm.submitted)" class="form-text text-danger">
-            <div *ngIf="password.errors?.['required']">Password is required.</div>
-            <div *ngIf="password.errors?.['maxlength']">Password must be at most 50 characters long.</div>
-            <div *ngIf="password.errors?.['minlength']">Password must have at least 8 characters long.</div>
-            <div *ngIf="password.errors?.['pattern']">
-              Valid Password should contain at least one lowercase, one upper case alphabets, at least
-              one digit, one special character and contains length from 8 to 50.
-            </div>
-          </mat-error>
+          @if (password.invalid && (password.dirty || signupForm.submitted)) {
+            <mat-error class="form-text text-danger">
+              @if (password.errors?.['required']) {
+                <div>Password is required.</div>
+              }
+              @if (password.errors?.['maxlength']) {
+                <div>Password must be at most 50 characters long.</div>
+              }
+              @if (password.errors?.['minlength']) {
+                <div>Password must have at least 8 characters long.</div>
+              }
+              @if (password.errors?.['pattern']) {
+                <div>
+                  Valid Password should contain at least one lowercase, one upper case alphabets, at least
+                  one digit, one special character and contains length from 8 to 50.
+                </div>
+              }
+            </mat-error>
+          }
         </mat-form-field>
 
         <div class="text-center">

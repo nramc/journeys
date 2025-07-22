@@ -1,7 +1,7 @@
 <div class="m-0 w-full">
   <mat-card (click)="viewDetails()" (keydown.enter)="viewDetails()"
-            class="text-white border border-primary cursor-pointer relative overflow-hidden hover:shadow-lg hover:shadow-primary w-full max-w-[75vw] md:w-[25rem] h-[15rem]"
-            [style]="'background-image: url('+journey().thumbnail+ '); background-size: cover; background-repeat: no-repeat;'">
+    class="text-white border border-primary cursor-pointer relative overflow-hidden hover:shadow-lg hover:shadow-primary w-full max-w-[75vw] md:w-[25rem] h-[15rem]"
+    [style]="'background-image: url('+journey().thumbnail+ '); background-size: cover; background-repeat: no-repeat;'">
     <div class="absolute inset-0 bg-black/25"></div>
     <mat-card-content class="relative p-4 flex flex-col sm:flex-col md:flex-row justify-between h-full">
       <div>
@@ -11,11 +11,13 @@
     </mat-card-content>
     <mat-card-actions class="relative justify-between flex-row gap-2">
       <div class="flex items-center justify-between w-full">
-      <span *ngIf="journey().journeyDate">
-        <small class="text-xs border border-white rounded-lg px-2 py-1 bg-black/50">
-          {{ journey().journeyDate | date:"dd.MM.yyyy" }}
-        </small>
-      </span>
+        @if (journey().journeyDate) {
+          <span>
+            <small class="text-xs border border-white rounded-lg px-2 py-1 bg-black/50">
+              {{ journey().journeyDate | date:"dd.MM.yyyy" }}
+            </small>
+          </span>
+        }
       </div>
       <div class="flex justify-end">
         <button mat-raised-button class="text-xs py-1" (click)="editDetails($event)" *appHasWriteAccess>Edit

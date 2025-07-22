@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, signal} from '@angular/core';
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import { NgOptimizedImage } from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {LOGIN_PAGE_INFO} from "../../../model/page.info.model";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -15,7 +15,6 @@ import {MatIcon} from "@angular/material/icon";
     selector: 'app-signup',
   imports: [
     FormsModule,
-    NgIf,
     ReactiveFormsModule,
     RouterLink,
     MatButtonModule,
@@ -24,7 +23,7 @@ import {MatIcon} from "@angular/material/icon";
     MatCardModule,
     MatIcon,
     NgOptimizedImage
-  ],
+],
     templateUrl: './signup.component.html',
     styles: '',
     changeDetection: ChangeDetectionStrategy.OnPush

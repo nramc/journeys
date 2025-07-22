@@ -3,7 +3,7 @@ import {JourneyImageDetail} from "../../../../../model/core/journey.model";
 import {FormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
-import {NgIf} from "@angular/common";
+
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatCheckbox} from "@angular/material/checkbox";
@@ -11,14 +11,13 @@ import {MatCheckbox} from "@angular/material/checkbox";
 @Component({
     selector: 'app-edit-journey-image-item',
     imports: [
-        FormsModule,
-        MatIconModule,
-        MatButtonModule,
-        NgIf,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckbox
-    ],
+    FormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckbox
+],
     templateUrl: 'edit-journey-image-item.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush

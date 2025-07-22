@@ -1,99 +1,107 @@
 <main>
-  <form (ngSubmit)="publish(journeyForm)" #journeyForm="ngForm" *ngIf="this.journey()" class="flex flex-col gap-2">
-
-    <!-- Visibility Section -->
-    <div class="grid grid-cols-1 gap-4">
-      <mat-form-field appearance="outline" class="w-full" color="primary">
-        <mat-label>Visibility</mat-label>
-        <mat-select id="visibilities" name="visibilities" [(ngModel)]="journey().visibilities" multiple required
-                    #visibilities="ngModel">
-          <mat-option value="MYSELF" [disabled]="true">MYSELF</mat-option>
-          <mat-option value="ADMINISTRATOR">ADMINISTRATOR</mat-option>
-          <mat-option value="MAINTAINER">MAINTAINER</mat-option>
-          <mat-option value="AUTHENTICATED_USER">AUTHENTICATED_USER</mat-option>
-          <mat-option value="GUEST">GUEST</mat-option>
-        </mat-select>
-        <mat-error *ngIf="visibilities.hasError('required')">Please choose visibility</mat-error>
-      </mat-form-field>
-    </div>
-
-    <!-- Journey Preview Section -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="md:col-span-2 pb-3 border-b-2">
-        <span class="text-lg font-semibold text-current">Journey Preview</span>
+  @if (this.journey()) {
+    <form (ngSubmit)="publish(journeyForm)" #journeyForm="ngForm" class="flex flex-col gap-2">
+      <!-- Visibility Section -->
+      <div class="grid grid-cols-1 gap-4">
+        <mat-form-field appearance="outline" class="w-full" color="primary">
+          <mat-label>Visibility</mat-label>
+          <mat-select id="visibilities" name="visibilities" [(ngModel)]="journey().visibilities" multiple required
+                      #visibilities="ngModel">
+            <mat-option value="MYSELF" [disabled]="true">MYSELF</mat-option>
+            <mat-option value="ADMINISTRATOR">ADMINISTRATOR</mat-option>
+            <mat-option value="MAINTAINER">MAINTAINER</mat-option>
+            <mat-option value="AUTHENTICATED_USER">AUTHENTICATED_USER</mat-option>
+            <mat-option value="GUEST">GUEST</mat-option>
+          </mat-select>
+          @if (visibilities.hasError('required')) {
+            <mat-error>Please choose visibility</mat-error>
+          }
+        </mat-form-field>
       </div>
-
-
-      <div class="rounded-lg shadow-md p-4">
-        <ul class="flex flex-col gap-2">
-          <li class="flex items-center justify-between">Basic Details
-            <mat-icon *ngIf="isBasicDetailsAvailableAndValid()" class="text-success!">check_circle</mat-icon>
-            <mat-icon *ngIf="!isBasicDetailsAvailableAndValid()" class="text-danger!">cancel</mat-icon>
-          </li>
-          <li class="flex items-center justify-between">Geo Details
-            <mat-icon *ngIf="isGeoJsonAvailable()" class="text-success!">check_circle</mat-icon>
-            <mat-icon *ngIf="!isGeoJsonAvailable()" class="text-danger!">cancel</mat-icon>
-          </li>
-          <li class="flex items-center justify-between">Images Details
-            <mat-icon *ngIf="isImagesDetailsAvailable()" class="text-success!">check_circle</mat-icon>
-            <mat-icon *ngIf="!isImagesDetailsAvailable()" class="text-danger!">cancel</mat-icon>
-          </li>
-          <li class="flex items-center justify-between">Videos Details
-            <mat-icon *ngIf="isVideosDetailsAvailable()" class="text-success!">check_circle</mat-icon>
-            <mat-icon *ngIf="!isVideosDetailsAvailable()" class="text-danger!">cancel</mat-icon>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Thumbnail Selection Section -->
-      <div class="flex flex-col rounded-lg shadow-md p-4">
-        <div class="mb-4">
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Thumbnail</mat-label>
-            <mat-select id="thumbnail" name="thumbnail" [(ngModel)]="journey().thumbnail" ngModel
-                        (selectionChange)="onThumbnailChangedEvent()">
-              <mat-option [value]="DEFAULT_THUMBNAIL">Default</mat-option>
-              <mat-option *ngFor="let imageDetail of journey().imagesDetails?.images" [value]="imageDetail.url">
-                {{ imageDetail.assetId }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+      <!-- Journey Preview Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="md:col-span-2 pb-3 border-b-2">
+          <span class="text-lg font-semibold text-current">Journey Preview</span>
         </div>
-
-        <div class="mb-4">
-          <app-journey-card-view [journey]="journey()"></app-journey-card-view>
+        <div class="rounded-lg shadow-md p-4">
+          <ul class="flex flex-col gap-2">
+            <li class="flex items-center justify-between">Basic Details
+              @if (isBasicDetailsAvailableAndValid()) {
+                <mat-icon class="text-success!">check_circle</mat-icon>
+              } @else {
+                <mat-icon class="text-danger!">cancel</mat-icon>
+              }
+            </li>
+            <li class="flex items-center justify-between">Geo Details
+              @if (isGeoJsonAvailable()) {
+                <mat-icon class="text-success!">check_circle</mat-icon>
+              } @else {
+                <mat-icon class="text-danger!">cancel</mat-icon>
+              }
+            </li>
+            <li class="flex items-center justify-between">Images Details
+              @if (isImagesDetailsAvailable()) {
+                <mat-icon class="text-success!">check_circle</mat-icon>
+              } @else {
+                <mat-icon class="text-danger!">cancel</mat-icon>
+              }
+            </li>
+            <li class="flex items-center justify-between">Videos Details
+              @if (isVideosDetailsAvailable()) {
+                <mat-icon class="text-success!">check_circle</mat-icon>
+              } @else {
+                <mat-icon class="text-danger!">cancel</mat-icon>
+              }
+            </li>
+          </ul>
         </div>
-      </div>
-
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="flex justify-center gap-2 mt-6">
-      <button mat-stroked-button type="button" (click)="deleteJourneyDialog.showModal();" *appHasWriteAccess>
-        Delete
-      </button>
-      <button mat-stroked-button type="button" [disabled]="!journeyForm.form.valid" *appHasWriteAccess
-              (click)="save(journeyForm)">
-        Draft
-      </button>
-      <button mat-flat-button type="submit" [disabled]="!journeyForm.form.valid" *appHasWriteAccess>
-        Publish
-      </button>
-    </div>
-
-    <!-- Delete Journey Modal -->
-    <dialog id="deleteJourneyDialog" #deleteJourneyDialog class="border-0 rounded-lg p-4 mx-auto">
-      <div class="text-center">
-        <mat-icon class="fs-3 text-danger">delete_forever</mat-icon>
-        <p class="text-danger mt-2">Are you sure you want to delete the journey?</p>
-        <div class="mt-4 flex justify-center gap-2">
-          <button mat-stroked-button type="button" (click)="deleteJourneyDialog.close()">No, Keep it</button>
-          <button mat-stroked-button type="button" (click)="deleteJourneyDialog.close(); delete()">Yes, Delete forever
-          </button>
+        <!-- Thumbnail Selection Section -->
+        <div class="flex flex-col rounded-lg shadow-md p-4">
+          <div class="mb-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Thumbnail</mat-label>
+              <mat-select id="thumbnail" name="thumbnail" [(ngModel)]="journey().thumbnail" ngModel
+                          (selectionChange)="onThumbnailChangedEvent()">
+                <mat-option [value]="DEFAULT_THUMBNAIL">Default</mat-option>
+                @for (imageDetail of journey().imagesDetails?.images; track imageDetail) {
+                  <mat-option [value]="imageDetail.url">
+                    {{ imageDetail.assetId }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="mb-4">
+            <app-journey-card-view [journey]="journey()"></app-journey-card-view>
+          </div>
         </div>
       </div>
-    </dialog>
-
-  </form>
+      <!-- Action Buttons -->
+      <div class="flex justify-center gap-2 mt-6">
+        <button mat-stroked-button type="button" (click)="deleteJourneyDialog.showModal();" *appHasWriteAccess>
+          Delete
+        </button>
+        <button mat-stroked-button type="button" [disabled]="!journeyForm.form.valid" *appHasWriteAccess
+                (click)="save(journeyForm)">
+          Draft
+        </button>
+        <button mat-flat-button type="submit" [disabled]="!journeyForm.form.valid" *appHasWriteAccess>
+          Publish
+        </button>
+      </div>
+      <!-- Delete Journey Modal -->
+      <dialog id="deleteJourneyDialog" #deleteJourneyDialog class="border-0 rounded-lg p-4 mx-auto">
+        <div class="text-center">
+          <mat-icon class="fs-3 text-danger">delete_forever</mat-icon>
+          <p class="text-danger mt-2">Are you sure you want to delete the journey?</p>
+          <div class="mt-4 flex justify-center gap-2">
+            <button mat-stroked-button type="button" (click)="deleteJourneyDialog.close()">No, Keep it</button>
+            <button mat-stroked-button type="button" (click)="deleteJourneyDialog.close(); delete()">Yes, Delete forever
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </form>
+  }
 
 </main>

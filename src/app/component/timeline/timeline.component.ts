@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, computed, input, signal, viewChild} from '@angular/core';
 import {GalleryComponent, GalleryItem, GalleryModule, ImageItem} from "ng-gallery";
 import {TimelineData, TimelineImage} from "./timeline-data.model";
-import {NgIf} from "@angular/common";
+
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
@@ -15,7 +15,7 @@ export function fnImageEntityToGalleryItem(data: TimelineImage): GalleryItem {
 
 @Component({
     selector: 'app-timeline',
-    imports: [GalleryModule, NgIf, MatTooltip, MatIconModule, MatButtonModule],
+    imports: [GalleryModule, MatTooltip, MatIconModule, MatButtonModule],
     templateUrl: './timeline.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush

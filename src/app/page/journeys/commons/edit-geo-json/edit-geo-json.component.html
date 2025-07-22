@@ -30,14 +30,18 @@
       </button>
 
       <!-- Validation Message -->
-      <p *ngIf="isGeoJsonValid()" class="text-green-600 flex items-center gap-2">
-        <span class="material-icons">check_circle</span>
-        GeoJSON valid
-      </p>
-      <p *ngIf="!isGeoJsonValid()" class="text-red-600 flex items-center gap-2">
-        <span class="material-icons">cancel</span>
-        GeoJSON is not valid
-      </p>
+      @if (isGeoJsonValid()) {
+        <p class="text-green-600 flex items-center gap-2">
+          <span class="material-icons">check_circle</span>
+          GeoJSON valid
+        </p>
+      }
+      @if (!isGeoJsonValid()) {
+        <p class="text-red-600 flex items-center gap-2">
+          <span class="material-icons">cancel</span>
+          GeoJSON is not valid
+        </p>
+      }
 
       <!-- Tip Section -->
       <div>

@@ -5,7 +5,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {Credential, LoginService} from "../../../service/auth/login.service";
 import {AuthService} from "../../../service/auth/auth.service";
 import {FormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
+
 import {MatButton} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatCardModule} from "@angular/material/card";
@@ -14,14 +14,13 @@ import {MatInput} from "@angular/material/input";
 @Component({
     selector: 'app-email-code-verification',
     imports: [
-        MatDialogModule,
-        FormsModule,
-        NgIf,
-        MatButton,
-        MatFormFieldModule,
-        MatCardModule,
-        MatInput
-    ],
+    MatDialogModule,
+    FormsModule,
+    MatButton,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInput
+],
     templateUrl: './email-code-verification.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
