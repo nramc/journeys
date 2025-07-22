@@ -14,6 +14,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {ThirukkuralWidgetComponent} from "../../component/thirukkural/thirukkural-widget.component";
 import {MatButtonModule} from "@angular/material/button";
 import {AnonymousWelcomeMessageComponent} from "./anonymous-welcome-message/anonymous-welcome-message.component";
+import {HasAuthenticatedDirective} from "../../directive/has-authenticated.directive";
+import {UserContext} from "../../service/auth/user-context";
 
 @Component({
   selector: 'app-home',
@@ -29,7 +31,8 @@ import {AnonymousWelcomeMessageComponent} from "./anonymous-welcome-message/anon
     MatProgressSpinner,
     ThirukkuralWidgetComponent,
     MatButtonModule,
-    AnonymousWelcomeMessageComponent
+    AnonymousWelcomeMessageComponent,
+    HasAuthenticatedDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -38,7 +41,7 @@ export class HomeComponent {
   private readonly bffService = inject(BffService);
   private readonly journeyService = inject(JourneyService);
   appVersion = environment.version;
-  userData = toSignal(this.authService.getUserContext());
+  userData = toSignal(this.authService.getUserContext(), {initialValue: new UserContext()});
   isUserAuthenticated = computed(() => this.userData()?.isAuthenticated)
   bffApiVersion = toSignal(this.bffService.getVersion());
   upcomingJourniversaries = toSignal(this.journeyService.getUpcomingAnniversary(),
