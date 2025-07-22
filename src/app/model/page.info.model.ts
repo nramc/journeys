@@ -25,7 +25,7 @@ export const LOGIN_PAGE_INFO: PageInfo = {
   title: "Login",
   description: "Identity Yourself !!!",
   path: "/login",
-  icon: "login"
+  icon: "lock_person"
 };
 export const LOGOUT_PAGE_INFO: PageInfo = {
   name: "Logout",
@@ -80,11 +80,11 @@ export const TIMELINE_PAGE_INFO: PageInfo = {
   icon: "timeline"
 };
 export const TOOLS_PAGE_INFO: PageInfo = {
-  name: "Tools",
-  title: "Tools",
+  name: "Extension",
+  title: "Extension",
   description: "",
   path: "/tools",
-  icon: "build"
+  icon: "extension"
 };
 
 export const USER_MANUAL_PAGE_INFO: PageInfo = {
