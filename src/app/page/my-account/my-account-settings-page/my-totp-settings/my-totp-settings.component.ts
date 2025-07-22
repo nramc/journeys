@@ -3,7 +3,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {TotpActivationComponent} from "./totp-activation/totp-activation.component";
 import {MyAccountService} from "../../../../service/my-account/my-account.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {NgIf} from "@angular/common";
+
 import {
   TotpCodeVerificationComponent
 } from "../../../../component/security/totp-code-verification/totp-code-verification.component";
@@ -18,12 +18,11 @@ import {MatButtonModule} from "@angular/material/button";
 @Component({
     selector: 'app-my-totp-settings',
     imports: [
-        NgIf,
-        DisableIfNoRoleExistsDirective,
-        MatTooltipModule,
-        MatIconModule,
-        MatButtonModule
-    ],
+    DisableIfNoRoleExistsDirective,
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonModule
+],
     templateUrl: './my-totp-settings.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
