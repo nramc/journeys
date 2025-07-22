@@ -39,11 +39,9 @@
     </section>
 
     <!-- Today timeline data -->
-    @if (upcomingJourniversaries().length > 0) {
-      <section class="mt-3 mb-3 feature-content">
-        <app-upcoming-anniversaries [journeys]="upcomingJourniversaries()"></app-upcoming-anniversaries>
-      </section>
-    }
+    <section class="mt-3 mb-3 feature-content">
+      <app-upcoming-anniversaries></app-upcoming-anniversaries>
+    </section>
 
     <app-bff-api-loading-indicator></app-bff-api-loading-indicator>
 

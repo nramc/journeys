@@ -42,8 +42,7 @@ export class HomeComponent {
   userData = toSignal(this.authService.getUserContext(), {initialValue: new UserContext()});
   isUserAuthenticated = computed(() => this.userData()?.isAuthenticated)
   bffApiVersion = toSignal(this.bffService.getVersion(), {initialValue: null});
-  upcomingJourniversaries = toSignal(this.journeyService.getUpcomingAnniversary(),
-    {initialValue: []});
+  upcomingJourniversaries = toSignal(this.journeyService.getUpcomingAnniversary(), {initialValue: []});
 
 }
 
