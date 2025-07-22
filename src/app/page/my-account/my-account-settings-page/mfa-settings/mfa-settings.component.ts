@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, OnInit} from '@angular/core';
-import {NgIf} from "@angular/common";
+
 import {DisableIfNoRoleExistsDirective} from "../../../../directive/disable-if-no-role-exists.directive";
 import {Role} from "../../../../service/auth/role";
 import {MatDialog} from "@angular/material/dialog";
@@ -15,12 +15,11 @@ import {AuthService} from "../../../../service/auth/auth.service";
 @Component({
     selector: 'app-my-mfa-settings',
     imports: [
-        NgIf,
-        DisableIfNoRoleExistsDirective,
-        MatTooltip,
-        MatIconModule,
-        MatButtonModule
-    ],
+    DisableIfNoRoleExistsDirective,
+    MatTooltip,
+    MatIconModule,
+    MatButtonModule
+],
     templateUrl: './mfa-settings.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
