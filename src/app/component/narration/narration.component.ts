@@ -2,17 +2,16 @@ import {Component, input, model} from '@angular/core';
 import {DisplayMarkdownComponent} from "../display-markdown-component/display-markdown.component";
 import {FormsModule} from "@angular/forms";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
-import {NgIf} from "@angular/common";
+
 
 @Component({
     selector: 'app-narration',
     imports: [
-        DisplayMarkdownComponent,
-        FormsModule,
-        MatButtonToggle,
-        MatButtonToggleGroup,
-        NgIf
-    ],
+    DisplayMarkdownComponent,
+    FormsModule,
+    MatButtonToggle,
+    MatButtonToggleGroup
+],
     templateUrl: './narration.component.html',
     styles: []
 })
