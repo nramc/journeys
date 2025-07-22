@@ -17,13 +17,17 @@
              #confirmationCode ngModel
       />
     </mat-form-field>
-    <p class="text-red-500 text-sm text-center mb-4" *ngIf="isCodeInvalid()">
-      Code invalid. Please enter a valid code.
-    </p>
+    @if (isCodeInvalid()) {
+      <p class="text-red-500 text-sm text-center mb-4">
+        Code invalid. Please enter a valid code.
+      </p>
+    }
 
     <div class="flex gap-2 mt-4 justify-center">
       <button mat-raised-button type="button" mat-dialog-close="false">Cancel</button>
-      <button mat-raised-button type="button" (click)="confirmCode(confirmationCode, confirmButton)" #confirmButton>Confirm</button>
+      <button mat-raised-button type="button" (click)="confirmCode(confirmationCode, confirmButton)" #confirmButton>
+        Confirm
+      </button>
     </div>
   </mat-card-content>
 </mat-card>

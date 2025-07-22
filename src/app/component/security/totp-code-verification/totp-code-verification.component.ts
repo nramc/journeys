@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, model} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogClose, MatDialogRef} from "@angular/material/dialog";
-import {NgIf} from "@angular/common";
+
 import {MyAccountService} from "../../../service/my-account/my-account.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {TotpCodeVerification} from "../../../service/my-account/totp-code-verification";
@@ -15,14 +15,13 @@ import {FormsModule} from "@angular/forms";
 @Component({
     selector: 'app-totp-code-verification',
     imports: [
-        MatDialogClose,
-        NgIf,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInput,
-        MatButton,
-        FormsModule
-    ],
+    MatDialogClose,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInput,
+    MatButton,
+    FormsModule
+],
     templateUrl: './totp-code-verification.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
