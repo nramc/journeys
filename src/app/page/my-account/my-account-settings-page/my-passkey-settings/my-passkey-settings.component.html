@@ -19,7 +19,7 @@
 
   <!-- Activation Section -->
   <div class="flex justify-start">
-    <button mat-flat-button type="button" (click)="registerNewPasskey()" *ngIf="authService.hasAuthenticatedRole()">
+    <button mat-flat-button type="button" (click)="registerNewPasskey()" *appHasAuthenticated>
       Register New Passkey
     </button>
   </div>
@@ -45,7 +45,9 @@
               @for (passkey of registeredPasskeys(); track passkey.credentialId) {
                 <tr>
                   <td class="px-4 py-2 font-mono text-sm text-gray-900 dark:text-gray-200">{{ passkey.deviceInfo }}</td>
-                  <td class="px-4 py-2 font-mono text-sm text-gray-500 dark:text-gray-400">{{ passkey.createdAt | date:'long' }}</td>
+                  <td
+                    class="px-4 py-2 font-mono text-sm text-gray-500 dark:text-gray-400">{{ passkey.createdAt | date:'long' }}
+                  </td>
                   <td class="px-4 py-2 text-right">
                     <button mat-button type="button" (click)="removePasskey(passkey.credentialId)"
                             class="text-red-600 hover:text-red-800 text-sm font-medium">Remove
@@ -60,9 +62,10 @@
     </mat-accordion>
   </div>
 
-
-  <div *ngIf="!authService.hasAuthenticatedRole()">
-    <p class="text-sm text-primary italic">You do have access to register Passkey for the account.</p>
-  </div>
+  @if (!authService.hasAuthenticatedRole()) {
+    <div>
+      <p class="text-sm text-primary italic">You do have access to register Passkey for the account.</p>
+    </div>
+  }
 
 </section>

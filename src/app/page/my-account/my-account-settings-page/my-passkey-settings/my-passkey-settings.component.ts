@@ -9,11 +9,12 @@ import {NotificationService} from "../../../../service/common/notification.servi
 import {toSignal} from "@angular/core/rxjs-interop";
 import {BehaviorSubject} from "rxjs";
 import {MatAccordion, MatExpansionModule} from "@angular/material/expansion";
+import {HasAuthenticatedDirective} from "../../../../directive/has-authenticated.directive";
 
 @Component({
   selector: 'app-my-passkey-settings',
   imports: [
-    MatIconModule, MatTooltipModule, MatButton, NgIf, DatePipe, MatAccordion, MatExpansionModule
+    MatIconModule, MatTooltipModule, MatButton, NgIf, DatePipe, MatAccordion, MatExpansionModule, HasAuthenticatedDirective
   ],
   templateUrl: './my-passkey-settings.component.html',
   styles: []
