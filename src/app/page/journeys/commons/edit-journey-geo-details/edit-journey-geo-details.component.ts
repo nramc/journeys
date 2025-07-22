@@ -4,7 +4,7 @@ import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
 import {GeoCodingLocationData, WorldMapComponent} from "../../../../component/world-map/world-map.component";
 import {MatStepperNext} from "@angular/material/stepper";
-import {NgForOf, NgIf} from "@angular/common";
+
 import {NotificationService} from "../../../../service/common/notification.service";
 import {OperationMode} from "../../operation-mode";
 import {EditGeoLocationComponent} from "../edit-geo-location/edit-geo-location.component";
@@ -23,20 +23,18 @@ import {MatIconModule} from "@angular/material/icon";
     templateUrl: './edit-journey-geo-details.component.html',
     styles: [],
     imports: [
-        FormsModule,
-        WorldMapComponent,
-        MatStepperNext,
-        NgIf,
-        EditGeoLocationComponent,
-        EditGeoJsonComponent,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatRadioModule,
-        MatButtonModule,
-        NgForOf,
-        MatIconModule
-    ],
+    FormsModule,
+    WorldMapComponent,
+    MatStepperNext,
+    EditGeoLocationComponent,
+    EditGeoJsonComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatIconModule
+],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
