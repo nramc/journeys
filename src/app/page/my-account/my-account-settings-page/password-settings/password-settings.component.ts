@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, model, OnInit, signal} from '@angular/core';
-import {DatePipe, NgIf} from "@angular/common";
+import { DatePipe } from "@angular/common";
 import {MyAccountService} from "../../../../service/my-account/my-account.service";
 import {AppUser} from "../../../../model/account/app-user";
 import {Role} from "../../../../service/auth/role";
@@ -15,15 +15,14 @@ import {AuthService} from "../../../../service/auth/auth.service";
 @Component({
     selector: 'app-my-password-settings',
     imports: [
-        NgIf,
-        DatePipe,
-        FormsModule,
-        MatTooltip,
-        MatFormFieldModule,
-        MatIconModule,
-        MatButtonModule,
-        MatInputModule
-    ],
+    DatePipe,
+    FormsModule,
+    MatTooltip,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule
+],
     templateUrl: './password-settings.component.html',
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
