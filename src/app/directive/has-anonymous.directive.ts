@@ -4,10 +4,10 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {UserContext} from "../service/auth/user-context";
 
 @Directive({
-  selector: '[appHasAuthenticated]',
+  selector: '[appHasAnonymous]',
   standalone: true
 })
-export class HasAuthenticatedDirective {
+export class HasAnonymousDirective {
   private readonly viewContainer = inject(ViewContainerRef);
   private readonly templateRef = inject(TemplateRef<never>);
 
@@ -17,12 +17,12 @@ export class HasAuthenticatedDirective {
 
   constructor() {
     effect(() => {
-      if (this.isUserAuthenticated()) {
+      if (!this.isUserAuthenticated()) {
         this.viewContainer.createEmbeddedView(this.templateRef);
       } else {
         this.viewContainer.clear();
       }
-    })
+    });
 
   }
 

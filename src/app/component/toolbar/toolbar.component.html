@@ -5,7 +5,8 @@
       <mat-icon>menu</mat-icon>
     </button>
     <a [routerLink]="HOME_PAGE_INFO.path" class="app-brand">
-      <img ngSrc="assets/logo/journey-logo-180x180.png" alt="Journey" class="brand-logo" height="180" width="180" priority/>
+      <img ngSrc="assets/logo/journey-logo-180x180.png" alt="Journey" class="brand-logo" height="180" width="180"
+           priority/>
     </a>
     <a [routerLink]="HOME_PAGE_INFO.path" class="app-name">
       <h1 class="app-title text-primary dark:text-primary-dark">Journey</h1>
@@ -13,41 +14,6 @@
     </a>
   </div>
   <div class="inline-flex">
-    <!-- Dropdown (My Account) -->
-    <mat-menu #accountMenu="matMenu">
-      <button mat-menu-item routerLink="/my-account/profile">
-        <div class="flex items-center">
-          <mat-icon>person</mat-icon>
-          <span>My Profile</span>
-        </div>
-      </button>
-      <button mat-menu-item routerLink="/my-account/securitySettings">
-        <div class="flex items-center">
-          <mat-icon>settings</mat-icon>
-          <span>Security Settings</span>
-        </div>
-      </button>
-      <button mat-menu-item routerLink="/my-account/delete">
-        <div class="flex items-center">
-          <mat-icon>delete</mat-icon>
-          <span>Delete Account</span>
-        </div>
-      </button>
-    </mat-menu>
-
-    <div class="inline-flex">
-      <button mat-icon-button routerLink="/login" *ngIf="!isUserAuthenticated()">
-        <mat-icon matTooltip="Login" class="text-primary">account_circle</mat-icon>
-      </button>
-      <app-theme-toggle class="contents"/>
-      <button mat-icon-button [matMenuTriggerFor]="accountMenu" *ngIf="isUserAuthenticated()">
-        <mat-icon matTooltip="My Account" class="text-primary">account_circle</mat-icon>
-      </button>
-
-      <button mat-icon-button [routerLink]="LOGOUT_PAGE_INFO.path" *ngIf="isUserAuthenticated()">
-        <mat-icon matTooltip="Logout" class="text-primary">power_settings_new</mat-icon>
-      </button>
-    </div>
-
+    <app-toolbar-actions></app-toolbar-actions>
   </div>
 </mat-toolbar>
