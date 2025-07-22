@@ -5,11 +5,13 @@
   <!-- Quick Links Container -->
   <div class="flex flex-row flex-wrap gap-4 justify-start max-sm:flex-col max-sm:items-center">
     <!-- Create New Journey Button -->
-    <a mat-fab extended color="primary" [routerLink]="NEW_JOURNEY_PAGE_INFO.path" class="flex items-center gap-2"
-       *ngIf="authService.hasAuthenticatedRole()">
-      <mat-icon>add_location_alt</mat-icon>
-      <span>Create New Journey</span>
-    </a>
+
+      <a mat-fab extended color="primary" [routerLink]="NEW_JOURNEY_PAGE_INFO.path" class="flex items-center gap-2"
+        *appHasAuthenticated>
+        <mat-icon>add_location_alt</mat-icon>
+        <span>Create New Journey</span>
+      </a>
+
 
     <!-- Journiversaries Button -->
     <a mat-fab extended color="accent" [routerLink]="TIMELINE_PAGE_INFO.path" class="flex items-center gap-2">
