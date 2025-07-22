@@ -15,16 +15,17 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatMenuModule} from "@angular/material/menu";
-import {NgIf} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {AuthService} from "../../service/auth/auth.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {NavigationMenuItemComponent} from "../navigation-menu-item/navigation-menu-item.component";
+import {HasAuthenticatedDirective} from "../../directive/has-authenticated.directive";
+import {HasAnonymousDirective} from "../../directive/has-anonymous.directive";
 
 @Component({
   selector: 'app-navigation-menu',
   imports: [
-    MatSidenavModule, MatIconModule, MatListModule, MatMenuModule, NgIf, MatToolbarModule, NavigationMenuItemComponent
+    MatSidenavModule, MatIconModule, MatListModule, MatMenuModule, MatToolbarModule, NavigationMenuItemComponent, HasAuthenticatedDirective, HasAnonymousDirective
   ],
   templateUrl: './navigation-menu.component.html',
   styles: []

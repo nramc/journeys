@@ -6,23 +6,23 @@
     <app-navigation-menu-item [pageInfo]="HOME" [showLabel]="showLabel()"></app-navigation-menu-item>
   </mat-list-item>
 
-  <mat-list-item *ngIf="isUserAuthenticated()">
+  <mat-list-item *appHasAuthenticated>
     <app-navigation-menu-item [pageInfo]="DASHBOARD" [showLabel]="showLabel()"></app-navigation-menu-item>
   </mat-list-item>
 
-  <mat-list-item *ngIf="isUserAuthenticated()">
+  <mat-list-item *appHasAuthenticated>
     <app-navigation-menu-item [pageInfo]="GALLERY" [showLabel]="showLabel()"></app-navigation-menu-item>
   </mat-list-item>
 
-  <mat-list-item *ngIf="isUserAuthenticated()">
+  <mat-list-item *appHasAuthenticated>
     <app-navigation-menu-item [pageInfo]="JOURNEY_SEARCH" [showLabel]="showLabel()"></app-navigation-menu-item>
   </mat-list-item>
 
-  <mat-list-item *ngIf="isUserAuthenticated()">
+  <mat-list-item *appHasAuthenticated>
     <app-navigation-menu-item [pageInfo]="STATISTICS" [showLabel]="showLabel()"></app-navigation-menu-item>
   </mat-list-item>
 
-  <mat-list-item *ngIf="isUserAuthenticated()">
+  <mat-list-item *appHasAuthenticated>
     <app-navigation-menu-item [pageInfo]="TIMELINE" [showLabel]="showLabel()"></app-navigation-menu-item>
   </mat-list-item>
 
@@ -34,7 +34,7 @@
     <app-navigation-menu-item [pageInfo]="ABOUT" [showLabel]="showLabel()"></app-navigation-menu-item>
   </mat-list-item>
 
-  <mat-list-item *ngIf="!isUserAuthenticated()">
+  <mat-list-item *appHasAnonymous>
     <app-navigation-menu-item [pageInfo]="LOGIN" [showLabel]="showLabel()"></app-navigation-menu-item>
   </mat-list-item>
 
