@@ -3,13 +3,13 @@ import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {Thirukkural} from "../../service/thirukkural/thirukkural.type";
 import {ThirukkuralService} from "../../service/thirukkural/thirukkural.service";
-import {NgIf} from "@angular/common";
+
 import {MatIconModule} from "@angular/material/icon";
 
 
 @Component({
   selector: 'app-thirukkural-widget',
-  imports: [MatCardModule, MatButtonModule, NgIf, MatIconModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './thirukkural-widget.component.html',
   styles: []
 })
