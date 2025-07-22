@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {NgIf} from "@angular/common";
+
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {LoadingService} from "../../service/common/loading.service";
 import {toSignal} from "@angular/core/rxjs-interop";
@@ -7,14 +7,15 @@ import {toSignal} from "@angular/core/rxjs-interop";
 @Component({
     selector: 'app-loading-spinner',
     imports: [
-        NgIf,
-        MatProgressSpinner
-    ],
+    MatProgressSpinner
+],
     template: `
-    <div *ngIf="isLoading()" class="spinner-overlay">
-      <mat-spinner></mat-spinner>
-    </div>
-  `,
+    @if (isLoading()) {
+      <div class="spinner-overlay">
+        <mat-spinner></mat-spinner>
+      </div>
+    }
+    `,
     styles: [`
     .spinner-overlay {
       position: fixed;
