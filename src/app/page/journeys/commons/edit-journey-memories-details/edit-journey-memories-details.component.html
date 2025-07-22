@@ -1,73 +1,73 @@
-<form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" *ngIf="journey()" class="content-wrapper flex flex-col gap-2">
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <!-- Name -->
-    <div>
-      <mat-form-field class="w-full" appearance="outline">
-        <mat-label>Journey Name</mat-label>
-        <input matInput type="text" id="name" name="name" placeholder="Name your Journey"
-               [(ngModel)]="journey().name" #name=ngModel [readOnly]="isReadOnly()"
-               maxlength="50" minlength="5" required
-               class="mt-1 w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-        <mat-error [hidden]="name.valid || name.pristine">
-          <div *ngIf="name.errors?.['required']">Name is required.</div>
-          <div *ngIf="name.errors?.['minlength']">Name must be at least 5 characters long.</div>
-          <div *ngIf="name.errors?.['maxlength']">Name must be at most 50 characters long.</div>
-        </mat-error>
-      </mat-form-field>
+@if (journey()) {
+  <form (ngSubmit)="save(journeyForm)" #journeyForm="ngForm" class="content-wrapper flex flex-col gap-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Name -->
+      <div>
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>Journey Name</mat-label>
+          <input matInput type="text" id="name" name="name" placeholder="Name your Journey"
+            [(ngModel)]="journey().name" #name=ngModel [readOnly]="isReadOnly()"
+            maxlength="50" minlength="5" required
+            class="mt-1 w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+          <mat-error [hidden]="name.valid || name.pristine">
+            @if (name.errors?.['required']) {
+              <div>Name is required.</div>
+            }
+            @if (name.errors?.['minlength']) {
+              <div>Name must be at least 5 characters long.</div>
+            }
+            @if (name.errors?.['maxlength']) {
+              <div>Name must be at most 50 characters long.</div>
+            }
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <!-- Journey Date -->
+      <div>
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>Journey Date</mat-label>
+          <input matInput [matDatepicker]="picker" required placeholder="dd/mm/yyyy" (dateChange)="journeyDateChangeEvent($event)"
+            [(ngModel)]="journeyDateTimestamp" #journeyDate=ngModel [readOnly]="isReadOnly()"
+            name="journeyDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error [hidden]="journeyDate.valid || journeyDate.pristine">
+            @if (journeyDate.errors?.['required']) {
+              <div>Journey Date is required.</div>
+            }
+          </mat-error>
+        </mat-form-field>
+      </div>
     </div>
-
-    <!-- Journey Date -->
-    <div>
-      <mat-form-field class="w-full" appearance="outline">
-        <mat-label>Journey Date</mat-label>
-        <input matInput [matDatepicker]="picker" required placeholder="dd/mm/yyyy" (dateChange)="journeyDateChangeEvent($event)"
-               [(ngModel)]="journeyDateTimestamp" #journeyDate=ngModel [readOnly]="isReadOnly()"
-        name="journeyDate">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error [hidden]="journeyDate.valid || journeyDate.pristine">
-          <div *ngIf="journeyDate.errors?.['required']">Journey Date is required.</div>
-        </mat-error>
-      </mat-form-field>
+    <!-- Tags -->
+    <div class="w-full">
+      <app-tags-input [(tags)]="journey().tags" [disabled]="isReadOnly()"></app-tags-input>
     </div>
-  </div>
-
-  <!-- Tags -->
-  <div class="w-full">
-    <app-tags-input [(tags)]="journey().tags" [disabled]="isReadOnly()"></app-tags-input>
-  </div>
-
-  <!-- Memories -->
-  <div class="w-full">
-    <app-narration [title]="journey().name" [(narration)]="journey().description"
-                   [disabled]="isReadOnly()" [markdownStyle]="isReadOnly() ? 'Preview' : 'Source'"></app-narration>
-  </div>
-
-  <div class="flex flex-wrap justify-center gap-2 mt-4">
-    <!-- Create Button -->
-    <button mat-raised-button type="submit" class="px-6 py-2" [disabled]="!journeyForm.form.valid"
-            [hidden]="mode() !== OperationMode.NEW">
-      Create
-    </button>
-
-    <!-- Edit Button -->
-    <button mat-stroked-button type="button" class="px-6 py-2"
-            (click)="enableEditMode()" [hidden]="mode() !== OperationMode.VIEW" *appHasWriteAccess>
-      Edit
-    </button>
-
-    <!-- Save Button -->
-    <button mat-flat-button type="submit" class="px-6 py-2"
-            [disabled]="!journeyForm.form.valid" [hidden]="mode() !== OperationMode.EDIT">
-      Save
-    </button>
-
-    <!-- Next Button -->
-    <button mat-stroked-button type="button" class="px-6 py-2" [disabled]="journey().id === ''" matStepperNext>
-      Next
-    </button>
-  </div>
-
-
-</form>
+    <!-- Memories -->
+    <div class="w-full">
+      <app-narration [title]="journey().name" [(narration)]="journey().description"
+      [disabled]="isReadOnly()" [markdownStyle]="isReadOnly() ? 'Preview' : 'Source'"></app-narration>
+    </div>
+    <div class="flex flex-wrap justify-center gap-2 mt-4">
+      <!-- Create Button -->
+      <button mat-raised-button type="submit" class="px-6 py-2" [disabled]="!journeyForm.form.valid"
+        [hidden]="mode() !== OperationMode.NEW">
+        Create
+      </button>
+      <!-- Edit Button -->
+      <button mat-stroked-button type="button" class="px-6 py-2"
+        (click)="enableEditMode()" [hidden]="mode() !== OperationMode.VIEW" *appHasWriteAccess>
+        Edit
+      </button>
+      <!-- Save Button -->
+      <button mat-flat-button type="submit" class="px-6 py-2"
+        [disabled]="!journeyForm.form.valid" [hidden]="mode() !== OperationMode.EDIT">
+        Save
+      </button>
+      <!-- Next Button -->
+      <button mat-stroked-button type="button" class="px-6 py-2" [disabled]="journey().id === ''" matStepperNext>
+        Next
+      </button>
+    </div>
+  </form>
+}
