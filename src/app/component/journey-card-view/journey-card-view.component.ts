@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
-import {DatePipe, NgIf} from "@angular/common";
+import { DatePipe } from "@angular/common";
 import {Router} from "@angular/router";
 import {JourneyData} from "./journey.data";
 import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL, Journey} from "../../model/core/journey.model";
@@ -10,12 +10,11 @@ import {HasWriteAccessDirective} from "../../directive/has-write-access.directiv
 @Component({
     selector: 'app-journey-card-view',
     imports: [
-        DatePipe,
-        MatCardModule,
-        MatButtonModule,
-        NgIf,
-        HasWriteAccessDirective
-    ],
+    DatePipe,
+    MatCardModule,
+    MatButtonModule,
+    HasWriteAccessDirective
+],
     templateUrl: './journey-card-view.component.html',
     styleUrl: './journey-card-view.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
