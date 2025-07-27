@@ -12,7 +12,7 @@ import {JourneyService} from "../../../service/journey/journey.service";
     @if (journeys().length > 0) {
       <div class="mt-6">
         <!-- Section Title -->
-        <h2 class="text-gradient text-xl font-semibold mb-4">Upcoming Anniversaries</h2>
+        <h2 class="text-gradient text-xl font-semibold mb-4">Today in History</h2>
 
         <!-- Journey Cards Container -->
         <div class="flex flex-col md:flex-row gap-4 overflow-x-auto pb-2">
