@@ -5,18 +5,30 @@
     <!-- Markdown Style Toggle -->
     @if (!disabled()) {
       <mat-button-toggle-group name="markdownStyle" aria-label="Markdown Style" hideSingleSelectionIndicator="true"
-        [(ngModel)]="markdownStyle">
+                               [(ngModel)]="markdownStyle">
         <mat-button-toggle value="Source" class="text-sm">Edit</mat-button-toggle>
         <mat-button-toggle value="Preview" class="text-sm">Preview</mat-button-toggle>
       </mat-button-toggle-group>
+      <!-- Add this where you want the combined button/dropdown -->
+      <button mat-raised-button type="button" [matMenuTriggerFor]="toneMenu" [disabled]="disabled()">
+        Enhance
+        <mat-icon>auto_awesome</mat-icon>
+      </button>
+      <mat-menu #toneMenu="matMenu">
+        @for (tone of tones; track tone) {
+          <button mat-menu-item (click)="enhanceNarration(tone)">
+            {{ tone }}
+          </button>
+        }
+      </mat-menu>
     }
   </div>
 
   <!-- Textarea for Memories -->
   <textarea rows="15" id="description" name="description" placeholder="Detailed information about the Journey"
-    class="w-full p-4 border rounded-md focus:outline-hidden focus:ring focus:ring-indigo-500 dark:bg-gray-800"
-    required minlength="10" maxlength="5000"
-  #description="ngModel" [(ngModel)]="narration" [hidden]="markdownStyle() === 'Preview'"></textarea>
+            class="w-full p-4 border rounded-md focus:outline-hidden focus:ring focus:ring-indigo-500 dark:bg-gray-800"
+            required minlength="10" maxlength="5000"
+            #description="ngModel" [(ngModel)]="narration" [hidden]="markdownStyle() === 'Preview'"></textarea>
 
   <!-- Display Markdown Preview -->
   <div [hidden]="markdownStyle() === 'Source'" class="h-96 overflow-auto">
