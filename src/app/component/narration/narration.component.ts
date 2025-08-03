@@ -6,9 +6,6 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {NarrationEnhancerService} from "../../service/ai/narration-enhancer.service";
-import {MatDividerModule} from "@angular/material/divider";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
 
 
 @Component({
@@ -19,10 +16,7 @@ import {MatInputModule} from "@angular/material/input";
     MatButtonToggleModule,
     MatMenuModule,
     MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule
+    MatIconModule
   ],
   templateUrl: './narration.component.html',
   styles: []
