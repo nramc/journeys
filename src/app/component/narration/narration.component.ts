@@ -1,10 +1,14 @@
-import {Component, input, model} from '@angular/core';
+import {Component, inject, input, model} from '@angular/core';
 import {DisplayMarkdownComponent} from "../display-markdown-component/display-markdown.component";
 import {FormsModule} from "@angular/forms";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import {NarrationEnhancerService} from "../../service/ai/narration-enhancer.service";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 
 @Component({
@@ -15,20 +19,35 @@ import {MatIconModule} from "@angular/material/icon";
     MatButtonToggleModule,
     MatMenuModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   templateUrl: './narration.component.html',
   styles: []
 })
 export class NarrationComponent {
+  //protected readonly tones = ['Adventurous', 'Romantic', 'Inspirational', 'Poetic', 'Funny', 'Minimalistic'];
+  protected readonly tones = [
+    '🌍 Adventurous',
+    '❤️ Romantic',
+    '💡 Inspirational',
+    '🎨 Poetic',
+    '😄 Funny',
+    '🧘 Minimalistic'
+  ];
+
+  private readonly narrationEnhancerService = inject(NarrationEnhancerService);
   markdownStyle = model<'Source' | 'Preview'>('Source')
   disabled = input<boolean>(false);
 
   title = input<string>('');
   narration = model<string>('');
 
-  enhanceNarration(formal: string) {
-    console.log(formal);
-    this.narration.update(currentValue => currentValue + '\n\n' + formal);
+  enhanceNarration(tone: string) {
+    console.log(tone);
+    this.narrationEnhancerService.enhance({narration: this.narration(), tone: tone})
+      .subscribe({next: data => this.narration.set(data.narration)});
   }
 }

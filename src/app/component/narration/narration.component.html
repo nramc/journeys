@@ -15,23 +15,11 @@
         <mat-icon>auto_awesome</mat-icon>
       </button>
       <mat-menu #toneMenu="matMenu">
-        <button mat-menu-item (click)="enhanceNarration('Adventurous')">
-          <mat-icon>explore</mat-icon>
-          Adventurous
-        </button>
-        <button mat-menu-item (click)="enhanceNarration('Romantic')">
-          <mat-icon>favorite</mat-icon>
-          Romantic
-        </button>
-        <button mat-menu-item (click)="enhanceNarration('Inspirational')">
-          <mat-icon>lightbulb</mat-icon>
-          Inspirational
-        </button>
-        <button mat-menu-item (click)="enhanceNarration('Humorous')">
-          <mat-icon>emoji_emotions</mat-icon>
-          Humorous
-        </button>
-        <!-- Add more tones as needed -->
+        @for (tone of tones; track tone) {
+          <button mat-menu-item (click)="enhanceNarration(tone)">
+            {{ tone }}
+          </button>
+        }
       </mat-menu>
     }
   </div>
