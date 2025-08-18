@@ -35,7 +35,7 @@
     "@fullcalendar/rrule": "6.1.19",
     "@github/webauthn-json": "2.1.1",
     "@maptiler/geocoding-control": "2.1.7",
-    "@maptiler/leaflet-maptilersdk": "4.1.0",
+    "@maptiler/leaflet-maptilersdk": "4.1.1",
     "@popperjs/core": "2.11.8",
     "@tailwindcss/postcss": "4.1.12",
     "@types/geojson": "7946.0.16",
