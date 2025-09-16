@@ -61,7 +61,7 @@
     "@types/file-saver": "2.0.7",
     "@types/jasmine": "5.1.9",
     "@types/leaflet": "1.9.20",
-    "@types/node": "22.18.4",
+    "@types/node": "22.18.5",
     "angular-cli-ghpages": "2.0.3",
     "angular-eslint": "20.3.0",
     "autoprefixer": "10.4.21",
