@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import * as L from 'leaflet';
 import {Layer} from 'leaflet';
-import 'leaflet.fullscreen';
+import {FullScreen} from 'leaflet.fullscreen';
 import {MaptilerLayer} from "@maptiler/leaflet-maptilersdk";
 import {GeocodingControl} from "@maptiler/geocoding-control/leaflet";
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
@@ -22,6 +22,7 @@ import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
 import {GeoCodingFeature} from "./geo-coding-feature";
 import {merge} from "rxjs";
 import {ThemeService} from "../../service/theme/theme.service";
+import 'leaflet.fullscreen/dist/Control.FullScreen.css';
 
 
 const iconDefault = L.icon({
@@ -90,17 +91,11 @@ export class WorldMapComponent implements AfterViewInit {
 
   private initializeMap(): void {
 
-    this.map = L.map(this.elementRef.nativeElement.querySelector("div.map-renderer"),
-      {
-        // @ts-expect-error 3rd party plugin used for fullscreen support
-        fullscreenControl: true,
-        forceSeparateButton: true,
-        fullscreenControlOptions: {
-          position: 'topleft'
-        }
-      })
+    this.map = L.map(this.elementRef.nativeElement.querySelector("div.map-renderer"))
       .fitWorld()
       .zoomIn(this.zoomIn());
+
+    this.map.addControl(new FullScreen({position: 'topleft'}));
 
     L.control.scale().addTo(this.map);
     new MaptilerLayer({
