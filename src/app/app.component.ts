@@ -9,13 +9,14 @@ import {map} from "rxjs";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {FormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
+import {ScrollToTopComponent} from "./component/scroll-to-top/scroll-to-top.component";
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, LoadingSpinnerComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, ToolbarComponent, FormsModule, MatIconModule],
+  imports: [RouterOutlet, LoadingSpinnerComponent, NavigationMenuComponent, MatSidenavContainer, MatSidenavContent, MatSidenav, ToolbarComponent, FormsModule, MatIconModule, ScrollToTopComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {

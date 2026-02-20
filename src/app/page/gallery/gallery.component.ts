@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, signal, viewChild, inject } from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit, signal, viewChild} from '@angular/core';
 import {BehaviorSubject, catchError, merge, of, shareReplay, startWith, switchMap} from "rxjs";
 import {TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
@@ -70,7 +70,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     {label: "Journey Date", key: 'journeyDate'});
   sortableDirections: SortDirection[] = ["asc", "desc"];
   sortingDirectionChangedEvent: BehaviorSubject<SortDirection> = new BehaviorSubject<SortDirection>("desc");
-  defaultPageSize = 10;
+  defaultPageSize = 15;
 
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
@@ -85,8 +85,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     const router = inject(Router);
 
 
-    if (router.getCurrentNavigation()?.extras.state) {
-      this.searchCriteria.set(router.getCurrentNavigation()?.extras.state as SearchCriteria);
+    if (router.currentNavigation()?.extras.state) {
+      this.searchCriteria.set(router.currentNavigation()?.extras.state as SearchCriteria);
     }
 
   }
