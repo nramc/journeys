@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, signal, viewChild, inject } from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit, signal, viewChild} from '@angular/core';
 import {BehaviorSubject, catchError, merge, of, shareReplay, startWith, switchMap} from "rxjs";
 import {TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
@@ -20,7 +20,6 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatButton} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
-import {ScrollToTopComponent} from '../../component/scroll-to-top/scroll-to-top.component';
 import {GALLERY_PAGE_INFO} from "../../model/page.info.model";
 
 export interface SearchResult {
@@ -49,8 +48,7 @@ export interface SortableHeader {
     MatExpansionModule,
     MatButton,
     MatMenuModule,
-    PageHeaderComponent,
-    ScrollToTopComponent
+    PageHeaderComponent
   ],
   styleUrls: ['./gallery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
