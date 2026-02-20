@@ -69,7 +69,7 @@
 
   <section class="m-0 p-0 flex justify-center max-sm:flex-col text-center content-center items-center">
     <mat-paginator [length]="searchResult().totalElements" [pageSize]="defaultPageSize"
-                   [pageSizeOptions]="[1, 5, 10, 20, 25]"
+                   [pageSizeOptions]="[1, 5, 10, 15, 20, 25]"
                    aria-label="Select page" [showFirstLastButtons]="true" class="paginator"
                    color="primary">
     </mat-paginator>
@@ -117,7 +117,6 @@
     }
   </section>
 
+  <app-scroll-to-top></app-scroll-to-top>
 </main>
-
-
 

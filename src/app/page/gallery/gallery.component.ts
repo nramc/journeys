@@ -20,6 +20,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatButton} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {PageHeaderComponent} from "../../component/page-header/page-header.component";
+import {ScrollToTopComponent} from '../../component/scroll-to-top/scroll-to-top.component';
 import {GALLERY_PAGE_INFO} from "../../model/page.info.model";
 
 export interface SearchResult {
@@ -48,7 +49,8 @@ export interface SortableHeader {
     MatExpansionModule,
     MatButton,
     MatMenuModule,
-    PageHeaderComponent
+    PageHeaderComponent,
+    ScrollToTopComponent
   ],
   styleUrls: ['./gallery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -70,7 +72,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     {label: "Journey Date", key: 'journeyDate'});
   sortableDirections: SortDirection[] = ["asc", "desc"];
   sortingDirectionChangedEvent: BehaviorSubject<SortDirection> = new BehaviorSubject<SortDirection>("desc");
-  defaultPageSize = 10;
+  defaultPageSize = 15;
 
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
@@ -85,8 +87,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     const router = inject(Router);
 
 
-    if (router.getCurrentNavigation()?.extras.state) {
-      this.searchCriteria.set(router.getCurrentNavigation()?.extras.state as SearchCriteria);
+    if (router.currentNavigation()?.extras.state) {
+      this.searchCriteria.set(router.currentNavigation()?.extras.state as SearchCriteria);
     }
 
   }
