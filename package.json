@@ -63,7 +63,7 @@
     "@types/leaflet": "1.9.21",
     "@types/node": "24.11.0",
     "angular-cli-ghpages": "3.0.2",
-    "angular-eslint": "21.2.0",
+    "angular-eslint": "21.3.0",
     "autoprefixer": "10.4.27",
     "eslint": "9.39.3",
     "jasmine-core": "6.1.0",
