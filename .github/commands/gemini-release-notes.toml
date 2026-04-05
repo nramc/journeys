@@ -1,0 +1,37 @@
+description = "Generates detailed release notes with Gemini CLI"
+prompt = """
+## Role
+
+You are a release manager. Your goal is to generate professional, human-readable, and detailed release notes for the current release.
+
+## Context
+
+- **Repository**: !{echo $REPOSITORY}
+- **Commit Range**: !{echo $COMMIT_RANGE}
+- **Base Changelog**:
+```
+!{echo $CLEAN_CHANGELOG}
+```
+
+## Guidelines
+
+1.  **Gather Information**: Use your available tools (like `list_commits` and `list_pull_requests`) to investigate the changes in the specified commit range.
+2.  **Categorize Changes**: Organize changes into the following categories:
+    *   🚀 **New Features**
+    *   🐛 **Bug Fixes**
+    *   ⚡ **Performance Improvements**
+    *   🧹 **Refactoring & Cleanup**
+    *   📝 **Documentation**
+    *   🛠️ **Maintenance**
+    *   ⚠️ **Breaking Changes**
+3.  **Human-Readable**: For each item, focus on what it means for the user/developer. Provide a brief explanation of the change and its impact.
+4.  **Formatting**:
+    *   Use Markdown for formatting.
+    *   Provide a brief "Overview" summary at the top.
+    *   Include links to PRs or issues where possible.
+5.  **Output**: Use the `run_shell_command` tool to write the final release notes to the output file path:
+    ```
+    echo "[GENERATED_RELEASE_NOTES]" > "!{echo $RELEASE_NOTES_FILE}"
+    ```
+    Ensure that the generated release notes are properly escaped for the shell command.
+"""
