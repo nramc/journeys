@@ -1,3 +1,12 @@
+# [0.55.0](https://github.com/nramc/journeys/compare/v0.54.0...v0.55.0) (2026-04-06)
+
+
+### Features
+
+* update release notes file naming and clean changelog handling in CD workflow ([ff2b92d](https://github.com/nramc/journeys/commit/ff2b92d22e428c3079048ef6a16319e0882c5486))
+
+
+
 # [0.54.0](https://github.com/nramc/journeys/compare/v0.53.0...v0.54.0) (2026-04-06)
 
 
@@ -26,15 +35,6 @@
 ### Features
 
 * update gemini release notes generation guidelines ([aab2788](https://github.com/nramc/journeys/commit/aab27888562a63997a29097cde054ac01fda776f))
-
-
-
-# [0.51.0](https://github.com/nramc/journeys/compare/v0.50.2...v0.51.0) (2026-04-06)
-
-
-### Features
-
-* update gemini release notes generation guidelines ([3430ff8](https://github.com/nramc/journeys/commit/3430ff897811ea63d88d44225a4de32d20a52b51))
 
 
 
