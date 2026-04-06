@@ -1,3 +1,12 @@
+# [0.60.0](https://github.com/nramc/journeys/compare/v0.59.0...v0.60.0) (2026-04-06)
+
+
+### Features
+
+* update contributors section in release notes for improved visibility ([4353cca](https://github.com/nramc/journeys/commit/4353ccae8049c944e953ff032e132413b1d952ce))
+
+
+
 # [0.59.0](https://github.com/nramc/journeys/compare/v0.58.0...v0.59.0) (2026-04-06)
 
 
@@ -32,15 +41,6 @@
 ### Features
 
 * update output file specification for release notes to Markdown format ([860f58a](https://github.com/nramc/journeys/commit/860f58aac9f003458b91f0b1810b42e531f3f6c8))
-
-
-
-# [0.55.0](https://github.com/nramc/journeys/compare/v0.54.0...v0.55.0) (2026-04-06)
-
-
-### Features
-
-* update release notes file naming and clean changelog handling in CD workflow ([ff2b92d](https://github.com/nramc/journeys/commit/ff2b92d22e428c3079048ef6a16319e0882c5486))
 
 
 
