@@ -61,7 +61,10 @@ _A brief summary of the release, its focus, and any highlights._
 - Fixed annoying bug ([#124](https://github.com/...)) – _Impact statement._
 
 ### 👥 Contributors
-| Name | GitHub |
-|------|--------|
-| Alice | [@alice](https://github.com/alice) |
+Thanks to our amazing contributors who made this release possible!
+
+| Name                      | GitHub                             |
+|---------------------------|------------------------------------|
+| Ramachandran Nellaiyappan | [@nramc](https://github.com/nramc) |
+
 """
