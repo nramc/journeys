@@ -23,6 +23,7 @@ Please find below the relevant information about the release for generating the 
 ```
 !{echo $CLEAN_CHANGELOG}
 ```
+if the base changelog is empty, simply state that "There are no impactful changes in this release." and skip the rest of the steps.
 
 ## Guidelines
 
