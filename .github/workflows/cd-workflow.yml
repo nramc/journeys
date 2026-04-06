@@ -116,16 +116,18 @@ jobs:
       - name: 'Read Release Notes'
         id: 'read_release_notes'
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
-        run: |-
+        shell: bash
+        run: |
+          NOTES=""
           if [ -f release_notes.md ]; then
-            echo "notes<<EOF" >> $GITHUB_OUTPUT
-            cat release_notes.md >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
+            NOTES="$(cat release_notes.md)"
           else
-            echo "notes<<EOF" >> $GITHUB_OUTPUT
-            echo "${{ steps.changelog.outputs.clean_changelog }}" >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
+            NOTES="${{ steps.changelog.outputs.clean_changelog }}"
           fi
+          delimiter="__RELEASE_NOTES_EOF__"
+          echo "notes<<$delimiter" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "$delimiter" >> $GITHUB_OUTPUT
 
       - name: Create Release
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
