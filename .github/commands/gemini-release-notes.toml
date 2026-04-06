@@ -54,6 +54,11 @@ You are a world-class release manager. Your goal is to generate visually engagin
 7. **Output**
    - Use the `run_shell_command` tool to write the final release notes to the output file path:
      ```
+     cat <<'EOF' > "!{echo $RELEASE_NOTES_FILE}"
+     [GENERATED_RELEASE_NOTES]
+     EOF
+     ```
+     ```
      echo "[GENERATED_RELEASE_NOTES]" > "!{echo $RELEASE_NOTES_FILE}"
      ```
    - Ensure that the generated release notes are properly escaped for the shell command.
