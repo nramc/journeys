@@ -45,7 +45,7 @@ jobs:
         with:
           github-token: ${{ secrets.DEPLOY_TOKEN }}
           skip-on-empty: 'false'
-          output-file: false
+          output-file: true
           create-summary: true
 
       - name: 'Get Previous Tag'
