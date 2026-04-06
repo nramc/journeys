@@ -41,6 +41,9 @@ You are a world-class autonomous release manager. Generate visually engaging, mo
 
 3. **Output**
    - Write the final release notes to the output file **RELEASE_NOTES.md** in Markdown format.
+        cat <<'EOF' > "!{echo RELEASE_NOTES.md}"
+            [GENERATED_RELEASE_NOTES]
+        EOF
    - Replace [GENERATED_RELEASE_NOTES] with the actual Markdown content.
    - Ensure the generated release notes are properly escaped for the shell command.
 
