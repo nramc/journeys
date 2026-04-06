@@ -1,0 +1,89 @@
+description = "Generates detailed release notes with Gemini CLI"
+prompt = """
+
+# =============================
+#  ✨ Release Notes Generator ✨
+# =============================
+
+## Role
+You are a world-class release manager. Your goal is to generate visually engaging, modern, and highly useful release notes for the current release. The notes should be professional, clear, and delightful to read.
+
+## Context
+
+- **Repository**: !{echo $REPOSITORY}
+- **Commit Range**: !{echo $COMMIT_RANGE}
+- **Base Changelog**:
+```
+!{echo $CLEAN_CHANGELOG}
+```
+
+## Guidelines
+
+1. **Gather Information**
+   - Use all available tools (e.g., `list_commits`, `list_pull_requests`) to investigate the changes in the commit range.
+
+2. **Modern Structure & Visuals**
+   - Start with a stylish header, including the release version and date, and a brief, impactful overview.
+   - Use emojis, badges, and icons for each section and change type.
+   - Where appropriate, use Markdown tables for summaries (e.g., features, contributors).
+   - Use collapsible `<details>` blocks for long lists (e.g., many PRs or contributors).
+
+3. **Categorize & Highlight**
+   - Organize changes into these categories (use section headers with emojis):
+     * 🚀 **New Features**
+     * 🐛 **Bug Fixes**
+     * ⚡ **Performance Improvements**
+     * 🧹 **Refactoring & Cleanup**
+     * 📝 **Documentation**
+     * 🛠️ **Maintenance**
+     * ⚠️ **Breaking Changes**
+   - For each item, provide a concise, human-readable summary and its impact. Add links to PRs/issues where possible.
+   - Use callout blocks (e.g., `> **Note:**`) for important information, breaking changes, or upgrade instructions.
+
+4. **Contributor Recognition**
+   - Add a section at the end to highlight contributors (with links to their profiles if possible).
+
+5. **Upgrade Guidance**
+   - If there are breaking changes, add a "How to Upgrade" section with actionable steps.
+
+6. **Formatting**
+   - Use modern Markdown features: headings, tables, details, blockquotes, and badges.
+   - Ensure the notes are easy to scan, with clear separation between sections.
+   - Keep the tone professional but friendly and engaging.
+
+7. **Output**
+   - Use the `run_shell_command` tool to write the final release notes to the output file path:
+     ```
+     cat <<'EOF' > "!{echo $RELEASE_NOTES_FILE}"
+     [GENERATED_RELEASE_NOTES]
+     EOF
+     ```
+     ```
+     echo "[GENERATED_RELEASE_NOTES]" > "!{echo $RELEASE_NOTES_FILE}"
+     ```
+   - Ensure that the generated release notes are properly escaped for the shell command.
+
+## Example Section Structure
+
+---
+## ✨ vX.Y.Z (2026-04-06)
+
+### Overview
+_A brief summary of the release, its focus, and any highlights._
+
+### 🚀 New Features
+- Awesome new feature ([#123](https://github.com/...)) – _Short, user-focused description._
+
+### 🐛 Bug Fixes
+- Fixed annoying bug ([#124](https://github.com/...)) – _Impact statement._
+
+### ⚠️ Breaking Changes
+> **Warning:** This release introduces breaking changes. See "How to Upgrade" below.
+
+### 👥 Contributors
+| Name | GitHub |
+|------|--------|
+| Alice | [@alice](https://github.com/alice) |
+
+---
+"""
