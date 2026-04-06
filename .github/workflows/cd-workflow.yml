@@ -9,6 +9,9 @@ on:
 
 jobs:
   build:
+    permissions:
+        contents: write
+        id-token: write
 
     runs-on: ubuntu-latest
 
@@ -39,6 +42,84 @@ jobs:
           output-file: false
           create-summary: true
 
+      - name: 'Get Previous Tag'
+        id: 'get_prev_tag'
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        run: |-
+          PREV_TAG=$(git describe --tags --abbrev=0 ${{ steps.changelog.outputs.tag }}^ 2>/dev/null || echo "")
+          echo "tag=${PREV_TAG}" >> $GITHUB_OUTPUT
+
+      - name: 'Generate Detailed Release Notes'
+        id: 'gemini_release_notes'
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        uses: 'google-github-actions/run-gemini-cli@v0'
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          COMMIT_RANGE: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}
+          CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
+          RELEASE_NOTES_FILE: 'release_notes.md'
+        with:
+          gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
+          gcp_project_id: '${{ vars.GOOGLE_CLOUD_PROJECT }}'
+          gcp_service_account: '${{ vars.SERVICE_ACCOUNT_EMAIL }}'
+          gcp_workload_identity_provider: '${{ vars.GCP_WIF_PROVIDER }}'
+          gemini_api_key: '${{ secrets.GEMINI_API_KEY }}'
+          gemini_cli_version: '${{ vars.GEMINI_CLI_VERSION }}'
+          gemini_debug: '${{ fromJSON(vars.GEMINI_DEBUG || vars.ACTIONS_STEP_DEBUG || false) }}'
+          gemini_model: '${{ vars.GEMINI_MODEL }}'
+          google_api_key: '${{ secrets.GOOGLE_API_KEY }}'
+          use_gemini_code_assist: '${{ vars.GOOGLE_GENAI_USE_GCA }}'
+          use_vertex_ai: '${{ vars.GOOGLE_GENAI_USE_VERTEXAI }}'
+          upload_artifacts: '${{ vars.UPLOAD_ARTIFACTS }}'
+          workflow_name: 'gemini-release-notes'
+          settings: |-
+            {
+              "model": {
+                "maxSessionTurns": 25
+              },
+              "mcpServers": {
+                "github": {
+                  "command": "docker",
+                  "args": [
+                    "run",
+                    "-i",
+                    "--rm",
+                    "-e",
+                    "GITHUB_PERSONAL_ACCESS_TOKEN",
+                    "ghcr.io/github/github-mcp-server:v0.27.0"
+                  ],
+                  "includeTools": [
+                    "list_commits",
+                    "list_pull_requests"
+                  ],
+                  "env": {
+                    "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+                  }
+                }
+              },
+              "tools": {
+                "core": [
+                  "run_shell_command(echo)"
+                ]
+              }
+            }
+          prompt: '/gemini-release-notes'
+
+      - name: 'Read Release Notes'
+        id: 'read_release_notes'
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        run: |-
+          if [ -f release_notes.md ]; then
+            echo "notes<<EOF" >> $GITHUB_OUTPUT
+            cat release_notes.md >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "notes<<EOF" >> $GITHUB_OUTPUT
+            echo "${{ steps.changelog.outputs.clean_changelog }}" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
       - name: Create Release
         uses: actions/create-release@v1
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
@@ -47,7 +128,7 @@ jobs:
         with:
           tag_name: ${{ steps.changelog.outputs.tag }}
           release_name: ${{ steps.changelog.outputs.tag }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
+          body: ${{ steps.read_release_notes.outputs.notes }}
 
       - name: Deploy
         run: npm run ci:deploy
