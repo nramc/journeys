@@ -106,6 +106,13 @@ jobs:
             }
           prompt: '/gemini-release-notes'
 
+      - name: Upload Release Notes Artifact
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes
+          path: release_notes.md
+
       - name: 'Read Release Notes'
         id: 'read_release_notes'
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
