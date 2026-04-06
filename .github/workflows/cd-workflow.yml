@@ -22,10 +22,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{'{{'}} matrix.node-version {{'}}'}}
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{'{{'}} matrix.node-version {{'}}'}}
           cache: 'npm'
 
       - run: npm ci --legacy-peer-deps
@@ -37,27 +37,27 @@ jobs:
         id: changelog
         uses: TriPSs/conventional-changelog-action@v6
         with:
-          github-token: ${{ secrets.DEPLOY_TOKEN }}
+          github-token: ${{'{{'}} secrets.DEPLOY_TOKEN {{'}}'}}
           skip-on-empty: 'false'
           output-file: false
           create-summary: true
 
       - name: 'Get Previous Tag'
         id: 'get_prev_tag'
-        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        if: ${{'{{'}} steps.changelog.outputs.skipped == 'false' {{'}}'}}
         run: |-
-          PREV_TAG=$(git describe --tags --abbrev=0 ${{ steps.changelog.outputs.tag }}^ 2>/dev/null || echo "")
+          PREV_TAG=$(git describe --tags --abbrev=0 ${{'{{'}} steps.changelog.outputs.tag {{'}}'}}^ 2>/dev/null || echo "")
           echo "tag=${PREV_TAG}" >> $GITHUB_OUTPUT
 
       - name: 'Generate Detailed Release Notes'
         id: 'gemini_release_notes'
-        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        if: ${{'{{'}} steps.changelog.outputs.skipped == 'false' {{'}}'}}
         uses: 'google-github-actions/run-gemini-cli@v0'
         env:
-          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-          REPOSITORY: ${{ github.repository }}
-          COMMIT_RANGE: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}
-          CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
+          GITHUB_TOKEN: ${{'{{'}} secrets.DEPLOY_TOKEN {{'}}'}}
+          REPOSITORY: ${{'{{'}} github.repository {{'}}'}}
+          COMMIT_RANGE: ${{'{{'}} steps.get_prev_tag.outputs.tag {{'}}'}}..${{'{{'}} steps.changelog.outputs.tag {{'}}'}}
+          CLEAN_CHANGELOG: ${{'{{'}} steps.changelog.outputs.clean_changelog {{'}}'}}
           RELEASE_NOTES_FILE: 'release_notes.md'
         with:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
@@ -107,7 +107,7 @@ jobs:
           prompt: '/gemini-release-notes'
 
       - name: Upload Release Notes Artifact
-        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        if: ${{'{{'}} steps.changelog.outputs.skipped == 'false' {{'}}'}}
         uses: actions/upload-artifact@v4
         with:
           name: release-notes
@@ -115,7 +115,7 @@ jobs:
 
       - name: 'Read Release Notes'
         id: 'read_release_notes'
-        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        if: ${{'{{'}} steps.changelog.outputs.skipped == 'false' {{'}}'}}
         run: |-
           if [ -f release_notes.md ]; then
             echo "notes<<EOF" >> $GITHUB_OUTPUT
@@ -128,28 +128,15 @@ jobs:
           fi
 
       - name: Create Release
-        uses: actions/create-release@v1
-        run: |-
-          if [ -f release_notes.md ]; then
-            EOF=$(dd if=/dev/urandom bs=15 count=1 2>/dev/null | base64)
-            echo "notes<<$EOF" >> $GITHUB_OUTPUT
-            cat release_notes.md >> $GITHUB_OUTPUT
-            echo "$EOF" >> $GITHUB_OUTPUT
-          else
-            EOF=$(dd if=/dev/urandom bs=15 count=1 2>/dev/null | base64)
-            echo "notes<<$EOF" >> $GITHUB_OUTPUT
-            echo "${{ steps.changelog.outputs.clean_changelog }}" >> $GITHUB_OUTPUT
-            echo "$EOF" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        if: ${{'{{'}} steps.changelog.outputs.skipped == 'false' {{'}}'}}
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.changelog.outputs.tag }}
-          release_name: ${{ steps.changelog.outputs.tag }}
-          body: ${{ steps.read_release_notes.outputs.notes }}
+          tag_name: ${{'{{'}} steps.changelog.outputs.tag {{'}}'}}
+          name: ${{'{{'}} steps.changelog.outputs.tag {{'}}'}}
+          body: ${{'{{'}} steps.read_release_notes.outputs.notes {{'}}'}}
+          token: ${{ secrets.DEPLOY_TOKEN }}
 
       - name: Deploy
         run: npm run ci:deploy
         env:
           GH_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-
