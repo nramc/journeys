@@ -1,3 +1,12 @@
+# [0.56.0](https://github.com/nramc/journeys/compare/v0.55.0...v0.56.0) (2026-04-06)
+
+
+### Features
+
+* update output file specification for release notes to Markdown format ([860f58a](https://github.com/nramc/journeys/commit/860f58aac9f003458b91f0b1810b42e531f3f6c8))
+
+
+
 # [0.55.0](https://github.com/nramc/journeys/compare/v0.54.0...v0.55.0) (2026-04-06)
 
 
@@ -26,15 +35,6 @@
 
 
 ## [0.52.1](https://github.com/nramc/journeys/compare/v0.52.0...v0.52.1) (2026-04-06)
-
-
-
-# [0.52.0](https://github.com/nramc/journeys/compare/v0.51.0...v0.52.0) (2026-04-06)
-
-
-### Features
-
-* update gemini release notes generation guidelines ([aab2788](https://github.com/nramc/journeys/commit/aab27888562a63997a29097cde054ac01fda776f))
 
 
 
