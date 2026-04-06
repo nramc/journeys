@@ -63,7 +63,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
           REPOSITORY: ${{ github.repository }}
           COMMIT_RANGE: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}
-          CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
+          #CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
+          CLEAN_CHANGELOG: 'please refer to commit range'
           RELEASE_NOTES_FILE: 'release_notes.md'
         with:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
