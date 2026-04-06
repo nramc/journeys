@@ -129,7 +129,18 @@ jobs:
 
       - name: Create Release
         uses: actions/create-release@v1
-        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        run: |-
+          if [ -f release_notes.md ]; then
+            EOF=$(dd if=/dev/urandom bs=15 count=1 2>/dev/null | base64)
+            echo "notes<<$EOF" >> $GITHUB_OUTPUT
+            cat release_notes.md >> $GITHUB_OUTPUT
+            echo "$EOF" >> $GITHUB_OUTPUT
+          else
+            EOF=$(dd if=/dev/urandom bs=15 count=1 2>/dev/null | base64)
+            echo "notes<<$EOF" >> $GITHUB_OUTPUT
+            echo "${{ steps.changelog.outputs.clean_changelog }}" >> $GITHUB_OUTPUT
+            echo "$EOF" >> $GITHUB_OUTPUT
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
         with:
