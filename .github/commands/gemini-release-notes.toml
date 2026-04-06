@@ -10,6 +10,13 @@ You are a world-class release manager. Your goal is to generate visually engagin
 
 ## Context
 
+Please generate release notes only based on the information provided below.
+Do not make assumptions or add any information that is not explicitly given.
+Use the tools at your disposal to gather all necessary details about the commits, pull requests, and changes in the specified commit range.
+Please do not include any information about past releases or any other context that is not directly relevant to the current release.
+
+Please find below the relevant information about the release for generating the release notes:
+
 - **Repository**: !{echo $REPOSITORY}
 - **Commit Range**: !{echo $COMMIT_RANGE}
 - **Base Changelog**:
@@ -21,6 +28,8 @@ You are a world-class release manager. Your goal is to generate visually engagin
 
 1. **Gather Information**
    - Use all available tools (e.g., `list_commits`, `list_pull_requests`) to investigate the changes in the commit range.
+   - Consider changes only from the specified commit range and repository. Do not include any information about past releases or any other context that is not directly relevant to the current release.
+   - if the base changelog is empty, simply state that "There are no impactful changes in this release." and skip the rest of the steps.
 
 2. **Modern Structure & Visuals**
    - Start with a stylish header, including the release version and date, and a brief, impactful overview.
