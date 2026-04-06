@@ -63,9 +63,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
           REPOSITORY: ${{ github.repository }}
           COMMIT_RANGE: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}
-          #CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
-          CLEAN_CHANGELOG: 'please refer to commit range'
-          RELEASE_NOTES_FILE: 'release_notes.md'
+          CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
+          RELEASE_NOTES_FILE: 'RELEASE_NOTES.md'
         with:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
           gcp_project_id: '${{ vars.GOOGLE_CLOUD_PROJECT }}'
@@ -118,7 +117,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: release-notes
-          path: release_notes.md
+          path: RELEASE_NOTES.md
 
       - name: 'Read Release Notes'
         id: 'read_release_notes'
@@ -126,8 +125,8 @@ jobs:
         shell: bash
         run: |
           NOTES=""
-          if [ -f release_notes.md ]; then
-            NOTES="$(cat release_notes.md)"
+          if [ -f RELEASE_NOTES.md ]; then
+            NOTES="$(cat RELEASE_NOTES.md)"
           else
             NOTES="${{ steps.changelog.outputs.clean_changelog }}"
           fi
