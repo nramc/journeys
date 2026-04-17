@@ -64,7 +64,7 @@
     "@types/node": "24.12.2",
     "angular-cli-ghpages": "3.0.2",
     "angular-eslint": "21.3.0",
-    "autoprefixer": "10.4.27",
+    "autoprefixer": "10.5.0",
     "eslint": "9.39.4",
     "jasmine-core": "6.2.0",
     "karma": "6.4.4",
