@@ -27,9 +27,9 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v6.3.0
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -41,7 +41,7 @@ jobs:
 
       - name: Conventional Changelog Action
         id: changelog
-        uses: TriPSs/conventional-changelog-action@v6
+        uses: TriPSs/conventional-changelog-action@v6.3.0
         with:
           github-token: ${{ secrets.DEPLOY_TOKEN }}
           skip-on-empty: 'false'
@@ -58,7 +58,7 @@ jobs:
       - name: 'Generate Detailed Release Notes'
         id: 'gemini_release_notes'
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
-        uses: 'google-github-actions/run-gemini-cli@v0'
+        uses: 'google-github-actions/run-gemini-cli@v0.1.21'
         env:
           GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
           REPOSITORY: ${{ github.repository }}
@@ -114,7 +114,7 @@ jobs:
 
       - name: Upload Release Notes Artifact
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: release-notes
           path: RELEASE_NOTES.md
@@ -137,7 +137,7 @@ jobs:
 
       - name: Create Release
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@v3.0.0
         with:
           tag_name: ${{ steps.changelog.outputs.tag }}
           name: ${{ steps.changelog.outputs.tag }}
