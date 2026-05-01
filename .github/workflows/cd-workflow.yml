@@ -81,7 +81,7 @@ jobs:
             {
               "model": {
                 "maxSessionTurns": 25
-              },
+              }
             }
           prompt: '/gemini-release-notes'
 
