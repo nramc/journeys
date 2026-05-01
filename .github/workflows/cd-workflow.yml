@@ -64,7 +64,6 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           COMMIT_RANGE: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}
           CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
-          RELEASE_NOTES_FILE: 'RELEASE_NOTES.md'
           GEMINI_CLI_TRUST_WORKSPACE: true
         with:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
@@ -85,32 +84,6 @@ jobs:
               "model": {
                 "maxSessionTurns": 25
               },
-              "mcpServers": {
-                "github": {
-                  "command": "docker",
-                  "args": [
-                    "run",
-                    "-i",
-                    "--rm",
-                    "-e",
-                    "GITHUB_PERSONAL_ACCESS_TOKEN",
-                    "ghcr.io/github/github-mcp-server:v0.27.0"
-                  ],
-                  "includeTools": [
-                    "list_commits",
-                    "list_pull_requests"
-                  ],
-                  "env": {
-                    "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
-                  }
-                }
-              },
-              "tools": {
-                "core": [
-                  "write_file",
-                  "run_shell_command(echo,cat)"
-                ]
-              }
             }
           prompt: '/gemini-release-notes'
 
