@@ -65,6 +65,7 @@ jobs:
           COMMIT_RANGE: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}
           CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
           RELEASE_NOTES_FILE: 'RELEASE_NOTES.md'
+          GEMINI_CLI_TRUST_WORKSPACE: true
         with:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
           gcp_project_id: '${{ vars.GOOGLE_CLOUD_PROJECT }}'
