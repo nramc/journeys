@@ -98,8 +98,10 @@ jobs:
           NOTES=""
           if [ -f RELEASE_NOTES.md ]; then
             NOTES="$(cat RELEASE_NOTES.md)"
-          else
+          elif [ -n "${{ steps.changelog.outputs.clean_changelog }}" ]; then
             NOTES="${{ steps.changelog.outputs.clean_changelog }}"
+          else
+            NOTES="No impactful changes in this release."
           fi
           delimiter="__RELEASE_NOTES_EOF__"
           echo "notes<<$delimiter" >> $GITHUB_OUTPUT
