@@ -59,7 +59,7 @@ jobs:
           mkdir -p .gemini
           {
             echo "- **Repository**: ${{ github.repository }}"
-            echo "- **Commit Range**: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}
+            echo "- **Commit Range**: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}"
             echo "- **Base Changelog**:"
             echo ""
             printf '%s\n' "$CLEAN_CHANGELOG"
