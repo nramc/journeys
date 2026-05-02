@@ -1,3 +1,12 @@
+## [0.63.1](https://github.com/nramc/journeys/compare/v0.63.0...v0.63.1) (2026-05-02)
+
+
+### Bug Fixes
+
+* correct formatting in commit range output for changelog generation ([b1c6c15](https://github.com/nramc/journeys/commit/b1c6c15dd73dc02d866ce31213128bc8cd0ddc81))
+
+
+
 # [0.63.0](https://github.com/nramc/journeys/compare/v0.62.1...v0.63.0) (2026-05-02)
 
 
@@ -39,10 +48,6 @@
 * remove conditional checks for skipped changelog in cd-workflow and update release notes guidelines ([1e06699](https://github.com/nramc/journeys/commit/1e06699937fa647713f30caf412a46571448a0da))
 * simplify gemini-scheduled-triage workflow by removing unnecessary triggers ([ad0fef0](https://github.com/nramc/journeys/commit/ad0fef0547c34f747e879afc0b1544571b3e5e2b))
 * streamline gemini-dispatch workflow by removing unused event triggers ([18880d5](https://github.com/nramc/journeys/commit/18880d5475e3a3e68b4785bc9a9109d651808e3e))
-
-
-
-## [0.60.3](https://github.com/nramc/journeys/compare/v0.60.2...v0.60.3) (2026-05-01)
 
 
 
