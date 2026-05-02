@@ -1,3 +1,16 @@
+# [0.63.0](https://github.com/nramc/journeys/compare/v0.62.1...v0.63.0) (2026-05-02)
+
+
+### Features
+
+* enhance release context preparation for Gemini by creating a dedicated markdown file ([b463bd8](https://github.com/nramc/journeys/commit/b463bd82481650131fb5152bf7bff70413ca9788))
+* enhance release notes handling by adding default message for empty changelog ([724bd57](https://github.com/nramc/journeys/commit/724bd572d33e8d8faf0d8050285287f61b65465c))
+* rename configuration files for gemini workflows and assistants ([765c0c4](https://github.com/nramc/journeys/commit/765c0c46e3f9d84d597005d163043352da33961c))
+* update gemini-release-notes guidelines to exclude individual commit messages and deploy bots ([641939e](https://github.com/nramc/journeys/commit/641939eaad9996e94e9d030ecbd6eacfd22f5a5a))
+* update gemini-release-notes workflow configuration with new settings ([1a11f69](https://github.com/nramc/journeys/commit/1a11f694521bcf0cc9328ccfccaa72df89c37f6f))
+
+
+
 ## [0.62.1](https://github.com/nramc/journeys/compare/v0.62.0...v0.62.1) (2026-05-01)
 
 
@@ -30,10 +43,6 @@
 
 
 ## [0.60.3](https://github.com/nramc/journeys/compare/v0.60.2...v0.60.3) (2026-05-01)
-
-
-
-## [0.60.2](https://github.com/nramc/journeys/compare/v0.60.1...v0.60.2) (2026-05-01)
 
 
 
