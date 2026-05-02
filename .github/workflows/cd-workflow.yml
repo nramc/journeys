@@ -54,14 +54,24 @@ jobs:
           PREV_TAG=$(git describe --tags --abbrev=0 ${{ steps.changelog.outputs.tag }}^ 2>/dev/null || echo "")
           echo "tag=${PREV_TAG}" >> $GITHUB_OUTPUT
 
+      - name: Prepare Release Context for Gemini
+        run: |
+          mkdir -p .gemini
+          {
+            echo "- **Repository**: ${{ github.repository }}"
+            echo "- **Commit Range**: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}
+            echo "- **Base Changelog**:"
+            echo ""
+            printf '%s\n' "$CLEAN_CHANGELOG"
+          } > .gemini/release-context.md
+        env:
+          CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
+
       - name: 'Generate Detailed Release Notes'
         id: 'gemini_release_notes'
         uses: 'google-github-actions/run-gemini-cli@v0'
         env:
           GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-          REPOSITORY: ${{ github.repository }}
-          COMMIT_RANGE: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}
-          CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
           GEMINI_CLI_TRUST_WORKSPACE: true
         with:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
