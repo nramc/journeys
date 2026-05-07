@@ -1,8 +1,20 @@
-import {ChangeDetectionStrategy, Component, computed, inject, model, OnInit, signal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  model,
+  OnInit,
+  signal
+} from '@angular/core';
 import {DEFAULT_CATEGORY, Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
 import {JourneyService} from "../../../../service/journey/journey.service";
 import {FormsModule, NgForm} from "@angular/forms";
-import {GeoCodingLocationData, WorldMapComponent} from "../../../../component/world-map/world-map.component";
+import {
+  GeoCodingAreaData,
+  GeoCodingLocationData,
+  WorldMapComponent
+} from "../../../../component/world-map/world-map.component";
 import {MatStepperNext} from "@angular/material/stepper";
 
 import {NotificationService} from "../../../../service/common/notification.service";
@@ -19,10 +31,10 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 
 @Component({
-    selector: 'app-edit-journey-geo-details',
-    templateUrl: './edit-journey-geo-details.component.html',
-    styles: [],
-    imports: [
+  selector: 'app-edit-journey-geo-details',
+  templateUrl: './edit-journey-geo-details.component.html',
+  styles: [],
+  imports: [
     FormsModule,
     WorldMapComponent,
     MatStepperNext,
@@ -34,8 +46,8 @@ import {MatIconModule} from "@angular/material/icon";
     MatRadioModule,
     MatButtonModule,
     MatIconModule
-],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
   protected readonly CATEGORIES = SUPPORTED_ICONS;
@@ -67,10 +79,10 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   save(journeyForm: NgForm) {
     console.debug('submitted form:', journeyForm);
     this.journeyService.saveJourneyGeoDetails(this.journey(), this.copyDataFromForm())
-      .subscribe({
-        next: data => this.onUpdateSuccess(data),
-        error: err => this.onError('Unexpected error while saving geo data', err)
-      });
+    .subscribe({
+      next: data => this.onUpdateSuccess(data),
+      error: err => this.onError('Unexpected error while saving geo data', err)
+    });
   }
 
   onUpdateSuccess(_: Journey) {
@@ -105,8 +117,12 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   addGeoLocation(geoCodingData: GeoCodingLocationData) {
     this.formData.location.update(currentValue => geoCodingData.location ?? currentValue);
     this.formData.geoJson.update(currentValue => geoCodingData.location ?? currentValue);
-    this.formData.title.update(currentValue => currentValue || geoCodingData.name);
+    this.formData.title.update(currentValue => geoCodingData.name ?? currentValue);
     this.formData.city.update(currentValue => geoCodingData.state ?? currentValue);
     this.formData.country.update(currentValue => geoCodingData.country ?? currentValue);
+  }
+
+  addGeoArea(data: GeoCodingAreaData) {
+    this.formData.geoJson.update(currentValue => data.area ?? currentValue);
   }
 }

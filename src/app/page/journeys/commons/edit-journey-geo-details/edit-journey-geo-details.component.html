@@ -5,7 +5,7 @@
         <!-- Map Section -->
         <div class="col-span-12 md:col-span-8 relative min-h-[25vh]">
           <app-world-map class="h-1/2" [geoJsonData]="geoJsonData()" [iconType]="formData.category()"
-                         [enableGeoCoding]="true" (location)="addGeoLocation($event)">
+                         [enableGeoCoding]="true" (locationPicked)="addGeoLocation($event)" (areaPicked)="addGeoArea($event)">
           </app-world-map>
         </div>
         <!-- Form Section -->

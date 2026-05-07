@@ -13,13 +13,16 @@ import * as L from 'leaflet';
 import {Layer} from 'leaflet';
 import {FullScreen} from 'leaflet.fullscreen';
 import {MaptilerLayer} from "@maptiler/leaflet-maptilersdk";
-import {GeocodingControl} from "@maptiler/geocoding-control/leaflet";
+import {
+  FeaturesListedEvent,
+  GeocodingControl,
+  PickEvent
+} from "@maptiler/geocoding-control/leaflet";
 import {MarkerPopupComponent} from "../marker-popup/marker-popup.component";
 import {Feature, GeoJsonObject, Geometry, Point} from "geojson";
 import {getIcon} from "../../config/icon-config";
 import {environment} from "../../../environments/environment";
 import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
-import {GeoCodingFeature} from "./geo-coding-feature";
 import {merge} from "rxjs";
 import {ThemeService} from "../../service/theme/theme.service";
 import 'leaflet.fullscreen/dist/Control.FullScreen.css';
@@ -49,6 +52,15 @@ export interface GeoCodingAreaData {
   area: Geometry;
 }
 
+// Type to cache the feature data from the "featureslisted" event for O(1) retrieval on pick.
+interface GeoCodingFeature {
+  id: string;
+  text: string;
+  center: [number, number];
+  geometry: Geometry;
+  context?: { kind: string; id: string; text: string }[];
+}
+
 @Component({
   selector: 'app-world-map',
   templateUrl: './world-map.component.html',
@@ -60,6 +72,7 @@ export class WorldMapComponent implements AfterViewInit {
   private readonly elementRef: ElementRef = inject(ElementRef);
   private map: L.Map | undefined;
   private geoJsonLayer: L.GeoJSON | undefined;
+  private readonly featuresCache = new Map<string, GeoCodingFeature>();
 
   themeService = inject(ThemeService);
 
@@ -72,17 +85,17 @@ export class WorldMapComponent implements AfterViewInit {
 
   // GeoCoding properties
   enableGeoCoding = input<boolean>(false);
-  location = output<GeoCodingLocationData>();
-  area = output<GeoCodingAreaData>();
+  locationPicked = output<GeoCodingLocationData>();
+  areaPicked = output<GeoCodingAreaData>();
 
   constructor() {
     merge(toObservable(this.geoJsonData), toObservable(this.iconType))
-      .pipe(takeUntilDestroyed())
-      .subscribe({
-        next: _ => {
-          this.addGeoJsonData(this.geoJsonData())
-        }
-      })
+    .pipe(takeUntilDestroyed())
+    .subscribe({
+      next: _ => {
+        this.addGeoJsonData(this.geoJsonData())
+      }
+    })
   }
 
   ngAfterViewInit(): void {
@@ -92,15 +105,15 @@ export class WorldMapComponent implements AfterViewInit {
   private initializeMap(): void {
 
     this.map = L.map(this.elementRef.nativeElement.querySelector("div.map-renderer"))
-      .fitWorld()
-      .zoomIn(this.zoomIn());
+    .fitWorld()
+    .zoomIn(this.zoomIn());
 
     this.map.addControl(new FullScreen({position: 'topleft'}));
 
     L.control.scale().addTo(this.map);
     new MaptilerLayer({
       apiKey: environment.maptilerKey,
-      style: this.themeService.isDarkMode() ? `https://api.maptiler.com/maps/d5592658-7af1-476b-bb9d-483a28703d79/style.json?key=${environment.maptilerKey}` : ''
+      style: this.themeService.isDarkMode() ? `https://api.maptiler.com/maps/d5592658-7af1-476b-bb9d-483a28703d79/style.json?key=${environment.maptilerKey}` : '',
     }).addTo(this.map);
 
     if (this.enableGeoCoding()) {
@@ -113,46 +126,49 @@ export class WorldMapComponent implements AfterViewInit {
   }
 
   private enableGeoCodingSearch() {
-    // https://docs.maptiler.com/sdk-js/modules/geocoding/api/usage/leaflet/
-    // https://docs.maptiler.com/sdk-js/modules/geocoding/api/api-reference/#event:pick
-    if (this.map) {
-      const geocodingControl = new GeocodingControl({
-        apiKey: environment.maptilerKey,
-        class: 'text-primary',
-        debounceSearch: 1000,
-        language: "en",
-        markerOnSelected: false,
-        marker: false,
-      });
-      this.map.addControl(geocodingControl);
+    if (!this.map) return;
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      geocodingControl.on("pick", (eventData: any) => {
-        this.emitGeoCodingData(new GeoCodingFeature(
-          eventData.feature['place_name'],
-          eventData.feature['geometry'],
-          eventData.feature['context']
-        ))
-      });
-    }
-  }
+    const geocodingControl = new GeocodingControl({
+      apiKey: environment.maptilerKey,
+      debounceSearch: 1000,
+      language: "en",
+      markerOnSelected: false,
+      marker: false,
+      pickedResultStyle: "full-geometry-including-polygon-center-marker",
+      showResultMarkers: false,
+    });
+    this.map.addControl(geocodingControl);
 
-  private emitGeoCodingData(geoCodingFeatures: GeoCodingFeature) {
-    if (geoCodingFeatures.location != null) {
-      this.location.emit({
-        name: geoCodingFeatures.name,
-        location: geoCodingFeatures.location,
-        state: geoCodingFeatures.state,
-        country: geoCodingFeatures.country
+    // Cache the full featured data (incl. runtime `context`) as they arrive from the API.
+    geocodingControl.on("featureslisted", ((eventData: FeaturesListedEvent) => {
+      this.featuresCache.clear();
+      (eventData.features ?? []).forEach(f => {
+        this.featuresCache.set(f.id, f as unknown as GeoCodingFeature);
       });
-    } else if (geoCodingFeatures.area != null) {
-      this.area.emit({
-        area: geoCodingFeatures.area,
-        name: geoCodingFeatures.name
-      })
-    } else {
-      console.log('No Area and location detected:', geoCodingFeatures);
-    }
+    }) as unknown as L.LeafletEventHandlerFn);
+
+    geocodingControl.on("pick", ((eventData: PickEvent) => {
+      const picked = eventData.feature;
+      if (!picked) return;
+
+      const full = this.featuresCache.get(picked.id);
+      if (!full) return;
+
+      const state = full.context?.find(c => c.kind === 'admin_area' && c.id?.startsWith('region'))?.text;
+      const country = full.context?.find(c => c.kind === 'admin_area' && c.id?.startsWith('country'))?.text;
+
+      this.locationPicked.emit({
+        name: full.text,
+        location: {type: "Point", coordinates: full.center},
+        state,
+        country
+      });
+
+      // Emit the polygon boundary when the feature has area geometry (city, region, country, etc.)
+      if (full.geometry.type === 'Polygon' || full.geometry.type === 'MultiPolygon') {
+        this.areaPicked.emit({name: full.text, area: full.geometry});
+      }
+    }) as unknown as L.LeafletEventHandlerFn);
   }
 
   private addTileLayers() {
@@ -214,7 +230,7 @@ export class WorldMapComponent implements AfterViewInit {
           }
         }
       })
-        .addTo(this.map);
+      .addTo(this.map);
 
     } else {
       console.warn("Unable to create GeoJson Layer. Cause:Map is not yet initialised")
