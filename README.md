@@ -25,15 +25,26 @@ With Journey, users can:
 * Log geotagged locations to visually map their travel routes and destinations.
 * Upload and organize images and videos, creating a digital scrapbook of their experiences.
 
-Whether it’s a weekend getaway or a year-long adventure, Journey enables users to keep all their cherished travel moments in one organized place, transforming trips into unforgettable stories.
+Whether it's a weekend getaway or a year-long adventure, Journey enables users to keep all their cherished travel moments in one organized place, transforming trips into unforgettable stories.
 
 ---
 
-This is an [Angular](https://angular.io/) based Geo Spatial Single Page Application(SPA).
-The Application is deployed using [gh-pages](https://pages.github.com/).
+This is an [Angular 21](https://angular.io/) based Geo Spatial Single Page Application (SPA) deployed to [GitHub Pages](https://pages.github.com/). It communicates exclusively with a separate REST API backend (BFF) — there is no server-side rendering.
 
-Since application uses geographical information, data is being processed in [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) format.
-[Open Street Map](https://www.openstreetmap.org/) is being used for displaying geospatial data with help of Map based JavaScript Library [Leaflet](https://leafletjs.com/).
+Geographical data is processed in [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) format and rendered on an interactive map powered by [Leaflet](https://leafletjs.com/) with [MapTiler](https://www.maptiler.com/) tiles and geocoding.
+
+## Tech Stack
+
+| Layer         | Technology                                            |
+|---------------|-------------------------------------------------------|
+| Framework     | Angular 21 (standalone components, zoneless, Signals) |
+| UI Components | Angular Material (M3 theme)                           |
+| Styling       | Tailwind CSS v4                                       |
+| Maps          | Leaflet + MapTiler SDK                                |
+| Media         | Cloudinary                                            |
+| Auth          | JWT (Bearer token, stored in `localStorage`)          |
+| Testing       | Karma / Jasmine                                       |
+| Deployment    | GitHub Pages via `angular-cli-ghpages`                |
 
 ## Helpful Links
 
@@ -47,24 +58,47 @@ Please find below steps to set up and run application in your workstation.
 
 ### Prerequisites
 
-The service uses MongoDB for persistence.
-For Local development, Local MongoDB instance created with help of Docker CLI.
-So make sure you have installed Docker CLI or any other docker container tool.
+- **Node.js** (LTS recommended) and **npm**
+- A running instance of the [Journey API (BFF)](https://github.com/nramc/journey-api) — see its README for Docker setup
+- A [Cloudinary](https://cloudinary.com/) account (`cloud name` + upload preset)
+- A [MapTiler](https://www.maptiler.com/) API key
 
 ### Installation
 
-1. Download Repository
+1. Clone the repository:
    ```sh
-   git clone https://github.com/nramc/journeys.git 
+   git clone https://github.com/nramc/journeys.git
+   cd journeys
    ```
-2. Set up your `environment.development.ts` to have
-3. Development Journey-API BFF service
-4. Your Cloudinary's `cloud name` and `preset`
-5. Optional Cloudinary base directory for development
-6. Run Application
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Configure your local environment in `src/environments/environment.development.ts`:
+   ```typescript
+   export const environment = {
+     journeyApi: 'https://localhost:8080/rest',
+     cloudName: '<your-cloudinary-cloud-name>',
+     cloudinaryPreset: '<your-upload-preset>',
+     maptilerKey: '<your-maptiler-key>',
+     // ...
+   };
+   ```
+4. Start the dev server (HTTPS, uses `keystore/` certs):
    ```sh
    npm run start
    ```
+
+### Available Scripts
+
+```bash
+npm run start       # Dev server at https://localhost
+npm run build       # Production build
+npm run test        # Karma/Jasmine unit tests (interactive)
+npm run ci:test1    # Headless tests (ChromeHeadless)
+npm run lint        # ESLint
+npm run ci:deploy   # Deploy to GitHub Pages
+```
 
 ### Contribution
 
@@ -75,9 +109,11 @@ You can also simply open an issue with the tag "enhancement".
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'feat: Add the AmazingFeature'`)
+3. Commit your Changes using [Conventional Commits](https://www.conventionalcommits.org/) (`git commit -m 'feat: Add the AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+> **Note for AI agents & contributors:** See [AGENTS.md](./AGENTS.md) for architecture details, coding conventions, and patterns specific to this codebase.
 
 ### Release new version
 
@@ -98,10 +134,12 @@ Sincere Thanks to following open source community for their wonderful efforts to
 
 - [Open Street Map](https://www.openstreetmap.org) - Open Source Map Provider
 - [Leaflet](https://leafletjs.com) - Map based JavaScript Library
+- [MapTiler](https://www.maptiler.com) - Map tiles and geocoding
 - [GitHub Pages](https://pages.github.com/) - Hosting static resources
 - [Angular](https://angular.io/) - TypeScript based Single Page Application(SPA) Web Framework
 - [Angular Material](https://material.angular.io/) - Open Source UI Component library for Angular
 - [Angular Gallery](https://github.com/MurhafSousli/ngx-gallery/wiki) - Open Source Media Gallery library for Angular
+- [Cloudinary](https://cloudinary.com) - Image and video management
 
 ## Show your support
 
