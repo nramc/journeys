@@ -1,33 +1,25 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+# Builds, tests, bumps version, creates a GitHub Release with auto-generated
+# release notes (from merged PRs), and deploys to GitHub Pages.
 
 name: CD Workflow
 
-
 on:
   workflow_dispatch:
-    inputs:
-      gemini_model:
-        description: 'Gemini model to use (e.g., gemini-3.1-flash-lite-preview, gemini-3-flash-preview, gemini-2.5-flash-lite, gemini-2.5-flash)'
-        required: false
-        default: ''
-
 
 jobs:
   build:
     permissions:
-      contents: write   # required to create releases and write RELEASE_NOTES.md
-      id-token: write   # required for OIDC token (Gemini CLI auth)
+      contents: write   # required to push tags and create releases
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [ 22.x ]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [22.x]
 
     steps:
       - uses: actions/checkout@v6
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v6
         with:
@@ -39,108 +31,21 @@ jobs:
       - run: npm run ci:lint --if-present
       - run: npm run ci:test --if-present
 
-      - name: Conventional Changelog Action
+      - name: Bump Version & Tag
         id: changelog
         uses: TriPSs/conventional-changelog-action@v6
         with:
           github-token: ${{ secrets.DEPLOY_TOKEN }}
           skip-on-empty: 'false'
-          output-file: true
+          output-file: false
           create-summary: true
-
-      - name: 'Get Previous Tag'
-        id: 'get_prev_tag'
-        run: |-
-          PREV_TAG=$(git describe --tags --abbrev=0 ${{ steps.changelog.outputs.tag }}^ 2>/dev/null || echo "")
-          echo "tag=${PREV_TAG}" >> $GITHUB_OUTPUT
-
-      - name: Prepare Release Context for Gemini
-        run: |
-          mkdir -p .gemini
-          {
-            echo "- **Repository**: ${{ github.repository }}"
-            echo "- **Commit Range**: ${{ steps.get_prev_tag.outputs.tag }}..${{ steps.changelog.outputs.tag }}"
-            echo "- **Base Changelog**:"
-            echo ""
-            printf '%s\n' "$CLEAN_CHANGELOG"
-          } > .gemini/release-context.md
-        env:
-          CLEAN_CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
-
-      - name: 'Generate Detailed Release Notes'
-        id: 'gemini_release_notes'
-        uses: 'google-github-actions/run-gemini-cli@v0'
-        env:
-          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-          GEMINI_CLI_TRUST_WORKSPACE: true
-        with:
-          gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
-          gcp_project_id: '${{ vars.GOOGLE_CLOUD_PROJECT }}'
-          gcp_service_account: '${{ vars.SERVICE_ACCOUNT_EMAIL }}'
-          gcp_workload_identity_provider: '${{ vars.GCP_WIF_PROVIDER }}'
-          gemini_api_key: '${{ secrets.GEMINI_API_KEY }}'
-          gemini_cli_version: '${{ vars.GEMINI_CLI_VERSION }}'
-          gemini_debug: '${{ fromJSON(vars.GEMINI_DEBUG || vars.ACTIONS_STEP_DEBUG || false) }}'
-          gemini_model: ${{ github.event.inputs.gemini_model != '' && github.event.inputs.gemini_model || vars.GEMINI_MODEL }}
-          google_api_key: '${{ secrets.GOOGLE_API_KEY }}'
-          use_gemini_code_assist: '${{ vars.GOOGLE_GENAI_USE_GCA }}'
-          use_vertex_ai: '${{ vars.GOOGLE_GENAI_USE_VERTEXAI }}'
-          upload_artifacts: '${{ vars.UPLOAD_ARTIFACTS }}'
-          workflow_name: 'gemini-release-notes'
-          settings: |-
-            {
-              "autoAccept": true,
-              "model": {
-                "maxSessionTurns": 100
-              },
-              "mcpServers": {
-                "github": {
-                  "command": "docker",
-                  "args": [
-                    "run",
-                    "-i",
-                    "--rm",
-                    "-e",
-                    "GITHUB_PERSONAL_ACCESS_TOKEN",
-                    "ghcr.io/github/github-mcp-server:v0.27.0"
-                  ],
-                  "env": {
-                    "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
-                  }
-                }
-              }
-            }
-          prompt: '/gemini-release-notes'
-
-      - name: Upload Release Notes Artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: release-notes
-          path: RELEASE_NOTES.md
-
-      - name: 'Read Release Notes'
-        id: 'read_release_notes'
-        shell: bash
-        run: |
-          NOTES=""
-          if [ -f RELEASE_NOTES.md ]; then
-            NOTES="$(cat RELEASE_NOTES.md)"
-          elif [ -n "${{ steps.changelog.outputs.clean_changelog }}" ]; then
-            NOTES="${{ steps.changelog.outputs.clean_changelog }}"
-          else
-            NOTES="No impactful changes in this release."
-          fi
-          delimiter="__RELEASE_NOTES_EOF__"
-          echo "notes<<$delimiter" >> $GITHUB_OUTPUT
-          echo "$NOTES" >> $GITHUB_OUTPUT
-          echo "$delimiter" >> $GITHUB_OUTPUT
 
       - name: Create Release
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.changelog.outputs.tag }}
           name: ${{ steps.changelog.outputs.tag }}
-          body: ${{ steps.read_release_notes.outputs.notes }}
+          generate_release_notes: true
           token: ${{ secrets.DEPLOY_TOKEN }}
 
       - name: Deploy
