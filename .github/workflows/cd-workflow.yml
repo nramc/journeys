@@ -47,6 +47,7 @@ jobs:
           name: ${{ steps.changelog.outputs.tag }}
           generate_release_notes: true
           token: ${{ secrets.DEPLOY_TOKEN }}
+          append_body: ${{ steps.changelog.outputs.summary }}
 
       - name: Deploy
         run: npm run ci:deploy
