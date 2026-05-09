@@ -1,0 +1,24 @@
+feature:
+  - head-branch: ["^feat/", "^feature/"]
+  - title: ["^feat(\\(.*\\))?: ", "^feature"]
+
+bug:
+  - head-branch: ["^fix/", "^bugfix/", "^hotfix/"]
+  - title: ["^fix(\\(.*\\))?: ", "^bug"]
+
+chore:
+  - head-branch: ["^chore/", "^refactor/"]
+  - title: ["^chore(?!\\(deps\\))(\\(.*\\))?: ", "^refactor(\\(.*\\))?: "]
+
+ci:
+  - head-branch: ["^ci/"]
+  - title: ["^ci(\\(.*\\))?: "]
+
+documentation:
+  - head-branch: ["^docs/"]
+  - title: ["^docs(\\(.*\\))?: "]
+
+dependencies:
+  - head-branch: ["^renovate/", "^dependabot/"]
+  - title: ["^build\\(deps\\)", "^chore\\(deps\\)"]
+
