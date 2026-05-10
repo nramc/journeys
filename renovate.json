@@ -4,6 +4,7 @@
     "config:recommended"
   ],
   "rangeStrategy": "pin",
+  "minimumReleaseAge": "3 days",
   "automerge": false,
   "automergeStrategy": "fast-forward",
   "automergeType": "pr",
