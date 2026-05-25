@@ -19,11 +19,122 @@
   @apply max-sm:flex-col;
 }
 
-#navMenuWithoutLabel {
-  @apply max-sm:hidden;
-  width: 4.5em;
-}
-
 .mdc-list-item {
   padding: 0.2rem 0.5rem !important;
+}
+
+// ─── Sidenav animated width ───────────────────────────────────────────────────
+mat-sidenav {
+  overflow: hidden !important;
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+  &.sidenav-collapsed {
+    width: 64px;
+  }
+
+  &.sidenav-expanded {
+    width: 220px;
+  }
+}
+
+// Animate the content margin to match sidenav width change
+mat-sidenav-content {
+  transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+// ─── Navigation item base (expanded = horizontal row) ────────────────────────
+.nav-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  box-sizing: border-box;
+
+  .nav-icon {
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+
+  .nav-label {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 160px;
+    opacity: 1;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition:
+      max-width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity   0.22s cubic-bezier(0.4, 0, 0.2, 1),
+      font-size 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover {
+    background-color: color-mix(in srgb, #3459E6 10%, transparent);
+    color: #3459E6;
+
+    .nav-icon { opacity: 1; color: #3459E6; }
+  }
+
+  &.nav-active {
+    background-color: color-mix(in srgb, #3459E6 16%, transparent);
+    color: #3459E6;
+    font-weight: 600;
+
+    .nav-icon { opacity: 1; color: #3459E6; }
+  }
+}
+
+// ─── Collapsed-state: icon stacked above small label ─────────────────────────
+.sidenav-collapsed {
+  mat-nav-list {
+    padding: 4px 0 !important;
+  }
+
+  .mdc-list-item {
+    padding: 2px 0 !important;
+  }
+
+  .nav-item {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 4px;
+    gap: 2px;
+
+    .nav-label {
+      max-width: 56px;      // fits within 64px sidenav minus padding
+      opacity: 1;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-align: center;
+      line-height: 1.2;
+      white-space: normal;  // allow wrap within narrow column
+      word-break: break-word;
+    }
+  }
+}
+
+// ─── Dark-mode adaptations ────────────────────────────────────────────────────
+.dark {
+  .nav-item {
+    &:hover {
+      background-color: color-mix(in srgb, #c2cdf8 12%, transparent);
+      color: #c2cdf8;
+      .nav-icon { color: #c2cdf8; }
+    }
+
+    &.nav-active {
+      background-color: color-mix(in srgb, #c2cdf8 18%, transparent);
+      color: #c2cdf8;
+      .nav-icon { color: #c2cdf8; }
+    }
+  }
 }
