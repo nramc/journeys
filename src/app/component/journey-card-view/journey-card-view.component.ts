@@ -1,23 +1,28 @@
 import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
-import { DatePipe } from "@angular/common";
-import {Router} from "@angular/router";
+import {DatePipe, TitleCasePipe} from "@angular/common";
+import {Router, RouterLink} from "@angular/router";
 import {JourneyData} from "./journey.data";
 import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL, Journey} from "../../model/core/journey.model";
-import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatTooltipModule} from "@angular/material/tooltip";
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
+import {CATEGORY_ICONS} from "../../config/icon-config";
 
 @Component({
-    selector: 'app-journey-card-view',
-    imports: [
+  selector: 'app-journey-card-view',
+  imports: [
     DatePipe,
-    MatCardModule,
+    TitleCasePipe,
+    RouterLink,
     MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
     HasWriteAccessDirective
-],
-    templateUrl: './journey-card-view.component.html',
-    styleUrl: './journey-card-view.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  ],
+  templateUrl: './journey-card-view.component.html',
+  styleUrl: './journey-card-view.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneyCardViewComponent {
   private readonly router = inject(Router);
@@ -26,8 +31,8 @@ export class JourneyCardViewComponent {
     transform: (value: JourneyData | Journey) => this.transformJourney(value)
   });
 
-  viewDetails() {
-    this.router.navigate(['/journey', this.journey().id, 'view']).then(console.log);
+  getCategoryIcon(): string {
+    return CATEGORY_ICONS[this.journey().category?.toLowerCase()] ?? 'place';
   }
 
   editDetails($event: MouseEvent) {
@@ -39,9 +44,7 @@ export class JourneyCardViewComponent {
   viewInTimeline($event: MouseEvent) {
     $event.stopPropagation();
     this.router.navigate(['/timeline'], {
-      queryParams: {
-        'id': this.journey().id
-      }
+      queryParams: {'id': this.journey().id}
     }).then(console.log);
     return false;
   }
