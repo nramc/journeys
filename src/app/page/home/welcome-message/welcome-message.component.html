@@ -1,24 +1,12 @@
 <!-- Welcome Message -->
-<div>
-  <p class="text-xl font-semibold pb-2">
-    Welcome <strong>{{ userData().name }}</strong>!
-  </p>
-
-  <!-- Create Journey Section -->
-  <p class="py-1" *appHasWriteAccess>
-    Never lose track of a travel memory again.
-    <a routerLink="/journey/new" class="flex items-center gap-2">
-      <span>Create Journey to store your trips, photos, and stories - forever!</span>
-      <mat-icon class="ms-1">arrow_forward</mat-icon>
-    </a>
-  </p>
-
-  <!-- Journiversaries Section -->
-  <p class="py-1">
-    Don't miss out! Relive the magic - See Upcoming
-    <a routerLink="/timeline" class="flex items-center gap-2">
-      <span>Journiversaries (Journey + Anniversaries)</span>
-      <mat-icon class="ms-1">arrow_forward</mat-icon>
-    </a>
+<div class="flex flex-col gap-1">
+  <div class="flex items-center gap-2">
+    <span class="text-2xl select-none" aria-hidden="true">👋</span>
+    <h2 class="text-xl font-semibold m-0 leading-tight">
+      Welcome back, <span class="text-primary font-bold">{{ userData().name }}</span>!
+    </h2>
+  </div>
+  <p class="text-sm text-gray-500 dark:text-gray-400 m-0 ps-9">
+    Your memories are waiting — pick up where you left off.
   </p>
 </div>

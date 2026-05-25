@@ -37,7 +37,7 @@
         @if (username.invalid && (username.dirty || loginForm.submitted)) {
           <div class="text-sm text-danger">
             @if (username.errors?.['required']) {
-              <div>Username is required.</div>
+              <div>Email address is required.</div>
             }
             @if (username.errors?.['maxlength']) {
               <div>Max 50 characters.</div>

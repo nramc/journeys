@@ -1,22 +1,69 @@
 <section class="my-3">
-  <!-- Section Title -->
-  <h2 class="text-xl font-bold mb-4">Quick Links</h2>
 
-  <!-- Quick Links Container -->
-  <div class="flex flex-row flex-wrap gap-4 justify-start max-sm:flex-col max-sm:items-center">
-    <!-- Create New Journey Button -->
+  <!-- CTA Cards -->
+  <div class="flex flex-col sm:flex-row gap-3">
 
-      <a mat-fab extended color="primary" [routerLink]="NEW_JOURNEY_PAGE_INFO.path" class="flex items-center gap-2"
-        *appHasAuthenticated>
-        <mat-icon>add_location_alt</mat-icon>
-        <span>Create New Journey</span>
-      </a>
+    <!-- Create Journey CTA — write-access only (primary / filled tint) -->
+    <a *appHasWriteAccess
+       [routerLink]="NEW_JOURNEY_PAGE_INFO.path"
+       class="group flex items-center gap-3 px-4 py-3 rounded-xl no-underline
+              border border-blue-200 dark:border-blue-800/50
+              hover:bg-blue-100 dark:hover:bg-blue-900/50
+              hover:border-blue-400 dark:hover:border-blue-600
+              transition-all duration-200">
 
+      <!-- Icon circle — filled primary -->
+      <span class="flex items-center justify-center w-10 h-10 rounded-full shrink-0
+                   bg-primary/10 dark:bg-primary/20">
+        <mat-icon class="text-primary"
+                  style="font-size:20px; width:20px; height:20px; line-height:1;">add_location_alt</mat-icon>
+      </span>
 
-    <!-- Journiversaries Button -->
-    <a mat-fab extended color="accent" [routerLink]="TIMELINE_PAGE_INFO.path" class="flex items-center gap-2">
-      <mat-icon>person_pin_circle</mat-icon>
-      <span>Journiversaries</span>
+      <!-- Text -->
+      <span class="flex flex-col gap-0.5 min-w-0">
+        <span class="text-sm font-semibold text-primary leading-tight">Create a Journey</span>
+        <span class="text-xs text-gray-500 dark:text-gray-400 leading-snug">
+          Preserve your trips, photos, and stories — forever.
+        </span>
+      </span>
+
+      <!-- Trailing arrow -->
+      <mat-icon class="ms-auto shrink-0 text-blue-300 dark:text-blue-600
+                       group-hover:text-primary group-hover:translate-x-0.5
+                       transition-all duration-200"
+                style="font-size:16px; width:16px; height:16px; line-height:1;">arrow_forward</mat-icon>
     </a>
+
+    <!-- Journiversaries CTA (same blue family / outlined lighter style) -->
+    <a [routerLink]="TIMELINE_PAGE_INFO.path"
+       class="group flex items-center gap-3 px-4 py-3 rounded-xl no-underline
+              border border-blue-200 dark:border-blue-800/50
+              hover:bg-blue-100 dark:hover:bg-blue-900/50
+              hover:border-blue-400 dark:hover:border-blue-600
+              transition-all duration-200"
+       aria-label="View upcoming Journiversaries">
+
+      <!-- Icon circle — muted secondary tint -->
+      <span class="flex items-center justify-center w-10 h-10 rounded-full shrink-0
+                   bg-blue-100/60 dark:bg-blue-900/30">
+        <mat-icon class="text-blue-400 dark:text-blue-400"
+                  style="font-size:20px; width:20px; height:20px; line-height:1;">person_pin_circle</mat-icon>
+      </span>
+
+      <!-- Text -->
+      <span class="flex flex-col gap-0.5 min-w-0">
+        <span class="text-sm font-semibold text-blue-500 dark:text-blue-400 leading-tight">Journiversaries</span>
+        <span class="text-xs text-gray-500 dark:text-gray-400 leading-snug">
+          Relive your adventures — celebrate each journey's anniversary.
+        </span>
+      </span>
+
+      <!-- Trailing arrow -->
+      <mat-icon class="ms-auto shrink-0 text-blue-200 dark:text-blue-700
+                       group-hover:text-blue-500 dark:group-hover:text-blue-400 group-hover:translate-x-0.5
+                       transition-all duration-200"
+                style="font-size:16px; width:16px; height:16px; line-height:1;">arrow_forward</mat-icon>
+    </a>
+
   </div>
 </section>
