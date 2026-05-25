@@ -198,7 +198,7 @@ export class WorldMapComponent implements AfterViewInit {
 
   private flyToBound() {
     const bounds = this.geoJsonLayer?.getBounds();
-    if (bounds) {
+    if (bounds?.isValid()) {
       this.map?.flyToBounds(bounds, {maxZoom: this.maxZoom(), paddingTopLeft: [25, 25]});
     }
   }
