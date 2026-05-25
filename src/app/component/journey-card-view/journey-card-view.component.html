@@ -1,31 +1,110 @@
-<div class="m-0 w-full">
-  <mat-card (click)="viewDetails()" (keydown.enter)="viewDetails()"
-    class="text-white border border-primary cursor-pointer relative overflow-hidden hover:shadow-lg hover:shadow-primary w-full max-w-[75vw] md:w-[25rem] h-[15rem]"
-    [style]="'background-image: url('+journey().thumbnail+ '); background-size: cover; background-repeat: no-repeat;'">
-    <div class="absolute inset-0 bg-black/25"></div>
-    <mat-card-content class="relative p-4 flex flex-col sm:flex-col md:flex-row justify-between h-full">
-      <div>
-        <h5 class="text-lg font-semibold mb-2"><span class="text-white text-primary-outline">{{ journey().name }}</span></h5>
-        <p class="text-sm font-medium text-gray-200 mb-4 text-primary-outline">{{ journey().title }}</p>
-      </div>
-    </mat-card-content>
-    <mat-card-actions class="relative justify-between flex-row gap-2">
-      <div class="flex items-center justify-between w-full">
-        @if (journey().journeyDate) {
-          <span>
-            <small class="text-xs border border-white rounded-lg px-2 py-1 bg-black/50">
-              {{ journey().journeyDate | date:"dd.MM.yyyy" }}
-            </small>
-          </span>
+<!-- Journey Card — split layout: image hero + white content panel -->
+<a [routerLink]="['/journey', journey().id, 'view']"
+   class="journey-card group w-full max-w-[75vw] md:w-[22rem] rounded-2xl overflow-hidden cursor-pointer no-underline
+         bg-white dark:bg-gray-900
+         ring-1 ring-black/10 dark:ring-white/10 shadow-md
+         hover:shadow-xl hover:shadow-primary/20
+
+         transition-all duration-300 ease-out
+         focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2
+         "
+   [attr.aria-label]="'View journey: ' + journey().name">
+
+  <!-- ① IMAGE SECTION — full-bleed hero (60% of card height) -->
+  <div class="journey-card__image relative h-44 overflow-hidden">
+
+    <!-- Thumbnail — zooms on hover -->
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat
+                scale-100 group-hover:scale-105
+                transition-transform duration-500 ease-out"
+         [style.background-image]="'url(' + journey().thumbnail + ')'">
+    </div>
+
+    <!-- Subtle top-only scrim so badges stay readable over bright images -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent pointer-events-none"></div>
+
+    <!-- Category badge (top-left) -->
+    <span class="absolute top-3 left-3
+                 inline-flex items-center gap-1 px-2.5 py-1 rounded-full
+                 bg-black/50 backdrop-blur-sm border border-white/20
+                 text-white text-[11px] font-semibold leading-none tracking-wide"
+          [attr.aria-label]="'Category: ' + journey().category">
+      <mat-icon class="journey-card__icon--sm shrink-0">{{ getCategoryIcon() }}</mat-icon>
+      {{ journey().category | titlecase }}
+    </span>
+
+    <!-- Date badge (top-right) -->
+    @if (journey().journeyDate) {
+      <span class="absolute top-3 right-3
+                   px-2.5 py-1 rounded-full
+                   bg-black/50 backdrop-blur-sm border border-white/20
+                   text-white text-[11px] leading-none"
+            [attr.aria-label]="'Journey date: ' + (journey().journeyDate | date:'mediumDate')">
+        <span class="font-semibold">{{ journey().journeyDate | date:'dd MMM' }}</span>
+        <span class="text-white/70 ml-1">{{ journey().journeyDate | date:'yyyy' }}</span>
+      </span>
+    }
+  </div>
+
+  <!-- ② CONTENT SECTION — white panel with brand colours -->
+  <div class="journey-card__content flex flex-col gap-2 px-4 pt-3 pb-4
+              bg-white dark:bg-gray-900">
+
+    <!-- Geo location subtitle -->
+    @if (journey().title) {
+      <p class="journey-card__subtitle flex items-center gap-0.5
+                text-xs font-medium truncate leading-none">
+        <mat-icon class="journey-card__icon--xs shrink-0">location_on</mat-icon>
+        {{ journey().title }}
+      </p>
+    }
+
+    <!-- Journey name in primary brand colour -->
+    <h3 class="journey-card__name text-base font-bold leading-snug line-clamp-2">
+      {{ journey().name }}
+    </h3>
+
+    <!-- Tags pills -->
+    @if (journey().tags.length) {
+      <ul class="flex flex-wrap gap-1 list-none p-0 m-0" aria-label="Tags">
+        @for (tag of journey().tags.slice(0, 3); track tag) {
+          <li class="journey-card__tag px-2 py-0.5 rounded-full text-[10px] font-medium">
+            {{ tag }}
+          </li>
         }
-      </div>
-      <div class="flex justify-end">
-        <button mat-raised-button class="text-xs py-1" (click)="editDetails($event)" *appHasWriteAccess>Edit
-        </button>
-        <button mat-raised-button class="text-xs py-1" (click)="viewInTimeline($event)">Timeline</button>
-      </div>
-    </mat-card-actions>
-  </mat-card>
+        @if (journey().tags.length > 3) {
+          <li
+            class="journey-card__tag journey-card__tag--overflow px-2 py-0.5 rounded-full text-[10px]">
+            +{{ journey().tags.length - 3 }} more
+          </li>
+        }
+      </ul>
+    }
 
-</div>
+    <!-- Divider -->
+    <hr class="journey-card__divider border-0 h-px m-0"/>
 
+    <!-- Action row — always visible in white panel -->
+    <div class="flex items-center justify-end gap-2">
+      <button class="journey-card__action-btn"
+              (click)="editDetails($event)"
+              *appHasWriteAccess
+              [attr.aria-label]="'Edit ' + journey().name"
+              matTooltip="Edit Journey">
+        <mat-icon class="journey-card__icon--sm">edit</mat-icon>
+        <span>Edit</span>
+      </button>
+
+      <button class="journey-card__action-btn"
+              (click)="viewInTimeline($event)"
+              [attr.aria-label]="'View ' + journey().name + ' in timeline'"
+              matTooltip="View in Timeline">
+        <mat-icon class="journey-card__icon--sm">timeline</mat-icon>
+        <span>Timeline</span>
+      </button>
+    </div>
+
+  </div>
+
+</a>

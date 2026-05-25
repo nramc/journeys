@@ -3,6 +3,20 @@ import {Feature} from "geojson";
 
 export const SUPPORTED_ICONS: string[] = ['default', 'adventure', 'shopping', 'funny', 'park', 'restaurant', 'home', 'flight', 'temple', 'favorite', 'love'];
 
+export const CATEGORY_ICONS: Record<string, string> = {
+  'default': 'place',
+  'adventure': 'explore',
+  'shopping': 'local_mall',
+  'funny': 'mood',
+  'park': 'park',
+  'restaurant': 'restaurant',
+  'home': 'home',
+  'flight': 'flight',
+  'temple': 'temple_hindu',
+  'favorite': 'star',
+  'love': 'favorite'
+};
+
 export const iconHome = L.divIcon({
   className: 'custom-div-icon',
   html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-blue-700 fs-5'>home</i></div>",

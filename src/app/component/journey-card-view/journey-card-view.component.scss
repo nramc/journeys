@@ -1,5 +1,135 @@
-mat-card-content {
-  background: rgba(52, 89, 230, 0.1)
+/* ─── Journey Card (split layout) ───────────────────────────────── */
+
+.journey-card {
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+
+  /*
+   * Global _base_styles.scss forces h1–h6 to text-primary blue.
+   * In the white content panel the title SHOULD be primary — keep it.
+   * But the paragraph (subtitle) must NOT inherit heading colour.
+   */
+  p {
+    color: inherit;
+    margin: 0;
+  }
+
+  h3 {
+    margin: 0;
+  }
 }
 
+/* ── Image section ─────────────────────────────────────────────── */
+.journey-card__image {
+  flex-shrink: 0;
+}
 
+/* ── Content panel ─────────────────────────────────────────────── */
+.journey-card__content {
+  flex: 1;
+}
+
+/* Location subtitle — muted, below the title */
+.journey-card__subtitle {
+  color: #6b7280; /* gray-500 */
+
+  .dark & {
+    color: #9ca3af; /* gray-400 */
+  }
+
+  mat-icon {
+    color: #3459E6;
+  }
+}
+
+/* Journey name — inherits primary blue from global h3 rule */
+.journey-card__name {
+  /* Global _base_styles already sets color: primary — nothing to override */
+}
+
+/* Tag pill — primary-tinted background */
+.journey-card__tag {
+  background-color: #eef1fd; /* primary-50 */
+  color: #3459E6; /* primary */
+  border: 1px solid #c2cdf8; /* primary-light */
+
+  .dark & {
+    background-color: rgba(52, 89, 230, 0.15);
+    color: #c2cdf8;
+    border-color: rgba(52, 89, 230, 0.3);
+  }
+}
+
+.journey-card__tag--overflow {
+  background-color: #f3f4f6; /* gray-100 */
+  color: #6b7280; /* gray-500 */
+  border-color: #e5e7eb; /* gray-200 */
+
+  .dark & {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #9ca3af;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Thin primary-tinted divider */
+.journey-card__divider {
+  background-color: #eef1fd;
+
+  .dark & {
+    background-color: rgba(52, 89, 230, 0.2);
+  }
+}
+
+/* ── Action buttons — outlined primary pill ────────────────────── */
+.journey-card__action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px 4px 8px;
+  border-radius: 9999px;
+  border: 1px solid #3459E6;
+  background: transparent;
+  color: #3459E6;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+
+  &:hover {
+    background-color: #3459E6;
+    color: #ffffff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #3459E6;
+    outline-offset: 2px;
+  }
+
+  .dark & {
+    border-color: #c2cdf8;
+    color: #c2cdf8;
+
+    &:hover {
+      background-color: #3459E6;
+      color: #ffffff;
+    }
+  }
+}
+
+/* ── Compact Material icons ────────────────────────────────────── */
+.journey-card__icon--sm {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  line-height: 1 !important;
+}
+
+.journey-card__icon--xs {
+  font-size: 14px !important;
+  width: 14px !important;
+  height: 14px !important;
+  line-height: 1 !important;
+}
