@@ -1,17 +1,18 @@
 <div class="app-container h-screen flex flex-col">
-  <app-toolbar (toggleNavigation)="navigationMenu.toggle()" class="border-b-4 border-b-primary"></app-toolbar>
+  <app-toolbar (toggleNavigation)="toggleNavigation()" class="border-b-4 border-b-primary"></app-toolbar>
 
   <mat-sidenav-container class="grow h-full contents">
-    <mat-sidenav #navigationMenu [mode]="isMobile() ? 'over' : 'push'" position="start">
-      <app-navigation-menu (navigationLinkClick)="navigationMenu.toggle()"></app-navigation-menu>
+    <!-- Single sidenav: 'over' on mobile (toggled via navOpen), 'side' on desktop (always visible) -->
+    <mat-sidenav [mode]="isMobile() ? 'over' : 'side'"
+                 [opened]="isMobile() ? navOpen() : true"
+                 [class.sidenav-collapsed]="!showNavLabel() && !isMobile()"
+                 [class.sidenav-expanded]="showNavLabel()"
+                 position="start">
+      <app-navigation-menu [showLabel]="showNavLabel()"
+                           (navigationLinkClick)="onNavigationLinkClick()"></app-navigation-menu>
     </mat-sidenav>
 
-    <mat-sidenav id="navMenuWithoutLabel" [opened]="!navigationMenu.opened && !isMobile()" mode="side" position="start"
-                 class="max-sm:hidden">
-      <app-navigation-menu [showLabel]="false"></app-navigation-menu>
-    </mat-sidenav>
-
-    <mat-sidenav-content class="max-sm:mt-3 max-sm:ms-0 ms-18 grow p-4 mb-auto">
+    <mat-sidenav-content class="max-sm:mt-3 grow p-4 mb-auto">
       <router-outlet class="contents"></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
