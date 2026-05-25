@@ -11,17 +11,17 @@ import {MatIconModule} from "@angular/material/icon";
   template: `
     <section class="flex flex-col sm:flex-row sm:items-center sm:gap-6">
       <h1 class="text-3xl font-semibold">Welcome to Journey</h1>
-      <p class="text-sm text-gray-500">Your time travel companion</p>
+      <p class="text-sm text-gray-500">Your personal travel memory companion</p>
     </section>
 
     <section class="flex flex-col">
-      <p class="text-sm text-gray-500">Journey is a time travel application that allows you to explore your past,
-        present, and future.</p>
-      <p class="text-sm text-gray-500">With Journey, you can create and manage your own time travel journeys, view
-        upcoming anniversaries, and much more.
+      <p class="text-sm text-gray-500">Journey is a geospatial travel-memory platform that helps you document,
+        revisit, and celebrate every adventure.</p>
+      <p class="text-sm text-gray-500">Create and manage your travel journeys, explore them on an interactive map,
+        and never miss an upcoming Journiversary.
       </p>
       <p class="text-sm text-gray-500">
-        Don't have a account yet? No problem! You can create one in just a few clicks.
+        Don't have an account yet? Join in just a few clicks.
         <a routerLink="/signup" class="inline-flex items-center bold">
           <span>Sign Up Now</span>
           <mat-icon class="ms-1">arrow_forward</mat-icon>

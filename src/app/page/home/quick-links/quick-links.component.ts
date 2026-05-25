@@ -1,10 +1,8 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
 import {NEW_JOURNEY_PAGE_INFO, TIMELINE_PAGE_INFO} from "../../../model/page.info.model";
-import {MatButtonModule} from "@angular/material/button";
-import {AuthService} from "../../../service/auth/auth.service";
-import {HasAuthenticatedDirective} from "../../../directive/has-authenticated.directive";
+import {HasWriteAccessDirective} from "../../../directive/has-write-access.directive";
 
 
 @Component({
@@ -12,8 +10,7 @@ import {HasAuthenticatedDirective} from "../../../directive/has-authenticated.di
   imports: [
     MatIconModule,
     RouterLink,
-    MatButtonModule,
-    HasAuthenticatedDirective
+    HasWriteAccessDirective
   ],
   templateUrl: './quick-links.component.html',
   styles: [],
@@ -22,6 +19,4 @@ import {HasAuthenticatedDirective} from "../../../directive/has-authenticated.di
 export class QuickLinksComponent {
   protected readonly NEW_JOURNEY_PAGE_INFO = NEW_JOURNEY_PAGE_INFO;
   protected readonly TIMELINE_PAGE_INFO = TIMELINE_PAGE_INFO;
-
-  protected readonly authService = inject(AuthService);
 }
