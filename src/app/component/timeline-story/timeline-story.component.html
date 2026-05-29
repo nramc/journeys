@@ -60,8 +60,9 @@
              animate.enter="card-reveal">
 
           <!-- Card side (left or right on desktop, full width on mobile) -->
-          <div class="w-full md:w-[calc(50%-2rem)] flex"
-               [style.justify-content]="isOdd ? 'flex-start' : 'flex-end'">
+          <div class="w-full md:w-[calc(50%-2rem)] md:flex"
+               [class.md:justify-start]="isOdd"
+               [class.md:justify-end]="!isOdd">
             <app-journey-card-view [journey]="entry" [inlineRelive]="true" (relive)="reliveJourney($event)"></app-journey-card-view>
           </div>
 

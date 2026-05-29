@@ -79,9 +79,7 @@ export class TimelinePageComponent implements OnInit {
     {value: 1, label: 'Tomorrow', icon: 'wb_sunny'},
     {value: 7, label: '1 Week', icon: 'date_range'},
     {value: 14, label: '2 Weeks', icon: 'date_range'},
-    {value: 30, label: '1 Month', icon: 'calendar_month'},
-    {value: 60, label: '2 Months', icon: 'calendar_month'},
-    {value: 90, label: '3 Months', icon: 'calendar_month'}
+    {value: 30, label: '1 Month', icon: 'calendar_month'}
   ];
 
   ngOnInit(): void {
