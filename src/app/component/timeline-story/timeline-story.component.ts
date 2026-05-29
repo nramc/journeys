@@ -82,6 +82,17 @@ export class TimelineStoryComponent {
 
   // ── Relive mode state ──
   reliveIndex = signal<number>(0);
+
+  /** Extract unique years from entries for the year-jump rail */
+  years = computed<string[]>(() => {
+    const yearSet = new Set<string>();
+    for (const entry of this.entries()) {
+      const y = new Date(entry.journeyDate).getFullYear().toString();
+      yearSet.add(y);
+    }
+    return Array.from(yearSet).sort((a, b) => a.localeCompare(b));
+  });
+
   relivePlayerRunning = signal<boolean>(true);
   private reliveIntervalId: ReturnType<typeof setInterval> | null = null;
 

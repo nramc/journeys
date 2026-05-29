@@ -41,7 +41,11 @@ export class TimelinePageComponent implements OnInit {
   timelineResponse = signal<TimelineV2Response | undefined>(undefined);
   reliveMode = signal<boolean>(false);
 
-  entries = computed<Journey[]>(() => this.timelineResponse()?.journeys ?? []);
+  entries = computed<Journey[]>(() =>
+    [...(this.timelineResponse()?.journeys ?? [])].sort((a, b) =>
+      new Date(a.journeyDate).getTime() - new Date(b.journeyDate).getTime()
+    )
+  );
   heading = computed<string>(() => this.timelineResponse()?.heading ?? '');
 
   /** Track which filter is active for UI highlighting */

@@ -1,20 +1,53 @@
 <!-- ═══════════════════════════════════════════════════════════════
-     JOURNEY CARD GRID — Reuses existing JourneyCardViewComponent
+     CHRONOLOGICAL TIMELINE — Year anchors + alternating journey cards
      ═══════════════════════════════════════════════════════════════ -->
 
 @if (entries().length > 0) {
-  <!-- Heading -->
-  @if (heading()) {
-    <div class="text-center mb-6">
-      <h2 class="text-2xl md:text-3xl font-bold gradient-text">{{ heading() }}</h2>
-    </div>
-  }
-
-  <!-- Card grid -->
-  <div class="flex flex-wrap gap-6 justify-center">
-    @for (entry of entries(); track entry.id) {
-      <app-journey-card-view [journey]="entry"></app-journey-card-view>
+  <!-- Timeline column -->
+  <div class="flex flex-col">
+    <!-- Heading -->
+    @if (heading()) {
+      <div class="text-center mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold gradient-text">{{ heading() }}</h2>
+      </div>
     }
+
+    <!-- Timeline with decorative line -->
+    <div class="timeline-line relative">
+      @for (entry of entries(); let i = $index; let isOdd = $odd; track entry.id) {
+
+        <!-- Year separator pill -->
+        @if (i === 0 || entry.journeyDate.substring(0,4) !== entries()[i-1].journeyDate.substring(0,4)) {
+          <div [id]="'year-' + entry.journeyDate.substring(0,4)"
+               class="flex items-center justify-center my-8">
+            <span class="px-5 py-1.5 rounded-full bg-primary text-white text-sm font-bold shadow-md
+                         ring-4 ring-primary/20">
+              {{ entry.journeyDate.substring(0,4) }}
+            </span>
+          </div>
+        }
+
+        <!-- Timeline entry row -->
+        <div class="timeline-entry flex flex-col md:flex-row items-center gap-4 md:gap-0 mb-8 md:mb-12"
+             [class.md:flex-row-reverse]="isOdd"
+             animate.enter="card-reveal">
+
+          <!-- Card side (left or right on desktop, full width on mobile) -->
+          <div class="w-full md:w-[calc(50%-2rem)] flex"
+               [style.justify-content]="isOdd ? 'flex-start' : 'flex-end'">
+            <app-journey-card-view [journey]="entry"></app-journey-card-view>
+          </div>
+
+          <!-- Timeline dot (center on desktop) -->
+          <div class="hidden md:flex items-center justify-center w-16 flex-shrink-0">
+            <div class="w-4 h-4 rounded-full bg-primary ring-4 ring-primary/20 shadow-lg z-10"></div>
+          </div>
+
+          <!-- Spacer for the other side (desktop only) -->
+          <div class="hidden md:block w-[calc(50%-2rem)]"></div>
+        </div>
+      }
+    </div>
   </div>
 } @else {
   <div class="flex flex-col items-center justify-center py-16 text-center">
@@ -22,8 +55,7 @@
       photo_album
     </mat-icon>
     <p class="text-gray-500 dark:text-gray-400 text-lg">No memories found for this selection.</p>
-    <p class="text-gray-400 dark:text-gray-500 text-sm mt-1">Try a different filter or time
-      range.</p>
+    <p class="text-gray-400 dark:text-gray-500 text-sm mt-1">Try a different filter or time range.</p>
   </div>
 }
 
