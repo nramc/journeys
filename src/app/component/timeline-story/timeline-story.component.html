@@ -187,6 +187,15 @@
                       (click)="reliveNext()" aria-label="Next slide" matTooltip="Next (→)">
                 <mat-icon>skip_next</mat-icon>
               </button>
+
+              <!-- Music mute/unmute -->
+              <span class="mx-1 text-white/20">|</span>
+              <button mat-icon-button class="!text-white relive-control-btn"
+                      (click)="toggleMusicMute()"
+                      [attr.aria-label]="musicMuted() ? 'Unmute music' : 'Mute music'"
+                      [matTooltip]="musicMuted() ? 'Unmute (M)' : 'Mute (M)'">
+                <mat-icon>{{ musicMuted() ? 'music_off' : 'music_note' }}</mat-icon>
+              </button>
             </div>
 
             <!-- Progress -->

@@ -20,6 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {Journey} from '../../model/core/journey.model';
 import {JourneyCardViewComponent} from '../journey-card-view/journey-card-view.component';
+import {Howl} from 'howler';
 
 /** Compute "X years ago" label from journeyDate */
 export function getYearsAgoLabel(journeyDate: string): string {
@@ -66,6 +67,25 @@ export class TimelineStoryComponent {
   relivePortal = viewChild(CdkPortal);
   private portalOutlet: DomPortalOutlet | null = null;
 
+  // ── Background music ──
+  private bgMusic: Howl | null = null;
+  private readonly AUDIO_TRACKS = [
+    'assets/audio/absolutesound-guitar-music-528972.mp3',
+    'assets/audio/ambient-piano-524039.mp3',
+    'assets/audio/atlasaudio-emotional-piano-510218.mp3',
+    'assets/audio/mmaudio-compass-to-your-heart-518507.mp3',
+    'assets/audio/moodmode-rainbow-foundation-239195.mp3',
+    'assets/audio/music_unlimited-inspiring-cinematic-gradually-background-music-161952',
+    'assets/audio/paulyudin-soft-piano-emotional-156896.mp3',
+    'assets/audio/the_mountain-joy-story-131417.mp3',
+    'assets/audio/the_mountain-nature-joy-131411.mp3',
+    'assets/audio/the_mountain-peaceful-joy-131620.mp3',
+    'assets/audio/the_mountain-romantic-joy-131633.mp3'
+  ];
+  private readonly FADE_DURATION = 800;
+  private readonly MAX_VOLUME = 0.45;
+  musicMuted = signal<boolean>(false);
+
   constructor() {
     effect(() => {
       if (this.reliveMode()) {
@@ -73,9 +93,22 @@ export class TimelineStoryComponent {
         this.relivePlayerRunning.set(true);
         this.attachReliveOverlay();
         this.startReliveAutoplay();
+        this.initAndPlayMusic();
       } else {
         this.detachReliveOverlay();
         this.stopReliveAutoplay();
+        this.fadeOutAndStopMusic();
+      }
+    });
+
+    // React to slide changes — pause music on video, resume on image
+    effect(() => {
+      const slide = this.currentReliveSlide();
+      if (!this.reliveMode() || this.musicMuted()) return;
+      if (slide?.type === 'video') {
+        this.fadeOutMusic();
+      } else if (slide?.type === 'image') {
+        this.fadeInMusic();
       }
     });
   }
@@ -211,13 +244,11 @@ export class TimelineStoryComponent {
   private attachReliveOverlay() {
     const portal = this.relivePortal();
     if (!portal) return;
-    if (!this.portalOutlet) {
-      this.portalOutlet = new DomPortalOutlet(
-        this.document.body,
-        this.appRef,
-        this.injector
-      );
-    }
+    this.portalOutlet ??= new DomPortalOutlet(
+      this.document.body,
+      this.appRef,
+      this.injector
+    );
     if (!this.portalOutlet.hasAttached()) {
       this.portalOutlet.attach(portal);
     }
@@ -227,6 +258,73 @@ export class TimelineStoryComponent {
   private detachReliveOverlay() {
     if (this.portalOutlet?.hasAttached()) {
       this.portalOutlet.detach();
+    }
+  }
+
+  // ── Background music controls ──
+
+  private initAndPlayMusic() {
+    this.bgMusic ??= new Howl({
+      src: [this.AUDIO_TRACKS[Math.floor(Math.random() * this.AUDIO_TRACKS.length)]],
+      loop: true,
+      volume: 0,
+      html5: true
+    });
+    if (!this.musicMuted()) {
+      this.bgMusic.play();
+      this.bgMusic.fade(0, this.MAX_VOLUME, this.FADE_DURATION);
+    }
+  }
+
+  private fadeInMusic() {
+    if (!this.bgMusic || this.musicMuted()) return;
+    // Clear any pending fade callbacks (e.g. a pause scheduled by fadeOutMusic)
+    this.bgMusic.off('fade');
+    if (!this.bgMusic.playing()) {
+      this.bgMusic.play();
+    }
+    this.bgMusic.fade(this.bgMusic.volume(), this.MAX_VOLUME, this.FADE_DURATION);
+  }
+
+  private fadeOutMusic() {
+    if (!this.bgMusic) return;
+    // Clear any pending fade callbacks before starting a new fade
+    this.bgMusic.off('fade');
+    this.bgMusic.fade(this.bgMusic.volume(), 0, this.FADE_DURATION);
+    // Pause after fade completes
+    this.bgMusic.once('fade', () => {
+      if (this.bgMusic?.volume() === 0) {
+        this.bgMusic.pause();
+      }
+    });
+  }
+
+  private fadeOutAndStopMusic() {
+    if (!this.bgMusic) return;
+    this.bgMusic.off('fade');
+    const currentVol = this.bgMusic.volume();
+    if (currentVol <= 0 || !this.bgMusic.playing()) {
+      this.destroyAudio();
+      return;
+    }
+    this.bgMusic.fade(currentVol, 0, this.FADE_DURATION);
+    this.bgMusic.once('fade', () => this.destroyAudio());
+  }
+
+  toggleMusicMute() {
+    const muted = !this.musicMuted();
+    this.musicMuted.set(muted);
+    if (muted) {
+      this.fadeOutMusic();
+    } else {
+      this.fadeInMusic();
+    }
+  }
+
+  private destroyAudio() {
+    if (this.bgMusic) {
+      this.bgMusic.unload();
+      this.bgMusic = null;
     }
   }
 
@@ -247,6 +345,9 @@ export class TimelineStoryComponent {
         break;
       case 'p':
         this.toggleRelivePlayer();
+        break;
+      case 'm':
+        this.toggleMusicMute();
         break;
     }
   }
