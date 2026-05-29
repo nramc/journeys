@@ -55,7 +55,7 @@ export class JourneyCardViewComponent {
       this.relive.emit(this.journey().id);
     } else {
       this.router.navigate(['/timeline'], {
-        queryParams: {'id': this.journey().id}
+        queryParams: {'id': this.journey().id, 'autoplay': 'true'}
       });
     }
     return false;

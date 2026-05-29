@@ -40,6 +40,8 @@ export class TimelinePageComponent implements OnInit {
   numberOfDaysJourniversaries = signal<number>(7);
   timelineResponse = signal<TimelineV2Response | undefined>(undefined);
   reliveMode = signal<boolean>(false);
+  /** Whether to auto-open relive mode after data loads (from ?autoplay=true query param) */
+  private readonly autoplay = signal<boolean>(false);
 
   entries = computed<Journey[]>(() =>
     [...(this.timelineResponse()?.journeys ?? [])].sort((a, b) =>
@@ -67,6 +69,11 @@ export class TimelinePageComponent implements OnInit {
     const country = this.activatedRoute.snapshot.queryParams['country'];
     const year = this.activatedRoute.snapshot.queryParams['year'];
     const category = this.activatedRoute.snapshot.queryParams['category'];
+    const autoplay = this.activatedRoute.snapshot.queryParams['autoplay'] === 'true';
+
+    if (autoplay) {
+      this.autoplay.set(true);
+    }
 
     if (journeyId) {
       this.activeFilter.set('journey');
@@ -89,10 +96,20 @@ export class TimelinePageComponent implements OnInit {
     }
   }
 
+  private onDataLoaded(data: TimelineV2Response) {
+    this.timelineResponse.set(data);
+    // Auto-open relive if autoplay was requested via query param
+    if (this.autoplay()) {
+      this.autoplay.set(false);
+      // Small delay to let the view render before opening relive
+      setTimeout(() => this.reliveMode.set(true), 100);
+    }
+  }
+
   getDataForJourney(journeyId: string) {
     this.timelineService.getTimelineV2ForJourney(journeyId)
     .subscribe({
-      next: data => this.timelineResponse.set(data),
+      next: data => this.onDataLoaded(data),
       error: err => console.error(err)
     });
   }
@@ -100,7 +117,7 @@ export class TimelinePageComponent implements OnInit {
   getDataForCity(city: string) {
     this.timelineService.getTimelineV2ForCity(city)
     .subscribe({
-      next: data => this.timelineResponse.set(data),
+      next: data => this.onDataLoaded(data),
       error: err => console.error(err)
     });
   }
@@ -108,7 +125,7 @@ export class TimelinePageComponent implements OnInit {
   getDataForCountry(country: string) {
     this.timelineService.getTimelineV2ForCountry(country)
     .subscribe({
-      next: data => this.timelineResponse.set(data),
+      next: data => this.onDataLoaded(data),
       error: err => console.error(err)
     });
   }
@@ -116,7 +133,7 @@ export class TimelinePageComponent implements OnInit {
   getDataForYear(year: string) {
     this.timelineService.getTimelineV2ForYear(year)
     .subscribe({
-      next: data => this.timelineResponse.set(data),
+      next: data => this.onDataLoaded(data),
       error: err => console.error(err)
     });
   }
@@ -124,7 +141,7 @@ export class TimelinePageComponent implements OnInit {
   getDataForCategory(category: string) {
     this.timelineService.getTimelineV2ForCategory(category)
     .subscribe({
-      next: data => this.timelineResponse.set(data),
+      next: data => this.onDataLoaded(data),
       error: err => console.error(err)
     });
   }
@@ -133,7 +150,7 @@ export class TimelinePageComponent implements OnInit {
     this.activeFilter.set('upcoming');
     this.timelineService.getTimelineV2ForUpcomingJourniversaries(this.numberOfDaysJourniversaries())
     .subscribe({
-      next: data => this.timelineResponse.set(data),
+      next: data => this.onDataLoaded(data),
       error: err => console.error(err)
     });
   }
