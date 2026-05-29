@@ -7,7 +7,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
-import {CATEGORY_ICONS} from "../../config/icon-config";
+import {getCategoryIconName} from "../../config/icon-config";
 
 @Component({
   selector: 'app-journey-card-view',
@@ -32,7 +32,7 @@ export class JourneyCardViewComponent {
   });
 
   getCategoryIcon(): string {
-    return CATEGORY_ICONS[this.journey().category?.toLowerCase()] ?? 'place';
+    return getCategoryIconName(this.journey().category);
   }
 
   editDetails($event: MouseEvent) {
