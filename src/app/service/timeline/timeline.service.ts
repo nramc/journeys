@@ -42,7 +42,7 @@ export class TimelineService {
 
   private getTimelineV2(params: Record<string, string>): Observable<TimelineV2Response> {
     const userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<TimelineV2Response>(environment.journeyApi + '/timeline/v2',
+    return this.httpClient.get<TimelineV2Response>(environment.journeyApi + '/timeline',
       {
         headers: {'Authorization': `Bearer ${userContext.accessToken}`},
         params
