@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, input, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, output, computed} from '@angular/core';
 import {DatePipe, TitleCasePipe} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {JourneyData} from "./journey.data";
@@ -8,6 +8,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 import {getCategoryIconName} from "../../config/icon-config";
+import { getMemoryAgeBadge, MemoryAgeBadge } from '../../utility/date-utils';
 
 @Component({
   selector: 'app-journey-card-view',
@@ -60,6 +61,9 @@ export class JourneyCardViewComponent {
     }
     return false;
   }
+
+  /** Nostalgia badge for this journey (years ago, emoji, etc) */
+  yearsAgoBadge = computed<MemoryAgeBadge | null>(() => getMemoryAgeBadge(this.journey().journeyDate));
 
   transformJourney(value: JourneyData | Journey): JourneyData {
     if (Object.hasOwn(value, 'geoDetails') || value instanceof Journey) {

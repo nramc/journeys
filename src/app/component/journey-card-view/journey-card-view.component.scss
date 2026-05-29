@@ -4,30 +4,25 @@
   display: flex;
   flex-direction: column;
   font-family: inherit;
-
-  /*
-   * Global _base_styles.scss forces h1–h6 to text-primary blue.
-   * In the white content panel the title SHOULD be primary — keep it.
-   * But the paragraph (subtitle) must NOT inherit heading colour.
-   */
-  p {
-    color: inherit;
-    margin: 0;
-  }
-
-  h3 {
-    margin: 0;
-  }
+  height: 100%;
+  min-height: 24rem; /* Reduce min height */
+  max-height: 30rem; /* Reduce max height */
+  /* Ensures all cards in a row/grid are equal height */
 }
 
-/* ── Image section ─────────────────────────────────────────────── */
 .journey-card__image {
   flex-shrink: 0;
+  height: 11rem;
+  min-height: 11rem;
+  max-height: 11rem;
 }
 
 /* ── Content panel ─────────────────────────────────────────────── */
 .journey-card__content {
-  flex: 1;
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 /* Location subtitle — muted, below the title */
@@ -73,13 +68,15 @@
   }
 }
 
-/* Thin primary-tinted divider */
+/* Soft gradient divider */
 .journey-card__divider {
-  background-color: #eef1fd;
-
-  .dark & {
-    background-color: rgba(52, 89, 230, 0.2);
-  }
+  background: linear-gradient(90deg, #eef1fd 0%, #fbbf24 50%, #eef1fd 100%);
+  height: 3px;
+  border-radius: 2px;
+  margin: 0.15rem 0 0.15rem 0; /* Further reduce vertical margin */
+  box-shadow: 0 1px 4px 0 rgba(251, 191, 36, 0.08);
+  border: none;
+  opacity: 0.7;
 }
 
 /* ── Action buttons — outlined primary pill ────────────────────── */
@@ -132,4 +129,25 @@
   width: 14px !important;
   height: 14px !important;
   line-height: 1 !important;
+}
+
+/* ── Anniversary badge with shimmering effect ────────────────── */
+.years-ago-badge--anniversary {
+  background: linear-gradient(90deg, #fbbf24 60%, #fde68a 100%);
+  color: #78350f; /* amber-900 */
+  border: 1.5px solid #f59e42;
+  animation: anniversary-shimmer 2.2s infinite linear;
+  box-shadow: 0 0 0 0 #fbbf24, 0 0 16px 4px #fde68a66;
+}
+
+@keyframes anniversary-shimmer {
+  0% {
+    box-shadow: 0 0 0 0 #fbbf24, 0 0 16px 4px #fde68a66;
+  }
+  50% {
+    box-shadow: 0 0 16px 4px #fbbf24cc, 0 0 32px 8px #fde68a99;
+  }
+  100% {
+    box-shadow: 0 0 0 0 #fbbf24, 0 0 16px 4px #fde68a66;
+  }
 }
