@@ -12,3 +12,10 @@ export interface TimelineImage {
   args?: any
 }
 
+// ── Timeline V2 models (rich journey-level entries) ──
+import {Journey} from '../../model/core/journey.model';
+
+export interface TimelineV2Response {
+  heading: string;
+  journeys: Journey[];
+}

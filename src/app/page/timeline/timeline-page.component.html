@@ -1,27 +1,49 @@
 <header>
   <app-page-header [pageInfo]="TIMELINE_PAGE_INFO"></app-page-header>
+  <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 max-sm:text-center">
+    {{ TIMELINE_PAGE_INFO.description }}
+  </p>
 </header>
 
-<main>
-  <section class="mt-2 container flex flex-col">
-    <mat-form-field appearance="fill">
-      <mat-label>Choose interval to display Journiversaries</mat-label>
-      <mat-select [(ngModel)]="numberOfDaysJourniversaries" (selectionChange)="getDataForUpcomingJourniversaries()"
-                  class="!outline-offset-0 !border-0">
-        <mat-option [value]="1">Tomorrow</mat-option>
-        <mat-option [value]="7">Next One Week</mat-option>
-        <mat-option [value]="14">Next Two Week</mat-option>
-        <mat-option [value]="21">Next Three Week</mat-option>
-        <mat-option [value]="30">Next One Month</mat-option>
-        <mat-option [value]="60">Next Two Months</mat-option>
-        <mat-option [value]="90">Next Three Months</mat-option>
-      </mat-select>
-    </mat-form-field>
+<main class="mt-4">
+  <!-- Filter row -->
+  @if (activeFilter() === 'upcoming') {
+    <section class="container flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
+      <mat-form-field appearance="fill" class="w-full sm:w-auto">
+        <mat-label>Journiversary Window</mat-label>
+        <mat-select [(ngModel)]="numberOfDaysJourniversaries"
+                    (selectionChange)="getDataForUpcomingJourniversaries()"
+                    class="!outline-offset-0 !border-0">
+          @for (opt of journiversaryOptions; track opt.value) {
+            <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </section>
+  }
+
+  <!-- Story scroll -->
+  <section class="container">
+    <app-timeline-story
+      [entries]="entries()"
+      [heading]="heading()"
+      [(reliveMode)]="reliveMode">
+    </app-timeline-story>
   </section>
 
-  <section class="flex flex-col">
-    <app-timeline [data]="timelineData()"></app-timeline>
-  </section>
-
+  <!-- Relive FAB (bottom-right) — only show when there are entries and not already in relive mode -->
+  @if (entries().length > 0 && !reliveMode()) {
+    <button class="fixed bottom-6 right-6 z-40
+                   flex items-center gap-2 px-5 py-3 rounded-full
+                   bg-primary text-white shadow-lg shadow-primary/30
+                   hover:bg-primary/90 hover:shadow-xl
+                   transition-all duration-200
+                   text-sm font-semibold"
+            (click)="openRelive()"
+            matTooltip="Relive your memories in cinematic mode"
+            aria-label="Open Relive mode">
+      <mat-icon>play_circle</mat-icon>
+      Relive
+    </button>
+  }
 </main>
-

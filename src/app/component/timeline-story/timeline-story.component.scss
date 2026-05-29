@@ -1,0 +1,9 @@
+/* Relive mode */
+.relive-enter { animation: relive-fade-in 0.5s ease-out; }
+@keyframes relive-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.relive-ken-burns { animation: ken-burns 6s ease-in-out infinite alternate; }
+@keyframes ken-burns { 0% { transform: scale(1) translateX(-1%); } 100% { transform: scale(1.08) translateX(1%); } }
+.relive-control-btn { min-height: 48px !important; min-width: 48px !important;
+  mat-icon { font-size: 28px !important; width: 28px !important; height: 28px !important; }
+}
+.relive-control-btn--play mat-icon { font-size: 40px !important; width: 40px !important; height: 40px !important; }

@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
 import {Observable, of} from "rxjs";
 import {environment} from "../../../environments/environment";
-import {TimelineData} from "../../component/timeline/timeline-data.model";
+import {TimelineData, TimelineV2Response} from "../../component/timeline/timeline-data.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,8 @@ import {TimelineData} from "../../component/timeline/timeline-data.model";
 export class TimelineService {
   private readonly httpClient = inject(HttpClient);
   private readonly authService = inject(AuthService);
+
+  // ── V1 endpoints (basic entries) ──
 
   getTimelineForUpcomingJourniversaries(numberOfDays: number): Observable<TimelineData> {
     const userContext = this.authService.getCurrentUserContext();
@@ -94,5 +96,40 @@ export class TimelineService {
         });
     }
     return of()
+  }
+
+  // ── V2 endpoints (rich journey-level entries) ──
+
+  getTimelineV2ForUpcomingJourniversaries(numberOfDays: number): Observable<TimelineV2Response> {
+    return this.getTimelineV2({upcoming: numberOfDays.toString()});
+  }
+
+  getTimelineV2ForJourney(journeyId: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({IDs: journeyId});
+  }
+
+  getTimelineV2ForCity(city: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({city});
+  }
+
+  getTimelineV2ForCountry(country: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({country});
+  }
+
+  getTimelineV2ForYear(year: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({year});
+  }
+
+  getTimelineV2ForCategory(category: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({category});
+  }
+
+  private getTimelineV2(params: Record<string, string>): Observable<TimelineV2Response> {
+    const userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<TimelineV2Response>(environment.journeyApi + '/timeline/v2',
+      {
+        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
+        params
+      });
   }
 }
