@@ -11,6 +11,8 @@ import {provideRouter, withComponentInputBinding, withInMemoryScrolling, withVie
 import {ROUTES} from "./app.routes";
 import {loadingInterceptor} from "./utility/handler/loading.interceptor";
 import {MAT_DATE_LOCALE} from "@angular/material/core";
+import {provideDateFnsAdapter} from "@angular/material-date-fns-adapter";
+import {enGB} from "date-fns/locale";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +31,7 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withInMemoryScrolling({scrollPositionRestoration: "enabled", anchorScrolling: "enabled"})
     ),
-    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+    {provide: MAT_DATE_LOCALE, useValue: enGB},
+    provideDateFnsAdapter()
   ]
 }

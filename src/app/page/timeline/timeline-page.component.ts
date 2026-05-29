@@ -7,7 +7,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
 import {TimelineStoryComponent} from '../../component/timeline-story/timeline-story.component';
 import {TimelineV2Response} from '../../component/timeline/timeline-data.model';
 import {Journey} from '../../model/core/journey.model';
@@ -34,8 +33,7 @@ export interface TimeRangeOption {
     MatButtonModule,
     MatTooltipModule,
     MatButtonToggleModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+    MatDatepickerModule
   ],
   templateUrl: './timeline-page.component.html',
   styleUrl: './timeline-page.component.scss',

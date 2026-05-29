@@ -14,7 +14,6 @@ import {Router} from "@angular/router";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDatepickerInputEvent, MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
 import {toObservable} from "@angular/core/rxjs-interop";
 import {HasWriteAccessDirective} from "../../../../directive/has-write-access.directive";
@@ -31,7 +30,6 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatButtonModule,
     HasWriteAccessDirective
 ],
