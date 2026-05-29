@@ -6,20 +6,74 @@
 </header>
 
 <main class="mt-4">
-  <!-- Filter row -->
-  @if (activeFilter() === 'upcoming') {
-    <section class="container flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
-      <mat-form-field appearance="fill" class="w-full sm:w-auto">
-        <mat-label>Journiversary Window</mat-label>
-        <mat-select [(ngModel)]="numberOfDaysJourniversaries"
-                    (selectionChange)="getDataForUpcomingJourniversaries()"
-                    class="!outline-offset-0 !border-0">
-          @for (opt of journiversaryOptions; track opt.value) {
-            <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+  <!-- Journiversary filter controls -->
+  @if (activeFilter() === 'upcoming' || activeFilter() === 'past') {
+    <section class="container mb-6 space-y-4">
+      <!-- Direction toggle: Upcoming ↔ Past -->
+      <div class="flex justify-center">
+        <mat-button-toggle-group [value]="direction()"
+                                 (change)="onDirectionChange($event.value)"
+                                 class="journiversary-toggle"
+                                 hideSingleSelectionIndicator>
+          <mat-button-toggle value="upcoming">
+            <mat-icon class="mr-1 !text-[18px]">upcoming</mat-icon>
+            Upcoming
+          </mat-button-toggle>
+          <mat-button-toggle value="past">
+            <mat-icon class="mr-1 !text-[18px]">history</mat-icon>
+            Past
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <!-- Time range chips: Upcoming (days-based) -->
+      @if (direction() === 'upcoming') {
+        <div class="flex flex-wrap justify-center gap-2">
+          @for (opt of upcomingOptions; track opt.value) {
+            <button mat-stroked-button
+                    [class.!bg-primary]="selectedRange() === opt.value"
+                    [class.!text-white]="selectedRange() === opt.value"
+                    [class.shadow-md]="selectedRange() === opt.value"
+                    class="!rounded-full !text-sm !px-4 !py-1 transition-all duration-200"
+                    (click)="onRangeSelected(opt.value)">
+              <mat-icon class="mr-1 !text-[16px] !w-4 !h-4">{{ opt.icon }}</mat-icon>
+              {{ opt.label }}
+            </button>
           }
-        </mat-select>
-      </mat-form-field>
+        </div>
+      }
+
+      <!-- Date range picker: Past -->
+      @if (direction() === 'past') {
+        <div class="flex justify-center">
+          <mat-form-field appearance="outline" class="w-full sm:w-auto">
+            <mat-label>Choose a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker" [max]="today">
+              <input matStartDate
+                     placeholder="From date"
+                     [ngModel]="pastFromDate()"
+                     (dateChange)="onPastFromDateChange($event.value)">
+              <input matEndDate
+                     placeholder="To date"
+                     [ngModel]="pastToDate()"
+                     (dateChange)="onPastToDateChange($event.value)">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+      }
     </section>
+  }
+
+  <!-- Result count summary -->
+  @if (!loading() && timelineResponse() && (activeFilter() === 'upcoming' || activeFilter() === 'past')) {
+    <div class="container flex justify-center mb-4">
+      <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+        <mat-icon class="!text-[14px] !w-3.5 !h-3.5">photo_album</mat-icon>
+        {{ resultCount() }} {{ resultCount() === 1 ? 'journey' : 'journeys' }} found
+      </span>
+    </div>
   }
 
   <!-- Story scroll -->
@@ -30,20 +84,4 @@
       [(reliveMode)]="reliveMode">
     </app-timeline-story>
   </section>
-
-  <!-- Relive FAB (bottom-right) — only show when there are entries and not already in relive mode -->
-  @if (entries().length > 0 && !reliveMode()) {
-    <button class="fixed bottom-6 right-6 z-40
-                   flex items-center gap-2 px-5 py-3 rounded-full
-                   bg-primary text-white shadow-lg shadow-primary/30
-                   hover:bg-primary/90 hover:shadow-xl
-                   transition-all duration-200
-                   text-sm font-semibold"
-            (click)="openRelive()"
-            matTooltip="Relive your memories in cinematic mode"
-            aria-label="Open Relive mode">
-      <mat-icon>play_circle</mat-icon>
-      Relive
-    </button>
-  }
 </main>

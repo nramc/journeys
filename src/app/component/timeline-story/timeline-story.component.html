@@ -5,11 +5,38 @@
 @if (entries().length > 0) {
   <!-- Timeline column -->
   <div class="flex flex-col">
-    <!-- Heading -->
+    <!-- Heading + Relive -->
     @if (heading()) {
-      <div class="text-center mb-8">
+      <div class="flex items-center justify-center gap-3 mb-8 flex-wrap">
         <h2 class="text-2xl md:text-3xl font-bold gradient-text">{{ heading() }}</h2>
+        @if (!reliveMode()) {
+          <button mat-flat-button
+                  color="primary"
+                  class="!rounded-full !px-5"
+                  (click)="reliveMode.set(true)"
+                  matTooltip="Relive your memories in cinematic mode"
+                  aria-label="Open Relive mode">
+            <mat-icon class="mr-1">play_circle</mat-icon>
+            Relive
+          </button>
+        }
       </div>
+    }
+
+    <!-- Year jump rail — only when multiple years exist -->
+    @if (years().length > 1) {
+      <nav class="flex flex-wrap justify-center gap-2 mb-6" aria-label="Jump to year">
+        @for (year of years(); track year) {
+          <a [href]="'#year-' + year"
+             class="px-3 py-1 rounded-full text-xs font-medium
+                    bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300
+                    hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20
+                    transition-colors duration-200 no-underline"
+             (click)="scrollToYear($event, year)">
+            {{ year }}
+          </a>
+        }
+      </nav>
     }
 
     <!-- Timeline with decorative line -->

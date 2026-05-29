@@ -104,6 +104,10 @@ export class TimelineService {
     return this.getTimelineV2({upcoming: numberOfDays.toString()});
   }
 
+  getTimelineV2ForPastJourniversaries(fromDate: string, toDate: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({fromDate, toDate});
+  }
+
   getTimelineV2ForJourney(journeyId: string): Observable<TimelineV2Response> {
     return this.getTimelineV2({IDs: journeyId});
   }

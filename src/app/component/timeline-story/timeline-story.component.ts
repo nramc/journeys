@@ -136,6 +136,13 @@ export class TimelineStoryComponent {
     return getYearsAgoLabel(journeyDate);
   }
 
+  /** Smooth-scroll to a year anchor in the timeline */
+  scrollToYear(event: Event, year: string) {
+    event.preventDefault();
+    const el = this.document.getElementById('year-' + year);
+    el?.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }
+
   getLocationLabel(entry: Journey): string {
     const parts = [entry.geoDetails?.city, entry.geoDetails?.country].filter(Boolean);
     return parts.length ? parts.join(', ') : '';
