@@ -21,16 +21,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {Journey} from '../../model/core/journey.model';
 import {JourneyCardViewComponent} from '../journey-card-view/journey-card-view.component';
 import {Howl} from 'howler';
-
-/** Compute "X years ago" label from journeyDate */
-export function getYearsAgoLabel(journeyDate: string): string {
-  const journeyYear = new Date(journeyDate).getFullYear();
-  const currentYear = new Date().getFullYear();
-  const diff = currentYear - journeyYear;
-  if (diff === 0) return 'This year';
-  if (diff === 1) return '1 year ago';
-  return `${diff} years ago`;
-}
+import {getMemoryAgeBadge} from "../../utility/date-utils";
 
 /** A single slide in the relive cinematic mode — either an image or a YouTube video */
 export interface ReliveSlide {
@@ -166,7 +157,8 @@ export class TimelineStoryComponent {
   });
 
   getYearsAgo(journeyDate: string): string {
-    return getYearsAgoLabel(journeyDate);
+    const memoryAgeBadge = getMemoryAgeBadge(journeyDate);
+    return memoryAgeBadge ? `${memoryAgeBadge.emoji} ${memoryAgeBadge.label}` : '';
   }
 
   /** Smooth-scroll to a year anchor in the timeline */
