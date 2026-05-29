@@ -82,6 +82,8 @@ export class TimelineStoryComponent {
 
   // ── Relive mode state ──
   reliveIndex = signal<number>(0);
+  /** When set, relive shows only this journey's slides; null = all journeys */
+  reliveJourneyId = signal<string | null>(null);
 
   /** Extract unique years from entries for the year-jump rail */
   years = computed<string[]>(() => {
@@ -96,10 +98,15 @@ export class TimelineStoryComponent {
   relivePlayerRunning = signal<boolean>(true);
   private reliveIntervalId: ReturnType<typeof setInterval> | null = null;
 
-  /** Flatten all images AND videos across all entries for relive mode */
+  /** Flatten all images AND videos — filtered by reliveJourneyId when set */
   reliveSlides = computed<ReliveSlide[]>(() => {
+    const journeyId = this.reliveJourneyId();
+    const sourceEntries = journeyId
+      ? this.entries().filter(e => e.id === journeyId)
+      : this.entries();
+
     const slides: ReliveSlide[] = [];
-    for (const entry of this.entries()) {
+    for (const entry of sourceEntries) {
       for (const img of entry.imagesDetails?.images ?? []) {
         slides.push({type: 'image', src: img.url, title: img.title, entry});
       }
@@ -139,8 +146,16 @@ export class TimelineStoryComponent {
   }
 
   // ── Relive mode controls ──
+
+  /** Start relive for a single journey */
+  reliveJourney(journeyId: string) {
+    this.reliveJourneyId.set(journeyId);
+    this.reliveMode.set(true);
+  }
+
   closeRelive() {
     this.reliveMode.set(false);
+    this.reliveJourneyId.set(null);
     this.stopReliveAutoplay();
   }
 

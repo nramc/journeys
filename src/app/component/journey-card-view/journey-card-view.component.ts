@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, output} from '@angular/core';
 import {DatePipe, TitleCasePipe} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {JourneyData} from "./journey.data";
@@ -41,11 +41,23 @@ export class JourneyCardViewComponent {
     return false;
   }
 
+  /** When true, clicking Relive emits the output event (handled inline by parent).
+   *  When false (default), navigates to the timeline page. */
+  inlineRelive = input<boolean>(false);
+
+  /** Emits the journey ID when the Relive button is clicked (only when inlineRelive is true) */
+  relive = output<string>();
+
   viewInTimeline($event: MouseEvent) {
     $event.stopPropagation();
-    this.router.navigate(['/timeline'], {
-      queryParams: {'id': this.journey().id}
-    }).then(console.log);
+    $event.preventDefault();
+    if (this.inlineRelive()) {
+      this.relive.emit(this.journey().id);
+    } else {
+      this.router.navigate(['/timeline'], {
+        queryParams: {'id': this.journey().id}
+      });
+    }
     return false;
   }
 
