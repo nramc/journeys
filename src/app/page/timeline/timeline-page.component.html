@@ -1,27 +1,87 @@
 <header>
   <app-page-header [pageInfo]="TIMELINE_PAGE_INFO"></app-page-header>
+  <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 max-sm:text-center">
+    {{ TIMELINE_PAGE_INFO.description }}
+  </p>
 </header>
 
-<main>
-  <section class="mt-2 container flex flex-col">
-    <mat-form-field appearance="fill">
-      <mat-label>Choose interval to display Journiversaries</mat-label>
-      <mat-select [(ngModel)]="numberOfDaysJourniversaries" (selectionChange)="getDataForUpcomingJourniversaries()"
-                  class="!outline-offset-0 !border-0">
-        <mat-option [value]="1">Tomorrow</mat-option>
-        <mat-option [value]="7">Next One Week</mat-option>
-        <mat-option [value]="14">Next Two Week</mat-option>
-        <mat-option [value]="21">Next Three Week</mat-option>
-        <mat-option [value]="30">Next One Month</mat-option>
-        <mat-option [value]="60">Next Two Months</mat-option>
-        <mat-option [value]="90">Next Three Months</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </section>
+<main class="mt-4">
+  <!-- Journiversary filter controls -->
+  @if (activeFilter() === 'upcoming' || activeFilter() === 'past') {
+    <section class="container mb-6 space-y-4">
+      <!-- Direction toggle: Upcoming ↔ Past -->
+      <div class="flex justify-center">
+        <mat-button-toggle-group [value]="direction()"
+                                 (change)="onDirectionChange($event.value)"
+                                 class="journiversary-toggle"
+                                 hideSingleSelectionIndicator>
+          <mat-button-toggle value="upcoming">
+            <mat-icon class="mr-1 !text-[18px]">upcoming</mat-icon>
+            Upcoming
+          </mat-button-toggle>
+          <mat-button-toggle value="past">
+            <mat-icon class="mr-1 !text-[18px]">history</mat-icon>
+            Past
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
 
-  <section class="flex flex-col">
-    <app-timeline [data]="timelineData()"></app-timeline>
-  </section>
+      <!-- Time range chips: Upcoming (days-based) -->
+      @if (direction() === 'upcoming') {
+        <div class="flex flex-wrap justify-center gap-2">
+          @for (opt of upcomingOptions; track opt.value) {
+            <button mat-stroked-button
+                    [class.!bg-primary]="selectedRange() === opt.value"
+                    [class.!text-white]="selectedRange() === opt.value"
+                    [class.shadow-md]="selectedRange() === opt.value"
+                    class="!rounded-full !text-sm !px-4 !py-1 transition-all duration-200"
+                    (click)="onRangeSelected(opt.value)">
+              <mat-icon class="mr-1 !text-[16px] !w-4 !h-4">{{ opt.icon }}</mat-icon>
+              {{ opt.label }}
+            </button>
+          }
+        </div>
+      }
 
+      <!-- Date range picker: Past -->
+      @if (direction() === 'past') {
+        <div class="flex justify-center">
+          <mat-form-field appearance="outline" class="w-full sm:w-auto">
+            <mat-label>Choose a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker" [max]="today">
+              <input matStartDate
+                     placeholder="From date"
+                     [ngModel]="pastFromDate()"
+                     (dateChange)="onPastFromDateChange($event.value)">
+              <input matEndDate
+                     placeholder="To date"
+                     [ngModel]="pastToDate()"
+                     (dateChange)="onPastToDateChange($event.value)">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+      }
+    </section>
+  }
+
+  <!-- Result count summary -->
+  @if (!loading() && timelineResponse() && (activeFilter() === 'upcoming' || activeFilter() === 'past')) {
+    <div class="container flex justify-center mb-4">
+      <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+        <mat-icon class="!text-[14px] !w-3.5 !h-3.5">photo_album</mat-icon>
+        {{ resultCount() }} {{ resultCount() === 1 ? 'journey' : 'journeys' }} found
+      </span>
+    </div>
+  }
+
+  <!-- Story scroll -->
+  <section class="container">
+    <app-timeline-story
+      [entries]="entries()"
+      [heading]="heading()"
+      [(reliveMode)]="reliveMode">
+    </app-timeline-story>
+  </section>
 </main>
-

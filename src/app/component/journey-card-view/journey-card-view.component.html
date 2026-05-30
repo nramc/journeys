@@ -1,6 +1,6 @@
 <!-- Journey Card — split layout: image hero + white content panel -->
 <a [routerLink]="['/journey', journey().id, 'view']"
-   class="journey-card group w-full max-w-[75vw] md:w-[22rem] rounded-2xl overflow-hidden cursor-pointer no-underline
+   class="journey-card group w-full md:w-[22rem] rounded-2xl overflow-hidden cursor-pointer no-underline
          bg-white dark:bg-gray-900
          ring-1 ring-black/10 dark:ring-white/10 shadow-md
          hover:shadow-xl hover:shadow-primary/20
@@ -65,44 +65,67 @@
       {{ journey().name }}
     </h3>
 
-    <!-- Tags pills -->
-    @if (journey().tags.length) {
-      <ul class="flex flex-wrap gap-1 list-none p-0 m-0" aria-label="Tags">
-        @for (tag of journey().tags.slice(0, 3); track tag) {
-          <li class="journey-card__tag px-2 py-0.5 rounded-full text-[10px] font-medium">
-            {{ tag }}
-          </li>
-        }
-        @if (journey().tags.length > 3) {
-          <li
-            class="journey-card__tag journey-card__tag--overflow px-2 py-0.5 rounded-full text-[10px]">
-            +{{ journey().tags.length - 3 }} more
-          </li>
-        }
-      </ul>
-    }
+    <div>
+      <!-- Tags pills -->
+      @if (journey().tags.length) {
+        <ul class="flex flex-wrap gap-1 list-none p-0 m-0" aria-label="Tags">
+          @for (tag of journey().tags.slice(0, 3); track tag) {
+            <li class="journey-card__tag px-2 py-0.5 rounded-full text-[10px] font-medium">
+              {{ tag }}
+            </li>
+          }
+          @if (journey().tags.length > 3) {
+            <li
+              class="journey-card__tag journey-card__tag--overflow px-2 py-0.5 rounded-full text-[10px]">
+              +{{ journey().tags.length - 3 }} more
+            </li>
+          }
+        </ul>
+      }
+    </div>
 
-    <!-- Divider -->
-    <hr class="journey-card__divider border-0 h-px m-0"/>
+    <div class="align-item-end mt-auto flex flex-col gap-2">
+      <!-- Divider -->
+      <hr class="journey-card__divider border-0 h-px m-0"/>
 
-    <!-- Action row — always visible in white panel -->
-    <div class="flex items-center justify-end gap-2">
-      <button class="journey-card__action-btn"
-              (click)="editDetails($event)"
-              *appHasWriteAccess
-              [attr.aria-label]="'Edit ' + journey().name"
-              matTooltip="Edit Journey">
-        <mat-icon class="journey-card__icon--sm">edit</mat-icon>
-        <span>Edit</span>
-      </button>
+      <!-- Action row — always visible in white panel -->
+      <div class="inline-flex gap-2 justify-between items-center text-sm text-gray-500">
+        <div>
+          <!-- "Years Ago" Nostalgia Badge (bottom-left) -->
+          @if (yearsAgoBadge()) {
+            <span
+              class="bottom-3 left-3 px-1 inline-flex items-center  text-[12px]
+          bg-white/70 dark:bg-amber-900/80 backdrop-blur-sm rounded-full
+          years-ago-badge"
+              [class.years-ago-badge--anniversary]="yearsAgoBadge()?.isExactAnniversary"
+              [attr.aria-label]="yearsAgoBadge()?.label"
+            >
+        <span class="text-lg">{{ yearsAgoBadge()?.emoji }}</span>
+        <span>{{ yearsAgoBadge()?.label }}</span>
+      </span>
+          }
+        </div>
 
-      <button class="journey-card__action-btn"
-              (click)="viewInTimeline($event)"
-              [attr.aria-label]="'View ' + journey().name + ' in timeline'"
-              matTooltip="View in Timeline">
-        <mat-icon class="journey-card__icon--sm">timeline</mat-icon>
-        <span>Timeline</span>
-      </button>
+        <div class="inline-flex justify-end gap-2">
+          <button class="journey-card__action-btn"
+                  (click)="editDetails($event)"
+                  *appHasWriteAccess
+                  [attr.aria-label]="'Edit ' + journey().name"
+                  matTooltip="Edit Journey">
+            <mat-icon class="journey-card__icon--sm">edit</mat-icon>
+            <span>Edit</span>
+          </button>
+
+          <button class="journey-card__action-btn"
+                  (click)="viewInTimeline($event)"
+                  [attr.aria-label]="'Relive ' + journey().name"
+                  matTooltip="Relive Journey">
+            <mat-icon class="journey-card__icon--sm">play_circle</mat-icon>
+            <span>Relive</span>
+          </button>
+        </div>
+
+      </div>
     </div>
 
   </div>

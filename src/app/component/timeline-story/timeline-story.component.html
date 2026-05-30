@@ -1,0 +1,210 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     CHRONOLOGICAL TIMELINE — Year anchors + alternating journey cards
+     ═══════════════════════════════════════════════════════════════ -->
+
+@if (entries().length > 0) {
+  <!-- Timeline column -->
+  <div class="flex flex-col">
+    <!-- Heading + Relive -->
+    @if (heading()) {
+      <div class="flex items-center justify-center gap-3 mb-8 flex-wrap">
+        <h2 class="text-2xl md:text-3xl font-bold gradient-text">{{ heading() }}</h2>
+        @if (!reliveMode()) {
+          <button mat-flat-button
+                  color="primary"
+                  class="!rounded-full !px-5"
+                  (click)="reliveMode.set(true)"
+                  matTooltip="Relive your memories in cinematic mode"
+                  aria-label="Open Relive mode">
+            <mat-icon class="mr-1">play_circle</mat-icon>
+            Relive
+          </button>
+        }
+      </div>
+    }
+
+    <!-- Year jump rail — only when multiple years exist -->
+    @if (years().length > 1) {
+      <nav class="flex flex-wrap justify-center gap-2 mb-6" aria-label="Jump to year">
+        @for (year of years(); track year) {
+          <a [href]="'#year-' + year"
+             class="px-3 py-1 rounded-full text-xs font-medium
+                    bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300
+                    hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20
+                    transition-colors duration-200 no-underline"
+             (click)="scrollToYear($event, year)">
+            {{ year }}
+          </a>
+        }
+      </nav>
+    }
+
+    <!-- Timeline with decorative line -->
+    <div class="timeline-line relative">
+      @for (entry of entries(); let i = $index; let isOdd = $odd; track entry.id) {
+
+        <!-- Year separator pill -->
+        @if (i === 0 || entry.journeyDate.substring(0,4) !== entries()[i-1].journeyDate.substring(0,4)) {
+          <div [id]="'year-' + entry.journeyDate.substring(0,4)"
+               class="flex items-center justify-center my-8">
+            <span class="px-5 py-1.5 rounded-full bg-primary text-white text-sm font-bold shadow-md
+                         ring-4 ring-primary/20">
+              {{ entry.journeyDate.substring(0,4) }}
+            </span>
+          </div>
+        }
+
+        <!-- Timeline entry row -->
+        <div class="timeline-entry flex flex-col md:flex-row items-center gap-4 md:gap-0 mb-8 md:mb-12"
+             [class.md:flex-row-reverse]="isOdd"
+             animate.enter="card-reveal">
+
+          <!-- Card side (left or right on desktop, full width on mobile) -->
+          <div class="w-full md:w-[calc(50%-2rem)] md:flex"
+               [class.md:justify-start]="isOdd"
+               [class.md:justify-end]="!isOdd">
+            <app-journey-card-view [journey]="entry" [inlineRelive]="true" (relive)="reliveJourney($event)"></app-journey-card-view>
+          </div>
+
+          <!-- Timeline dot (center on desktop) -->
+          <div class="hidden md:flex items-center justify-center w-16 flex-shrink-0">
+            <div class="w-4 h-4 rounded-full bg-primary ring-4 ring-primary/20 shadow-lg z-10"></div>
+          </div>
+
+          <!-- Spacer for the other side (desktop only) -->
+          <div class="hidden md:block w-[calc(50%-2rem)]"></div>
+        </div>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="flex flex-col items-center justify-center py-16 text-center">
+    <mat-icon class="!text-[64px] !w-[64px] !h-[64px] text-gray-300 dark:text-gray-600 mb-4">
+      photo_album
+    </mat-icon>
+    <p class="text-gray-500 dark:text-gray-400 text-lg">No memories found for this selection.</p>
+    <p class="text-gray-400 dark:text-gray-500 text-sm mt-1">Try a different filter or time range.</p>
+  </div>
+}
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     RELIVE MODE — Rendered at document body via CDK Portal
+     ═══════════════════════════════════════════════════════════════ -->
+
+<ng-template cdkPortal>
+  @if (reliveMode() && reliveSlides().length > 0) {
+    <div class="relive-overlay fixed inset-0 z-50 bg-black flex flex-col"
+         animate.enter="relive-enter">
+
+      @if (currentReliveSlide(); as slide) {
+        <div class="flex-1 relative overflow-hidden">
+
+          @if (slide.type === 'image') {
+            <!-- Ambient blurred background -->
+            <div class="absolute inset-0 bg-cover bg-center blur-2xl scale-110 opacity-40"
+                 [style.background-image]="'url(' + slide.src + ')'"></div>
+
+            <!-- Main image with Ken Burns effect -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <img [src]="slide.src"
+                   [alt]="slide.title || slide.entry.name"
+                   class="relive-image max-h-full max-w-full object-contain drop-shadow-2xl"
+                   [class.relive-ken-burns]="relivePlayerRunning()"/>
+            </div>
+          } @else {
+            <!-- Dark ambient background for video -->
+            <div class="absolute inset-0 bg-cover bg-center blur-2xl scale-110 opacity-30"
+                 [style.background-image]="'url(' + getYouTubeThumbnail(slide.src) + ')'"></div>
+
+            <!-- YouTube player -->
+            <div class="absolute inset-0 flex items-center justify-center p-4 md:p-12">
+              <iframe class="w-full h-full max-w-4xl max-h-[70vh] rounded-xl shadow-2xl border-0"
+                      [src]="currentVideoEmbedUrl()"
+                      [title]="'YouTube video: ' + (currentReliveSlide()?.entry?.name ?? '')"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen>
+              </iframe>
+            </div>
+
+            <!-- Video badge -->
+            <div class="absolute top-4 left-4 z-10 flex items-center gap-1.5
+                        px-3 py-1.5 rounded-full bg-red-600/80 backdrop-blur-sm
+                        text-white text-xs font-semibold">
+              <mat-icon class="!text-[14px] !w-[14px] !h-[14px]">play_arrow</mat-icon>
+              YouTube
+            </div>
+          }
+
+          <!-- Top gradient -->
+          <div
+            class="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/50 to-transparent pointer-events-none"></div>
+
+          <!-- Close button -->
+          <button mat-icon-button
+                  class="!absolute top-4 right-4 !text-white z-10"
+                  (click)="closeRelive()"
+                  aria-label="Close relive mode"
+                  matTooltip="Close (Esc)">
+            <mat-icon>close</mat-icon>
+          </button>
+
+          <!-- Bottom info bar -->
+          <div
+            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 md:p-6">
+            <div class="text-white mb-3">
+              <h3 class="text-lg md:text-2xl font-bold drop-shadow-lg !text-white">
+                {{ slide.entry.name }}
+              </h3>
+              <p class="text-white/70 text-sm md:text-base mt-1 flex items-center gap-2">
+                <span class="font-semibold text-white/90">{{
+                    getYearsAgo(slide.entry.journeyDate)
+                  }}</span>
+                @if (getLocationLabel(slide.entry)) {
+                  <span class="text-white/40">·</span>
+                  <span>{{ getLocationLabel(slide.entry) }}</span>
+                }
+              </p>
+              @if (slide.title) {
+                <p class="text-white/60 text-xs md:text-sm mt-1 italic">{{ slide.title }}</p>
+              }
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center justify-center gap-4">
+              <button mat-icon-button class="!text-white relive-control-btn"
+                      (click)="relivePrev()" aria-label="Previous slide" matTooltip="Previous (←)">
+                <mat-icon>skip_previous</mat-icon>
+              </button>
+              <button mat-icon-button
+                      class="!text-white relive-control-btn relive-control-btn--play"
+                      (click)="toggleRelivePlayer()"
+                      [attr.aria-label]="relivePlayerRunning() ? 'Pause' : 'Play'"
+                      [matTooltip]="relivePlayerRunning() ? 'Pause (P)' : 'Play (P)'">
+                <mat-icon>{{ relivePlayerRunning() ? 'pause_circle' : 'play_circle' }}</mat-icon>
+              </button>
+              <button mat-icon-button class="!text-white relive-control-btn"
+                      (click)="reliveNext()" aria-label="Next slide" matTooltip="Next (→)">
+                <mat-icon>skip_next</mat-icon>
+              </button>
+
+              <!-- Music mute/unmute -->
+              <span class="mx-1 text-white/20">|</span>
+              <button mat-icon-button class="!text-white relive-control-btn"
+                      (click)="toggleMusicMute()"
+                      [attr.aria-label]="musicMuted() ? 'Unmute music' : 'Mute music'"
+                      [matTooltip]="musicMuted() ? 'Unmute (M)' : 'Mute (M)'">
+                <mat-icon>{{ musicMuted() ? 'music_off' : 'music_note' }}</mat-icon>
+              </button>
+            </div>
+
+            <!-- Progress -->
+            <div class="mt-3 flex items-center gap-2 text-white/50 text-xs justify-center">
+              <span>{{ reliveIndex() + 1 }} / {{ reliveSlides().length }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</ng-template>

@@ -1,9 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
-import {TimelineData} from "../../component/timeline/timeline-data.model";
+import {TimelineV2Response} from "../../component/timeline/timeline-data.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,87 +12,40 @@ export class TimelineService {
   private readonly httpClient = inject(HttpClient);
   private readonly authService = inject(AuthService);
 
-  getTimelineForUpcomingJourniversaries(numberOfDays: number): Observable<TimelineData> {
-    const userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
-      {
-        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
-        params: {
-          'upcoming': numberOfDays
-        }
-      });
+  getTimelineV2ForUpcomingJourniversaries(numberOfDays: number): Observable<TimelineV2Response> {
+    return this.getTimelineV2({upcoming: numberOfDays.toString()});
   }
 
-  getTimelineForJourney(journeyId: string): Observable<TimelineData> {
-    const userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
-      {
-        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
-        params: {
-          'IDs': journeyId
-        }
-      });
+  getTimelineV2ForPastJourniversaries(fromDate: string, toDate: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({fromDate, toDate});
   }
 
-  getTimelineForCity(city: string): Observable<TimelineData> {
-    const userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
-      {
-        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
-        params: {
-          'city': city
-        }
-      });
+  getTimelineV2ForJourney(journeyId: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({IDs: journeyId});
   }
 
-  getTimelineForCountry(country: string): Observable<TimelineData> {
-    const userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
-      {
-        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
-        params: {
-          'country': country
-        }
-      });
+  getTimelineV2ForCity(city: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({city});
   }
 
-  getTimelineForYear(year: string): Observable<TimelineData> {
-    const userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
-      {
-        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
-        params: {
-          'year': year
-        }
-      });
+  getTimelineV2ForCountry(country: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({country});
   }
 
-  getTimelineForCategory(category: string): Observable<TimelineData> {
-    const userContext = this.authService.getCurrentUserContext();
-    return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
-      {
-        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
-        params: {
-          'category': category
-        }
-      });
+  getTimelineV2ForYear(year: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({year});
   }
 
-  getTimelineForToday(): Observable<TimelineData> {
-    const userContext = this.authService.getCurrentUserContext();
+  getTimelineV2ForCategory(category: string): Observable<TimelineV2Response> {
+    return this.getTimelineV2({category});
+  }
 
-    if (userContext.isAuthenticated) {
-      return this.httpClient.get<TimelineData>(environment.journeyApi + '/timeline',
-        {
-          headers: {
-            'Authorization': `Bearer ${userContext.accessToken}`,
-            'X-Async-Process': 'true'
-          },
-          params: {
-            'today': true
-          }
-        });
-    }
-    return of()
+  private getTimelineV2(params: Record<string, string>): Observable<TimelineV2Response> {
+    const userContext = this.authService.getCurrentUserContext();
+    return this.httpClient.get<TimelineV2Response>(environment.journeyApi + '/timeline',
+      {
+        headers: {'Authorization': `Bearer ${userContext.accessToken}`},
+        params
+      });
   }
 }

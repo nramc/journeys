@@ -165,3 +165,7 @@ function getIconForType(iconType: string) {
   }
 
 }
+
+export function getCategoryIconName(category: string | undefined): string {
+  return CATEGORY_ICONS[category?.toLowerCase() ?? 'default'] ?? 'place';
+}

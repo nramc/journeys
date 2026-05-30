@@ -75,7 +75,7 @@ export const STATISTICS_PAGE_INFO: PageInfo = {
 export const TIMELINE_PAGE_INFO: PageInfo = {
   name: "Timeline",
   title: "Timeline",
-  description: "",
+  description: "Relive the moments that made you",
   path: "/timeline",
   icon: "timeline"
 };

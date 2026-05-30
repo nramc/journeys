@@ -1,0 +1,25 @@
+/* Card reveal animation */
+.card-reveal { animation: card-slide-in 0.6s ease-out both; }
+@keyframes card-slide-in {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Timeline decorative center line (desktop) */
+.timeline-line { @media (min-width: 768px) {
+  &::before {
+    content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, transparent, rgba(52,89,230,0.2), rgba(52,89,230,0.3), rgba(52,89,230,0.2), transparent);
+    transform: translateX(-50%); pointer-events: none;
+  }
+}}
+
+/* Relive mode */
+.relive-enter { animation: relive-fade-in 0.5s ease-out; }
+@keyframes relive-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.relive-ken-burns { animation: ken-burns 6s ease-in-out infinite alternate; }
+@keyframes ken-burns { 0% { transform: scale(1) translateX(-1%); } 100% { transform: scale(1.08) translateX(1%); } }
+.relive-control-btn { min-height: 48px !important; min-width: 48px !important;
+  mat-icon { font-size: 28px !important; width: 28px !important; height: 28px !important; }
+}
+.relive-control-btn--play mat-icon { font-size: 40px !important; width: 40px !important; height: 40px !important; }
