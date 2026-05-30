@@ -1,24 +1,46 @@
+# Label rules for actions/labeler@v5.
+# Labels applied here are consumed by .github/release.yml to build categorised release notes.
+# Docs: https://github.com/actions/labeler
+
 feature:
   - head-branch: ["^feat/", "^feature/"]
-  - title: ["^feat(\\(.*\\))?: ", "^feature"]
-
 bug:
   - head-branch: ["^fix/", "^bugfix/", "^hotfix/"]
-  - title: ["^fix(\\(.*\\))?: ", "^bug"]
-
 chore:
-  - head-branch: ["^chore/", "^refactor/"]
-  - title: ["^chore(?!\\(deps\\))(\\(.*\\))?: ", "^refactor(\\(.*\\))?: "]
-
+  - head-branch: ["^chore/", "^maintenance/"]
 ci:
-  - head-branch: ["^ci/"]
-  - title: ["^ci(\\(.*\\))?: "]
-
+  - head-branch: ["^ci/", "^github/", "^actions/"]
 documentation:
-  - head-branch: ["^docs/"]
-  - title: ["^docs(\\(.*\\))?: "]
-
+  - head-branch: ["^docs/", "^doc/", "^documentation/"]
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+          - '.github/ISSUE_TEMPLATE/**'
+          - 'src/app/user-manual/**'
 dependencies:
-  - head-branch: ["^renovate/", "^dependabot/"]
-  - title: ["^build\\(deps\\)", "^chore\\(deps\\)"]
-
+  - head-branch: ["^renovate/", "^dependabot/", "^build/", "^chore/deps/"]
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'package.json'
+          - 'package-lock.json'
+          - 'renovate.json'
+          - 'renovate.json5'
+          - 'pnpm-lock.yaml'
+          - 'yarn.lock'
+          - 'ng-package.json'
+test:
+  - head-branch: ["^test/", "^tests/", "^spec/"]
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.spec.ts'
+          - '**/*.test.ts'
+          - 'src/test/**'
+  - files: ["**/*.spec.ts", "**/*.test.ts"]
+refactor:
+  - head-branch: ["^refactor/"]
+style:
+  - head-branch: ["^style/", "^styles/", "^lint/"]
+  - files: ["**/*.scss", "**/*.css", "**/*.sass"]
+build:
+  - head-branch: ["^build/"]
+  - files: ["angular.json", "package.json", "tsconfig.json", "tsconfig.app.json", "tsconfig.spec.json"]
