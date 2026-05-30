@@ -1,0 +1,35 @@
+# Label rules for actions/labeler@v5.
+# Labels applied here are consumed by .github/release.yml to build categorised release notes.
+# Docs: https://github.com/actions/labeler
+
+feature:
+  - head-branch: [ "^feat/", "^feature/" ]
+bug:
+  - head-branch: [ "^fix/", "^bugfix/", "^hotfix/" ]
+chore:
+  - head-branch: [ "^chore/", "^maintenance/" ]
+ci:
+  - head-branch: [ "^ci/", "^github/", "^actions/" ]
+  - head-branch: [ "^build/" ]
+  - files: [ "angular.json", "package.json", "tsconfig.json", "tsconfig.app.json", "tsconfig.spec.json" ]
+documentation:
+  - head-branch: [ "^docs/", "^doc/", "^documentation/" ]
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+          - '.github/ISSUE_TEMPLATE/**'
+          - 'src/app/user-manual/**'
+dependencies:
+  - head-branch: [ "^renovate/", "^dependabot/", "^build/", "^chore/deps/" ]
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'package.json'
+          - 'package-lock.json'
+          - 'renovate.json'
+          - 'renovate.json5'
+          - 'pnpm-lock.yaml'
+          - 'yarn.lock'
+          - 'ng-package.json'
+refactor:
+  - head-branch: [ "^refactor/" ]
+
