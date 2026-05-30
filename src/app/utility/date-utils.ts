@@ -25,14 +25,14 @@ export function getMemoryAgeBadge(journeyDate: string, today: Date = new Date())
   if (isExactAnniversary) {
     return {
       label: yearsDiff === 1 ? '1 year ago today!' : `${yearsDiff} years ago today!`,
-      emoji: '🎊',
+      emoji: '🎊 ',
       isExactAnniversary,
       yearsDiff
     };
   } else {
     return {
       label: yearsDiff === 1 ? '1 year ago' : `${yearsDiff} years ago`,
-      emoji: '📸',
+      emoji: '📸 ',
       isExactAnniversary,
       yearsDiff
     };
