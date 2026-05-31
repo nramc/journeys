@@ -83,7 +83,6 @@ mat-sidenav-content {
   }
 
   &.nav-active {
-    background-color: color-mix(in srgb, #3459E6 16%, transparent);
     color: #3459E6;
     font-weight: 600;
 
@@ -132,7 +131,6 @@ mat-sidenav-content {
     }
 
     &.nav-active {
-      background-color: color-mix(in srgb, #c2cdf8 18%, transparent);
       color: #c2cdf8;
       .nav-icon { color: #c2cdf8; }
     }
