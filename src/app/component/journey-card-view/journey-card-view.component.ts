@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, input, output, computed} from '@angular/core';
-import {DatePipe, TitleCasePipe} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {JourneyData} from "./journey.data";
 import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL, Journey} from "../../model/core/journey.model";
@@ -7,14 +7,13 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
-import {getCategoryIconName} from "../../config/icon-config";
+import {getCategoryIconName, getCategoryLabel} from "../../config/icon-config";
 import { getMemoryAgeBadge, MemoryAgeBadge } from '../../utility/date-utils';
 
 @Component({
   selector: 'app-journey-card-view',
   imports: [
     DatePipe,
-    TitleCasePipe,
     RouterLink,
     MatButtonModule,
     MatIconModule,
@@ -32,8 +31,12 @@ export class JourneyCardViewComponent {
     transform: (value: JourneyData | Journey) => this.transformJourney(value)
   });
 
-  getCategoryIcon(): string {
+  getCategoryIconName(): string {
     return getCategoryIconName(this.journey().category);
+  }
+
+  getCategoryLabel(): string {
+    return getCategoryLabel(this.journey().category);
   }
 
   editDetails($event: MouseEvent) {

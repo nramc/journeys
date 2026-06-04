@@ -76,8 +76,20 @@
             <mat-label>Category</mat-label>
             <mat-select [(ngModel)]="formData.category" name="category" required [disabled]="isReadOnly()"
                         #category="ngModel">
+              <!-- Custom trigger: shows icon + label without leaking the icon ligature text -->
+              <mat-select-trigger>
+                <span class="inline-flex items-center gap-2">
+                  <mat-icon class="text-base leading-none">{{ CATEGORY_ICONS[formData.category()] }}</mat-icon>
+                  {{ getCategoryLabel(formData.category()) }}
+                </span>
+              </mat-select-trigger>
               @for (category of CATEGORIES; track category) {
-                <mat-option [value]="category">{{ category }}</mat-option>
+                <mat-option [value]="category">
+                  <span class="inline-flex items-center gap-2">
+                    <mat-icon class="text-base leading-none">{{ CATEGORY_ICONS[category] }}</mat-icon>
+                    {{ getCategoryLabel(category) }}
+                  </span>
+                </mat-option>
               }
             </mat-select>
             <mat-error [hidden]="category.valid || category.pristine">

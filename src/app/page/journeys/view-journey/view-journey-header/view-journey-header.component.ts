@@ -38,6 +38,11 @@ import {MatButtonModule} from "@angular/material/button";
         <button mat-icon-button *appHasWriteAccess matTooltip="Edit Journey" (click)="editJourney()">
             <mat-icon>edit</mat-icon>
         </button>
+
+        <!-- Timeline / Relive Button -->
+        <button mat-icon-button matTooltip="Relive in Timeline" (click)="viewInTimeline()">
+            <mat-icon>play_circle</mat-icon>
+        </button>
       </span>
     </h4>
   `,
@@ -49,6 +54,12 @@ export class ViewJourneyHeaderComponent {
 
   editJourney() {
     this.router.navigate(['/journey', this.journey().id, 'edit']).then();
+  }
+
+  viewInTimeline() {
+    this.router.navigate(['/timeline'], {
+      queryParams: { id: this.journey().id, autoplay: 'true' }
+    }).then();
   }
 
 }

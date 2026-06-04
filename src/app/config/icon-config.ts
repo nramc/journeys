@@ -17,6 +17,30 @@ export const CATEGORY_ICONS: Record<string, string> = {
   'love': 'favorite'
 };
 
+/**
+ * Human-friendly display labels for each journey category.
+ * Includes an emoji prefix for quick visual recognition in the UI.
+ */
+export const CATEGORY_LABELS: Record<string, string> = {
+  'default': 'Journey',
+  'adventure': 'Adventure',
+  'shopping': 'Shopping',
+  'funny': 'Fun & Humor',
+  'park': 'Parks & Nature',
+  'restaurant': 'Dining',
+  'home': 'Home',
+  'flight': 'Travel & Flights',
+  'temple': 'Temples & Heritage',
+  'favorite': 'Favorites',
+  'love': 'Love & Romance'
+};
+
+/** Returns a user-friendly label for a category key, falling back to the raw value if unknown. */
+export function getCategoryLabel(category: string | undefined): string {
+  const key = category?.toLowerCase() ?? 'default';
+  return CATEGORY_LABELS[key] ?? (category ?? 'General');
+}
+
 export const iconHome = L.divIcon({
   className: 'custom-div-icon',
   html: "<div class='marker-icon-wrapper'><div class='marker-pin'></div><i class='material-icons text-blue-700 fs-5'>home</i></div>",
@@ -138,6 +162,8 @@ function getIconForType(iconType: string) {
   } else {
     switch (iconType) {
       case "default":
+        return iconDefault;
+      case "journey":
         return iconDefault;
       case "favorite":
         return iconFavorite;

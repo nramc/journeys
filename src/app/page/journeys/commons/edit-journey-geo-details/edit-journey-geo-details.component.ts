@@ -22,7 +22,7 @@ import {OperationMode} from "../../operation-mode";
 import {EditGeoLocationComponent} from "../edit-geo-location/edit-geo-location.component";
 import {GeoJSON, Point} from "geojson";
 import {EditGeoJsonComponent} from "../edit-geo-json/edit-geo-json.component";
-import {SUPPORTED_ICONS} from "../../../../config/icon-config";
+import {CATEGORY_ICONS, getCategoryLabel, SUPPORTED_ICONS} from "../../../../config/icon-config";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
@@ -51,6 +51,8 @@ import {MatIconModule} from "@angular/material/icon";
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
   protected readonly CATEGORIES = SUPPORTED_ICONS;
+  protected readonly getCategoryLabel = getCategoryLabel;
+  protected readonly CATEGORY_ICONS = CATEGORY_ICONS;
 
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
@@ -117,7 +119,7 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   addGeoLocation(geoCodingData: GeoCodingLocationData) {
     this.formData.location.update(currentValue => geoCodingData.location ?? currentValue);
     this.formData.geoJson.update(currentValue => geoCodingData.location ?? currentValue);
-    this.formData.title.update(currentValue => geoCodingData.name ?? currentValue);
+    this.formData.title.update(currentValue => ([geoCodingData.name, geoCodingData.state, geoCodingData.country].join(',')) ?? currentValue);
     this.formData.city.update(currentValue => geoCodingData.state ?? currentValue);
     this.formData.country.update(currentValue => geoCodingData.country ?? currentValue);
   }

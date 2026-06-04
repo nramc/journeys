@@ -88,6 +88,7 @@ export class EditJourneyPublishDetailsComponent {
     const successMessage: string = result.isPublished ? 'Journey published successfully.' : 'Journey saved successfully';
     this.notificationService.showSuccess(successMessage);
     this.journey.set(result);
+    this.router.navigate(['/journey', result.id, 'view']).then(console.log);
   }
 
   delete() {

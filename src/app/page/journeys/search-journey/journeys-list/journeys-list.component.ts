@@ -23,6 +23,7 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTooltip} from "@angular/material/tooltip";
+import {getCategoryLabel} from "../../../../config/icon-config";
 
 @Component({
   selector: 'app-journeys-list',
@@ -99,6 +100,10 @@ export class JourneysListComponent implements AfterViewInit {
 
   trackJourney(_: number, item: Journey): string {
     return `${item.id}`;
+  }
+
+  protected getCategoryLabel(category: string | undefined): string {
+    return getCategoryLabel(category);
   }
 }
 
