@@ -32,7 +32,7 @@ export class JourneyCardViewComponent {
     transform: (value: JourneyData | Journey) => this.transformJourney(value)
   });
 
-  getCategoryIcon(): string {
+  getCategoryIconName(): string {
     return getCategoryIconName(this.journey().category);
   }
 

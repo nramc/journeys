@@ -1,10 +1,11 @@
 import * as L from "leaflet";
 import {Feature} from "geojson";
 
-export const SUPPORTED_ICONS: string[] = ['default', 'adventure', 'shopping', 'funny', 'park', 'restaurant', 'home', 'flight', 'temple', 'favorite', 'love'];
+export const SUPPORTED_ICONS: string[] = ['default', 'journey', 'adventure', 'shopping', 'funny', 'park', 'restaurant', 'home', 'flight', 'temple', 'favorite', 'love'];
 
 export const CATEGORY_ICONS: Record<string, string> = {
   'default': 'place',
+  'journey': 'place',
   'adventure': 'explore',
   'shopping': 'local_mall',
   'funny': 'mood',
@@ -138,6 +139,8 @@ function getIconForType(iconType: string) {
   } else {
     switch (iconType) {
       case "default":
+        return iconDefault;
+      case "journey":
         return iconDefault;
       case "favorite":
         return iconFavorite;
