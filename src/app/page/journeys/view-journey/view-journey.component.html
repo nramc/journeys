@@ -16,13 +16,39 @@
             <span class="ml-1">Geo</span>
           </ng-template>
           <div class="p-4">
-            <h6 class="text-lg font-bold text-center gradient-text">{{ journey.geoDetails?.title }}</h6>
-            <div class="relative h-[50vh] md:h-[80vh] rounded-lg overflow-hidden mt-4">
+
+            <!-- Category chip + title above the map -->
+            @if (journey.geoDetails?.category || journey.geoDetails?.title) {
+              <div class="flex flex-row items-center justify-center gap-2 mb-3">
+                @if (journey.geoDetails?.category) {
+                  <span class="inline-flex items-center gap-1.5 shrink-0
+                               px-3 py-1 rounded-full
+                               bg-primary/10 dark:bg-primary/20
+                               border border-primary/25 dark:border-primary/30
+                               text-primary text-xs font-semibold tracking-wide select-none"
+                        [attr.aria-label]="'Category: ' + journey.geoDetails?.category">
+                    <mat-icon class="journey-card__icon--sm shrink-0 opacity-80">
+                      {{ getCategoryIconName(journey.geoDetails?.category) }}
+                    </mat-icon>
+                    {{ getCategoryLabel(journey.geoDetails?.category) }}
+                  </span>
+                }
+                @if (journey.geoDetails?.title) {
+                  <h6 class="text-base font-bold gradient-text m-0 truncate">
+                    {{ journey.geoDetails?.title }}
+                  </h6>
+                }
+              </div>
+            }
+
+            <!-- Map -->
+            <div class="relative h-[50vh] md:h-[80vh] rounded-lg overflow-hidden">
               <app-world-map
                 [geoJsonData]="journey.geoDetails?.geoJson || journey.geoDetails?.location"
                 [iconType]="journey.geoDetails?.category ?? DEFAULT_CATEGORY">
               </app-world-map>
             </div>
+
           </div>
         </mat-tab>
         <!-- Memories Tab -->
@@ -42,7 +68,8 @@
             <span class="ml-1">Images</span>
           </ng-template>
           <div class="p-4">
-            <app-media-gallery galleryId="imageGallery" [images]="getImages(journey)" [videos]="[]"></app-media-gallery>
+            <app-media-gallery galleryId="imageGallery" [images]="getImages(journey)"
+                               [videos]="[]"></app-media-gallery>
           </div>
         </mat-tab>
         <!-- Videos Tab -->
@@ -52,7 +79,8 @@
             <span class="ml-1">Videos</span>
           </ng-template>
           <div class="p-4">
-            <app-media-gallery galleryId="videoGallery" [videos]="getVideos(journey)"></app-media-gallery>
+            <app-media-gallery galleryId="videoGallery"
+                               [videos]="getVideos(journey)"></app-media-gallery>
           </div>
         </mat-tab>
       </mat-tab-group>

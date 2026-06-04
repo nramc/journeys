@@ -11,6 +11,7 @@ import {ViewJourneyBasicDetailsComponent} from "./view-journey-basic-details/vie
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {ViewJourneyHeaderComponent} from "./view-journey-header/view-journey-header.component";
 import {toSignal} from "@angular/core/rxjs-interop";
+import {getCategoryIconName, getCategoryLabel} from "../../../config/icon-config";
 
 @Component({
     selector: 'app-view-journey',
@@ -46,4 +47,6 @@ export class ViewJourneyComponent {
   }
 
   protected readonly DEFAULT_CATEGORY = DEFAULT_CATEGORY;
+  protected readonly getCategoryIconName = getCategoryIconName;
+  protected readonly getCategoryLabel = getCategoryLabel;
 }
