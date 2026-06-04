@@ -29,9 +29,9 @@
                  inline-flex items-center gap-1 px-2.5 py-1 rounded-full
                  bg-black/50 backdrop-blur-sm border border-white/20
                  text-white text-[11px] font-semibold leading-none tracking-wide"
-          [attr.aria-label]="'Category: ' + journey().category">
+           [attr.aria-label]="'Category: ' + journey().category">
       <mat-icon class="journey-card__icon--sm shrink-0">{{ getCategoryIconName() }}</mat-icon>
-      {{ journey().category | titlecase }}
+      {{ getCategoryLabel() }}
     </span>
 
     <!-- Date badge (top-right) -->

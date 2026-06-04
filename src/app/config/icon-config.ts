@@ -1,11 +1,10 @@
 import * as L from "leaflet";
 import {Feature} from "geojson";
 
-export const SUPPORTED_ICONS: string[] = ['default', 'journey', 'adventure', 'shopping', 'funny', 'park', 'restaurant', 'home', 'flight', 'temple', 'favorite', 'love'];
+export const SUPPORTED_ICONS: string[] = ['default', 'adventure', 'shopping', 'funny', 'park', 'restaurant', 'home', 'flight', 'temple', 'favorite', 'love'];
 
 export const CATEGORY_ICONS: Record<string, string> = {
   'default': 'place',
-  'journey': 'place',
   'adventure': 'explore',
   'shopping': 'local_mall',
   'funny': 'mood',
@@ -17,6 +16,30 @@ export const CATEGORY_ICONS: Record<string, string> = {
   'favorite': 'star',
   'love': 'favorite'
 };
+
+/**
+ * Human-friendly display labels for each journey category.
+ * Includes an emoji prefix for quick visual recognition in the UI.
+ */
+export const CATEGORY_LABELS: Record<string, string> = {
+  'default': 'Journey',
+  'adventure': 'Adventure',
+  'shopping': 'Shopping',
+  'funny': 'Fun & Humor',
+  'park': 'Parks & Nature',
+  'restaurant': 'Dining',
+  'home': 'Home',
+  'flight': 'Travel & Flights',
+  'temple': 'Temples & Heritage',
+  'favorite': 'Favorites',
+  'love': 'Love & Romance'
+};
+
+/** Returns a user-friendly label for a category key, falling back to the raw value if unknown. */
+export function getCategoryLabel(category: string | undefined): string {
+  const key = category?.toLowerCase() ?? 'default';
+  return CATEGORY_LABELS[key] ?? (category ?? 'General');
+}
 
 export const iconHome = L.divIcon({
   className: 'custom-div-icon',
