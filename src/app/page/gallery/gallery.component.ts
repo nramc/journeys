@@ -1,4 +1,12 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit, signal, viewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+  viewChild
+} from '@angular/core';
 import {BehaviorSubject, catchError, merge, of, shareReplay, startWith, switchMap} from "rxjs";
 import {TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
@@ -13,7 +21,9 @@ import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {SearchCriteria} from "../../model/core/search-criteria.model";
 import {FormsModule} from "@angular/forms";
 import {toObservable} from "@angular/core/rxjs-interop";
-import {JourneyCardViewComponent} from "../../component/journey-card-view/journey-card-view.component";
+import {
+  JourneyCardViewComponent
+} from "../../component/journey-card-view/journey-card-view.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatExpansionModule} from "@angular/material/expansion";
@@ -84,7 +94,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   constructor() {
     const router = inject(Router);
 
-
     if (router.currentNavigation()?.extras.state) {
       this.searchCriteria.set(router.currentNavigation()?.extras.state as SearchCriteria);
     }
@@ -97,20 +106,20 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   protected search() {
     merge(this.paginator().page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsObservable)
-      .pipe(
-        startWith(),
-        switchMap(() => {
-          return this.journeyService.findJourneyByQuery(
-            this.searchCriteria(),
-            this.sortingFieldChangedEvent.getValue().key,
-            this.sortingDirectionChangedEvent.getValue(),
-            this.paginator().pageIndex,
-            this.paginator().pageSize,
-            true,
-            this.tags()
-          ).pipe(shareReplay(1), catchError(() => of(null)));
-        }),
-      ).subscribe(data => this.onSuccess(data));
+    .pipe(
+      startWith(),
+      switchMap(() => {
+        return this.journeyService.findJourneyByQuery(
+          this.searchCriteria(),
+          this.sortingFieldChangedEvent.getValue().key,
+          this.sortingDirectionChangedEvent.getValue(),
+          this.paginator().pageIndex,
+          this.paginator().pageSize,
+          true,
+          this.tags()
+        ).pipe(shareReplay(1), catchError(() => of(null)));
+      }),
+    ).subscribe(data => this.onSuccess(data));
   }
 
   onSuccess(pageData: null | JourneyPage) {
@@ -118,6 +127,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
       totalElements: pageData?.totalElements ?? 0,
       data: pageData?.content ?? []
     });
+    // Scroll to main container for better user experience
+    document.getElementsByTagName('main')[0]?.scrollIntoView({behavior: 'smooth'});
   }
 
   ngOnInit(): void {
