@@ -44,7 +44,6 @@ export class JourneyCardViewComponent {
 
   editDetails($event: MouseEvent) {
     $event.stopPropagation();
-    $event.preventDefault();
     this.router.navigate(['/journey', this.journey().id, 'edit']).then(console.log);
     return false;
   }
@@ -93,7 +92,7 @@ export class JourneyCardViewComponent {
     $event.stopPropagation();
     $event.preventDefault();
     this.dialog.open(JourneyBannerViewComponent, {
-      data: this.journey(),
+      data: this.journey().id,   // pass the ID — dialog loads the full Journey itself
       panelClass: 'journey-share-dialog',
       maxWidth: '100vw',
     });

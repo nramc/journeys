@@ -1,9 +1,19 @@
-// ─── Share Journey Dialog — remove default mat-dialog padding so banner is full-bleed ──
+// ─── Share Journey / Story Dialog ────────────────────────────────────────────
 .journey-share-dialog {
+  .mat-mdc-dialog-container {
+    max-width: 400px !important;
+  }
+
   .mat-mdc-dialog-surface {
-    padding: 0 !important;
-    border-radius: 1rem !important;
-    overflow: hidden;
+    // Restore the M3 surface background that our overrides accidentally removed
+    background: var(--mat-dialog-container-color,
+                    var(--mat-sys-surface-container-high, #ece6f0)) !important;
+    padding: 12px !important;
+    border-radius: 1.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    max-height: 100vh !important;
   }
 }
 
