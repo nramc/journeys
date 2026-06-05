@@ -6,9 +6,11 @@ import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL, Journey} from "../../model/core/jou
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatDialog} from "@angular/material/dialog";
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
 import {getCategoryIconName, getCategoryLabel} from "../../config/icon-config";
 import { getMemoryAgeBadge, MemoryAgeBadge } from '../../utility/date-utils';
+import {JourneyBannerViewComponent} from "../journey-banner-view/journey-banner-view.component";
 
 @Component({
   selector: 'app-journey-card-view',
@@ -26,6 +28,7 @@ import { getMemoryAgeBadge, MemoryAgeBadge } from '../../utility/date-utils';
 })
 export class JourneyCardViewComponent {
   private readonly router = inject(Router);
+  private readonly dialog = inject(MatDialog);
 
   journey = input.required<JourneyData, JourneyData | Journey>({
     transform: (value: JourneyData | Journey) => this.transformJourney(value)
@@ -41,6 +44,7 @@ export class JourneyCardViewComponent {
 
   editDetails($event: MouseEvent) {
     $event.stopPropagation();
+    $event.preventDefault();
     this.router.navigate(['/journey', this.journey().id, 'edit']).then(console.log);
     return false;
   }
@@ -85,4 +89,13 @@ export class JourneyCardViewComponent {
     }
   }
 
+  protected shareJourney($event: MouseEvent) {
+    $event.stopPropagation();
+    $event.preventDefault();
+    this.dialog.open(JourneyBannerViewComponent, {
+      data: this.journey(),
+      panelClass: 'journey-share-dialog',
+      maxWidth: '100vw',
+    });
+  }
 }

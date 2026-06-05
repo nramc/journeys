@@ -1,0 +1,94 @@
+<!-- Share Journey Modal -->
+<div class="journey-banner">
+
+  <!-- Hero image -->
+  <div class="journey-banner__hero relative overflow-hidden"
+       [style.background-image]="'url(' + journey.thumbnail + ')'">
+
+    <!-- Scrim -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none"></div>
+
+    <!-- Close button -->
+    <button mat-icon-button
+            class="journey-banner__close-btn absolute top-3 right-3 z-10"
+            (click)="close()"
+            aria-label="Close share dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <!-- Category badge (bottom-left of hero) -->
+    <span class="absolute bottom-4 left-4
+                 inline-flex items-center gap-1 px-2.5 py-1 rounded-full
+                 bg-black/50 backdrop-blur-sm border border-white/20
+                 text-white text-[11px] font-semibold leading-none tracking-wide">
+      <mat-icon class="journey-banner__icon--sm shrink-0">{{ getCategoryIconName() }}</mat-icon>
+      {{ getCategoryLabel() }}
+    </span>
+
+    <!-- Date badge (bottom-right of hero) -->
+    @if (journey.journeyDate) {
+      <span class="absolute bottom-4 right-4
+                   px-2.5 py-1 rounded-full
+                   bg-black/50 backdrop-blur-sm border border-white/20
+                   text-white text-[11px] leading-none">
+        <span class="font-semibold">{{ journey.journeyDate | date:'dd MMM' }}</span>
+        <span class="text-white/70 ml-1">{{ journey.journeyDate | date:'yyyy' }}</span>
+      </span>
+    }
+  </div>
+
+  <!-- Content -->
+  <div class="journey-banner__content px-5 pt-4 pb-5 flex flex-col gap-3">
+
+    <!-- Location -->
+    @if (journey.title) {
+      <p class="flex items-center gap-1 text-xs font-medium text-gray-500 dark:text-gray-400 truncate leading-none m-0">
+        <mat-icon class="journey-banner__icon--xs shrink-0">location_on</mat-icon>
+        {{ journey.title }}
+      </p>
+    }
+
+    <!-- Journey name -->
+    <h2 class="text-xl font-bold leading-snug line-clamp-2 m-0">
+      {{ journey.name }}
+    </h2>
+
+    <!-- Tags -->
+    @if (journey.tags.length) {
+      <ul class="flex flex-wrap gap-1 list-none p-0 m-0" aria-label="Tags">
+        @for (tag of journey.tags.slice(0, 5); track tag) {
+          <li class="journey-banner__tag px-2.5 py-0.5 rounded-full text-[11px] font-medium">
+            {{ tag }}
+          </li>
+        }
+        @if (journey.tags.length > 5) {
+          <li class="journey-banner__tag journey-banner__tag--overflow px-2.5 py-0.5 rounded-full text-[11px]">
+            +{{ journey.tags.length - 5 }} more
+          </li>
+        }
+      </ul>
+    }
+
+    <hr class="border-0 h-px bg-gray-200 dark:bg-gray-700 m-0"/>
+
+    <!-- Share link row -->
+    <div class="flex items-center gap-2">
+      <div class="journey-banner__url-chip flex-1 flex items-center gap-2 px-3 py-2 rounded-lg
+                  bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700
+                  text-xs text-gray-500 dark:text-gray-400 overflow-hidden">
+        <mat-icon class="journey-banner__icon--xs shrink-0 text-gray-400">link</mat-icon>
+        <span class="truncate">/journey/{{ journey.id }}/view</span>
+      </div>
+
+      <button mat-flat-button
+              (click)="copyLink()"
+              [matTooltip]="linkCopied() ? 'Link copied!' : 'Copy link'"
+              class="journey-banner__copy-btn shrink-0"
+              aria-label="Copy shareable link">
+        <mat-icon>{{ linkCopied() ? 'check_circle' : 'content_copy' }}</mat-icon>
+        {{ linkCopied() ? 'Copied!' : 'Copy Link' }}
+      </button>
+    </div>
+
+  </div>
+</div>

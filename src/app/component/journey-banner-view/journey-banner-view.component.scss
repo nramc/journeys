@@ -1,0 +1,55 @@
+.journey-banner {
+  width: 420px;
+  max-width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+
+  &__hero {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &__close-btn {
+    background: rgba(0, 0, 0, 0.45) !important;
+    color: #fff !important;
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.65) !important;
+    }
+  }
+
+  &__icon--sm {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+  }
+
+  &__icon--xs {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+  }
+
+  &__tag {
+    background-color: var(--mat-sys-secondary-container, #e8def8);
+    color: var(--mat-sys-on-secondary-container, #1d192b);
+  }
+
+  &__tag--overflow {
+    opacity: 0.7;
+  }
+
+  &__copy-btn {
+    min-width: 120px;
+  }
+
+  &__url-chip {
+    min-width: 0;
+  }
+}
+
