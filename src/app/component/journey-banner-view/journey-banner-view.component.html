@@ -1,94 +1,90 @@
-<!-- Share Journey Modal -->
-<div class="journey-banner">
+<div #storyCard
+     class="relative w-full max-w-sm mx-auto bg-black rounded-3xl overflow-hidden shadow-2xl"
+     style="aspect-ratio: 9/16;">
 
-  <!-- Hero image -->
-  <div class="journey-banner__hero relative overflow-hidden"
-       [style.background-image]="'url(' + journey.thumbnail + ')'">
+  <!-- Full-bleed background image -->
+  <div class="absolute inset-0 w-full h-full">
+    <img [src]="journey.thumbnail"
+         [alt]="journey.name"
+         class="w-full h-full object-cover"/>
 
-    <!-- Scrim -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none"></div>
-
-    <!-- Close button -->
-    <button mat-icon-button
-            class="journey-banner__close-btn absolute top-3 right-3 z-10"
-            (click)="close()"
-            aria-label="Close share dialog">
-      <mat-icon>close</mat-icon>
-    </button>
-
-    <!-- Category badge (bottom-left of hero) -->
-    <span class="absolute bottom-4 left-4
-                 inline-flex items-center gap-1 px-2.5 py-1 rounded-full
-                 bg-black/50 backdrop-blur-sm border border-white/20
-                 text-white text-[11px] font-semibold leading-none tracking-wide">
-      <mat-icon class="journey-banner__icon--sm shrink-0">{{ getCategoryIconName() }}</mat-icon>
-      {{ getCategoryLabel() }}
-    </span>
-
-    <!-- Date badge (bottom-right of hero) -->
-    @if (journey.journeyDate) {
-      <span class="absolute bottom-4 right-4
-                   px-2.5 py-1 rounded-full
-                   bg-black/50 backdrop-blur-sm border border-white/20
-                   text-white text-[11px] leading-none">
-        <span class="font-semibold">{{ journey.journeyDate | date:'dd MMM' }}</span>
-        <span class="text-white/70 ml-1">{{ journey.journeyDate | date:'yyyy' }}</span>
-      </span>
-    }
+    <!-- Dark gradient overlay for text readability -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60"></div>
   </div>
 
-  <!-- Content -->
-  <div class="journey-banner__content px-5 pt-4 pb-5 flex flex-col gap-3">
+  <!-- Top badge: Location and Category -->
+  <div
+    class="absolute top-4 left-4 flex items-center gap-2 bg-black/70 backdrop-blur-md rounded-full px-3 py-2 z-10">
+    <span class="text-white text-xs font-medium">{{ journey.geoDetails?.city }}
+      , {{ journey.geoDetails?.country }}</span>
+    <mat-icon class="text-accent-primary text-sm">{{ journey.geoDetails?.category }}</mat-icon>
+  </div>
 
-    <!-- Location -->
-    @if (journey.title) {
-      <p class="flex items-center gap-1 text-xs font-medium text-gray-500 dark:text-gray-400 truncate leading-none m-0">
-        <mat-icon class="journey-banner__icon--xs shrink-0">location_on</mat-icon>
-        {{ journey.title }}
-      </p>
-    }
+  <!-- Map thumbnail in corner -->
+  <div
+    class="absolute top-4 right-4 w-16 h-16 rounded-lg overflow-hidden border-2 border-white/30 shadow-lg z-10">
+    <img [src]="journey.thumbnail"
+         alt="Map"
+         class="w-full h-full object-cover"/>
+  </div>
 
-    <!-- Journey name -->
-    <h2 class="text-xl font-bold leading-snug line-clamp-2 m-0">
+  <!-- Center: Journey title and date overlay -->
+  <div class="absolute inset-0 flex flex-col items-center justify-center px-6 py-12 z-5">
+    <h1 class="text-white text-3xl font-bold text-center text-balance drop-shadow-lg">
       {{ journey.name }}
-    </h2>
+    </h1>
+    <p class="text-white/80 text-sm mt-3 drop-shadow-md">
+      {{ journey.journeyDate }}
+    </p>
+  </div>
 
-    <!-- Tags -->
-    @if (journey.tags.length) {
-      <ul class="flex flex-wrap gap-1 list-none p-0 m-0" aria-label="Tags">
-        @for (tag of journey.tags.slice(0, 5); track tag) {
-          <li class="journey-banner__tag px-2.5 py-0.5 rounded-full text-[11px] font-medium">
-            {{ tag }}
-          </li>
-        }
-        @if (journey.tags.length > 5) {
-          <li class="journey-banner__tag journey-banner__tag--overflow px-2.5 py-0.5 rounded-full text-[11px]">
-            +{{ journey.tags.length - 5 }} more
-          </li>
-        }
-      </ul>
-    }
+  <!-- Bottom section: Photo strip and tags -->
+  <div
+    class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent pt-8 pb-4 px-4 z-10">
 
-    <hr class="border-0 h-px bg-gray-200 dark:bg-gray-700 m-0"/>
+    <!-- Photo grid strip (3-5 photos) -->
+    <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
+      @for (image of journey.imagesDetails?.images; track image.assetId) {
+        <img
+          [src]="image.url"
+          [alt]="image.title"
+          class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-white/20 shadow-md hover:border-accent-primary/50 transition"/>
+      }
 
-    <!-- Share link row -->
-    <div class="flex items-center gap-2">
-      <div class="journey-banner__url-chip flex-1 flex items-center gap-2 px-3 py-2 rounded-lg
-                  bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700
-                  text-xs text-gray-500 dark:text-gray-400 overflow-hidden">
-        <mat-icon class="journey-banner__icon--xs shrink-0 text-gray-400">link</mat-icon>
-        <span class="truncate">/journey/{{ journey.id }}/view</span>
-      </div>
-
-      <button mat-flat-button
-              (click)="copyLink()"
-              [matTooltip]="linkCopied() ? 'Link copied!' : 'Copy link'"
-              class="journey-banner__copy-btn shrink-0"
-              aria-label="Copy shareable link">
-        <mat-icon>{{ linkCopied() ? 'check_circle' : 'content_copy' }}</mat-icon>
-        {{ linkCopied() ? 'Copied!' : 'Copy Link' }}
-      </button>
     </div>
 
+    <!-- Hashtag pills -->
+    <div class="flex flex-wrap gap-2 mb-4">
+      @for (tag of journey.tags; track tag) {
+        <span
+          class="inline-block bg-white/10 hover:bg-accent-primary/20 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm border border-white/10 transition">
+        {{ tag }}
+      </span>
+      }
+    </div>
+
+    <!-- Action buttons and watermark -->
+    <div class="flex items-center justify-between">
+      <div class="flex gap-2">
+        <button mat-icon-button
+                (click)="onDownload()"
+                matTooltip="Download Story"
+                class="text-white hover:bg-white/10 transition">
+          <mat-icon>download</mat-icon>
+        </button>
+        <button mat-icon-button
+                (click)="onShare()"
+                matTooltip="Share Story"
+                class="text-white hover:bg-white/10 transition">
+          <mat-icon>share</mat-icon>
+        </button>
+      </div>
+
+      <!-- Watermark -->
+      <div class="text-white/70 text-xs font-medium flex items-center gap-1">
+        <mat-icon class="text-xs">public</mat-icon>
+        journeys.app
+      </div>
+    </div>
   </div>
 </div>

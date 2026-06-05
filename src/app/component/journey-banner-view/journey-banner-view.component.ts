@@ -1,16 +1,14 @@
 import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
-import {DatePipe} from "@angular/common";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import {JourneyData} from "../journey-card-view/journey.data";
 import {getCategoryIconName, getCategoryLabel} from "../../config/icon-config";
+import {Journey} from "../../model/core/journey.model";
 
 @Component({
   selector: 'app-journey-banner-view',
   imports: [
-    DatePipe,
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
@@ -20,17 +18,17 @@ import {getCategoryIconName, getCategoryLabel} from "../../config/icon-config";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneyBannerViewComponent {
-  readonly journey = inject<JourneyData>(MAT_DIALOG_DATA);
+  readonly journey = inject<Journey>(MAT_DIALOG_DATA);
   private readonly dialogRef = inject(MatDialogRef<JourneyBannerViewComponent>);
 
   protected linkCopied = signal(false);
 
   getCategoryIconName(): string {
-    return getCategoryIconName(this.journey.category);
+    return getCategoryIconName(this.journey.geoDetails?.category);
   }
 
   getCategoryLabel(): string {
-    return getCategoryLabel(this.journey.category);
+    return getCategoryLabel(this.journey.geoDetails?.category);
   }
 
   close(): void {
@@ -43,5 +41,23 @@ export class JourneyBannerViewComponent {
       this.linkCopied.set(true);
       setTimeout(() => this.linkCopied.set(false), 2500);
     });
+  }
+
+  protected onDownload() {
+    const url = `${globalThis.location.origin}/api/journey/${this.journey.id}/export`;
+    window.open(url, '_blank');
+  }
+
+  protected onShare() {
+    const url = `${globalThis.location.origin}/journey/${this.journey.id}/view`;
+    if (navigator.share) {
+      navigator.share({
+        title: this.journey.name,
+        text: 'Check out this journey I created!',
+        url: url,
+      }).catch((error) => console.error('Error sharing:', error));
+    } else {
+      this.copyLink();
+    }
   }
 }
