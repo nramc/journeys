@@ -1,0 +1,131 @@
+<!-- ═══════════════════════════════════════════════════════════
+     Journey Story Card — mirrors journey-card-view layout
+     storyCardRef is captured by html-to-image (no buttons inside)
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- ── Loading skeleton ── -->
+@if (isLoading()) {
+  <div class="story-shell flex flex-col items-center justify-center gap-4 rounded-2xl"
+       style="width:360px;aspect-ratio:9/16">
+    <mat-spinner diameter="48" color="accent"></mat-spinner>
+    <p class="text-sm opacity-60">Loading story…</p>
+  </div>
+}
+
+<!-- ── Story card (captured area) ── -->
+@if (!isLoading() && journey()) {
+  <div #storyCard
+       class="story-shell flex flex-col rounded-2xl overflow-hidden shadow-xl"
+       style="aspect-ratio:9/16">
+
+    <!-- ① IMAGE HERO — same pattern as journey-card-view -->
+    <div class="story-hero relative overflow-hidden">
+
+      <!-- Thumbnail — bg-cover/center, no stretch -->
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+           [style.background-image]="'url(' + journey()!.thumbnail + ')'"></div>
+
+      <!-- Top scrim so badges stay readable -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-black/30 pointer-events-none"></div>
+
+      <!-- Category badge — top-left (identical to journey card) -->
+      <span class="absolute top-3 left-3
+                   inline-flex items-center gap-1 px-2.5 py-1 rounded-full
+                   bg-black/50 backdrop-blur-sm border border-white/20
+                   text-white text-[11px] font-semibold leading-none tracking-wide">
+        <mat-icon class="story-icon-sm shrink-0">{{ getCategoryIconName() }}</mat-icon>
+        {{ getCategoryLabel() }}
+      </span>
+
+      <!-- Date badge — top-right (identical to journey card) -->
+      @if (journey()!.journeyDate) {
+        <span class="absolute top-3 right-3
+                     px-2.5 py-1 rounded-full
+                     bg-black/50 backdrop-blur-sm border border-white/20
+                     text-white text-[11px] leading-none">
+          <span class="font-semibold">{{ journey()!.journeyDate | date:'dd MMM' }}</span>
+          <span class="text-white/70 ml-1">{{ journey()!.journeyDate | date:'yyyy' }}</span>
+        </span>
+      }
+
+      <!-- Map mini-thumbnail — bottom-right corner of image -->
+      @if (mapImageUrl()) {
+        <div class="story-map-thumb">
+          <img [src]="mapImageUrl()!" alt="Map location" class="w-full h-full object-cover"/>
+          <div class="absolute inset-0 rounded-xl ring-2 ring-white/30 pointer-events-none"></div>
+        </div>
+      }
+    </div>
+
+    <!-- ② CONTENT PANEL — mirrors journey-card-view's white panel -->
+    <div class="story-content flex flex-col gap-1.5 px-4 pt-2.5 pb-2">
+
+      <!-- Location subtitle + memory-age badge on same line -->
+      <div class="flex items-center justify-between gap-2">
+        @if (journey()!.geoDetails?.title) {
+          <p class="flex items-center gap-0.5 text-xs font-medium truncate leading-none m-0 opacity-60">
+            <mat-icon class="story-icon-xs shrink-0">location_on</mat-icon>
+            {{ journey()!.geoDetails?.title }}
+          </p>
+        } @else {
+          <span></span>
+        }
+
+        @if (memoryAgeBadge()) {
+          <div class="flex items-center gap-1 shrink-0"
+               [class.story-anniversary]="memoryAgeBadge()!.isExactAnniversary">
+            <span class="text-sm leading-none">{{ memoryAgeBadge()!.emoji }}</span>
+            <span class="text-[11px] font-semibold opacity-70 whitespace-nowrap">{{ memoryAgeBadge()!.label }}</span>
+          </div>
+        }
+      </div>
+
+      <!-- Journey name -->
+      <h2 class="text-base font-bold leading-snug line-clamp-2 m-0">
+        {{ journey()!.name }}
+      </h2>
+
+      <!-- Photo strip -->
+      @if (photoStrip().length) {
+        <div class="flex gap-1.5 overflow-x-hidden">
+          @for (img of photoStrip(); track img.assetId) {
+            <div class="story-photo-thumb shrink-0">
+              <img [src]="img.url" [alt]="img.title" class="w-full h-full object-cover"/>
+            </div>
+          }
+        </div>
+      }
+
+    </div>
+  </div>
+
+  <!-- ── Action bar — OUTSIDE #storyCard, not captured in PNG ── -->
+  <div class="flex items-center justify-between w-full pt-3 px-1">
+    <div class="flex gap-2">
+      <button mat-icon-button
+              (click)="onDownload()"
+              [disabled]="isCapturing()"
+              matTooltip="Download Story">
+        @if (isCapturing()) {
+          <mat-spinner diameter="18"></mat-spinner>
+        } @else {
+          <mat-icon>download</mat-icon>
+        }
+      </button>
+
+      <button mat-icon-button
+              (click)="onShare()"
+              [disabled]="isCapturing()"
+              [matTooltip]="linkCopied() ? 'Link copied!' : 'Share Story'">
+        <mat-icon>{{ linkCopied() ? 'check_circle' : 'share' }}</mat-icon>
+      </button>
+    </div>
+
+    <button mat-icon-button
+            (click)="close()"
+            matTooltip="Close"
+            aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+}

@@ -123,6 +123,14 @@
             <mat-icon class="journey-card__icon--sm">play_circle</mat-icon>
             <span>Relive</span>
           </button>
+
+          <button class="journey-card__action-btn"
+                  (click)="shareJourney($event)"
+                  [attr.aria-label]="'Share ' + journey().name"
+                  matTooltip="Share Journey">
+            <mat-icon class="journey-card__icon--sm">share</mat-icon>
+            <span>Share</span>
+          </button>
         </div>
 
       </div>

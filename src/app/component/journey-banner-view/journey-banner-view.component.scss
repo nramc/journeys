@@ -1,0 +1,82 @@
+// ─── Shared shell ─────────────────────────────────────────────────────────────
+// Must be flex+column here — Angular's encapsulated CSS has higher specificity
+// than Tailwind's utility classes, so Tailwind's flex/flex-col would lose.
+.story-shell {
+  display: flex;
+  flex-direction: column;
+}
+
+// ─── Image hero — grows to fill all space the content panel doesn't need ──────
+.story-hero {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+// ─── Content panel — shrinks to exactly its own content, no extra gap ─────────
+.story-content {
+  flex: 0 0 auto;
+  background: var(--mat-sys-surface, #fff);
+  color: var(--mat-sys-on-surface, #1c1b1f);
+}
+
+// ─── Icon sizing helpers ──────────────────────────────────────────────────────
+.story-icon-sm {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  line-height: 16px !important;
+  display: block;
+}
+
+.story-icon-xs {
+  font-size: 14px !important;
+  width: 14px !important;
+  height: 14px !important;
+  line-height: 14px !important;
+  display: block;
+}
+
+// ─── MapTiler mini-map thumbnail ──────────────────────────────────────────────
+.story-map-thumb {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+// ─── Photo strip thumbnails ───────────────────────────────────────────────────
+.story-photo-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+}
+
+// ─── Hashtag pills ────────────────────────────────────────────────────────────
+.story-tag {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--mat-sys-secondary-container, #e8def8);
+  color: var(--mat-sys-on-secondary-container, #1d192b);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+// ─── Anniversary highlight ────────────────────────────────────────────────────
+.story-anniversary {
+  span:last-child {
+    color: var(--mat-sys-primary, #3459E6);
+    opacity: 1 !important;
+    font-weight: 700;
+  }
+}
+
+// (action buttons are plain mat-icon-button outside the story card)

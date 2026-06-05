@@ -44,6 +44,7 @@
     "file-saver": "2.0.5",
     "highlight.js": "11.11.1",
     "howler": "2.2.4",
+    "html-to-image": "^1.11.13",
     "jszip": "3.10.1",
     "leaflet": "1.9.4",
     "leaflet.fullscreen": "5.3.1",
