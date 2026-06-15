@@ -73,6 +73,7 @@ mat-sidenav-content {
   color: inherit;
   width: 100%;
   box-sizing: border-box;
+  position: relative;  // Required for ::before pseudo-element positioning
 
   .nav-icon {
     flex-shrink: 0;
@@ -106,6 +107,19 @@ mat-sidenav-content {
     font-weight: 600;
 
     .nav-icon { opacity: 1; color: #3459E6; }
+
+    // Active state left border indicator
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 24px;
+      background: #3459E6;
+      border-radius: 0 3px 3px 0;
+    }
   }
 }
 
@@ -125,17 +139,23 @@ mat-sidenav-content {
     align-items: center;
     padding: 8px 4px;
     gap: 2px;
+    position: relative;
 
     .nav-label {
-      max-width: 56px;      // fits within 64px sidenav minus padding
+      max-width: 56px;
       opacity: 1;
       font-size: 0.6rem;
       font-weight: 500;
       letter-spacing: 0;
       text-align: center;
       line-height: 1.2;
-      white-space: normal;  // allow wrap within narrow column
+      white-space: normal;
       word-break: break-word;
+    }
+
+    // Active state left border - at far left
+    &.nav-active::before {
+      left: 5%;
     }
   }
 }
@@ -152,6 +172,11 @@ mat-sidenav-content {
     &.nav-active {
       color: #c2cdf8;
       .nav-icon { color: #c2cdf8; }
+
+      // Active state left border indicator - dark mode color
+      &::before {
+        background: #c2cdf8;
+      }
     }
   }
 }
