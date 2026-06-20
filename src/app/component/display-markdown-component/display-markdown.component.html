@@ -1,13 +1,25 @@
-<mat-card class="h-full overflow-auto border border-blue-500 shadow-xl rounded-lg" appearance="outlined">
+<mat-card class="h-full overflow-auto border border-blue-500 shadow-xl rounded-lg"
+          appearance="outlined">
 
-  <mat-card-header class="!p-4 bg-gradient-to-r from-blue-600 to-indigo-400 text-white rounded-t-lg">
-    <mat-card-title class="text-2xl font-bold tracking-wide">
+  <mat-card-header
+    class="!p-4 bg-gradient-to-r from-blue-600 to-indigo-400 text-white rounded-t-lg">
+    <mat-card-title class="text-2xl font-bold tracking-wide !inline-flex !items-center">
       {{ title() }}
       <button type="button" mat-icon-button aria-label="Read aloud"
-              class="read-button" (click)="readContent()">
+              class="read-button" (click)="readContent()" [disabled]="isLoading() || isPlaying()">
         <mat-icon class="!text-white">volume_up</mat-icon>
       </button>
+      <button type="button" mat-icon-button aria-label="Stop"
+              class="read-button" (click)="stopPlayback()" [hidden]="!isPlaying() || isLoading()">
+        <mat-icon class="!text-white">stop</mat-icon>
+      </button>
+      @if (isLoading()) {
+        <mat-spinner diameter="20" class="!ml-2"></mat-spinner>
+      }
     </mat-card-title>
+    @if (error()) {
+      <div class="text-red-300 text-sm mt-1">{{ error() }}</div>
+    }
   </mat-card-header>
   <mat-card-content>
     <div class="text-primary leading-relaxed">
