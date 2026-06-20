@@ -25,6 +25,12 @@
         <h1 class="diary-title">{{ title() }}</h1>
 
         <div class="diary-tts">
+          <!-- Open full book dialog -->
+          <button type="button" mat-icon-button aria-label="Open full diary"
+                  class="diary-open-btn" (click)="openDiaryBook()" [disabled]="!markdownText()">
+            <mat-icon>menu_book</mat-icon>
+          </button>
+
           <button type="button" mat-icon-button aria-label="Read aloud"
                   (click)="readContent()" [disabled]="isLoading() || isPlaying()">
             <mat-icon>volume_up</mat-icon>

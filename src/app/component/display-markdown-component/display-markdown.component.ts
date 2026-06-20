@@ -14,8 +14,10 @@ import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatDialog} from "@angular/material/dialog";
 import {TextToSpeechRequest, TextToSpeechService} from "../../service/ai/text-to-speech.service";
 import {finalize} from "rxjs";
+import {DiaryBookDialogComponent} from "./diary-book-dialog/diary-book-dialog.component";
 
 @Component({
   selector: 'app-display-markdown-component',
@@ -36,11 +38,16 @@ export class DisplayMarkdownComponent implements OnDestroy {
   /** Optional ISO date string from Journey.journeyDate — rendered as a diary entry date */
   journeyDate = input<string>('');
 
-  /** Formats journeyDate as "Friday, 14 March 2024" for the diary header */
+  /**
+   * Parse date parts into local time (avoids UTC-midnight timezone shift
+   * that `new Date("YYYY-MM-DD")` causes in negative UTC-offset timezones).
+   */
   readonly formattedDate = computed(() => {
     const raw = this.journeyDate();
     if (!raw) return null;
-    const d = new Date(raw);
+    const parts = raw.split('T')[0].split('-').map(Number);
+    if (parts.length !== 3) return null;
+    const d = new Date(parts[0], parts[1] - 1, parts[2]);
     if (Number.isNaN(d.getTime())) return null;
     return d.toLocaleDateString('en-GB', {
       weekday: 'long',
@@ -53,6 +60,7 @@ export class DisplayMarkdownComponent implements OnDestroy {
   @ViewChild('markdownComponent', {read: ElementRef}) markdownElementRef!: ElementRef;
 
   private readonly ttsService = inject(TextToSpeechService);
+  private readonly dialog = inject(MatDialog);
 
   isPlaying = signal(false);
   isLoading = signal(false);
@@ -60,6 +68,20 @@ export class DisplayMarkdownComponent implements OnDestroy {
   private audio: HTMLAudioElement | null = null;
   private audioUrl: string | null = null;
 
+  /** Opens the two-page open-book diary dialog */
+  openDiaryBook(): void {
+    this.dialog.open(DiaryBookDialogComponent, {
+      data: {
+        title: this.title(),
+        markdownText: this.markdownText(),
+        journeyDate: this.journeyDate(),
+      },
+      panelClass: 'diary-book-panel',
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      backdropClass: 'diary-book-backdrop',
+    });
+  }
 
   readContent() {
     this.stopPlayback();
@@ -79,34 +101,34 @@ export class DisplayMarkdownComponent implements OnDestroy {
 
   private cleanTextForSpeech(text: string): string {
     return text
-      // Remove emoji — \p{Emoji} covers presentation, modifier, component & pictographic chars
-      .replace(/\p{Emoji}/gu, '')
-      // Remove Material Icons ligature text (e.g. "volume_up", "stop", "arrow_forward")
-      .replace(/\b[a-z]+(?:_[a-z0-9]+)+\b/g, '')
-      // Remove markdown image syntax: ![alt](url)
-      .replace(/!\[.*?]\(.*?\)/g, '')
-      // Remove markdown link syntax, keep label: [label](url) → label
-      .replace(/\[([^\]]+)]\([^)]*\)/g, '$1')
-      // Remove inline code blocks
-      .replace(/`[^`]*`/g, '')
-      // Remove fenced code blocks
-      .replace(/```[\s\S]*?```/g, '')
-      // Remove markdown headings markers (#)
-      .replace(/^#{1,6}\s+/gm, '')
-      // Remove bold/italic markers (**, __, *, _)
-      .replace(/(\*{1,3}|_{1,3})(.*?)\1/g, '$2')
-      // Remove horizontal rules
-      .replace(/^[-*_]{3,}\s*$/gm, '')
-      // Remove HTML tags
-      .replace(/<[^>]+>/g, '')
-      // Remove URLs
-      .replace(/https?:\/\/\S+/g, '')
-      // Remove special punctuation that disrupts TTS rhythm
-      .replace(/[|~^<>{}[\]\\]/g, '')
-      // Collapse multiple blank lines / excessive whitespace
-      .replace(/\n{3,}/g, '\n\n')
-      .replace(/[ \t]{2,}/g, ' ')
-      .trim();
+    // Remove emoji — \p{Emoji} covers presentation, modifier, component & pictographic chars
+    .replace(/\p{Emoji}/gu, '')
+    // Remove Material Icons ligature text (e.g. "volume_up", "stop", "arrow_forward")
+    .replace(/\b[a-z]+(?:_[a-z0-9]+)+\b/g, '')
+    // Remove markdown image syntax: ![alt](url)
+    .replace(/!\[.*?]\(.*?\)/g, '')
+    // Remove markdown link syntax, keep label: [label](url) → label
+    .replace(/\[([^\]]+)]\([^)]*\)/g, '$1')
+    // Remove inline code blocks
+    .replace(/`[^`]*`/g, '')
+    // Remove fenced code blocks
+    .replace(/```[\s\S]*?```/g, '')
+    // Remove markdown headings markers (#)
+    .replace(/^#{1,6}\s+/gm, '')
+    // Remove bold/italic markers (**, __, *, _)
+    .replace(/(\*{1,3}|_{1,3})(.*?)\1/g, '$2')
+    // Remove horizontal rules
+    .replace(/^[-*_]{3,}\s*$/gm, '')
+    // Remove HTML tags
+    .replace(/<[^>]+>/g, '')
+    // Remove URLs
+    .replace(/https?:\/\/\S+/g, '')
+    // Remove special punctuation that disrupts TTS rhythm
+    .replace(/[|~^<>{}[\]\\]/g, '')
+    // Collapse multiple blank lines / excessive whitespace
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim();
   }
 
   private playAudio(blob: Blob) {

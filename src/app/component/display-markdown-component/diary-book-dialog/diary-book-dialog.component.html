@@ -1,0 +1,79 @@
+<!-- ═══ Single-Page Diary Dialog ════════════════════════════════════════════ -->
+<div class="diary-wrapper">
+
+  <!-- Close button floats above top-right -->
+  <button mat-icon-button class="diary-close-btn" (click)="dialogRef.close()" aria-label="Close diary">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <!-- ─── The Diary Page ─── -->
+  <article class="diary-page" aria-label="Diary entry">
+
+    <!-- Leather spine -->
+    <div class="diary-spine" aria-hidden="true"></div>
+
+    <!-- Page content -->
+    <div class="diary-content">
+
+      <!-- ── Header ── -->
+      <header class="diary-header">
+
+        <!-- Single row: date left · TTS right -->
+        <div class="header-row">
+          @if (formattedDate) {
+            <span class="entry-date">
+              <mat-icon class="entry-date-icon">edit_calendar</mat-icon>
+              {{ formattedDate }}
+            </span>
+          }
+
+          <span class="header-row-spacer"></span>
+
+          <!-- TTS controls -->
+          <div class="header-tts" aria-label="Text to speech controls">
+            @if (ttsError()) {
+              <span class="tts-error" [title]="ttsError()!">
+                <mat-icon class="tts-error-icon">error_outline</mat-icon>
+              </span>
+            }
+            @if (isLoading()) {
+              <mat-spinner diameter="16"
+                           style="--mdc-circular-progress-active-indicator-color: #7a5c3e;">
+              </mat-spinner>
+            }
+            <button mat-icon-button type="button" aria-label="Read story aloud"
+                    matTooltip="Read aloud" matTooltipPosition="below"
+                    class="tts-btn"
+                    [disabled]="isLoading() || isPlaying()"
+                    (click)="readContent()">
+              <mat-icon>volume_up</mat-icon>
+            </button>
+            @if (isPlaying()) {
+              <button mat-icon-button type="button" aria-label="Stop playback"
+                      matTooltip="Stop" matTooltipPosition="below"
+                      class="tts-btn tts-btn-stop"
+                      (click)="stopPlayback()">
+                <mat-icon>stop_circle</mat-icon>
+              </button>
+            }
+          </div>
+        </div>
+
+        <h1 class="entry-title">{{ data.title }}</h1>
+        <div class="entry-rule"></div>
+
+      </header>
+
+      <!-- ── Story body ── -->
+      <div class="diary-body">
+        <markdown [data]="data.markdownText" class="markdown-container" #markdownEl></markdown>
+      </div>
+
+      <!-- ── Footer: decorative seal only ── -->
+      <footer class="diary-footer">
+        <mat-icon class="footer-deco-icon" aria-hidden="true">auto_stories</mat-icon>
+      </footer>
+
+    </div><!-- /diary-content -->
+  </article><!-- /diary-page -->
+</div><!-- /diary-wrapper -->

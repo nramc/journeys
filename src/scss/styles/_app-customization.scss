@@ -180,3 +180,32 @@ mat-sidenav-content {
     }
   }
 }
+
+// ─── Diary Book Dialog ────────────────────────────────────────────────────────
+// panelClass is applied to .cdk-overlay-pane — target every layer below it
+// so the Material surface colour does not bleed through.
+.diary-book-panel {
+  overflow: visible !important;
+
+  .mat-mdc-dialog-container {
+    // Kill the MDC token that sets the white/surface background
+    --mdc-dialog-container-color: transparent;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  .mat-mdc-dialog-surface {
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+  }
+}
+
+.diary-book-backdrop {
+  background: rgba(10, 6, 3, 0.75) !important;
+  backdrop-filter: blur(3px);
+}
