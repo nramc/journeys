@@ -1,29 +1,66 @@
-<mat-card class="h-full overflow-auto border border-blue-500 shadow-xl rounded-lg"
-          appearance="outlined">
+<!-- ═══ Diary Page ═══════════════════════════════════════════════════════════ -->
+<div class="diary-page">
 
-  <mat-card-header
-    class="!p-4 bg-gradient-to-r from-blue-600 to-indigo-400 text-white rounded-t-lg">
-    <mat-card-title class="text-2xl font-bold tracking-wide !inline-flex !items-center">
-      {{ title() }}
-      <button type="button" mat-icon-button aria-label="Read aloud"
-              class="read-button" (click)="readContent()" [disabled]="isLoading() || isPlaying()">
-        <mat-icon class="!text-white">volume_up</mat-icon>
-      </button>
-      <button type="button" mat-icon-button aria-label="Stop"
-              class="read-button" (click)="stopPlayback()" [hidden]="!isPlaying() || isLoading()">
-        <mat-icon class="!text-white">stop</mat-icon>
-      </button>
-      @if (isLoading()) {
-        <mat-spinner diameter="20" class="!ml-2"></mat-spinner>
-      }
-    </mat-card-title>
+  <!-- Leather binding spine -->
+  <div class="diary-spine" aria-hidden="true"></div>
+
+  <!-- Page content -->
+  <div class="diary-content">
+
+    <!-- ─── Header: date · title · TTS ─── -->
+    <header class="diary-header">
+
+      <!-- Entry date -->
+      <div class="diary-meta">
+        @if (formattedDate()) {
+          <span class="diary-date">
+            <mat-icon class="diary-date-icon">edit_calendar</mat-icon>
+            {{ formattedDate() }}
+          </span>
+        }
+      </div>
+
+      <!-- Title row + TTS controls -->
+      <div class="diary-title-row">
+        <h1 class="diary-title">{{ title() }}</h1>
+
+        <div class="diary-tts">
+          <button type="button" mat-icon-button aria-label="Read aloud"
+                  (click)="readContent()" [disabled]="isLoading() || isPlaying()">
+            <mat-icon>volume_up</mat-icon>
+          </button>
+          @if (isPlaying()) {
+            <span class="diary-tts-stop">
+              <button type="button" mat-icon-button aria-label="Stop playback"
+                      (click)="stopPlayback()">
+                <mat-icon>stop_circle</mat-icon>
+              </button>
+            </span>
+          }
+          @if (isLoading()) {
+            <mat-spinner diameter="20" class="!ml-1"
+                         style="--mdc-circular-progress-active-indicator-color: #7a5c3e;"></mat-spinner>
+          }
+        </div>
+      </div>
+
+      <!-- Ink underline rule -->
+      <div class="diary-title-rule"></div>
+
+    </header>
+
+    <!-- Error banner -->
     @if (error()) {
-      <div class="text-red-300 text-sm mt-1">{{ error() }}</div>
+      <div class="diary-error">
+        <mat-icon>error_outline</mat-icon>
+        {{ error() }}
+      </div>
     }
-  </mat-card-header>
-  <mat-card-content>
-    <div class="text-primary leading-relaxed">
+
+    <!-- ─── Story body ─── -->
+    <div class="diary-body">
       <markdown [data]="markdownText()" class="markdown-container" #markdownComponent></markdown>
     </div>
-  </mat-card-content>
-</mat-card>
+
+  </div><!-- /diary-content -->
+</div><!-- /diary-page -->

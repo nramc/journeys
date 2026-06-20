@@ -1,43 +1,239 @@
 @use '@angular/material' as mat;
 
+// ─── Diary Story Narration — Markdown Prose Styles ───────────────────────────
+// Global styles for .markdown-container rendered inside DisplayMarkdownComponent.
+// Line-height ($line-h: 1.875rem) must stay in sync with display-markdown.component.scss.
+
+$line-h: 1.875rem;
+$ink-brown: #8b4513;
+$ink-body: #2c1810;
+$ink-heading: #1a2e4a;
+
 .markdown-container {
-  font-family: "Roboto", sans-serif;
-  @apply leading-relaxed;
+  // ── Typography base ──────────────────────────────────────────────────────
+  font-family: 'Lora', 'Georgia', 'Times New Roman', serif;
+  font-size: 1.05rem;
+  line-height: $line-h;
+  color: $ink-body;
+  display: block;
 
-  h1, h2, h3, h4, h5, h6, p, section {
-    margin: 0.5rem 0 0.5rem 0;
+  // ── Headings — Caveat handwriting font to match diary title ──────────────
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Caveat', cursive;
+    color: $ink-heading;
+    margin: 1.75rem 0 0.4rem;
+    line-height: 1.25;
+    font-weight: 700;
   }
 
-  h1 {
-    @apply text-[1.2rem] font-bold text-primary;
-  }
-
+  h1 { font-size: 1.9rem; }
   h2 {
-    @apply text-[1.18rem] font-semibold text-primary;
+    font-size: 1.65rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid rgba(139, 90, 43, 0.25);
+  }
+  h3 { font-size: 1.45rem; color: #4a2c1a; }
+  h4 { font-size: 1.25rem; color: #5c3d2e; }
+  h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8b5e3c;
   }
 
-  h3 {
-    @apply text-[1.16rem] font-medium text-primary;
+  // ── Paragraphs ───────────────────────────────────────────────────────────
+  p { margin: 0.5rem 0; }
+
+  // Drop-cap on the very first paragraph — classic story opener
+  > p:first-of-type::first-letter {
+    float: left;
+    font-family: 'Caveat', cursive;
+    font-size: 4.2rem;
+    font-weight: 700;
+    line-height: 0.8;
+    margin: 0.06em 0.1em 0 0;
+    color: $ink-brown;
   }
 
-  h4 {
-    @apply text-[1.14rem] font-medium text-primary;
+  // ── Blockquote — pinned memory / highlighted moment ──────────────────────
+  blockquote {
+    position: relative;
+    margin: 1.5rem 0;
+    padding: 0.9rem 1.25rem 0.9rem 1.75rem;
+    background: rgba(139, 90, 43, 0.07);
+    border-left: 4px solid $ink-brown;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: #4a2c1a;
+
+    // Decorative opening quote glyph
+    &::before {
+      content: '\201C';
+      position: absolute;
+      top: -0.6rem;
+      left: 0.65rem;
+      font-size: 3.5rem;
+      font-family: Georgia, serif;
+      line-height: 1;
+      color: rgba(139, 90, 43, 0.28);
+    }
+
+    p { margin: 0.2rem 0; }
   }
 
-  h5 {
-    @apply text-[1.12rem] font-medium text-primary;
+  // ── Emphasis ─────────────────────────────────────────────────────────────
+  strong { font-weight: 700; color: #1a1208; }
+  em     { font-style: italic; color: #5c3d2e; }
+
+  // ── Horizontal rule — chapter break ──────────────────────────────────────
+  hr {
+    border: none;
+    margin: 2rem auto;
+    width: 55%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, $ink-brown, transparent);
+    opacity: 0.38;
   }
 
-  h6 {
-    @apply text-base font-normal text-primary;
+  // ── Lists ─────────────────────────────────────────────────────────────────
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0.5rem 0;
+
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin: 0.3rem 0;
+
+      &::before {
+        content: '✦';
+        position: absolute;
+        left: 0.25rem;
+        top: 0.3rem;
+        font-size: 0.6rem;
+        color: $ink-brown;
+      }
+    }
   }
 
   ol {
-    @apply list-decimal p-4;
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+    li { margin: 0.3rem 0; }
   }
 
-  ul {
-    @apply list-disc p-4;
+  // ── Inline code ───────────────────────────────────────────────────────────
+  code:not(pre > code) {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88em;
+    padding: 0.1em 0.38em;
+    border-radius: 3px;
+    background: rgba(139, 90, 43, 0.1);
+    color: #5c3d2e;
   }
 
+  // ── Fenced code blocks ────────────────────────────────────────────────────
+  pre {
+    margin: 1rem 0;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    background: #2c1810;
+    color: #f0e6d6;
+    font-size: 0.88rem;
+    line-height: 1.6;
+
+    code { background: transparent; color: inherit; padding: 0; }
+  }
+
+  // ── Links ─────────────────────────────────────────────────────────────────
+  a {
+    color: #1a3a5c;
+    text-decoration-color: rgba(26, 58, 92, 0.38);
+    text-underline-offset: 3px;
+    transition: color 0.15s, text-decoration-color 0.15s;
+
+    &:hover {
+      color: $ink-brown;
+      text-decoration-color: $ink-brown;
+    }
+  }
+
+  // ── Images ────────────────────────────────────────────────────────────────
+  img {
+    max-width: 100%;
+    border-radius: 0.5rem;
+    margin: 0.75rem 0;
+    box-shadow: 0 2px 12px rgba(92, 64, 51, 0.2);
+  }
+
+  // ── Tables ────────────────────────────────────────────────────────────────
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+
+  th {
+    text-align: left;
+    padding: 0.45rem 0.75rem;
+    background: rgba(139, 90, 43, 0.1);
+    color: $ink-body;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(139, 90, 43, 0.28);
+  }
+
+  td {
+    padding: 0.45rem 0.75rem;
+    border-bottom: 1px solid rgba(139, 90, 43, 0.12);
+  }
+
+  tr:last-child td { border-bottom: none; }
+}
+
+// ═══ Dark Mode ════════════════════════════════════════════════════════════════
+.dark .markdown-container {
+  color: #e8dcc8;
+
+  h1, h2    { color: #a8c5e8; }
+  h3        { color: #c9a87c; }
+  h4        { color: #b89070; }
+  h5, h6    { color: #c49a6c; }
+
+  h2 { border-bottom-color: rgba(200, 150, 80, 0.2); }
+
+  > p:first-of-type::first-letter { color: #c49a6c; }
+
+  blockquote {
+    background: rgba(200, 150, 80, 0.07);
+    border-left-color: #c49a6c;
+    color: #d4b896;
+    &::before { color: rgba(200, 150, 80, 0.28); }
+  }
+
+  strong { color: #f0e6d6; }
+  em     { color: #c49a6c; }
+
+  hr { background: linear-gradient(to right, transparent, #c49a6c, transparent); }
+
+  ul li::before { color: #c49a6c; }
+
+  code:not(pre > code) {
+    background: rgba(200, 150, 80, 0.1);
+    color: #c49a6c;
+  }
+
+  pre { background: #100d0a; color: #e8dcc8; }
+
+  a {
+    color: #7fb3e8;
+    text-decoration-color: rgba(127, 179, 232, 0.38);
+    &:hover { color: #c49a6c; text-decoration-color: #c49a6c; }
+  }
+
+  th {
+    background: rgba(200, 150, 80, 0.1);
+    color: #e8dcc8;
+    border-bottom-color: rgba(200, 150, 80, 0.22);
+  }
+  td { border-bottom-color: rgba(200, 150, 80, 0.1); }
 }

@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   ElementRef,
   inject,
   input,
@@ -26,12 +27,29 @@ import {finalize} from "rxjs";
     MatProgressSpinnerModule
   ],
   templateUrl: './display-markdown.component.html',
-  styles: [],
+  styleUrl: './display-markdown.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayMarkdownComponent implements OnDestroy {
   title = input<string>('');
   markdownText = input<string>('');
+  /** Optional ISO date string from Journey.journeyDate — rendered as a diary entry date */
+  journeyDate = input<string>('');
+
+  /** Formats journeyDate as "Friday, 14 March 2024" for the diary header */
+  readonly formattedDate = computed(() => {
+    const raw = this.journeyDate();
+    if (!raw) return null;
+    const d = new Date(raw);
+    if (Number.isNaN(d.getTime())) return null;
+    return d.toLocaleDateString('en-GB', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  });
+
   @ViewChild('markdownComponent', {read: ElementRef}) markdownElementRef!: ElementRef;
 
   private readonly ttsService = inject(TextToSpeechService);
