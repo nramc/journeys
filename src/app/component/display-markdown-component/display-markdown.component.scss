@@ -1,0 +1,244 @@
+// ─── Diary Page Shell ─────────────────────────────────────────────────────────
+// Light-mode: warm ivory parchment with faint ruled lines and a leather spine.
+// Dark-mode:  warm near-black with amber-tinted ruled lines.
+// Line-height used here (1.875rem) MUST match the value in _markdown-narration-styles.scss.
+
+$line-h: 1.875rem;
+$ink-brown: #8b4513;
+$ink-dark: #2c1810;
+$spine-w: 26px;
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+// ─── Outer page wrapper ───────────────────────────────────────────────────────
+.diary-page {
+  display: flex;
+  min-height: 100%;
+  border-radius: 0.75rem;
+  overflow: hidden;
+
+  // Parchment / ivory
+  background-color: #fdf8ee;
+  color: $ink-dark;
+
+  // Faint horizontal rules – visual-only, does not need to sync perfectly with text
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(#{$line-h} - 1px),
+    rgba(139, 90, 43, 0.1) calc(#{$line-h} - 1px),
+    rgba(139, 90, 43, 0.1) #{$line-h}
+  );
+  background-attachment: local;
+
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(92, 64, 51, 0.18),
+    inset 0 0 0 1px rgba(139, 90, 43, 0.18);
+}
+
+// ─── Leather binding spine ────────────────────────────────────────────────────
+.diary-spine {
+  flex-shrink: 0;
+  width: $spine-w;
+  position: relative;
+  background: linear-gradient(
+    to right,
+    #2e1206,
+    #6b3a20 28%,
+    #9b5a2a 55%,
+    #7a4318 78%,
+    #3d1c0a
+  );
+
+  // White stitching dots
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 13px,
+      rgba(255, 255, 255, 0.38) 13px,
+      rgba(255, 255, 255, 0.38) 16px
+    );
+  }
+}
+
+// ─── Page content area ────────────────────────────────────────────────────────
+.diary-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+// ─── Diary header ─────────────────────────────────────────────────────────────
+.diary-header {
+  padding: 1.5rem 2rem 0.75rem;
+}
+
+.diary-meta {
+  margin-bottom: 0.2rem;
+  min-height: 1.2rem;
+}
+
+.diary-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8b5e3c;
+  opacity: 0.9;
+}
+
+.diary-date-icon {
+  font-size: 0.9rem !important;
+  width: 0.9rem !important;
+  height: 0.9rem !important;
+  color: #8b5e3c;
+}
+
+.diary-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.diary-title {
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a2e4a;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+// ─── TTS controls ─────────────────────────────────────────────────────────────
+.diary-tts {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+
+  button.mat-mdc-icon-button {
+    color: #7a5c3e !important;
+    --mdc-icon-button-state-layer-color: #{$ink-brown};
+
+    &:hover:not([disabled]) {
+      color: $ink-brown !important;
+    }
+
+    &[disabled] {
+      opacity: 0.35;
+    }
+  }
+}
+
+.diary-tts-stop button.mat-mdc-icon-button {
+  color: #b45309 !important;
+}
+
+// ─── Title underline rule ─────────────────────────────────────────────────────
+.diary-title-rule {
+  margin-top: 0.6rem;
+  height: 1.5px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(139, 90, 43, 0.55) 12%,
+    rgba(92, 64, 51, 0.7) 50%,
+    rgba(139, 90, 43, 0.55) 88%,
+    transparent 100%
+  );
+}
+
+// ─── Error banner ─────────────────────────────────────────────────────────────
+.diary-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 2rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.375rem;
+  background: rgba(185, 28, 28, 0.08);
+  color: #991b1b;
+  font-size: 0.82rem;
+  border-left: 3px solid #b91c1c;
+
+  .mat-icon {
+    font-size: 1rem !important;
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+}
+
+// ─── Story body ───────────────────────────────────────────────────────────────
+.diary-body {
+  flex: 1;
+  padding: 0.75rem 2.25rem 2.5rem;
+}
+
+// ═══ Dark Mode ════════════════════════════════════════════════════════════════
+:host-context(.dark) {
+  .diary-page {
+    background-color: #1c1813;
+    color: #e8dcc8;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(#{$line-h} - 1px),
+      rgba(200, 150, 80, 0.06) calc(#{$line-h} - 1px),
+      rgba(200, 150, 80, 0.06) #{$line-h}
+    );
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.4),
+      0 8px 24px rgba(0, 0, 0, 0.5),
+      inset 0 0 0 1px rgba(200, 150, 80, 0.1);
+  }
+
+  .diary-spine {
+    background: linear-gradient(
+      to right,
+      #0f0704,
+      #2d1810 28%,
+      #3d2210 55%,
+      #2a1508 78%,
+      #0f0704
+    );
+  }
+
+  .diary-date        { color: #c49a6c; }
+  .diary-date-icon   { color: #c49a6c; }
+  .diary-title       { color: #a8c5e8; }
+
+  .diary-tts button.mat-mdc-icon-button {
+    color: #c49a6c !important;
+  }
+
+  .diary-title-rule {
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(196, 154, 108, 0.6),
+      transparent
+    );
+  }
+
+  .diary-error {
+    background: rgba(185, 28, 28, 0.15);
+    color: #f87171;
+    border-left-color: #ef4444;
+  }
+}

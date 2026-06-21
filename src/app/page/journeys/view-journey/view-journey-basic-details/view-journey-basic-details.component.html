@@ -3,7 +3,8 @@
   <div class="min-h-[50vh]">
     <app-display-markdown-component
       [title]="journey().geoDetails?.title ?? ''"
-      [markdownText]="journey().description">
+      [markdownText]="journey().description"
+      [journeyDate]="journey().journeyDate">
     </app-display-markdown-component>
   </div>
 

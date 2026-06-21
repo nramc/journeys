@@ -34,6 +34,7 @@
     "@fullcalendar/interaction": "6.1.21",
     "@fullcalendar/multimonth": "6.1.21",
     "@fullcalendar/rrule": "6.1.21",
+    "@huggingface/transformers": "^4.2.0",
     "@maptiler/geocoding-control": "3.0.0",
     "@maptiler/leaflet-maptilersdk": "4.1.1",
     "@popperjs/core": "2.11.8",

@@ -1,0 +1,243 @@
+// ─── Single-Page Diary Dialog ─────────────────────────────────────────────────
+$line-h: 1.875rem;
+$ink-brown: #8b4513;
+$parchment: #fdf8ee;
+$ink-body: #2c1810;
+$spine-dark: #1a0704;
+$spine-mid: #7a3818;
+
+:host { display: block; }
+
+// ─── Wrapper ──────────────────────────────────────────────────────────────────
+.diary-wrapper {
+  position: relative;
+}
+
+// Close button floats above top-right corner
+.diary-close-btn {
+  position: absolute !important;
+  top: -44px;
+  right: 0;
+  color: rgba(255, 255, 255, 0.85) !important;
+  z-index: 10;
+
+  &:hover { color: #fff !important; }
+}
+
+// ─── The diary page ───────────────────────────────────────────────────────────
+.diary-page {
+  display: flex;
+  width: min(72ch + 80px, 90vw);  // comfortable reading width
+  height: min(88vh, 860px);
+  border-radius: 4px 12px 12px 4px;
+  overflow: hidden;
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.42),
+    0 8px 20px rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1px rgba(139, 90, 43, 0.2);
+}
+
+// ─── Leather spine ────────────────────────────────────────────────────────────
+.diary-spine {
+  flex-shrink: 0;
+  width: 28px;
+  position: relative;
+  background: linear-gradient(
+    to right,
+    $spine-dark,
+    #4a2510 30%,
+    $spine-mid 55%,
+    #5c3012 78%,
+    $spine-dark
+  );
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 13px,
+      rgba(255, 255, 255, 0.34) 13px,
+      rgba(255, 255, 255, 0.34) 16px
+    );
+  }
+}
+
+// ─── Page content column ──────────────────────────────────────────────────────
+.diary-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: $parchment;
+  color: $ink-body;
+
+  // Faint ruled lines
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(#{$line-h} - 1px),
+    rgba(139, 90, 43, 0.1) calc(#{$line-h} - 1px),
+    rgba(139, 90, 43, 0.1) #{$line-h}
+  );
+  background-attachment: local;
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+.diary-header {
+  padding: 0.6rem 1.75rem 0.4rem;
+  flex-shrink: 0;
+}
+
+// Single row: date on left, TTS on right
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.3rem;
+  justify-content: space-between;
+}
+
+.entry-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #7a5c3e;
+}
+
+.entry-date-icon {
+  font-size: 0.82rem !important;
+  width: 0.82rem !important;
+  height: 0.82rem !important;
+}
+
+// TTS controls inline in the header row
+.header-tts {
+  display: flex;
+  align-items: center;
+  gap: 0.05rem;
+}
+
+.tts-error {
+  display: inline-flex;
+  align-items: center;
+  color: var(--tts-error-color, #991b1b);
+}
+
+.tts-error-icon {
+  font-size: 0.88rem !important;
+  width: 0.88rem !important;
+  height: 0.88rem !important;
+}
+
+.tts-btn {
+  &.mat-mdc-icon-button {
+    color: var(--tts-btn-color, #7a5c3e) !important;
+    --mdc-icon-button-state-layer-color: #{$ink-brown};
+    &:hover:not([disabled]) { color: $ink-brown !important; }
+    &[disabled]              { opacity: 0.35; }
+  }
+}
+
+.tts-btn-stop.mat-mdc-icon-button {
+  color: var(--tts-stop-color, #b45309) !important;
+}
+
+// ─── Entry title ──────────────────────────────────────────────────────────────
+.entry-title {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  color: #1a2e4a;
+  line-height: 1.15;
+  margin: 0 0 0.3rem;
+  text-align: center;
+}
+
+.entry-rule {
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, $ink-brown 20%, $ink-brown 80%, transparent);
+  opacity: 0.35;
+  margin: 0 1.5rem;
+}
+
+// ─── Scrollable story body ────────────────────────────────────────────────────
+.diary-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem 2.5rem 1.5rem;
+}
+
+// ─── Footer: decorative seal only ────────────────────────────────────────────
+.diary-footer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.4rem 1.5rem 0.6rem;
+  border-top: 1px solid rgba(139, 90, 43, 0.1);
+}
+
+.footer-deco-icon {
+  font-size: 1rem !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  color: rgba(139, 90, 43, 0.25);
+}
+
+// ═══ Dark Mode ════════════════════════════════════════════════════════════════
+:host-context(.dark) {
+  .diary-page {
+    box-shadow:
+      0 25px 60px rgba(0, 0, 0, 0.65),
+      0 8px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .diary-spine {
+    background: linear-gradient(
+      to right,
+      #0f0704,
+      #2d1810 30%,
+      #3d2210 55%,
+      #2a1508 78%,
+      #0f0704
+    );
+  }
+
+  .diary-content {
+    background-color: #1c1813;
+    color: #e8dcc8;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(#{$line-h} - 1px),
+      rgba(200, 150, 80, 0.06) calc(#{$line-h} - 1px),
+      rgba(200, 150, 80, 0.06) #{$line-h}
+    );
+  }
+
+  .entry-date     { color: #c49a6c; }
+
+  .entry-title    { color: #a8c5e8; }
+  .entry-rule {
+    background: linear-gradient(to right, transparent, #c49a6c 20%, #c49a6c 80%, transparent);
+  }
+
+  .diary-footer {
+    border-top-color: rgba(200, 150, 80, 0.1);
+  }
+
+  .footer-deco-icon { color: rgba(200, 150, 80, 0.22); }
+
+  // Override TTS color tokens — no selector duplication needed
+  --tts-error-color: #f87171;
+  --tts-btn-color:   #c49a6c;
+  --tts-stop-color:  #fb923c;
+}
