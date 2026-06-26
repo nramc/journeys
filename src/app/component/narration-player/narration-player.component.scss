@@ -1,0 +1,86 @@
+// Host renders inline inside any flex row (e.g. .diary-tts) without
+// introducing an extra block-level wrapper.
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+// Stop button uses an amber/orange accent to distinguish it visually
+.narration-stop-btn.mat-mdc-icon-button {
+  color: #b45309 !important;
+}
+
+// Spinner sits flush with the icon buttons
+.narration-spinner {
+  margin-left: 0.15rem;
+}
+
+// Small italic status text next to the spinner
+.narration-status {
+  font-size: 0.68rem;
+  font-style: italic;
+  opacity: 0.8;
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Error icon — compact, coloured red
+.narration-error-icon {
+  font-size: 1rem !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  color: #b91c1c;
+  cursor: help;
+}
+
+// ═══ Live karaoke caption ═════════════════════════════════════════════════════
+// Floating subtitle bar pinned to the bottom-centre of the viewport.
+.narration-caption {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  z-index: 1200;
+
+  max-width: min(90vw, 720px);
+  padding: 0.7rem 1.25rem;
+  border-radius: 0.75rem;
+
+  background: rgba(28, 24, 19, 0.92);
+  color: #f3ecdd;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+
+  font-size: 1.15rem;
+  line-height: 1.5;
+  text-align: center;
+  pointer-events: none; // never blocks clicks underneath
+
+  animation: narration-caption-in 0.2s ease-out;
+}
+
+.narration-caption__text {
+  // Allow long sentences to wrap nicely
+  white-space: normal;
+  word-break: break-word;
+}
+
+// The word currently being spoken
+.narration-caption__word {
+  background: transparent;
+  color: #ffd479;
+  font-weight: 700;
+  border-radius: 0.2rem;
+  padding: 0 0.05em;
+  transition: color 0.08s linear;
+}
+
+@keyframes narration-caption-in {
+  from { opacity: 0; transform: translate(-50%, 0.5rem); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+
