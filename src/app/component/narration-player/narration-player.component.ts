@@ -3,7 +3,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {LocalTtsService} from '../../service/ai/local-tts.service';
+import {LocalTtsService} from '../../service/tts/local-tts.service';
 
 /**
  * Reusable narration player component.
