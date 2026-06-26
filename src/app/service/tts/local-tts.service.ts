@@ -1,9 +1,10 @@
-import {DestroyRef, inject, Injectable} from '@angular/core';
+import {computed, DestroyRef, inject, Injectable} from '@angular/core';
 import {EnglishTtsService} from './english-tts.service';
 import {TamilTtsService} from './tamil-tts.service';
 
 export {TamilTtsState} from './tamil-tts.service';
 export {EnglishTtsState} from './english-tts.service';
+export type {SpokenCaption} from './speech.util';
 
 /**
  * Facade over the language-specific narration services.
@@ -23,6 +24,8 @@ export class LocalTtsService {
   readonly englishState = this.english.state;
   readonly tamilState = this.tamil.state;
   readonly tamilStatusLabel = this.tamil.statusLabel;
+  /** Live karaoke caption from whichever language is currently speaking. */
+  readonly caption = computed(() => this.english.caption() ?? this.tamil.caption());
 
   constructor() {
     this.destroyRef.onDestroy(() => this.stopAll());

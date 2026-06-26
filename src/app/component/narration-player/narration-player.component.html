@@ -57,3 +57,13 @@
   </mat-icon>
 }
 
+<!-- ═══ Live karaoke caption ════════════════════════════════════════════════════
+     Floating subtitle bar that highlights each word as it is spoken.
+     Works for both English and Tamil narration. -->
+@if (captionParts(); as cap) {
+  <output class="narration-caption" aria-live="polite">
+    <span class="narration-caption__text">{{ cap.before }}<mark
+      class="narration-caption__word">{{ cap.word }}</mark>{{ cap.after }}</span>
+  </output>
+}
+

@@ -1,5 +1,5 @@
 import {Injectable, signal} from '@angular/core';
-import {onVoicesReady, selectBestVoice, splitIntoSentences} from './speech.util';
+import {buildCaption, onVoicesReady, selectBestVoice, splitIntoSentences, SpokenCaption} from './speech.util';
 
 // ── Chrome AI Translator API types ───────────────────────────────────────────
 // The stable API (Chrome 138+) exposes a global `Translator` object.
@@ -93,6 +93,8 @@ function computeTamilProsody(text: string, index: number): Prosody {
 export class TamilTtsService {
   readonly state = signal<TamilTtsState>('idle');
   readonly statusLabel = signal('');
+  /** Live karaoke caption for the Tamil segment currently being spoken. */
+  readonly caption = signal<SpokenCaption | null>(null);
 
   private bestVoice: SpeechSynthesisVoice | null = null;
   private abortController: AbortController | null = null;
@@ -126,6 +128,7 @@ export class TamilTtsService {
     this.allChunksDispatched = false;
     this.state.set('idle');
     this.statusLabel.set('');
+    this.caption.set(null);
   }
 
   // ── Internals ───────────────────────────────────────────────────────────────
@@ -267,6 +270,10 @@ export class TamilTtsService {
       utterance.onstart = () => {
         this.state.set('playing');
         this.statusLabel.set('');
+        this.caption.set({text: segment, wordStart: 0, wordEnd: 0});
+      };
+      utterance.onboundary = (e) => {
+        if (e.name === 'word') this.caption.set(buildCaption(segment, e));
       };
       utterance.onerror = (e) => {
         if (e.error !== 'canceled') {
@@ -314,6 +321,7 @@ export class TamilTtsService {
     if (this.allChunksDispatched && this.spokenChunks >= this.totalChunks) {
       this.state.set('idle');
       this.statusLabel.set('');
+      this.caption.set(null);
     }
   }
 }

@@ -41,6 +41,20 @@ export class NarrationPlayerComponent {
     this.tts.tamilState() !== 'idle'
   );
 
+  /**
+   * Splits the live caption into before / highlighted / after the spoken word,
+   * for karaoke-style rendering. Null when nothing is being spoken.
+   */
+  protected readonly captionParts = computed(() => {
+    const cap = this.tts.caption();
+    if (!cap) return null;
+    return {
+      before: cap.text.slice(0, cap.wordStart),
+      word: cap.text.slice(cap.wordStart, cap.wordEnd),
+      after: cap.text.slice(cap.wordEnd),
+    };
+  });
+
   protected playEnglish(): void {
     this.tts.speakEnglish(this.text());
   }

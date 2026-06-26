@@ -1,5 +1,30 @@
-// src/app/service/ai/speech.util.ts
+// src/app/service/tts/speech.util.ts
 // Shared helpers for the Web Speech API based narration services.
+
+/**
+ * A live "karaoke" caption: the full text of the sentence/segment currently
+ * being spoken, plus the character range of the word being spoken right now.
+ */
+export interface SpokenCaption {
+  text: string;
+  wordStart: number;
+  wordEnd: number;
+}
+
+/**
+ * Builds a {@link SpokenCaption} from a `boundary` SpeechSynthesis event.
+ * Falls back to highlighting up to the next whitespace when the browser
+ * does not provide `charLength`.
+ */
+export function buildCaption(text: string, e: SpeechSynthesisEvent): SpokenCaption {
+  const start = e.charIndex ?? 0;
+  let end = start + (e.charLength ?? 0);
+  if (!e.charLength) {
+    const nextSpace = text.indexOf(' ', start);
+    end = nextSpace === -1 ? text.length : nextSpace;
+  }
+  return {text, wordStart: start, wordEnd: end};
+}
 
 /**
  * Splits text into sentence-level chunks, capping each chunk at a safe length

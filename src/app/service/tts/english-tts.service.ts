@@ -1,5 +1,5 @@
 import {Injectable, signal} from '@angular/core';
-import {onVoicesReady, selectBestVoice, splitIntoSentences} from './speech.util';
+import {buildCaption, onVoicesReady, selectBestVoice, splitIntoSentences, SpokenCaption} from './speech.util';
 
 export type EnglishTtsState = 'idle' | 'playing' | 'error';
 
@@ -11,6 +11,8 @@ export type EnglishTtsState = 'idle' | 'playing' | 'error';
 @Injectable({providedIn: 'root'})
 export class EnglishTtsService {
   readonly state = signal<EnglishTtsState>('idle');
+  /** Live karaoke caption for the sentence currently being spoken. */
+  readonly caption = signal<SpokenCaption | null>(null);
 
   private bestVoice: SpeechSynthesisVoice | null = null;
 
@@ -36,14 +38,17 @@ export class EnglishTtsService {
   stop(): void {
     if (typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
     this.state.set('idle');
+    this.caption.set(null);
   }
 
   private speakSentences(sentences: string[], index: number): void {
     if (index >= sentences.length) {
       this.state.set('idle');
+      this.caption.set(null);
       return;
     }
-    const utterance = new SpeechSynthesisUtterance(sentences[index]);
+    const sentence = sentences[index];
+    const utterance = new SpeechSynthesisUtterance(sentence);
     utterance.lang = this.bestVoice?.lang ?? 'en-US';
     // Warmer, more natural storytelling prosody (slightly slower, gentle pitch)
     utterance.rate = 0.92;
@@ -51,6 +56,10 @@ export class EnglishTtsService {
     utterance.volume = 1;
     if (this.bestVoice) utterance.voice = this.bestVoice;
 
+    utterance.onstart = () => this.caption.set({text: sentence, wordStart: 0, wordEnd: 0});
+    utterance.onboundary = (e) => {
+      if (e.name === 'word') this.caption.set(buildCaption(sentence, e));
+    };
     utterance.onend = () => this.speakSentences(sentences, index + 1);
     utterance.onerror = (e) => {
       if (e.error !== 'canceled') this.state.set('error');
