@@ -18,7 +18,7 @@
       <!-- ── Header ── -->
       <header class="diary-header">
 
-        <!-- Single row: date left · TTS right -->
+        <!-- Single row: date left · narration controls right -->
         <div class="header-row">
           @if (formattedDate) {
             <span class="entry-date">
@@ -29,33 +29,9 @@
 
           <span class="header-row-spacer"></span>
 
-          <!-- TTS controls -->
-          <div class="header-tts" aria-label="Text to speech controls">
-            @if (ttsError()) {
-              <span class="tts-error" [title]="ttsError()!">
-                <mat-icon class="tts-error-icon">error_outline</mat-icon>
-              </span>
-            }
-            @if (isLoading()) {
-              <mat-spinner diameter="16"
-                           style="--mdc-circular-progress-active-indicator-color: #7a5c3e;">
-              </mat-spinner>
-            }
-            <button mat-icon-button type="button" aria-label="Read story aloud"
-                    matTooltip="Read aloud" matTooltipPosition="below"
-                    class="tts-btn"
-                    [disabled]="isLoading() || isPlaying()"
-                    (click)="readContent()">
-              <mat-icon>volume_up</mat-icon>
-            </button>
-            @if (isPlaying()) {
-              <button mat-icon-button type="button" aria-label="Stop playback"
-                      matTooltip="Stop" matTooltipPosition="below"
-                      class="tts-btn tts-btn-stop"
-                      (click)="stopPlayback()">
-                <mat-icon>stop_circle</mat-icon>
-              </button>
-            }
+          <!-- Narration controls: English + Tamil TTS -->
+          <div class="header-tts" aria-label="Narration controls">
+            <app-narration-player [text]="cleanedText" />
           </div>
         </div>
 
@@ -66,7 +42,7 @@
 
       <!-- ── Story body ── -->
       <div class="diary-body">
-        <markdown [data]="data.markdownText" class="markdown-container" #markdownEl></markdown>
+        <markdown [data]="data.markdownText" class="markdown-container"></markdown>
       </div>
 
       <!-- ── Footer: decorative seal only ── -->

@@ -1,0 +1,59 @@
+<!-- ═══ Narration Player ══════════════════════════════════════════════════════
+     Renders inline inside any .diary-tts flex container.
+     Host element is display:inline-flex (see .scss) so it flows naturally.
+ ════════════════════════════════════════════════════════════════════════════ -->
+
+<!-- English TTS – instant via Web Speech API -->
+<button mat-icon-button type="button"
+        aria-label="Listen in English"
+        matTooltip="Listen in English"
+        matTooltipPosition="below"
+        [disabled]="tts.englishState() === 'playing' || isTamilBusy() || tts.tamilState() === 'playing'"
+        (click)="playEnglish()">
+  <mat-icon>volume_up</mat-icon>
+</button>
+
+<!-- Tamil TTS – local transformers.js pipeline -->
+<button mat-icon-button type="button"
+        aria-label="தமிழில் கேள் – Listen in Tamil"
+        matTooltip="தமிழில் கேள்"
+        matTooltipPosition="below"
+        [disabled]="tts.tamilState() !== 'idle' || tts.englishState() === 'playing'"
+        (click)="playTamil()">
+  <mat-icon>translate</mat-icon>
+</button>
+
+<!-- Stop – visible whenever anything is active -->
+@if (isAnyActive()) {
+  <button mat-icon-button type="button"
+          aria-label="Stop playback"
+          matTooltip="Stop"
+          matTooltipPosition="below"
+          class="narration-stop-btn"
+          (click)="stopAll()">
+    <mat-icon>stop_circle</mat-icon>
+  </button>
+}
+
+<!-- Tamil processing progress: spinner + status label -->
+@if (isTamilBusy()) {
+  <mat-spinner diameter="18" class="narration-spinner"></mat-spinner>
+  <span class="narration-status" [attr.aria-label]="tts.tamilStatusLabel()">
+    {{ tts.tamilStatusLabel() }}
+  </span>
+}
+
+<!-- Error hints (icon only – tooltip carries the detail) -->
+@if (tts.englishState() === 'error') {
+  <mat-icon class="narration-error-icon" matTooltip="English narration failed" matTooltipPosition="below">
+    error_outline
+  </mat-icon>
+}
+@if (tts.tamilState() === 'error') {
+  <mat-icon class="narration-error-icon"
+            [matTooltip]="tts.tamilStatusLabel() || 'Tamil narration failed'"
+            matTooltipPosition="below">
+    error_outline
+  </mat-icon>
+}
+

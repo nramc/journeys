@@ -20,33 +20,19 @@
         }
       </div>
 
-      <!-- Title row + TTS controls -->
+      <!-- Title row + narration controls -->
       <div class="diary-title-row">
         <h1 class="diary-title">{{ title() }}</h1>
 
         <div class="diary-tts">
-          <!-- Open full book dialog -->
+          <!-- Open full diary book dialog -->
           <button type="button" mat-icon-button aria-label="Open full diary"
                   class="diary-open-btn" (click)="openDiaryBook()" [disabled]="!markdownText()">
             <mat-icon>menu_book</mat-icon>
           </button>
 
-          <button type="button" mat-icon-button aria-label="Read aloud"
-                  (click)="readContent()" [disabled]="isLoading() || isPlaying()">
-            <mat-icon>volume_up</mat-icon>
-          </button>
-          @if (isPlaying()) {
-            <span class="diary-tts-stop">
-              <button type="button" mat-icon-button aria-label="Stop playback"
-                      (click)="stopPlayback()">
-                <mat-icon>stop_circle</mat-icon>
-              </button>
-            </span>
-          }
-          @if (isLoading()) {
-            <mat-spinner diameter="20" class="!ml-1"
-                         style="--mdc-circular-progress-active-indicator-color: #7a5c3e;"></mat-spinner>
-          }
+          <!-- Reusable narration player: English + Tamil TTS -->
+          <app-narration-player [text]="cleanedText()" />
         </div>
       </div>
 
@@ -55,17 +41,9 @@
 
     </header>
 
-    <!-- Error banner -->
-    @if (error()) {
-      <div class="diary-error">
-        <mat-icon>error_outline</mat-icon>
-        {{ error() }}
-      </div>
-    }
-
     <!-- ─── Story body ─── -->
     <div class="diary-body">
-      <markdown [data]="markdownText()" class="markdown-container" #markdownComponent></markdown>
+      <markdown [data]="markdownText()" class="markdown-container"></markdown>
     </div>
 
   </div><!-- /diary-content -->
