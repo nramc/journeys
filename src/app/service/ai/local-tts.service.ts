@@ -39,6 +39,55 @@ export type TamilTtsState =
 
 export type EnglishTtsState = 'idle' | 'playing' | 'error';
 
+// ── Tamil expressive prosody ──────────────────────────────────────────────────
+// The native ta-IN voice ("Vani") has a high, fast, monotone baseline.
+// We slow it down, deepen it, and — crucially — vary pitch & rate per sentence
+// based on punctuation so the narration sounds emotional instead of robotic.
+// Tweak these base values to taste (valid range: rate 0.1–10, pitch 0–2).
+const TAMIL_BASE_RATE = 0.78;
+const TAMIL_BASE_PITCH = 0.82;
+
+interface Prosody {
+  rate: number;
+  pitch: number;
+}
+
+/**
+ * Computes expressive prosody for a Tamil sentence from its content and
+ * punctuation, so questions rise, exclamations gain energy, and longer
+ * descriptive sentences slow down slightly for a warm storytelling cadence.
+ */
+function computeTamilProsody(text: string, index: number): Prosody {
+  let rate = TAMIL_BASE_RATE;
+  let pitch = TAMIL_BASE_PITCH;
+
+  const trimmed = text.trim();
+  const last = trimmed.at(-1);
+
+  if (last === '?') {
+    // Questions: gentle rising intonation
+    pitch += 0.12;
+    rate += 0.02;
+  } else if (last === '!') {
+    // Exclamations: more energy and lift
+    pitch += 0.1;
+    rate += 0.06;
+  } else if (trimmed.length > 140) {
+    // Long descriptive sentences: slow down a touch for clarity & warmth
+    rate -= 0.04;
+  }
+
+  // Subtle alternating micro-variation breaks the monotone "robotic" feel
+  // by giving consecutive sentences a slightly different pitch contour.
+  pitch += index % 2 === 0 ? 0.02 : -0.02;
+
+  // Clamp to the API's valid ranges
+  rate = Math.min(2, Math.max(0.5, rate));
+  pitch = Math.min(2, Math.max(0.1, pitch));
+
+  return {rate, pitch};
+}
+
 // ── Sentence splitter ─────────────────────────────────────────────────────────
 
 function splitIntoSentences(text: string): string[] {
@@ -286,7 +335,7 @@ export class LocalTtsService {
       if (signal.aborted) break;
 
       if (tamilText.trim()) {
-        this.queueTamilUtterance(tamilText);
+        this.queueTamilUtterance(tamilText, i);
       } else {
         // Empty translation — count it so totals stay consistent
         this.tamilSpokenChunks++;
@@ -342,33 +391,67 @@ export class LocalTtsService {
     }
   }
 
-  private queueTamilUtterance(tamilText: string): void {
-    const utterance = new SpeechSynthesisUtterance(tamilText);
-    utterance.lang = this.bestTamilVoice?.lang ?? 'ta-IN';
-    // The Tamil "Vani" voice has a naturally high-pitched, fast baseline that
-    // sounds robotic. Lowering the pitch and slowing the rate makes it sound
-    // calmer, deeper and far more natural for storytelling.
-    utterance.rate = 0.62;
-    utterance.pitch = 0.75;
-    utterance.volume = 1;
-    if (this.bestTamilVoice) utterance.voice = this.bestTamilVoice;
+  private queueTamilUtterance(tamilText: string, index: number): void {
+    // Split each sentence into clause-level segments at Tamil/Latin punctuation
+    // so the engine inserts natural pauses and pitch resets between clauses —
+    // this is the single biggest gain in sounding expressive rather than flat.
+    const segments = this.splitTamilClauses(tamilText);
 
-    utterance.onstart = () => {
-      this.tamilState.set('playing');
-      this.tamilStatusLabel.set('');
-    };
-    utterance.onend = () => {
-      this.tamilSpokenChunks++;
-      this.checkTamilComplete();
-    };
-    utterance.onerror = (e) => {
-      if (e.error !== 'canceled') {
-        this.tamilState.set('error');
-        this.tamilStatusLabel.set('Tamil speech failed');
+    segments.forEach((segment, segIdx) => {
+      const utterance = new SpeechSynthesisUtterance(segment);
+      utterance.lang = this.bestTamilVoice?.lang ?? 'ta-IN';
+
+      const {rate, pitch} = computeTamilProsody(segment, index + segIdx);
+      utterance.rate = rate;
+      utterance.pitch = pitch;
+      utterance.volume = 1;
+      if (this.bestTamilVoice) utterance.voice = this.bestTamilVoice;
+
+      utterance.onstart = () => {
+        this.tamilState.set('playing');
+        this.tamilStatusLabel.set('');
+      };
+      utterance.onerror = (e) => {
+        if (e.error !== 'canceled') {
+          this.tamilState.set('error');
+          this.tamilStatusLabel.set('Tamil speech failed');
+        }
+      };
+      // Only the final segment of the sentence advances the spoken counter
+      if (segIdx === segments.length - 1) {
+        utterance.onend = () => {
+          this.tamilSpokenChunks++;
+          this.checkTamilComplete();
+        };
       }
-    };
 
-    speechSynthesis.speak(utterance);
+      speechSynthesis.speak(utterance);
+    });
+  }
+
+  /**
+   * Splits a Tamil sentence into clause-level segments at commas, semicolons
+   * and Tamil punctuation, preserving the delimiter. Short fragments are kept
+   * with their neighbour so the rhythm stays natural.
+   */
+  private splitTamilClauses(text: string): string[] {
+    const parts = text
+      .split(/(?<=[,;:—–])\s+/)
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    if (parts.length <= 1) return [text.trim()];
+
+    // Merge very short fragments (< 12 chars) into the previous segment
+    const merged: string[] = [];
+    for (const part of parts) {
+      if (merged.length && part.length < 12) {
+        merged[merged.length - 1] += ' ' + part;
+      } else {
+        merged.push(part);
+      }
+    }
+    return merged;
   }
 
   private checkTamilComplete(): void {
