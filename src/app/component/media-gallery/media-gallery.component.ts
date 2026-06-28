@@ -1,25 +1,22 @@
-import {ChangeDetectionStrategy, Component, inject, input, model, OnInit, viewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  model,
+  OnInit,
+  viewChild
+} from '@angular/core';
 
-import {LIGHTBOX_CONFIG, LightboxConfig, LightboxModule} from "ng-gallery/lightbox";
+import {LightboxModule} from "ng-gallery/lightbox";
 import {Gallery, GalleryConfig, GalleryImageDef, GalleryItem, GalleryItemTypes} from "ng-gallery";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {JourneyImagesDetails} from "../../model/core/journey.model";
 
 @Component({
-    selector: 'app-media-gallery',
-    imports: [LightboxModule, MatTooltipModule],
-    providers: [
-        {
-            provide: LIGHTBOX_CONFIG,
-            useValue: {
-                keyboardShortcuts: true,
-                startAnimationTime: 1000,
-                exitAnimationTime: 1000,
-                panelClass: 'fullscreen'
-            } as LightboxConfig
-        }
-    ],
-    template: `
+  selector: 'app-media-gallery',
+  imports: [LightboxModule, MatTooltipModule],
+  template: `
     <div class="flex flex-wrap grow mt-2 me-0 gap-2 justify-center">
       @for (item of items(); let i = $index; track item.data?.src) {
         <div class="mb-1 text-center rounded-lg overflow-hidden shadow-lg border border-gray-300"
@@ -27,7 +24,8 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
              [gallery]="galleryId()">
           <img class="journey-image-thumbnail"
                [src]="item.type === GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
-               height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"
+               height="200" width="200" alt="media" loading="lazy"
+               [matTooltip]="item.data?.args?.['title']"
           />
           @if (item.type !== GalleryItemTypes.Image) {
             <span class="video-tag">
@@ -51,25 +49,29 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
       </div>
     </ng-container>
   `,
-    styles: [`
-      .journey-image-thumbnail{object-fit: fill}
-      .mb-1.text-center.rounded-lg.overflow-hidden.shadow-lg.border.border-gray-300 {
-        position: relative;
-      }
-      .video-tag {
-        position: absolute;
-        bottom: 8px;
-        right: 8px;
-        background: rgba(255, 255, 255, 0.7);
-        color: #4b5563;
-        padding: 4px 10px;
-        border-radius: 12px;
-        font-size: 11px;
-        font-weight: 500;
-        backdrop-filter: blur(4px);
-      }
-    `],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  styles: [`
+    .journey-image-thumbnail {
+      object-fit: fill
+    }
+
+    .mb-1.text-center.rounded-lg.overflow-hidden.shadow-lg.border.border-gray-300 {
+      position: relative;
+    }
+
+    .video-tag {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.7);
+      color: #4b5563;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+    }
+  `],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaGalleryComponent implements OnInit {
   protected readonly GalleryItemTypes = GalleryItemTypes;
@@ -88,7 +90,7 @@ export class MediaGalleryComponent implements OnInit {
   ngOnInit() {
     this.items.set(this.getGalleryItems());
     this.gallery.ref(this.galleryId(), {imageTemplate: this.galleryImageDef().templateRef, ...this.galleryConfig})
-      .load(this.items());
+    .load(this.items());
   }
 
   private getGalleryItems(): GalleryItem[] {

@@ -13,6 +13,7 @@ import {loadingInterceptor} from "./utility/handler/loading.interceptor";
 import {MAT_DATE_LOCALE} from "@angular/material/core";
 import {provideDateFnsAdapter} from "@angular/material-date-fns-adapter";
 import {enGB} from "date-fns/locale";
+import {provideAnimations} from "@angular/platform-browser/animations";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,6 +33,7 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({scrollPositionRestoration: "enabled", anchorScrolling: "enabled"})
     ),
     {provide: MAT_DATE_LOCALE, useValue: enGB},
-    provideDateFnsAdapter()
+    provideDateFnsAdapter(),
+    provideAnimations()
   ]
 }
