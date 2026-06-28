@@ -20,20 +20,20 @@ export const canMatchWhenHasWriteAccessGuard: CanMatchFn = () => {
 };
 
 function isUserAuthenticatedElseGetLogin() {
-  const redirectUrl = inject(Router).getCurrentNavigation()?.initialUrl.toString();
+  const redirectUrl = inject(Router).currentNavigation()?.initialUrl.toString();
   const loginUrl = inject(Router).createUrlTree(['/login'], {
     queryParams: {
       redirectUrl: redirectUrl
     }
   });
   return inject(AuthService).isUserAuthenticatedAsObservable()
-    .pipe(map(authenticated => authenticated ? true : loginUrl));
+  .pipe(map(authenticated => authenticated ? true : loginUrl));
 }
 
 function hasWriteAccessElseAccessDenied() {
   const accessDeniedUrl = inject(Router).createUrlTree(['/accessDenied']);
   return inject(AuthService).getUserContext()
-    .pipe(map(userContext => userContext.roles
-      .some(role => role == Role.MAINTAINER || role == Role.ADMINISTRATOR || role == Role.AUTHENTICATED_USER)
-      ? true : accessDeniedUrl));
+  .pipe(map(userContext => userContext.roles
+  .some(role => role == Role.MAINTAINER || role == Role.ADMINISTRATOR || role == Role.AUTHENTICATED_USER)
+    ? true : accessDeniedUrl));
 }

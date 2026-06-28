@@ -43,6 +43,7 @@
             "styles": [
               "node_modules/leaflet/dist/leaflet.css",
               "node_modules/highlight.js/styles/default.css",
+              "node_modules/leaflet.fullscreen/dist/Control.FullScreen.css",
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
