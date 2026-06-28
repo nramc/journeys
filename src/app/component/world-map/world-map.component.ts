@@ -25,7 +25,6 @@ import {environment} from "../../../environments/environment";
 import {takeUntilDestroyed, toObservable} from "@angular/core/rxjs-interop";
 import {merge} from "rxjs";
 import {ThemeService} from "../../service/theme/theme.service";
-import 'leaflet.fullscreen/dist/Control.FullScreen.css';
 
 
 const iconDefault = L.icon({
@@ -143,7 +142,7 @@ export class WorldMapComponent implements AfterViewInit {
     geocodingControl.on("featureslisted", ((eventData: FeaturesListedEvent) => {
       this.featuresCache.clear();
       (eventData.features ?? []).forEach(f => {
-        this.featuresCache.set(f.id, f as unknown as GeoCodingFeature);
+        this.featuresCache.set(f.id, f);
       });
     }) as unknown as L.LeafletEventHandlerFn);
 
