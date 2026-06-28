@@ -29,6 +29,15 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
                [src]="item.type === GalleryItemTypes.Image ? item.data?.src : item.data?.thumb ?? 'assets/image/default-video-thumbnail.png'"
                height="200" width="200" alt="media" loading="lazy" [matTooltip]="item.data?.args?.['title']"
           />
+          @if (item.type !== GalleryItemTypes.Image) {
+            <span class="video-tag">
+              @if (item.type === GalleryItemTypes.Youtube) {
+                YouTube
+              } @else {
+                Video
+              }
+            </span>
+          }
         </div>
       } @empty {
         <p class="text-gray-500 italic">
@@ -42,7 +51,24 @@ import {JourneyImagesDetails} from "../../model/core/journey.model";
       </div>
     </ng-container>
   `,
-    styles: ['.journey-image-thumbnail{object-fit: fill}'],
+    styles: [`
+      .journey-image-thumbnail{object-fit: fill}
+      .mb-1.text-center.rounded-lg.overflow-hidden.shadow-lg.border.border-gray-300 {
+        position: relative;
+      }
+      .video-tag {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background: rgba(255, 255, 255, 0.7);
+        color: #4b5563;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 500;
+        backdrop-filter: blur(4px);
+      }
+    `],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaGalleryComponent implements OnInit {
@@ -97,7 +123,7 @@ export class MediaGalleryComponent implements OnInit {
 
   isItYoutubeVideoId(videoUrl: string) {
     // does not contain any file extension and does not contain any url path (/)
-    return videoUrl.indexOf('.') == -1 && videoUrl.indexOf("/") == -1;
+    return !videoUrl.includes('.') && !videoUrl.includes("/");
   }
 
   private newYoutubeItem(videoId: string): GalleryItem {
