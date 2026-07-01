@@ -27,10 +27,11 @@
                                border border-primary/25 dark:border-primary/30
                                text-primary text-xs font-semibold tracking-wide select-none"
                         [attr.aria-label]="'Category: ' + journey.geoDetails?.category">
+                        @let iconConfig = getIconConfigByCategory(journey.geoDetails?.category);
                     <mat-icon class="journey-card__icon--sm shrink-0 opacity-80">
-                      {{ getCategoryIconName(journey.geoDetails?.category) }}
+                      {{ iconConfig?.iconName }}
                     </mat-icon>
-                    {{ getCategoryLabel(journey.geoDetails?.category) }}
+                    {{ iconConfig?.label }}
                   </span>
                 }
                 @if (journey.geoDetails?.title) {
