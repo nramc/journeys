@@ -14,7 +14,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {getCategoryIconName, getCategoryLabel} from "../../config/icon-config";
+import * as iconConfig from "../../config/icon-config";
 import {getMemoryAgeBadge} from "../../utility/date-utils";
 import {JourneyService} from "../../service/journey/journey.service";
 import {firstValueFrom} from "rxjs";
@@ -70,11 +70,11 @@ export class JourneyBannerViewComponent {
   );
 
   protected getCategoryIconName(): string {
-    return getCategoryIconName(this.journey()?.geoDetails?.category);
+    return iconConfig.getIconConfigByCategory(this.journey()?.geoDetails?.category).iconName;
   }
 
   protected getCategoryLabel(): string {
-    return getCategoryLabel(this.journey()?.geoDetails?.category);
+    return iconConfig.getIconConfigByCategory(this.journey()?.geoDetails?.category).label;
   }
 
   close(): void {

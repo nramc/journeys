@@ -7,28 +7,28 @@ import {
   OnInit,
   signal
 } from '@angular/core';
-import {DEFAULT_CATEGORY, Journey, JourneyGeoDetails} from "../../../../model/core/journey.model";
-import {JourneyService} from "../../../../service/journey/journey.service";
-import {FormsModule, NgForm} from "@angular/forms";
+import { FormsModule, NgForm } from "@angular/forms";
+import { MatStepperNext } from "@angular/material/stepper";
 import {
   GeoCodingAreaData,
   GeoCodingLocationData,
   WorldMapComponent
 } from "../../../../component/world-map/world-map.component";
-import {MatStepperNext} from "@angular/material/stepper";
+import { DEFAULT_CATEGORY, Journey, JourneyGeoDetails } from "../../../../model/core/journey.model";
+import { JourneyService } from "../../../../service/journey/journey.service";
 
-import {NotificationService} from "../../../../service/common/notification.service";
-import {OperationMode} from "../../operation-mode";
-import {EditGeoLocationComponent} from "../edit-geo-location/edit-geo-location.component";
-import {GeoJSON, Point} from "geojson";
-import {EditGeoJsonComponent} from "../edit-geo-json/edit-geo-json.component";
-import {CATEGORY_ICONS, getCategoryLabel, SUPPORTED_ICONS} from "../../../../config/icon-config";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatSelectModule} from "@angular/material/select";
-import {MatRadioModule} from "@angular/material/radio";
-import {MatButtonModule} from "@angular/material/button";
-import {MatIconModule} from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatSelectModule } from "@angular/material/select";
+import { GeoJSON, Point } from "geojson";
+import * as iconConfig from "../../../../config/icon-config";
+import { NotificationService } from "../../../../service/common/notification.service";
+import { OperationMode } from "../../operation-mode";
+import { EditGeoJsonComponent } from "../edit-geo-json/edit-geo-json.component";
+import { EditGeoLocationComponent } from "../edit-geo-location/edit-geo-location.component";
 
 @Component({
   selector: 'app-edit-journey-geo-details',
@@ -50,9 +50,8 @@ import {MatIconModule} from "@angular/material/icon";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditJourneyGeoDetailsComponent implements OnInit {
-  protected readonly CATEGORIES = SUPPORTED_ICONS;
-  protected readonly getCategoryLabel = getCategoryLabel;
-  protected readonly CATEGORY_ICONS = CATEGORY_ICONS;
+  protected readonly ICON_CONFIGS = iconConfig.ICON_CONFIGS;
+  protected readonly getIconConfigByCategory = iconConfig.getIconConfigByCategory;
 
   private readonly journeyService = inject(JourneyService);
   private readonly notificationService = inject(NotificationService);
@@ -81,10 +80,10 @@ export class EditJourneyGeoDetailsComponent implements OnInit {
   save(journeyForm: NgForm) {
     console.debug('submitted form:', journeyForm);
     this.journeyService.saveJourneyGeoDetails(this.journey(), this.copyDataFromForm())
-    .subscribe({
-      next: data => this.onUpdateSuccess(data),
-      error: err => this.onError('Unexpected error while saving geo data', err)
-    });
+      .subscribe({
+        next: data => this.onUpdateSuccess(data),
+        error: err => this.onError('Unexpected error while saving geo data', err)
+      });
   }
 
   onUpdateSuccess(_: Journey) {

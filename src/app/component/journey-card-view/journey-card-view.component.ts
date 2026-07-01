@@ -8,7 +8,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatDialog} from "@angular/material/dialog";
 import {HasWriteAccessDirective} from "../../directive/has-write-access.directive";
-import {getCategoryIconName, getCategoryLabel} from "../../config/icon-config";
+import * as iconConfig from "../../config/icon-config";
 import { getMemoryAgeBadge, MemoryAgeBadge } from '../../utility/date-utils';
 import {JourneyBannerViewComponent} from "../journey-banner-view/journey-banner-view.component";
 
@@ -35,11 +35,11 @@ export class JourneyCardViewComponent {
   });
 
   getCategoryIconName(): string {
-    return getCategoryIconName(this.journey().category);
+    return iconConfig.getIconConfigByCategory(this.journey().category).iconName;
   }
 
   getCategoryLabel(): string {
-    return getCategoryLabel(this.journey().category);
+    return iconConfig.getIconConfigByCategory(this.journey().category).label;
   }
 
   editDetails($event: MouseEvent) {

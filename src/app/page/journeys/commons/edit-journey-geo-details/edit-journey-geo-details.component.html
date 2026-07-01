@@ -77,17 +77,18 @@
             <mat-select [(ngModel)]="formData.category" name="category" required [disabled]="isReadOnly()"
                         #category="ngModel">
               <!-- Custom trigger: shows icon + label without leaking the icon ligature text -->
+               @let iconConfig = getIconConfigByCategory(formData.category());
               <mat-select-trigger>
                 <span class="inline-flex items-center gap-2">
-                  <mat-icon class="text-base leading-none">{{ CATEGORY_ICONS[formData.category()] }}</mat-icon>
-                  {{ getCategoryLabel(formData.category()) }}
+                  <mat-icon class="text-base leading-none">{{ iconConfig?.iconName }}</mat-icon>
+                  {{ iconConfig?.label }}
                 </span>
               </mat-select-trigger>
-              @for (category of CATEGORIES; track category) {
-                <mat-option [value]="category">
+              @for (category of ICON_CONFIGS; track category.category) {
+                <mat-option [value]="category.category">
                   <span class="inline-flex items-center gap-2">
-                    <mat-icon class="text-base leading-none">{{ CATEGORY_ICONS[category] }}</mat-icon>
-                    {{ getCategoryLabel(category) }}
+                    <mat-icon class="text-base leading-none">{{ category.iconName }}</mat-icon>
+                    {{ category.label }}
                   </span>
                 </mat-option>
               }
