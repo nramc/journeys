@@ -35,7 +35,7 @@ jobs:
 
       - name: Bump Version & Tag
         id: changelog
-        uses: TriPSs/conventional-changelog-action@v6.3.1
+        uses: TriPSs/conventional-changelog-action@v6.4.0
         with:
           github-token: ${{ secrets.DEPLOY_TOKEN }}
           skip-on-empty: 'false'
