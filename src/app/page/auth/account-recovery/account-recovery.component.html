@@ -1,0 +1,120 @@
+<section class="m-0 h-full flex justify-center items-center p-4">
+  <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 items-stretch rounded-2xl shadow-2xl border border-primary overflow-hidden">
+
+    <!-- Left Section: Form / Success -->
+    <mat-card class="p-8 md:p-10 flex flex-col justify-center gap-6 rounded-none shadow-none">
+      <div class="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center text-center gap-3">
+        <div
+          class="h-14 w-14 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+          <mat-icon class="!text-3xl !h-8 !w-8 !text-white">mail_lock</mat-icon>
+        </div>
+        <h2 class="text-2xl font-bold text-primary tracking-tight">Recover your account</h2>
+        @if (!isSuccessful()) {
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            No worries. Enter your registered email address and we'll send you a secure one-time link to sign in and
+            reset your password.
+          </p>
+        }
+      </div>
+
+      @if (!isSuccessful()) {
+        <form class="flex flex-col gap-4 sm:mx-auto sm:w-full sm:max-w-sm" (ngSubmit)="requestRecovery(recoveryForm)"
+          #recoveryForm="ngForm">
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Username</mat-label>
+            <input matInput type="email" name="username" id="username" required
+              placeholder="you@example.com" [(ngModel)]="form().username"
+              autocomplete="username" #username="ngModel" maxlength="50"/>
+            <mat-icon matPrefix class="mr-1 text-gray-400">mail</mat-icon>
+            @if (username.invalid && (username.dirty || recoveryForm.submitted)) {
+              @if (username.errors?.['maxlength']) {
+                <mat-error>Max 50 characters.</mat-error>
+              }
+            }
+          </mat-form-field>
+
+          <button mat-flat-button type="submit" color="primary" class="w-full !py-2 font-semibold"
+            [disabled]="isSubmitting()">
+            <span class="flex items-center justify-center gap-2">
+              @if (isSubmitting()) {
+                <mat-spinner diameter="20" color="accent"></mat-spinner>
+                <span>Sending link…</span>
+              } @else {
+                <mat-icon>send</mat-icon>
+                <span>Send Recovery Link</span>
+              }
+            </span>
+          </button>
+
+          <div class="flex items-center gap-3 text-gray-400 text-xs">
+            <span class="flex-1 border-t border-gray-200 dark:border-gray-700"></span>
+            <span>remembered it?</span>
+            <span class="flex-1 border-t border-gray-200 dark:border-gray-700"></span>
+          </div>
+
+          <a class="text-sm text-primary font-semibold hover:underline text-center flex items-center justify-center gap-1"
+            [routerLink]="LOGIN_PAGE_INFO.path">
+            <mat-icon class="!text-base !h-4 !w-4">arrow_back</mat-icon>
+            Back to Sign In
+          </a>
+        </form>
+      } @else {
+        <div
+          class="pop-in flex flex-col items-center gap-3 text-center px-6 py-8 sm:mx-auto sm:w-full sm:max-w-sm dark:border-green-800 dark:bg-green-950">
+          <mat-icon class="!text-5xl !h-12 !w-12 !text-green-600 !dark:text-green-400">check_circle</mat-icon>
+          <h3 class="text-lg font-bold text-green-800 dark:text-green-300">Check your email</h3>
+          <p class="text-sm text-green-700 dark:text-green-400">
+            We've sent a recovery link to <span class="font-semibold">{{ submittedEmail() }}</span>.
+            Click the link in the email to sign in and reset your password.
+          </p>
+          <p class="text-xs text-green-600/80 dark:text-green-500/80">
+            Didn't receive it? Check your spam folder, or try again with a different email address.
+          </p>
+
+          <div class="flex flex-col gap-2 w-full pt-3">
+            <button mat-flat-button type="button" color="primary" class="w-full font-semibold"
+              [routerLink]="LOGIN_PAGE_INFO.path">
+              Back to Sign In
+            </button>
+            <button mat-stroked-button type="button" class="w-full font-semibold" (click)="tryAnotherEmail()">
+              Try a different email
+            </button>
+          </div>
+        </div>
+      }
+    </mat-card>
+
+    <!-- Right Section: Decorative Panel -->
+    <div
+      class="hidden lg:flex flex-col justify-center items-center p-10 gap-6 relative bg-cover bg-center h-full w-full"
+      style="background-image: url('assets/image/world-map-light-theme.jpg');">
+      <!-- Background Overlay -->
+      <div class="absolute inset-0 bg-blue-700/30"></div>
+
+      <!-- Foreground Content -->
+      <div class="relative text-white flex flex-col gap-6 max-w-md">
+        <blockquote class="relative bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md p-8 text-gray-700">
+          <h1 class="text-2xl font-bold text-indigo-700">Your Journeys, Always Within Reach.</h1>
+          <p class="text-gray-600 mt-2">Account recovery is quick, secure, and just a few clicks away.</p>
+        </blockquote>
+
+        <div class="flex flex-col gap-4 bg-blue-700/75 rounded-lg p-6">
+          <div class="flex items-center gap-3">
+            <mat-icon class="!text-2xl !h-6 !w-6">email</mat-icon>
+            <span>Enter your registered email address</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <mat-icon class="!text-2xl !h-6 !w-6">mark_email_read</mat-icon>
+            <span>Check your inbox for the recovery link</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <mat-icon class="!text-2xl !h-6 !w-6">lock_open</mat-icon>
+            <span>Click the link to securely sign back in</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

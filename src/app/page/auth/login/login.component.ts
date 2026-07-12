@@ -7,7 +7,7 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Credential, LoginResponse, LoginService} from "../../../service/auth/login.service";
 import {UserContext} from "../../../service/auth/user-context";
 import {MfaOptions} from "../display-mfa-options/display-mfa-options.component";
-import {SIGNUP_PAGE_INFO} from "../../../model/page.info.model";
+import {ACCOUNT_RECOVERY_PAGE_INFO, SIGNUP_PAGE_INFO} from "../../../model/page.info.model";
 import {NotificationService} from "../../../service/common/notification.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {BffService} from "../../../service/bff/bff.service";
@@ -41,8 +41,7 @@ import {MatIconModule} from "@angular/material/icon";
 })
 export class LoginComponent {
   protected readonly SIGNUP_PAGE_INFO = SIGNUP_PAGE_INFO;
-  forgotPasswordAssistanceUrl: string = "https://github.com/nramc/journeys/issues/new?" +
-    "assignees=&labels=bug&projects=&template=bug-report-form.yml&title=%5BBug%5D%3A+";
+  protected readonly ACCOUNT_RECOVERY_PAGE_INFO = ACCOUNT_RECOVERY_PAGE_INFO;
 
   private readonly authService = inject(AuthService);
   private readonly loginService = inject(LoginService);
