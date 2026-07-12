@@ -28,6 +28,16 @@ export const ROUTES: Routes = [
     title: 'Login'
   },
   {
+    path: 'account/recover',
+    loadComponent: () => import('./page/auth/account-recovery/account-recovery.component').then(m => m.AccountRecoveryComponent),
+    title: 'Account Recovery'
+  },
+  {
+    path: 'account/recover/login',
+    loadComponent: () => import('./page/auth/account-recovery-login/account-recovery-login.component').then(m => m.AccountRecoveryLoginComponent),
+    title: 'Recovery Sign In'
+  },
+  {
     path: 'mfa',
     loadComponent: () => import('./page/auth/display-mfa-options/display-mfa-options.component').then(m => m.DisplayMfaOptionsComponent),
     title: 'Login'

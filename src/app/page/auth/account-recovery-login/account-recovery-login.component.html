@@ -1,0 +1,50 @@
+<section class="h-full flex items-center justify-center p-4">
+  <div class="w-full max-w-md">
+    <mat-card class="!p-0 overflow-hidden rounded-2xl shadow-2xl">
+
+      <!-- Gradient Header -->
+      <div class="bg-gradient-to-r from-indigo-500 to-blue-600 text-white px-6 py-8 flex flex-col items-center gap-2">
+        <img class="h-12 w-12 rounded-full bg-white/90 p-1.5 shadow-md" ngSrc="assets/logo/journey-logo-64x64.png"
+          alt="Journey" height="64" width="64">
+        <h2 class="text-xl font-bold !text-white">Sign In</h2>
+      </div>
+
+      <div class="p-8 flex flex-col items-center gap-4 text-center min-h-56 justify-center">
+
+        @if (isLoading()) {
+          <mat-icon class="!text-5xl !h-12 !w-12 text-indigo-500 animate-pulse">lock_clock</mat-icon>
+          <h3 class="text-lg font-bold text-primary">Verifying your recovery link…</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Hold tight, this only takes a moment.</p>
+          <mat-spinner diameter="32" class="mt-2"></mat-spinner>
+        } @else if (isSuccessful()) {
+          <div class="pop-in flex flex-col items-center gap-3 w-full">
+            <mat-icon class="!text-5xl !h-12 !w-12 text-green-600 dark:text-green-400">check_circle</mat-icon>
+            <h3 class="text-lg font-bold text-green-700 dark:text-green-400">Login successful!</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Redirecting you to your dashboard…</p>
+            <mat-progress-bar mode="indeterminate" class="w-full rounded-full mt-1"></mat-progress-bar>
+          </div>
+        } @else {
+          <div class="pop-in flex flex-col items-center gap-3 w-full">
+            <mat-icon class="!text-5xl !h-12 !w-12 text-red-600 dark:text-red-400">error</mat-icon>
+            <h3 class="text-lg font-bold text-red-700 dark:text-red-400">Recovery link invalid</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">{{ errorMessage() }}</p>
+
+            <div class="flex flex-col gap-2 w-full pt-3">
+              <button mat-flat-button type="button" color="primary" class="w-full font-semibold"
+                [routerLink]="ACCOUNT_RECOVERY_PAGE_INFO.path">
+                <span class="flex items-center justify-center gap-2">
+                  <mat-icon>mail_lock</mat-icon>
+                  Request a new recovery link
+                </span>
+              </button>
+              <button mat-stroked-button type="button" class="w-full font-semibold" [routerLink]="LOGIN_PAGE_INFO.path">
+                Back to Sign In
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </mat-card>
+  </div>
+</section>
+

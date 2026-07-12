@@ -49,6 +49,16 @@ export class LoginService {
     return this.passkeyService.login(username);
   }
 
+  loginWithOneTimeToken(token: string) {
+    return this.httpClient.post<LoginResponse>(environment.journeyApi + '/login/ott', {
+      'token': token
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
 }
 
 export interface Credential {

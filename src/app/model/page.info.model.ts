@@ -34,6 +34,20 @@ export const LOGOUT_PAGE_INFO: PageInfo = {
   path: "/logout",
   icon: "lock"
 };
+export const ACCOUNT_RECOVERY_PAGE_INFO: PageInfo = {
+  name: "Account Recovery",
+  title: "Account Recovery",
+  description: "Recover access to your account with a one-time recovery link.",
+  path: "/account/recover",
+  icon: "mail_lock"
+};
+export const ACCOUNT_RECOVERY_LOGIN_PAGE_INFO: PageInfo = {
+  name: "Recovery Sign In",
+  title: "Recovery Sign In",
+  description: "Signing you in with your one-time recovery link.",
+  path: "/account/recover/login",
+  icon: "login"
+};
 export const JOURNEY_SEARCH_PAGE_INFO: PageInfo = {
   name: "Journeys",
   title: "Journeys",
