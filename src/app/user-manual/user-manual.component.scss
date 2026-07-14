@@ -141,20 +141,12 @@
   font-size: 1.25rem;
 }
 
-main > app-manual-introduction,
-main > app-manual-getting-started,
-main > app-manual-user-onboarding,
-main > app-manual-account-recovery,
-main > app-manual-journey-manager,
-main > app-manual-dashboard,
-main > app-manual-gallery,
-main > app-manual-statistics,
-main > app-manual-my-account,
-main > app-manual-tools,
-main > app-manual-daily-inspiration {
+.manual-section {
   display: block;
+  width: 100%;
   max-width: 75ch;
-  margin-block: 3.5rem;
+  margin-inline: auto;
+  margin-block: 2rem;
   scroll-margin-top: 2rem;
   line-height: 1.7;
 }
@@ -209,6 +201,7 @@ dialog {
   .contents-action > span:first-child {
     display: none;
   }
+
 }
 
 @media (prefers-reduced-motion: reduce) {

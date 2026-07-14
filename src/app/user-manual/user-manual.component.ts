@@ -1,5 +1,5 @@
-import {Component, ElementRef, inject, signal, viewChild} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, computed, ElementRef, inject, signal, viewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {USER_MANUAL_PAGE_INFO} from "../model/page.info.model";
 import {PageHeaderComponent} from "../component/page-header/page-header.component";
 import {ManualGettingStartedComponent} from "./manual-getting-started/manual-getting-started.component";
@@ -37,6 +37,7 @@ import {ManualAccountRecoveryComponent} from "./manual-account-recovery/manual-a
 export class UserManualComponent {
   protected readonly USER_MANUAL_PAGE_INFO = USER_MANUAL_PAGE_INFO;
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   protected readonly manualSections = [
     {id: 'introduction', label: 'Introduction', description: 'Discover what Journey can help you create and remember.'},
     {id: 'getting-started', label: 'Getting Started', description: 'Take your first steps as a guest or registered user.'},
@@ -51,13 +52,43 @@ export class UserManualComponent {
     {id: 'daily-inspiration', label: 'Daily Inspiration', description: 'Reconnect with meaningful memories and ideas each day.'}
   ] as const;
 
+  protected readonly activeSectionIndex = signal(0);
+  protected readonly activeSection = computed(() => this.manualSections[this.activeSectionIndex()]);
   imageDialog = viewChild.required<ElementRef<HTMLDialogElement>>('imageDialog');
   protected readonly selectedImage = signal('');
 
+  constructor() {
+    const fragment = this.route.snapshot.fragment;
+    const sectionIndex = this.manualSections.findIndex(section => section.id === fragment);
+    if (sectionIndex >= 0) {
+      this.activeSectionIndex.set(sectionIndex);
+    }
+  }
+
   navigateToSection(id: string, event: Event): void {
     event.preventDefault();
+    const sectionIndex = this.manualSections.findIndex(section => section.id === id);
+    if (sectionIndex < 0) {
+      return;
+    }
+
+    this.activeSectionIndex.set(sectionIndex);
+    (event.currentTarget as HTMLElement).closest('details')?.removeAttribute('open');
     this.router.navigate([], {fragment: id}).then(() => {
-      document.getElementById(id)?.scrollIntoView({behavior: 'smooth', block: 'start'});
+      requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({behavior: 'smooth', block: 'start'}));
+    });
+  }
+
+  navigateToAdjacentSection(offset: -1 | 1): void {
+    const nextIndex = this.activeSectionIndex() + offset;
+    if (nextIndex < 0 || nextIndex >= this.manualSections.length) {
+      return;
+    }
+
+    const nextSection = this.manualSections[nextIndex];
+    this.activeSectionIndex.set(nextIndex);
+    this.router.navigate([], {fragment: nextSection.id}).then(() => {
+      requestAnimationFrame(() => document.getElementById(nextSection.id)?.scrollIntoView({behavior: 'smooth', block: 'start'}));
     });
   }
 
