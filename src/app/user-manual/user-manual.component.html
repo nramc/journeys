@@ -10,18 +10,36 @@
       This guide is designed to help you navigate and make the most of your experience with our platform.
     </p>
 
-    <nav class="table-of-contents mb-8" aria-labelledby="contents-heading">
-      <h2 id="contents-heading" class="text-lg font-bold mb-4">Explore the manual</h2>
-      <nav>
+    <details class="table-of-contents mb-8">
+      <summary class="contents-header">
+        <div>
+          <p class="contents-kicker">Table of contents</p>
+          <h2 id="contents-heading" class="text-lg font-bold">Jump to a section</h2>
+        </div>
+        <span class="contents-action">
+          <span>{{ manualSections.length }} sections</span>
+          <span class="contents-chevron" aria-hidden="true">⌄</span>
+        </span>
+      </summary>
+      <p class="contents-summary">Select a section to jump directly to the information you need.</p>
+      <nav aria-labelledby="contents-heading">
         <ul class="contents-grid">
-          @for (section of manualSections; track section.id) {
+          @for (section of manualSections; track section.id; let index = $index) {
             <li>
-              <a [href]="'#' + section.id" class="contents-link">{{ section.label }}</a>
+              <a [href]="'#' + section.id" class="contents-link"
+                 (click)="navigateToSection(section.id, $event)">
+                <span class="contents-step" aria-hidden="true">{{ (index + 1).toString().padStart(2, '0') }}</span>
+                <span class="contents-copy">
+                  <strong>{{ section.label }}</strong>
+                  <span>{{ section.description }}</span>
+                </span>
+                <span class="contents-arrow" aria-hidden="true">&#8594;</span>
+              </a>
             </li>
           }
         </ul>
       </nav>
-    </nav>
+    </details>
 
     <app-manual-introduction id="introduction"/>
 
