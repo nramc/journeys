@@ -11,6 +11,7 @@ import {ManualGalleryComponent} from "./manual-gallery/manual-gallery.component"
 import {ManualDashboardComponent} from "./manual-dashboard/manual-dashboard.component";
 import {ManualDailyInspirationComponent} from "./manual-daily-inspiration/manual-daily-inspiration.component";
 import {ManualMyAccountComponent} from "./manual-my-account/manual-my-account.component";
+import {ManualAccountRecoveryComponent} from "./manual-account-recovery/manual-account-recovery.component";
 
 
 @Component({
@@ -26,7 +27,8 @@ import {ManualMyAccountComponent} from "./manual-my-account/manual-my-account.co
     ManualGalleryComponent,
     ManualDashboardComponent,
     ManualDailyInspirationComponent,
-    ManualMyAccountComponent
+    ManualMyAccountComponent,
+    ManualAccountRecoveryComponent
   ],
   templateUrl: './user-manual.component.html',
   styleUrl: './user-manual.component.scss',

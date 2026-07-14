@@ -18,6 +18,8 @@
                  class="text-blue-500 hover:underline hover:cursor-pointer">Getting Started</a></li>
           <li><a (click)="scrollTo('user-onboarding')" (keydown.enter)="scrollTo('user-onboarding')" tabindex="0"
                  class="text-blue-500 hover:underline hover:cursor-pointer">User Onboarding</a></li>
+          <li><a (click)="scrollTo('account-recovery')" (keydown.enter)="scrollTo('account-recovery')" tabindex="0"
+                 class="text-blue-500 hover:underline hover:cursor-pointer">Account Recovery</a></li>
           <li><a (click)="scrollTo('journey-manager')" (keydown.enter)="scrollTo('journey-manager')" tabindex="0"
                  class="text-blue-500 hover:underline hover:cursor-pointer">Journey Manager</a></li>
           <li><a (click)="scrollTo('dashboard')" (keydown.enter)="scrollTo('dashboard')" tabindex="0"
@@ -43,6 +45,8 @@
     <app-manual-getting-started id="getting-started"/>
 
     <app-manual-user-onboarding id="user-onboarding"/>
+
+    <app-manual-account-recovery id="account-recovery"/>
 
     <app-manual-journey-manager id="journey-manager"/>
 
