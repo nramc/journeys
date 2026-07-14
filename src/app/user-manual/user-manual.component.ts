@@ -1,4 +1,4 @@
-import {Component, ElementRef, viewChild} from '@angular/core';
+import {Component, ElementRef, signal, viewChild} from '@angular/core';
 import {USER_MANUAL_PAGE_INFO} from "../model/page.info.model";
 import {PageHeaderComponent} from "../component/page-header/page-header.component";
 import {ManualGettingStartedComponent} from "./manual-getting-started/manual-getting-started.component";
@@ -35,17 +35,31 @@ import {ManualAccountRecoveryComponent} from "./manual-account-recovery/manual-a
 })
 export class UserManualComponent {
   protected readonly USER_MANUAL_PAGE_INFO = USER_MANUAL_PAGE_INFO;
+  protected readonly manualSections = [
+    {id: 'introduction', label: 'Introduction'},
+    {id: 'getting-started', label: 'Getting Started'},
+    {id: 'user-onboarding', label: 'User Onboarding'},
+    {id: 'account-recovery', label: 'Account Recovery'},
+    {id: 'journey-manager', label: 'Journey Manager'},
+    {id: 'dashboard', label: 'Dashboard'},
+    {id: 'gallery', label: 'Gallery'},
+    {id: 'statistics', label: 'Statistics'},
+    {id: 'my-account', label: 'My Account'},
+    {id: 'tools', label: 'Tools'},
+    {id: 'daily-inspiration', label: 'Daily Inspiration'}
+  ] as const;
+
   imageDialog = viewChild.required<ElementRef<HTMLDialogElement>>('imageDialog');
+  protected readonly selectedImage = signal('');
 
-  scrollTo(id: string): void {
-    document.getElementById(id)?.scrollIntoView({behavior: 'smooth'});
-  }
-
-  showDialog(imagUrl: string) {
+  showDialog(imageUrl: string): void {
+    this.selectedImage.set(imageUrl);
     const dialogElement = this.imageDialog().nativeElement;
-    const imageElement = dialogElement.querySelector('img') as HTMLImageElement;
-    imageElement.src = imagUrl;
     dialogElement.showModal();
+    dialogElement.querySelector<HTMLButtonElement>('button')?.focus();
   }
 
+  closeDialog(): void {
+    this.imageDialog().nativeElement.close();
+  }
 }

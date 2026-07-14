@@ -1,44 +1,27 @@
 <app-page-header [pageInfo]="USER_MANUAL_PAGE_INFO"/>
 
 <div class="flex flex-col container h-full text-pretty">
-  <main class="mb-auto">
+  <a class="skip-link" href="#manual-content">Skip to manual content</a>
 
-    <p class="mb-4">
+  <main id="manual-content" class="mb-auto" tabindex="-1">
+
+    <p class="manual-intro mb-6">
       Welcome to the <strong>Journey User Manual</strong>!
       This guide is designed to help you navigate and make the most of your experience with our platform.
     </p>
 
-    <section class="table-of-contents mb-4">
-      <h2 class="text-lg font-bold mb-4">Table of Contents</h2>
+    <nav class="table-of-contents mb-8" aria-labelledby="contents-heading">
+      <h2 id="contents-heading" class="text-lg font-bold mb-4">Explore the manual</h2>
       <nav>
-        <ul class="list-disc pl-5">
-          <li><a (click)="scrollTo('introduction')" (keydown.enter)="scrollTo('introduction')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Introduction</a></li>
-          <li><a (click)="scrollTo('getting-started')" (keydown.enter)="scrollTo('getting-started')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Getting Started</a></li>
-          <li><a (click)="scrollTo('user-onboarding')" (keydown.enter)="scrollTo('user-onboarding')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">User Onboarding</a></li>
-          <li><a (click)="scrollTo('account-recovery')" (keydown.enter)="scrollTo('account-recovery')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Account Recovery</a></li>
-          <li><a (click)="scrollTo('journey-manager')" (keydown.enter)="scrollTo('journey-manager')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Journey Manager</a></li>
-          <li><a (click)="scrollTo('dashboard')" (keydown.enter)="scrollTo('dashboard')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Dashboard</a></li>
-          <li><a (click)="scrollTo('gallery')" (keydown.enter)="scrollTo('gallery')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Gallery</a></li>
-          <li><a (click)="scrollTo('statistics')" (keydown.enter)="scrollTo('statistics')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Statistics</a></li>
-          <li><a (click)="scrollTo('my-account')" (keydown.enter)="scrollTo('my-account')" tabindex="0"
-                  class="text-blue-500 hover:underline hover:cursor-pointer">My Account</a></li>
-          <li><a (click)="scrollTo('tools')" (keydown.enter)="scrollTo('tools')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Tools</a></li>
-          <li><a (click)="scrollTo('daily-inspiration')" (keydown.enter)="scrollTo('daily-inspiration')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Daily Inspiration</a></li>
+        <ul class="contents-grid">
+          @for (section of manualSections; track section.id) {
+            <li>
+              <a [href]="'#' + section.id" class="contents-link">{{ section.label }}</a>
+            </li>
+          }
         </ul>
       </nav>
-    </section>
-
-    <br/>
+    </nav>
 
     <app-manual-introduction id="introduction"/>
 
@@ -64,10 +47,13 @@
 
   </main>
 
-  <dialog #imageDialog id="imageDialog" (click)="imageDialog.close()" (keydown.escape)="imageDialog.close()"
-          tabindex="-1">
+        <dialog #imageDialog id="imageDialog" aria-label="Image preview" tabindex="-1"
+          (click)="$event.target === $event.currentTarget && closeDialog()" (keydown.escape)="closeDialog()">
     <div class="dialog-content">
-      <img src="assets/logo/journey-logo-1920×1080.png" alt="Journey" class="full-screen-image"/>
+                     <button type="button" class="dialog-close" aria-label="Close image preview" (click)="closeDialog()">
+                            <span aria-hidden="true">&times;</span>
+                     </button>
+                    <img [src]="selectedImage()" alt="Expanded manual illustration" class="full-screen-image"/>
     </div>
   </dialog>
 

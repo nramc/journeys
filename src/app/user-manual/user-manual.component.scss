@@ -1,3 +1,77 @@
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--mat-sys-primary, #2563eb);
+  color: var(--mat-sys-on-primary, #fff);
+  transition: top 150ms ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.manual-intro {
+  max-width: 70ch;
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+.table-of-contents {
+  position: sticky;
+  top: 1rem;
+  z-index: 2;
+  padding: 1.25rem;
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--mat-sys-surface, Canvas) 92%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.contents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.contents-link {
+  display: block;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--mat-sys-primary, #2563eb);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contents-link:hover,
+.contents-link:focus-visible {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  text-decoration: underline;
+}
+
+main > app-manual-introduction,
+main > app-manual-getting-started,
+main > app-manual-user-onboarding,
+main > app-manual-account-recovery,
+main > app-manual-journey-manager,
+main > app-manual-dashboard,
+main > app-manual-gallery,
+main > app-manual-statistics,
+main > app-manual-my-account,
+main > app-manual-tools,
+main > app-manual-daily-inspiration {
+  display: block;
+  max-width: 75ch;
+  margin-block: 3.5rem;
+  scroll-margin-top: 2rem;
+  line-height: 1.7;
+}
+
 .full-screen-image {
   max-width: 100%;
   max-height: 100%;
@@ -12,11 +86,43 @@ dialog {
   background-color: rgba(0, 0, 0, 0.8);
 }
 .dialog-content {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
   padding: 1rem;
+}
+
+.dialog-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgb(255 255 255 / 40%);
+  border-radius: 9999px;
+  background: rgb(0 0 0 / 55%);
+  color: white;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .table-of-contents {
+    top: 0.5rem;
+  }
+
+  .contents-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
 }
 
