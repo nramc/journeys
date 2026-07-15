@@ -1,0 +1,51 @@
+<section>
+  <h2 class="text-lg font-bold mb-4">Account Recovery with a One-Time Link</h2>
+
+  <p class="mb-4">
+    If you forget your password, you can securely recover access to your Journey account without contacting support.
+    Journey uses an <strong>one-time token (OTT)</strong> sent to your registered email address. Your password is never
+    sent by email.
+  </p>
+
+  <div class="rounded-lg border border-blue-200 bg-blue-50 p-4 mb-4 dark:border-blue-800 dark:bg-blue-950">
+    <div class="inline-flex gap-3 justify-center content-center items-center">
+      <span class="material-icons text-blue-600 dark:text-blue-300" aria-hidden="true">info</span>
+      <p class="text-sm text-blue-800 dark:text-blue-200">
+        The recovery link is private and intended only for you. Do not forward it or share it with anyone. For your
+        security, the link is temporary and can be used only once.
+      </p>
+    </div>
+  </div>
+
+  <h3 class="text-base font-bold mb-2">Request a recovery link</h3>
+  <ol class="list-decimal pl-5 mb-4 space-y-2">
+    <li>Open the <a routerLink="/login" class="text-blue-500 hover:underline">Login</a> page.</li>
+    <li>Select <strong>Forgot Password?</strong> below the password field.</li>
+    <li>Enter the email address registered with your Journey account.</li>
+    <li>Select <strong>Send Recovery Link</strong>.</li>
+    <li>Check your inbox for the recovery email. If it is not there, check your spam or junk folder.</li>
+  </ol>
+
+  <h3 class="text-base font-bold mb-2">Sign in with the recovery link</h3>
+  <ol class="list-decimal pl-5 mb-4 space-y-2">
+    <li>Open the recovery link from the email on the device where you want to use Journey.</li>
+    <li>Journey automatically verifies the one-time token and signs you in.</li>
+    <li>After successful verification, you are redirected to the Home page.</li>
+  </ol>
+
+  <div class="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950">
+    <div class="inline-flex gap-3 justify-center content-center items-center">
+      <span class="material-icons text-amber-600 dark:text-amber-300" aria-hidden="true">schedule</span>
+      <div class="text-sm text-amber-800 dark:text-amber-200">
+        <p class="font-semibold mb-1">Having trouble with the link?</p>
+        <p>
+          A recovery link may have expired, already been used, or been copied incorrectly. Return to the
+          <a routerLink="/account/recover" class="font-semibold underline">Account Recovery</a> page and request a new
+          link. If you did not request the email, you can safely ignore it.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</section>
+<br/>

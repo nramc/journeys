@@ -21,16 +21,16 @@
 
   <div class="mb-4">
     <p>This is the example of the statistics page:</p>
-    <div class="flex flex-wrap gap-4 justify-center">
-      <img src="assets/manual/statistics-manual-01.png" alt="Thumbnail" class="thumbnail mt-4" tabindex="-1"
-           (click)="thumbnailClicked.emit('assets/manual/statistics-manual-01.png')"
-           (keydown.enter)="thumbnailClicked.emit('assets/manual/statistics-manual-01.png')"/>
-      <img src="assets/manual/statistics-manual-02.png" alt="Thumbnail" class="thumbnail mt-4" tabindex="-1"
-           (click)="thumbnailClicked.emit('assets/manual/statistics-manual-01.png')"
-           (keydown.enter)="thumbnailClicked.emit('assets/manual/statistics-manual-01.png')"/>
-      <img src="assets/manual/statistics-manual-03.png" alt="Thumbnail" class="thumbnail mt-4" tabindex="-1"
-           (click)="thumbnailClicked.emit('assets/manual/statistics-manual-01.png')"
-           (keydown.enter)="thumbnailClicked.emit('assets/manual/statistics-manual-01.png')"/>
+    <div class="flex flex-wrap gap-4 justify-center" aria-label="Statistics screenshots">
+      <button type="button" class="thumbnail mt-4" (click)="thumbnailClicked.emit('assets/manual/statistics-manual-01.png')">
+        <img src="assets/manual/statistics-manual-01.png" alt="Statistics by year screenshot" loading="lazy" decoding="async"/>
+      </button>
+      <button type="button" class="thumbnail mt-4" (click)="thumbnailClicked.emit('assets/manual/statistics-manual-02.png')">
+        <img src="assets/manual/statistics-manual-02.png" alt="Statistics by country and city screenshot" loading="lazy" decoding="async"/>
+      </button>
+      <button type="button" class="thumbnail mt-4" (click)="thumbnailClicked.emit('assets/manual/statistics-manual-03.png')">
+        <img src="assets/manual/statistics-manual-03.png" alt="Statistics by category screenshot" loading="lazy" decoding="async"/>
+      </button>
     </div>
   </div>
 

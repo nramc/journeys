@@ -1,69 +1,91 @@
 <app-page-header [pageInfo]="USER_MANUAL_PAGE_INFO"/>
 
 <div class="flex flex-col container h-full text-pretty">
-  <main class="mb-auto">
+  <a class="skip-link" href="#manual-content">Skip to manual content</a>
 
-    <p class="mb-4">
-      Welcome to the <strong>Journey User Manual</strong>!
-      This guide is designed to help you navigate and make the most of your experience with our platform.
-    </p>
+  <main id="manual-content" class="mb-auto" tabindex="-1">
 
-    <section class="table-of-contents mb-4">
-      <h2 class="text-lg font-bold mb-4">Table of Contents</h2>
-      <nav>
-        <ul class="list-disc pl-5">
-          <li><a (click)="scrollTo('introduction')" (keydown.enter)="scrollTo('introduction')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Introduction</a></li>
-          <li><a (click)="scrollTo('getting-started')" (keydown.enter)="scrollTo('getting-started')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Getting Started</a></li>
-          <li><a (click)="scrollTo('user-onboarding')" (keydown.enter)="scrollTo('user-onboarding')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">User Onboarding</a></li>
-          <li><a (click)="scrollTo('journey-manager')" (keydown.enter)="scrollTo('journey-manager')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Journey Manager</a></li>
-          <li><a (click)="scrollTo('dashboard')" (keydown.enter)="scrollTo('dashboard')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Dashboard</a></li>
-          <li><a (click)="scrollTo('gallery')" (keydown.enter)="scrollTo('gallery')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Gallery</a></li>
-          <li><a (click)="scrollTo('statistics')" (keydown.enter)="scrollTo('statistics')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Statistics</a></li>
-          <li><a (click)="scrollTo('my-account')" (keydown.enter)="scrollTo('my-account')" tabindex="0"
-                  class="text-blue-500 hover:underline hover:cursor-pointer">My Account</a></li>
-          <li><a (click)="scrollTo('tools')" (keydown.enter)="scrollTo('tools')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Tools</a></li>
-          <li><a (click)="scrollTo('daily-inspiration')" (keydown.enter)="scrollTo('daily-inspiration')" tabindex="0"
-                 class="text-blue-500 hover:underline hover:cursor-pointer">Daily Inspiration</a></li>
+    <details class="table-of-contents mb-8">
+      <summary class="contents-header">
+        <div>
+          <h2 id="contents-heading" class="text-lg font-bold">Table of contents</h2>
+        </div>
+        <span class="contents-action">
+          <span>{{ manualSections.length }} sections</span>
+          <span class="contents-chevron material-icons" aria-hidden="true">expand_circle_down</span>
+        </span>
+      </summary>
+      <p class="contents-summary">Select a section to jump directly to the information you need.</p>
+      <nav aria-labelledby="contents-heading">
+        <ul class="contents-grid">
+          @for (section of manualSections; track section.id; let index = $index) {
+            <li>
+              <a [href]="'#' + section.id" class="contents-link"
+                 (click)="navigateToSection(section.id, $event)">
+                <span class="contents-step" aria-hidden="true">{{ (index + 1).toString().padStart(2, '0') }}</span>
+                <span class="contents-copy">
+                  <strong>{{ section.label }}</strong>
+                  <span>{{ section.description }}</span>
+                </span>
+                <span class="material-icons contents-arrow" aria-hidden="true">arrow_forward</span>
+              </a>
+            </li>
+          }
         </ul>
+      </nav>
+    </details>
+
+    <section class="manual-section mx-auto" aria-labelledby="active-section-heading">
+      <div class="mb-6 flex items-center gap-3 text-xs font-bold uppercase tracking-wide opacity-65" aria-live="polite">
+        <span>Section {{ activeSectionIndex() + 1 }} of {{ manualSections.length }}</span>
+        <span class="block h-1.5 max-w-48 flex-1 overflow-hidden rounded-full bg-current/15" aria-hidden="true">
+          <span class="block h-full rounded-full bg-primary brightness-75 transition-[width] duration-200 motion-reduce:transition-none"
+                [style.width.%]="((activeSectionIndex() + 1) / manualSections.length) * 100"></span>
+        </span>
+      </div>
+
+      <h1 id="active-section-heading" class="sr-only">{{ activeSection().label }}</h1>
+
+      @switch (activeSectionIndex()) {
+        @case (0) { <app-manual-introduction id="introduction"/> }
+        @case (1) { <app-manual-getting-started id="getting-started"/> }
+        @case (2) { <app-manual-user-onboarding id="user-onboarding"/> }
+        @case (3) { <app-manual-account-recovery id="account-recovery"/> }
+        @case (4) { <app-manual-journey-manager id="journey-manager"/> }
+        @case (5) { <app-manual-dashboard id="dashboard"/> }
+        @case (6) { <app-manual-gallery id="gallery"/> }
+        @case (7) { <app-manual-statistics (thumbnailClicked)="showDialog($event)" id="statistics"/> }
+        @case (8) { <app-manual-my-account id="my-account"/> }
+        @case (9) { <app-manual-tools id="tools"/> }
+        @case (10) { <app-manual-daily-inspiration id="daily-inspiration"/> }
+        @default { <app-manual-introduction id="introduction"/> }
+      }
+
+      <nav class="mt-12 flex justify-between gap-4 border-t border-current/15 pt-5 max-sm:flex-col" aria-label="Manual section navigation">
+        <button type="button" class="group flex min-w-40 items-center gap-3 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 text-left text-primary shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/10 hover:shadow-md focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:translate-y-0 disabled:hover:shadow-sm max-sm:w-full motion-reduce:transition-none"
+                [disabled]="activeSectionIndex() === 0"
+                (click)="navigateToAdjacentSection(-1)">
+          <span class="text-xl transition-transform duration-200 group-hover:-translate-x-1 motion-reduce:transition-none" aria-hidden="true">&#8592;</span>
+          <span class="text-sm"><small class="mb-0.5 block text-[0.7rem] uppercase opacity-60">Previous</small>{{ manualSections[activeSectionIndex() - 1]?.label ?? 'Start' }}</span>
+        </button>
+        <button type="button" class="group flex min-w-40 items-center justify-end gap-3 rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 text-right text-primary shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/10 hover:shadow-md focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:translate-y-0 disabled:hover:shadow-sm max-sm:w-full motion-reduce:transition-none"
+                [disabled]="activeSectionIndex() === manualSections.length - 1"
+                (click)="navigateToAdjacentSection(1)">
+          <span class="text-sm"><small class="mb-0.5 block text-[0.7rem] uppercase opacity-60">Next</small>{{ manualSections[activeSectionIndex() + 1]?.label ?? 'Complete' }}</span>
+          <span class="text-xl transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true">&#8594;</span>
+        </button>
       </nav>
     </section>
 
-    <br/>
-
-    <app-manual-introduction id="introduction"/>
-
-    <app-manual-getting-started id="getting-started"/>
-
-    <app-manual-user-onboarding id="user-onboarding"/>
-
-    <app-manual-journey-manager id="journey-manager"/>
-
-    <app-manual-dashboard id="dashboard"/>
-
-    <app-manual-gallery id="gallery"/>
-
-    <app-manual-statistics (thumbnailClicked)="showDialog($event)" id="statistics"/>
-
-    <app-manual-my-account id="my-account"/>
-
-    <app-manual-tools id="tools"/>
-
-    <app-manual-daily-inspiration id="daily-inspiration"/>
-
   </main>
 
-  <dialog #imageDialog id="imageDialog" (click)="imageDialog.close()" (keydown.escape)="imageDialog.close()"
-          tabindex="-1">
+        <dialog #imageDialog id="imageDialog" aria-label="Image preview" tabindex="-1"
+          (click)="$event.target === $event.currentTarget && closeDialog()" (keydown.escape)="closeDialog()">
     <div class="dialog-content">
-      <img src="assets/logo/journey-logo-1920×1080.png" alt="Journey" class="full-screen-image"/>
+                     <button type="button" class="dialog-close" aria-label="Close image preview" (click)="closeDialog()">
+                            <span aria-hidden="true">&times;</span>
+                     </button>
+                    <img [src]="selectedImage()" alt="Expanded manual illustration" class="full-screen-image"/>
     </div>
   </dialog>
 
