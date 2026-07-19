@@ -15,7 +15,9 @@ import {Router} from "@angular/router";
     selector: 'app-journey-calendar-view',
     imports: [FullCalendarModule],
     template: `
-        <full-calendar [options]="calendarOptions" [events]="journeys()"></full-calendar>`,
+        <div class="journey-calendar">
+            <full-calendar [options]="calendarOptions" [events]="journeys()"></full-calendar>
+        </div>`,
     styles: []
 })
 export class JourneyCalendarViewComponent {
@@ -31,8 +33,20 @@ export class JourneyCalendarViewComponent {
             center: 'title',
             left: 'multiMonthYear,dayGridMonth,dayGridWeek,dayGridDay'
         },
+        buttonText: {
+            today: 'Today',
+            month: 'Month',
+            week: 'Week',
+            day: 'Day',
+            multiMonthYear: 'Year'
+        },
         height: 'auto',
         initialView: 'dayGridMonth',
+        firstDay: 1,
+        fixedWeekCount: false,
+        dayMaxEvents: 3,
+        moreLinkText: count => `+${count} more`,
+        dayHeaderFormat: {weekday: 'short'},
         plugins: [rrulePlugin, multiMonthPlugin, dayGridPlugin],
         editable: false,
         eventDisplay: 'block',
