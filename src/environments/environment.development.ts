@@ -10,5 +10,5 @@ export const environment = {
   cloudBaseDir: "journey/journey-dev",
   version: packageJson.version,
   stage: 'dev',
-  maptilerKey: 'Li0Tw6BIChGtu8Jb304A'
+  maptilerKey: 'weudsMeXDjb8OU9aFvYf'
 };

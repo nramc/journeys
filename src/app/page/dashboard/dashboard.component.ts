@@ -10,6 +10,10 @@ import {FormsModule} from "@angular/forms";
 import {JourneyCalendarViewComponent} from "../../component/journey-calendar-view/journey-calendar-view.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {JourneyCardViewComponent} from "../../component/journey-card-view/journey-card-view.component";
+import {JourneyData} from "../../component/journey-card-view/journey.data";
+import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL} from "../../model/core/journey.model";
+import {byCountry} from "country-code-lookup";
 
 @Component({
     selector: 'app-dashboard',
@@ -22,7 +26,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatIconModule,
     FormsModule,
     JourneyCalendarViewComponent,
-    MatTooltipModule
+    MatTooltipModule,
+    JourneyCardViewComponent
   ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -32,17 +37,51 @@ export class DashboardComponent {
   viewType = signal<'map'|'calendar'>('map');
 
   featureCollection = toSignal(this.journeyService.getAllJourneysAsGeoJson());
-  totalJourneys = computed(() => this.featureCollection()?.features.length);
-  totalCountry = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'country'))
-  totalCity = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'city'))
+  totalJourneys = computed(() => this.featureCollection()?.features.length ?? 0);
+  totalCountry = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'country'));
+  totalPlaces = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'city'));
+  visitedCountries = computed(() => this.uniquePropertyValues(this.featureCollection(), 'country')
+    .sort((first, second) => first.localeCompare(second)));
+  recentMemories = computed<JourneyData[]>(() => (this.featureCollection()?.features ?? [])
+    .filter(feature => feature.id !== undefined && feature.properties?.['journeyDate'])
+    .map(feature => new JourneyData(
+      String(feature.id),
+      String(feature.properties?.['name'] ?? 'Untitled journey'),
+      String(feature.properties?.['title'] ?? feature.properties?.['city'] ?? feature.properties?.['country'] ?? 'Somewhere memorable'),
+      String(feature.properties?.['category'] ?? DEFAULT_CATEGORY),
+      String(feature.properties?.['journeyDate']),
+      Array.isArray(feature.properties?.['tags']) ? feature.properties?.['tags'] : [],
+      String(feature.properties?.['thumbnail'] ?? DEFAULT_THUMBNAIL)
+    ))
+    .sort((first, second) => Date.parse(second.journeyDate) - Date.parse(first.journeyDate))
+    .slice(0, 4));
 
   private uniqueJourneysByProperty(featureCollection: FeatureCollection | undefined, property: string) {
-    return featureCollection?.features
-      .filter(feature => feature.properties?.[property])
-      .filter((feature, i, arr) =>
-        arr.findIndex(f =>
-          JSON.stringify(f.properties?.[property]) === JSON.stringify(feature.properties?.[property])) === i
-      ).length;
+    return this.uniquePropertyValues(featureCollection, property).length;
+  }
+
+  private uniquePropertyValues(featureCollection: FeatureCollection | undefined, property: string) {
+    if (!featureCollection) {
+      return [];
+    }
+
+    return [...new Set(
+      featureCollection.features
+        .map(feature => feature.properties?.[property])
+        .filter(value => value !== undefined && value !== null && value !== '')
+        .map(String)
+    )];
+  }
+
+  getCountryFlag(countryName: string) {
+    const country = byCountry(countryName);
+    if (!country) {
+      return null;
+    }
+
+    return [...country.iso2.toUpperCase()]
+      .map(character => String.fromCodePoint(127397 + character.codePointAt(0)!))
+      .join('');
   }
 
 }

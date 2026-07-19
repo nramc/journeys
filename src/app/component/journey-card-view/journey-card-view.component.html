@@ -1,13 +1,13 @@
 <!-- Journey Card — split layout: image hero + white content panel -->
 <a [routerLink]="['/journey', journey().id, 'view']"
-   class="journey-card group w-full md:w-[22rem] rounded-2xl overflow-hidden cursor-pointer no-underline
+  class="journey-card group w-full max-w-[22rem] rounded-2xl overflow-hidden cursor-pointer no-underline
          bg-white dark:bg-gray-900
          ring-1 ring-black/10 dark:ring-white/10 shadow-md
          hover:shadow-xl hover:shadow-primary/20
 
          transition-all duration-300 ease-out
          focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2
-         "
+           "
    [attr.aria-label]="'View journey: ' + journey().name">
 
   <!-- ① IMAGE SECTION — full-bleed hero (60% of card height) -->
@@ -101,36 +101,42 @@
               [attr.aria-label]="yearsAgoBadge()?.label"
             >
         <span class="text-lg">{{ yearsAgoBadge()?.emoji }}</span>
-        <span>{{ yearsAgoBadge()?.label }}</span>
+        <span>&nbsp;{{ yearsAgoBadge()?.label }}</span>
       </span>
           }
         </div>
 
         <div class="inline-flex justify-end gap-2">
-          <button class="journey-card__action-btn"
+          @if (showEdit()) {
+            <button class="journey-card__action-btn"
                   (click)="editDetails($event)"
                   *appHasWriteAccess
                   [attr.aria-label]="'Edit ' + journey().name"
                   matTooltip="Edit Journey">
-            <mat-icon class="journey-card__icon--sm">edit</mat-icon>
-            <span>Edit</span>
-          </button>
+              <mat-icon class="journey-card__icon--sm">edit</mat-icon>
+              <span>Edit</span>
+            </button>
+          }
 
-          <button class="journey-card__action-btn"
-                  (click)="viewInTimeline($event)"
-                  [attr.aria-label]="'Relive ' + journey().name"
-                  matTooltip="Relive Journey">
-            <mat-icon class="journey-card__icon--sm">play_circle</mat-icon>
-            <span>Relive</span>
-          </button>
+          @if (showRelive()) {
+            <button class="journey-card__action-btn"
+                    (click)="viewInTimeline($event)"
+                    [attr.aria-label]="'Relive ' + journey().name"
+                    matTooltip="Relive Journey">
+              <mat-icon class="journey-card__icon--sm">play_circle</mat-icon>
+              <span>Relive</span>
+            </button>
+          }
 
-          <button class="journey-card__action-btn"
+          @if (showShare()) {
+            <button class="journey-card__action-btn"
                   (click)="shareJourney($event)"
                   [attr.aria-label]="'Share ' + journey().name"
                   matTooltip="Share Journey">
-            <mat-icon class="journey-card__icon--sm">share</mat-icon>
-            <span>Share</span>
-          </button>
+              <mat-icon class="journey-card__icon--sm">share</mat-icon>
+              <span>Share</span>
+            </button>
+          }
         </div>
 
       </div>

@@ -6,6 +6,7 @@ import {HasWriteAccessDirective} from "../../../../directive/has-write-access.di
 import {Router} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
 
 @Component({
   selector: 'app-view-journey-header',
@@ -14,7 +15,8 @@ import {MatButtonModule} from "@angular/material/button";
     MatTooltip,
     HasWriteAccessDirective,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule
   ],
   template: `
     <h4 class="flex flex-col md:flex-row items-center gap-4">
@@ -34,17 +36,31 @@ import {MatButtonModule} from "@angular/material/button";
           <mat-icon class="text-warning! !overflow-visible" matTooltip="Not Published">remove_circle</mat-icon>
         }
 
-        <!-- Edit Journey Button -->
-        <button mat-icon-button *appHasWriteAccess matTooltip="Edit Journey" (click)="editJourney()">
-            <mat-icon>edit</mat-icon>
-        </button>
-
-        <!-- Timeline / Relive Button -->
-        <button mat-icon-button matTooltip="Relive in Timeline" (click)="viewInTimeline()">
-            <mat-icon>play_circle</mat-icon>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="journeyActionsMenu"
+          aria-label="Journey actions"
+          matTooltip="Journey actions"
+        >
+          <mat-icon>more_vert</mat-icon>
         </button>
       </span>
     </h4>
+
+    <mat-menu #journeyActionsMenu="matMenu">
+      <button mat-menu-item *appHasWriteAccess (click)="editJourney()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit journey</span>
+      </button>
+      <button mat-menu-item (click)="viewInTimeline()">
+        <mat-icon>play_circle</mat-icon>
+        <span>Relive in timeline</span>
+      </button>
+      <button mat-menu-item (click)="shareJourney()">
+        <mat-icon>share</mat-icon>
+        <span>Share journey</span>
+      </button>
+    </mat-menu>
   `,
   styles: []
 })
@@ -60,6 +76,22 @@ export class ViewJourneyHeaderComponent {
     this.router.navigate(['/timeline'], {
       queryParams: { id: this.journey().id, autoplay: 'true' }
     }).then();
+  }
+
+  async shareJourney() {
+    const journey = this.journey();
+    const shareData = {
+      title: journey.name,
+      text: `Explore my journey: ${journey.name}`,
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+
+    await navigator.clipboard.writeText(shareData.url);
   }
 
 }
