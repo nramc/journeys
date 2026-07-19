@@ -48,10 +48,11 @@
                 @if (getCountryFlag(country); as countryFlag) {
                   <span
                     class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-lg leading-none ring-1 ring-white/25 transition-transform duration-200 hover:scale-110"
-                    role="img"
-                    [attr.aria-label]="country + ' flag'"
                     [matTooltip]="country"
-                  >{{ countryFlag }}</span>
+                  >
+                    <span aria-hidden="true">{{ countryFlag }}</span>
+                    <span class="sr-only">{{ country }} flag</span>
+                  </span>
                 }
               }
             </div>

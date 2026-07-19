@@ -122,7 +122,7 @@ export class StatisticsPanelComponent {
     }
 
     return [...country.iso2.toUpperCase()]
-      .map(character => String.fromCodePoint(127397 + character.charCodeAt(0)))
+      .map(character => String.fromCodePoint(127397 + character.codePointAt(0)!))
       .join('');
   }
 }

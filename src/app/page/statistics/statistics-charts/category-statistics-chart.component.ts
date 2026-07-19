@@ -1,21 +1,18 @@
 import {
-  afterNextRender,
+  ElementRef,
   ChangeDetectionStrategy,
   Component,
-  DestroyRef,
-  effect,
-  ElementRef,
-  inject,
   input,
   viewChild,
 } from '@angular/core';
-import type { ECharts, EChartsOption } from 'echarts';
+import type { EChartsOption } from 'echarts';
 import { PieChart } from 'echarts/charts';
 import { LegendComponent, TooltipComponent } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { getIconConfigByCategory } from 'src/app/config/icon-config';
 import { StatisticsKeyValue } from '../../../service/statistics/statistics.type';
+import { initializeStatisticsChart } from './statistics-chart.base';
 
 echarts.use([CanvasRenderer, LegendComponent, PieChart, TooltipComponent]);
 
@@ -28,30 +25,9 @@ echarts.use([CanvasRenderer, LegendComponent, PieChart, TooltipComponent]);
 export class CategoryStatisticsChartComponent {
   data = input.required<StatisticsKeyValue[]>();
   private readonly chartElement = viewChild.required<ElementRef<HTMLDivElement>>('chart');
-  private chart?: ECharts;
-  private resizeObserver?: ResizeObserver;
 
   constructor() {
-    afterNextRender(() => {
-      this.chart = echarts.init(this.chartElement().nativeElement);
-      this.renderChart();
-      this.resizeObserver = new ResizeObserver(() => this.chart?.resize());
-      this.resizeObserver.observe(this.chartElement().nativeElement);
-    });
-    effect(() => {
-      this.data();
-      if (this.chart) {
-        this.renderChart();
-      }
-    });
-    inject(DestroyRef).onDestroy(() => {
-      this.resizeObserver?.disconnect();
-      this.chart?.dispose();
-    });
-  }
-
-  private renderChart() {
-    this.chart?.setOption(this.buildOption());
+    initializeStatisticsChart(this.data, this.chartElement, () => this.buildOption());
   }
 
   private buildOption(): EChartsOption {

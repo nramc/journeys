@@ -26,7 +26,10 @@
             <div class="flex min-w-0 items-center gap-3">
               <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-primary/10 bg-primary/10 text-primary shadow-inner dark:border-primary/20 dark:bg-primary/20">
                 @if (type() === 'country' && getCountryFlag(statistic.name); as countryFlag) {
-                  <span class="text-2xl leading-none" role="img" [attr.aria-label]="statistic.name + ' flag'">{{ countryFlag }}</span>
+                  <span class="text-2xl leading-none">
+                    <span aria-hidden="true">{{ countryFlag }}</span>
+                    <span class="sr-only">{{ statistic.name }} flag</span>
+                  </span>
                 } @else {
                   <mat-icon>{{ getStatisticIcon(statistic) }}</mat-icon>
                 }
