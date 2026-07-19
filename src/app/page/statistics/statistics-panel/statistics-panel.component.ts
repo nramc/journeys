@@ -9,6 +9,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatTooltip} from "@angular/material/tooltip";
+import {getIconConfigByCategory} from "../../../config/icon-config";
+import {byCountry} from "country-code-lookup";
 
 type StatisticsType = 'category' | 'year' | 'city' | 'country';
 
@@ -34,6 +36,7 @@ export class StatisticsPanelComponent {
   data = input.required<StatisticsKeyValue[]>();
   header = input.required<string>();
   type = input.required<StatisticsType>();
+  sortedData = computed(() => [...this.data()].sort((first, second) => this.comparatorFn(first, second)));
   totalCount = computed(() => this.data()
     .map(keyValue => keyValue.count)
     .reduce((previousValue, currentValue) => previousValue + currentValue, 0));
@@ -81,6 +84,45 @@ export class StatisticsPanelComponent {
   }
 
   getPercentage(count: number, total: number) {
-    return Math.round((count / total) * 100);
+    return total > 0 ? Math.round((count / total) * 100) : 0;
+  }
+
+  getPanelIcon() {
+    switch (this.type()) {
+      case 'year':
+        return 'timeline';
+      case 'country':
+        return 'flag';
+      case 'city':
+        return 'map';
+      case 'category':
+        return 'donut_large';
+    }
+  }
+
+  getStatisticIcon(statistic: StatisticsKeyValue) {
+    if (this.type() === 'category') {
+      return getIconConfigByCategory(statistic.name).iconName;
+    }
+
+    switch (this.type()) {
+      case 'year':
+        return 'event';
+      case 'city':
+        return 'location_on';
+      default:
+        return this.getPanelIcon();
+    }
+  }
+
+  getCountryFlag(countryName: string) {
+    const country = byCountry(countryName);
+    if (!country) {
+      return null;
+    }
+
+    return [...country.iso2.toUpperCase()]
+      .map(character => String.fromCodePoint(127397 + character.charCodeAt(0)))
+      .join('');
   }
 }

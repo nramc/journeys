@@ -2,13 +2,35 @@
   <app-page-header [pageInfo]="STATISTICS_PAGE_INFO"></app-page-header>
 </header>
 
-<main>
-  @if (statistics()) {
-    <app-statistics-panel [data]="statistics()!.years" type="year" header="Years"
-                          [expand]="true"></app-statistics-panel>
-    <app-statistics-panel [data]="statistics()!.countries" type="country" header="Countries"></app-statistics-panel>
-    <app-statistics-panel [data]="statistics()!.cities" type="city" header="Cities"></app-statistics-panel>
-    <app-statistics-panel [data]="statistics()!.categories" type="category" header="Categories"></app-statistics-panel>
+<main class="container mx-auto flex max-w-7xl flex-col gap-6 px-4 py-2 sm:px-6 lg:px-8">
+  @if (statistics(); as data) {
+    <section>
+      <div class="mb-4">
+        <h2 class="m-0 text-xl font-semibold text-slate-800 dark:text-slate-100">Your memory patterns</h2>
+        <p class="m-0 mt-1 text-sm text-slate-500 dark:text-slate-400">See how your journeys unfold across time, countries, and experiences.</p>
+      </div>
+      <app-statistics-charts [data]="data"></app-statistics-charts>
+    </section>
+
+    <section aria-labelledby="statistics-breakdown-title">
+      <div class="mb-4">
+        <h2 id="statistics-breakdown-title" class="m-0 text-xl font-semibold text-slate-800 dark:text-slate-100">Explore the detail</h2>
+        <p class="m-0 mt-1 text-sm text-slate-500 dark:text-slate-400">Open a dimension to browse matching journeys in the gallery or timeline.</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <app-statistics-panel [data]="data.years" type="year" header="Years" [expand]="true"></app-statistics-panel>
+        <app-statistics-panel [data]="getJourneyCategoriesData(data.categories)" type="category" header="Categories"></app-statistics-panel>
+        <app-statistics-panel [data]="data.countries" type="country" header="Countries"></app-statistics-panel>
+        <app-statistics-panel [data]="data.cities" type="city" header="Cities"></app-statistics-panel>
+      </div>
+    </section>
+  } @else {
+    <section class="flex min-h-[22rem] items-center justify-center rounded-2xl border border-primary/10 bg-slate-50/70 p-6 dark:border-white/10 dark:bg-slate-900/40" aria-live="polite">
+      <div class="text-center">
+        <span class="mx-auto block h-10 w-10 animate-pulse rounded-full bg-primary/15"></span>
+        <p class="mt-3 text-sm font-medium text-slate-600 dark:text-slate-300">Gathering your statistics...</p>
+      </div>
+    </section>
   }
 </main>
 
