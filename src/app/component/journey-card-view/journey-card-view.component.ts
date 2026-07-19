@@ -33,6 +33,9 @@ export class JourneyCardViewComponent {
   journey = input.required<JourneyData, JourneyData | Journey>({
     transform: (value: JourneyData | Journey) => this.transformJourney(value)
   });
+  showEdit = input(true);
+  showRelive = input(true);
+  showShare = input(true);
 
   getCategoryIconName(): string {
     return iconConfig.getIconConfigByCategory(this.journey().category).iconName;
