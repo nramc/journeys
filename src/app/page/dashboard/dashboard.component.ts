@@ -13,6 +13,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {JourneyCardViewComponent} from "../../component/journey-card-view/journey-card-view.component";
 import {JourneyData} from "../../component/journey-card-view/journey.data";
 import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL} from "../../model/core/journey.model";
+import {byCountry} from "country-code-lookup";
 
 @Component({
     selector: 'app-dashboard',
@@ -39,6 +40,8 @@ export class DashboardComponent {
   totalJourneys = computed(() => this.featureCollection()?.features.length ?? 0);
   totalCountry = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'country'));
   totalPlaces = computed(() => this.uniqueJourneysByProperty(this.featureCollection(), 'city'));
+  visitedCountries = computed(() => this.uniquePropertyValues(this.featureCollection(), 'country')
+    .sort((first, second) => first.localeCompare(second)));
   recentMemories = computed<JourneyData[]>(() => (this.featureCollection()?.features ?? [])
     .filter(feature => feature.id !== undefined && feature.properties?.['journeyDate'])
     .map(feature => new JourneyData(
@@ -54,16 +57,31 @@ export class DashboardComponent {
     .slice(0, 4));
 
   private uniqueJourneysByProperty(featureCollection: FeatureCollection | undefined, property: string) {
+    return this.uniquePropertyValues(featureCollection, property).length;
+  }
+
+  private uniquePropertyValues(featureCollection: FeatureCollection | undefined, property: string) {
     if (!featureCollection) {
-      return 0;
+      return [];
     }
 
-    return new Set(
+    return [...new Set(
       featureCollection.features
         .map(feature => feature.properties?.[property])
         .filter(value => value !== undefined && value !== null && value !== '')
         .map(String)
-    ).size;
+    )];
+  }
+
+  getCountryFlag(countryName: string) {
+    const country = byCountry(countryName);
+    if (!country) {
+      return null;
+    }
+
+    return [...country.iso2.toUpperCase()]
+      .map(character => String.fromCodePoint(127397 + character.charCodeAt(0)))
+      .join('');
   }
 
 }
