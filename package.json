@@ -1,6 +1,6 @@
 {
   "name": "journey",
-  "version": "0.76.0",
+  "version": "0.76.1",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --configuration development",
