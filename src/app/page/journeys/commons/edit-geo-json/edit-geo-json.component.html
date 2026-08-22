@@ -17,7 +17,9 @@
       <h4 class="text-xl font-semibold text-gradient border-b-2 border-primary">Geo JSON</h4>
 
       <!-- GeoJSON Text Area -->
+      <label for="geoJson" class="font-medium">GeoJSON</label>
       <textarea
+        id="geoJson"
         class="resize-none border rounded-md p-2 w-full h-full font-mono"
         [value]="geoJsonString()"
         (input)="onGeoJsonChange($event)"

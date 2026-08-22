@@ -14,24 +14,32 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-3">
         <!-- Category -->
         <mat-form-field appearance="outline" class="w-full">
+          <label class="sr-only" for="categoryInput">Category</label>
+          <mat-label aria-hidden="true">Category</mat-label>
           <input matInput type="text" id="categoryInput" placeholder="Category"
                  [(ngModel)]="searchCriteria().category" (change)="search()">
         </mat-form-field>
 
         <!-- City -->
         <mat-form-field appearance="outline" class="w-full">
+          <label class="sr-only" for="cityInput">City</label>
+          <mat-label aria-hidden="true">City</mat-label>
           <input matInput type="text" id="cityInput" placeholder="City"
                  [(ngModel)]="searchCriteria().city" (change)="search()">
         </mat-form-field>
 
         <!-- Country -->
         <mat-form-field appearance="outline" class="w-full">
+          <label class="sr-only" for="countryInput">Country</label>
+          <mat-label aria-hidden="true">Country</mat-label>
           <input matInput type="text" id="countryInput" placeholder="Country"
                  [(ngModel)]="searchCriteria().country" (change)="search()">
         </mat-form-field>
 
         <!-- Year -->
         <mat-form-field appearance="outline" class="w-full">
+          <label class="sr-only" for="yearInput">Year</label>
+          <mat-label aria-hidden="true">Year</mat-label>
           <input matInput type="text" id="yearInput" placeholder="Year"
                  [(ngModel)]="searchCriteria().year" (change)="search()">
         </mat-form-field>
@@ -41,6 +49,8 @@
       <div class="container p-0 m-0">
         <mat-chip-grid #chipGrid aria-label="Tags" class="w-full ">
           <mat-form-field appearance="outline" class="w-full">
+            <label class="sr-only" for="tagsInput">Tags</label>
+            <mat-label aria-hidden="true">Tags</mat-label>
             <input matInput id="tagsInput" placeholder="Filter by Tags"
                    [matChipInputFor]="chipGrid"
                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -67,9 +77,14 @@
   </section>
 
 
-  <section class="m-0 p-0 flex max-sm:justify-center justify-end gap-2">
+  <section class="container m-0 flex items-center justify-between gap-3 max-sm:flex-col max-sm:items-stretch" aria-live="polite" aria-atomic="true">
+    <span class="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+      <mat-icon class="!h-3.5 !w-3.5 !text-[14px]" aria-hidden="true">photo_album</mat-icon>
+      {{ searchResult().totalElements }} {{ searchResult().totalElements === 1 ? 'journey' : 'journeys' }} found
+    </span>
 
-    <div class="inline-flex">
+    <div class="ml-auto inline-flex w-fit items-center gap-1 rounded-lg border border-slate-200/80 bg-slate-50/70 px-2 py-1 shadow-sm dark:border-white/10 dark:bg-slate-900/30 max-sm:self-end">
+      <span class="whitespace-nowrap px-2 text-xs font-medium text-gray-600 dark:text-gray-300">Sort by</span>
       <!-- Sorting Field Dropdown -->
       <mat-menu #sortingFieldMenu="matMenu">
         @for (sortHeader of sortableFields; track sortHeader) {
@@ -81,7 +96,7 @@
       <button
         mat-button
         [matMenuTriggerFor]="sortingFieldMenu"
-        class="text-primary border border-primary bg-white px-2 py-1 rounded-md shadow-sm hover:bg-gray-100"
+        class="min-w-0 px-2 py-1 text-sm text-primary transition-colors hover:bg-primary/10 dark:hover:bg-primary/20"
       >
         {{ sortingFieldChangedEvent.getValue().label | titlecase }}
         <mat-icon>arrow_drop_down</mat-icon>
@@ -98,7 +113,7 @@
       <button
         mat-button
         [matMenuTriggerFor]="sortingDirectionMenu"
-        class="text-primary border border-primary bg-white px-2 py-1 rounded-md shadow-sm hover:bg-gray-100"
+        class="min-w-0 px-2 py-1 text-sm text-primary transition-colors hover:bg-primary/10 dark:hover:bg-primary/20"
       >
         {{ sortingDirectionChangedEvent.getValue() | uppercase }}
         <mat-icon>arrow_drop_down</mat-icon>
