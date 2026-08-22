@@ -121,9 +121,9 @@
     </div>
   </section>
 
-  <section class="container flex gap-2 items-center justify-center flex-wrap">
+  <section class="mx-auto grid w-full max-w-full grid-cols-1 justify-center justify-items-center gap-x-1 gap-y-2 lg:grid-cols-[repeat(2,22rem)] xl:grid-cols-[repeat(3,22rem)]">
     @for (journey of searchResult().data; track journey.id) {
-      <app-journey-card-view [journey]="journey" class="max-sm:w-full"  [showShare]="false"></app-journey-card-view>
+      <app-journey-card-view [journey]="journey" [showShare]="false"></app-journey-card-view>
     }
   </section>
 

@@ -54,7 +54,7 @@ export class DashboardComponent {
       String(feature.properties?.['thumbnail'] ?? DEFAULT_THUMBNAIL)
     ))
     .sort((first, second) => Date.parse(second.journeyDate) - Date.parse(first.journeyDate))
-    .slice(0, 4));
+    .slice(0, 3));
 
   private uniqueJourneysByProperty(featureCollection: FeatureCollection | undefined, property: string) {
     return this.uniquePropertyValues(featureCollection, property).length;

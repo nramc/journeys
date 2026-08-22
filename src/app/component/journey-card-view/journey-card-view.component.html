@@ -1,6 +1,6 @@
 <!-- Journey Card — split layout: image hero + white content panel -->
 <a [routerLink]="['/journey', journey().id, 'view']"
-  class="journey-card group w-full max-w-[22rem] rounded-2xl overflow-hidden cursor-pointer no-underline
+  class="journey-card group rounded-2xl overflow-hidden cursor-pointer no-underline
          bg-white dark:bg-gray-900
          ring-1 ring-black/10 dark:ring-white/10 shadow-md
          hover:shadow-xl hover:shadow-primary/20
@@ -84,7 +84,7 @@
       }
     </div>
 
-    <div class="align-item-end mt-auto flex flex-col gap-2">
+    <div class="mt-auto flex flex-col gap-1">
       <!-- Divider -->
       <hr class="journey-card__divider border-0 h-px m-0"/>
 
@@ -96,7 +96,7 @@
             <span
               class="bottom-3 left-3 px-1 inline-flex items-center  text-[12px]
           bg-white/70 dark:bg-amber-900/80 backdrop-blur-sm rounded-full
-          years-ago-badge"
+          years-ago-badge whitespace-nowrap"
               [class.years-ago-badge--anniversary]="yearsAgoBadge()?.isExactAnniversary"
               [attr.aria-label]="yearsAgoBadge()?.label"
             >

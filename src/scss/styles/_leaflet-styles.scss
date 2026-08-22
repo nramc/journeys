@@ -5,10 +5,56 @@
  /* popup component styles */
 .leaflet-popup-content {
   margin: 0;
-  width: auto !important;
 }
 .leaflet-popup-content-wrapper {
   padding: 0;
+}
+
+/* Journey marker popups have a stable card width and stay usable on small screens. */
+.journey-marker-popup {
+  width: min(22rem, calc(100vw - 2rem));
+
+  .leaflet-popup-content-wrapper,
+  .leaflet-popup-content {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+
+  .leaflet-popup-close-button {
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 2rem !important;
+    height: 2rem !important;
+    border: 1px solid rgb(255 255 255 / 55%);
+    border-radius: 9999px;
+    background: rgb(15 23 42 / 68%);
+    color: #d6d3d3 !important;
+    box-shadow: 0 4px 12px rgb(15 23 42 / 25%);
+    font-size: 0 !important;
+    line-height: 1 !important;
+    opacity: 0.95;
+    transition: background-color 150ms ease, transform 150ms ease, opacity 150ms ease;
+
+    &::before {
+      content: '×';
+      font-size: 1.35rem;
+      font-weight: 400;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: appVariables.$primary;
+      opacity: 1;
+      transform: scale(1.06);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+  }
 }
 
 /* Map marker icons styles */

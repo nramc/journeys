@@ -1,13 +1,24 @@
 /* ─── Journey Card (split layout) ───────────────────────────────── */
 
 .journey-card {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   font-family: inherit;
-  height: 100%;
-  min-height: 24rem; /* Reduce min height */
-  max-height: 30rem; /* Reduce max height */
-  /* Ensures all cards in a row/grid are equal height */
+  width: 22rem;
+  min-width: 22rem;
+  max-width: 22rem;
+  height: 24rem;
+  min-height: 24rem;
+  max-height: 24rem;
+}
+
+@media (max-width: 23.99rem) {
+  .journey-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
 }
 
 .journey-card__image {

@@ -221,7 +221,13 @@ export class WorldMapComponent implements AfterViewInit {
         },
         onEachFeature: function (feature: Feature, layer: Layer) {
           if (isPopupRequired) {
-            layer.bindPopup(getPopupComponentNativeElement(feature));
+            layer.bindPopup(getPopupComponentNativeElement(feature), {
+              autoPan: true,
+              autoPanPadding: [24, 24],
+              className: 'journey-marker-popup',
+              maxWidth: 352,
+              minWidth: 280,
+            });
           }
           const featureName = feature.properties?.['name'];
           if (featureName) {
