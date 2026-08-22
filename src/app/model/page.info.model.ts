@@ -102,8 +102,8 @@ export const TOOLS_PAGE_INFO: PageInfo = {
 };
 
 export const USER_MANUAL_PAGE_INFO: PageInfo = {
-  name: "User Manual",
-  title: "User Manual",
+  name: "Help",
+  title: "How to Use Journey",
   description: "",
   path: "/user-manual",
   icon: "menu_book"
