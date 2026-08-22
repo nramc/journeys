@@ -43,7 +43,7 @@
           </p>
           <p class="mt-1 text-sm text-white/85">countries in your story</p>
           @if (featureCollection() && visitedCountries().length) {
-            <div class="mt-3 flex max-w-48 flex-wrap gap-1.5" aria-label="Visited countries">
+            <div class="mt-3 flex w-full flex-wrap gap-1.5" aria-label="Visited countries">
               @for (country of visitedCountries(); track country) {
                 @if (getCountryFlag(country); as countryFlag) {
                   <span
