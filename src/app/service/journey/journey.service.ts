@@ -64,7 +64,7 @@ export class JourneyService {
     return this.httpClient.get<JourneyPage>(environment.journeyApi + '/journeys',
       {
         params: params,
-        headers: {'Authorization': `Bearer ${userContext.accessToken}`}
+        headers: {'Authorization': `Bearer ${userContext.accessToken}`, 'X-Async-Process': 'true'}
       });
   }
 

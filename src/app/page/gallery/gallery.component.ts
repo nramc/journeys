@@ -2,16 +2,15 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   inject,
-  OnInit,
+  OnDestroy,
   signal,
   viewChild
 } from '@angular/core';
-import {BehaviorSubject, catchError, merge, of, shareReplay, startWith, switchMap} from "rxjs";
+import {BehaviorSubject, finalize, Subscription} from "rxjs";
 import {TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {JourneyService} from "../../service/journey/journey.service";
-import {JourneyPage} from "../../service/journey/journey-page.type";
-import {MatPaginator} from "@angular/material/paginator";
 import {Journey} from "../../model/core/journey.model";
 import {Router} from "@angular/router";
 import {SortDirection} from "@angular/material/sort";
@@ -20,7 +19,6 @@ import {MatIcon} from "@angular/material/icon";
 import {COMMA, ENTER, SPACE} from "@angular/cdk/keycodes";
 import {SearchCriteria} from "../../model/core/search-criteria.model";
 import {FormsModule} from "@angular/forms";
-import {toObservable} from "@angular/core/rxjs-interop";
 import {
   JourneyCardViewComponent
 } from "../../component/journey-card-view/journey-card-view.component";
@@ -46,7 +44,6 @@ export interface SortableHeader {
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   imports: [
-    MatPaginator,
     TitleCasePipe,
     UpperCasePipe,
     MatChipsModule,
@@ -63,7 +60,7 @@ export interface SortableHeader {
   styleUrls: ['./gallery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleryComponent implements OnInit, AfterViewInit {
+export class GalleryComponent implements AfterViewInit, OnDestroy {
   private readonly journeyService = inject(JourneyService);
 
 // Sorting properties
@@ -80,16 +77,22 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     {label: "Journey Date", key: 'journeyDate'});
   sortableDirections: SortDirection[] = ["asc", "desc"];
   sortingDirectionChangedEvent: BehaviorSubject<SortDirection> = new BehaviorSubject<SortDirection>("desc");
-  defaultPageSize = 15;
+  readonly defaultPageSize = 15;
 
   // search filter params
   readonly separatorKeysCodes = [ENTER, COMMA, SPACE] as const;
   searchCriteria = signal(new SearchCriteria());
 
-  paginator = viewChild.required(MatPaginator);
+  loadMoreSentinel = viewChild.required<ElementRef<HTMLDivElement>>('loadMoreSentinel');
   tags = signal<string[]>([]);
-  tagsObservable = toObservable(this.tags);
   searchResult = signal<SearchResult>({totalElements: 0, data: []});
+  loading = signal(false);
+  hasMore = signal(true);
+
+  private nextPage = 0;
+  private requestSubscription?: Subscription;
+  private intersectionObserver?: IntersectionObserver;
+  private requestGeneration = 0;
 
   constructor() {
     const router = inject(Router);
@@ -101,45 +104,85 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.intersectionObserver = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        this.loadNextPage();
+      }
+    }, {rootMargin: '240px 0px'});
+    this.intersectionObserver.observe(this.loadMoreSentinel().nativeElement);
+
     this.search();
   }
 
-  protected search() {
-    merge(this.paginator().page, this.sortingFieldChangedEvent, this.sortingDirectionChangedEvent, this.tagsObservable)
-    .pipe(
-      startWith(),
-      switchMap(() => {
-        return this.journeyService.findJourneyByQuery(
-          this.searchCriteria(),
-          this.sortingFieldChangedEvent.getValue().key,
-          this.sortingDirectionChangedEvent.getValue(),
-          this.paginator().pageIndex,
-          this.paginator().pageSize,
-          true,
-          this.tags()
-        ).pipe(shareReplay(1), catchError(() => of(null)));
-      }),
-    ).subscribe(data => this.onSuccess(data));
+  protected search(): void {
+    this.requestGeneration++;
+    this.requestSubscription?.unsubscribe();
+    this.nextPage = 0;
+    this.hasMore.set(true);
+    this.searchResult.set({totalElements: 0, data: []});
+    this.loadPage(0, this.requestGeneration);
   }
 
-  onSuccess(pageData: null | JourneyPage) {
-    this.searchResult.set({
-      totalElements: pageData?.totalElements ?? 0,
-      data: pageData?.content ?? []
-    });
-    // Scroll to main container for better user experience
-    document.getElementsByTagName('main')[0]?.scrollIntoView({behavior: 'smooth'});
+  protected changeSortingField(sortHeader: SortableHeader): void {
+    this.sortingFieldChangedEvent.next(sortHeader);
+    this.search();
   }
 
-  ngOnInit(): void {
-    this.journeyService.findJourneyByQuery(
+  protected changeSortingDirection(direction: SortDirection): void {
+    this.sortingDirectionChangedEvent.next(direction);
+    this.search();
+  }
+
+  private loadNextPage(): void {
+    if (this.loading() || !this.hasMore()) {
+      return;
+    }
+
+    this.nextPage++;
+    this.loadPage(this.nextPage, this.requestGeneration);
+  }
+
+  private loadPage(page: number, generation: number): void {
+    if (this.loading() || generation !== this.requestGeneration) {
+      return;
+    }
+
+    this.loading.set(true);
+    this.requestSubscription = this.journeyService.findJourneyByQuery(
       this.searchCriteria(),
-      'journeyDate',
-      'desc',
-      0,
+      this.sortingFieldChangedEvent.getValue().key,
+      this.sortingDirectionChangedEvent.getValue(),
+      page,
       this.defaultPageSize,
-      true
-    ).subscribe(data => this.onSuccess(data));
+      true,
+      this.tags()
+    ).pipe(
+      finalize(() => {
+        if (generation === this.requestGeneration) {
+          this.loading.set(false);
+        }
+      })
+    ).subscribe({
+      next: pageData => {
+        if (generation !== this.requestGeneration) {
+          return;
+        }
+
+        const currentData = page === 0 ? [] : this.searchResult().data;
+        const data = [...currentData, ...pageData.content];
+        this.searchResult.set({totalElements: pageData.totalElements, data});
+        this.hasMore.set(
+          pageData.content.length > 0
+          && page + 1 < pageData.totalPages
+          && data.length < pageData.totalElements
+        );
+      },
+      error: () => {
+        if (generation === this.requestGeneration) {
+          this.hasMore.set(false);
+        }
+      }
+    });
 
   }
 
@@ -147,6 +190,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     const newTag = (event.value || '').trim();
     if (newTag) {
       this.tags.update(values => [...values, newTag]);
+      this.search();
     }
     // Clear the input value
     event.chipInput.clear();
@@ -154,6 +198,12 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   removeTag(tag: string): void {
     this.tags.update(values => values.filter(value => value !== tag));
+    this.search();
+  }
+
+  ngOnDestroy(): void {
+    this.requestSubscription?.unsubscribe();
+    this.intersectionObserver?.disconnect();
   }
 
   protected readonly GALLERY_PAGE_INFO = GALLERY_PAGE_INFO;
