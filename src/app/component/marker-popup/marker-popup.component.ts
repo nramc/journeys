@@ -8,8 +8,9 @@ import {DEFAULT_CATEGORY, DEFAULT_THUMBNAIL} from "../../model/core/journey.mode
     selector: 'app-marker-popup',
     template: '<app-journey-card-view [journey]="journeyData()"></app-journey-card-view>',
     styles: `
-    ::ng-deep .leaflet-popup-content {
-      min-width: 15rem !important;
+    :host {
+      display: block;
+      width: min(22rem, calc(100vw - 2rem));
     }
   `,
     imports: [
