@@ -38,7 +38,7 @@
     "@maptiler/geocoding-control": "3.0.0",
     "@maptiler/leaflet-maptilersdk": "4.1.1",
     "@popperjs/core": "2.11.8",
-    "@simplewebauthn/browser": "13.3.0",
+    "@simplewebauthn/browser": "14.0.0",
     "@tailwindcss/postcss": "4.3.3",
     "@types/geojson": "7946.0.16",
     "country-code-lookup": "0.1.5",
