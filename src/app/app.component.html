@@ -1,5 +1,5 @@
 <div class="app-container h-screen flex flex-col">
-  <app-toolbar (toggleNavigation)="toggleNavigation()" class="border-b-4 border-b-primary"></app-toolbar>
+  <app-toolbar (toggleNavigation)="toggleNavigation()"></app-toolbar>
 
   <mat-sidenav-container class="grow h-full contents">
     <!-- Single sidenav: 'over' on mobile (toggled via navOpen), 'side' on desktop (always visible) -->
@@ -12,8 +12,10 @@
                            (navigationLinkClick)="onNavigationLinkClick()"></app-navigation-menu>
     </mat-sidenav>
 
-    <mat-sidenav-content class="max-sm:mt-3 grow p-4 mb-auto">
-      <router-outlet class="contents"></router-outlet>
+    <mat-sidenav-content class="app-content grow mb-auto">
+      <div class="content-frame">
+        <router-outlet></router-outlet>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 

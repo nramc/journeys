@@ -4,3 +4,20 @@
   flex-direction: column;
 }
 
+.app-content {
+  background: var(--app-background);
+}
+
+.content-frame {
+  width: min(100%, 1500px);
+  min-height: 100%;
+  margin: 0 auto;
+  padding: clamp(1rem, 2vw, 2rem);
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .content-frame {
+    padding: 0.75rem;
+  }
+}

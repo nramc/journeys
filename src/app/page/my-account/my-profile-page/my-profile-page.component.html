@@ -1,8 +1,7 @@
-<header>
-  <app-page-header [pageInfo]="MY_PROFILE_PAGE_INFO"></app-page-header>
-</header>
-
 <main>
+  <header>
+    <app-page-header [pageInfo]="MY_PROFILE_PAGE_INFO"></app-page-header>
+  </header>
   <section class="container mx-auto mt-6">
     @if (myProfileData()) {
       <form #profileForm="ngForm" class="w-full max-w-4xl flex flex-col gap-2" (submit)="save(profileForm)">

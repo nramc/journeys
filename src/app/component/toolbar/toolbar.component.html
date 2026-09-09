@@ -1,7 +1,7 @@
-<mat-toolbar color="primary" class="toolbar flex justify-between align-middle">
+<mat-toolbar class="toolbar flex justify-between align-middle">
   <!-- App Brand Section -->
   <div class="app-brand-section flex justify-between align-bottom">
-    <button mat-icon-button (click)="toggleNavigation.emit()">
+    <button mat-icon-button (click)="toggleNavigation.emit()" aria-label="Toggle navigation" class="menu-button">
       <mat-icon>menu</mat-icon>
     </button>
     <a [routerLink]="HOME_PAGE_INFO.path" class="app-brand">
@@ -9,8 +9,8 @@
            priority/>
     </a>
     <a [routerLink]="HOME_PAGE_INFO.path" class="app-name">
-      <h1 class="app-title text-primary dark:text-primary-dark">Journey</h1>
-      <h6 class="app-tagline">Your Portal to the Past</h6>
+      <h1 class="app-title">Journey</h1>
+      <span class="app-tagline">Your portal to the past</span>
     </a>
   </div>
   <div class="inline-flex">

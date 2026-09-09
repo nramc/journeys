@@ -1,8 +1,7 @@
-<header>
-  <app-page-header [pageInfo]="JOURNEY_SEARCH_PAGE_INFO"></app-page-header>
-</header>
-
 <main>
+  <header>
+    <app-page-header [pageInfo]="JOURNEY_SEARCH_PAGE_INFO"></app-page-header>
+  </header>
   <section class="container mt-2 flex flex-col grow justify-center">
     <app-journey-search-criteria (searchEvent)="queryString.set($event)"></app-journey-search-criteria>
 
