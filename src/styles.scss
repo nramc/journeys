@@ -41,6 +41,25 @@ html {
 
 .dark {
   @include m3-theme.create-dark-theme();
+  --app-background: #111522;
+  --app-surface: #191e2d;
+  --app-surface-muted: #232a3d;
+  --app-text-primary: #f2f4fa;
+  --app-text-secondary: #a8b0c5;
+  --app-border: #30384d;
+  color-scheme: dark;
+}
+
+:root {
+  --app-primary: #3459e6;
+  --app-background: #f6f7fb;
+  --app-surface: #ffffff;
+  --app-surface-muted: #eef1f8;
+  --app-text-primary: #182033;
+  --app-text-secondary: #667085;
+  --app-border: #e2e6f0;
+  --app-radius: 16px;
+  color-scheme: light;
 }
 
 html, body {
@@ -49,5 +68,27 @@ html, body {
 
 body {
   margin: 0;
+  color: var(--app-text-primary);
+  background: var(--app-background);
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  color: #fff;
+  background: var(--app-primary);
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--app-primary) 52%, transparent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

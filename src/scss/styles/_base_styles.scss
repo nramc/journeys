@@ -1,5 +1,11 @@
 main:not(.not-content-wrapper), .content-wrapper {
-  @apply mt-3 p-4 shadow-sm rounded-lg bg-white dark:bg-gray-800 container;
+  @apply container;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  background: var(--app-surface);
+  box-shadow: 0 12px 35px color-mix(in srgb, #182033 7%, transparent);
 }
 
 p, section, h1, h2, h3, h4, h5, h6 {
@@ -7,10 +13,16 @@ p, section, h1, h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @apply text-primary-light dark:text-primary-dark;
+  color: var(--app-text-primary);
+  letter-spacing: -0.02em;
 }
 
 a {
-  @apply text-primary-light;
+  color: var(--app-primary);
+}
+
+.dark main:not(.not-content-wrapper),
+.dark .content-wrapper {
+  box-shadow: 0 12px 35px rgb(0 0 0 / 18%);
 }
 

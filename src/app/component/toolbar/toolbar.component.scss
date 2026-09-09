@@ -1,8 +1,20 @@
+.toolbar {
+  min-height: 72px;
+  padding: 0 1.25rem;
+  color: var(--app-text-primary);
+  background: color-mix(in srgb, var(--app-surface) 92%, transparent);
+  border-bottom: 1px solid var(--app-border);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--app-primary) 8%, transparent);
+  backdrop-filter: blur(18px);
+}
+
 .app-brand-section {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-content: center;
+  align-items: center;
+  gap: 0.7rem;
 
   .app-brand {
     text-decoration: none;
@@ -13,13 +25,42 @@
   }
 
   .brand-logo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    box-shadow: 0 5px 14px color-mix(in srgb, var(--app-primary) 24%, transparent);
+  }
+
+  .app-title {
+    margin: 0;
+    color: var(--app-text-primary);
+    font-size: 1.15rem;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
   .app-tagline {
-    font-size: 0.9rem;
-    color: gray;
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--app-text-secondary);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+}
+
+.menu-button {
+  margin-right: 0.25rem;
+}
+
+@media (max-width: 600px) {
+  .toolbar {
+    min-height: 64px;
+    padding: 0 0.65rem;
+  }
+
+  .app-brand-section .app-tagline {
+    display: none;
   }
 }

@@ -1,11 +1,10 @@
-<header>
-  <app-page-header [pageInfo]="TIMELINE_PAGE_INFO"></app-page-header>
-  <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 max-sm:text-center">
-    {{ TIMELINE_PAGE_INFO.description }}
-  </p>
-</header>
-
 <main class="mt-4">
+  <header>
+    <app-page-header [pageInfo]="TIMELINE_PAGE_INFO"></app-page-header>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 max-sm:text-center">
+      {{ TIMELINE_PAGE_INFO.description }}
+    </p>
+  </header>
   <!-- Journiversary filter controls -->
   @if (activeFilter() === 'upcoming' || activeFilter() === 'past') {
     <section class="container mb-6 space-y-4">
