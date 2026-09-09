@@ -25,7 +25,8 @@ import {WelcomeMessageComponent} from "./welcome-message/welcome-message.compone
     AnonymousWelcomeMessageComponent,
     HasAuthenticatedDirective,
     BffApiLoadingIndicatorComponent,
-    WelcomeMessageComponent
+    WelcomeMessageComponent,
+    ThirukkuralWidgetComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
