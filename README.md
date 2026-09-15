@@ -42,7 +42,7 @@ Geographical data is processed in [GeoJSON](https://datatracker.ietf.org/doc/htm
 | Styling       | Tailwind CSS v4                                       |
 | Maps          | Leaflet + MapTiler SDK                                |
 | Media         | Cloudinary                                            |
-| Auth          | JWT (Bearer token, stored in `localStorage`)          |
+| Auth          | JWT          |
 | Testing       | Karma / Jasmine                                       |
 | Deployment    | GitHub Pages via `angular-cli-ghpages`                |
 
