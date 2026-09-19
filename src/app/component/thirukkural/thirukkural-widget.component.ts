@@ -67,9 +67,14 @@ export class ThirukkuralWidgetComponent {
     const raw = this.asRecord(value);
     const meaning = this.asRecord(raw['meaning']);
     const rawLines = Array.isArray(raw['kural']) ? raw['kural'] : [raw['kural']];
+    const kuralLines = rawLines
+      .flatMap(line => this.toDisplayText(line).split(/\r\n?|\n/))
+      .map(line => line.trim())
+      .filter(Boolean)
+      .slice(0, 2);
     return {
       chapter: this.toDisplayText(raw['chapter']),
-      kural: rawLines.map(line => this.toDisplayText(line)).filter(Boolean),
+      kural: kuralLines,
       number: this.toNumber(raw['number']),
       section: this.toDisplayText(raw['section']),
       meaning: {

@@ -18,11 +18,15 @@
         <aside class="relative flex min-h-24 flex-row items-center justify-between overflow-hidden bg-gradient-to-br from-primary via-primary to-indigo-800 px-4 py-4 text-white md:min-h-full md:flex-col md:items-start md:justify-between md:px-5 md:py-5">
           <div class="absolute -bottom-10 -right-10 h-36 w-36 rounded-full border border-white/10"></div>
           <div class="absolute -left-16 top-12 h-32 w-32 rounded-full border border-white/10"></div>
-          <div class="relative flex items-center gap-3 md:block">
-            <div class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white p-1 ring-1 ring-white/80 shadow-lg shadow-indigo-950/20 md:mb-4">
+          <div class="relative flex items-center gap-3 md:flex-col md:items-center md:gap-2">
+            <div class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white p-1 ring-1 ring-white/80 shadow-lg shadow-indigo-950/20">
               <img src="assets/logo/tamil/thirukkural-mark.svg" alt="Thirukkural API mark" class="h-full w-full rounded-[0.65rem] object-contain">
             </div>
-            <p class="m-0 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white/65 md:[writing-mode:vertical-rl]">Thirukkural</p>
+            <p class="m-0 text-center text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white/65 md:[writing-mode:vertical-rl]">
+              <span>Thirukkural</span>
+              <span class="mx-1 md:mx-0" aria-hidden="true">&middot;</span>
+              <span lang="ta">திருக்குறள்</span>
+            </p>
           </div>
           <div class="relative text-right md:text-left">
             <span class="block text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white/60">Verse</span>
@@ -65,12 +69,16 @@
                 </p>
               </div>
               <div class="mt-3 grid gap-3 lg:grid-cols-2 lg:items-start">
-                <div class="border-l-2 border-primary/30 pl-3 sm:pl-4">
+                <div class="border-l-2 border-primary/30 pl-3 sm:pl-4" style="container-type: inline-size;">
                   <p class="m-0 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-primary/75">Original verse</p>
-                  <p class="m-0 mt-2 font-serif text-base italic leading-6 text-primary dark:text-indigo-200 sm:text-lg sm:leading-7">
+                  <p class="m-0 mt-2 font-serif text-[clamp(0.75rem,4.5cqw,1.125rem)] italic leading-[1.75] text-primary dark:text-indigo-200">
                     @for (line of currentKural.kural; track $index) {
-                      <span class="block">{{ line }}</span>
+                      <span class="block whitespace-nowrap">{{ line }}</span>
                     }
+                  </p>
+                  <p class="m-0 mt-3 text-[0.68rem] text-slate-400 dark:text-slate-500">
+                    Source:
+                    <a class="font-medium text-primary/75 underline decoration-primary/30 underline-offset-2 transition-colors hover:text-primary hover:decoration-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="https://tamil-kural-api.vercel.app/" target="_blank" rel="noopener noreferrer">Tamil Kural API</a>
                   </p>
                 </div>
                 @if (currentKural.meaning.ta_salamon || currentKural.meaning.ta_mu_va) {
