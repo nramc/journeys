@@ -1,9 +1,9 @@
 import {Component, inject} from '@angular/core';
-import {CalendarOptions, EventSourceInput} from "@fullcalendar/core";
+import {CalendarOptions, EventSourceInput, FullCalendarModule} from "@fullcalendar/angular";
+import monarchThemePlugin from '@fullcalendar/angular/themes/monarch';
 import rrulePlugin from "@fullcalendar/rrule";
-import multiMonthPlugin from '@fullcalendar/multimonth'
-import dayGridPlugin from "@fullcalendar/daygrid";
-import {FullCalendarModule} from "@fullcalendar/angular";
+import multiMonthPlugin from '@fullcalendar/angular/multimonth'
+import dayGridPlugin from "@fullcalendar/angular/daygrid";
 
 import {JourneyService} from "../../service/journey/journey.service";
 import {toSignal} from "@angular/core/rxjs-interop";
@@ -33,12 +33,12 @@ export class JourneyCalendarViewComponent {
             center: 'title',
             left: 'multiMonthYear,dayGridMonth,dayGridWeek,dayGridDay'
         },
-        buttonText: {
-            today: 'Today',
-            month: 'Month',
-            week: 'Week',
-            day: 'Day',
-            multiMonthYear: 'Year'
+        buttons: {
+            today: {text: 'Today'},
+            dayGridMonth: {text: 'Month'},
+            dayGridWeek: {text: 'Week'},
+            dayGridDay: {text: 'Day'},
+            multiMonthYear: {text: 'Year'}
         },
         height: 'auto',
         initialView: 'dayGridMonth',
@@ -47,10 +47,9 @@ export class JourneyCalendarViewComponent {
         dayMaxEvents: 3,
         moreLinkText: count => `+${count} more`,
         dayHeaderFormat: {weekday: 'short'},
-        plugins: [rrulePlugin, multiMonthPlugin, dayGridPlugin],
+        plugins: [monarchThemePlugin, rrulePlugin, multiMonthPlugin, dayGridPlugin],
         editable: false,
         eventDisplay: 'block',
-        events: this.journeys(),
         navLinks: true,
         navLinkDayClick: function (date) {
             console.log('day', date.toISOString());

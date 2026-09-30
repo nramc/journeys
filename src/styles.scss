@@ -1,4 +1,7 @@
 @use '@angular/material' as mat;
+@use '@fullcalendar/angular/skeleton.css';
+@use '@fullcalendar/angular/themes/monarch/theme.css';
+@use '@fullcalendar/angular/themes/monarch/palettes/blue.css';
 @use "m3-theme";
 
 /* External framework and libraries styles */
