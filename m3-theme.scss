@@ -144,6 +144,11 @@ $light-theme: mat.define-theme((
     use-system-variables: true,
   ),
   typography: (
+    plain-family: ('Roboto', 'Helvetica Neue', Arial, sans-serif),
+    brand-family: ('Roboto', 'Helvetica Neue', Arial, sans-serif),
+    regular-weight: 400,
+    medium-weight: 500,
+    bold-weight: 600,
     use-system-variables: true,
   ),
 ));
@@ -155,6 +160,11 @@ $dark-theme: mat.define-theme((
     use-system-variables: true,
   ),
   typography: (
+    plain-family: ('Roboto', 'Helvetica Neue', Arial, sans-serif),
+    brand-family: ('Roboto', 'Helvetica Neue', Arial, sans-serif),
+    regular-weight: 400,
+    medium-weight: 500,
+    bold-weight: 600,
     use-system-variables: true,
   ),
 ));

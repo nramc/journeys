@@ -21,6 +21,10 @@
 /* sonar-disable-next-line css:S4662 */
 @config "../tailwind.config.js";
 
+@theme {
+  --font-sans: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-weight-bold: 600;
+}
 
 /* Application theming */
 
@@ -42,17 +46,6 @@ html {
   @include mat.system-level-typography(m3-theme.$light-theme);
 }
 
-.dark {
-  @include m3-theme.create-dark-theme();
-  --app-background: #111522;
-  --app-surface: #191e2d;
-  --app-surface-muted: #232a3d;
-  --app-text-primary: #f2f4fa;
-  --app-text-secondary: #a8b0c5;
-  --app-border: #30384d;
-  color-scheme: dark;
-}
-
 :root {
   --app-primary: #3459e6;
   --app-background: #f6f7fb;
@@ -65,6 +58,17 @@ html {
   color-scheme: light;
 }
 
+.dark {
+  @include m3-theme.create-dark-theme();
+  --app-background: #111522;
+  --app-surface: #191e2d;
+  --app-surface-muted: #232a3d;
+  --app-text-primary: #f2f4fa;
+  --app-text-secondary: #a8b0c5;
+  --app-border: #30384d;
+  color-scheme: dark;
+}
+
 html, body {
   height: 100%;
 }
@@ -73,9 +77,10 @@ body {
   margin: 0;
   color: var(--app-text-primary);
   background: var(--app-background);
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.55;
 }
 
 ::selection {
