@@ -106,7 +106,8 @@
       aria-label="Choose how to explore your journeys"
       hideSingleSelectionIndicator="true"
       class="self-start sm:self-auto"
-      [(ngModel)]="viewType">
+      [value]="viewType()"
+      (change)="viewType.set($event.value)">
       <mat-button-toggle value="map" matTooltip="Explore journeys on a map">
         <mat-icon aria-hidden="true">map</mat-icon>
         <span>Map</span>
@@ -136,7 +137,7 @@
   } @else {
     @if (viewType() === 'calendar') {
       <section class="overflow-hidden rounded-xl border border-primary/10 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-slate-900/40 sm:p-5" aria-label="Journey calendar">
-        <app-journey-calendar-view></app-journey-calendar-view>
+        <app-journey-calendar-view [journeys]="featureCollection()!"></app-journey-calendar-view>
       </section>
     } @else {
       <section class="relative h-[65vh] min-h-[32rem] w-full rounded-xl border border-primary/10 shadow-sm dark:border-white/10 sm:h-[72vh]" aria-label="Journey map">
