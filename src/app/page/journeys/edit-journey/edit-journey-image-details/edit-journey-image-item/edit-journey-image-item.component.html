@@ -19,6 +19,7 @@
             <!-- Image URL -->
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Image URL</mat-label>
+              <label class="sr-only" for="imageUrl">Image URL</label>
               <input matInput type="text" id="imageUrl" name="imageUrl"
                      class="rounded-lg w-full bg-gray-200 cursor-not-allowed"
                      [(ngModel)]="imageItem().url" readonly/>
@@ -26,6 +27,7 @@
             <!-- Asset ID -->
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Asset ID</mat-label>
+              <label class="sr-only" for="imageId">Asset ID</label>
               <input matInput type="text" id="imageId" name="imageId"
                      class="rounded-lg w-full bg-gray-200 cursor-not-allowed"
                      [(ngModel)]="imageItem().assetId" readonly/>
@@ -33,6 +35,7 @@
             <!-- Public ID -->
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Public ID</mat-label>
+              <label class="sr-only" for="publicId">Public ID</label>
               <input matInput type="text" id="publicId" name="publicId"
                      class="rounded-lg w-full bg-gray-200 cursor-not-allowed"
                      [(ngModel)]="imageItem().publicId" readonly/>
@@ -40,6 +43,7 @@
             <!-- Title -->
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Title</mat-label>
+              <label class="sr-only" for="title">Title</label>
               <input matInput type="text" id="title" name="title" class="rounded-lg w-full"
                      [(ngModel)]="imageItem().title"/>
             </mat-form-field>
@@ -52,6 +56,7 @@
             <!-- Event Date -->
             <mat-form-field class="w-full" appearance="outline">
               <mat-label>Event Date</mat-label>
+              <label class="sr-only" for="eventDate">Event Date</label>
               <input matInput type="date" id="eventDate" name="eventDate" class="rounded-lg w-full"
                      [(ngModel)]="imageItem().eventDate"
                      placeholder="dd-mm-yyyy"/>
@@ -64,10 +69,10 @@
             </div>
             <!-- Action Buttons -->
             <div class="flex justify-center gap-2 rounded-lg">
-              <button mat-flat-button type="button" class="!bg-success !text-white"
+              <button mat-flat-button type="button" class="!bg-success-background !text-white"
                       (click)="saveItem.emit(imageItem())">Save
               </button>
-              <button mat-flat-button type="button" class="!bg-danger !text-white"
+              <button mat-flat-button type="button" class="!bg-danger-background !text-white"
                       (click)="removeItem.emit(imageItem())">Remove
               </button>
               <button mat-stroked-button type="button" (click)="cancelItem.emit(imageItem())">Cancel</button>

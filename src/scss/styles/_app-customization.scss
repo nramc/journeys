@@ -34,6 +34,42 @@
   --calendar-accent: var(--app-primary);
   --calendar-surface: var(--app-surface);
   --calendar-surface-muted: var(--app-surface-muted);
+  --fc-monarch-primary: var(--app-primary);
+  --fc-monarch-primary-foreground: var(--app-on-primary);
+  --fc-monarch-primary-over: color-mix(in srgb, var(--app-primary) 88%, black);
+  --fc-monarch-primary-down: color-mix(in srgb, var(--app-primary) 76%, black);
+  --fc-monarch-secondary: var(--app-accent);
+  --fc-monarch-secondary-foreground: var(--app-on-accent);
+  --fc-monarch-secondary-over: color-mix(in srgb, var(--app-accent) 88%, black);
+  --fc-monarch-secondary-down: color-mix(in srgb, var(--app-accent) 76%, black);
+  --fc-monarch-tertiary: var(--app-accent);
+  --fc-monarch-tertiary-foreground: var(--app-on-accent);
+  --fc-monarch-tertiary-over: color-mix(in srgb, var(--app-accent) 88%, black);
+  --fc-monarch-tertiary-down: color-mix(in srgb, var(--app-accent) 76%, black);
+  --fc-monarch-event: var(--app-primary);
+  --fc-monarch-event-contrast: var(--app-on-primary);
+  --fc-monarch-highlight: color-mix(in srgb, var(--app-primary) 14%, transparent);
+  --fc-monarch-now: var(--app-danger);
+  --fc-monarch-selected: var(--app-primary);
+  --fc-monarch-selected-foreground: var(--app-on-primary);
+  --fc-monarch-selected-over: color-mix(in srgb, var(--app-primary) 88%, black);
+  --fc-monarch-selected-down: color-mix(in srgb, var(--app-primary) 76%, black);
+  --fc-monarch-outline: var(--app-primary);
+  --fc-monarch-ring-color: var(--app-primary);
+  --fc-monarch-popover: var(--calendar-surface);
+  --fc-monarch-popover-foreground: var(--calendar-ink);
+  --fc-monarch-background: var(--calendar-surface);
+  --fc-monarch-faint: color-mix(in srgb, var(--calendar-line) 12%, transparent);
+  --fc-monarch-muted: color-mix(in srgb, var(--calendar-line) 20%, transparent);
+  --fc-monarch-strong: color-mix(in srgb, var(--calendar-line) 42%, transparent);
+  --fc-monarch-stronger: color-mix(in srgb, var(--calendar-line) 52%, transparent);
+  --fc-monarch-strongest: color-mix(in srgb, var(--calendar-line) 64%, transparent);
+  --fc-monarch-foreground: var(--calendar-ink);
+  --fc-monarch-faint-foreground: var(--calendar-muted);
+  --fc-monarch-muted-foreground: var(--calendar-muted);
+  --fc-monarch-strong-foreground: var(--calendar-ink);
+  --fc-monarch-border: var(--calendar-line);
+  --fc-monarch-strong-border: color-mix(in srgb, var(--calendar-line) 78%, var(--calendar-ink));
 
   &__mobile-view-picker {
     display: none;
@@ -406,17 +442,17 @@ mat-sidenav-content {
   }
 
   &:hover {
-    background-color: color-mix(in srgb, #3459E6 10%, transparent);
-    color: #3459E6;
+    background-color: color-mix(in srgb, var(--app-primary) 10%, transparent);
+    color: var(--app-primary);
 
-    .nav-icon { opacity: 1; color: #3459E6; }
+    .nav-icon { opacity: 1; color: var(--app-primary); }
   }
 
   &.nav-active {
-    color: #3459E6;
+    color: var(--app-primary);
     font-weight: 600;
 
-    .nav-icon { opacity: 1; color: #3459E6; }
+    .nav-icon { opacity: 1; color: var(--app-primary); }
 
     // Active state left border indicator
     &::before {
@@ -427,7 +463,7 @@ mat-sidenav-content {
       transform: translateY(-50%);
       width: 3px;
       height: 24px;
-      background: #3459E6;
+      background: var(--app-primary);
       border-radius: 0 3px 3px 0;
     }
   }
@@ -474,18 +510,18 @@ mat-sidenav-content {
 .dark {
   .nav-item {
     &:hover {
-      background-color: color-mix(in srgb, #c2cdf8 12%, transparent);
-      color: #c2cdf8;
-      .nav-icon { color: #c2cdf8; }
+      background-color: color-mix(in srgb, var(--app-primary) 12%, transparent);
+      color: var(--app-primary);
+      .nav-icon { color: var(--app-primary); }
     }
 
     &.nav-active {
-      color: #c2cdf8;
-      .nav-icon { color: #c2cdf8; }
+      color: var(--app-primary);
+      .nav-icon { color: var(--app-primary); }
 
       // Active state left border indicator - dark mode color
       &::before {
-        background: #c2cdf8;
+        background: var(--app-primary);
       }
     }
   }

@@ -47,7 +47,19 @@ html {
 }
 
 :root {
-  --app-primary: #3459e6;
+  --app-primary: var(--mat-sys-primary, #3459e6);
+  --app-on-primary: var(--mat-sys-on-primary, #ffffff);
+  --app-primary-container: var(--mat-sys-primary-container, #dde1ff);
+  --app-accent: var(--mat-sys-tertiary, #952eab);
+  --app-on-accent: var(--mat-sys-on-tertiary, #ffffff);
+  --app-accent-container: var(--mat-sys-tertiary-container, #fed6ff);
+  --app-success: #166534;
+  --app-success-background: #166534;
+  --app-danger: #b4233b;
+  --app-danger-background: #b4233b;
+  --app-warning: #8a4b00;
+  --app-warning-background: #8a4b00;
+  --app-on-status-background: #ffffff;
   --app-background: #f6f7fb;
   --app-surface: #ffffff;
   --app-surface-muted: #eef1f8;
@@ -60,6 +72,12 @@ html {
 
 .dark {
   @include m3-theme.create-dark-theme();
+  --app-success: #86efac;
+  --app-success-background: #166534;
+  --app-danger: #ffb4ab;
+  --app-danger-background: #93000a;
+  --app-warning: #ffb95c;
+  --app-warning-background: #8a4b00;
   --app-background: #111522;
   --app-surface: #191e2d;
   --app-surface-muted: #232a3d;
