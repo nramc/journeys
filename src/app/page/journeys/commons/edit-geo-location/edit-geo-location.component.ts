@@ -34,7 +34,7 @@ export class EditGeoLocationComponent {
   disabled = model<boolean>(false);
 
   location$ = toObservable(this.location)
-    .pipe(filter(location => location?.coordinates != null && location.coordinates.length == 2));
+    .pipe(filter(location => location?.coordinates?.length === 2));
 
   constructor() {
     this.location$.subscribe(newData => {
@@ -46,30 +46,30 @@ export class EditGeoLocationComponent {
   pasteClipboardCoordinates() {
     navigator.clipboard.readText().then(copiedValue => {
       console.debug('Value copied from clipboard:', copiedValue);
-      if (copiedValue && copiedValue.split(',').length == 2) {
-        const copiedCoordinates = copiedValue.split(',');
+      const copiedCoordinates = copiedValue?.split(',');
+      if (copiedCoordinates?.length === 2) {
         this._location.update(data => ({
           ...data,
           coordinates: [Number(copiedCoordinates[0]), Number(copiedCoordinates[1])]
         }));
         this.fireChangeEvent();
       }
-    });
+    }).catch(error => console.warn('Unable to read clipboard coordinates:', error));
   }
 
 
   pasteClipboardGoogleCoordinates() {
     navigator.clipboard.readText().then(copiedValue => {
       console.debug('Value copied from clipboard:', copiedValue);
-      if (copiedValue && copiedValue.split(',').length == 2) {
-        const copiedCoordinates = copiedValue.split(',');
+      const copiedCoordinates = copiedValue?.split(',');
+      if (copiedCoordinates?.length === 2) {
         this._location.update(data => ({
           ...data,
           coordinates: [Number(copiedCoordinates[1]), Number(copiedCoordinates[0])]
         }));
         this.fireChangeEvent();
       }
-    });
+    }).catch(error => console.warn('Unable to read Google Maps clipboard coordinates:', error));
 
   }
 
