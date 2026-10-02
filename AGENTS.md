@@ -2,12 +2,12 @@
 
 ## Project Overview
 
-Angular 21 SPA ("Journey") — a geospatial travel-memory platform. The frontend is a standalone SPA deployed to GitHub Pages; it communicates exclusively with a separate REST API backend (BFF) at `environment.journeyApi`. No server-side rendering.
+Angular 22 SPA ("Journey") — a geospatial travel-memory platform. The frontend is a standalone SPA deployed to GitHub Pages; it communicates exclusively with a separate REST API backend (BFF) at `environment.journeyApi`. No server-side rendering.
 
 ## Developer Workflows
 
 ```bash
-npm run start          # Dev server at https://localhost (uses keystore/ certs)
+npm run dev            # Dev server at https://localhost (uses keystore/ certs)
 npm run build          # Production build
 npm run test           # Karma/Jasmine unit tests (interactive)
 npm run ci:test1       # CI headless tests: ChromeHeadless

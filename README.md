@@ -29,7 +29,7 @@ Whether it's a weekend getaway or a year-long adventure, Journey enables users t
 
 ---
 
-This is an [Angular 21](https://angular.io/) based Geo Spatial Single Page Application (SPA) deployed to [GitHub Pages](https://pages.github.com/). It communicates exclusively with a separate REST API backend (BFF) — there is no server-side rendering.
+This is an [Angular 22](https://angular.io/) based Geo Spatial Single Page Application (SPA) deployed to [GitHub Pages](https://pages.github.com/). It communicates exclusively with a separate REST API backend (BFF) — there is no server-side rendering.
 
 Geographical data is processed in [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) format and rendered on an interactive map powered by [Leaflet](https://leafletjs.com/) with [MapTiler](https://www.maptiler.com/) tiles and geocoding.
 
@@ -37,7 +37,7 @@ Geographical data is processed in [GeoJSON](https://datatracker.ietf.org/doc/htm
 
 | Layer         | Technology                                            |
 |---------------|-------------------------------------------------------|
-| Framework     | Angular 21 (standalone components, zoneless, Signals) |
+| Framework     | Angular 22 (standalone components, zoneless, Signals) |
 | UI Components | Angular Material (M3 theme)                           |
 | Styling       | Tailwind CSS v4                                       |
 | Maps          | Leaflet + MapTiler SDK                                |
@@ -86,13 +86,13 @@ Please find below steps to set up and run application in your workstation.
    ```
 4. Start the dev server (HTTPS, uses `keystore/` certs):
    ```sh
-   npm run start
+   npm run dev
    ```
 
 ### Available Scripts
 
 ```bash
-npm run start       # Dev server at https://localhost
+npm run dev         # Dev server at https://localhost
 npm run build       # Production build
 npm run test        # Karma/Jasmine unit tests (interactive)
 npm run ci:test1    # Headless tests (ChromeHeadless)
@@ -132,7 +132,7 @@ You can also simply open an issue with the tag "enhancement".
 
 Sincere Thanks to following open source community for their wonderful efforts to make our life much easier.
 
-- [Open Street Map](https://www.openstreetmap.org) - Open Source Map Provider
+- [OpenStreetMap](https://www.openstreetmap.org) - Open Source Map Provider
 - [Leaflet](https://leafletjs.com) - Map based JavaScript Library
 - [MapTiler](https://www.maptiler.com) - Map tiles and geocoding
 - [GitHub Pages](https://pages.github.com/) - Hosting static resources
@@ -144,3 +144,7 @@ Sincere Thanks to following open source community for their wonderful efforts to
 ## Show your support
 
 Give a ⭐️ if you like this project!
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).

@@ -1,6 +1,7 @@
 {
   "name": "journey",
   "version": "0.79.1",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --configuration development",
