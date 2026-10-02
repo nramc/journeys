@@ -47,7 +47,7 @@
         @if (i === 0 || entry.journeyDate.substring(0,4) !== entries()[i-1].journeyDate.substring(0,4)) {
           <div [id]="'year-' + entry.journeyDate.substring(0,4)"
                class="flex items-center justify-center my-8">
-            <span class="px-5 py-1.5 rounded-full bg-primary text-white text-sm font-bold shadow-md
+            <span class="px-5 py-1.5 rounded-full bg-primary text-on-primary text-sm font-bold shadow-md
                          ring-4 ring-primary/20">
               {{ entry.journeyDate.substring(0,4) }}
             </span>

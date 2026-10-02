@@ -19,7 +19,7 @@
 
         <!-- Error Message -->
         @if (isErrorOccurred()) {
-          <div class="bg-danger text-white rounded-lg p-2">
+          <div class="bg-danger-background text-white rounded-lg p-2">
             Sorry, an unexpected error occurred. Please try again later.
           </div>
         }
@@ -27,7 +27,8 @@
         <!-- Name Field -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Name</mat-label>
-          <input matInput name="name" type="text" placeholder="e.g. Jane Smith" autocomplete="name"
+          <label class="sr-only" for="name">Name</label>
+          <input matInput name="name" id="name" type="text" placeholder="e.g. Jane Smith" autocomplete="name"
             [(ngModel)]="form().name" #name="ngModel" [readOnly]="isSuccessful()"
             required maxlength="50" minlength="3">
 
@@ -49,7 +50,8 @@
         <!-- Email Field -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Email Address</mat-label>
-          <input matInput type="email" name="username" placeholder="email@example.com" autocomplete="username"
+          <label class="sr-only" for="username">Email Address</label>
+          <input matInput type="email" name="username" id="username" placeholder="email@example.com" autocomplete="username"
             [(ngModel)]="form().username" #username="ngModel" [readOnly]="isSuccessful()"
             required minlength="8" maxlength="50" email>
           @if (username.invalid && (username.dirty || signupForm.submitted)) {
@@ -75,6 +77,7 @@
         <!-- Password Field -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Password</mat-label>
+          <label class="sr-only" for="password">Password</label>
           <input matInput type="password" [type]="showPassword() ? 'text' : 'password'" id="password" name="password"
             autocomplete="new-password" placeholder="e.g. Secret@123"
             [(ngModel)]="form().password" #password="ngModel" [readOnly]="isSuccessful()"

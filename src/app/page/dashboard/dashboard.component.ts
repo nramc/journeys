@@ -6,7 +6,6 @@ import {PageHeaderComponent} from "../../component/page-header/page-header.compo
 import {JourneyService} from "../../service/journey/journey.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {FormsModule} from "@angular/forms";
 import {JourneyCalendarViewComponent} from "../../component/journey-calendar-view/journey-calendar-view.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
@@ -24,7 +23,6 @@ import {byCountry} from "country-code-lookup";
     WorldMapComponent,
     MatButtonToggleModule,
     MatIconModule,
-    FormsModule,
     JourneyCalendarViewComponent,
     MatTooltipModule,
     JourneyCardViewComponent

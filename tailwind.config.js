@@ -8,17 +8,21 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#3459E6',
-          light: '#3459E6',
-          dark: '#e2e2ed'
+          DEFAULT: 'var(--app-primary)',
+          light: 'var(--app-primary)',
+          dark: 'var(--app-primary)'
         },
-        secondary: '#952eab',
-        danger: '#E63457',
-        success: '#198754',
-        warning: '#ffc107',
+        'on-primary': 'var(--app-on-primary)',
+        secondary: 'var(--app-accent)',
+        danger: 'var(--app-danger)',
+        'danger-background': 'var(--app-danger-background)',
+        success: 'var(--app-success)',
+        'success-background': 'var(--app-success-background)',
+        warning: 'var(--app-warning)',
+        'warning-background': 'var(--app-warning-background)',
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(to right, #3459E6, #d53a9d)', // Customize colors
+        'gradient-primary': 'linear-gradient(to right, var(--app-primary), var(--app-accent))',
       },
       textColor: {
         transparent: 'transparent',

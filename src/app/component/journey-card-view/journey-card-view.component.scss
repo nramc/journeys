@@ -30,7 +30,7 @@
 
 /* ── Content panel ─────────────────────────────────────────────── */
 .journey-card__content {
-  flex: 1 1 0%;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -38,14 +38,10 @@
 
 /* Location subtitle — muted, below the title */
 .journey-card__subtitle {
-  color: #6b7280; /* gray-500 */
-
-  .dark & {
-    color: #9ca3af; /* gray-400 */
-  }
+  color: var(--app-text-secondary);
 
   mat-icon {
-    color: #3459E6;
+    color: var(--app-primary);
   }
 }
 
@@ -56,27 +52,15 @@
 
 /* Tag pill — primary-tinted background */
 .journey-card__tag {
-  background-color: #eef1fd; /* primary-50 */
-  color: #3459E6; /* primary */
-  border: 1px solid #c2cdf8; /* primary-light */
-
-  .dark & {
-    background-color: rgba(52, 89, 230, 0.15);
-    color: #c2cdf8;
-    border-color: rgba(52, 89, 230, 0.3);
-  }
+  background-color: color-mix(in srgb, var(--app-primary) 8%, var(--app-surface));
+  color: var(--app-primary);
+  border: 1px solid color-mix(in srgb, var(--app-primary) 28%, var(--app-border));
 }
 
 .journey-card__tag--overflow {
-  background-color: #f3f4f6; /* gray-100 */
-  color: #6b7280; /* gray-500 */
-  border-color: #e5e7eb; /* gray-200 */
-
-  .dark & {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #9ca3af;
-    border-color: rgba(255, 255, 255, 0.1);
-  }
+  background-color: var(--app-surface-muted);
+  color: var(--app-text-secondary);
+  border-color: var(--app-border);
 }
 
 /* Soft gradient divider */
@@ -97,9 +81,9 @@
   gap: 4px;
   padding: 4px 10px 4px 8px;
   border-radius: 9999px;
-  border: 1px solid #3459E6;
+  border: 1px solid var(--app-primary);
   background: transparent;
-  color: #3459E6;
+  color: var(--app-primary);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -107,24 +91,15 @@
   transition: background-color 150ms ease, color 150ms ease;
 
   &:hover {
-    background-color: #3459E6;
-    color: #ffffff;
+    background-color: var(--app-primary);
+    color: var(--app-on-primary);
   }
 
   &:focus-visible {
-    outline: 2px solid #3459E6;
+    outline: 2px solid var(--app-primary);
     outline-offset: 2px;
   }
 
-  .dark & {
-    border-color: #c2cdf8;
-    color: #c2cdf8;
-
-    &:hover {
-      background-color: #3459E6;
-      color: #ffffff;
-    }
-  }
 }
 
 /* ── Compact Material icons ────────────────────────────────────── */

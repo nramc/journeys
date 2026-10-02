@@ -26,6 +26,7 @@ export class ThemeService {
   private setDarkMode(isDark: boolean): void {
     this._isDarkMode.set(isDark);
     this.document.documentElement.classList.toggle('dark', isDark);
+    this.document.documentElement.dataset['colorScheme'] = isDark ? 'dark' : 'light';
     localStorage.setItem(this.storageKey, isDark ? 'dark' : 'light');
   }
 

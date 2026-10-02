@@ -134,7 +134,6 @@ $_rest: (
 );
 $_primary: map.merge(map.get($_palettes, primary), $_rest);
 $_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
-$_white: map.merge(map.get($_palettes, neutral-variant), $_rest);
 
 $light-theme: mat.define-theme((
   color: (
@@ -144,17 +143,27 @@ $light-theme: mat.define-theme((
     use-system-variables: true,
   ),
   typography: (
+    plain-family: ('Roboto', 'Helvetica Neue', Arial, sans-serif),
+    brand-family: ('Roboto', 'Helvetica Neue', Arial, sans-serif),
+    regular-weight: 400,
+    medium-weight: 500,
+    bold-weight: 600,
     use-system-variables: true,
   ),
 ));
 $dark-theme: mat.define-theme((
   color: (
     theme-type: dark,
-    primary: $_white,
+    primary: $_primary,
     tertiary: $_tertiary,
     use-system-variables: true,
   ),
   typography: (
+    plain-family: ('Roboto', 'Helvetica Neue', Arial, sans-serif),
+    brand-family: ('Roboto', 'Helvetica Neue', Arial, sans-serif),
+    regular-weight: 400,
+    medium-weight: 500,
+    bold-weight: 600,
     use-system-variables: true,
   ),
 ));

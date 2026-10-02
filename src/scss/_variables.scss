@@ -4,9 +4,9 @@ $appName: 'Journey';
 
 $dark: black;
 $light: whitesmoke;
-$primary: #3459E6;
-$primary-light: #c2cdf8;
-$indigo: blue;
-$pink: pink;
-$primary-bg-subtle: darkblue;
+$primary: var(--app-primary);
+$primary-light: var(--app-primary);
+$indigo: var(--app-primary);
+$pink: var(--app-accent);
+$primary-bg-subtle: var(--app-primary-container);
 

@@ -48,11 +48,15 @@
           <mat-form-field appearance="outline" class="w-full sm:w-auto">
             <mat-label>Choose a date range</mat-label>
             <mat-date-range-input [rangePicker]="picker" [max]="today">
+              <label class="sr-only" for="pastFromDate">From date</label>
               <input matStartDate
+                     id="pastFromDate"
                      placeholder="From date"
                      [ngModel]="pastFromDate()"
                      (dateChange)="onPastFromDateChange($event.value)">
+              <label class="sr-only" for="pastToDate">To date</label>
               <input matEndDate
+                     id="pastToDate"
                      placeholder="To date"
                      [ngModel]="pastToDate()"
                      (dateChange)="onPastToDateChange($event.value)">

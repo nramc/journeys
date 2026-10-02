@@ -73,7 +73,7 @@
 // ─── Anniversary highlight ────────────────────────────────────────────────────
 .story-anniversary {
   span:last-child {
-    color: var(--mat-sys-primary, #3459E6);
+    color: var(--app-primary);
     opacity: 1 !important;
     font-weight: 700;
   }

@@ -10,7 +10,7 @@ export class ThirukkuralService {
   private readonly httpClient = inject(HttpClient)
 
   getDailyKural(): Observable<Thirukkural> {
-    return this.httpClient.get<Thirukkural>('https://tamil-kural-api.vercel.app/api/daily', {
+    return this.httpClient.get<Thirukkural>('https://kural.codewithram.dev/api/daily', {
       headers: {
         'X-Async-Process': 'true'
       }
@@ -19,7 +19,7 @@ export class ThirukkuralService {
   }
 
   getRandomKural(): Observable<Thirukkural> {
-    return this.httpClient.get<Thirukkural>('https://tamil-kural-api.vercel.app/api/random', {
+    return this.httpClient.get<Thirukkural>('https://kural.codewithram.dev/api/random', {
       headers: {
         'X-Async-Process': 'true'
       }
@@ -28,7 +28,7 @@ export class ThirukkuralService {
   }
 
   getKuralById(kuralId: number): Observable<Thirukkural> {
-    return this.httpClient.get<Thirukkural>(`https://tamil-kural-api.vercel.app/api/kural/${kuralId}`, {
+    return this.httpClient.get<Thirukkural>(`https://kural.codewithram.dev/api/kural/${kuralId}`, {
       headers: {
         'X-Async-Process': 'true'
       }
