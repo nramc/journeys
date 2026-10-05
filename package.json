@@ -32,7 +32,7 @@
     "@fullcalendar/angular": "7.1.0",
     "@fullcalendar/rrule": "7.1.0",
     "@huggingface/transformers": "4.3.0",
-    "@maptiler/geocoding-control": "3.0.0",
+    "@maptiler/geocoding-control": "3.1.0",
     "@maptiler/leaflet-maptilersdk": "4.1.1",
     "@popperjs/core": "2.11.8",
     "@simplewebauthn/browser": "14.0.0",
