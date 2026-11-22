@@ -1,6 +1,6 @@
 {
   "name": "journey",
-  "version": "0.80.6",
+  "version": "0.80.7",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
